@@ -1,0 +1,8 @@
+{
+    "login": {
+        "password": "",
+        "username": ""
+    },
+    "server": "http://localhost/openstamanager",
+    "browser": ""
+}
