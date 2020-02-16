@@ -19,34 +19,38 @@ class Test(unittest.TestCase):
 
     def connect(self):
         ''' Inizializza il browser indicato nella configurazione.'''
-        browser = None
+        driver = None
         if (self.getConfig('browser') == 'firefox'):
-            browser = webdriver.Firefox()
+            driver = webdriver.Firefox()
         elif (self.getConfig('browser') == 'chrome'):
-            browser = webdriver.Chrome()
+            driver = webdriver.Chrome()
 
-        self.browser = browser
-        self.browser.get(self.getConfig('server'))
+        self.driver = driver
+        self.driver.get(self.getConfig('server'))
 
         self.addCleanup(self.close)
         
-        self.assertIn('OpenSTAManager', self.browser.title)
+        self.assertIn('OpenSTAManager', self.driver.title)
 
     def login(self, username, password):
         ''' Effetta il login con le credenziali indicate nella configurazione.'''
-        username_input = webfind(self.browser, {'name': 'username'})
-        password_input = webfind(self.browser, {'name': 'password'})
-
+        username_input = self.find(By.NAME, 'username')
         username_input.send_keys(username)
+
+        password_input = self.find(By.NAME, 'password')
         password_input.send_keys(password)
 
-        button = webfind(self.browser, {'id': 'login'})
-        button.click()
+        self.find(By.ID, 'login').click()
+        self.wait_loader()
 
     def close(self):
-        self.browser.quit()
+        ''' Chiude il test.'''
+        self.driver.quit()
 
     def setUp(self):
+        ''' Inizializza l'ambiente di test.'''  
+        super().setUp()
+
         self.connect()
         self.login(self.getConfig('login.username'), self.getConfig('login.password'))
 
@@ -63,23 +67,51 @@ class Test(unittest.TestCase):
 
     def navigateTo(self, name):
         ''' Naviga attraverso la sidebar principale per accedere al modulo di cui viene indicato il nome.'''
-        try:
-            condition = expected_conditions.element_to_be_clickable((By.CLASS_NAME, 'sidebar'))
-            self.wait(condition)
+        condition = expected_conditions.element_to_be_clickable((By.CLASS_NAME, 'sidebar'))
+        self.wait(condition)
 
-            elements = webfind(self.browser, {'css': '.treeview>a'})
-            for e in elements:
-                text = get_text(e)
-                if (text == name):
+        # URL pagina corrente
+        current_url = self.driver.current_url
+
+        elements = self.find_elements(By.CSS_SELECTOR, '.treeview > a')
+        for e in elements: # Ricerca del link corretto
+            text = get_text(e)
+            if (text == name):
+                try:
                     e.click()
-        except NoAlertPresentException:
-            None
-        except UnexpectedAlertPresentException:
-            None
 
+                    self.driver.switch_to.alert.accept() # Gestione eventuali alert
+                except (NoAlertPresentException, UnexpectedAlertPresentException):
+                    None
+
+                self.wait_loader()
+                break
+
+    def find(self, by=By.ID, value=None):
+        ''' Ricerca una componente HTML nella pagina.'''
+        return self.driver.find_element(by, value)
+
+    def find_elements(self, by=By.ID, value=None):
+        ''' Ricerca una serie di componenti HTML nella pagina.'''
+        return self.driver.find_elements(by, value)
+
+    def input(self, name: str):
+        ''' Ricerca un input HTML nella pagina.'''
+        return get_input(self.driver, name)        
+
+    def wait_loader(self):
+        ''' Attende il completamento del caricamento della pagina, visibile attraverso il loader principale.'''
+        self.wait(expected_conditions.invisibility_of_element_located((By.ID, 'main_loading')))
+
+    def wait_modal(self):
+        ''' Attende il caricamento del modal e ne restituisce un riferimento.'''
+        self.wait(expected_conditions.visibility_of_element_located((By.CLASS_NAME, 'modal')))
+
+        return self.find_elements(By.CSS_SELECTOR, '.modal')[-1]
+    
     def wait(self, condition):
         ''' Attende un evento specifico con timeout di 60 secondi.'''
-        WebDriverWait(self.browser, 60).until(condition)
+        WebDriverWait(self.driver, 60).until(condition)
 
     def getConfig(self, name):
         ''' Restituisce il contenuto dell'impostazione richiesta.'''
@@ -93,24 +125,10 @@ def get_text(element: WebElement):
     ''' Restituisce il testo di un WebElement.'''
     return re.sub('<[^<]+?>', '', get_html(element)).strip()
 
-def webfind(element, data: dict):
-    ''' Ricerca un WebElement nell'elemento indicato secondo i dati forniti.'''
-    result = None
-
-    if ('id' in data):
-        result = element.find_element_by_id(data['id'])
-    elif ('name' in data):
-        result = element.find_element_by_name(data['name'])
-    elif ('css' in data):
-        result = element.find_elements_by_css_selector(data['css'])
-    elif ('tag' in data):
-        result = element.find_elements_by_tag_name(data['tag'])
-    elif ('link' in data):
-        result = element.find_elements_by_link_text(data['link'])
-    elif ('xpath' in data):
-        result = element.find_elements_by_xpath(data['xpath'])
-
-    return result
+def get_input(element, name: str):
+    xpath = ''.join(['//label[contains(., "', name, '")]/parent::div/parent::div//input'])
+    
+    return element.find_element(By.XPATH, xpath)
 
 if __name__ == '__main__':
     unittest.main()
