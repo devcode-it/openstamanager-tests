@@ -47,6 +47,3 @@ class Anagrafiche(Test):
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
-        
-if __name__ == '__main__':
-    unittest.main()

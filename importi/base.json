@@ -1,0 +1,45 @@
+{
+    "righe": [
+        {
+            "tipo": "riga",
+            "descrizione": "Riga 1",
+            "qta": "1",
+            "prezzo_unitario": "34,00"
+        },
+        {
+            "tipo": "riga",
+            "descrizione": "Riga 2",
+            "qta": "1",
+            "prezzo_unitario": "17,44"
+        },
+        {
+            "tipo": "riga",
+            "descrizione": "Riga 3",
+            "qta": "48",
+            "prezzo_unitario": "0,52"
+        },
+        {
+            "tipo": "riga",
+            "descrizione": "Riga 4",
+            "qta": "66",
+            "prezzo_unitario": "0,44"
+        },
+        {
+            "tipo": "riga",
+            "descrizione": "Riga 5",
+            "qta": "1",
+            "prezzo_unitario": "104,90"
+        },
+        {
+            "tipo": "riga",
+            "descrizione": "Riga 6",
+            "qta": "1",
+            "prezzo_unitario": "2,00"
+        }
+    ],
+    "totali": {
+        "Imponibile": "212,34",
+        "IVA": "46,71",
+        "Totale": "259,05"
+    }
+}

@@ -10,12 +10,13 @@ import collections
 import unittest
 import re
 
+
 class Test(unittest.TestCase):
     def __init__(self, methodName):
         super().__init__(methodName)
 
         config = get_config()
-        self.config = self.__flatten(config)        
+        self.config = self.__flatten(config)
 
     def connect(self):
         ''' Inizializza il browser indicato nella configurazione.'''
@@ -29,7 +30,7 @@ class Test(unittest.TestCase):
         self.driver.get(self.getConfig('server'))
 
         self.addCleanup(self.close)
-        
+
         self.assertIn('OpenSTAManager', self.driver.title)
 
     def login(self, username, password):
@@ -46,13 +47,15 @@ class Test(unittest.TestCase):
     def close(self):
         ''' Chiude il test.'''
         self.driver.quit()
+        None
 
     def setUp(self):
-        ''' Inizializza l'ambiente di test.'''  
+        ''' Inizializza l'ambiente di test.'''
         super().setUp()
 
         self.connect()
-        self.login(self.getConfig('login.username'), self.getConfig('login.password'))
+        self.login(self.getConfig('login.username'),
+                   self.getConfig('login.password'))
 
     # Source: https://stackoverflow.com/a/6027615
     def __flatten(self, d, parent_key='', sep='.'):
@@ -67,25 +70,31 @@ class Test(unittest.TestCase):
 
     def navigateTo(self, name):
         ''' Naviga attraverso la sidebar principale per accedere al modulo di cui viene indicato il nome.'''
-        condition = expected_conditions.element_to_be_clickable((By.CLASS_NAME, 'sidebar'))
+        condition = expected_conditions.element_to_be_clickable(
+            (By.CLASS_NAME, 'sidebar'))
         self.wait(condition)
 
         # URL pagina corrente
         current_url = self.driver.current_url
 
-        elements = self.find_elements(By.CSS_SELECTOR, '.treeview > a')
-        for e in elements: # Ricerca del link corretto
-            text = get_text(e)
-            if (text == name):
-                try:
-                    e.click()
+        xpath = ''.join(['//a[contains(., "', name, '")]'])
+        link = self.find(By.XPATH, xpath)
 
-                    self.driver.switch_to.alert.accept() # Gestione eventuali alert
-                except (NoAlertPresentException, UnexpectedAlertPresentException):
-                    None
+        try:
+            link.click()
 
-                self.wait_loader()
-                break
+            self.driver.switch_to.alert.accept()  # Gestione eventuali alert
+        except (NoAlertPresentException, UnexpectedAlertPresentException):
+            None
+
+        self.wait_loader()
+        self.driver.implicitly_wait(15)
+
+    def expandSidebar(self, name: str):
+        xpath = ''.join(
+            ['//a[contains(., "', name, '")]//span[contains(@class, "pull-right-container")]'])
+
+        self.find(By.XPATH, xpath).click()
 
     def find(self, by=By.ID, value=None):
         ''' Ricerca una componente HTML nella pagina.'''
@@ -97,18 +106,20 @@ class Test(unittest.TestCase):
 
     def input(self, name: str):
         ''' Ricerca un input HTML nella pagina.'''
-        return get_input(self.driver, name)        
+        return get_input(self.driver, name)
 
     def wait_loader(self):
         ''' Attende il completamento del caricamento della pagina, visibile attraverso il loader principale.'''
-        self.wait(expected_conditions.invisibility_of_element_located((By.ID, 'main_loading')))
+        self.wait(expected_conditions.invisibility_of_element_located(
+            (By.ID, 'main_loading')))
 
     def wait_modal(self):
         ''' Attende il caricamento del modal e ne restituisce un riferimento.'''
-        self.wait(expected_conditions.visibility_of_element_located((By.CLASS_NAME, 'modal')))
+        self.wait(expected_conditions.visibility_of_element_located(
+            (By.CLASS_NAME, 'modal')))
 
         return self.find_elements(By.CSS_SELECTOR, '.modal')[-1]
-    
+
     def wait(self, condition):
         ''' Attende un evento specifico con timeout di 60 secondi.'''
         WebDriverWait(self.driver, 60).until(condition)
@@ -117,18 +128,37 @@ class Test(unittest.TestCase):
         ''' Restituisce il contenuto dell'impostazione richiesta.'''
         return self.config[name]
 
+    def setValue(self, element: WebElement, value: str):
+        ''' Imposta il valore del campo indicato.'''
+        self.driver.execute_script(
+            '$(".inputmask-decimal").inputmask("remove");')
+
+        element.clear()
+        element.send_keys(value)
+
+
 def get_html(element: WebElement):
     ''' Restituisce il contenuto HTML di un WebElement.'''
     return element.get_attribute('innerHTML')
+
 
 def get_text(element: WebElement):
     ''' Restituisce il testo di un WebElement.'''
     return re.sub('<[^<]+?>', '', get_html(element)).strip()
 
+
 def get_input(element, name: str):
-    xpath = ''.join(['//label[contains(., "', name, '")]/parent::div/parent::div//input'])
-    
-    return element.find_element(By.XPATH, xpath)
+    element_id = element.get_attribute("id")
+
+    if element_id:
+        xpath = ['//*[@id="', element_id, '"]//label[contains(., "', name, '")]/parent::div/parent::div//input | //*[@id="',
+                 element_id, '"]//label[contains(., "', name, '")]/parent::div/parent::div//textarea']
+    else:
+        xpath = ['//label[contains(., "', name, '")]/parent::div/parent::div//input | //label[contains(., "',
+                 name, '")]/parent::div/parent::div//textarea']
+
+    return element.find_element(By.XPATH, ''.join(xpath))
+
 
 if __name__ == '__main__':
     unittest.main()
