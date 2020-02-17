@@ -57,9 +57,9 @@
     ],
     "totali": {
         "Imponibile": "542,34",
-        "Sconto": "98,23",
-        "Totale imponibile": "444,11",
-        "IVA": "97,70",
-        "Totale": "541,81"
+        "Sconto/maggiorazione": "108,23",
+        "Totale imponibile": "434,11",
+        "IVA": "95,50",
+        "Totale": "529,61"
     }
 }

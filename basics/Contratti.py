@@ -24,5 +24,8 @@ class Anagrafiche(Test):
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
 
+        #toast = self.driver.find_elements(By.CLASS_NAME, 'toast-message')
+        #self.assertIn('Aggiunto contratto', toast)
+
         row_manager = RowManager(self)
-        row_manager.compile('importi/base.json')
+        row_manager.compile('importi/sconto_percentuale.json')

@@ -88,7 +88,6 @@ class Test(unittest.TestCase):
             None
 
         self.wait_loader()
-        self.driver.implicitly_wait(15)
 
     def expandSidebar(self, name: str):
         xpath = ''.join(
@@ -110,9 +109,13 @@ class Test(unittest.TestCase):
 
     def wait_loader(self):
         ''' Attende il completamento del caricamento della pagina, visibile attraverso il loader principale.'''
-        self.wait(expected_conditions.invisibility_of_element_located(
-            (By.ID, 'main_loading')))
+        self.wait(lambda x: self.driver.execute_script('return document.readyState;') == "complete")
+        
+        self.wait(lambda x: self.driver.execute_script('return  document.getElementById("main_loading").style.display === "none";') == True)
 
+        #self.wait(expected_conditions.invisibility_of_element_located(
+        #    (By.ID, 'main_loading')))
+            
     def wait_modal(self):
         ''' Attende il caricamento del modal e ne restituisce un riferimento.'''
         self.wait(expected_conditions.visibility_of_element_located(
@@ -122,7 +125,7 @@ class Test(unittest.TestCase):
 
     def wait(self, condition):
         ''' Attende un evento specifico con timeout di 60 secondi.'''
-        WebDriverWait(self.driver, 60).until(condition)
+        WebDriverWait(self.driver, 5).until(condition)
 
     def getConfig(self, name):
         ''' Restituisce il contenuto dell'impostazione richiesta.'''

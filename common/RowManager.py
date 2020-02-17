@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webdriver import WebElement
+from selenium.webdriver.support.ui import Select
 from .Test import Test, get_input, get_text
 from .functions import get_cache_directory
 import json
@@ -25,10 +26,10 @@ class RowManager:
             self.setValue(get_input(modal, 'Descrizione'), data['descrizione'])
 
         if 'sconto_percentuale' in data:
-            self.setValue(get_input(modal, 'Sconto percentuale'),
+            self.setValue(get_input(modal, 'Sconto/maggiorazione percentuale'),
                           data['sconto_percentuale'])
         else:
-            self.setValue(get_input(modal, 'Sconto unitario'),
+            self.setValue(get_input(modal, 'Sconto/maggiorazione unitario'),
                           data['sconto_unitario'])
 
         # Submit
@@ -86,14 +87,17 @@ class RowManager:
                       data['prezzo_unitario'])
 
         sconto = get_input(modal, 'Sconto unitario')
-        tipo_sconto = sconto
+        tipo_sconto = 'UNT'
         if 'sconto_unitario' in data:
             self.setValue(sconto, data['sconto_unitario'])
-            tipo_sconto.send_keys('UNT')
         elif 'sconto_percentuale' in data:
             self.setValue(sconto, data['sconto_percentuale'])
-            tipo_sconto.send_keys('PRC')
-
+            tipo_sconto = 'PRC'
+    
+        self.tester.driver.execute_script('$("#tipo_sconto").select2("destroy")')
+        select = Select(modal.find_element(By.ID, 'tipo_sconto'))
+        select.select_by_value(tipo_sconto)
+        
         # Selezione IVA
         if 'iva' in data:
             select = get_input(modal, 'IVA')
@@ -129,10 +133,10 @@ class RowManager:
             elif riga['tipo'] == 'sconto':
                 self.add_sconto(riga)
 
-        tablePattern = "//div[@class='panel-heading' and contains(string(), 'Righe')]/parent::*//table//tr[contains(string(), '|name|')]//td[2]"
+        tablePattern = "//div[@class='panel-heading' and contains(string(), 'Righe')]/parent::*//table//tr[contains(., '|name|')]//td[2]"
         for key, value in importi['totali'].items():
             totale = self.tester.find(
-                By.XPATH, tablePattern.replace('|name|', key.upper()))
+                By.XPATH, tablePattern.replace('|name|', key.upper() + ':'))
             valore = get_text(totale).split()[0]
 
             self.tester.assertEqual(valore, value)
