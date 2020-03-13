@@ -6,10 +6,10 @@ from selenium.webdriver.remote.webdriver import WebElement
 from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import NoAlertPresentException, UnexpectedAlertPresentException
 from .functions import get_config
+from .Input import Input
 import collections
 import unittest
 import re
-
 
 class Test(unittest.TestCase):
     def __init__(self, methodName):
@@ -43,6 +43,9 @@ class Test(unittest.TestCase):
 
         self.find(By.ID, 'login').click()
         self.wait_loader()
+
+        # Rimozione barra di debug
+        self.driver.execute_script('$(".phpdebugbar-close-btn").click()')
 
     def close(self):
         ''' Chiude il test.'''
@@ -103,10 +106,6 @@ class Test(unittest.TestCase):
         ''' Ricerca una serie di componenti HTML nella pagina.'''
         return self.driver.find_elements(by, value)
 
-    def input(self, name: str):
-        ''' Ricerca un input HTML nella pagina.'''
-        return get_input(self.driver, name)
-
     def wait_loader(self):
         ''' Attende il completamento del caricamento della pagina, visibile attraverso il loader principale.'''
         self.wait(lambda x: self.driver.execute_script('return document.readyState;') == "complete")
@@ -131,14 +130,12 @@ class Test(unittest.TestCase):
         ''' Restituisce il contenuto dell'impostazione richiesta.'''
         return self.config[name]
 
-    def setValue(self, element: WebElement, value: str):
-        ''' Imposta il valore del campo indicato.'''
-        self.driver.execute_script(
-            '$(".inputmask-decimal").inputmask("remove");')
+    def input(self, element = None, name = None, css_id = None):
+        ''' Ricerca un input HTML nella pagina.'''
+        if not element:
+            element = self.driver
 
-        element.clear()
-        element.send_keys(value)
-
+        return Input.find(self.driver, element, name, css_id)
 
 def get_html(element: WebElement):
     ''' Restituisce il contenuto HTML di un WebElement.'''
@@ -148,20 +145,6 @@ def get_html(element: WebElement):
 def get_text(element: WebElement):
     ''' Restituisce il testo di un WebElement.'''
     return re.sub('<[^<]+?>', '', get_html(element)).strip()
-
-
-def get_input(element, name: str):
-    element_id = element.get_attribute("id")
-
-    if element_id:
-        xpath = ['//*[@id="', element_id, '"]//label[contains(., "', name, '")]/parent::div/parent::div//input | //*[@id="',
-                 element_id, '"]//label[contains(., "', name, '")]/parent::div/parent::div//textarea']
-    else:
-        xpath = ['//label[contains(., "', name, '")]/parent::div/parent::div//input | //label[contains(., "',
-                 name, '")]/parent::div/parent::div//textarea']
-
-    return element.find_element(By.XPATH, ''.join(xpath))
-
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,4 +1,4 @@
-from common.Test import Test, get_html, get_input
+from common.Test import Test, get_html
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
@@ -35,14 +35,14 @@ class Anagrafiche(Test):
         modal = self.wait_modal()
 
         # Completamento dei campi per il nuovo elemento
-        get_input(modal, 'Denominazione').send_keys(name)
+        self.input(modal, 'Denominazione').setValue(name)
 
         modal.find_element(By.CSS_SELECTOR, '.btn-box-tool').click()
-        get_input(modal, 'Partita IVA').send_keys(partita_iva)
+        self.input(modal, 'Partita IVA').setValue(partita_iva)
 
-        select = get_input(modal, 'Tipo di anagrafica')
-        select.send_keys(tipo)
-        select.send_keys(Keys.ENTER)
+        select = self.input(modal, 'Tipo di anagrafica')
+        select.select_by_visible_text(tipo)
+        #select.send_keys(Keys.ENTER)
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()

@@ -2,11 +2,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webdriver import WebElement
 from selenium.webdriver.support.ui import Select
-from .Test import Test, get_input, get_text
+from .Test import Test, get_text
 from .functions import get_cache_directory
 import json
 import os
 import sys
+import glob
 
 
 class RowManager:
@@ -23,14 +24,14 @@ class RowManager:
         modal = self.tester.wait_modal()
 
         if 'descrizione' in data:
-            self.setValue(get_input(modal, 'Descrizione'), data['descrizione'])
+            self.input(modal, 'Descrizione').setValue(data['descrizione'])
 
         if 'sconto_percentuale' in data:
-            self.setValue(get_input(modal, 'Sconto/maggiorazione percentuale'),
-                          data['sconto_percentuale'])
+            self.input(
+                modal, 'Sconto/maggiorazione percentuale').setValue(data['sconto_percentuale'])
         else:
-            self.setValue(get_input(modal, 'Sconto/maggiorazione unitario'),
-                          data['sconto_unitario'])
+            self.input(
+                modal, 'Sconto/maggiorazione unitario').setValue(data['sconto_unitario'])
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
@@ -41,7 +42,7 @@ class RowManager:
         self.get_button('Descrizione').click()
         modal = self.tester.wait_modal()
 
-        self.setValue(get_input(modal, 'Descrizione'), data['descrizione'])
+        self.input(modal, 'Descrizione').setValue(data['descrizione'])
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
@@ -65,9 +66,9 @@ class RowManager:
         modal = self.tester.wait_modal()
 
         # Selezione articolo
-        select = get_input(modal, 'Articolo')
-        select.send_keys(data['articolo'])
-        select.send_keys(Keys.ENTER)
+        select = self.input(modal, 'Articolo')
+        select.setByText(data['articolo'])
+        #select.send_keys(Keys.ENTER)
 
         # Completamento informazioni
         self.fill(modal, data)
@@ -78,46 +79,45 @@ class RowManager:
 
     def fill(self, modal, data: dict):
         ''' Completa le informazioni per la creazione di un nuovo elemento. '''
-        self.setValue(get_input(modal, 'Descrizione'), data['descrizione'])
+        self.input(modal, 'Descrizione').setValue(data['descrizione'])
 
         if 'qta' in data:
-            self.setValue(get_input(modal, 'Q.tà'), data['qta'])
+            self.input(modal, 'Q.tà').setValue(data['qta'])
 
-        self.setValue(get_input(modal, 'Prezzo unitario di vendita'),
-                      data['prezzo_unitario'])
+        self.input(modal, 'Prezzo unitario di vendita').setValue(
+            data['prezzo_unitario'])
 
-        sconto = get_input(modal, 'Sconto unitario')
+        sconto = self.input(modal, None, 'sconto')
         tipo_sconto = 'UNT'
         if 'sconto_unitario' in data:
-            self.setValue(sconto, data['sconto_unitario'])
+            sconto.setValue(data['sconto_unitario'])
         elif 'sconto_percentuale' in data:
-            self.setValue(sconto, data['sconto_percentuale'])
+            sconto.setValue(data['sconto_percentuale'])
             tipo_sconto = 'PRC'
-    
-        self.tester.driver.execute_script('$("#tipo_sconto").select2("destroy")')
-        select = Select(modal.find_element(By.ID, 'tipo_sconto'))
-        select.select_by_value(tipo_sconto)
-        
+
+        select = self.input(modal, None, 'tipo_sconto')
+        select.setValue(tipo_sconto)
+
         # Selezione IVA
         if 'iva' in data:
-            select = get_input(modal, 'IVA')
-            select.send_keys(data['iva'])
-            select.send_keys(Keys.ENTER)
+            select = self.input(modal, 'IVA')
+            select.setByText(data['iva'])
+            #select.send_keys(Keys.ENTER)
 
         # Selezione Rivalsa INPS
         if 'rivalsa_inps' in data:
-            select = get_input(modal, 'Rivalsa INPS')
-            select.send_keys(data['rivalsa_inps'])
-            select.send_keys(Keys.ENTER)
+            select = self.input(modal, 'Rivalsa INPS')
+            select.setByText(data['rivalsa_inps'])
+            #select.send_keys(Keys.ENTER)
 
         # Selezione Ritenuta d'acconto
         if 'ritenuta_acconto' in data:
-            select = get_input(modal, "Ritenuta d'acconto")
-            select.send_keys(data['ritenuta_acconto'])
-            select.send_keys(Keys.ENTER)
+            select = self.input(modal, "Ritenuta d'acconto")
+            select.setByText(data['ritenuta_acconto'])
+            #select.send_keys(Keys.ENTER)
 
-    def setValue(self, element: WebElement, value: str):
-        self.tester.setValue(element, value)
+    def input(self, element: WebElement, name=None, css_id=None):
+        return self.tester.input(element, name, css_id)
 
     def compile(self, filename: str):
         ''' Compila il documento secondo la configurazione del file indicato.'''
@@ -143,10 +143,13 @@ class RowManager:
 
     def read(self, filename: str) -> dict:
         ''' Restituisce la configurazione delle righe contenuta dal file indicato.'''
-        directory = get_cache_directory()
-        directory = os.path.dirname(directory)
+        if not os.path.exists(filename):
+            directory = get_cache_directory()
+            directory = os.path.dirname(directory)
 
-        path = directory + '/' + filename
+            path = directory + '/' + filename
+        else:
+            path = filename
 
         if os.path.exists(path):
             with open(path, 'r') as json_file:
@@ -155,3 +158,13 @@ class RowManager:
                 return data
         else:
             return dict()
+
+    @staticmethod
+    def list() -> dict:
+        ''' Restituisce un elenco di configurazioni di importi disponibili.'''
+        directory = get_cache_directory()
+        directory = os.path.dirname(directory)
+
+        path = directory + '/importi'
+
+        return glob.glob(path+"/*.json")
