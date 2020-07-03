@@ -41,8 +41,7 @@ class Anagrafiche(Test):
         self.input(modal, 'Partita IVA').setValue(partita_iva)
 
         select = self.input(modal, 'Tipo di anagrafica')
-        select.select_by_visible_text(tipo)
-        #select.send_keys(Keys.ENTER)
+        select.setByText(tipo)
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()

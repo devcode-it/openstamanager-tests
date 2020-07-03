@@ -14,9 +14,7 @@ class Anagrafiche(Test):
     def test_creazione_contratto(self):
         ''' Crea una nuovo contratto per il cliente "Cliente". '''
         importi = RowManager.list()
-        for importo in importi:
-            self.creazione_contratto("Cliente", importo)
-
+        self.creazione_contratto("Cliente", importi[0])
 
     def creazione_contratto(self, cliente: str, file_importi: str):
         ''' Crea una nuovo contratto per il cliente indicato. '''
@@ -28,10 +26,7 @@ class Anagrafiche(Test):
         self.input(modal, 'Nome').setValue('Contratto di test')
 
         select = self.input(modal, 'Cliente')
-        print(select)
-        #select.setByIndex(0)
-        #select.setByText(cliente)
-        #select.send_keys(Keys.ENTER)
+        select.setByText('Cliente')
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()

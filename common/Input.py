@@ -4,6 +4,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class Input:
@@ -21,8 +22,8 @@ class Input:
         self.element.send_keys(value)
 
     @staticmethod
-    def find(driver, element, name=None, css_id=None):
-        ''' Restituisce l'oggetto responsabile per la gestione dell'input indicato.'''
+    def xpath(element, name=None, css_id=None):
+        ''' Restituisce il percorso xPath responsabile per la gestione dell'input indicato.'''
         element_id = element.get_attribute("id")
 
         prefix = ''
@@ -34,6 +35,22 @@ class Input:
                 name + '")]/parent::div/parent::div//'
         else:
             prefix += '//*[@id="' + css_id + '"]/parent::*//'
+
+        return prefix
+
+    @staticmethod
+    def find(driver, element, name=None, css_id=None):
+        ''' Restituisce l'oggetto responsabile per la gestione dell'input indicato.'''
+        prefix = Input.xpath(element, name, css_id)
+
+        # Ricerca dei select (Select2)
+        xpath = prefix + 'select'
+        try:
+            select = element.find_element(By.XPATH, xpath)
+
+            return Select(driver, select)
+        except NoSuchElementException:
+            pass
 
         # Ricerca degli input normali
         xpath = prefix + 'input'
@@ -50,15 +67,6 @@ class Input:
             textarea = element.find_element(By.XPATH, xpath)
 
             return Input(driver, textarea)
-        except NoSuchElementException:
-            pass
-
-        # Ricerca dei select(Select2)
-        xpath = prefix + 'select'
-        try:
-            select = element.find_element(By.XPATH, xpath)
-
-            return Select(driver, select)
         except NoSuchElementException:
             pass
 
@@ -81,17 +89,18 @@ class Select(Input):
         self.driver.execute_script(
             '$("#' + self.element_id + '").select2("open");')
 
-        drop = self.driver.find_element(By.ID, 'select2-drop')
-        item = drop.find_element(By.XPATH, '//li[@class="select2-results__option" and contains("' + value + '")]')
-        item.click()
-        
-        #search_input.send_keys(value)
-        #search_input.send_keys(Keys.ENTER)
+        # Attesa del caricamento
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, 'select2-results__option')))
 
-        #WebDriverWait(self.driver, 60).until(lambda x: self.driver.execute_script('return $(".select2-results__option").length;') != "0")
+        item = self.driver.find_element(By.XPATH, '//ul[@class="select2-results__options"]/li[contains(., "' + value + '")]')
+        item.click()
 
     def setByIndex(self, value: str):
-        #self.driver.execute_script(
-        #    '$("#' + self.element_id + '").select2("destroy");')
+        self.driver.execute_script(
+            '$("#' + self.element_id + '").select2("open");')
 
-        self.select_element.select_by_index(value)
+        # Attesa del caricamento
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, 'select2-results__option')))
+
+        item = self.driver.find_element(By.XPATH, '//ul([@class="select2-results__options"]/li[' + (value + 1) + '')
+        item.click()

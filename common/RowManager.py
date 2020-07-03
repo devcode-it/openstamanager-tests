@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webdriver import WebElement
 from selenium.webdriver.support.ui import Select
 from .Test import Test, get_text
+from .Input import Input, Select
 from .functions import get_cache_directory
 import json
 import os
@@ -68,7 +69,6 @@ class RowManager:
         # Selezione articolo
         select = self.input(modal, 'Articolo')
         select.setByText(data['articolo'])
-        #select.send_keys(Keys.ENTER)
 
         # Completamento informazioni
         self.fill(modal, data)
@@ -87,34 +87,42 @@ class RowManager:
         self.input(modal, 'Prezzo unitario di vendita').setValue(
             data['prezzo_unitario'])
 
-        sconto = self.input(modal, None, 'sconto')
-        tipo_sconto = 'UNT'
+        # Impostazione valore sconto
+        sconto_xpath = Input.xpath(modal, None, 'sconto') + 'input'
+        sconto_input = self.tester.find(By.XPATH, sconto_xpath)
+        sconto = Input(self.tester.driver, sconto_input)
         if 'sconto_unitario' in data:
             sconto.setValue(data['sconto_unitario'])
+            data['tipo_sconto'] = 'UNT'
         elif 'sconto_percentuale' in data:
             sconto.setValue(data['sconto_percentuale'])
-            tipo_sconto = 'PRC'
+            data['tipo_sconto'] = 'PRC'
 
-        select = self.input(modal, None, 'tipo_sconto')
-        select.setValue(tipo_sconto)
+        # Impostazione del tipo sconto
+        if 'tipo_sconto' in data:
+            tipo_sconto_xpath = Input.xpath(
+                modal, None, 'tipo_sconto') + 'select'
+            tipo_sconto_input = self.tester.find(By.XPATH, tipo_sconto_xpath)
+            tipo_sconto = Select(self.tester.driver, tipo_sconto_input)
+            tipo_sconto.setValue(data['tipo_sconto'])
 
         # Selezione IVA
         if 'iva' in data:
             select = self.input(modal, 'IVA')
             select.setByText(data['iva'])
-            #select.send_keys(Keys.ENTER)
+            # select.send_keys(Keys.ENTER)
 
         # Selezione Rivalsa INPS
         if 'rivalsa_inps' in data:
             select = self.input(modal, 'Rivalsa INPS')
             select.setByText(data['rivalsa_inps'])
-            #select.send_keys(Keys.ENTER)
+            # select.send_keys(Keys.ENTER)
 
         # Selezione Ritenuta d'acconto
         if 'ritenuta_acconto' in data:
             select = self.input(modal, "Ritenuta d'acconto")
             select.setByText(data['ritenuta_acconto'])
-            #select.send_keys(Keys.ENTER)
+            # select.send_keys(Keys.ENTER)
 
     def input(self, element: WebElement, name=None, css_id=None):
         return self.tester.input(element, name, css_id)
@@ -167,4 +175,4 @@ class RowManager:
 
         path = directory + '/importi'
 
-        return glob.glob(path+"/*.json")
+        return glob.glob(path + "/*.json")
