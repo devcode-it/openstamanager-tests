@@ -15,10 +15,8 @@ class Input:
         self.element_id = self.element.get_attribute("id")
 
     def setValue(self, value: str):
-        self.driver.execute_script(
-            '$("#' + self.element_id + '").inputmask("remove");')
-
         self.element.clear()
+        self.element.click()
         self.element.send_keys(value)
 
     @staticmethod
