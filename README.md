@@ -10,6 +10,10 @@ L'esecuzione degli script richiede la presenza di alcuni pacchetti Python aggiun
 pip3 install -r requirements.txt
 ```
 
+Occorre installare anche geckodriver:
+
+https://github.com/mozilla/geckodriver/releases
+
 L'avvio di un determinato script può essere effettuato attraverso al seguente riga di comando:
 ```bash
 python3 -m unittest basics.Anagrafiche
