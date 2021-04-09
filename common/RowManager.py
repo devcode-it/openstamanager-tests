@@ -16,7 +16,7 @@ class RowManager:
         self.tester = tester
 
     def get_button(self, name):
-        xpath = ''.join(['//a[contains(., "', name, '")]'])
+        xpath = ''.join(['//button[contains(., "', name, '")]'])
         return self.tester.find(By.XPATH, xpath)
 
     def add_sconto(self, data: dict):
