@@ -20,26 +20,25 @@ class Input:
         self.element.send_keys(value)
 
     @staticmethod
-    def xpath(element, name=None, css_id=None):
+    def xpath(element, name=None, css_selector=None):
         ''' Restituisce il percorso xPath responsabile per la gestione dell'input indicato.'''
         element_id = element.get_attribute("id")
 
         prefix = ''
         if element_id:
             prefix = '//*[@id="' + element_id + '"]'
-
+        
         if name:
-            prefix += '//label[contains(., "' + \
-                name + '")]/parent::div/parent::div//'
+            prefix += '//label[contains(., "' + name + '")]/parent::div/parent::div//'
         else:
-            prefix += '//*[@id="' + css_id + '"]/parent::*//'
+            prefix += '//' + css_selector
 
         return prefix
 
     @staticmethod
-    def find(driver, element, name=None, css_id=None):
+    def find(driver, element, name=None, css_selector=None):
         ''' Restituisce l'oggetto responsabile per la gestione dell'input indicato.'''
-        prefix = Input.xpath(element, name, css_id)
+        prefix = Input.xpath(element, name, css_selector)
 
         # Ricerca dei select (Select2)
         xpath = prefix + 'select'

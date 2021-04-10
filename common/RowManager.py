@@ -88,7 +88,7 @@ class RowManager:
             data['prezzo_unitario'])
 
         # Impostazione valore sconto
-        sconto_xpath = Input.xpath(modal, None, 'sconto') + 'input'
+        sconto_xpath = Input.xpath(modal, None, 'input[@id="sconto"]')
         sconto_input = self.tester.find(By.XPATH, sconto_xpath)
         sconto = Input(self.tester.driver, sconto_input)
         if 'sconto_unitario' in data:
@@ -101,7 +101,7 @@ class RowManager:
         # Impostazione del tipo sconto
         if 'tipo_sconto' in data:
             tipo_sconto_xpath = Input.xpath(
-                modal, None, 'tipo_sconto') + 'select'
+                modal, None, 'select[@name="tipo_sconto"]')
             tipo_sconto_input = self.tester.find(By.XPATH, tipo_sconto_xpath)
             tipo_sconto = Select(self.tester.driver, tipo_sconto_input)
             tipo_sconto.setValue(data['tipo_sconto'])
