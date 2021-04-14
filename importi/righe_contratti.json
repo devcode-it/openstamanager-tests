@@ -2,20 +2,20 @@
     "righe": [
         {
             "tipo": "riga",
-            "descrizione": "Riga 6",
+            "descrizione": "Riga 1",
             "qta": "1",
             "prezzo_unitario": "2"
         },
         {
             "tipo": "riga",
-            "descrizione": "Riga 7 con sconto in euro",
+            "descrizione": "Riga 2 con sconto in euro",
             "qta": "15",
             "prezzo_unitario": "12",
             "sconto_unitario": "2"
         },
         {
             "tipo": "riga",
-            "descrizione": "Riga 8 con sconto percentuale",
+            "descrizione": "Riga 3 con sconto percentuale",
             "qta": "15",
             "prezzo_unitario": "10",
             "sconto_percentuale": "20"

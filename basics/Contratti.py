@@ -26,7 +26,7 @@ class Contratti(Test):
         self.input(modal, 'Nome').setValue('Contratto di test')
 
         select = self.input(modal, 'Cliente')
-        select.setByText('Cliente')
+        select.setByText(cliente)
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
