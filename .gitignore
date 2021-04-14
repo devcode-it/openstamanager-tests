@@ -58,6 +58,7 @@ Desktop.ini
 *.msp
 *.lnk
 .vscode/*
+*.sql
 !.gitkeep
 
 # Npm, Bower, Composer #
