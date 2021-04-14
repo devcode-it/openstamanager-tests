@@ -112,6 +112,10 @@ class Test(unittest.TestCase):
         
         self.wait(lambda x: self.driver.execute_script('return  document.getElementById("main_loading").style.display === "none";') == True)
 
+        self.wait(lambda x: self.driver.execute_script('return  document.getElementById("mini-loader").style.display === "none";') == True)
+
+        self.wait(lambda x: self.driver.execute_script('if(document.getElementsByClassName("local-loader")[0]!==undefined){ return  document.getElementsByClassName("local-loader")[0].classList.contains("hidden"); } else { return true; }') == True)
+
         #self.wait(expected_conditions.invisibility_of_element_located(
         #    (By.ID, 'main_loading')))
             

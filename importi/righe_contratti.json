@@ -1,0 +1,35 @@
+{
+    "righe": [
+        {
+            "tipo": "riga",
+            "descrizione": "Riga 6",
+            "qta": "1",
+            "prezzo_unitario": "2"
+        },
+        {
+            "tipo": "riga",
+            "descrizione": "Riga 7 con sconto in euro",
+            "qta": "15",
+            "prezzo_unitario": "12",
+            "sconto_unitario": "2"
+        },
+        {
+            "tipo": "riga",
+            "descrizione": "Riga 8 con sconto percentuale",
+            "qta": "15",
+            "prezzo_unitario": "10",
+            "sconto_percentuale": "20"
+        },
+        {
+            "tipo": "sconto",
+            "sconto_percentuale": "10"
+        }
+    ],
+    "totali": {
+        "Imponibile": "332,00",
+        "Sconto/maggiorazione": "87,20",
+        "Totale imponibile": "244,80",
+        "IVA": "53,86",
+        "Totale": "298,66"
+    }
+}

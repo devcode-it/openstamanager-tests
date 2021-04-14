@@ -8,30 +8,26 @@ class Anagrafiche(Test):
 
         self.navigateTo("Anagrafiche")
 
-    def test_creazione_cliente(self):
+    def test_creazione_anagrafica(self):
         ''' Crea una nuova anagrafica di tipo Cliente. '''
         self.add_anagrafica('Cliente', 'Cliente', '05024030289')
 
-    def test_creazione_tecnico(self):
         ''' Crea una nuova anagrafica di tipo Tecnico. '''    
         self.add_anagrafica('Tecnico', 'Tecnico', '05024030289')
 
-    def test_creazione_fornitore(self):
-        ''' Crea una nuova anagrafica di tipo TecnFornitoreico. '''    
+        ''' Crea una nuova anagrafica di tipo Fornitore. '''    
         self.add_anagrafica('Fornitore', 'Fornitore', '05024030289')
 
-    def test_creazione_vettore(self):
         ''' Crea una nuova anagrafica di tipo Vettore. '''    
         self.add_anagrafica('Vettore', 'Vettore', '05024030289')
 
-    def test_creazione_agente(self):
         ''' Crea una nuova anagrafica di tipo Agente. '''    
         self.add_anagrafica('Agente', 'Agente', '05024030289')
 
     def add_anagrafica(self, name = 'ANAGRAFICA DI PROVA', tipo = 'Cliente', partita_iva = ''):
         ''' Crea una nuova anagrafica del tipo indicato. '''
         # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '.btn-primary > .fa-plus').click()
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
         # Completamento dei campi per il nuovo elemento

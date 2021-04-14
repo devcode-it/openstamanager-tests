@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 
-class Anagrafiche(Test):
+class Contratti(Test):
     def setUp(self):
         super().setUp()
 
@@ -19,7 +19,7 @@ class Anagrafiche(Test):
     def creazione_contratto(self, cliente: str, file_importi: str):
         ''' Crea una nuovo contratto per il cliente indicato. '''
         # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '.btn-primary > .fa-plus').click()
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
         # Completamento dei campi per il nuovo elemento

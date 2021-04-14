@@ -87,9 +87,9 @@ class Select(Input):
             '$("#' + self.element_id + '").select2("open");')
 
         # Attesa del caricamento
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, 'select2-results__option')))
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//ul[@class="select2-results__options"]/li[contains(., "' + value + '") and not (contains(@class, "loading-results"))][1]')))
 
-        item = self.driver.find_element(By.XPATH, '//ul[@class="select2-results__options"]/li[contains(., "' + value + '")]')
+        item = self.driver.find_element(By.XPATH, '//ul[@class="select2-results__options"]/li[contains(., "' + value + '") and not (contains(@class, "loading-results"))][1]')
         item.click()
 
     def setByIndex(self, value: str):
@@ -97,7 +97,7 @@ class Select(Input):
             '$("#' + self.element_id + '").select2("open");')
 
         # Attesa del caricamento
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, 'select2-results__option')))
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//ul[@class="select2-results__options"]/li[contains(., "' + value + '") and not (contains(@class, "loading-results"))][1]')))
 
-        item = self.driver.find_element(By.XPATH, '//ul([@class="select2-results__options"]/li[' + (value + 1) + '')
+        item = self.driver.find_element(By.XPATH, '//ul([@class="select2-results__options"]/li [not (contains(@class, "loading-results"))][' + (value + 1) + ']')
         item.click()

@@ -141,7 +141,7 @@ class RowManager:
             elif riga['tipo'] == 'sconto':
                 self.add_sconto(riga)
 
-        tablePattern = "//div[@class='panel-heading' and contains(string(), 'Righe')]/parent::*//table//tr[contains(., '|name|')]//td[2]"
+        tablePattern = "//div[@class='panel-heading' and contains(string(), 'Righe')]/parent::*//table//tr[contains(., '|name|')][1]//td[2]"
         for key, value in importi['totali'].items():
             totale = self.tester.find(
                 By.XPATH, tablePattern.replace('|name|', key.upper() + ':'))
