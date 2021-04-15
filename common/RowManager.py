@@ -84,8 +84,12 @@ class RowManager:
         if 'qta' in data:
             self.input(modal, 'Q.tà').setValue(data['qta'])
 
-        self.input(modal, 'Prezzo unitario di vendita').setValue(
-            data['prezzo_unitario'])
+        if (self.input(modal, 'Prezzo unitario di vendita')):
+            self.input(modal, 'Prezzo unitario di vendita').setValue(
+                data['prezzo_unitario'])
+        else:
+            self.input(modal, 'Prezzo unitario').setValue(
+                data['prezzo_unitario'])
 
         # Impostazione valore sconto
         sconto_xpath = Input.xpath(modal, None, 'input[@id="sconto"]')

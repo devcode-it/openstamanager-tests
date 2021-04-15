@@ -4,33 +4,33 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 
-class OrdiniCliente(Test):
+class OrdiniFornitore(Test):
     def setUp(self):
         super().setUp()
 
-        self.expandSidebar("Vendite")
-        self.navigateTo("Ordini cliente")
+        self.expandSidebar("Acquisti")
+        self.navigateTo("Ordini fornitore")
 
-    def test_creazione_ordine_cliente(self):
-        ''' Crea una nuovo ordine cliente per il cliente "Cliente". '''
+    def test_creazione_ordine_fornitore(self):
+        ''' Crea una nuovo ordine fornitore per il fornitore "Fornitore". '''
         importi = RowManager.list()
-        self.creazione_ordine_cliente("Cliente", importi[0])
+        self.creazione_ordine_fornitore("Fornitore", importi[0])
 
-    def creazione_ordine_cliente(self, cliente: str, file_importi: str):
-        ''' Crea un nuovo ordine cliente per il cliente indicato. '''
+    def creazione_ordine_fornitore(self, fornitore: str, file_importi: str):
+        ''' Crea un nuovo ordine fornitore per il fornitore indicato. '''
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
-        select = self.input(modal, 'Cliente')
-        select.setByText(cliente)
+        select = self.input(modal, 'Fornitore')
+        select.setByText(fornitore)
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
 
         #toast = self.driver.find_elements(By.CLASS_NAME, 'toast-message')
-        #self.assertIn('Aggiunto ordine cliente', toast)
+        #self.assertIn('Aggiunto ordine fornitore', toast)
 
         row_manager = RowManager(self)
         row_manager.compile(file_importi)

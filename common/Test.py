@@ -10,6 +10,7 @@ from .Input import Input
 import collections
 import unittest
 import re
+from selenium.webdriver.firefox.options import Options
 
 class Test(unittest.TestCase):
     def __init__(self, methodName):
@@ -21,8 +22,10 @@ class Test(unittest.TestCase):
     def connect(self):
         ''' Inizializza il browser indicato nella configurazione.'''
         driver = None
+        options = Options()
+        options.headless = False
         if (self.getConfig('browser') == 'firefox'):
-            driver = webdriver.Firefox()
+            driver = webdriver.Firefox(options=options)
         elif (self.getConfig('browser') == 'chrome'):
             driver = webdriver.Chrome()
 
