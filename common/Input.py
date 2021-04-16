@@ -6,7 +6,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-
 class Input:
     def __init__(self, driver, element):
         self.driver = driver
@@ -46,6 +45,15 @@ class Input:
             select = element.find_element(By.XPATH, xpath)
 
             return Select(driver, select)
+        except NoSuchElementException:
+            pass
+
+        # Ricerca delle checkbox
+        xpath = prefix + 'input[@type="checkbox"]'
+        try:
+            checkbox = element.find_element(By.XPATH, xpath)
+
+            return Checkbox(driver, checkbox)
         except NoSuchElementException:
             pass
 
@@ -101,3 +109,14 @@ class Select(Input):
 
         item = self.driver.find_element(By.XPATH, '//ul[@class="select2-results__options"]/li[not (contains(@class, "loading-results"))][' + value + ']')
         item.click()
+
+class Checkbox(Input):
+    def __init__(self, driver, element):
+        super().__init__(driver, element)
+
+        self.checkbox_element = element
+
+    def clickFlag(self):
+        '''self.driver.execute_script('$("#' + self.element_id + '").select2("destroy");')'''
+
+        self.checkbox_element.find_element(By.XPATH, './/following-sibling::div/label[contains(@class, "active")]').click()
