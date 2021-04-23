@@ -20,7 +20,7 @@ class Input:
 
     @staticmethod
     def xpath(element, name=None, css_selector=None):
-        ''' Restituisce il percorso xPath responsabile per la gestione dell'input indicato.'''
+        # Restituisce il percorso xPath responsabile per la gestione dell'input indicato.
         element_id = element.get_attribute("id")
 
         prefix = ''
@@ -36,7 +36,7 @@ class Input:
 
     @staticmethod
     def find(driver, element, name=None, css_selector=None):
-        ''' Restituisce l'oggetto responsabile per la gestione dell'input indicato.'''
+        # Restituisce l'oggetto responsabile per la gestione dell'input indicato.
         prefix = Input.xpath(element, name, css_selector)
 
         # Ricerca dei select (Select2)
@@ -117,6 +117,6 @@ class Checkbox(Input):
         self.checkbox_element = element
 
     def clickFlag(self):
-        '''self.driver.execute_script('$("#' + self.element_id + '").select2("destroy");')'''
+        #self.driver.execute_script('$("#' + self.element_id + '").select2("destroy");')
 
         self.checkbox_element.find_element(By.XPATH, './/following-sibling::div/label[contains(@class, "active")]').click()

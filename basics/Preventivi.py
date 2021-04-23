@@ -12,12 +12,12 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
 
     def test_creazione_preventivo(self):
-        ''' Crea una nuovo preventivo per il cliente "Cliente". '''
+        # Crea una nuovo preventivo per il cliente "Cliente". 
         importi = RowManager.list()
         self.creazione_preventivo("Cliente", "1", importi[0])
 
     def creazione_preventivo(self, cliente: str, idtipo: str, file_importi: str):
-        ''' Crea una nuovo preventivo per il cliente indicato. '''
+        # Crea una nuovo preventivo per il cliente indicato. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()

@@ -11,11 +11,11 @@ class Movimenti(Test):
         self.navigateTo("Movimenti")
 
     def test_creazione_movimento(self):
-        ''' Crea un nuovo movimento. '''
+        # Crea un nuovo movimento. 
         self.creazione_movimento("10", "Articolo")
 
     def creazione_movimento(self, qta: str, articolo: str):
-        ''' Crea un nuovo movimento. '''
+        # Crea un nuovo movimento. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()

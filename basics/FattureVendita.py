@@ -12,12 +12,12 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
 
     def test_creazione_fattura_vendita(self):
-        ''' Crea una nuova fattura per il cliente "Cliente". '''
+        # Crea una nuova fattura per il cliente "Cliente". 
         importi = RowManager.list()
         self.creazione_fattura_vendita("Cliente", importi[0])
 
     def creazione_fattura_vendita(self, cliente: str, file_importi: str):
-        ''' Crea una nuova fattura per il cliente indicato. '''
+        # Crea una nuova fattura per il cliente indicato. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
@@ -34,3 +34,7 @@ class FattureVendita(Test):
 
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
+
+        # Torno alla tabella principale
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.wait_loader()

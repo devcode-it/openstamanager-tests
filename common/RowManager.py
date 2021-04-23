@@ -20,7 +20,7 @@ class RowManager:
         return self.tester.find(By.XPATH, xpath)
 
     def add_sconto(self, data: dict):
-        ''' Aggiunge un nuovo sconto. '''
+        # Aggiunge un nuovo sconto. 
         self.get_button('Sconto/maggiorazione').click()
         modal = self.tester.wait_modal()
 
@@ -39,7 +39,7 @@ class RowManager:
         self.tester.wait_loader()
 
     def add_descrizione(self, data: dict):
-        ''' Aggiunge una nuova descrizione. '''
+        # Aggiunge una nuova descrizione. 
         self.get_button('Descrizione').click()
         modal = self.tester.wait_modal()
 
@@ -50,7 +50,7 @@ class RowManager:
         self.tester.wait_loader()
 
     def add_riga(self, data: dict):
-        ''' Aggiunge una nuova riga. '''
+        # Aggiunge una nuova riga. 
         self.get_button('Riga').click()
         modal = self.tester.wait_modal()
 
@@ -62,7 +62,7 @@ class RowManager:
         self.tester.wait_loader()
 
     def add_articolo(self, data: dict):
-        ''' Aggiunge un nuovo articolo. '''
+        # Aggiunge un nuovo articolo. 
         self.get_button('Articolo').click()
         modal = self.tester.wait_modal()
 
@@ -78,7 +78,7 @@ class RowManager:
         self.tester.wait_loader()
 
     def fill(self, modal, data: dict):
-        ''' Completa le informazioni per la creazione di un nuovo elemento. '''
+        # Completa le informazioni per la creazione di un nuovo elemento. 
         self.input(modal, 'Descrizione').setValue(data['descrizione'])
 
         if 'qta' in data:
@@ -132,7 +132,7 @@ class RowManager:
         return self.tester.input(element, name, css_id)
 
     def compile(self, filename: str):
-        ''' Compila il documento secondo la configurazione del file indicato.'''
+        # Compila il documento secondo la configurazione del file indicato.
         importi = self.read(filename)
 
         for riga in importi['righe']:
@@ -154,7 +154,7 @@ class RowManager:
             self.tester.assertEqual(valore, value)
 
     def read(self, filename: str) -> dict:
-        ''' Restituisce la configurazione delle righe contenuta dal file indicato.'''
+        # Restituisce la configurazione delle righe contenuta dal file indicato.
         if not os.path.exists(filename):
             directory = get_cache_directory()
             directory = os.path.dirname(directory)
@@ -173,7 +173,7 @@ class RowManager:
 
     @staticmethod
     def list() -> dict:
-        ''' Restituisce un elenco di configurazioni di importi disponibili.'''
+        # Restituisce un elenco di configurazioni di importi disponibili.
         directory = get_cache_directory()
         directory = os.path.dirname(directory)
 

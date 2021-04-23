@@ -12,12 +12,12 @@ class Contratti(Test):
         self.navigateTo("Contratti")
 
     def test_creazione_contratto(self):
-        ''' Crea una nuovo contratto per il cliente "Cliente". '''
+        # Crea una nuovo contratto per il cliente "Cliente".
         importi = RowManager.list()
         self.creazione_contratto("Cliente", importi[0])
 
     def creazione_contratto(self, cliente: str, file_importi: str):
-        ''' Crea una nuovo contratto per il cliente indicato. '''
+        # Crea una nuovo contratto per il cliente indicato. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()

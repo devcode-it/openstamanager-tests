@@ -12,12 +12,12 @@ class DdtUscita(Test):
         self.navigateTo("Ddt in uscita")
 
     def test_creazione_ddt_entrata(self):
-        ''' Crea un nuovo ddt al cliente "Cliente". '''
+        # Crea un nuovo ddt al cliente "Cliente". 
         importi = RowManager.list()
         self.creazione_ddt_entrata("Cliente", "1", importi[0])
 
     def creazione_ddt_entrata(self, cliente: str, causale: str, file_importi: str):
-        ''' Crea un nuovo ddt al cliente indicato. '''
+        # Crea un nuovo ddt al cliente indicato. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()

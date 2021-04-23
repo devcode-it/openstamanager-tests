@@ -12,12 +12,12 @@ class OrdiniCliente(Test):
         self.navigateTo("Ordini cliente")
 
     def test_creazione_ordine_cliente(self):
-        ''' Crea una nuovo ordine cliente per il cliente "Cliente". '''
+        # Crea una nuovo ordine cliente per il cliente "Cliente". 
         importi = RowManager.list()
         self.creazione_ordine_cliente("Cliente", importi[0])
 
     def creazione_ordine_cliente(self, cliente: str, file_importi: str):
-        ''' Crea un nuovo ordine cliente per il cliente indicato. '''
+        # Crea un nuovo ordine cliente per il cliente indicato. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()

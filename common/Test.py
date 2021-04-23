@@ -20,7 +20,7 @@ class Test(unittest.TestCase):
         self.config = self.__flatten(config)
 
     def connect(self):
-        ''' Inizializza il browser indicato nella configurazione.'''
+        # Inizializza il browser indicato nella configurazione.
         driver = None
         options = Options()
         options.headless = False
@@ -37,7 +37,7 @@ class Test(unittest.TestCase):
         self.assertIn('OpenSTAManager', self.driver.title)
 
     def login(self, username, password):
-        ''' Effetta il login con le credenziali indicate nella configurazione.'''
+        # Effetta il login con le credenziali indicate nella configurazione.
         username_input = self.find(By.NAME, 'username')
         username_input.send_keys(username)
 
@@ -51,12 +51,12 @@ class Test(unittest.TestCase):
         self.driver.execute_script('$(".phpdebugbar-close-btn").click()')
 
     def close(self):
-        ''' Chiude il test.'''
+        # Chiude il test.
         self.driver.quit()
         None
 
     def setUp(self):
-        ''' Inizializza l'ambiente di test.'''
+        # Inizializza l'ambiente di test.
         super().setUp()
 
         self.connect()
@@ -75,7 +75,7 @@ class Test(unittest.TestCase):
         return dict(items)
 
     def navigateTo(self, name):
-        ''' Naviga attraverso la sidebar principale per accedere al modulo di cui viene indicato il nome.'''
+        # Naviga attraverso la sidebar principale per accedere al modulo di cui viene indicato il nome.
         condition = expected_conditions.element_to_be_clickable(
             (By.CLASS_NAME, 'sidebar'))
         self.wait(condition)
@@ -102,15 +102,15 @@ class Test(unittest.TestCase):
         self.find(By.XPATH, xpath).click()
 
     def find(self, by=By.ID, value=None):
-        ''' Ricerca una componente HTML nella pagina.'''
+        # Ricerca una componente HTML nella pagina.
         return self.driver.find_element(by, value)
 
     def find_elements(self, by=By.ID, value=None):
-        ''' Ricerca una serie di componenti HTML nella pagina.'''
+        # Ricerca una serie di componenti HTML nella pagina.
         return self.driver.find_elements(by, value)
 
     def wait_loader(self):
-        ''' Attende il completamento del caricamento della pagina, visibile attraverso il loader principale.'''
+        # Attende il completamento del caricamento della pagina, visibile attraverso il loader principale.
         self.wait(lambda x: self.driver.execute_script('return document.readyState;') == "complete")
         
         self.wait(lambda x: self.driver.execute_script('return  document.getElementById("main_loading").style.display === "none";') == True)
@@ -123,34 +123,34 @@ class Test(unittest.TestCase):
         #    (By.ID, 'main_loading')))
             
     def wait_modal(self):
-        ''' Attende il caricamento del modal e ne restituisce un riferimento.'''
+        # Attende il caricamento del modal e ne restituisce un riferimento.
         self.wait(expected_conditions.visibility_of_element_located(
             (By.CLASS_NAME, 'modal')))
 
         return self.find_elements(By.CSS_SELECTOR, '.modal')[-1]
 
     def wait(self, condition):
-        ''' Attende un evento specifico con timeout di 60 secondi.'''
+        # Attende un evento specifico con timeout di 60 secondi.
         WebDriverWait(self.driver, 5).until(condition)
 
     def getConfig(self, name):
-        ''' Restituisce il contenuto dell'impostazione richiesta.'''
+        # Restituisce il contenuto dell'impostazione richiesta.
         return self.config[name]
 
     def input(self, element = None, name = None, css_id = None):
-        ''' Ricerca un input HTML nella pagina.'''
+        # Ricerca un input HTML nella pagina.
         if not element:
             element = self.driver
 
         return Input.find(self.driver, element, name, css_id)
 
 def get_html(element: WebElement):
-    ''' Restituisce il contenuto HTML di un WebElement.'''
+    # Restituisce il contenuto HTML di un WebElement.
     return element.get_attribute('innerHTML')
 
 
 def get_text(element: WebElement):
-    ''' Restituisce il testo di un WebElement.'''
+    # Restituisce il testo di un WebElement.
     return re.sub('<[^<]+?>', '', get_html(element)).strip()
 
 if __name__ == '__main__':

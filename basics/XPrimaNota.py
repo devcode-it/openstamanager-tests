@@ -11,11 +11,11 @@ class PrimaNota(Test):
         self.navigateTo("Prima nota")
 
     def test_creazione_prima_nota(self):
-        ''' Crea un nuovo movimento di prima nota. '''
+        # Crea un nuovo movimento di prima nota. 
         self.creazione_prima_nota("Pag. 1", "10")
 
     def creazione_prima_nota(self, causale: str, sconto: str):
-        ''' Crea un nuovo movimento di prima nota. '''
+        # Crea un nuovo movimento di prima nota. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()

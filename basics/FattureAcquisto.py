@@ -12,12 +12,12 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
 
     def test_creazione_fattura_acquisto(self):
-        ''' Crea una nuova fattura per il fornitore "Fornitore". '''
+        # Crea una nuova fattura per il fornitore "Fornitore". 
         importi = RowManager.list()
         self.creazione_fattura_acquisto("Fornitore", "1", "1", importi[0])
 
     def creazione_fattura_acquisto(self, fornitore: str, numero: str, pagamento: str, file_importi: str):
-        ''' Crea una nuova fattura per il fornitore indicato. '''
+        # Crea una nuova fattura per il fornitore indicato. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()

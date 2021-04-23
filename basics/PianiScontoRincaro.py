@@ -11,11 +11,11 @@ class PianiScontoRincaro(Test):
         self.navigateTo("Piani di sconto/rincaro")
 
     def test_creazione_piano_sconto_rincaro(self):
-        ''' Crea un nuovo piano. '''
+        # Crea un nuovo piano. 
         self.creazione_piano_sconto_rincaro("Piano di sconto 1", "10")
 
     def creazione_piano_sconto_rincaro(self, nome: str, sconto: str):
-        ''' Crea un nuovo piano. '''
+        # Crea un nuovo piano. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()

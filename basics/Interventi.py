@@ -11,12 +11,12 @@ class Interventi(Test):
         self.navigateTo("Attività")
 
     def test_creazione_intervento(self):
-        ''' Crea un nuovo intervento. '''
+        # Crea un nuovo intervento. 
         importi = RowManager.list()
         self.creazione_intervento("Cliente", "1", "1", "Intervento n.1")
 
     def creazione_intervento(self, cliente: str, tipo: str, stato: str, richiesta: str):
-        ''' Crea un nuovo intervento. '''
+        # Crea un nuovo intervento. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()

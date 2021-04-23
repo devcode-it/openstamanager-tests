@@ -12,12 +12,12 @@ class OrdiniFornitore(Test):
         self.navigateTo("Ordini fornitore")
 
     def test_creazione_ordine_fornitore(self):
-        ''' Crea una nuovo ordine fornitore per il fornitore "Fornitore". '''
+        # Crea una nuovo ordine fornitore per il fornitore "Fornitore". 
         importi = RowManager.list()
         self.creazione_ordine_fornitore("Fornitore", importi[0])
 
     def creazione_ordine_fornitore(self, fornitore: str, file_importi: str):
-        ''' Crea un nuovo ordine fornitore per il fornitore indicato. '''
+        # Crea un nuovo ordine fornitore per il fornitore indicato. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()

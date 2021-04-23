@@ -7,11 +7,11 @@ import json
 import re
 
 def random_string(size=32, chars=string.ascii_uppercase + string.ascii_lowercase + string.digits) -> str:
-    ''' Restituisce una stringa di caratteri causali.'''
+    # Restituisce una stringa di caratteri causali.
     return ''.join(random.choice(chars) for _ in range(size))
 
 def get_cache_directory() -> str:
-    ''' Restituisce il percorso della cartella di cache degli scripts.'''
+    # Restituisce il percorso della cartella di cache degli scripts.
 
     directory = __file__
     directory = os.path.dirname(directory)
@@ -23,7 +23,7 @@ def get_cache_directory() -> str:
     return cache_directory
 
 def get_config() -> dict:
-    ''' Restituisce la configurazione prevista dal file config.json.'''
+    # Restituisce la configurazione prevista dal file config.json.
 
     directory = get_cache_directory()
     directory = os.path.dirname(directory)
@@ -39,7 +39,7 @@ def get_config() -> dict:
         return dict()
 
 def update_config(config) -> None:
-    ''' Restituisce la configurazione prevista dal file config.json.'''
+    # Restituisce la configurazione prevista dal file config.json.
 
     directory = get_cache_directory()
     directory = os.path.dirname(directory)

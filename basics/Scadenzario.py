@@ -11,11 +11,11 @@ class Scadenzario(Test):
         self.navigateTo("Scadenzario")
 
     def test_creazione_scadenzario(self):
-        ''' Crea una nuova scadenza. '''
+        # Crea una nuova scadenza. 
         self.creazione_scadenzario("Scadenze generiche", "10", "Scadenza n.1")
 
     def creazione_scadenzario(self, tipo: str, importo: str, descrizione: str):
-        ''' Crea una nuova scadenza. '''
+        # Crea una nuova scadenza. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()

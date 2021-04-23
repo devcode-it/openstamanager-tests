@@ -11,13 +11,13 @@ class Articoli(Test):
         self.navigateTo("Articoli")
 
     def test_creazione_articolo(self):
-        ''' Crea un nuovo articolo. '''
+        # Crea un nuovo articolo. 
         self.creazione_articolo("01", "Articolo", "10", "Movimento di test")
 
     def creazione_articolo(self, codice: str, descrizione: str, qta: str, desc_movimento: str):
-        ''' '''
-        ''' 1/2 Crea un nuovo articolo. '''
-        ''' '''
+        # #
+        # 1/2 Crea un nuovo articolo. 
+        # #
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
@@ -31,23 +31,23 @@ class Articoli(Test):
        
 
 
-        ''' '''
-        ''' 2/2 Modifica articolo. '''
-        ''' '''
+        # #
+        # 2/2 Modifica articolo. 
+        # #
         self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Modifica quantità').clickFlag()
 
-        ''' Q.tà '''
+        # Q.tà 
         self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Quantità').setValue(qta)
 
-        ''' Causale movimento '''
+        # Causale movimento 
         self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Descrizione movimento').setValue(desc_movimento)
 
-        ''' Salvataggio '''
+        # Salvataggio 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-        ''' Controllo Quantità '''
-        ''' input_qta = self.find(By.XPATH,  '//div[@id="tab_0"]//input[@id="qta"]')
-        input_qta.get_attribute("value")
+        # Controllo Quantità 
+        # input_qta = self.find(By.XPATH,  '//div[@id="tab_0"]//input[@id="qta"]')
+        #input_qta.get_attribute("value")
 
-        self.assertEqual(input_qta, qta)'''
+        #self.assertEqual(input_qta, qta)
