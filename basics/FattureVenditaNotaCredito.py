@@ -4,26 +4,29 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 
-class FattureVendita(Test):
+class FattureVenditaNotaCredito(Test):
     def setUp(self):
         super().setUp()
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
 
-    def test_creazione_fattura_vendita(self):
-        # Crea una nuova fattura per il cliente "Cliente". 
+    def test_creazione_fattura_vendita_nota_credito(self):
+        # Crea una nuova nota di credito per il cliente "Cliente". 
         importi = RowManager.list()
-        self.creazione_fattura_vendita("Cliente", importi[0])
+        self.creazione_fattura_vendita_nota_credito("Cliente", importi[0])
 
-    def creazione_fattura_vendita(self, cliente: str, file_importi: str):
-        # Crea una nuova fattura per il cliente indicato. 
+    def creazione_fattura_vendita_nota_credito(self, cliente: str, file_importi: str):
+        # Crea una nuova nota di credito per il cliente indicato. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
         select = self.input(modal, 'Cliente')
         select.setByText(cliente)
+
+        select = self.input(modal, 'Tipo documento')
+        select.setByText("TD04 - Nota di credito")
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
@@ -45,13 +48,14 @@ class FattureVendita(Test):
 
         # Estrazione totali righe
         totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        totale_imponibile = '-'+totale_imponibile
         iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
-        iva = '-'+iva
         totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
+        totale = '-'+totale
 
         # Controllo Scadenzario
         scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
-        self.assertEqual(totale, scadenza_fattura[12:20])
+        self.assertEqual(totale, scadenza_fattura[12:21])
 
         self.driver.execute_script('$("a").removeAttr("target")')
         self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::a').click()
@@ -97,6 +101,5 @@ class FattureVendita(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
-
        
 
