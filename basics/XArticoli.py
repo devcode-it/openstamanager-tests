@@ -1,6 +1,7 @@
 from common.Test import Test, get_html
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from common.Test import Test, get_text
 
 class Articoli(Test):
     def setUp(self):
@@ -11,9 +12,9 @@ class Articoli(Test):
 
     def test_creazione_articolo(self):
         ''' Crea un nuovo articolo. '''
-        self.creazione_articolo("01", "Articolo")
+        self.creazione_articolo("01", "Articolo", "10", "Movimento di test")
 
-    def creazione_articolo(self, codice: str, descrizione: str):
+    def creazione_articolo(self, codice: str, descrizione: str, qta: str, desc_movimento: str):
         ''' '''
         ''' 1/2 Crea un nuovo articolo. '''
         ''' '''
@@ -36,10 +37,17 @@ class Articoli(Test):
         self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Modifica quantità').clickFlag()
 
         ''' Q.tà '''
-        self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Quantità').setValue("1")
+        self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Quantità').setValue(qta)
 
         ''' Causale movimento '''
-        self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Descrizione movimento').setValue("Movimento di test")
+        self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Descrizione movimento').setValue(desc_movimento)
 
         ''' Salvataggio '''
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.wait_loader()
+
+        ''' Controllo Quantità '''
+        ''' input_qta = self.find(By.XPATH,  '//div[@id="tab_0"]//input[@id="qta"]')
+        input_qta.get_attribute("value")
+
+        self.assertEqual(input_qta, qta)'''
