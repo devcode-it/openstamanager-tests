@@ -27,7 +27,7 @@ class Anagrafiche(Test):
     def add_anagrafica(self, name = 'ANAGRAFICA DI PROVA', tipo = 'Cliente', partita_iva = ''):
         # Crea una nuova anagrafica del tipo indicato. '''
         # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '# tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
         # Completamento dei campi per il nuovo elemento
