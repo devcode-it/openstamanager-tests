@@ -76,3 +76,4 @@ servers.json
 cache/
 __pycache__
 config.json
+venv/

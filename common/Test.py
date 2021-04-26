@@ -12,6 +12,7 @@ import unittest
 import re
 from selenium.webdriver.firefox.options import Options
 
+
 class Test(unittest.TestCase):
     def __init__(self, methodName):
         super().__init__(methodName)
@@ -23,10 +24,10 @@ class Test(unittest.TestCase):
         # Inizializza il browser indicato nella configurazione.
         driver = None
         options = Options()
-        options.headless = False
-        if (self.getConfig('browser') == 'firefox'):
+        options.headless = self.getConfig('headless')
+        if self.getConfig('browser') == 'firefox':
             driver = webdriver.Firefox(options=options)
-        elif (self.getConfig('browser') == 'chrome'):
+        elif self.getConfig('browser') == 'chrome':
             driver = webdriver.Chrome()
 
         self.driver = driver
@@ -56,7 +57,7 @@ class Test(unittest.TestCase):
         None
 
     def setUp(self):
-        # Inizializza l'ambiente di test.
+        # Inizializza l'ambiente di test
         super().setUp()
 
         self.connect()
@@ -112,16 +113,19 @@ class Test(unittest.TestCase):
     def wait_loader(self):
         # Attende il completamento del caricamento della pagina, visibile attraverso il loader principale.
         self.wait(lambda x: self.driver.execute_script('return document.readyState;') == "complete")
-        
-        self.wait(lambda x: self.driver.execute_script('return  document.getElementById("main_loading").style.display === "none";') == True)
 
-        self.wait(lambda x: self.driver.execute_script('return  document.getElementById("mini-loader").style.display === "none";') == True)
+        self.wait(lambda x: self.driver.execute_script(
+            'return  document.getElementById("main_loading").style.display === "none";') == True)
 
-        self.wait(lambda x: self.driver.execute_script('if(document.getElementsByClassName("local-loader")[0]!==undefined){ return  document.getElementsByClassName("local-loader")[0].classList.contains("hidden"); } else { return true; }') == True)
+        self.wait(lambda x: self.driver.execute_script(
+            'return  document.getElementById("mini-loader").style.display === "none";') == True)
 
-        #self.wait(expected_conditions.invisibility_of_element_located(
+        self.wait(lambda x: self.driver.execute_script(
+            'if(document.getElementsByClassName("local-loader")[0]!==undefined){ return  document.getElementsByClassName("local-loader")[0].classList.contains("hidden"); } else { return true; }') == True)
+
+        # self.wait(expected_conditions.invisibility_of_element_located(
         #    (By.ID, 'main_loading')))
-            
+
     def wait_modal(self):
         # Attende il caricamento del modal e ne restituisce un riferimento.
         self.wait(expected_conditions.visibility_of_element_located(
@@ -137,12 +141,13 @@ class Test(unittest.TestCase):
         # Restituisce il contenuto dell'impostazione richiesta.
         return self.config[name]
 
-    def input(self, element = None, name = None, css_id = None):
+    def input(self, element=None, name=None, css_id=None):
         # Ricerca un input HTML nella pagina.
         if not element:
             element = self.driver
 
         return Input.find(self.driver, element, name, css_id)
+
 
 def get_html(element: WebElement):
     # Restituisce il contenuto HTML di un WebElement.
@@ -152,6 +157,7 @@ def get_html(element: WebElement):
 def get_text(element: WebElement):
     # Restituisce il testo di un WebElement.
     return re.sub('<[^<]+?>', '', get_html(element)).strip()
+
 
 if __name__ == '__main__':
     unittest.main()

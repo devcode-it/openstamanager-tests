@@ -4,5 +4,6 @@
         "username": ""
     },
     "server": "http://localhost/openstamanager",
-    "browser": ""
+    "browser": "chrome",
+    "headless": false
 }
