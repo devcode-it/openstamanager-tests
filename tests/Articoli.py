@@ -12,7 +12,7 @@ class Articoli(Test):
 
     def test_creazione_articolo(self):
         # Crea un nuovo articolo. 
-        self.creazione_articolo("01", "Articolo", "10", "Movimento di test")
+        self.creazione_articolo("01", "Articolo", "10,00", "Movimento di test")
 
     def creazione_articolo(self, codice: str, descrizione: str, qta: str, desc_movimento: str):
         # #
@@ -47,7 +47,7 @@ class Articoli(Test):
         self.wait_loader()
 
         # Controllo Quantità 
-        # input_qta = self.find(By.XPATH,  '//div[@id="tab_0"]//input[@id="qta"]')
-        #input_qta.get_attribute("value")
+        input_qta = self.find(By.XPATH,  '//div[@id="tab_0"]//input[@id="qta"]')
+        input_qta = input_qta.get_attribute("value")
 
-        #self.assertEqual(input_qta, qta)
+        self.assertEqual(input_qta, qta)
