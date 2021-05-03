@@ -22,6 +22,8 @@ class PrimaNota(Test):
 
         self.input(modal, 'Causale').setValue(causale)
 
+        self.driver.find_element(By.XPATH, '//div[@class="modal-content"]//select[@id="conto0"]').click()
+
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()

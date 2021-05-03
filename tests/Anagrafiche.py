@@ -9,7 +9,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
 
     def test_creazione_anagrafica(self):
-        # Crea una nuova anagrafica di tipo Cliente. '''
+        # Crea una nuova anagrafica di tipo Cliente.
         self.add_anagrafica('Cliente', 'Cliente', '05024030289')
 
         # Crea una nuova anagrafica di tipo Tecnico.   

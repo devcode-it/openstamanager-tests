@@ -2,6 +2,7 @@ from common.Test import Test, get_html
 from common.RowManager import RowManager
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+import time
 
 
 class FattureVendita(Test):
@@ -44,6 +45,7 @@ class FattureVendita(Test):
         self.wait_loader()
 
         # Estrazione totali righe
+        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
         totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
         iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
         iva = '-'+iva
@@ -73,7 +75,36 @@ class FattureVendita(Test):
         self.assertEqual(totale_imponibile, widget_fatturato)
         self.assertEqual(totale, widget_crediti)
 
+        # Controllo importi fattura elettronica
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
+        self.find(By.XPATH, '//form[@id="form-xml"]/descendant::button').click()
+        time.sleep(8)
+
+        self.driver.execute_script('$("a").removeAttr("target")')
+        self.find(By.XPATH, '//form[@id="form-xml"]/following-sibling::a[1]').click()
+        time.sleep(4)
+
+        perc_iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]').text
+        iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]').text
+        iva_FE ='-'+iva_FE+' €'
+        totale_imponibile_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[5]').text
+        totale_imponibile_FE = totale_imponibile_FE+' €'
+        totale_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[3]/td[4]').text
+        totale_FE = totale_FE+' €'
+        scadenza_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][4]/tbody/tr[1]/td[4]').text
+        scadenza_FE = scadenza_FE+' €'
+
+        self.assertEqual('22,00', perc_iva_FE)
+        self.assertEqual(iva, iva_FE)
+        self.assertEqual(totale_imponibile, totale_imponibile_FE)
+        self.assertEqual(totale, totale_FE)
+        self.assertEqual(totale, scadenza_FE)
+
         # Estrazione valori Piano dei conti
+        super().setUp()
         self.expandSidebar("Contabilità")
         self.navigateTo("Piano dei conti")
 
