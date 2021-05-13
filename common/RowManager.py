@@ -9,6 +9,7 @@ import json
 import os
 import sys
 import glob
+import time
 
 
 class RowManager:
@@ -145,7 +146,9 @@ class RowManager:
             elif riga['tipo'] == 'sconto':
                 self.add_sconto(riga)
 
-        tablePattern = "//div[@class='panel-heading' and contains(string(), 'Righe')]/parent::*//table//tr[contains(., '|name|')][1]//td[2]"
+        time.sleep(4)
+
+        tablePattern = "//div[@class='panel-heading']/parent::*//table//tr[contains(., '|name|')][1]//td[2]"
         for key, value in importi['totali'].items():
             totale = self.tester.find(
                 By.XPATH, tablePattern.replace('|name|', key.upper() + ':'))
