@@ -19,6 +19,10 @@ L'avvio di un determinato script può essere effettuato attraverso al seguente r
 python3 -m pytest Init.py
 python3 -m pytest tests
 ```
+L'avvio di tutti gli script può essere effettuato attraverso al seguente riga di comando:
+```bash
+python3 -m unittest discover tests -p '*.py'
+```
 
 ## Script disponibili
 | Azione | Descrizione | Parametri supportati |
