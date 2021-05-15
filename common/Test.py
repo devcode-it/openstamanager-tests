@@ -61,6 +61,7 @@ class Test(unittest.TestCase):
         super().setUp()
 
         self.connect()
+        self.test_config()
         self.login(self.getConfig('login.username'),
                    self.getConfig('login.password'))
 
@@ -133,9 +134,9 @@ class Test(unittest.TestCase):
 
         return self.find_elements(By.CSS_SELECTOR, '.modal')[-1]
 
-    def wait(self, condition):
-        # Attende un evento specifico con timeout di 60 secondi.
-        WebDriverWait(self.driver, 5).until(condition)
+    def wait(self, condition, timeout=5):
+        # Attende un evento specifico con timeout di 5 secondi o personalizzabile.
+        WebDriverWait(self.driver, timeout).until(condition)
 
     def getConfig(self, name):
         # Restituisce il contenuto dell'impostazione richiesta.
@@ -144,7 +145,7 @@ class Test(unittest.TestCase):
     def input(self, element=None, name=None, css_id=None):
         # Ricerca un input HTML nella pagina.
         if not element:
-            element = self.driver
+            element = self.find(By.XPATH, '//body')
 
         return Input.find(self.driver, element, name, css_id)
 
