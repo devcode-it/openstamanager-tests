@@ -1,8 +1,7 @@
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 
-from common.Test import Test, get_html
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
+from common.Test import Test
 
 
 class Init(Test):
@@ -14,6 +13,8 @@ class Init(Test):
 
     def test_config(self):
         # Pulsante "Successivo"
+        self.wait(expected_conditions.visibility_of_element_located(
+            (By.XPATH, '// *[ @ id = "smartwizard"] / div[2] / div / button[2]')))
         self.find(By.XPATH, '// *[ @ id = "smartwizard"] / div[2] / div / button[2]').click()
 
         # Accettazione della licenza
@@ -53,6 +54,3 @@ class Init(Test):
         self.input(None, 'Valuta').setByText("Euro - €")
 
         self.find(By.XPATH, '//*[@id="config"]').click()
-
-
-

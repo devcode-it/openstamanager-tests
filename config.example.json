@@ -3,6 +3,12 @@
         "password": "",
         "username": ""
     },
+    "database": {
+        "host": "localhost",
+        "user": "root",
+        "pass": "root",
+        "name": "osm"
+    },
     "server": "http://localhost/openstamanager",
     "browser": "chrome",
     "headless": false
