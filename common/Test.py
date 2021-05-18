@@ -61,7 +61,7 @@ class Test(unittest.TestCase):
         super().setUp()
 
         self.connect()
-        self.test_config()
+        # self.test_config()
         self.login(self.getConfig('login.username'),
                    self.getConfig('login.password'))
 

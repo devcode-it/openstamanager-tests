@@ -2,6 +2,7 @@ from common.Test import Test, get_html
 from common.RowManager import RowManager
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+import time
 
 
 class FattureVenditaNotaCredito(Test):
@@ -91,13 +92,13 @@ class FattureVenditaNotaCredito(Test):
 
         perc_iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]').text
         iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]').text
-        iva_FE ='-'+iva_FE+' €'
+        iva_FE = iva_FE+' €'
         totale_imponibile_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[5]').text
-        totale_imponibile_FE = totale_imponibile_FE+' €'
+        totale_imponibile_FE = '-'+totale_imponibile_FE+' €'
         totale_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[3]/td[4]').text
-        totale_FE = totale_FE+' €'
+        totale_FE = '-'+totale_FE+' €'
         scadenza_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][4]/tbody/tr[1]/td[4]').text
-        scadenza_FE = scadenza_FE+' €'
+        scadenza_FE = '-'+scadenza_FE+' €'
 
         self.assertEqual('22,00', perc_iva_FE)
         self.assertEqual(iva, iva_FE)
