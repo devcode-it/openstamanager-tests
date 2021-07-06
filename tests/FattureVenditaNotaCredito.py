@@ -112,7 +112,7 @@ class FattureVenditaNotaCredito(Test):
         self.navigateTo("Piano dei conti")
 
         conto_ricavi = self.find(By.XPATH, '(//b[text() = "700 Ricavi"]/ancestor::h5[1]/following-sibling::div//td)[2]').text
-        conto_cliente = self.find(By.XPATH, '(//b[text() = "110 Crediti clienti e crediti diversi"]/ancestor::h5[1]/following-sibling::div//button[@class="btn btn-xs btn-primary"]/preceding::td[1])[1]').text
+        conto_cliente = self.find(By.XPATH, '(//b[text() = "110 Crediti clienti e crediti diversi"]/ancestor::h5[1]/following-sibling::div//button[@class="btn btn-default btn-xs plus-btn"]/following::td[1])[1]').text
         conto_iva = self.find(By.XPATH, '(//b[text() = "900 Conti transitori"]/ancestor::h5[1]/following-sibling::div//td)[2]').text
         
 

@@ -11,12 +11,12 @@ class DdtUscita(Test):
         self.expandSidebar("Magazzino")
         self.navigateTo("Ddt in uscita")
 
-    def test_creazione_ddt_entrata(self):
+    def test_creazione_ddt_uscita(self):
         # Crea un nuovo ddt al cliente "Cliente". 
         importi = RowManager.list()
-        self.creazione_ddt_entrata("Cliente", "1", importi[0])
+        self.creazione_ddt_uscita("Cliente", "1", importi[0])
 
-    def creazione_ddt_entrata(self, cliente: str, causale: str, file_importi: str):
+    def creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):
         # Crea un nuovo ddt al cliente indicato. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()

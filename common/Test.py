@@ -134,7 +134,7 @@ class Test(unittest.TestCase):
 
         return self.find_elements(By.CSS_SELECTOR, '.modal')[-1]
 
-    def wait(self, condition, timeout=5):
+    def wait(self, condition, timeout=20):
         # Attende un evento specifico con timeout di 5 secondi o personalizzabile.
         WebDriverWait(self.driver, timeout).until(condition)
 
