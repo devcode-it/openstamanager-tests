@@ -21,7 +21,8 @@ class PianiScontoRincaro(Test):
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue(nome)
-        self.input(modal, 'Sconto/rincaro').setValue(sconto)
+        self.input(modal, 'Sconto/magg. combinato').setValue(sconto)
+        self.input(modal, 'Sconto/magg.').setValue(sconto)
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()

@@ -2,6 +2,7 @@ from common.Test import Test, get_html
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from common.Test import Test, get_text
+import time
 
 class Articoli(Test):
     def setUp(self):
@@ -41,6 +42,7 @@ class Articoli(Test):
 
         # Causale movimento 
         self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Descrizione movimento').setValue(desc_movimento)
+        time.sleep(4)
 
         # Salvataggio 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
