@@ -3,18 +3,18 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 
-class PianiScontoRincaro(Test):
+class PianiScontoMagg(Test):
     def setUp(self):
         super().setUp()
 
         self.expandSidebar("Magazzino")
-        self.navigateTo("Piani di sconto/rincaro")
+        self.navigateTo("Piani di sconto/magg.")
 
-    def test_creazione_piano_sconto_rincaro(self):
+    def test_creazione_piano_sconto_magg(self):
         # Crea un nuovo piano. 
-        self.creazione_piano_sconto_rincaro("Piano di sconto 1", "10")
+        self.creazione_piano_sconto_magg("Piano di sconto 1", "10")
 
-    def creazione_piano_sconto_rincaro(self, nome: str, sconto: str):
+    def creazione_piano_sconto_magg(self, nome: str, sconto: str):
         # Crea un nuovo piano. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
