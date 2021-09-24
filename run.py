@@ -6,7 +6,7 @@ directory = os.path.dirname(directory)
 
 filename = directory + '/config.json'
 
-with open(filename, 'w+') as json_file:
+with open(filename, 'r') as json_file:
     tests = json.load(json_file)
 
 for test in tests:
