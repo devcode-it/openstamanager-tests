@@ -56,14 +56,15 @@ class Test(unittest.TestCase):
         self.driver.quit()
         None
 
-    def setUp(self):
+    def setUp(self, login=True):
         # Inizializza l'ambiente di test
         super().setUp()
 
         self.connect()
         # self.test_config()
-        self.login(self.getConfig('login.username'),
-                   self.getConfig('login.password'))
+        if login:
+            self.login(self.getConfig('login.username'),
+                       self.getConfig('login.password'))
 
     # Source: https://stackoverflow.com/a/6027615
     def __flatten(self, d, parent_key='', sep='.'):
@@ -111,21 +112,25 @@ class Test(unittest.TestCase):
         # Ricerca una serie di componenti HTML nella pagina.
         return self.driver.find_elements(by, value)
 
+
     def wait_loader(self):
-        # Attende il completamento del caricamento della pagina, visibile attraverso il loader principale.
+        """
+        Attende il completamento del caricamento della pagina, visibile attraverso il loader principale.
+        """
+        """
         self.wait(lambda x: self.driver.execute_script('return document.readyState;') == "complete")
 
         self.wait(lambda x: self.driver.execute_script(
-            'return  document.getElementById("main_loading").style.display === "none";') == True)
+            'return document.getElementById("main_loading").style.display === "none";') == True)
 
         self.wait(lambda x: self.driver.execute_script(
-            'return  document.getElementById("mini-loader").style.display === "none";') == True)
+            'return document.getElementById("mini-loader").style.display === "none";') == True)
 
         self.wait(lambda x: self.driver.execute_script(
             'if(document.getElementsByClassName("local-loader")[0]!==undefined){ return  document.getElementsByClassName("local-loader")[0].classList.contains("hidden"); } else { return true; }') == True)
-
-        # self.wait(expected_conditions.invisibility_of_element_located(
-        #    (By.ID, 'main_loading')))
+"""
+        self.wait(expected_conditions.invisibility_of_element_located(
+            (By.ID, 'main_loading')))
 
     def wait_modal(self):
         # Attende il caricamento del modal e ne restituisce un riferimento.

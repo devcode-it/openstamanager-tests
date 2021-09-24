@@ -7,7 +7,7 @@ from common.Test import Test
 class Init(Test):
     def setUp(self):
         # Inizializza l'ambiente di test
-        super().setUp()
+        super().setUp(False)
 
         self.connect()
 
