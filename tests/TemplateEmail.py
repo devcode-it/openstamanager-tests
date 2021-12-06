@@ -12,9 +12,9 @@ class TemplateEmail(Test):
     def test_creazione_template_email(self):
 
         # Crea un nuovo template.   
-        self.add_template_email('Template di prova', 'Anagrafiche')
+        self.add_template_email('Template di prova', 'Anagrafiche', '1')
 
-    def add_template_email(self, nome: str, modulo: str):
+    def add_template_email(self, nome: str, modulo: str, account: str):
         # Crea un nuovo template
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
@@ -26,7 +26,8 @@ class TemplateEmail(Test):
         select = self.input(modal, 'Modulo del template')
         select.setByText(modulo)
     
-        
+        select = self.input(modal, 'Indirizzo email')
+        select.setByIndex(account)
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
