@@ -32,6 +32,7 @@ class Test(unittest.TestCase):
 
         self.driver = driver
         self.driver.get(self.getConfig('server'))
+        self.driver.maximize_window()
 
         self.addCleanup(self.close)
 
