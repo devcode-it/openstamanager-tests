@@ -14,7 +14,7 @@ class Interventi(Test):
     def test_creazione_intervento(self):
         # Crea un nuovo intervento. 
         importi = RowManager.list()
-        self.creazione_intervento("Cliente", "1", "1", "Intervento n.1", importi[0])
+        self.creazione_intervento("Cliente", "1", "2", "Intervento n.1", importi[0])
 
     def creazione_intervento(self, cliente: str, tipo: str, stato: str, richiesta: str, file_importi: str):
         # Crea un nuovo intervento. 
