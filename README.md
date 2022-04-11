@@ -25,73 +25,75 @@ python3 -m unittest discover tests -p '*.py'
 ```
 
 ## Stato di avanzamento
-| Modulo | Descrizione | Stato |
-|--------|-------------|:-------:|
-| Anagrafiche | Crea nuova anagrafica per ogni tipologia |:heavy_check_mark: |
-| - Relazioni | 
-| - Zone | 
-| Gestione email |
-| - Newsletter | Crea una nuova Newsletter | :heavy_check_mark: |
-| - Coda di invio |
-| - Template email | Crea un nuovo template email | :heavy_check_mark: |
-| - Account email | 
-| Gestione documentale | Crea un nuovo documento | :heavy_check_mark: |
-| - Categorie documenti | Crea una nuova categoria documenti |:heavy_check_mark: |
-| Attività | Crea un nuovo intervento | :heavy_check_mark: |
-| - Tipi di attività |
-| - Fasce orarie |
-| - Stati di attività |
-| - Tecnici e tariffe |
-| Vendite | 
-| - Preventivi | Crea un preventivo |:heavy_check_mark: |
-| - Contratti | Crea un nuovo contratto |:heavy_check_mark: |
-| - Ordini cliente | Crea un nuovo ordine cliente | :heavy_check_mark: |
-| - Fatture di vendita | Crea una nuova fattura di vendita e una nota di credito |:heavy_check_mark: |
-| Acquisti |
-| - Ordini fornitore | Crea un nuovo ordine fornitore| :heavy_check_mark: |
-| - Fatture di acquisto |Crea una nuova fattura di acquisto| :heavy_check_mark: |
-| Contabilità |
-| - Stampe contabili |
-| - Prima nota |
-| - Piano dei conti |
-| - Scadenzario | Crea una nuova scadenza | :heavy_check_mark: |
-| Magazzino |
-| - Articoli | Crea un nuovo articolo | :heavy_check_mark: |
-| - Movimenti | Crea un nuovo movimento | :heavy_check_mark: |
-| - Listini |
-| - Piani di sconto/magg. | Crea un nuovo piano | :heavy_check_mark: |
-| - Ddt in uscita | Crea un nuovo Ddt|:heavy_check_mark: |
-| - Ddt in entrata | Crea un nuovo Ddt|:heavy_check_mark: |
-| - Giacenza sedi |
-| - Attributi Combinazioni |
-| - Combinazioni |
-| Impianti | Crea un nuovo impianto | :heavy_check_mark: |
-| - Categorie impianti |
-| Strumenti |
-| - Tabelle |
-| -- Tipi di spedizione |
-| -- Eventi |
-| -- Tipi documento |
-| -- Causali movimenti |
-| -- Tipi scadenze |
-| -- Stati dei contratti |
-| -- Stati dei preventivi |
-| -- Ritenute previdenziali |
-| -- Casse previdenziali |
-| -- IVA |
-| -- Modelli prima nota |
-| -- Banche | Crea una nuova banca | :heavy_check_mark: |
-| -- Ritenute acconto |
-| -- Categorie articoli |
-| -- Pagamenti |
-| -- Porto |
-| -- Unità di misura |
-| -- Aspetto beni |
-| -- Causali |
-| -- Mansioni referenti |
-| - Segmenti |
-| - Import |
-| - Checklists |
-| - Utenti e permessi |
-| - Backup |
-| - Aggiornamenti |
+ Modulo  | :eye:|:heavy_plus_sign:| :pencil:|:wastebasket:|:bookmark_tabs: | Note |
+-------- | :----:|:----------------:|:-------:|:-----------:|:--------------:|:---:|
+ Dashboard  | :heavy_check_mark: |||-|-|
+ Anagrafiche  | :heavy_check_mark: |:heavy_check_mark: | | -|-|
+ - Relazioni  | :heavy_check_mark: |  :heavy_check_mark: |||-|
+ - Zone  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ Gestione email  | -|-|-|-|-|
+ - Newsletter  | :heavy_check_mark: |:heavy_check_mark: |||-|
+ - Coda di invio  | :heavy_check_mark: |-|-|-|-|
+ - Template email  | :heavy_check_mark: |  :heavy_check_mark: |||-|
+ - Account email  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ Gestione documentale  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ - Categorie documenti  | :heavy_check_mark: |:heavy_check_mark: |||-|
+ Attività  | :heavy_check_mark: |  :heavy_check_mark: |||:heavy_check_mark: |
+ - Tipi di attività  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ - Fasce orarie  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ - Stati di attività  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ Vendite  | - | -|-|-|-|
+ - Preventivi  | :heavy_check_mark: | :heavy_check_mark: |||:heavy_check_mark: |
+ - Contratti  | :heavy_check_mark: | :heavy_check_mark: |||:heavy_check_mark: |
+ - Ordini cliente  | :heavy_check_mark: |  :heavy_check_mark: |||:heavy_check_mark: |
+ - Fatture di vendita  | :heavy_check_mark: | :heavy_check_mark: || :heavy_check_mark: |:heavy_check_mark: | Fattura + Nota di credito|
+ Acquisti  | - |-|-|-|-|
+ - Ordini fornitore  | :heavy_check_mark: |:heavy_check_mark: |||:heavy_check_mark: |
+ - Fatture di acquisto  | :heavy_check_mark: |:heavy_check_mark: |||:heavy_check_mark: |||:heavy_check_mark: |
+ Contabilità  | -|-|-|-|-|
+ - Stampe contabili  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ - Prima nota  | :heavy_check_mark: ||||-|
+ - Piano dei conti  | :heavy_check_mark: | -|-|-|-|
+ - Scadenzario  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ Magazzino  | - |-|-|-|-|
+ - Articoli  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ - Movimenti  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ - Listini  | :heavy_check_mark: | - |-|-|-|
+ - Piani di sconto/magg.  | :heavy_check_mark: |  :heavy_check_mark: |||-|
+ - Ddt in uscita  | :heavy_check_mark: |:heavy_check_mark: |||:heavy_check_mark: |
+ - Ddt in entrata  | :heavy_check_mark: | :heavy_check_mark: |||:heavy_check_mark: |
+ - Attributi Combinazioni  | :heavy_check_mark: |:heavy_check_mark: |||-|
+ - Combinazioni  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ Impianti  | :heavy_check_mark: |  :heavy_check_mark: |||-|
+ - Categorie impianti  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ Strumenti  | - |-|-|-|-|
+ - Tabelle  | - |-|-|-|-|
+ -- Tipi di spedizione  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ -- Eventi  | :heavy_check_mark: |:heavy_check_mark: |||-|
+ -- Tipi documento  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ -- Causali movimenti  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ -- Tipi scadenze  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ -- Stati dei contratti  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ -- Stati dei preventivi  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ -- Ritenute previdenziali  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ -- Casse previdenziali  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ -- IVA  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ -- Modelli prima nota  | :heavy_check_mark: ||||-|
+ -- Banche  | :heavy_check_mark: |  :heavy_check_mark: |||-|
+ -- Ritenute acconto  | :heavy_check_mark: |:heavy_check_mark: |||-|
+ -- Categorie articoli  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ -- Pagamenti  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ -- Porto  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ -- Unità di misura  | :heavy_check_mark: |:heavy_check_mark: |||-|
+ -- Aspetto beni  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ -- Causali  | :heavy_check_mark: |:heavy_check_mark: |||-|
+ -- Mansioni referenti  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ - Impostazioni  | :heavy_check_mark: |-|-|-|-|
+ - Segmenti  | :heavy_check_mark: | :heavy_check_mark: |||-|
+ - Import  | :heavy_check_mark: ||-|-|-|
+ - Stato dei servizi  | :heavy_check_mark: |-|-|-|-|
+ - Checklists  | :heavy_check_mark: |:heavy_check_mark: |||-|
+ - Utenti e permessi  | :heavy_check_mark: |:heavy_check_mark: |||-|
+ - Viste  | :heavy_check_mark: |-|-|-|-|
+ - Backup  | :heavy_check_mark: |:heavy_check_mark: |-|-|-|
+ - Aggiornamenti  | :heavy_check_mark: | -|-|-|-|

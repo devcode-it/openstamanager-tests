@@ -87,7 +87,7 @@ class Test(unittest.TestCase):
         # URL pagina corrente
         current_url = self.driver.current_url
 
-        xpath = ''.join(['//a[contains(., "', name, '")]'])
+        xpath = ''.join(['//a/span[text()="', name, '"]'])
         link = self.find(By.XPATH, xpath)
 
         try:
