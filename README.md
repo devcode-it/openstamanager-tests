@@ -28,35 +28,36 @@ python3 -m unittest discover tests -p '*.py'
  Modulo  | :eye:|:heavy_plus_sign:| :pencil:|:wastebasket:|:bookmark_tabs: | Note |
 -------- | :----:|:----------------:|:-------:|:-----------:|:--------------:|:---:|
  Dashboard  | :heavy_check_mark: |||-|-||
- Anagrafiche  | :heavy_check_mark: |:heavy_check_mark: | | -|-||
- » Relazioni  | :heavy_check_mark: |  :heavy_check_mark: |||-||
- » Zone  | :heavy_check_mark: | :heavy_check_mark: |||-||
- Gestione email  | -|-|-|-|-||
- » Newsletter  | :heavy_check_mark: |:heavy_check_mark: |||-||
+ Anagrafiche  | :heavy_check_mark: |:heavy_check_mark: | :heavy_check_mark:|:heavy_check_mark: |-||
+ » Relazioni  | :heavy_check_mark: |  :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ » Zone  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ Gestione email  | :heavy_check_mark:|-|-|-|-||
+ » Newsletter  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
  » Coda di invio  | :heavy_check_mark: |-|-|-|-||
- » Template email  | :heavy_check_mark: |  :heavy_check_mark: |||-||
- » Account email  | :heavy_check_mark: | :heavy_check_mark: |||-||
- Gestione documentale  | :heavy_check_mark: | :heavy_check_mark: |||-||
- » Categorie documenti  | :heavy_check_mark: |:heavy_check_mark: |||-||
- Attività  | :heavy_check_mark: |  :heavy_check_mark: |||:heavy_check_mark: ||
- » Tipi di attività  | :heavy_check_mark: | :heavy_check_mark: |||-||
- » Fasce orarie  | :heavy_check_mark: | :heavy_check_mark: |||-||
- » Stati di attività  | :heavy_check_mark: | :heavy_check_mark: |||-||
- Vendite  | - | -|-|-|-||
- » Preventivi  | :heavy_check_mark: | :heavy_check_mark: |||:heavy_check_mark: ||
- » Contratti  | :heavy_check_mark: | :heavy_check_mark: |||:heavy_check_mark: ||
- » Ordini cliente  | :heavy_check_mark: |  :heavy_check_mark: |||:heavy_check_mark: ||
- » Fatture di vendita  | :heavy_check_mark: | :heavy_check_mark: || :heavy_check_mark: |:heavy_check_mark: | Fattura + Nota di credito|
- Acquisti  | - |-|-|-|-||
- » Ordini fornitore  | :heavy_check_mark: |:heavy_check_mark: |||:heavy_check_mark: ||
- » Fatture di acquisto  | :heavy_check_mark: |:heavy_check_mark: |||:heavy_check_mark: ||
- Contabilità  | -|-|-|-|-||
- » Stampe contabili  | :heavy_check_mark: | :heavy_check_mark: |||-||
- » Prima nota  | :heavy_check_mark: ||||-||
+ » Template email  | :heavy_check_mark: |  :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ » Account email  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ Gestione documentale  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ » Categorie documenti  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: |-||
+ Attività  | :heavy_check_mark: |  :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark: ||
+ » Tipi di attività  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ » Fasce orarie  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ » Stati di attività  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ » Tecnici e tariffe |:heavy_check_mark:|-|:heavy_check_mark:|-|-||
+ Vendite  | :heavy_check_mark:| -|-|-|-||
+ » Preventivi  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark: ||
+ » Contratti  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark: ||
+ » Ordini cliente  | :heavy_check_mark: |  :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark: ||
+ » Fatture di vendita  | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark:| :heavy_check_mark: |:heavy_check_mark: | Fattura + Nota di credito|
+ Acquisti  | :heavy_check_mark: |-|-|-|-||
+ » Ordini fornitore  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark: ||
+ » Fatture di acquisto  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark: ||
+ Contabilità  |:heavy_check_mark:|-|-|-|-||
+ » Stampe contabili  | :heavy_check_mark: | -|-|-|-||
+ » Prima nota  | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-||
  » Piano dei conti  | :heavy_check_mark: | -|-|-|-||
- » Scadenzario  | :heavy_check_mark: | :heavy_check_mark: |||-||
- Magazzino  | - |-|-|-|-||
- » Articoli  | :heavy_check_mark: | :heavy_check_mark: |||-||
+ » Scadenzario  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ Magazzino  | :heavy_check_mark: |-|-|-|-||
+ » Articoli  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
  » Movimenti  | :heavy_check_mark: | :heavy_check_mark: |||-||
  » Listini  | :heavy_check_mark: | - |-|-|-||
  » Piani di sconto/magg.  | :heavy_check_mark: |  :heavy_check_mark: |||-||

@@ -14,7 +14,7 @@ class DdtUscita(Test):
     def test_creazione_ddt_uscita(self):
         # Crea un nuovo ddt al cliente "Cliente". 
         importi = RowManager.list()
-        self.creazione_ddt_uscita("Cliente", "1", importi[0])
+        self.creazione_ddt_uscita("Cliente", "2", importi[0])
 
     def creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):
         # Crea un nuovo ddt al cliente indicato. 
@@ -31,9 +31,9 @@ class DdtUscita(Test):
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
-        
+
         #toast = self.driver.find_elements(By.CLASS_NAME, 'toast-message')
         #self.assertIn('Aggiunto ddt', toast)
-
+        
         row_manager = RowManager(self)
         row_manager.compile(file_importi)

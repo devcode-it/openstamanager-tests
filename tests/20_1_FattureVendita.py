@@ -3,31 +3,28 @@ from common.RowManager import RowManager
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import time
+from time import sleep
 
-
-class FattureVenditaNotaCredito(Test):
+class FattureVendita(Test):
     def setUp(self):
         super().setUp()
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
 
-    def test_creazione_fattura_vendita_nota_credito(self):
-        # Crea una nuova nota di credito per il cliente "Cliente". 
+    def test_creazione_fattura_vendita(self):
+        # Crea una nuova fattura per il cliente "Cliente". 
         importi = RowManager.list()
-        self.creazione_fattura_vendita_nota_credito("Cliente", importi[0])
+        self.creazione_fattura_vendita("Cliente", importi[0])
 
-    def creazione_fattura_vendita_nota_credito(self, cliente: str, file_importi: str):
-        # Crea una nuova nota di credito per il cliente indicato. 
+    def creazione_fattura_vendita(self, cliente: str, file_importi: str):
+        # Crea una nuova fattura per il cliente indicato. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
         select = self.input(modal, 'Cliente')
         select.setByText(cliente)
-
-        select = self.input(modal, 'Tipo documento')
-        select.setByText("TD04 - Nota di credito")
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
@@ -37,6 +34,7 @@ class FattureVenditaNotaCredito(Test):
         #self.assertIn('Aggiunto fattura', toast)
 
         # Inserisco le righe
+        sleep(1)
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
 
@@ -46,17 +44,18 @@ class FattureVenditaNotaCredito(Test):
 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
-
+        sleep(1)
+        
         # Estrazione totali righe
+        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
         totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
-        totale_imponibile = '-'+totale_imponibile
         iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
+        iva = '-' + iva
         totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
-        totale = '-'+totale
 
         # Controllo Scadenzario
         scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
-        self.assertEqual(totale, scadenza_fattura[12:21])
+        self.assertEqual(totale, scadenza_fattura[12:20])
 
         self.driver.execute_script('$("a").removeAttr("target")')
         self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::a').click()
@@ -77,7 +76,7 @@ class FattureVenditaNotaCredito(Test):
         # Confronto i due valori
         self.assertEqual(totale_imponibile, widget_fatturato)
         self.assertEqual(totale, widget_crediti)
-        
+
         # Controllo importi fattura elettronica
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
@@ -92,13 +91,13 @@ class FattureVenditaNotaCredito(Test):
 
         perc_iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]').text
         iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]').text
-        iva_FE = iva_FE+' €'
+        iva_FE ='-'+iva_FE+' €'
         totale_imponibile_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[5]').text
-        totale_imponibile_FE = '-'+totale_imponibile_FE+' €'
+        totale_imponibile_FE = totale_imponibile_FE+' €'
         totale_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[3]/td[4]').text
-        totale_FE = '-'+totale_FE+' €'
+        totale_FE = totale_FE+' €'
         scadenza_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][4]/tbody/tr[1]/td[4]').text
-        scadenza_FE = '-'+scadenza_FE+' €'
+        scadenza_FE = scadenza_FE+' €'
 
         self.assertEqual('22,00', perc_iva_FE)
         self.assertEqual(iva, iva_FE)
@@ -111,10 +110,24 @@ class FattureVenditaNotaCredito(Test):
         self.expandSidebar("Contabilità")
         self.navigateTo("Piano dei conti")
 
-        conto_ricavi = self.find(By.XPATH, '(//b[text() = "700 Ricavi"]/ancestor::h5[1]/following-sibling::div//td)[2]').text
-        conto_cliente = self.find(By.XPATH, '(//b[text() = "110 Crediti clienti e crediti diversi"]/ancestor::h5[1]/following-sibling::div//button[@class="btn btn-default btn-xs plus-btn"]/following::td[1])[1]').text
-        conto_iva = self.find(By.XPATH, '(//b[text() = "900 Conti transitori"]/ancestor::h5[1]/following-sibling::div//td)[2]').text
-        
+        self.find(By.XPATH, '//*[@id="conto3-20"]//*[@class="fa fa-plus"]').click()
+        sleep(1) 
+        self.find(By.XPATH, '//*[@id="movimenti-94"]//*[@class="fa fa-plus"]').click()
+        sleep(1) 
+        conto_ricavi = self.find(By.XPATH, '//*[@id="conto3-94"]//*[@class="text-right"]').text
+       
+        self.find(By.XPATH, '//*[@id="conto3-2"]//*[@class="fa fa-plus"]').click()
+        sleep(1)
+        self.find(By.XPATH, '//*[@id="movimenti-115"]//*[@class="fa fa-plus"]').click()
+        sleep(1) 
+        conto_cliente = self.find(By.XPATH, '//*[@id="conto_115"]//*[@class="text-right"]').text
+   
+        self.find(By.XPATH, '//*[@id="conto3-22"]//*[@class="fa fa-plus"]').click()
+        sleep(1)
+        self.find(By.XPATH, '//*[@id="movimenti-106"]//*[@class="fa fa-plus"]').click()        
+        sleep(1) 
+        conto_iva = self.find(By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]').text
+        conto_iva= '-'+ conto_iva
 
         self.assertEqual(totale_imponibile, conto_ricavi)
         self.assertEqual(totale, conto_cliente)
@@ -131,5 +144,6 @@ class FattureVenditaNotaCredito(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
+
        
 
