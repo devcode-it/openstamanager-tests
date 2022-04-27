@@ -1,6 +1,11 @@
 from common.Test import Test, get_html
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from time import sleep
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class Eventi(Test):
@@ -9,13 +14,56 @@ class Eventi(Test):
 
         self.expandSidebar("Strumenti")
         self.expandSidebar("Tabelle")
-        self.navigateTo("Eventi")
+       
 
-    def test_creazione_eventi(self):
-        self.creazione_eventi(nome="Prova Evento 1", nazione= "IT - Italia")
+    def test_creazione_eventi(self, modifica="Evento di Prova", data="20/02/2022"):
+        self.creazione_eventi(nome="Evento di Prova da Modificare", nazione= "IT - Italia")
+        self.creazione_eventi(nome="Evento di Prova da Eliminare", nazione= "IT - Italia")
+
+        # Modifica Evento
+        self.navigateTo("Eventi")
+        self.wait_loader()
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys('Evento di Prova da Modificare')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        
+        self.input(None,'Nome').setValue(modifica)
+        self.input(None, 'Data').setValue(data)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.wait_loader()
+
+
+        # Cancellazione Evento
+        self.navigateTo("Eventi")
+        self.wait_loader()    
+
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys('Evento di Prova da Eliminare')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+
+        sleep(2)
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()        
+
+
+
 
     def creazione_eventi(self, nome=str, nazione=str):
-
+        self.navigateTo("Eventi")
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 

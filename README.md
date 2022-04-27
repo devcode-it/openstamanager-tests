@@ -58,43 +58,45 @@ python3 -m unittest discover tests -p '*.py'
  » Scadenzario  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
  Magazzino  | :heavy_check_mark: |-|-|-|-||
  » Articoli  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
- » Movimenti  | :heavy_check_mark: | :heavy_check_mark: |||-||
+ » Movimenti  | :heavy_check_mark: | :heavy_check_mark: |-|:heavy_check_mark:  |-||
  » Listini  | :heavy_check_mark: | - |-|-|-||
- » Piani di sconto/magg.  | :heavy_check_mark: |  :heavy_check_mark: |||-||
- » Ddt in uscita  | :heavy_check_mark: |:heavy_check_mark: |||:heavy_check_mark: ||
- » Ddt in entrata  | :heavy_check_mark: | :heavy_check_mark: |||:heavy_check_mark: ||
- » Attributi Combinazioni  | :heavy_check_mark: |:heavy_check_mark: |||-||
- » Combinazioni  | :heavy_check_mark: | :heavy_check_mark: |||-||
- Impianti  | :heavy_check_mark: |  :heavy_check_mark: |||-||
- » Categorie impianti  | :heavy_check_mark: | :heavy_check_mark: |||-||
+ » Piani di sconto/magg.  | :heavy_check_mark: |  :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: |-||
+ » Ddt in uscita  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: ||
+ » Ddt in entrata  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: ||
+ » Giacenze sedi  | :heavy_check_mark: |-|-|-|-||
+ » Attributi Combinazioni  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ » Combinazioni  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ Impianti  | :heavy_check_mark: |  :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ » Categorie impianti  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:| :heavy_check_mark:|-||
+ » Statistiche | :heavy_check_mark: | - | -| -|-||
  Strumenti  | - |-|-|-|-||
  » Tabelle  | - |-|-|-|-||
- »» Tipi di spedizione  | :heavy_check_mark: | :heavy_check_mark: |||-||
- »» Eventi  | :heavy_check_mark: |:heavy_check_mark: |||-||
- »» Tipi documento  | :heavy_check_mark: | :heavy_check_mark: |||-||
- »» Causali movimenti  | :heavy_check_mark: | :heavy_check_mark: |||-||
- »» Tipi scadenze  | :heavy_check_mark: | :heavy_check_mark: |||-||
- »» Stati dei contratti  | :heavy_check_mark: | :heavy_check_mark: |||-||
- »» Stati dei preventivi  | :heavy_check_mark: | :heavy_check_mark: |||-||
- »» Ritenute previdenziali  | :heavy_check_mark: | :heavy_check_mark: |||-||
- »» Casse previdenziali  | :heavy_check_mark: | :heavy_check_mark: |||-||
- »» IVA  | :heavy_check_mark: | :heavy_check_mark: |||-||
- »» Modelli prima nota  | :heavy_check_mark: ||||-||
- »» Banche  | :heavy_check_mark: |  :heavy_check_mark: |||-||
- »» Ritenute acconto  | :heavy_check_mark: |:heavy_check_mark: |||-||
- »» Categorie articoli  | :heavy_check_mark: | :heavy_check_mark: |||-||
- »» Pagamenti  | :heavy_check_mark: | :heavy_check_mark: |||-||
- »» Porto  | :heavy_check_mark: | :heavy_check_mark: |||-||
- »» Unità di misura  | :heavy_check_mark: |:heavy_check_mark: |||-||
- »» Aspetto beni  | :heavy_check_mark: | :heavy_check_mark: |||-||
- »» Causali  | :heavy_check_mark: |:heavy_check_mark: |||-||
- »» Mansioni referenti  | :heavy_check_mark: | :heavy_check_mark: |||-||
+ »» Tipi di spedizione  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Eventi  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Tipi documento  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Causali movimenti  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: |-||
+ »» Tipi scadenze  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:| :heavy_check_mark:|-||
+ »» Stati dei contratti  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Stati dei preventivi  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Ritenute previdenziali  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Casse previdenziali  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» IVA  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Modelli prima nota  | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Banche  | :heavy_check_mark: |  :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Ritenute acconto  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Categorie articoli  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Pagamenti  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Porto  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Unità di misura  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Aspetto beni  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Causali  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ »» Mansioni referenti  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
  » Impostazioni  | :heavy_check_mark: |-|-|-|-||
- » Segmenti  | :heavy_check_mark: | :heavy_check_mark: |||-||
+ » Segmenti  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
  » Import  | :heavy_check_mark: ||-|-|-||
  » Stato dei servizi  | :heavy_check_mark: |-|-|-|-||
- » Checklists  | :heavy_check_mark: |:heavy_check_mark: |||-||
- » Utenti e permessi  | :heavy_check_mark: |:heavy_check_mark: |||-||
+ » Checklists  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ » Utenti e permessi  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
  » Viste  | :heavy_check_mark: |-|-|-|-||
  » Backup  | :heavy_check_mark: |:heavy_check_mark: |-|-|-||
  » Aggiornamenti  | :heavy_check_mark: | -|-|-|-||

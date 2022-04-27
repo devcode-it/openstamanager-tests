@@ -1,6 +1,11 @@
 from common.Test import Test, get_html
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from time import sleep
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class Banche(Test):
@@ -9,12 +14,52 @@ class Banche(Test):
 
         self.expandSidebar("Strumenti")
         self.expandSidebar("Tabelle")
-        self.navigateTo("Banche")
 
-    def test_creazione_banca(self):
-        self.creazione_banca(anagrafica="Cliente", nome="banca banca", iban="IT11C1234512345678912345679", bic="12345678")
+
+    def test_creazione_banca(self, modifica="Banca di Prova"):
+        self.creazione_banca(anagrafica="Cliente", nome="Banca di Prova da Modificare", iban="IT11C1234512345678912345679", bic="12345678")
+        self.creazione_banca(anagrafica="Cliente", nome="Banca di Prova da Eliminare", iban="IT11C1234512345678912345679", bic="12345678")
+
+        # Modifica Banca
+        self.navigateTo("Banche")
+        self.wait_loader()
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys('Banca di Prova da Modificare')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        
+        self.input(None,'Nome').setValue(modifica)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.wait_loader()
+
+
+        # Cancellazione Banca
+        self.navigateTo("Banche")
+        self.wait_loader()    
+
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys('Banca di Prova da Eliminare')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+
+        sleep(2)
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()      
 
     def creazione_banca(self, anagrafica: str, nome: str, iban: str, bic: str):
+        self.navigateTo("Banche")
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
@@ -22,9 +67,7 @@ class Banche(Test):
         select.setByText(anagrafica)
 
         self.input(modal, 'Nome').setValue(nome)
-
         self.input(modal, 'IBAN').setValue(iban)
-
         self.input(modal, 'BIC').setValue(bic)
         
 

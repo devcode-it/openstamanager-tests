@@ -2,6 +2,11 @@ from common.Test import Test, get_html
 from common.RowManager import RowManager
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from time import sleep
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class DdtEntrata(Test):
@@ -9,14 +14,57 @@ class DdtEntrata(Test):
         super().setUp()
 
         self.expandSidebar("Magazzino")
-        self.navigateTo("Ddt in entrata")
+        
 
-    def test_creazione_ddt_entrata(self):
+    def test_creazione_ddt_entrata(self, modifica="Ddt di Prova Modificato"):
         # Crea un nuovo ddt dal fornitore "Fornitore".
         importi = RowManager.list()
         self.creazione_ddt_entrata("Fornitore", "1", importi[0])
+        self.creazione_ddt_entrata("Fornitore", "2", importi[0])
+
+        # Modifica Ddt
+        self.navigateTo("Ddt in entrata")
+        self.wait_loader()
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
+        element.send_keys('1')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        
+        self.input(None,'Note').setValue(modifica)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.wait_loader()
+
+
+        # Cancellazione Ddt
+        self.navigateTo("Ddt in entrata")
+        self.wait_loader()    
+
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
+        element.send_keys('2')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+
+        sleep(2)
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+
+
 
     def creazione_ddt_entrata(self, fornitore: str, causale: str, file_importi: str):
+        self.navigateTo("Ddt in entrata")
         # Crea un nuovo ddt del fornitore indicato.
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()

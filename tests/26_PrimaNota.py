@@ -40,7 +40,7 @@ class PrimaNota(Test):
         self.wait_loader()
 
 
-        # Cancellazione contratto
+        # Cancellazione Prima nota
         self.navigateTo("Prima nota")
         self.wait_loader()  
 
@@ -73,9 +73,8 @@ class PrimaNota(Test):
         modal = self.wait_modal()
 
         self.find(By.XPATH, '//span[@id="select2-conto0-container"]').click()
-        self.find(By.XPATH, '//input[@class="select2-search__field"]').send_keys("100.000010", Keys.ENTER)
         sleep(1)
-        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click() 
+        self.find(By.XPATH, '//input[@class="select2-search__field"]').send_keys("100.000010", Keys.ENTER)
         sleep(1)
         self.find(By.XPATH, '//input[@id="avere0"]').send_keys("100,00")
 
