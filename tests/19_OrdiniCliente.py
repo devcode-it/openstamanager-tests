@@ -21,8 +21,8 @@ class OrdiniCliente(Test):
     def test_creazione_ordine_cliente(self, modifica = "Prova di Modifica"):
         # Crea una nuovo ordine cliente per il cliente "Cliente". 
         importi = RowManager.list()
-        #self.creazione_ordine_cliente("Cliente", importi[0])
-        #self.creazione_ordine_cliente("Cliente", importi[0])
+        self.creazione_ordine_cliente("Cliente", importi[0])
+        self.creazione_ordine_cliente("Cliente", importi[0])
 
         # Modifica ordine cliente
         self.navigateTo("Ordini cliente")
