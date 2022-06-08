@@ -27,7 +27,7 @@ python3 -m unittest discover tests -p '*.py'
 ## Stato di avanzamento
  Modulo  | :eye:|:heavy_plus_sign:| :pencil:|:wastebasket:|:bookmark_tabs: | Note |
 -------- | :----:|:----------------:|:-------:|:-----------:|:--------------:|:---:|
- Dashboard  | :heavy_check_mark: |||-|-||
+ Dashboard  | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|-||
  Anagrafiche  | :heavy_check_mark: |:heavy_check_mark: | :heavy_check_mark:|:heavy_check_mark: |-||
  » Relazioni  | :heavy_check_mark: |  :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
  » Zone  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||

@@ -60,6 +60,44 @@ class Attivita(Test):
         self.wait_loader()
 
 
+        # Controllo righe
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
+        element.send_keys('1')
+
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        sleep(2)
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+
+        imponibilerighe=('{:,.2f} €'.format(332)).replace('.',',')
+        scontorighe='{:,.2f} €'.format(2*15+150*20/100+272*10/100).replace('.',',')
+        totalerighe='{:,.2f} €'.format(332-87.20).replace('.',',')
+
+        imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]').text
+        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
+        totale = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+
+        self.assertEqual(imponibile, imponibilerighe)
+        self.assertEqual(sconto, scontorighe)
+        self.assertEqual(totale, totalerighe)
+
+
+        IVARIGHE='{:,.2f} €'.format(0.44+2.20*15+1.76*15-5.98).replace('.',',')
+        totalefinalerighe='{:,.2f} €'.format(244.80+53.86).replace('.',',')
+
+        imponibilefinale=self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[1]//td[2]').text
+        scontofinale=self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[2]//td[2]').text
+        totaleimpfinale=self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[3]//td[2]').text
+        IVA=self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[4]//td[2]').text
+        totalefinale=self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[5]//td[2]').text
+
+        self.assertEqual(imponibilefinale,imponibile)
+        self.assertEqual(scontofinale,sconto)
+        self.assertEqual(totaleimpfinale,totale)
+        self.assertEqual(IVA, IVARIGHE)
+        self.assertEqual(totalefinale, totalefinalerighe)
+
 
     def attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
         self.navigateTo("Attività")
