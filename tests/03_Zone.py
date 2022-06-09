@@ -16,48 +16,16 @@ class Zone(Test):
         self.expandSidebar("Anagrafiche")
         self.navigateTo("Zone")
 
-    def test_creazione_zone(self, modifica = "Zona di Prova"):
-        self.creazione_zone(codice="0001", descrizione="Zona Prova da Modificare")
-        self.creazione_zone(codice="0002", descrizione="Zona Prova da Cancellare")
+    def test_creazione_zone(self):
+        # Creazione Zone *Required*
+        self.creazione_zone(codice="0001", descrizione="Zona di Prova da Modificare")
+        self.creazione_zone(codice="0002", descrizione="Zona di Prova da Eliminare")
 
         # Modifica zona
-        self.navigateTo("Zone")
-        self.wait_loader()
-
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
-        element.send_keys('Zona Prova da Modificare')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        
-        self.input(None,'Descrizione').setValue(modifica)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
-        self.wait_loader()
-
-
+        self.modifica_zone("Zona di Prova")
+   
         # Cancellazione zona
-        self.navigateTo("Zone")
-        self.wait_loader()    
-
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
-
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
-        element.send_keys('Zona Prova da Cancellare')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
-
-        sleep(2)
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-
+        self.elimina_zone()
 
     def creazione_zone(self, codice=str, descrizione=str):
 
@@ -70,4 +38,40 @@ class Zone(Test):
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
 
+    def modifica_zone(self, modifica):
+        self.navigateTo("Zone")
+        self.wait_loader()
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
+        element.send_keys('Zona di Prova da Modificare')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        
+        self.input(None,'Descrizione').setValue(modifica)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.wait_loader()
+
+    def elimina_zone(self):
+        self.navigateTo("Zone")
+        self.wait_loader()    
+
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
+        element.send_keys('Zona di Prova da Eliminare')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
+
+        sleep(2)
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
         

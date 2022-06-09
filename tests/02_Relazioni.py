@@ -14,50 +14,16 @@ class Relazioni(Test):
         self.expandSidebar("Anagrafiche")
         self.navigateTo("Relazioni")
 
-    def test_creazione_relazioni(self, modifica="Prova1 Relazione modificata"):
+    def test_creazione_relazioni(self):
+        # Creazione relazione *Required*
+        self.creazione_relazioni("Relazione di Prova da Modificare","#9d2929")
+        self.creazione_relazioni("Relazione di Prova da Eliminare","#3737db")
 
-        #Creazione relazione
-        self.creazione_relazioni(descrizione= "Prova1",colore="#9d2929")
-        self.creazione_relazioni(descrizione="Prova2 da cancellare", colore="#3737db")
-
-        #Modifica relazione
-        self.navigateTo("Relazioni")
-        self.wait_loader()
-
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
-        element.send_keys('Prova1')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        
-        self.input(None,'Descrizione').setValue(modifica)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
-        self.wait_loader()
-
+        # Modifica relazione
+        self.modifica_relazioni("Relazione di Prova")
 
         # Cancellazione relazione
-
-        self.navigateTo("Relazioni")
-        self.wait_loader()    
-
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
-
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
-        element.send_keys('Prova2 da cancellare')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
-
-        sleep(2)
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
+        self.elimina_relazioni()
 
 
     def creazione_relazioni(self, descrizione=str, colore=str):
@@ -70,4 +36,41 @@ class Relazioni(Test):
         self.input(modal, 'Descrizione').setValue(descrizione)
 
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_relazioni(self, modifica=str):
+        self.navigateTo("Relazioni")
+        self.wait_loader()
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
+        element.send_keys('Relazione di Prova da Modificare')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        
+        self.input(None,'Descrizione').setValue(modifica)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.wait_loader()
+
+    def elimina_relazioni(self):
+        self.navigateTo("Relazioni")
+        self.wait_loader()    
+
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
+        element.send_keys('Relazione di Prova da Eliminare')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
+
+        sleep(2)
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
