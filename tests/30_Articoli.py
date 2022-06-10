@@ -17,13 +17,37 @@ class Articoli(Test):
         self.expandSidebar("Magazzino")
 
 
-    def test_creazione_articolo(self, qta = "10,00"):
-        # Crea un nuovo articolo. 
+    def test_creazione_articolo(self):
+        # Crea un nuovo articolo. *Required*
         self.creazione_articolo("01", "Articolo di Prova",)
         self.creazione_articolo("02", "Articolo di Prova da Eliminare")
         
-
         # Modifica articolo
+        self.modifica_articolo("10,00")
+        
+        # Cancellazione articolo
+        self.elimina_articolo()
+        
+
+    def creazione_articolo(self, codice: str, descrizione: str):
+        self.navigateTo("Articoli")
+        self.wait_loader() 
+
+        # #
+        # 1/2 Crea un nuovo articolo. 
+        # #
+        # Apre la schermata di nuovo elemento
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Codice').setValue(codice)
+        self.input(modal, 'Descrizione').setValue(descrizione)
+
+        # Submit
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+       
+    def modifica_articolo(self, qta=str):
         self.navigateTo("Articoli")
         self.wait_loader()
 
@@ -50,11 +74,14 @@ class Articoli(Test):
 
         self.assertEqual(input_qta, qta)
 
-        # Cancellazione articolo
         self.navigateTo("Articoli")
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_articolo(self):
+        self.navigateTo("Articoli")
+        self.wait_loader()  
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
         element.send_keys('Articolo di Prova da Eliminare')
@@ -68,24 +95,3 @@ class Articoli(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
-
-
-    def creazione_articolo(self, codice: str, descrizione: str):
-        self.navigateTo("Articoli")
-        self.wait_loader() 
-
-        # #
-        # 1/2 Crea un nuovo articolo. 
-        # #
-        # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Codice').setValue(codice)
-        self.input(modal, 'Descrizione').setValue(descrizione)
-
-        # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
-       
-

@@ -8,6 +8,6 @@ class StatoServizi(Test):
         super().setUp()
 
         
-    def test_statoservizi(self):
+    def test_stato_servizi(self):
         self.expandSidebar("Strumenti")
         self.navigateTo("Stato dei servizi")

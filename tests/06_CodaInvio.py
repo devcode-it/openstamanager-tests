@@ -8,7 +8,7 @@ class CodaInvio(Test):
         super().setUp()
 
         
-    def test_codainvio(self):
+    def test_coda_invio(self):
         self.navigateTo("Gestione email")
         self.navigateTo("Coda di invio")
 

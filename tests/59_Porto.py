@@ -16,11 +16,29 @@ class Porto(Test):
         self.expandSidebar("Tabelle")
         self.navigateTo("Porto")
 
-    def test_creazione_porto(self, modifica="Porto di Prova"):
+    def test_creazione_porto(self):
+        # Creazione Porto       *Required*
         self.creazione_porto(descrizione="Porto di Prova da Modificare")
         self.creazione_porto(descrizione="Porto di Prova da Eliminare")
 
         # Modifica Porto
+        self.modifica_porto("Porto di Prova")
+        
+        # Cancellazione Porto
+        self.elimina_porto()
+        
+
+    def creazione_porto(self, descrizione= str):
+
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Descrizione').setValue(descrizione)
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_porto(self, modifica=str):
         self.navigateTo("Porto")
         self.wait_loader()
 
@@ -39,8 +57,7 @@ class Porto(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione Porto
+    def elimina_porto(self):
         self.navigateTo("Porto")
         self.wait_loader()    
 
@@ -58,13 +75,3 @@ class Porto(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()      
-
-    def creazione_porto(self, descrizione= str):
-
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Descrizione').setValue(descrizione)
-
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()

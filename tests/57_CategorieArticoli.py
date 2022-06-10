@@ -15,11 +15,32 @@ class CategorieArticoli(Test):
         self.expandSidebar("Strumenti")
         self.expandSidebar("Tabelle")
 
-    def test_creazione_categoriearticoli(self, modifica="Categoria Articoli di Prova"):
-        self.creazione_categoriearticoli(nome= "Categoria Articoli di Prova da Modificare", colore="#9d2929", nota="Nota di prova categoria articoli")
-        self.creazione_categoriearticoli(nome= "Categoria Articoli di Prova da Eliminare", colore="#9d2929", nota="Nota di prova categoria articoli")
+    def test_creazione_categorie_articoli(self):
+        # Creazione categoria articoli      *Required*
+        self.creazione_categorie_articoli("Categoria Articoli di Prova da Modificare", "#9d2929", "Nota di prova categoria articoli")
+        self.creazione_categorie_articoli("Categoria Articoli di Prova da Eliminare", "#9d2929", "Nota di prova categoria articoli")
 
         # Modifica Categoria Articoli
+        self.modifica_categoria_articoli("Categoria Articoli di Prova")
+        
+        # Cancellazione Categoria Articoli
+        self.elimina_categoria_articoli()
+
+        
+    def creazione_categorie_articoli(self, nome= str, colore=str, nota=str):
+        self.navigateTo("Categorie articoli")
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Colore').setValue(colore)
+        self.input(modal, 'Nome').setValue(nome)
+        self.input(modal, 'Nota').setValue(nota)
+        
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_categoria_articoli(self, modifica):
         self.navigateTo("Categorie articoli")
         self.wait_loader()
 
@@ -37,12 +58,14 @@ class CategorieArticoli(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione Categoria Articoli
         self.navigateTo("Categorie articoli")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_categoria_articoli(self):
+        self.navigateTo("Categorie articoli")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
         element.send_keys('Categoria Articoli di Prova da Eliminare')
@@ -57,16 +80,3 @@ class CategorieArticoli(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()      
 
-
-    def creazione_categoriearticoli(self, nome= str, colore=str, nota=str):
-        self.navigateTo("Categorie articoli")
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Colore').setValue(colore)
-        self.input(modal, 'Nome').setValue(nome)
-        self.input(modal, 'Nota').setValue(nota)
-        
-
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()

@@ -12,12 +12,30 @@ class UtentiPermessi(Test):
         super().setUp()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Utenti e permessi")
 
-    def test_creazione_utentipermessi(self, user="$$$",anag="Admin spa", passw="1qa2ws3ed!",modifica="Lettura e Scrittura"):
-        self.creazione_utentipermessi(nome="Tipo Utente di Prova")
+
+    def test_creazione_utenti_permessi(self):
+        # Creazione utenti e permessi
+        self.creazione_utenti_permessi(nome="Tipo Utente di Prova")
 
         # Modifica Utenti e Permessi
+        self.modifica_utenti_permessi("$$$","Admin spa","1qa2ws3ed!","Lettura e Scrittura")
+        
+        # Cancellazione Utenti e Permessi
+        self.elimina_utenti_permessi()
+        
+
+    def creazione_utenti_permessi(self, nome):
+        self.navigateTo("Utenti e permessi")
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Nome').setValue(nome)
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_utenti_permessi(self, user=str, anag=str, passw=str, modifica=str):
         self.navigateTo("Utenti e permessi")
         self.wait_loader()
 
@@ -73,15 +91,14 @@ class UtentiPermessi(Test):
         element.send_keys(modifica)
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
 
-
-
-
-
-        # Cancellazione Utenti e Permessi
         self.navigateTo("Utenti e permessi")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Gruppo"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_utenti_permessi(self):
+        self.navigateTo("Utenti e permessi")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Gruppo"]/input')
         element.send_keys('Tipo Utente di Prova')
@@ -95,15 +112,3 @@ class UtentiPermessi(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()      
-
-
-    def creazione_utentipermessi(self, nome):
-
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Nome').setValue(nome)
-
-        
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()

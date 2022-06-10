@@ -18,13 +18,41 @@ class OrdiniCliente(Test):
         self.expandSidebar("Vendite")
 
 
-    def test_creazione_ordine_cliente(self, modifica = "Prova di Modifica"):
-        # Crea una nuovo ordine cliente per il cliente "Cliente". 
+    def test_creazione_ordine_cliente(self):
+        # Crea una nuovo ordine cliente per il cliente "Cliente". *Required*
         importi = RowManager.list()
         self.creazione_ordine_cliente("Cliente", importi[0])
         self.creazione_ordine_cliente("Cliente", importi[0])
 
         # Modifica ordine cliente
+        self.modifica_ordine_cliente("Prova di modifica")
+
+        # Cancellazione ordine cliente
+        self.elimina_ordine_cliente()
+
+
+    def creazione_ordine_cliente(self, cliente: str, file_importi: str):
+        self.navigateTo("Ordini cliente")
+        self.wait_loader() 
+
+        # Crea un nuovo ordine cliente per il cliente indicato. 
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        select = self.input(modal, 'Cliente')
+        select.setByText(cliente)
+
+        # Submit
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+        #toast = self.driver.find_elements(By.CLASS_NAME, 'toast-message')
+        #self.assertIn('Aggiunto ordine cliente', toast)
+
+        row_manager = RowManager(self)
+        row_manager.compile(file_importi)
+
+    def modifica_ordine_cliente(self, modifica=str):
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
@@ -42,13 +70,15 @@ class OrdiniCliente(Test):
 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
-
-
-        # Cancellazione ordine cliente
+        
         self.navigateTo("Ordini cliente")
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_ordine_cliente(self):
+        self.navigateTo("Ordini cliente")
+        self.wait_loader()  
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
         element.send_keys('02')
@@ -62,27 +92,3 @@ class OrdiniCliente(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
-
-
-
-    def creazione_ordine_cliente(self, cliente: str, file_importi: str):
-        self.navigateTo("Ordini cliente")
-        self.wait_loader() 
-
-        # Crea un nuovo ordine cliente per il cliente indicato. 
-        # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        select = self.input(modal, 'Cliente')
-        select.setByText(cliente)
-
-        # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
-
-        #toast = self.driver.find_elements(By.CLASS_NAME, 'toast-message')
-        #self.assertIn('Aggiunto ordine cliente', toast)
-
-        row_manager = RowManager(self)
-        row_manager.compile(file_importi)

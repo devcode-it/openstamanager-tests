@@ -16,11 +16,31 @@ class RitenuteAcconto(Test):
         self.expandSidebar("Tabelle")
         
 
-    def test_creazione_ritenuteacconto(self, modifica="Ritenuta Acconto di Prova"):
-        self.creazione_ritenuteacconto(descrizione= "Ritenuta Acconto di Prova da Modificare", percentuale="80,00", percentualeimp="60,00")
-        self.creazione_ritenuteacconto(descrizione= "Ritenuta Acconto di Prova da Eliminare", percentuale="20,00", percentualeimp="40,00")
+    def test_creazione_ritenute_acconto(self):
+        # Creazione ritenuta acconto        *Required*
+        self.creazione_ritenute_acconto("Ritenuta Acconto di Prova da Modificare", "80,00", "60,00")
+        self.creazione_ritenute_acconto("Ritenuta Acconto di Prova da Eliminare", "20,00", "40,00")
         
         # Modifica Ritenuta Acconto
+        self.modifica_ritenuta_acconto("Ritenuta Acconto di Prova")
+        
+        # Cancellazione Ritenuta Acconto
+        self.elimina_ritenuta_acconto()
+         
+
+    def creazione_ritenute_acconto(self, descrizione=str, percentuale=str, percentualeimp=str):
+        self.navigateTo("Ritenute acconto")
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Descrizione').setValue(descrizione)
+        self.input(modal, 'Percentuale').setValue(percentuale)
+        self.input(modal, 'Percentuale imponibile').setValue(percentualeimp)
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+    
+    def modifica_ritenuta_acconto(self, modifica):
         self.navigateTo("Ritenute acconto")
         self.wait_loader()
 
@@ -38,12 +58,14 @@ class RitenuteAcconto(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione Ritenuta Acconto
         self.navigateTo("Ritenute acconto")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_ritenuta_acconto(self):
+        self.navigateTo("Ritenute acconto")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
         element.send_keys('Ritenuta Acconto di Prova da Eliminare')
@@ -56,16 +78,4 @@ class RitenuteAcconto(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()      
-
-    def creazione_ritenuteacconto(self, descrizione=str, percentuale=str, percentualeimp=str):
-        self.navigateTo("Ritenute acconto")
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Descrizione').setValue(descrizione)
-        self.input(modal, 'Percentuale').setValue(percentuale)
-        self.input(modal, 'Percentuale imponibile').setValue(percentualeimp)
-
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
+        self.wait_loader()     

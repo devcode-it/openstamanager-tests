@@ -14,13 +14,30 @@ class AspettoBeni(Test):
 
         self.expandSidebar("Strumenti")
         self.expandSidebar("Tabelle")
-        self.navigateTo("Aspetto beni")
 
-    def test_creazione_aspettobeni(self, modifica="Aspetto Beni di Prova"):
-        self.creazione_aspettobeni(descrizione="Aspetto Beni di Prova da Modificare")
-        self.creazione_aspettobeni(descrizione="Aspetto Beni di Prova da Eliminare")
+
+    def test_creazione_aspetto_beni(self):
+        # Creazione aspetto beni    *Required*
+        self.creazione_aspetto_beni("Aspetto Beni di Prova da Modificare")
+        self.creazione_aspetto_beni("Aspetto Beni di Prova da Eliminare")
 
         # Modifica Aspetto Beni
+        self.modifica_aspetto_beni("Aspetto Beni di Prova")
+        
+        # Cancellazione Aspetto Beni
+        self.elimina_aspetto_beni()
+        
+    def creazione_aspetto_beni(self, descrizione=str):
+        self.navigateTo("Aspetto beni")
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Descrizione').setValue(descrizione)
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_aspetto_beni(self, modifica=str):
         self.navigateTo("Aspetto beni")
         self.wait_loader()
 
@@ -39,12 +56,14 @@ class AspettoBeni(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione Aspetto Beni
         self.navigateTo("Aspetto beni")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_aspetto_beni(self):
+        self.navigateTo("Aspetto beni")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
         element.send_keys('Aspetto Beni di Prova da Eliminare')
@@ -54,18 +73,9 @@ class AspettoBeni(Test):
         sleep(2)
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
+        sleep(1)
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()      
 
-
-    def creazione_aspettobeni(self, descrizione=str):
-
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Descrizione').setValue(descrizione)
-
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()

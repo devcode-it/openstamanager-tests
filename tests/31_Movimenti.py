@@ -16,28 +16,12 @@ class Movimenti(Test):
 
 
     def test_creazione_movimento(self, modifica="Movimento di Prova"):
-        # Crea movimento 
+        # Crea movimento *Required*
         self.creazione_movimento("10", "Articolo di Prova", "Movimento di Prova")
         self.creazione_movimento("5", "Articolo di Prova", "Movimento di Prova da Eliminare")
 
-
         # Cancellazione movimento
-        self.navigateTo("Movimenti")
-        self.wait_loader()  
-
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
-        element.send_keys('Movimento di Prova da Eliminare')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
-
-        sleep(2)
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//a[@class="btn btn-danger btn-xs ask"]/i[@class="fa fa-trash"]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-
+        self.elimina_movimento()
 
 
     def creazione_movimento(self, qta: str, articolo: str, descrizione:str):
@@ -58,6 +42,20 @@ class Movimenti(Test):
         
         #toast = self.driver.find_elements(By.CLASS_NAME, 'toast-message')
         #self.assertIn('Aggiunto movimento', toast)
-    
         
+    def elimina_movimento(self):
+        self.navigateTo("Movimenti")
+        self.wait_loader()  
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
+        element.send_keys('Movimento di Prova da Eliminare')
         
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
+
+        sleep(2)
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//a[@class="btn btn-danger btn-xs ask"]/i[@class="fa fa-trash"]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()

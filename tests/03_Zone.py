@@ -56,11 +56,14 @@ class Zone(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-    def elimina_zone(self):
         self.navigateTo("Zone")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_zone(self):
+        self.navigateTo("Zone")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
         element.send_keys('Zona di Prova da Eliminare')

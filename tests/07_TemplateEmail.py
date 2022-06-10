@@ -14,14 +14,41 @@ class TemplateEmail(Test):
         self.expandSidebar("Gestione email")
         
 
-    def test_creazione_template_email(self, modifica = "Template Email di Prova"):
+    def test_creazione_template_email(self):
 
-        # Crea un nuovo template.   
+        # Crea un nuovo template.   *Required* 
         self.add_template_email('Template Prova da Modificare', 'Anagrafiche', '1')
         self.add_template_email('Template Prova da Eliminare', 'Anagrafiche', '1')
 
-
         # Modifica template email
+        self.modifica_template("Template Email di Prova")
+
+        # Cancellazione template email
+        self.elimina_template()
+
+
+    def add_template_email(self, nome: str, modulo: str, account: str):
+        
+        self.navigateTo("Template email")
+
+        # Crea un nuovo template
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        # Completamento dei campi per il nuovo elemento
+        self.input(modal, 'Nome').setValue(nome)
+
+        select = self.input(modal, 'Modulo del template')
+        select.setByText(modulo)
+    
+        select = self.input(modal, 'Indirizzo email')
+        select.setByIndex(account)
+
+        # Submit
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_template(self, modifica:str):
         self.navigateTo("Template email")
         self.wait_loader()
 
@@ -39,12 +66,14 @@ class TemplateEmail(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione template email
         self.navigateTo("Template email")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_template(self):
+        self.navigateTo("Template email")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
         element.send_keys('Template Prova da Eliminare')
@@ -57,27 +86,4 @@ class TemplateEmail(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-
-
-    def add_template_email(self, nome: str, modulo: str, account: str):
-        
-        self.navigateTo("Template email")
-
-        # Crea un nuovo template
-        # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        # Completamento dei campi per il nuovo elemento
-        self.input(modal, 'Nome').setValue(nome)
-
-        select = self.input(modal, 'Modulo del template')
-        select.setByText(modulo)
-    
-        select = self.input(modal, 'Indirizzo email')
-        select.setByIndex(account)
-
-        # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()

@@ -15,13 +15,45 @@ class Attivita(Test):
         super().setUp()
 
        
-    def test_attivita(self, modifica="3"):
-        # Crea un nuovo intervento. 
+    def test_attivita(self):
+        # Crea un nuovo intervento. *Required*
         importi = RowManager.list()
         self.attivita("Cliente", "1", "2", importi[0])
         self.attivita("Cliente", "1", "2", importi[0])
 
         # Modifica intervento
+        self.modifica_attività("3")
+
+        # Cancellazione intervento
+        self.elimina_attività()
+
+        # Controllo righe
+        self.controllo_righe()
+
+        
+    def attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
+        self.navigateTo("Attività")
+
+        # Crea un nuovo intervento. 
+        # Apre la schermata di nuovo elemento
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Cliente').setByText(cliente)
+        self.input(modal, 'Tipo').setByIndex(tipo)
+        self.input(modal, 'Stato').setByIndex(stato)
+        
+        # Submit
+        modal.find_element(By.CSS_SELECTOR, 'button[class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        #toast = self.driver.find_elements(By.CLASS_NAME, 'toast-message')
+        #self.assertIn('Aggiunto intervento', toast)
+        sleep(1)
+        row_manager = RowManager(self)
+        row_manager.compile(file_importi)
+
+    def modifica_attività(self, modifica:str):
         self.navigateTo("Attività")
         self.wait_loader()
 
@@ -39,12 +71,13 @@ class Attivita(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione intervento
         self.navigateTo("Attività")
         self.wait_loader()  
-
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_attività(self):
+        self.navigateTo("Attività")
+        self.wait_loader()  
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
         element.send_keys('2')
@@ -58,10 +91,15 @@ class Attivita(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
-
-
-        # Controllo righe
+        
+        self.navigateTo("Attività")
+        self.wait_loader()  
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def controllo_righe(self):
+        self.navigateTo("Attività")
+        self.wait_loader()  
+        
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
         element.send_keys('1')
 
@@ -97,28 +135,3 @@ class Attivita(Test):
         self.assertEqual(totaleimpfinale,totale)
         self.assertEqual(IVA, IVARIGHE)
         self.assertEqual(totalefinale, totalefinalerighe)
-
-
-    def attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
-        self.navigateTo("Attività")
-
-        # Crea un nuovo intervento. 
-        # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Cliente').setByText(cliente)
-        self.input(modal, 'Tipo').setByIndex(tipo)
-        self.input(modal, 'Stato').setByIndex(stato)
-        
-        # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[class="btn btn-primary"]').click()
-        self.wait_loader()
-
-        #toast = self.driver.find_elements(By.CLASS_NAME, 'toast-message')
-        #self.assertIn('Aggiunto intervento', toast)
-        sleep(1)
-        row_manager = RowManager(self)
-        row_manager.compile(file_importi)
-
-        

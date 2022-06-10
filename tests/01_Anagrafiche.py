@@ -67,11 +67,14 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-    def elimina_anagrafica(self):     
         self.navigateTo("Anagrafiche")
         self.wait_loader()    
 
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_anagrafica(self):     
+        self.navigateTo("Anagrafiche")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Ragione-sociale"]/input')
         element.send_keys('Anagrafica di Prova da Eliminare')

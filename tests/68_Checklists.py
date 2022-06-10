@@ -12,12 +12,33 @@ class Checklists(Test):
         super().setUp()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Checklists")
 
-    def test_checklists(self, modifica="Checklist di Prova da Eliminare"):
-        self.checklists(nome= "Checklist di Prova da Modificare", modulo="Anagrafiche", plugin="Interventi svolti")
+
+    def test_checklists(self):
+        # Creazione Checklist
+        self.checklists("Checklist di Prova da Modificare", "Anagrafiche", "Interventi svolti")
 
         # Modifica Checklist
+        self.modifica_checklist("Checklist di Prova da Eliminare")
+        
+        # Cancellazione Checklist
+        self.elimina_checklist()
+        
+
+    def checklists(self, nome=str, modulo= str, plugin=str):
+        self.navigateTo("Checklists")
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Nome').setValue(nome)
+
+        select = self.input(modal, 'Modulo del template')
+        select.setByText(modulo)
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_checklist(self, modifica=str):
         self.navigateTo("Checklists")
         self.wait_loader()
 
@@ -35,12 +56,14 @@ class Checklists(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione Checklist
         self.navigateTo("Checklists")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_checklist(self):
+        self.navigateTo("Checklists")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
         element.send_keys('Checklist di Prova da Eliminare')
@@ -55,16 +78,3 @@ class Checklists(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()      
 
-
-    def checklists(self, nome=str, modulo= str, plugin=str):
-
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Nome').setValue(nome)
-
-        select = self.input(modal, 'Modulo del template')
-        select.setByText(modulo)
-
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()

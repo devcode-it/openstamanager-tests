@@ -15,11 +15,32 @@ class AccountEmail(Test):
         self.expandSidebar("Gestione email")
 
 
-    def test_creazione_accountemail(self, modifica = "Account Email di Prova", server="1", porta="1"):
-        self.creazione_accountemail(nomeaccount= "Account di Prova da Modificare", nomevisualizzato="Nome Cognome", emailmittente="accountprova@email.com")
-        self.creazione_accountemail(nomeaccount= "Account di Prova da Eliminare", nomevisualizzato="Nome Cognome", emailmittente="accountprova@email.it")
+    def test_creazione_accountemail(self):
+        # Creazione account email   *Required* 
+        self.creazione_account_email(nomeaccount= "Account di Prova da Modificare", nomevisualizzato="Nome Cognome", emailmittente="accountprova@email.com")
+        self.creazione_account_email(nomeaccount= "Account di Prova da Eliminare", nomevisualizzato="Nome Cognome", emailmittente="accountprova@email.it")
 
-        # Modifica email
+        # Modifica account email
+        self.modifica_account_email("Account Email di Prova", "1", "1")
+
+        # Cancellazione account email
+        self.elimina_account_email()
+
+        
+    def creazione_account_email(self, nomeaccount=str, nomevisualizzato=str, emailmittente=str):
+        self.navigateTo("Account email")
+
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Nome account').setValue(nomeaccount)
+        self.input(modal, 'Nome visualizzato').setValue(nomevisualizzato)
+        self.input(modal, 'Email mittente').setValue(emailmittente)
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_account_email(self, modifica:str, server:str, porta:str):
         self.navigateTo("Account email")
         self.wait_loader()
 
@@ -39,12 +60,14 @@ class AccountEmail(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione email
         self.navigateTo("Account email")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Nome-account"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_account_email(self):
+        self.navigateTo("Account email")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome-account"]/input')
         element.send_keys('Account di Prova da Eliminare')
@@ -57,18 +80,4 @@ class AccountEmail(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-
-
-    def creazione_accountemail(self, nomeaccount=str, nomevisualizzato=str, emailmittente=str):
-        self.navigateTo("Account email")
-
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Nome account').setValue(nomeaccount)
-        self.input(modal, 'Nome visualizzato').setValue(nomevisualizzato)
-        self.input(modal, 'Email mittente').setValue(emailmittente)
-
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()

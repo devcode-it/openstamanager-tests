@@ -8,6 +8,6 @@ class GestioneEmail(Test):
         super().setUp()
 
         
-    def test_gestioneemail(self):
+    def test_gestione_email(self):
         self.expandSidebar("Gestione email")
 

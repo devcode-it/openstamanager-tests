@@ -16,51 +16,18 @@ class OrdiniFornitore(Test):
         self.expandSidebar("Acquisti")
 
 
-    def test_creazione_ordine_fornitore(self, modifica = "Modifica di Prova"):
-        # Crea una nuovo ordine fornitore
+    def test_creazione_ordine_fornitore(self):
+        # Crea una nuovo ordine fornitore *Required*
         importi = RowManager.list()
         self.creazione_ordine_fornitore("Fornitore", importi[0])
         self.creazione_ordine_fornitore("Fornitore", importi[0])
 
         # Modifica ordine fornitore
-        self.navigateTo("Ordini fornitore")
-        self.wait_loader()
-
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys('1')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        
-        sleep(1)
-        self.input(None,'Note').setValue(modifica)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
-        self.wait_loader()
-
+        self.modifica_ordine_fornitore("Modifica di Prova")
 
         # Cancellazione ordine fornitore
-        self.navigateTo("Ordini fornitore")
-        self.wait_loader()  
-
-        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
-
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys('2')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
-
-        sleep(2)
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-
+        self.elimina_ordine_fornitore()
+    
 
     def creazione_ordine_fornitore(self, fornitore: str, file_importi: str):
         self.navigateTo("Ordini fornitore")
@@ -82,3 +49,44 @@ class OrdiniFornitore(Test):
 
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
+
+    def modifica_ordine_fornitore(self, modifica):
+        self.navigateTo("Ordini fornitore")
+        self.wait_loader()
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
+        element.send_keys('1')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        
+        sleep(1)
+        self.input(None,'Note').setValue(modifica)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Ordini fornitore")
+        self.wait_loader()  
+
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_ordine_fornitore(self):
+        self.navigateTo("Ordini fornitore")
+        self.wait_loader()  
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
+        element.send_keys('2')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+
+        sleep(2)
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()

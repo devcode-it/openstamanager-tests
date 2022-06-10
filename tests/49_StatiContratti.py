@@ -16,11 +16,29 @@ class StatiContratti(Test):
         self.expandSidebar("Tabelle")
         
 
-    def test_creazione_staticontratti(self, modifica="Stato dei Contratti di Prova"):
-        self.creazione_staticontratti( descrizione= "Stato dei Contratti di Prova da Modificare", icona="fa fa-check text-success")
-        self.creazione_staticontratti( descrizione= "Stato dei Contratti di Prova da Eliminare", icona="fa fa-thumbs-down text-danger")
+    def test_creazione_stati_contratti(self):
+        # Creazione stato contratti     *Required*
+        self.creazione_stato_contratti( descrizione= "Stato dei Contratti di Prova da Modificare", icona="fa fa-check text-success")
+        self.creazione_stato_contratti( descrizione= "Stato dei Contratti di Prova da Eliminare", icona="fa fa-thumbs-down text-danger")
 
         # Modifica Stato dei contratti
+        self.modifica_stato_contratti("Stato dei Contratti di Prova")
+        
+        # Cancellazione Stato dei contratti
+        self.elimina_stato_contratti()
+           
+    def creazione_stato_contratti(self, descrizione=str, icona=str):
+        self.navigateTo("Stati dei contratti")
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Descrizione').setValue(descrizione)
+        self.input(modal, 'Icona').setValue(icona)
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_stato_contratti(self, modifica=str):
         self.navigateTo("Stati dei contratti")
         self.wait_loader()
 
@@ -38,12 +56,14 @@ class StatiContratti(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione Stato dei contratti
         self.navigateTo("Stati dei contratti")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_stato_contratti(self):
+        self.navigateTo("Stati dei contratti")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
         element.send_keys('Stato dei Contratti di Prova da Eliminare')
@@ -56,15 +76,4 @@ class StatiContratti(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()        
-
-    def creazione_staticontratti(self, descrizione=str, icona=str):
-        self.navigateTo("Stati dei contratti")
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Descrizione').setValue(descrizione)
-        self.input(modal, 'Icona').setValue(icona)
-
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
+        self.wait_loader()     

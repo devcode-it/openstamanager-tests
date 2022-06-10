@@ -17,50 +17,19 @@ class PrimaNota(Test):
 
         self.expandSidebar("Contabilità")
 
-    def test_creazione_primanota(self, modifica = "Prima Nota di Prova (Fatt. n.1 del 01/01/2022)"):
+    def test_creazione_prima_nota(self):
+        # Creazione prima nota *Required*
         self.creazione_primanota(causale = "Prima Nota da Modificare")
         self.creazione_primanota(causale = "Prima Nota da Eliminare")
 
        # Modifica Prima Nota
-        self.navigateTo("Prima nota")
-        self.wait_loader()
-
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Causale"]/input')
-        element.send_keys('Prima Nota da Modificare')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys(Keys.ENTER)
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        
-        self.input(None,'Causale').setValue(modifica)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
-        self.wait_loader()
-
-
+        self.modifica_prima_nota("Prima Nota di Prova (Fatt. n.1 del 01/01/2022)")
+     
         # Cancellazione Prima nota
-        self.navigateTo("Prima nota")
-        self.wait_loader()  
+        self.elimina_prima_nota()
 
-        self.find(By.XPATH, '//th[@id="th_Causale"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
-
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Causale"]/input')
-        element.send_keys('Prima Nota da Eliminare')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys(Keys.ENTER)
-
-        sleep(2)
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-
-
-    def creazione_primanota(self,  causale = str):
+       
+    def creazione_prima_nota(self,  causale = str):
 
         self.navigateTo("Prima nota")
         self.wait_loader() 
@@ -89,4 +58,44 @@ class PrimaNota(Test):
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
     
+    def modifica_prima_nota(self, modifica=str):
+        self.navigateTo("Prima nota")
+        self.wait_loader()
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Causale"]/input')
+        element.send_keys('Prima Nota da Modificare')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        
+        self.input(None,'Causale').setValue(modifica)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Prima nota")
+        self.wait_loader()  
+
+        self.find(By.XPATH, '//th[@id="th_Causale"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_prima_nota(self):
+        self.navigateTo("Prima nota")
+        self.wait_loader()  
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Causale"]/input')
+        element.send_keys('Prima Nota da Eliminare')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys(Keys.ENTER)
+
+        sleep(2)
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
 

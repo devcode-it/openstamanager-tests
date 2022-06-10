@@ -13,14 +13,39 @@ class Newsletter(Test):
         super().setUp()
 
         
-    def test_creazione_newsletter(self, modifica = "Newsletter di Prova"):
+    def test_creazione_newsletter(self):
         self.expandSidebar("Gestione email")
         
-        # Crea una nuova newsletter.   
+        # Crea una nuova newsletter. *Required*   
         self.add_newsletter('Prova Newsletter da Modificare', "Contratto")
         self.add_newsletter('Prova Newsletter da Cancellare', "Ddt")
 
         # Modifica newsletter
+        self.modifica_newsletter("Newsletter di Prova")
+     
+        # Cancellazione newsletter
+        self.elimina_newsletter()
+
+        
+    def add_newsletter(self, nome: str, modulo: str):
+    
+        self.navigateTo("Newsletter")
+
+        # Crea una nuova newsletter
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        # Completamento dei campi per il nuovo elemento
+        select = self.input(modal, 'Template email')
+        select.setByText(modulo)
+    
+        self.input(modal, 'Nome').setValue(nome)
+
+        # Submit
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_newsletter(self, modifica:str):
         self.navigateTo("Newsletter")
         self.wait_loader()
 
@@ -38,12 +63,14 @@ class Newsletter(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione newsletter
         self.navigateTo("Newsletter")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_newsletter(self):
+        self.navigateTo("Newsletter")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
         element.send_keys('Prova Newsletter da Cancellare')
@@ -56,25 +83,4 @@ class Newsletter(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-
-
-    def add_newsletter(self, nome: str, modulo: str):
-    
-        self.navigateTo("Newsletter")
-
-        # Crea una nuova newsletter
-        # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        # Completamento dei campi per il nuovo elemento
-     
-        select = self.input(modal, 'Template email')
-        select.setByText(modulo)
-    
-        self.input(modal, 'Nome').setValue(nome)
-
-        # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()

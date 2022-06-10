@@ -15,12 +15,15 @@ class TecniciTariffe(Test):
         super().setUp()
 
         self.expandSidebar("Attività")
+        
+    def test_tecnici_tariffe(self):
+        # Modifica Tariffe
+        self.modifica_tariffe("28.00")
+
+
+    def modifica_tariffe(self, modifica):
         self.navigateTo("Tecnici e tariffe")
         self.wait_loader()
-
-    def test_tecnicitariffe(self, modifica = "28.00"):
-
-        # Modifica Tariffe
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
         element.send_keys('Tecnico')
         
@@ -32,6 +35,5 @@ class TecniciTariffe(Test):
 
         self.find(By.XPATH, '//div[@class="input-group has-feedback"]/input[@id="costo_ore1"]').send_keys(modifica)
     
-                
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()

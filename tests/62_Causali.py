@@ -14,13 +14,31 @@ class Causali(Test):
 
         self.expandSidebar("Strumenti")
         self.expandSidebar("Tabelle")
-        self.navigateTo("Causali")
 
-    def test_creazione_causali(self, modifica="Causale di Prova"):
-        self.creazione_causali(descrizione="Causale di Prova da Modificare")
-        self.creazione_causali(descrizione="Causale di Prova da Eliminare")
+
+    def test_creazione_causali(self):
+        # Creazione causale     *Required*
+        self.creazione_causali("Causale di Prova da Modificare")
+        self.creazione_causali("Causale di Prova da Eliminare")
 
         # Modifica Causale
+        self.modifica_causale("Causale di Prova")
+       
+        # Cancellazione Causale
+        self.elimina_causale()
+        
+
+    def creazione_causali(self, descrizione= str):
+        self.navigateTo("Causali")
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Descrizione').setValue(descrizione)
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_causale(self, modifica=str):
         self.navigateTo("Causali")
         self.wait_loader()
 
@@ -39,12 +57,14 @@ class Causali(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione Causale
         self.navigateTo("Causali")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_causale(self):
+        self.navigateTo("Causali")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
         element.send_keys('Causale di Prova da Eliminare')
@@ -58,13 +78,3 @@ class Causali(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()      
-
-    def creazione_causali(self, descrizione= str):
-
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Descrizione').setValue(descrizione)
-
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()

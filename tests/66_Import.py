@@ -8,6 +8,6 @@ class Import_(Test):
         super().setUp()
 
      
-    def test_import_(self):
+    def test_import(self):
         self.expandSidebar("Strumenti")
         self.navigateTo("Import")

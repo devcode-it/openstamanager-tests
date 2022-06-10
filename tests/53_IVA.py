@@ -16,11 +16,34 @@ class IVA(Test):
         self.expandSidebar("Tabelle")
         
 
-    def test_creazione_iva(self, modifica="IVA di Prova"):
-        self.creazione_iva(descrizione= "IVA di Prova da Modificare", percentuale="9,00", indetraibile="2,00", esigibilita="Scissione dei pagamenti")
-        self.creazione_iva(descrizione= "IVA di Prova da Eliminare", percentuale="9,00", indetraibile="2,00", esigibilita="Scissione dei pagamenti")
+    def test_creazione_iva(self):
+        # Creazione IVA     *Required*
+        self.creazione_iva("IVA di Prova da Modificare", "9,00", "2,00", "Scissione dei pagamenti")
+        self.creazione_iva("IVA di Prova da Eliminare", "9,00", "2,00", "Scissione dei pagamenti")
 
         # Modifica IVA
+        self.modifica_iva("IVA di Prova")
+        
+        # Cancellazione IVA
+        self.elimina_iva()
+
+       
+    def creazione_iva(self, descrizione=str, percentuale=str, indetraibile=str, esigibilita=str):
+        self.navigateTo("IVA")
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Descrizione').setValue(descrizione)
+        self.input(modal, 'Percentuale').setValue(percentuale)
+        self.input(modal, 'Indetraibile').setValue(indetraibile)
+
+        select = self.input(modal, 'Esigibilità')
+        select.setByText(esigibilita)
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_iva(self, modifica=str):
         self.navigateTo("IVA")
         self.wait_loader()
 
@@ -38,8 +61,7 @@ class IVA(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione IVA
+    def elimina_iva(self):
         self.navigateTo("IVA")
         self.wait_loader()    
 
@@ -57,20 +79,3 @@ class IVA(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()        
-
-
-
-    def creazione_iva(self, descrizione=str, percentuale=str, indetraibile=str, esigibilita=str):
-        self.navigateTo("IVA")
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Descrizione').setValue(descrizione)
-        self.input(modal, 'Percentuale').setValue(percentuale)
-        self.input(modal, 'Indetraibile').setValue(indetraibile)
-
-        select = self.input(modal, 'Esigibilità')
-        select.setByText(esigibilita)
-
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()

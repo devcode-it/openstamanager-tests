@@ -15,11 +15,31 @@ class AttributiCombinazioni(Test):
         self.expandSidebar("Magazzino")
 
 
-    def test_creazione_attributi(self, modifica="Attributo Modificato"):
+    def test_creazione_attributi(self):
+        # Creazione attributi *Required*
         self.creazione_attributi(nome="Attributo di Prova", titolo="Titolo")
         self.creazione_attributi(nome="Attributo di Prova da Eliminare", titolo="Titolo")
 
         # Modifica Attributi
+        self.modifica_attributi("Attributo Modificato")
+        
+        # Cancellazione Attributi
+        self.elimina_attributi()
+        
+
+    def creazione_attributi(self, nome=str, titolo=str):
+        self.navigateTo("Attributi Combinazioni")
+
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Nome').setValue(nome)
+        self.input(modal, 'Titolo').setValue(titolo)
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_attributi(self, modifica=str):
         self.navigateTo("Attributi Combinazioni")
         self.wait_loader()
 
@@ -37,12 +57,14 @@ class AttributiCombinazioni(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione Attributi
         self.navigateTo("Attributi Combinazioni")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_attributi(self):
+        self.navigateTo("Attributi Combinazioni")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
         element.send_keys('Attributo di Prova da Eliminare')
@@ -55,17 +77,4 @@ class AttributiCombinazioni(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-
-
-    def creazione_attributi(self, nome=str, titolo=str):
-        self.navigateTo("Attributi Combinazioni")
-
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Nome').setValue(nome)
-        self.input(modal, 'Titolo').setValue(titolo)
-
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()

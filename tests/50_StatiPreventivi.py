@@ -16,11 +16,30 @@ class StatiPreventivi(Test):
         self.expandSidebar("Tabelle")
         
 
-    def test_creazione_statipreventivi(self, modifica="Stato Preventivi di Prova"):
-        self.creazione_statipreventivi( descrizione= "Stato Preventivi di Prova da Modificare", icona="fa fa-check text-success")
-        self.creazione_statipreventivi( descrizione= "Stato Preventivi di Prova da Eliminare", icona="fa fa-thumbs-down text-danger")
+    def test_creazione_stati_preventivi(self):
+        # Creazione stato preventivi    *Required*
+        self.creazione_stati_preventivi("Stato Preventivi di Prova da Modificare", "fa fa-check text-success")
+        self.creazione_stati_preventivi("Stato Preventivi di Prova da Eliminare", "fa fa-thumbs-down text-danger")
 
         # Modifica Stato dei preventivi
+        self.modifica_stati_preventivi("Stato Preventivi di Prova")
+        
+        # Cancellazione Stato dei Preventivi
+        self.elimina_stati_preventivi()
+        
+
+    def creazione_stati_preventivi(self, descrizione=str, icona=str):
+        self.navigateTo("Stati dei preventivi")
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Descrizione').setValue(descrizione)
+        self.input(modal, 'Icona').setValue(icona)
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_stati_preventivi(self, modifica=str):
         self.navigateTo("Stati dei preventivi")
         self.wait_loader()
 
@@ -38,12 +57,14 @@ class StatiPreventivi(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione Stato dei Preventivi
         self.navigateTo("Stati dei preventivi")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_stati_preventivi(self):
+        self.navigateTo("Stati dei preventivi")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
         element.send_keys('Stato Preventivi di Prova da Eliminare')
@@ -57,15 +78,3 @@ class StatiPreventivi(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()        
-
-
-    def creazione_statipreventivi(self, descrizione=str, icona=str):
-        self.navigateTo("Stati dei preventivi")
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Descrizione').setValue(descrizione)
-        self.input(modal, 'Icona').setValue(icona)
-
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()

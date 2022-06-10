@@ -16,11 +16,33 @@ class StatiAttivita(Test):
 
         self.expandSidebar("Attività")
 
-    def test_creazione_statiattivita(self, modifica = "Stato di Attività di Prova"):
-        self.creazione_statiattivita(codice="0001", descrizione="Stato di Prova da Modificare", colore="#9d2929")
-        self.creazione_statiattivita(codice="0002", descrizione="Stato di Prova da Eliminare", colore="#38468f")
+    def test_creazione_stati_attivita(self):
+        # Creazione stato attività *Required*
+        self.creazione_stati_attivita("0001", "Stato di Prova da Modificare", "#9d2929")
+        self.creazione_stati_attivita("0002", "Stato di Prova da Eliminare", "#38468f")
 
         # Modifica stato di attività
+        self.modifica_stato_attivita("Stato di Attività di Prova")
+
+        # Cancellazione stato di attività
+        self.elimina_stato_attivita()
+
+
+    def creazione_stati_attivita(self, codice= str, descrizione= str, colore= str):
+        self.navigateTo("Stati di attività")
+        self.wait_loader()  
+
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Colore').setValue(colore)
+        self.input(modal, 'Codice').setValue(codice)
+        self.input(modal, 'Descrizione').setValue(descrizione)
+        
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_stato_attivita(self, modifica=str):
         self.navigateTo("Stati di attività")
         self.wait_loader()
 
@@ -38,12 +60,14 @@ class StatiAttivita(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione stato di attività
         self.navigateTo("Stati di attività")
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_stato_attivita(self):
+        self.navigateTo("Stati di attività")
+        self.wait_loader()  
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
         element.send_keys('Stato di Prova da Eliminare')
@@ -56,19 +80,4 @@ class StatiAttivita(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-
-
-    def creazione_statiattivita(self, codice= str, descrizione= str, colore= str):
-        self.navigateTo("Stati di attività")
-        self.wait_loader()  
-
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Colore').setValue(colore)
-        self.input(modal, 'Codice').setValue(codice)
-        self.input(modal, 'Descrizione').setValue(descrizione)
-        
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()

@@ -12,12 +12,35 @@ class Segmenti(Test):
         super().setUp()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Segmenti")
 
-    def test_creazione_segmenti(self, modifica="Segmento di Prova da Eliminare"):
-        self.creazione_segmenti(nome= "Segmento di Prova da Modificare", maschera="1234/2022", modulo= "Articoli", note="Nota di Prova")
+
+    def test_creazione_segmenti(self):
+        # Creazione segmento        *Required*
+        self.creazione_segmenti("Segmento di Prova da Modificare", "1234/2022", "Articoli")
 
         # Modifica Segmenti
+        self.modifica_segmento("Segmento di Prova da Eliminare")
+        
+        # Cancellazione Segmenti
+        self.elimina_segmento()
+        
+
+    def creazione_segmenti(self, nome=str, maschera=str, modulo=str):
+        self.navigateTo("Segmenti")
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Nome').setValue(nome)
+        self.input(modal, 'Maschera').setValue(maschera)
+
+        
+        select = self.input(modal, 'Modulo')
+        select.setByText(modulo)
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_segmento(self, modifica=str):
         self.navigateTo("Segmenti")
         self.wait_loader()
 
@@ -35,12 +58,14 @@ class Segmenti(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione Segmenti
         self.navigateTo("Segmenti")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_segmento(self):
+        self.navigateTo("Segmenti")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
         element.send_keys('Segmento di Prova da Eliminare')
@@ -55,18 +80,3 @@ class Segmenti(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()      
 
-
-    def creazione_segmenti(self, nome=str, segmenti= str, maschera=str, modulo=str, note=str):
-
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Nome').setValue(nome)
-        self.input(modal, 'Maschera').setValue(maschera)
-        self.input(modal, 'Note').setValue(note)
-        
-        select = self.input(modal, 'Modulo')
-        select.setByText(modulo)
-
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()

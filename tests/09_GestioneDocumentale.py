@@ -12,13 +12,37 @@ class GestioneDocumentale(Test):
         super().setUp()
 
 
-    def test_creazione_gestione_documentale(self, modifica="Documento di Prova"):
-
-        # Crea un nuovo documento di prova   
+    def test_creazione_gestione_documentale(self):
+        # Crea un nuovo documento di prova   *Required* 
         self.add_documento_di_prova('Documento di Prova da Modificare', 'Documenti società')
         self.add_documento_di_prova('Documento di Prova da Eliminare', 'Documenti società')
 
         # Modifica documento 
+        self.modifica_documento("Documento di prova")
+
+        # Cancellazione documento 
+        self.elimina_documento()
+
+        
+    def add_documento_di_prova(self, nome: str, categoria: str):
+        self.navigateTo("Gestione documentale")
+
+        # Crea una nuova newsletter
+        # Apre la schermata di nuovo elemento
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        # Completamento dei campi per il nuovo elemento
+        self.input(modal, 'Nome').setValue(nome)
+
+        select = self.input(modal, 'Categoria')
+        select.setByText(categoria)
+
+        # Submit
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_documento(self, modifica:str):
         self.navigateTo("Gestione documentale")
         self.wait_loader()
 
@@ -36,12 +60,14 @@ class GestioneDocumentale(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione documento 
         self.navigateTo("Gestione documentale")
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_documento(self):
+        self.navigateTo("Gestione documentale")
+        self.wait_loader()  
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
         element.send_keys('Documento di Prova da Eliminare')
@@ -54,23 +80,4 @@ class GestioneDocumentale(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-
-
-    def add_documento_di_prova(self, nome: str, categoria: str):
-        self.navigateTo("Gestione documentale")
-
-        # Crea una nuova newsletter
-        # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        # Completamento dei campi per il nuovo elemento
-        self.input(modal, 'Nome').setValue(nome)
-
-        select = self.input(modal, 'Categoria')
-        select.setByText(categoria)
-
-        # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()

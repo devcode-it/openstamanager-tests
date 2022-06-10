@@ -8,5 +8,5 @@ class GiacenzeSedi(Test):
         super().setUp()
 
         
-    def test_giacenzesedi(self):
+    def test_giacenze_sedi(self):
         self.navigateTo("Statistiche")

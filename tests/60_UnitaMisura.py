@@ -14,13 +14,31 @@ class UnitaMisura(Test):
 
         self.expandSidebar("Strumenti")
         self.expandSidebar("Tabelle")
-        self.navigateTo("Unità di misura")
 
-    def test_creazione_unitamisura(self, modifica="UdMdP"):
-        self.creazione_unitamisura(valore= "UdMdPdM")
-        self.creazione_unitamisura(valore= "UdMdPdE")
+    def test_creazione_unita_misura(self):
+        # Creazione unita di misura     *Required*
+        self.creazione_unita_misura("UdMdPdM")
+        self.creazione_unita_misura("UdMdPdE")
 
         # Modifica Unità di Misura
+        self.modifica_unita_misura("UdMdP")
+        
+        # Cancellazione Unità di Misura
+        self.elimina_unita_misura()
+
+    def creazione_unita_misura(self, valore= str):
+
+        self.navigateTo("Unità di misura")
+
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Valore').setValue(valore)
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_unita_misura(self, modifica=str):
         self.navigateTo("Unità di misura")
         self.wait_loader()
 
@@ -39,12 +57,14 @@ class UnitaMisura(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione Unità di Misura
         self.navigateTo("Unità di misura")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Valore"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_unita_misura(self):
+        self.navigateTo("Unità di misura")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Valore"]/input')
         element.send_keys('UdMdPdE')
@@ -57,15 +77,4 @@ class UnitaMisura(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()      
-
-
-    def creazione_unitamisura(self, valore= str):
-
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Valore').setValue(valore)
-
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
+        self.wait_loader()    

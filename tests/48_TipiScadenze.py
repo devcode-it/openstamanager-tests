@@ -15,11 +15,31 @@ class TipiScadenze(Test):
         self.expandSidebar("Strumenti")
         self.expandSidebar("Tabelle")
        
-    def test_creazione_tipiscadenze(self, modifica="Tipo di Scadenza di Prova"):
-        self.creazione_tipiscadenze(nome= "Tipo di Scadenza di Prova da Modificare",descrizione= "Descrizione tipo di Scadenza")
-        self.creazione_tipiscadenze(nome= "Tipo di Scadenza di Prova da Eliminare",descrizione= "Descrizione tipo di Scadenza")
+    def test_creazione_tipi_scadenze(self):
+        # Creazione tipo di scadenza    *Required*
+        self.creazione_tipi_scadenze(nome= "Tipo di Scadenza di Prova da Modificare",descrizione= "Descrizione tipo di Scadenza")
+        self.creazione_tipi_scadenze(nome= "Tipo di Scadenza di Prova da Eliminare",descrizione= "Descrizione tipo di Scadenza")
 
         # Modifica Tipo di scadenza
+        self.modifica_tipi_scadenze("Tipo di Scadenza di Prova")
+        
+        # Cancellazione Tipo di scadenza
+        self.elimina_tipi_scadenze()
+
+        
+    def creazione_tipi_scadenze(self, nome=str, descrizione=str):
+        self.navigateTo("Tipi scadenze")
+
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Nome').setValue(nome)
+        self.input(modal, 'Descrizione').setValue(descrizione)
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_tipi_scadenze(self, modifica=str):
         self.navigateTo("Tipi scadenze")
         self.wait_loader()
 
@@ -37,12 +57,14 @@ class TipiScadenze(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-
-        # Cancellazione Tipo di scadenza
         self.navigateTo("Tipi scadenze")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_tipi_scadenze(self):
+        self.navigateTo("Tipi scadenze")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
         element.send_keys('Tipo di Scadenza di Prova da Eliminare')
@@ -56,17 +78,4 @@ class TipiScadenze(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()        
-
-
-    def creazione_tipiscadenze(self, nome=str, descrizione=str):
-        self.navigateTo("Tipi scadenze")
-
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Nome').setValue(nome)
-        self.input(modal, 'Descrizione').setValue(descrizione)
-
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
 

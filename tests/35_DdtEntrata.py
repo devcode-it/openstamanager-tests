@@ -16,52 +16,18 @@ class DdtEntrata(Test):
         self.expandSidebar("Magazzino")
         
 
-    def test_creazione_ddt_entrata(self, modifica="Ddt di Prova Modificato"):
-        # Crea un nuovo ddt dal fornitore "Fornitore".
+    def test_creazione_ddt_entrata(self):
+        # Crea un nuovo ddt dal fornitore "Fornitore". *Required*
         importi = RowManager.list()
         self.creazione_ddt_entrata("Fornitore", "1", importi[0])
         self.creazione_ddt_entrata("Fornitore", "2", importi[0])
 
         # Modifica Ddt
-        self.navigateTo("Ddt in entrata")
-        self.wait_loader()
-
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys('1')
+        self.modifica_ddt("Ddt di Prova Modificato")
         
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        
-        self.input(None,'Note').setValue(modifica)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
-        self.wait_loader()
-
-
         # Cancellazione Ddt
-        self.navigateTo("Ddt in entrata")
-        self.wait_loader()    
-
-        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
-
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys('2')
+        self.elimina_ddt()
         
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
-
-        sleep(2)
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-
-
-
 
     def creazione_ddt_entrata(self, fornitore: str, causale: str, file_importi: str):
         self.navigateTo("Ddt in entrata")
@@ -85,3 +51,43 @@ class DdtEntrata(Test):
 
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
+
+    def modifica_ddt(self, modifica):
+        self.navigateTo("Ddt in entrata")
+        self.wait_loader()
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
+        element.send_keys('1')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        
+        self.input(None,'Note').setValue(modifica)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Ddt in entrata")
+        self.wait_loader()    
+
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_ddt(self):
+        self.navigateTo("Ddt in entrata")
+        self.wait_loader()    
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
+        element.send_keys('2')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+
+        sleep(2)
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()

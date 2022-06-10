@@ -16,52 +16,18 @@ class TipiAttivita(Test):
 
         self.expandSidebar("Attività")
         
-    def test_creazione_tipiattività(self, modifica= "Tipo di Attività di Prova"):
-        self.creazione_tipiattività(codice="001", descrizione="Tipo di Prova da Modificare", tempostandard="2,00", addebitoorario="10,00", addebitokm="5,00", addebitodirittoch="20,00", costoorario="12,00", costokm="6,00", costodirittoch="13,00" )
-        self.creazione_tipiattività(codice="002", descrizione="Tipo di Prova da Eliminare", tempostandard="2,00", addebitoorario="10,00", addebitokm="5,00", addebitodirittoch="20,00", costoorario="12,00", costokm="6,00", costodirittoch="13,00")
+    def test_creazione_tipiattività(self):
+        # Creazione tipi di attività *Required*
+        self.creazione_tipi_attività(codice="001", descrizione="Tipo di Prova da Modificare", tempostandard="2,00", addebitoorario="10,00", addebitokm="5,00", addebitodirittoch="20,00", costoorario="12,00", costokm="6,00", costodirittoch="13,00" )
+        self.creazione_tipi_attività(codice="002", descrizione="Tipo di Prova da Eliminare", tempostandard="2,00", addebitoorario="10,00", addebitokm="5,00", addebitodirittoch="20,00", costoorario="12,00", costokm="6,00", costodirittoch="13,00")
         
-
         # Modifica tipi di attività
-        self.navigateTo("Tipi di attività")
-        self.wait_loader()
-
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
-        element.send_keys('Tipo di Prova da Modificare')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        
-        self.input(None,'Descrizione').setValue(modifica)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
-        self.wait_loader()
-
+        self.modifica_tipi_attività("Tipo di Attività di Prova")
 
         # Cancellazione tipi di attività
-        self.navigateTo("Tipi di attività")
-        self.wait_loader()  
+        self.elimina_tipi_attività()
 
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
-
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
-        element.send_keys('Tipo di Prova da Eliminare')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
-
-        sleep(2)
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-
-
-
-    def creazione_tipiattività(self, codice=str, descrizione=str, tempostandard=str, addebitoorario=str, addebitokm=str, addebitodirittoch=str, costoorario=str, costokm=str, costodirittoch=str):
+    def creazione_tipi_attività(self, codice=str, descrizione=str, tempostandard=str, addebitoorario=str, addebitokm=str, addebitodirittoch=str, costoorario=str, costokm=str, costodirittoch=str):
         self.navigateTo("Tipi di attività")
         self.wait_loader()  
 
@@ -79,4 +45,44 @@ class TipiAttivita(Test):
         self.input(modal, 'Costo diritto ch.').setValue(costodirittoch)
 
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+    def modifica_tipi_attività(self, modifica:str):
+        self.navigateTo("Tipi di attività")
+        self.wait_loader()
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
+        element.send_keys('Tipo di Prova da Modificare')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        
+        self.input(None,'Descrizione').setValue(modifica)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Tipi di attività")
+        self.wait_loader()  
+
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_tipi_attività(self):
+        self.navigateTo("Tipi di attività")
+        self.wait_loader()  
+
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
+        element.send_keys('Tipo di Prova da Eliminare')
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
+
+        sleep(2)
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]').click()
+        self.wait_loader()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()

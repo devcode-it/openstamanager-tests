@@ -56,11 +56,14 @@ class Relazioni(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-    def elimina_relazioni(self):
         self.navigateTo("Relazioni")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def elimina_relazioni(self):
+        self.navigateTo("Relazioni")
+        self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
         element.send_keys('Relazione di Prova da Eliminare')
