@@ -40,7 +40,7 @@ class CategorieArticoli(Test):
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
 
-    def modifica_categoria_articoli(self, modifica):
+    def modifica_categoria_articoli(self, modifica=str):
         self.navigateTo("Categorie articoli")
         self.wait_loader()
 
@@ -52,12 +52,13 @@ class CategorieArticoli(Test):
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
+
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="module-edit"]//input[@id="nome"]'))).clear()
+        element=self.driver.find_element(By.XPATH,'//div[@id="module-edit"]//input[@id="nome"]')
+        element.send_keys(modifica)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="module-edit"]//input[@id="nome"]'))).send_keys(Keys.ENTER)
+        sleep(1)
         
-        self.input(None,'Nome').setValue(modifica)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
-        self.wait_loader()
-
         self.navigateTo("Categorie articoli")
         self.wait_loader()    
 

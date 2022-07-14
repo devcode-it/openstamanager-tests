@@ -19,8 +19,8 @@ class PrimaNota(Test):
 
     def test_creazione_prima_nota(self):
         # Creazione prima nota *Required*
-        self.creazione_primanota(causale = "Prima Nota da Modificare")
-        self.creazione_primanota(causale = "Prima Nota da Eliminare")
+        self.creazione_prima_nota(causale = "Prima Nota da Modificare")
+        self.creazione_prima_nota(causale = "Prima Nota da Eliminare")
 
        # Modifica Prima Nota
         self.modifica_prima_nota("Prima Nota di Prova (Fatt. n.1 del 01/01/2022)")

@@ -18,7 +18,7 @@ class Dashboard(Test):
         self.input(modal, 'Cliente').setByText("Cliente")
         self.input(modal, 'Tipo').setByIndex("1")
         self.input(modal, 'Stato').setByIndex("2")
-        ora="8:30 - 9:30"
+        ora="8:45 - 9:45"
         
         self.driver.find_element(By.XPATH,'//div[@class="box box-info collapsable "]//span[@class="input-group-addon after no-padding"]//i[@class="fa fa-plus"]').click()
         sleep(1)
@@ -36,5 +36,5 @@ class Dashboard(Test):
         self.find(By.XPATH, '//div[@id="dashboard_tecnici"]//button[@class="btn btn-primary btn-sm seleziona_tutto"]').click()
         sleep(2)
 
-        trova=self.find(By.XPATH, '//div[@class="fc-content-col"]//div[@data-start="8:30"]').text
+        trova=self.find(By.XPATH, '//div[@class="fc-content-col"]//div[@data-start="8:45"]').text
         self.assertEqual(trova,ora)

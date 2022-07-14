@@ -44,7 +44,6 @@ class FattureVendita(Test):
         # Cancellazione fattura di vendita
         self.elimina_documento()
 
-
     def creazione_fattura_vendita(self, cliente: str, file_importi: str):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
@@ -128,12 +127,18 @@ class FattureVendita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
+        sleep(1)
         self.find(By.XPATH, '//form[@id="form-xml"]/descendant::button').click()
-        time.sleep(8)
+        sleep(2)
+
+        self.find(By.XPATH, '//aside[@class="control-sidebar control-sidebar-light control-sidebar-open"]//a[@data-toggle="tab"]').click()
+        sleep(2)
+        self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
+        sleep(2)
 
         self.driver.execute_script('$("a").removeAttr("target")')
-        self.find(By.XPATH, '//form[@id="form-xml"]/following-sibling::a[1]').click()
-        time.sleep(4)
+        self.find(By.XPATH, '//div[@class="text-center"]//a[@class="btn btn-info btn-lg "]').click()
+        sleep(2)
 
         perc_iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]').text
         iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]').text
@@ -242,19 +247,18 @@ class FattureVendita(Test):
         # Torno alla tabella delle Fatture
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
-      
-        # Controllo importi fattura elettronica
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
 
-        sleep(1)
+        # Controllo importi fattura elettronica
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//tr[2]//td[2]').click()
+        sleep(2)
+
         self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
-        self.find(By.XPATH, '//form[@id="form-xml"]/descendant::button').click()
-        time.sleep(8)
+        sleep(1)
 
         self.driver.execute_script('$("a").removeAttr("target")')
         self.find(By.XPATH, '//form[@id="form-xml"]/following-sibling::a[1]').click()
-        time.sleep(4)
+        sleep(2)
 
         perc_iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]').text
         iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]').text

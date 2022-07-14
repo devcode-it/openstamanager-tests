@@ -50,8 +50,7 @@ class UnitaMisura(Test):
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
-        
-        
+         
         self.input(None,'Valore').setValue(modifica)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
@@ -70,10 +69,11 @@ class UnitaMisura(Test):
         element.send_keys('UdMdPdE')
         
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Valore"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
 
-        sleep(2)
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
+
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
