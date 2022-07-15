@@ -50,7 +50,10 @@ class UnitaMisura(Test):
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
-         
+        
+        actions = webdriver.common.action_chains.ActionChains(self.driver)
+        actions.move_to_element(self.driver.find_element(By.XPATH,'//div[@class="col-md-12"]')).move_by_offset(0,0).perform()
+
         self.input(None,'Valore').setValue(modifica)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
@@ -74,6 +77,9 @@ class UnitaMisura(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
 
+        actions = webdriver.common.action_chains.ActionChains(self.driver)
+        actions.move_to_element(self.driver.find_element(By.XPATH,'//div[@class="col-md-12"]')).move_by_offset(0,0).perform()
+        
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()

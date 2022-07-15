@@ -31,6 +31,8 @@ python3 -m unittest discover tests -p '*.py'
  Anagrafiche  | :heavy_check_mark: |:heavy_check_mark: | :heavy_check_mark:|:heavy_check_mark: |-||
  » Relazioni  | :heavy_check_mark: |  :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
  » Zone  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ » Proveniente clienti  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
+ » Settori merceologici  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
  Gestione email  | :heavy_check_mark:|-|-|-|-||
  » Newsletter  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-||
  » Coda di invio  | :heavy_check_mark: |-|-|-|-||
