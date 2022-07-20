@@ -17,15 +17,17 @@ class TemplateEmail(Test):
     def test_creazione_template_email(self):
 
         # Crea un nuovo template.   *Required* 
-        self.add_template_email('Template Prova da Modificare', 'Anagrafiche', '1')
-        self.add_template_email('Template Prova da Eliminare', 'Anagrafiche', '1')
+        self.add_template_email('Template di Prova da Modificare', 'Anagrafiche', '1')
+        self.add_template_email('Template di Prova da Eliminare', 'Anagrafiche', '1')
 
         # Modifica template email
-        self.modifica_template("Template Email di Prova")
+        self.modifica_template("Template di Prova")
 
         # Cancellazione template email
         self.elimina_template()
 
+        # Verifica template email
+        self.verifica_template_email()
 
     def add_template_email(self, nome: str, modulo: str, account: str):
         
@@ -53,7 +55,7 @@ class TemplateEmail(Test):
         self.wait_loader()
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
-        element.send_keys('Template Prova da Modificare')
+        element.send_keys('Template di Prova da Modificare')
         
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
         sleep(1)
@@ -76,7 +78,7 @@ class TemplateEmail(Test):
         self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
-        element.send_keys('Template Prova da Eliminare')
+        element.send_keys('Template di Prova da Eliminare')
         
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
 
@@ -87,3 +89,27 @@ class TemplateEmail(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def verifica_template_email(self):
+        self.navigateTo("Template email")
+        self.wait_loader()    
+
+        #verifica elemento modificato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Template di Prova")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
+        self.assertEqual("Template di Prova",modificato)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        sleep(1)
+
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Template di Prova da Eliminare")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)

@@ -17,14 +17,17 @@ class Newsletter(Test):
         self.expandSidebar("Gestione email")
         
         # Crea una nuova newsletter. *Required*   
-        self.add_newsletter('Prova Newsletter da Modificare', "Contratto")
-        self.add_newsletter('Prova Newsletter da Cancellare', "Ddt")
+        self.add_newsletter('Newsletter di Prova da Modificare', "Contratto")
+        self.add_newsletter('Newsletter di Prova da Eliminare', "Ddt")
 
         # Modifica newsletter
         self.modifica_newsletter("Newsletter di Prova")
      
         # Cancellazione newsletter
         self.elimina_newsletter()
+
+        # Verifica newsletter
+        self.verifica_newsletter()
 
         
     def add_newsletter(self, nome: str, modulo: str):
@@ -50,7 +53,7 @@ class Newsletter(Test):
         self.wait_loader()
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
-        element.send_keys('Prova Newsletter da Modificare')
+        element.send_keys('Newsletter di Prova da Modificare')
         
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
         sleep(1)
@@ -73,7 +76,7 @@ class Newsletter(Test):
         self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
-        element.send_keys('Prova Newsletter da Cancellare')
+        element.send_keys('Newsletter di Prova da Eliminare')
         
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
 
@@ -84,3 +87,27 @@ class Newsletter(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def verifica_newsletter(self):
+        self.navigateTo("Newsletter")
+        self.wait_loader()    
+
+        #verifica elemento modificato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Newsletter di Prova")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
+        self.assertEqual("Newsletter di Prova",modificato)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        sleep(1)
+
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Newsletter di Prova da Eliminare")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)

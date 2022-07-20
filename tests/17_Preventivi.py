@@ -19,8 +19,10 @@ class Preventivi(Test):
     def test_creazione_preventivo(self):
         # Crea un nuovo preventivo *Required*
         importi = RowManager.list()
-        self.creazione_preventivo("Preventivo di Prova","Cliente", "1","Bozza", importi[0])
-        self.creazione_preventivo("Preventivo di Prova da Eliminare","Cliente", "1", "Bozza", importi[0])
+        #self.creazione_preventivo("Preventivo di Prova","Cliente", "1","Bozza", importi[0])
+
+        # Duplica un preventivo *Required*
+        self.duplica_preventivo()
 
         # Modifica preventivo *Required*
         self.modifica_preventivo("Accettato")
@@ -45,6 +47,9 @@ class Preventivi(Test):
 
         # Creazione fattura
         self.creazione_fattura()
+
+        # Verifica preventivi
+        self.verifica_preventivi()
 
     def creazione_preventivo(self, nome:str, cliente:str, idtipo: str, stato:str, file_importi: str):
         self.navigateTo("Preventivi")
@@ -72,6 +77,21 @@ class Preventivi(Test):
         # Inserimento righe
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
+
+    def duplica_preventivo(self):
+        self.navigateTo("Preventivi")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="pulsanti-modulo"]//button[1]').click()
+        sleep(2)
+        
+        WebElement=.sendKeys(Keys.ENTER);
+        sleep(2)
+
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 
     def modifica_preventivo(self, stato:str):
         self.navigateTo("Preventivi")
@@ -383,3 +403,25 @@ class Preventivi(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def verifica_preventvii(self):
+        self.navigateTo("Preventivi")
+        self.wait_loader()  
+
+        #verifica elemento modificato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Stato"]/input')
+        element.send_keys("Accettato")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Stato"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[5]').text
+        self.assertEqual("Tipo di Attività di Prova",modificato)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        sleep(1)
+
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Tipo di Attività di Prova da Eliminare")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
