@@ -28,6 +28,8 @@ class OrdiniFornitore(Test):
         # Cancellazione ordine fornitore
         self.elimina_ordine_fornitore()
     
+        # Verifica ordine fornitore
+        self.verifica_ordine_fornitore()
 
     def creazione_ordine_fornitore(self, fornitore: str, file_importi: str):
         self.navigateTo("Ordini fornitore")
@@ -63,8 +65,14 @@ class OrdiniFornitore(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
         
-        sleep(1)
-        self.input(None,'Note').setValue(modifica)
+        self.find(By.XPATH,'//span[@id="select2-idstatoordine-container"]').click()
+        self.wait_loader()
+
+        element=self.find(By.XPATH,'//input[@type="search"]')
+        element.send_keys("Accettato")
+
+        self.find(By.XPATH,'//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        self.wait_loader()
 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
@@ -90,3 +98,27 @@ class OrdiniFornitore(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def verifica_ordine_fornitore(self):
+        self.navigateTo("Ordini fornitore")
+        self.wait_loader()  
+
+        #verifica elemento modificato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_icon_title_Stato"]/input')
+        element.send_keys("Accettato")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_icon_title_Stato"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[6]').text
+        self.assertEqual("Accettato",modificato)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        sleep(1)
+
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
+        element.send_keys("2")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)

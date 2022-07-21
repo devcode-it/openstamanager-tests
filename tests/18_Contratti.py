@@ -21,14 +21,18 @@ class Contratti(Test):
         # Crea una nuovo contratto *Required*
         importi = RowManager.list()
         self.creazione_contratto("Contratto di Prova da Modificare", "Cliente", "1", importi[0])
-        self.creazione_contratto("Contratto di Prova da Eliminare", "Cliente", "1", importi[0])
-        
+
+        # Duplica un contratto *Required*
+        self.duplica_contratto()
+
         # Modifica Contratto
         self.modifica_contratto("Contratto di Prova")
 
         # Cancellazione contratto
         self.elimina_contratto()     
 
+        # Verifica contratto
+        self.verifica_contratto()
 
     def creazione_contratto(self, nome:str, cliente: str, stato: str, file_importi: str):
         self.navigateTo("Contratti")
@@ -52,12 +56,31 @@ class Contratti(Test):
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
 
+    def duplica_contratto(self):
+        self.navigateTo("Contratti")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//td[@class="bound clickable"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="pulsanti-modulo"]//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
+        self.wait_loader()
+
+        self.driver.find_element(By.XPATH,'//input[@id="nome"]').send_keys(" / Eliminare")
+
+        self.find(By.XPATH, '//a[@id="save"]').click()
+        self.wait_loader()
+
     def modifica_contratto(self, modifica=str):
         self.navigateTo("Contratti")
         self.wait_loader()
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
-        element.send_keys('Contratto di Prova da Modificare')
+        element.send_keys('=Contratto di Prova da Modificare')
         
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
         sleep(1)
@@ -80,7 +103,7 @@ class Contratti(Test):
         self.wait_loader()  
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
-        element.send_keys('Contratto di Prova da Eliminare')
+        element.send_keys('Contratto di Prova da Modificare / Eliminare')
         
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
 
@@ -91,3 +114,27 @@ class Contratti(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def verifica_contratto(self):
+        self.navigateTo("Contratti")
+        self.wait_loader()  
+
+        #verifica elemento modificato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Contratto di Prova")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
+        self.assertEqual("Contratto di Prova",modificato)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        sleep(1)
+
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Contratto di Prova da Eliminare")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)

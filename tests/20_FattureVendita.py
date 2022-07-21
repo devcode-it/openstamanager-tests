@@ -44,6 +44,12 @@ class FattureVendita(Test):
         # Cancellazione fattura di vendita
         self.elimina_documento()
 
+        # Verifica fattura di vendita
+        self.verifica_fattura_di_vendita()
+
+        # Verifica XML fattura estera
+        self.verifica_xml_fattura_estera(importi[0])
+
     def creazione_fattura_vendita(self, cliente: str, file_importi: str):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
@@ -332,5 +338,85 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
-       
+    def verifica_fattura_di_vendita(self):
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()  
 
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
+        element.send_keys("0001/2022")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("Nessun dato presente nella tabella",eliminato)
+
+    def verifica_xml_fattura_estera(self, file_importi: str):
+        self.expandSidebar("Anagrafiche")
+        self.wait_loader()  
+        # Crea una nuova anagrafica estera
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+        # Completamento dei campi per il nuovo elemento
+        self.input(modal, 'Denominazione').setValue("Cliente estero")
+        select = self.input(modal, 'Tipo di anagrafica')
+        select.setByText("Cliente")
+        # Submit
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()  
+        self.navigateTo("Anagrafiche")
+        self.wait_loader()  
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Ragione-sociale"]/input')
+        element.send_keys("Cliente estero")    
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        # Modifica dati
+        sleep(3)
+        self.find(By.XPATH,'//span[@id="select2-id_nazione-container"]').click()
+        self.wait_loader()
+        element=self.find(By.XPATH,'//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]')
+        element.send_keys("Germania")
+        sleep(1)
+        self.find(By.XPATH,'//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        self.wait_loader()
+        self.input(None, 'Partita IVA').setValue("05024030288")
+        self.input(None, 'Codice fiscale').setValue("05024030288")
+        element=self.driver.find_element(By.XPATH,'//input[@id="indirizzo"]')
+        element.send_keys('Via Roma')
+        self.input(None, 'C.A.P.').setValue("35042")
+        self.input(None, 'Città').setValue("Berlino")
+        self.find(By.XPATH, '//a[@id="save"]').click()
+        self.wait_loader()
+
+        #Creazione fattura di vendita estera
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()  
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+        select = self.input(modal, 'Cliente')
+        select.setByText("Cliente estero")
+        # Submit
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+        # Inserisco le righe
+        sleep(1)
+
+        row_manager = RowManager(self)
+        row_manager.compile(file_importi)
+
+        # Modifica stato in emessa        
+        self.input(None,'Stato*').setByText("Emessa")
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.wait_loader()
+
+        # Generazione fattura elettronica
+        self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
+        sleep(1)
+        self.find(By.XPATH, '//a[@class="btn btn-info btn-lg "]').click()
+        sleep(2)
+        self.find(By.XPATH, '//aside[@class="control-sidebar control-sidebar-light control-sidebar-open"]//a[@data-toggle="tab"]').click()
+        sleep(2)
+        self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
+        sleep(2)

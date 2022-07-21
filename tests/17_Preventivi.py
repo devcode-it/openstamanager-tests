@@ -19,7 +19,7 @@ class Preventivi(Test):
     def test_creazione_preventivo(self):
         # Crea un nuovo preventivo *Required*
         importi = RowManager.list()
-        #self.creazione_preventivo("Preventivo di Prova","Cliente", "1","Bozza", importi[0])
+        self.creazione_preventivo("Preventivo di Prova","Cliente", "1","Bozza", importi[0])
 
         # Duplica un preventivo *Required*
         self.duplica_preventivo()
@@ -82,16 +82,19 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//td[@class="bound clickable"]').click()
         self.wait_loader()
 
         self.find(By.XPATH, '//div[@id="pulsanti-modulo"]//button[1]').click()
-        sleep(2)
-        
-        WebElement=.sendKeys(Keys.ENTER);
-        sleep(2)
+        self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
+        self.wait_loader()
+
+        self.driver.find_element(By.XPATH,'//input[@id="nome"]').send_keys(" da Eliminare")
+
+        self.find(By.XPATH, '//a[@id="save"]').click()
+        self.wait_loader()
 
     def modifica_preventivo(self, stato:str):
         self.navigateTo("Preventivi")
@@ -123,7 +126,7 @@ class Preventivi(Test):
         self.wait_loader()  
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
-        element.send_keys('Preventivo di Prova da Eliminare')
+        element.send_keys('=Preventivo di Prova da Eliminare')
         
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
 
@@ -177,8 +180,12 @@ class Preventivi(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
+        #verifica elemento eliminato
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("Nessun dato presente nella tabella",eliminato)  
+
         self.navigateTo("Preventivi")
-        self.wait_loader()  
+        self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 
@@ -216,6 +223,10 @@ class Preventivi(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
+
+        #verifica elemento eliminato
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("Nessun dato presente nella tabella",eliminato)  
 
         self.navigateTo("Preventivi")
         self.wait_loader()  
@@ -259,6 +270,10 @@ class Preventivi(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
+
+        #verifica elemento eliminato
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("Nessun dato presente nella tabella",eliminato)  
 
         self.expandSidebar("Vendite") 
         self.navigateTo("Preventivi")
@@ -311,6 +326,14 @@ class Preventivi(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
+        element.send_keys("2")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+
         self.expandSidebar("Vendite")        
         self.navigateTo("Preventivi")
         self.wait_loader()  
@@ -357,6 +380,10 @@ class Preventivi(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         sleep(1)
 
+        #verifica elemento eliminato
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("Nessun dato presente nella tabella",eliminato)  
+
         self.expandSidebar("Vendite")
         self.navigateTo("Preventivi")
         self.wait_loader()  
@@ -399,28 +426,32 @@ class Preventivi(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
+        #verifica elemento eliminato
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("Nessun dato presente nella tabella",eliminato)  
+
         self.navigateTo("Preventivi")
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 
-    def verifica_preventvii(self):
+    def verifica_preventivi(self):
         self.navigateTo("Preventivi")
         self.wait_loader()  
 
         #verifica elemento modificato
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Stato"]/input')
-        element.send_keys("Accettato")
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Stato"]/input'))).send_keys(Keys.ENTER)
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Preventivo di Prova")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
         sleep(1)
-        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[5]').text
-        self.assertEqual("Tipo di Attività di Prova",modificato)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
+        self.assertEqual("Preventivo di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
         sleep(1)
 
         #verifica elemento eliminato
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
-        element.send_keys("Tipo di Attività di Prova da Eliminare")
+        element.send_keys("Preventivo di Prova da Eliminare")
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
         sleep(1)
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
