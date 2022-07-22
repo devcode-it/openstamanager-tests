@@ -63,9 +63,8 @@ class Contratti(Test):
         self.find(By.XPATH, '//tbody//td[@class="bound clickable"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="pulsanti-modulo"]//button[@class="btn btn-primary"]').click()
+        self.find(By.XPATH, '//div[@id="pulsanti-modulo"]//button[@class="btn btn-primary ask"]').click()
         self.wait_loader()
-
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
         self.wait_loader()

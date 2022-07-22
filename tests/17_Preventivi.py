@@ -85,7 +85,7 @@ class Preventivi(Test):
         self.find(By.XPATH, '//tbody//td[@class="bound clickable"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="pulsanti-modulo"]//button[1]').click()
+        self.find(By.XPATH, '//div[@id="pulsanti-modulo"]//button[@class="btn ask btn-primary"]').click()
         self.wait_loader()
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
@@ -181,8 +181,12 @@ class Preventivi(Test):
         self.wait_loader()
 
         #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Preventivo di Prova")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(2)
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella",eliminato)  
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)  
 
         self.navigateTo("Preventivi")
         self.wait_loader()
@@ -225,8 +229,12 @@ class Preventivi(Test):
         self.wait_loader()
 
         #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_icon_title_Stato"]/input')
+        element.send_keys("Bozza")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_icon_title_Stato"]/input'))).send_keys(Keys.ENTER)
+        sleep(2)
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella",eliminato)  
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)  
 
         self.navigateTo("Preventivi")
         self.wait_loader()  
@@ -272,8 +280,12 @@ class Preventivi(Test):
         self.wait_loader()
 
         #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_icon_title_Stato"]/input')
+        element.send_keys("Bozza")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_icon_title_Stato"]/input'))).send_keys(Keys.ENTER)
+        sleep(2)
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella",eliminato)  
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)  
 
         self.expandSidebar("Vendite") 
         self.navigateTo("Preventivi")
@@ -381,6 +393,10 @@ class Preventivi(Test):
         sleep(1)
 
         #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
+        element.send_keys("01")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        sleep(2)
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella",eliminato)  
 
@@ -427,6 +443,10 @@ class Preventivi(Test):
         self.wait_loader()
 
         #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
+        element.send_keys("001/2022")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        sleep(2)
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella",eliminato)  
 
@@ -453,6 +473,6 @@ class Preventivi(Test):
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
         element.send_keys("Preventivo di Prova da Eliminare")
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
-        sleep(1)
-        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        sleep(2)
+        eliminato=self.driver.find_element(By.XPATH,'//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
