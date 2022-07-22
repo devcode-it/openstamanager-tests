@@ -27,6 +27,8 @@ class Combinazioni(Test):
         # Cancellazione Combinazioni
         self.elimina_combinazioni()
         
+        # Verifica Combinazioni
+        self.verifica_combinazioni()
 
     def creazione_combinazioni(self, codice: str, nome: str, categoria: str, attributi: str):
         self.navigateTo("Combinazioni")
@@ -63,11 +65,13 @@ class Combinazioni(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
+        self.navigateTo("Combinazioni")
+        self.wait_loader()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
     def elimina_combinazioni(self):
         self.navigateTo("Combinazioni")
         self.wait_loader()    
-
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
         element.send_keys('Combinazione di Prova da Eliminare')
@@ -81,3 +85,27 @@ class Combinazioni(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def verifica_combinazioni(self):
+        self.navigateTo("Combinazioni")
+        self.wait_loader()    
+
+        #verifica elemento modificato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Combinazione di Prova")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
+        self.assertEqual("Combinazione di Prova",modificato)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        sleep(1)
+
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Attributo di Prova da Eliminare")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)

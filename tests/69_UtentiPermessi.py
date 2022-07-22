@@ -24,6 +24,8 @@ class UtentiPermessi(Test):
         # Cancellazione Utenti e Permessi
         self.elimina_utenti_permessi()
         
+        # Verifica Utenti e Permessi
+        self.verifica_utenti_permessi()
 
     def creazione_utenti_permessi(self, nome):
         self.navigateTo("Utenti e permessi")
@@ -111,4 +113,18 @@ class UtentiPermessi(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()      
+        self.wait_loader() 
+
+        self.find(By.XPATH, '//th[@id="th_Gruppo"]/i[@class="deleteicon fa fa-times fa-2x"]').click()     
+
+    def verifica_utenti_permessi(self):
+        self.navigateTo("Utenti e permessi")
+        self.wait_loader()    
+
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Gruppo"]/input')
+        element.send_keys("Tipo Utente di Prova")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Gruppo"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)

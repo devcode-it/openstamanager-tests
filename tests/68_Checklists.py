@@ -17,13 +17,16 @@ class Checklists(Test):
     def test_checklists(self):
         # Creazione Checklist
         self.checklists("Checklist di Prova da Modificare", "Anagrafiche", "Interventi svolti")
+        self.checklists("Checklist di Prova da Eliminare", "Anagrafiche", "Interventi svolti")
 
         # Modifica Checklist
-        self.modifica_checklist("Checklist di Prova da Eliminare")
+        self.modifica_checklist("Checklist di Prova")
         
         # Cancellazione Checklist
         self.elimina_checklist()
         
+        # Verifica Checklist
+        self.verifica_checklist()
 
     def checklists(self, nome=str, modulo= str, plugin=str):
         self.navigateTo("Checklists")
@@ -49,11 +52,9 @@ class Checklists(Test):
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        
 
-        actions = webdriver.common.action_chains.ActionChains(self.driver)
-        actions.move_to_element(self.driver.find_element(By.XPATH,'//div[@class="col-md-12"]')).move_by_offset(0,0).perform()
+        sleep(2)          
+        self.driver.execute_script('window.scrollTo(0,0)')
 
         self.input(None,'Nome').setValue(modifica)
 
@@ -76,13 +77,35 @@ class Checklists(Test):
 
         sleep(2)
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
 
-        actions = webdriver.common.action_chains.ActionChains(self.driver)
-        actions.move_to_element(self.driver.find_element(By.XPATH,'//div[@class="col-md-12"]')).move_by_offset(0,0).perform()
-        
+        sleep(2)          
+        self.driver.execute_script('window.scrollTo(0,0)')
+
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()      
 
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def verifica_checklist(self):
+        self.navigateTo("Checklists")
+        self.wait_loader()    
+
+        #verifica elemento modificato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Checklist di Prova")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
+        self.assertEqual("Checklist di Prova",modificato)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        sleep(1)
+
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Checklist di Prova da Eliminare")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)

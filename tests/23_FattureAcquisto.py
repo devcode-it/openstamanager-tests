@@ -13,24 +13,24 @@ class FattureAcquisto(Test):
     def setUp(self):
         super().setUp()
 
-        #self.expandSidebar("Acquisti")
+        self.expandSidebar("Acquisti")
 
     def test_creazione_fattura_acquisto(self):
         # Crea una nuova fattura *Required*
         importi = RowManager.list()
-        #self.creazione_fattura_acquisto("Fornitore", "1", "1", importi[0])
+        self.creazione_fattura_acquisto("Fornitore", "1", "1", importi[0])
 
         # Modifica fattura
-        #self.modifica_fattura_acquisto("Emessa")
+        self.modifica_fattura_acquisto("Emessa")
         
         # Controllo valori piano dei conti
-        #self.controllo_fattura_acquisto()
+        self.controllo_fattura_acquisto()
 
         # Cancellazione fattura di acquisto
-        #self.elimina_documento()
+        self.elimina_documento()
 
         # Verifica fattura di acquisto
-        #self.verifica_fattura_acquisto()
+        self.verifica_fattura_acquisto()
 
         # Verifica XML autofattura
         self.verifica_xml_autofattura(importi[0], "1")
@@ -173,26 +173,32 @@ class FattureAcquisto(Test):
     def verifica_xml_autofattura(self, file_importi: str, pagamento: str):
         self.expandSidebar("Anagrafiche")
         self.wait_loader()  
+
         # Crea una nuova anagrafica estera
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
+
         # Completamento dei campi per il nuovo elemento
-        self.input(modal, 'Denominazione').setValue("Fornitore estero")
+        self.input(modal, 'Denominazione').setValue("Fornitore Estero")
         select = self.input(modal, 'Tipo di anagrafica')
         select.setByText("Fornitore")
+
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()  
+
+        # Completamento anagrafica
         self.navigateTo("Anagrafiche")
         self.wait_loader()  
+
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Ragione-sociale"]/input')
-        element.send_keys("Fornitore estero")    
+        element.send_keys("Fornitore Estero")    
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys(Keys.ENTER)
         sleep(1)
+
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        # Modifica dati
         sleep(3)
+
         self.find(By.XPATH,'//span[@id="select2-id_nazione-container"]').click()
         self.wait_loader()
         element=self.find(By.XPATH,'//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]')
@@ -200,12 +206,14 @@ class FattureAcquisto(Test):
         sleep(1)
         self.find(By.XPATH,'//li[@class="select2-results__option select2-results__option--highlighted"]').click()
         self.wait_loader()
+
         self.input(None, 'Partita IVA').setValue("05024030287")
         self.input(None, 'Codice fiscale').setValue("05024030287")
         element=self.driver.find_element(By.XPATH,'//input[@id="indirizzo"]')
         element.send_keys('Via Roma')
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Berlino")
+
         self.find(By.XPATH, '//a[@id="save"]').click()
         self.wait_loader()
 
@@ -213,14 +221,18 @@ class FattureAcquisto(Test):
         self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()  
+
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
+
         select = self.input(modal, 'Fornitore')
-        select.setByText("Fornitore estero")
+        select.setByText("Fornitore Estero")
         self.input(modal, 'N. fattura del fornitore').setValue("01")
+
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
+
         # Inserisco le righe
         sleep(1)
         select = self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Pagamento')
@@ -233,4 +245,32 @@ class FattureAcquisto(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
+        # Creazione autofattura
+        self.find(By.XPATH, '//button[@class="btn btn-primary unblockable dropdown-toggle "]').click()
+        self.find(By.XPATH, '//li//a[@class="bound clickable"]').click()
+        self.wait_modal()
+
+        self.find(By.XPATH, '//div[@class="modal-body"]//span[@class="select2-selection select2-selection--single"]').click()
+        element=self.find(By.XPATH,'//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]')
+        element.send_keys("TD17")
+        sleep(1)
+        self.find(By.XPATH,'//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        self.wait_loader()
         
+        self.find(By.XPATH,'//div[@class="modal-body"]//button[@type="submit"]').click()        
+        self.wait_loader()
+        
+        # Modifica stato in emessa        
+        self.input(None,'Stato*').setByText("Emessa")
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.wait_loader()
+
+        # Generazione fattura elettronica
+        self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
+        sleep(1)
+        self.find(By.XPATH, '//a[@class="btn btn-info btn-lg "]').click()
+        sleep(2)
+        self.find(By.XPATH, '//aside[@class="control-sidebar control-sidebar-light control-sidebar-open"]//a[@data-toggle="tab"]').click()
+        sleep(2)
+        self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
+        sleep(2)

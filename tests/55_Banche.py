@@ -27,6 +27,8 @@ class Banche(Test):
         # Cancellazione Banca
         self.elimina_banca()
         
+        # Verifica Banca
+        self.verifica_banca()
 
     def creazione_banca(self, anagrafica: str, nome: str, iban: str, bic: str):
         self.navigateTo("Banche")
@@ -56,10 +58,9 @@ class Banche(Test):
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-                
-        actions = webdriver.common.action_chains.ActionChains(self.driver)
-        actions.move_to_element(self.driver.find_element(By.XPATH,'//i[@class="fa fa-plus"]')).move_by_offset(0,0).perform()
+      
+        sleep(2)          
+        self.driver.execute_script('window.scrollTo(0,0)')
 
         self.input(None,'Nome').setValue(modifica)
 
@@ -82,12 +83,35 @@ class Banche(Test):
 
         sleep(2)
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
 
-        actions = webdriver.common.action_chains.ActionChains(self.driver)
-        actions.move_to_element(self.driver.find_element(By.XPATH,'//div[@id="module-edit"]')).move_by_offset(0,0).perform()
+        sleep(2)          
+        self.driver.execute_script('window.scrollTo(0,0)')
 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()      
+
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def verifica_banca(self):
+        self.navigateTo("Banche")
+        self.wait_loader()    
+
+        #verifica elemento modificato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Banca di Prova")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
+        self.assertEqual("Banca di Prova",modificato)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        sleep(1)
+
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Banca di Prova da Eliminare")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)

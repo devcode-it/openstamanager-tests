@@ -17,13 +17,16 @@ class Segmenti(Test):
     def test_creazione_segmenti(self):
         # Creazione segmento        *Required*
         self.creazione_segmenti("Segmento di Prova da Modificare", "1234/2022", "Articoli")
+        self.creazione_segmenti("Segmento di Prova da Eliminare", "1234/2022", "Articoli")
 
         # Modifica Segmenti
-        self.modifica_segmento("Segmento di Prova da Eliminare")
+        self.modifica_segmento("Segmento di Prova")
         
         # Cancellazione Segmenti
         self.elimina_segmento()
         
+        # Verifica Segmenti
+        self.verifica_segmento()
 
     def creazione_segmenti(self, nome=str, maschera=str, modulo=str):
         self.navigateTo("Segmenti")
@@ -32,8 +35,7 @@ class Segmenti(Test):
 
         self.input(modal, 'Nome').setValue(nome)
         self.input(modal, 'Maschera').setValue(maschera)
-
-        
+    
         select = self.input(modal, 'Modulo')
         select.setByText(modulo)
 
@@ -51,10 +53,9 @@ class Segmenti(Test):
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
         
-        actions = webdriver.common.action_chains.ActionChains(self.driver)
-        actions.move_to_element(self.driver.find_element(By.XPATH,'//div[@class="col-md-12"]')).move_by_offset(0,0).perform()
+        sleep(2)          
+        self.driver.execute_script('window.scrollTo(0,0)')
 
         self.input(None,'Nome').setValue(modifica)
 
@@ -77,13 +78,36 @@ class Segmenti(Test):
 
         sleep(2)
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
 
-        actions = webdriver.common.action_chains.ActionChains(self.driver)
-        actions.move_to_element(self.driver.find_element(By.XPATH,'//div[@class="col-md-12"]')).move_by_offset(0,0).perform()
+        sleep(2)          
+        self.driver.execute_script('window.scrollTo(0,0)')
+
         
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()      
+        self.wait_loader()   
+                
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()   
 
+    def verifica_segmento(self):
+        self.navigateTo("Segmenti")
+        self.wait_loader()    
+
+        #verifica elemento modificato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Segmento di Prova")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
+        self.assertEqual("Segmento di Prova",modificato)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        sleep(1)
+
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Segmento di Prova da Eliminare")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)

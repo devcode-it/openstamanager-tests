@@ -23,6 +23,8 @@ class Movimenti(Test):
         # Cancellazione movimento
         self.elimina_movimento()
 
+        # Verifica movimento
+        self.verifica_movimento()
 
     def creazione_movimento(self, qta: str, articolo: str, descrizione:str):
         # Crea un nuovo movimento. 
@@ -59,3 +61,20 @@ class Movimenti(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
+
+        self.navigateTo("Movimenti")
+        self.wait_loader()  
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def verifica_movimento(self):
+        self.navigateTo("Movimenti")
+        self.wait_loader()    
+
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
+        element.send_keys("Movimento di prova da Eliminare")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+

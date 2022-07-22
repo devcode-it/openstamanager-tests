@@ -17,15 +17,17 @@ class AttributiCombinazioni(Test):
 
     def test_creazione_attributi(self):
         # Creazione attributi *Required*
-        self.creazione_attributi(nome="Attributo di Prova", titolo="Titolo")
+        self.creazione_attributi(nome="Attributo di Prova ", titolo="Titolo")
         self.creazione_attributi(nome="Attributo di Prova da Eliminare", titolo="Titolo")
 
         # Modifica Attributi
-        self.modifica_attributi("Attributo Modificato")
+        self.modifica_attributi("Attributo modificato")
         
         # Cancellazione Attributi
         self.elimina_attributi()
         
+        # Verifica Attributi
+        self.verifica_attributi()
 
     def creazione_attributi(self, nome=str, titolo=str):
         self.navigateTo("Attributi Combinazioni")
@@ -78,3 +80,27 @@ class AttributiCombinazioni(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def verifica_attributi(self):
+        self.navigateTo("Attributi Combinazioni")
+        self.wait_loader()    
+
+        #verifica elemento modificato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Attributo di Prova")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
+        self.assertEqual("Attributo di Prova",modificato)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        sleep(1)
+
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
+        element.send_keys("Attributo di Prova da Eliminare")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)

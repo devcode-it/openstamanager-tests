@@ -27,6 +27,8 @@ class RitenuteAcconto(Test):
         # Cancellazione Ritenuta Acconto
         self.elimina_ritenuta_acconto()
          
+        # Verifica Ritenuta Acconto
+        self.verifica_ritenuta_acconto() 
 
     def creazione_ritenute_acconto(self, descrizione=str, percentuale=str, percentualeimp=str):
         self.navigateTo("Ritenute acconto")
@@ -51,10 +53,9 @@ class RitenuteAcconto(Test):
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
 
-        actions = webdriver.common.action_chains.ActionChains(self.driver)
-        actions.move_to_element(self.driver.find_element(By.XPATH,'//div[@class="col-md-12"]')).move_by_offset(0,0).perform()
+        sleep(2)          
+        self.driver.execute_script('window.scrollTo(0,0)')
 
         self.input(None,'Descrizione').setValue(modifica)
 
@@ -77,12 +78,35 @@ class RitenuteAcconto(Test):
 
         sleep(2)
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
 
-        actions = webdriver.common.action_chains.ActionChains(self.driver)
-        actions.move_to_element(self.driver.find_element(By.XPATH,'//div[@class="col-md-12"]')).move_by_offset(0,0).perform()
-        
+        sleep(2)          
+        self.driver.execute_script('window.scrollTo(0,0)')
+
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()     
+
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def verifica_ritenuta_acconto(self):
+        self.navigateTo("Ritenute acconto")
+        self.wait_loader()    
+
+        #verifica elemento modificato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
+        element.send_keys("Ritenuta Acconto di Prova")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
+        self.assertEqual("Ritenuta Acconto di Prova",modificato)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        sleep(1)
+
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
+        element.send_keys("Ritenuta Acconto di Prova da Eliminare")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)

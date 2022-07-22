@@ -17,4 +17,3 @@ class Backup(Test):
         self.find(By.CSS_SELECTOR, 'button[onclick="creaBackup(this)"]').click()
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]').click()
-        self.wait_loader()

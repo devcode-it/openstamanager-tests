@@ -20,14 +20,18 @@ class DdtEntrata(Test):
         # Crea un nuovo ddt dal fornitore "Fornitore". *Required*
         importi = RowManager.list()
         self.creazione_ddt_entrata("Fornitore", "1", importi[0])
-        self.creazione_ddt_entrata("Fornitore", "2", importi[0])
+
+        # Duplica ddt entrata
+        self.duplica_ddt_entrata()
 
         # Modifica Ddt
-        self.modifica_ddt("Ddt di Prova Modificato")
+        self.modifica_ddt("Evaso")
         
         # Cancellazione Ddt
         self.elimina_ddt()
         
+        # Veridica DDT
+        self.verifica_ddt()
 
     def creazione_ddt_entrata(self, fornitore: str, causale: str, file_importi: str):
         self.navigateTo("Ddt in entrata")
@@ -46,11 +50,19 @@ class DdtEntrata(Test):
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
 
-        #toast = self.driver.find_elements(By.CLASS_NAME, 'toast-message')
-        #self.assertIn('Aggiunto ddt', toast)
-
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
+
+    def duplica_ddt_entrata(self):
+        self.find(By.XPATH, '//button[@onclick="copiaDdt()"]').click()
+        self.wait_loader()
+
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@id="save"]').click()
+        self.wait_loader()
 
     def modifica_ddt(self, modifica):
         self.navigateTo("Ddt in entrata")
@@ -65,8 +77,13 @@ class DdtEntrata(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
         
-        self.input(None,'Note').setValue(modifica)
-
+        self.find(By.XPATH, '//span[@id="select2-idstatoddt-container"]').click()
+        element=self.find(By.XPATH,'//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]')
+        element.send_keys("Evaso")
+        sleep(1)
+        self.find(By.XPATH,'//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        self.wait_loader()
+        
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
@@ -91,3 +108,27 @@ class DdtEntrata(Test):
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+
+    def verifica_ddt(self):
+        self.navigateTo("Ddt in entrata")
+        self.wait_loader()    
+
+        #verifica elemento modificato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
+        element.send_keys("1")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[11]').text
+        self.assertEqual("Evaso",modificato)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        sleep(1)
+
+        #verifica elemento eliminato
+        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
+        element.send_keys("2")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
+        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
