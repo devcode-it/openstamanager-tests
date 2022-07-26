@@ -49,13 +49,8 @@ class Scadenzario(Test):
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
-
-        
-        
-        #toast = self.driver.find_elements(By.CLASS_NAME, 'toast-message')
-        #self.assertIn('Aggiunta scadenza', toast)
     
-    def modifica_scadenza(self, modifica=str):
+    def modifica_scadenza(self, modifica:str):
         self.navigateTo("Scadenzario")
         self.wait_loader()
 
@@ -68,7 +63,9 @@ class Scadenzario(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
         
-        self.input(None,'Descrizione*').setValue(modifica)
+        element=self.find(By.XPATH,'//textarea[@id="descrizione"]')
+        element.clear()
+        element.send_keys(modifica)  
 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
@@ -103,11 +100,11 @@ class Scadenzario(Test):
 
         #verifica elemento modificato
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione-scadenza"]/input')
-        element.send_keys("Scadenza di Prova da Modificare")
+        element.send_keys("Scadenza di Prova")
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys(Keys.ENTER)
         sleep(1)
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
-        self.assertEqual("Scadenza di Prova da Modificare",modificato)
+        self.assertEqual("Scadenza di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
         sleep(1)
 

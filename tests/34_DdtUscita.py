@@ -55,7 +55,7 @@ class DdtUscita(Test):
         row_manager.compile(file_importi)
 
     def duplica_ddt_uscita(self):
-        self.find(By.XPATH, '//button[@onclick="copiaDdt()"]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary ask"]').click()
         self.wait_loader()
 
 

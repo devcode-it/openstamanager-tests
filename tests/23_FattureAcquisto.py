@@ -264,13 +264,3 @@ class FattureAcquisto(Test):
         self.input(None,'Stato*').setByText("Emessa")
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
-
-        # Generazione fattura elettronica
-        self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
-        sleep(1)
-        self.find(By.XPATH, '//a[@class="btn btn-info btn-lg "]').click()
-        sleep(2)
-        self.find(By.XPATH, '//aside[@class="control-sidebar control-sidebar-light control-sidebar-open"]//a[@data-toggle="tab"]').click()
-        sleep(2)
-        self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
-        sleep(2)

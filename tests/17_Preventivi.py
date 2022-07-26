@@ -82,7 +82,7 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//td[@class="bound clickable"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
 
         self.find(By.XPATH, '//div[@id="pulsanti-modulo"]//button[@class="btn ask btn-primary"]').click()
@@ -186,7 +186,7 @@ class Preventivi(Test):
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
         sleep(2)
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)  
+        self.assertEqual("Nessun dato presente nella tabella",eliminato)  
 
         self.navigateTo("Preventivi")
         self.wait_loader()
@@ -234,7 +234,7 @@ class Preventivi(Test):
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_icon_title_Stato"]/input'))).send_keys(Keys.ENTER)
         sleep(2)
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)  
+        self.assertEqual("Nessun dato presente nella tabella",eliminato)  
 
         self.navigateTo("Preventivi")
         self.wait_loader()  
@@ -285,7 +285,7 @@ class Preventivi(Test):
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_icon_title_Stato"]/input'))).send_keys(Keys.ENTER)
         sleep(2)
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)  
+        self.assertEqual("Nessun dato presente nella tabella",eliminato)  
 
         self.expandSidebar("Vendite") 
         self.navigateTo("Preventivi")
@@ -344,7 +344,7 @@ class Preventivi(Test):
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
         sleep(1)
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)  
 
         self.expandSidebar("Vendite")        
         self.navigateTo("Preventivi")
@@ -448,7 +448,7 @@ class Preventivi(Test):
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
         sleep(2)
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella",eliminato)  
+        self.assertEqual("Nessun dato presente nella tabella" or "La ricerca non ha portato alcun risultato.",eliminato)  
 
         self.navigateTo("Preventivi")
         self.wait_loader()  

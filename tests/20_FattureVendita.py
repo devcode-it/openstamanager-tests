@@ -384,7 +384,7 @@ class FattureVendita(Test):
         self.wait_loader()
         element=self.find(By.XPATH,'//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]')
         element.send_keys("Germania")
-        sleep(1)
+        sleep(2)
         self.find(By.XPATH,'//li[@class="select2-results__option select2-results__option--highlighted"]').click()
         self.wait_loader()
 
