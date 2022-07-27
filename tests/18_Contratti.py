@@ -69,7 +69,9 @@ class Contratti(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
         self.wait_loader()
 
-        self.driver.find_element(By.XPATH,'//input[@id="nome"]').send_keys(" / Eliminare")
+        element=self.find(By.XPATH,'//input[@id="nome"]')
+        element.clear()
+        element.send_keys("Contratto di Prova da Eliminare") 
 
         self.find(By.XPATH, '//a[@id="save"]').click()
         self.wait_loader()
@@ -80,20 +82,22 @@ class Contratti(Test):
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
         element.send_keys('=Contratto di Prova da Modificare')
-        
+
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
-        sleep(1)
+        sleep(2)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
         
-        self.input(None,'Nome').setValue(modifica)
+        element=self.find(By.XPATH,'//input[@id="nome"]')
+        element.clear()
+        element.send_keys(modifica) 
 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
         self.navigateTo("Contratti")
-        self.wait_loader()  
+        self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 
@@ -102,7 +106,7 @@ class Contratti(Test):
         self.wait_loader()  
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Nome"]/input')
-        element.send_keys('Contratto di Prova da Modificare / Eliminare')
+        element.send_keys('Contratto di Prova da Eliminare')
         
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
 

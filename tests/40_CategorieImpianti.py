@@ -51,8 +51,10 @@ class CategorieImpianti(Test):
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        
+        sleep(2)          
+
+        self.driver.execute_script('window.scrollTo(0,0)')
+
         self.input(None,'Nome').setValue(modifica)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
@@ -71,10 +73,13 @@ class CategorieImpianti(Test):
         element.send_keys('Categoria Impianti di Prova da Eliminare')
         
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys(Keys.ENTER)
-
         sleep(2)
+        
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
+        sleep(2)          
+
+        self.driver.execute_script('window.scrollTo(0,0)')
+        
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()

@@ -51,6 +51,7 @@ class TipiSpedizione(Test):
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+
         sleep(2)          
         self.driver.execute_script('window.scrollTo(0,0)')
 
@@ -76,6 +77,7 @@ class TipiSpedizione(Test):
         sleep(2)
         
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        
         sleep(2)          
         self.driver.execute_script('window.scrollTo(0,0)')
 
