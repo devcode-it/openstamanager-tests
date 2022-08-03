@@ -2,7 +2,7 @@
     "righe": [
         {
             "tipo": "riga",
-            "descrizione": "Riga 1",
+            "descrizione": "Riga 1 controllo caratteri speciali: &\"<>èéàòùì?'`!,",
             "qta": "1",
             "prezzo_unitario": "2"
         },

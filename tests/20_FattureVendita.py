@@ -391,9 +391,9 @@ class FattureVendita(Test):
         self.input(None, 'Partita IVA').setValue("05024030288")
         self.input(None, 'Codice fiscale').setValue("05024030288")
         element=self.driver.find_element(By.XPATH,'//input[@id="indirizzo"]')
-        element.send_keys('Via Roma')
+        element.send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
         self.input(None, 'C.A.P.').setValue("35042")
-        self.input(None, 'Città').setValue("Berlino")
+        self.input(None, 'Città').setValue("Piacenza d'Adige")
         self.find(By.XPATH, '//a[@id="save"]').click()
         self.wait_loader()
 
@@ -421,13 +421,3 @@ class FattureVendita(Test):
         self.input(None,'Stato*').setByText("Emessa")
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
-
-        # Generazione fattura elettronica
-        self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
-        sleep(1)
-        self.find(By.XPATH, '//a[@class="btn btn-info btn-lg "]').click()
-        sleep(2)
-        self.find(By.XPATH, '//aside[@class="control-sidebar control-sidebar-light control-sidebar-open"]//a[@data-toggle="tab"]').click()
-        sleep(2)
-        self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
-        sleep(2)

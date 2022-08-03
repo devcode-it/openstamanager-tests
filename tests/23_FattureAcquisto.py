@@ -210,7 +210,7 @@ class FattureAcquisto(Test):
         self.input(None, 'Partita IVA').setValue("05024030287")
         self.input(None, 'Codice fiscale').setValue("05024030287")
         element=self.driver.find_element(By.XPATH,'//input[@id="indirizzo"]')
-        element.send_keys('Via Roma')
+        element.send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Berlino")
 
