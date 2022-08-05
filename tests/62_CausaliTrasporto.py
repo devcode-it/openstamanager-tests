@@ -31,7 +31,7 @@ class Causali(Test):
         self.verifica_causale()
 
     def creazione_causali(self, descrizione= str):
-        self.navigateTo("Causali")
+        self.navigateTo("Causali trasporto")
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
@@ -41,7 +41,7 @@ class Causali(Test):
         self.wait_loader()
 
     def modifica_causale(self, modifica=str):
-        self.navigateTo("Causali")
+        self.navigateTo("Causali trasporto")
         self.wait_loader()
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
@@ -59,13 +59,13 @@ class Causali(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-        self.navigateTo("Causali")
+        self.navigateTo("Causali trasporto")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 
     def elimina_causale(self):
-        self.navigateTo("Causali")
+        self.navigateTo("Causali trasporto")
         self.wait_loader()    
 
         element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
@@ -86,7 +86,7 @@ class Causali(Test):
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click() 
 
     def verifica_causale(self):
-        self.navigateTo("Causali")
+        self.navigateTo("Causali trasporto")
         self.wait_loader()    
 
         #verifica elemento modificato

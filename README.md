@@ -100,7 +100,7 @@ Legenda:
  »» Porto  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  »» Unità di misura  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  »» Aspetto beni  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
- »» Causali  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
+ »» Causali trasporto  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  »» Mansioni referenti  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  » Impostazioni  | :heavy_check_mark: |-|-|-|-|-||
  » Segmenti  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
