@@ -60,12 +60,12 @@ class CategorieArticoli(Test):
         element=self.driver.find_element(By.XPATH,'//div[@id="module-edit"]//input[@id="nome"]')
         element.send_keys(modifica)
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="module-edit"]//input[@id="nome"]'))).send_keys(Keys.ENTER)
-        sleep(1)
+        sleep(2)
         
-        self.navigateTo("Categorie articoli")
-        self.wait_loader()    
-
+        self.find(By.XPATH, '//a[@class="btn btn-default"]').click()
+        sleep(1)
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        sleep(1)
 
     def elimina_categoria_articoli(self):
         self.navigateTo("Categorie articoli")
