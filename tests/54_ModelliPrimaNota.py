@@ -48,16 +48,14 @@ class ModelliPrimaNota(Test):
 
         self.find(By.XPATH, '//span[@id="select2-conto0-container"]').click()
         sleep(1)
-        self.find(By.XPATH, '//input[@class="select2-search__field"]').send_keys("100.000010", Keys.ENTER)
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
         sleep(1)
-        self.find(By.XPATH, '//input[@id="avere0"]').send_keys("100,00")
-
         self.find(By.XPATH, '//span[@id="select2-conto1-container"]').click()
+        sleep(1)
         self.find(By.XPATH, '//input[@class="select2-search__field"]').send_keys("700.000010")
         sleep(1)
         self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click() 
         sleep(1)
-        self.find(By.XPATH, '//input[@id="dare1"]').send_keys("100,00")
 
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
