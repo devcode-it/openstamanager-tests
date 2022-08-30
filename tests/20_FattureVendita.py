@@ -119,7 +119,8 @@ class FattureVendita(Test):
         # Torno alla tabella delle Fatture
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
-
+        self.wait_loader()
+        
         # Estrazione Totale widgets
         widget_fatturato = self.find(By.XPATH, '(//span[@class="info-box-number"])[1]').text
         widget_crediti = self.find(By.XPATH, '(//span[@class="info-box-number"])[2]').text
@@ -166,23 +167,25 @@ class FattureVendita(Test):
         super().setUp()
         self.expandSidebar("Contabilità")
         self.navigateTo("Piano dei conti")
+        self.wait_loader()
 
+        sleep(1)
         self.find(By.XPATH, '//*[@id="conto3-20"]//*[@class="fa fa-plus"]').click()
-        sleep(1) 
+        self.wait_loader()
         self.find(By.XPATH, '//*[@id="movimenti-94"]//*[@class="fa fa-plus"]').click()
-        sleep(1) 
+        self.wait_loader() 
         conto_ricavi = self.find(By.XPATH, '//*[@id="conto3-94"]//*[@class="text-right"]').text
        
         self.find(By.XPATH, '//*[@id="conto3-2"]//*[@class="fa fa-plus"]').click()
-        sleep(1)
+        self.wait_loader()
         self.find(By.XPATH, '//*[@id="movimenti-116"]//*[@class="fa fa-plus"]').click()
-        sleep(1) 
+        self.wait_loader()
         conto_cliente = self.find(By.XPATH, '//*[@id="conto_116"]//*[@class="text-right"]').text
    
         self.find(By.XPATH, '//*[@id="conto3-22"]//*[@class="fa fa-plus"]').click()
-        sleep(1)
+        self.wait_loader()
         self.find(By.XPATH, '//*[@id="movimenti-106"]//*[@class="fa fa-plus"]').click()        
-        sleep(1) 
+        self.wait_loader()
         conto_iva = self.find(By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]').text
         conto_iva= '-'+ conto_iva
 
@@ -257,14 +260,14 @@ class FattureVendita(Test):
 
         # Controllo importi fattura elettronica
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//tr[2]//td[2]').click()
-        sleep(2)
+        self.wait_loader()
 
         self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
-        sleep(1)
+        self.wait_loader()
 
         self.driver.execute_script('$("a").removeAttr("target")')
         self.find(By.XPATH, '//form[@id="form-xml"]/following-sibling::a[1]').click()
-        sleep(2)
+        self.wait_loader()
 
         perc_iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]').text
         iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]').text
@@ -288,23 +291,25 @@ class FattureVendita(Test):
         super().setUp()
         self.expandSidebar("Contabilità")
         self.navigateTo("Piano dei conti")
+        self.wait_loader()
 
         self.find(By.XPATH, '//*[@id="conto3-20"]//*[@class="fa fa-plus"]').click()
-        sleep(1) 
+        self.wait_loader()
         self.find(By.XPATH, '//*[@id="movimenti-94"]//*[@class="fa fa-plus"]').click()
-        sleep(1) 
+        self.wait_loader()
         conto_ricavi = self.find(By.XPATH, '//*[@id="conto3-94"]//*[@class="text-right"]').text
        
         self.find(By.XPATH, '//*[@id="conto3-2"]//*[@class="fa fa-plus"]').click()
-        sleep(1)
+        self.wait_loader()
         self.find(By.XPATH, '//*[@id="movimenti-116"]//*[@class="fa fa-plus"]').click()
-        sleep(1) 
+        self.wait_loader()
         conto_cliente = self.find(By.XPATH, '//*[@id="conto_116"]//*[@class="text-right"]').text
    
         self.find(By.XPATH, '//*[@id="conto3-22"]//*[@class="fa fa-plus"]').click()
-        sleep(1)
+        self.wait_loader()
         self.find(By.XPATH, '//*[@id="movimenti-106"]//*[@class="fa fa-plus"]').click()        
-        sleep(1) 
+        self.wait_loader()
+
         conto_iva = self.find(By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]').text
         conto_iva= '-'+ conto_iva
 
