@@ -80,14 +80,15 @@ class Combinazioni(Test):
 
         sleep(2)
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
+        sleep(1)
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
-        self.wait_loader()
+        sleep(1)
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
+        sleep(1)
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
-
+        sleep(1)
+        
     def verifica_combinazioni(self):
         self.navigateTo("Combinazioni")
         self.wait_loader()    
