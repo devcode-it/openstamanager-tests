@@ -64,12 +64,9 @@ class Attivita(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="pulsanti-modulo"]//button[1]').click()
-        sleep(2)
-        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
-        sleep(1)
-        self.find(By.XPATH, '//span[@class="select2-results"]//li[2]').click()
-        sleep(1)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="pulsanti-modulo"]//button[1]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-results"]//li[2]'))).click()
 
         self.find(By.XPATH, '//div[@class="modal-content"]//button[@type="submit"]').click()
         self.wait_loader()
@@ -78,9 +75,7 @@ class Attivita(Test):
         self.navigateTo("Attività")
         self.wait_loader()
 
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys('1')
-        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('1')        
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
         sleep(1)
 
@@ -93,39 +88,38 @@ class Attivita(Test):
         self.wait_loader()
 
         self.navigateTo("Attività")
-        self.wait_loader()  
+        self.wait_loader()
+
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 
     def elimina_attività(self):
         self.navigateTo("Attività")
         self.wait_loader()  
 
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys('2')
-        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('2')        
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        sleep(1)
 
-        sleep(2)
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        sleep(1)
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
         
         self.navigateTo("Attività")
-        self.wait_loader()  
+        self.wait_loader()
+
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 
     def controllo_righe(self):
         self.navigateTo("Attività")
         self.wait_loader()  
         
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys('1')
-
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('1')
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
-        sleep(2)
+        sleep(1)
+
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
 
@@ -158,7 +152,8 @@ class Attivita(Test):
         self.assertEqual(totalefinale, totalefinalerighe)
 
         self.navigateTo("Attività")
-        self.wait_loader()  
+        self.wait_loader()
+
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 
     def verifica_attività(self):
@@ -166,19 +161,18 @@ class Attivita(Test):
         self.wait_loader()    
 
         #verifica elemento modificato
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys("1")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1")
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
         sleep(1)
+
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[7]').text
         self.assertEqual("Fatturato",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
-        sleep(1)
 
         #verifica elemento eliminato
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys("2")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2")
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
         sleep(1)
+        
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
