@@ -37,6 +37,8 @@ class RitenutePrevidenziali(Test):
 
         self.input(modal, 'Descrizione').setValue(descrizione)
         self.input(modal, 'Percentuale').setValue(percentuale)
+        self.input(modal, 'Causale ritenuta').setValue("A")
+        self.input(modal, 'Tipo ritenuta').setValue("RT01")
         self.input(modal, 'Percentuale imponibile').setValue(percentualeimp)
 
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()

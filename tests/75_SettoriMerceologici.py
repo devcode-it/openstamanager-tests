@@ -19,11 +19,11 @@ class SettoriMerceologici(Test):
     def test_creazione_settori_merceologici(self):
         # Creazione settore merceologico      *Required*
         self.creazione_settori_merceologici("Settore Merceologico di Prova da Modificare")
-        self.creazione_settori_merceologici("Settore Merceologico di Prova da Eliminare")
 
         # Modifica settore merceologico
         self.modifica_settori_merceologici("Settore Merceologico di Prova")
-        
+
+        self.creazione_settori_merceologici("Settore Merceologico di Prova da Eliminare")
         # Cancellazione settore merceologico
         self.elimina_settore_merceologico()
         
@@ -34,11 +34,9 @@ class SettoriMerceologici(Test):
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
-        sleep(1)
         self.input(modal, 'Descrizione').setValue(descrizione)
-        sleep(2)
+        sleep(1)
         self.find(By.XPATH, '//button[@class="btn btn-primary"][@type="submit"]').click()
-
         self.wait_loader()
 
     def modifica_settori_merceologici(self, modifica=str):
