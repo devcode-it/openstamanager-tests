@@ -241,34 +241,33 @@ class FattureVendita(Test):
         # Controllo Scadenzario
         scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
         self.assertEqual(totale, scadenza_fattura[12:21])
-
-        self.driver.execute_script('$("a").removeAttr("target")')
-        self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::a').click()
-        self.wait_loader()
         
+        self.find(By.XPATH, '//div[@class="btn-group pull-right"]').click()
+        sleep(2)
+
         self.driver.switch_to.window(self.driver.window_handles[1])
         scadenza_scadenzario = self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text
-        scadenza_scadenzario = scadenza_scadenzario+' €'
+        scadenza_scadenzario = scadenza_scadenzario +' €'
         self.assertEqual(totale, scadenza_scadenzario)
 
-        self.driver.switch_to.window(self.driver.window_handles[0])
         self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
 
         # Torno alla tabella delle Fatture
-        self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
         # Controllo importi fattura elettronica
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//tr[2]//td[2]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//tr[1]//td[2]').click()
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
         self.wait_loader()
 
-        self.driver.execute_script('$("a").removeAttr("target")')
         self.find(By.XPATH, '//form[@id="form-xml"]/following-sibling::a[1]').click()
-        self.wait_loader()
+        sleep(2)
+
+        self.driver.switch_to.window(self.driver.window_handles[1])
 
         perc_iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]').text
         iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]').text
@@ -288,6 +287,11 @@ class FattureVendita(Test):
 
         iva = '-' + iva
 
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.driver.close()
+        
         # Estrazione valori Piano dei conti
         super().setUp()
         self.expandSidebar("Contabilità")
