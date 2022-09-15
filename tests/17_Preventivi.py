@@ -88,8 +88,9 @@ class Preventivi(Test):
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="pulsanti-modulo"]//button[@class="btn ask btn-primary"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys(" da Eliminare")
-
-        self.find(By.XPATH, '//a[@id="save"]').click()
+        sleep(1)
+        
+        self.find(By.XPATH, '//a[@class="btn btn-success"]').click()
         self.wait_loader()
 
     def modifica_preventivo(self, stato:str):

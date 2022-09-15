@@ -135,17 +135,9 @@ class FattureVendita(Test):
 
         self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
         sleep(1)
-        self.find(By.XPATH, '//form[@id="form-xml"]/descendant::button').click()
-        sleep(2)
-
-        self.find(By.XPATH, '//aside[@class="control-sidebar control-sidebar-light control-sidebar-open"]//a[@data-toggle="tab"]').click()
-        sleep(2)
-        self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
-        sleep(2)
-
-        self.driver.execute_script('$("a").removeAttr("target")')
         self.find(By.XPATH, '//div[@class="text-center"]//a[@class="btn btn-info btn-lg "]').click()
         sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[1])
 
         perc_iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]').text
         iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]').text
@@ -162,6 +154,11 @@ class FattureVendita(Test):
         self.assertEqual(totale_imponibile, totale_imponibile_FE)
         self.assertEqual(totale, totale_FE)
         self.assertEqual(totale, scadenza_FE)
+
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.driver.close()
 
         # Estrazione valori Piano dei conti
         super().setUp()
@@ -248,10 +245,14 @@ class FattureVendita(Test):
         self.driver.execute_script('$("a").removeAttr("target")')
         self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::a').click()
         self.wait_loader()
-
+        
+        self.driver.switch_to.window(self.driver.window_handles[1])
         scadenza_scadenzario = self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text
         scadenza_scadenzario = scadenza_scadenzario+' €'
         self.assertEqual(totale, scadenza_scadenzario)
+
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.driver.close()
 
         # Torno alla tabella delle Fatture
         self.expandSidebar("Vendite")

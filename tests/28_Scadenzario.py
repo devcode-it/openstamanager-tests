@@ -20,8 +20,8 @@ class Scadenzario(Test):
 
     def test_creazione_scadenzario(self):
         # Crea una nuova scadenza. *Required*
-        self.creazione_scadenzario("Scadenze generiche", "10", "Scadenza di Prova da Modificare")
-        self.creazione_scadenzario("Scadenze generiche", "10", "Scadenza di Prova da Eliminare")
+        self.creazione_scadenzario("Cliente", "Scadenze generiche", "10", "Scadenza di Prova da Modificare")
+        self.creazione_scadenzario("Cliente", "Scadenze generiche", "10", "Scadenza di Prova da Eliminare")
 
         # Modifica scadenza
         self.modifica_scadenza("Scadenza di Prova")
@@ -33,7 +33,7 @@ class Scadenzario(Test):
         self.verifica_scadenza()
 
 
-    def creazione_scadenzario(self, tipo: str, importo: str, descrizione: str):
+    def creazione_scadenzario(self, nome: str, tipo: str, importo: str, descrizione: str):
         self.navigateTo("Scadenzario")
         self.wait_loader() 
 
@@ -43,6 +43,7 @@ class Scadenzario(Test):
         modal = self.wait_modal()
 
         self.input(modal, 'Tipo').setByText(tipo)
+        self.input(modal,'Anagrafica').setByText(nome)
         self.input(modal, 'Importo').setValue(importo)
         self.input(modal, 'Descrizione').setValue(descrizione)
 
