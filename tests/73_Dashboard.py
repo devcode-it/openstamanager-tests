@@ -35,7 +35,7 @@ class Dashboard(Test):
         self.find(By.XPATH, '//div[@class="tab-content"]//div[@class="row"]//div[@id="dashboard_tecnici"]//button[@type="button"]').click()
         self.wait_loader()
         self.find(By.XPATH, '//div[@id="dashboard_tecnici"]//button[@class="btn btn-primary btn-sm seleziona_tutto"]').click()
-        sleep(2)
+        sleep(1)
 
         trova=self.find(By.XPATH, '//div[@class="fc-content-col"]//div[@data-start="8:45"]').text
         self.assertEqual(trova,ora)
@@ -48,9 +48,8 @@ class Dashboard(Test):
         self.wait_loader()    
 
         #verifica elemento modificato
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys("2")
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)
         sleep(1)
+        
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("2",modificato)

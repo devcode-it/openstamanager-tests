@@ -39,24 +39,16 @@ class PrimaNota(Test):
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
-
         self.input(modal, 'Causale').setValue(causale)
         modal = self.wait_modal()
-
-        self.find(By.XPATH, '//span[@id="select2-conto0-container"]').click()
-        sleep(1)
-        self.find(By.XPATH, '//input[@class="select2-search__field"]').send_keys("100.000010", Keys.ENTER)
-        sleep(1)
-        self.find(By.XPATH, '//input[@id="avere0"]').send_keys("100,00")
-
-
-        self.find(By.XPATH, '//span[@id="select2-conto1-container"]').click()
-        self.find(By.XPATH, '//input[@class="select2-search__field"]').send_keys("700.000010")
-        sleep(1)
-        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click() 
-        sleep(1)
-        self.find(By.XPATH, '//input[@id="dare1"]').send_keys("100,00")
-
+        
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-conto0-container"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("100.000010", Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="avere0"]'))).send_keys("100,00")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-conto1-container"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("700.000010")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click() 
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="dare1"]'))).send_keys("100,00")
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
     
@@ -64,17 +56,13 @@ class PrimaNota(Test):
         self.navigateTo("Prima nota")
         self.wait_loader()
 
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Causale"]/input')
-        element.send_keys('Prima Nota da Modificare')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys('Prima Nota da Modificare', Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
         
         self.input(None,'Causale').setValue(modifica)
-
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
@@ -87,17 +75,14 @@ class PrimaNota(Test):
         self.navigateTo("Prima nota")
         self.wait_loader()  
 
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Causale"]/input')
-        element.send_keys('Prima Nota da Eliminare')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys('Prima Nota da Eliminare', Keys.ENTER)
+        sleep(1)
 
-        sleep(2)
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        sleep(1)
+
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Causale"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
@@ -107,20 +92,18 @@ class PrimaNota(Test):
         self.wait_loader()    
 
         #verifica elemento modificato
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Causale"]/input')
-        element.send_keys("Prima Nota di Prova (Fatt. n.1 del 01/01/2022)")
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys("Prima Nota di Prova (Fatt. n.1 del 01/01/2022)", Keys.ENTER)
         sleep(1)
+
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[4]').text
         self.assertEqual("Prima Nota di Prova (Fatt. n.1 del 01/01/2022)",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
         sleep(1)
 
         #verifica elemento eliminato
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Causale"]/input')
-        element.send_keys("Prima nota da Eliminare")
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys("Prima nota da Eliminare", Keys.ENTER)
         sleep(1)
+        
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
 

@@ -43,7 +43,7 @@ class Scadenzario(Test):
         modal = self.wait_modal()
 
         self.input(modal, 'Tipo').setByText(tipo)
-        self.input(modal,'Anagrafica').setByText(nome)
+        self.input(modal, 'Anagrafica').setByText(nome)
         self.input(modal, 'Importo').setValue(importo)
         self.input(modal, 'Descrizione').setValue(descrizione)
 
@@ -55,10 +55,7 @@ class Scadenzario(Test):
         self.navigateTo("Scadenzario")
         self.wait_loader()
 
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione-scadenza"]/input')
-        element.send_keys('Scadenza di Prova da Modificare')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys('Scadenza di Prova da Modificare', Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
@@ -80,17 +77,14 @@ class Scadenzario(Test):
         self.navigateTo("Scadenzario")
         self.wait_loader()  
 
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione-scadenza"]/input')
-        element.send_keys('Scadenza di Prova da Eliminare')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys('Scadenza di Prova da Eliminare', Keys.ENTER)
+        sleep(1)
 
-        sleep(2)
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        sleep(1)
+
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Descrizione-scadenza"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
@@ -100,19 +94,17 @@ class Scadenzario(Test):
         self.wait_loader()    
 
         #verifica elemento modificato
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione-scadenza"]/input')
-        element.send_keys("Scadenza di Prova")
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys("Scadenza di Prova", Keys.ENTER)
         sleep(1)
+
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Scadenza di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
         sleep(1)
 
         #verifica elemento eliminato
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione-scadenza"]/input')
-        element.send_keys("Scadenza da Eliminare")
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys("Scadenza da Eliminare", Keys.ENTER)
         sleep(1)
+        
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)

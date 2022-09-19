@@ -51,8 +51,7 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH,'//th[@id="th_Descrizione"]/input'))).send_keys('Articolo di Prova')
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Articolo di Prova', Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
@@ -63,7 +62,7 @@ class Articoli(Test):
         self.input(None, 'Descrizione movimento').setValue("Movimento di prova")
 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
-        sleep(2)
+        sleep(1)
 
         # Controllo quantità 
         self.find(By.XPATH, '//a[@id="back"]').click()
@@ -78,15 +77,14 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()  
 
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH,'//th[@id="th_Descrizione"]/input'))).send_keys('Articolo di Prova da Eliminare')
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Articolo di Prova da Eliminare', Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
         sleep(1)
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         sleep(1)
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
@@ -97,19 +95,17 @@ class Articoli(Test):
         self.wait_loader()    
 
         #verifica elemento modificato
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Qtà"]/input')
-        element.send_keys("10,00")
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Qtà"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Qtà"]/input'))).send_keys("10,00", Keys.ENTER)
         sleep(1)
+
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[10]').text
         self.assertEqual("10,00",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
         sleep(1)
 
         #verifica elemento eliminato
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Descrizione"]/input')
-        element.send_keys("Articolo di prova da Eliminare")
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys(Keys.ENTER)
-        sleep(2)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Articolo di prova da Eliminare", Keys.ENTER)
+        sleep(1)
+
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[1]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)

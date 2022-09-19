@@ -45,21 +45,18 @@ class FattureAcquisto(Test):
         modal = self.wait_modal()
 
         self.input(modal, 'N. fattura del fornitore').setValue(numero)
-
         select = self.input(modal, 'Fornitore')
         select.setByText(fornitore)
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
-        sleep(1)
 
         select = self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Pagamento')
         select.setByIndex(pagamento)
 
         #toast = self.driver.find_elements(By.CLASS_NAME, 'toast-message')
         #self.assertIn('Aggiunto fattura', toast)
-        sleep(1)
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
 
@@ -67,13 +64,10 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
-        sleep(1)
         self.find(By.XPATH, '//td[@class="bound clickable"]').click()
         self.wait_loader()
         
-        sleep(1)
         self.input(None,'Stato*').setByText(modifica)
-
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
@@ -81,12 +75,10 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
-        sleep(1)
         self.find(By.XPATH, '//td[@class="bound clickable"]').click()
         self.wait_loader()
         
         # Estrazione totali righe
-        sleep(1)
         sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
         totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
         iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
@@ -96,7 +88,6 @@ class FattureAcquisto(Test):
         # Controllo Scadenzario
         scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
         self.assertEqual(totale, scadenza_fattura[12:21])
-
         self.driver.execute_script('$("a").removeAttr("target")')
         self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::a').click()
         self.wait_loader()
@@ -150,23 +141,20 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
-        sleep(1)
         self.find(By.XPATH, '//td[@class="bound clickable"]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
+        sleep(1)
+
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
 
     def verifica_fattura_acquisto(self):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()  
 
         #verifica elemento eliminato
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys("1")
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)
         sleep(1)
+
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella",eliminato)
 
@@ -190,27 +178,20 @@ class FattureAcquisto(Test):
         # Completamento anagrafica
         self.navigateTo("Anagrafiche")
         self.wait_loader()  
-
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Ragione-sociale"]/input')
-        element.send_keys("Fornitore Estero")    
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys(Keys.ENTER)
+ 
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Fornitore Estero", Keys.ENTER)    
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        sleep(3)
-
-        self.find(By.XPATH,'//span[@id="select2-id_nazione-container"]').click()
-        self.wait_loader()
-        element=self.find(By.XPATH,'//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]')
-        element.send_keys("Germania")
         sleep(1)
-        self.find(By.XPATH,'//li[@class="select2-results__option select2-results__option--highlighted"]').click()
-        self.wait_loader()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_nazione-container"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Germania")
+        sleep(1)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
 
         self.input(None, 'Partita IVA').setValue("05024030287")
         self.input(None, 'Codice fiscale').setValue("05024030287")
-        element=self.driver.find_element(By.XPATH,'//input[@id="indirizzo"]')
-        element.send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))).send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Berlino")
 
@@ -234,7 +215,6 @@ class FattureAcquisto(Test):
         self.wait_loader()
 
         # Inserisco le righe
-        sleep(1)
         select = self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Pagamento')
         select.setByIndex(pagamento)
         row_manager = RowManager(self)
@@ -243,23 +223,17 @@ class FattureAcquisto(Test):
         # Modifica stato in emessa        
         self.input(None,'Stato*').setByText("Emessa")
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
-        self.wait_loader()
+        sleep(1)
 
         # Creazione autofattura
-        self.find(By.XPATH, '//button[@class="btn btn-primary unblockable dropdown-toggle "]').click()
-        self.find(By.XPATH, '//li//a[@class="bound clickable"]').click()
-        self.wait_modal()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary unblockable dropdown-toggle "]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//li//a[@class="bound clickable"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//span[@class="select2-selection select2-selection--single"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("TD17")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//button[@type="submit"]'))).click()
+        self.wait_loader()
 
-        self.find(By.XPATH, '//div[@class="modal-body"]//span[@class="select2-selection select2-selection--single"]').click()
-        element=self.find(By.XPATH,'//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]')
-        element.send_keys("TD17")
-        sleep(1)
-        self.find(By.XPATH,'//li[@class="select2-results__option select2-results__option--highlighted"]').click()
-        self.wait_loader()
-        
-        self.find(By.XPATH,'//div[@class="modal-body"]//button[@type="submit"]').click()        
-        self.wait_loader()
-        
         # Modifica stato in emessa        
         self.input(None,'Stato*').setByText("Emessa")
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()

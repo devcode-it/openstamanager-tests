@@ -15,5 +15,4 @@ class Backup(Test):
     def creazione_backup(self):
         self.navigateTo("Backup")
         self.find(By.CSS_SELECTOR, 'button[onclick="creaBackup(this)"]').click()
-
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]').click()

@@ -57,7 +57,6 @@ class DdtEntrata(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary ask"]').click()
         self.wait_loader()
 
-
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
         self.wait_loader()
 
@@ -68,20 +67,16 @@ class DdtEntrata(Test):
         self.navigateTo("Ddt in entrata")
         self.wait_loader()
 
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys('1')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('1', Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
         
-        self.find(By.XPATH, '//span[@id="select2-idstatoddt-container"]').click()
-        element=self.find(By.XPATH,'//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]')
-        element.send_keys("Evaso")
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatoddt-container"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Evaso")
         sleep(1)
-        self.find(By.XPATH,'//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()        
         self.wait_loader()
         
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
@@ -96,17 +91,14 @@ class DdtEntrata(Test):
         self.navigateTo("Ddt in entrata")
         self.wait_loader()    
 
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys('2')
-        
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('2', Keys.ENTER)
+        sleep(1)
 
-        sleep(2)
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]').click()
-        self.wait_loader()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
@@ -116,19 +108,16 @@ class DdtEntrata(Test):
         self.wait_loader()    
 
         #verifica elemento modificato
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys("1")
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)
         sleep(1)
+
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[11]').text
         self.assertEqual("Evaso",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
-        sleep(1)
 
         #verifica elemento eliminato
-        element=self.driver.find_element(By.XPATH,'//th[@id="th_Numero"]/input')
-        element.send_keys("2")
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)
         sleep(1)
+        
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
