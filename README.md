@@ -37,12 +37,14 @@ Legenda:
  Modulo  | :eye:|:heavy_plus_sign:| :pencil:|:wastebasket:|:bookmark_tabs: |☑️| Altro |
 -------- | :----:|:----------------:|:-------:|:-----------:|:--------------:|:-:|:---:|
  Dashboard  | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|-|:heavy_check_mark:||
- Anagrafiche  | :heavy_check_mark: |:heavy_check_mark: | :heavy_check_mark:|:heavy_check_mark: |-|:heavy_check_mark:||
+ Anagrafiche  | :heavy_check_mark: |:heavy_check_mark: | :heavy_check_mark:|:heavy_check_mark: |-|:heavy_check_mark:|+ Relazioni e zone|
+ » Tipi di anagrafiche  | :heavy_check_mark: |:heavy_check_mark: | :heavy_check_mark:|:heavy_check_mark: |-|:heavy_check_mark:|+ Relazioni e zone|
  » Relazioni  | :heavy_check_mark: |  :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  » Zone  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  » Proveniente clienti  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  » Settori merceologici  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  Gestione email  | :heavy_check_mark:|-|-|-|-|:heavy_check_mark:||
+ » Liste  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  » Newsletter  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  » Coda di invio  | :heavy_check_mark: |-|-|-|-|-||
  » Template email  | :heavy_check_mark: |  :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
@@ -54,6 +56,7 @@ Legenda:
  » Fasce orarie  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  » Stati di attività  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  » Tecnici e tariffe |:heavy_check_mark:|-|:heavy_check_mark:|-|-|:heavy_check_mark:||
+ » Voci di servizio  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  Vendite  | :heavy_check_mark:| -|-|-|-|:heavy_check_mark:||
  » Preventivi  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark: |:heavy_check_mark:|+ Duplica e Crea|
  » Contratti  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark: |:heavy_check_mark:| + Duplica|
@@ -79,8 +82,13 @@ Legenda:
  » Combinazioni  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  Impianti  | :heavy_check_mark: |  :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  » Categorie impianti  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:| :heavy_check_mark:|-|:heavy_check_mark:||
- » Statistiche | :heavy_check_mark: | - | -| -|-|-||
+ Statistiche | :heavy_check_mark: | - | -| -|-|-||
+ Mappa | :heavy_check_mark: | - | -| -|-|-||
  Strumenti  | - |-|-|-|-|-||
+ » Campi personalizzati  | :heavy_check_mark: |-|-|-|-|-||
+ » Viste  | :heavy_check_mark: |-|-|-|-|-||
+ » Utenti e permessi  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
+ » Impostazioni  | :heavy_check_mark: |-|-|-|-|-||
  » Tabelle  | - |-|-|-|-|-||
  »» Tipi di spedizione  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  »» Eventi  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
@@ -102,12 +110,9 @@ Legenda:
  »» Aspetto beni  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  »» Causali trasporto  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  »» Mansioni referenti  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
- » Impostazioni  | :heavy_check_mark: |-|-|-|-|-||
  » Segmenti  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  » Import  | :heavy_check_mark: ||-|-|-|-||
  » Stato dei servizi  | :heavy_check_mark: |-|-|-|-|-||
  » Checklists  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
- » Utenti e permessi  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
- » Viste  | :heavy_check_mark: |-|-|-|-|-||
  » Backup  | :heavy_check_mark: |:heavy_check_mark: |-|-|-|-||
  » Aggiornamenti  | :heavy_check_mark: | -|-|-|-|-||
