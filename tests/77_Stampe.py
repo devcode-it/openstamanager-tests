@@ -10,5 +10,5 @@ class Campi_personalizzati(Test):
         
     def test_acquisti(self):
         self.expandSidebar("Strumenti")
-        self.expandSidebar("Stampe")
+        self.navigateTo("Stampe")
 

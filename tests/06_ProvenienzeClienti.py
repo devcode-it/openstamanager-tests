@@ -41,6 +41,7 @@ class Provenienze_clienti(Test):
         sleep(1)
         
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        sleep(2)
         self.wait_loader()
 
     def modifica_provenienze_clienti(self, modifica=str):

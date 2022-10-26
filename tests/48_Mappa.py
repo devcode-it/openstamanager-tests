@@ -9,5 +9,5 @@ class Mappa(Test):
 
         
     def test_mappa(self):
-        self.expandSidebar("Mappa")
+        self.navigateTo("Mappa")
 

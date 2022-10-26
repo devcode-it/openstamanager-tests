@@ -36,6 +36,8 @@ class StatoServizi(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
         self.find(By.XPATH, '//button[@class="btn btn-success btn-xs"]//i[@class="fa fa-recycle"]').click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-success btn-xs"]//i[@class="fa fa-recycle"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
 
 
     def compila_azienda(self):
@@ -47,8 +49,8 @@ class StatoServizi(Test):
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Italia")
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         
-        self.input(None, 'Partita IVA').setValue("05024030288")
-        self.input(None, 'Codice fiscale').setValue("05024030288")
+        self.input(None, 'Partita IVA').setValue("05024030289")
+        self.input(None, 'Codice fiscale').setValue("05024030289")
         element=self.driver.find_element(By.XPATH,'//input[@id="indirizzo"]')
         element.send_keys("Via Rovigo, 51")
         self.input(None, 'C.A.P.').setValue("35042")

@@ -162,7 +162,7 @@ class Preventivi(Test):
         sleep(1)
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella",eliminato)  
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)  
         self.navigateTo("Preventivi")
         self.wait_loader()
 

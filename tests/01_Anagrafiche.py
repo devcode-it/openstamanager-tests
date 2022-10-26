@@ -397,7 +397,7 @@ class Anagrafiche(Test):
         sleep(1)
 
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_17"]'))).click()
-        sleep(1)
+        sleep(2)
 
         modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_17"]//tbody//td[2]').text
         self.assertEqual("01",modificato)

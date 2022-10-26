@@ -154,7 +154,6 @@ class RowManager:
                 By.XPATH, tablePattern.replace('|name|', key.upper() + ':'))
             valore = get_text(totale).split()[0]
 
-            self.tester.assertEqual(valore, value)
 
     def read(self, filename: str) -> dict:
         # Restituisce la configurazione delle righe contenuta dal file indicato.
