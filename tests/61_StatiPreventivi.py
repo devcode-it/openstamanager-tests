@@ -35,7 +35,7 @@ class StatiPreventivi(Test):
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
-        self.input(modal, 'Colore').setValue("#000000")
+        self.input(modal, 'Colore').setValue("#000545")
         self.input(modal, 'Descrizione').setValue(descrizione)
         self.input(modal, 'Icona').setValue(icona)
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()

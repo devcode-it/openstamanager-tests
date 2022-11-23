@@ -65,6 +65,7 @@ class OrdiniCliente(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
         
+        self.driver.execute_script('window.scrollTo(0,0)')
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatoordine-container"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@type="search"]'))).send_keys("Accettato")
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
