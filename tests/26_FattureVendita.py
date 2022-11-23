@@ -162,9 +162,9 @@ class FattureVendita(Test):
        
         self.find(By.XPATH, '//*[@id="conto3-2"]//*[@class="fa fa-plus"]').click()
         self.wait_loader()
-        self.find(By.XPATH, '//*[@id="movimenti-116"]//*[@class="fa fa-plus"]').click()
+        self.find(By.XPATH, '//*[@id="movimenti-119"]//*[@class="fa fa-plus"]').click()
         self.wait_loader()
-        conto_cliente = self.find(By.XPATH, '//*[@id="conto_116"]//*[@class="text-right"]').text
+        conto_cliente = self.find(By.XPATH, '//*[@id="conto_119"]//*[@class="text-right"]').text
    
         self.find(By.XPATH, '//*[@id="conto3-22"]//*[@class="fa fa-plus"]').click()
         self.wait_loader()
@@ -282,9 +282,9 @@ class FattureVendita(Test):
        
         self.find(By.XPATH, '//*[@id="conto3-2"]//*[@class="fa fa-plus"]').click()
         self.wait_loader()
-        self.find(By.XPATH, '//*[@id="movimenti-116"]//*[@class="fa fa-plus"]').click()
+        self.find(By.XPATH, '//*[@id="movimenti-119"]//*[@class="fa fa-plus"]').click()
         self.wait_loader()
-        conto_cliente = self.find(By.XPATH, '//*[@id="conto_116"]//*[@class="text-right"]').text
+        conto_cliente = self.find(By.XPATH, '//*[@id="conto_119"]//*[@class="text-right"]').text
    
         self.find(By.XPATH, '//*[@id="conto3-22"]//*[@class="fa fa-plus"]').click()
         self.wait_loader()

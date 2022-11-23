@@ -121,9 +121,9 @@ class FattureAcquisto(Test):
        
         self.find(By.XPATH, '//*[@id="conto3-8"]//*[@class="fa fa-plus"]').click()
         sleep(1)
-        self.find(By.XPATH, '//*[@id="movimenti-117"]//*[@class="fa fa-plus"]').click()
+        self.find(By.XPATH, '//*[@id="movimenti-120"]//*[@class="fa fa-plus"]').click()
         sleep(1) 
-        conto_fornitore = self.find(By.XPATH, '//*[@id="conto_117"]//*[@class="text-right"]').text
+        conto_fornitore = self.find(By.XPATH, '//*[@id="conto_120"]//*[@class="text-right"]').text
         conto_fornitore='-'+conto_fornitore
 
         self.find(By.XPATH, '//*[@id="conto3-22"]//*[@class="fa fa-plus"]').click()
@@ -189,8 +189,8 @@ class FattureAcquisto(Test):
         sleep(1)
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
 
-        self.input(None, 'Partita IVA').setValue("05024030287")
-        self.input(None, 'Codice fiscale').setValue("05024030287")
+        self.input(None, 'Partita IVA').setValue("05024030286")
+        self.input(None, 'Codice fiscale').setValue("05024030286")
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))).send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Berlino")
