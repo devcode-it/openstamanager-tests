@@ -82,6 +82,7 @@ class FattureVendita(Test):
         self.wait_loader()
         
     def controllo_fattura_vendita(self):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
@@ -122,8 +123,8 @@ class FattureVendita(Test):
         # Controllo importi fattura elettronica
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_18"]'))).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="text-center"]//a[@class="btn btn-info btn-lg "]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_18"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="text-center"]//a[@class="btn btn-info btn-lg "]'))).click()
         sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1])
@@ -310,27 +311,30 @@ class FattureVendita(Test):
         self.assertEqual(fattura,notacredito)
 
     def elimina_documento(self):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
         self.find(By.XPATH, '//td[@class="bound clickable"]').click()
         sleep(1)
 
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
 
     def verifica_fattura_di_vendita(self):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di vendita")
         self.wait_loader()  
 
         #verifica elemento eliminato
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("0001/2022", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("0001/2022", Keys.ENTER)
         sleep(1)
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella",eliminato)
 
     def verifica_xml_fattura_estera(self, file_importi: str):
+        wait = WebDriverWait(self.driver, 20)
         self.expandSidebar("Anagrafiche")
         self.wait_loader()  
 
@@ -350,21 +354,21 @@ class FattureVendita(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()  
 
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente Estero", Keys.ENTER)  
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente Estero", Keys.ENTER)  
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
 
         # Modifica dati
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_nazione-container"]'))).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Germania")
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_nazione-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Germania")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         self.wait_loader()
 
         self.input(None, 'Partita IVA').setValue("05024030288")
         self.input(None, 'Codice fiscale').setValue("05024030288")
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))).send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))).send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Piacenza d'Adige")
         self.find(By.XPATH, '//a[@id="save"]').click()

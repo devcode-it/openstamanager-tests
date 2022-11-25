@@ -45,10 +45,11 @@ class StatiAttivita(Test):
         self.wait_loader()
 
     def modifica_stato_attivita(self, modifica=str):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Stati di attività")
         self.wait_loader()
 
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Stato di Prova da Modificare', Keys.ENTER)        
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Stato di Prova da Modificare', Keys.ENTER)        
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
@@ -64,27 +65,29 @@ class StatiAttivita(Test):
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 
     def elimina_stato_attivita(self):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Stati di attività")
         self.wait_loader()  
 
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Stato di Prova da Eliminare', Keys.ENTER)        
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Stato di Prova da Eliminare', Keys.ENTER)        
         sleep(1)
         
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         sleep(1)
         
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 
     def verifica_stato_attivita(self):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Stati di attività")
         self.wait_loader()    
 
         #verifica elemento modificato
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Stato di Attività di Prova", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Stato di Attività di Prova", Keys.ENTER)
         sleep(1)
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
@@ -92,7 +95,7 @@ class StatiAttivita(Test):
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
 
         #verifica elemento eliminato
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Stato di Attività di Prova da Eliminare", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Stato di Attività di Prova da Eliminare", Keys.ENTER)
         sleep(1)
         
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text

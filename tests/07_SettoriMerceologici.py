@@ -31,20 +31,20 @@ class SettoriMerceologici(Test):
         self.verifica_settore_merceologico()
 
     def creazione_settori_merceologici(self, descrizione=str):
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        wait = WebDriverWait(self.driver, 20)
+        wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus'))).click()
         modal = self.wait_modal()
 
         self.input(modal, 'Descrizione').setValue(descrizione)
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@class="btn btn-primary"][@type="submit"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"][@type="submit"]'))).click()
         self.wait_loader()
 
     def modifica_settori_merceologici(self, modifica=str):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Settori merceologici")
         self.wait_loader()
 
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))).send_keys('Settore Merceologico di Prova da Modificare', Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))).send_keys('Settore Merceologico di Prova da Modificare', Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
@@ -56,33 +56,37 @@ class SettoriMerceologici(Test):
         self.wait_loader()
 
         self.navigateTo("Settori merceologici")
-        self.wait_loader()    
+        self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
-
-    def elimina_settore_merceologico(self):
-        self.navigateTo("Settori merceologici")
-        self.wait_loader()    
-
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))).send_keys('Settore merceologico di Prova da Eliminare', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+    def elimina_settore_merceologico(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Settori merceologici")
+        self.wait_loader()    
+        
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))).send_keys('Settore merceologico di Prova da Eliminare', Keys.ENTER)
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]'))).click()
         sleep(1)    
 
         self.driver.execute_script('window.scrollTo(0,0)')
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()      
 
         self.find(By.XPATH, '//th[@id="th_descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 
     def verifica_settore_merceologico(self):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Settori merceologici")
         self.wait_loader()    
 
         #verifica elemento modificato
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))).send_keys("Settore Merceologico di Prova", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))).send_keys("Settore Merceologico di Prova", Keys.ENTER)
         sleep(1)
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
@@ -90,7 +94,7 @@ class SettoriMerceologici(Test):
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
 
         #verifica elemento eliminato
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))).send_keys("Settore Merceologico di Prova da Eliminare", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))).send_keys("Settore Merceologico di Prova da Eliminare", Keys.ENTER)
         sleep(1)
         
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text

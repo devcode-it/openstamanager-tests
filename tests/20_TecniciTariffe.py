@@ -24,14 +24,15 @@ class TecniciTariffe(Test):
         self.verifica_tariffe()
 
     def modifica_tariffe(self, modifica):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Tecnici e tariffe")
         self.wait_loader()
 
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Tecnico', Keys.ENTER)        
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Tecnico', Keys.ENTER)        
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="input-group has-feedback"]/input[@id="costo_ore1"]'))).send_keys(modifica)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="input-group has-feedback"]/input[@id="costo_ore1"]'))).send_keys(modifica)
         sleep(1)
             
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
@@ -43,11 +44,12 @@ class TecniciTariffe(Test):
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 
     def verifica_tariffe(self):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Tecnici e tariffe")
         self.wait_loader()    
 
         #verifica elemento modificato
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Tecnico", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Tecnico", Keys.ENTER)
         sleep(1)
 
         self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').click()
