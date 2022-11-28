@@ -218,6 +218,7 @@ class Anagrafiche(Test):
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
+        sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[1]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[8]'))).click()
@@ -300,7 +301,8 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()  
+        sleep(1)  
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[3]'))).click()
         modal = self.wait_modal()
