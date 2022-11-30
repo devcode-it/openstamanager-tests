@@ -141,16 +141,17 @@ class Preventivi(Test):
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
-
+        sleep(1)
         totalepreventivo=self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
 
         # Creazione contratto
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="bound clickable"][@data-title="Crea contratto"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="checked_3"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="submit_btn"]'))).click()
-        sleep(1)
+        sleep(2)
 
         totalecontratto=self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
         
@@ -166,7 +167,7 @@ class Preventivi(Test):
         sleep(1)
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)  
+        self.assertEqual("Nessun dato presente nella tabella",eliminato)  
         self.navigateTo("Preventivi")
         self.wait_loader()
 
@@ -188,6 +189,8 @@ class Preventivi(Test):
         # Creazione ordine cliente
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="bound clickable"][@data-title="Crea ordine cliente"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="checked_3"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="submit_btn"]'))).click()
         sleep(1)
@@ -230,6 +233,8 @@ class Preventivi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="bound clickable"][@data-title="Crea ordine fornitore"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="checked_3"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="input-group has-feedback"]//span[@class="selection"]//span [@id="select2-idanagrafica-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="submit_btn"]'))).click()
         sleep(1)
@@ -277,6 +282,8 @@ class Preventivi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato_intervento-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="submit_btn"]'))).click()
         sleep(1)
 
@@ -319,6 +326,8 @@ class Preventivi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="bound clickable"][@data-title="Crea ordine cliente"]//i[@class="fa fa-truck"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="checked_3"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_causale_trasporto-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="submit_btn"]'))).click()
         sleep(1)

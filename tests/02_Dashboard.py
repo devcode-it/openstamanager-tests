@@ -53,7 +53,7 @@ class Dashboard(Test):
         sleep(1)
         
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
-        self.assertEqual("1",modificato)
+        self.assertEqual("0001",modificato)
 
         #rimuovi elemento
         self.navigateTo("Attività")

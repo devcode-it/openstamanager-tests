@@ -221,7 +221,7 @@ class Anagrafiche(Test):
         sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[1]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[8]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[9]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_3-"]//button[@type="button"])[15]'))).click()
         sleep(1)
@@ -230,13 +230,13 @@ class Anagrafiche(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
-        sleep(1)
+        sleep(2)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_28"]'))).click()
         sleep(1)
 
         modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_28"]//tbody//tr[1]//td[2]').text
-        self.assertEqual("1",modificato)
+        self.assertEqual("0001",modificato)
 
         self.find(By.XPATH, '//div[@id="tab_28"]//tbody//td[2]').click()
         sleep(1)
@@ -260,9 +260,9 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[2]'))).click()
         modal = self.wait_modal()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[3]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[4]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[5]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
         self.input(modal, 'Nome').setValue("Preventivo di prova anagrafica")
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_13-"]//button[@class="btn btn-primary"])'))).click()
