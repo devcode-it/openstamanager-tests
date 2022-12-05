@@ -74,6 +74,7 @@ Legenda:
  » Articoli  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:||
  » Movimenti  | :heavy_check_mark: | :heavy_check_mark: |-|:heavy_check_mark:  |-|:heavy_check_mark:||
  » Listini  | :heavy_check_mark: | - |-|-|-|-||
+ » Listini cliente | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:||
  » Piani di sconto/magg.  | :heavy_check_mark: |  :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: |-|:heavy_check_mark:||
  » Ddt in uscita  | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:| + Duplica|
  » Ddt in entrata  | :heavy_check_mark: | :heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark: |:heavy_check_mark:| + Duplica|
