@@ -236,7 +236,7 @@ class Anagrafiche(Test):
         sleep(1)
 
         modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_28"]//tbody//tr[1]//td[2]').text
-        self.assertEqual("0001",modificato)
+        self.assertEqual("1",modificato)
 
         self.find(By.XPATH, '//div[@id="tab_28"]//tbody//td[2]').click()
         sleep(1)
