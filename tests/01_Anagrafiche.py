@@ -175,7 +175,7 @@ class Anagrafiche(Test):
     def elimina_anagrafica(self):
         wait = WebDriverWait(self.driver, 20)     
         self.navigateTo("Anagrafiche")
-        self.wait_loader()    
+        self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys('Anagrafica di Prova da Eliminare', Keys.ENTER)
         sleep(1)
@@ -223,7 +223,8 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[1]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[9]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_3-"]//button[@type="button"])[15]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="cke_inner cke_reset"]//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]'))).send_keys("Test")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="col-md-12 text-right"]//button[@type="button"]'))).click()
         sleep(1)
 
         self.navigateTo("Anagrafiche")
@@ -255,7 +256,9 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
+        self.wait_loader()
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[2]'))).click()
         modal = self.wait_modal()
@@ -349,7 +352,9 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+           
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[4]'))).click()
         modal = self.wait_modal()
@@ -390,7 +395,9 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        sleep(1)    
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[5]'))).click()
         modal = self.wait_modal()

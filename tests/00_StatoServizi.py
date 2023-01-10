@@ -28,17 +28,17 @@ class StatoServizi(Test):
     def attiva_moduli(self):
         self.expandSidebar("Strumenti")
         self.navigateTo("Stato dei servizi")
-        self.find(By.XPATH, '//button[@class="btn btn-success btn-xs"]//i[@class="fa fa-recycle"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-success btn-xs"]//i[@class="fa fa-recycle"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-success btn-xs"]//i[@class="fa fa-recycle"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-success btn-xs"]//i[@class="fa fa-recycle"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-success btn-xs"]//i[@class="fa fa-recycle"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
-
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
+        sleep(1)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
+        sleep(1)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
+        sleep(1)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
 
     def compila_azienda(self):
         self.navigateTo("Anagrafiche")
