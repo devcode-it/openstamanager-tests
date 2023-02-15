@@ -384,9 +384,10 @@ class FattureVendita(Test):
 
         select = self.input(modal, 'Cliente')
         select.setByText("Cliente Estero")
+        sleep(1)
 
         # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        modal.find_element(By.XPATH, '//div[@id="modals"]//button[@type="submit"]').click()
         self.wait_loader()
 
         # Inserisco le righe

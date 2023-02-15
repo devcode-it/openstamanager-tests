@@ -45,7 +45,6 @@ class Attivita(Test):
 
         self.input(modal, 'Cliente').setByText(cliente)
         self.input(modal, 'Tipo').setByIndex(tipo)
-        self.input(modal, 'Stato').setByIndex(stato)
         
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[class="btn btn-primary"]').click()

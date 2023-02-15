@@ -211,6 +211,7 @@ class FattureAcquisto(Test):
 
         select = self.input(modal, 'Fornitore')
         select.setByText("Fornitore Estero")
+        sleep(1)
         self.input(modal, 'N. fattura del fornitore').setValue("01")
 
         # Submit
