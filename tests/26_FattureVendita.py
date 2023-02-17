@@ -78,6 +78,7 @@ class FattureVendita(Test):
         self.wait_loader()
         
         self.input(None,'Stato*').setByText(modifica)
+        self.driver.execute_script('window.scrollTo(0,0)')
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
         
@@ -204,6 +205,7 @@ class FattureVendita(Test):
         self.wait_loader()
         
         self.input(None,'Stato*').setByText(modifica)
+        self.driver.execute_script('window.scrollTo(0,0)')
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
@@ -363,6 +365,7 @@ class FattureVendita(Test):
         # Modifica dati
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_nazione-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Germania")
+        sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         self.wait_loader()
 
@@ -371,6 +374,7 @@ class FattureVendita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))).send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Piacenza d'Adige")
+        self.driver.execute_script('window.scrollTo(0,0)')
         self.find(By.XPATH, '//a[@id="save"]').click()
         self.wait_loader()
 
@@ -396,5 +400,6 @@ class FattureVendita(Test):
 
         # Modifica stato in emessa        
         self.input(None,'Stato*').setByText("Emessa")
+        self.driver.execute_script('window.scrollTo(0,0)')
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()

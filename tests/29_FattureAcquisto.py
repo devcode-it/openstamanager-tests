@@ -226,6 +226,7 @@ class FattureAcquisto(Test):
 
         # Modifica stato in emessa        
         self.input(None,'Stato*').setByText("Emessa")
+        self.driver.execute_script('window.scrollTo(0,0)')
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         sleep(1)
 
@@ -240,5 +241,6 @@ class FattureAcquisto(Test):
 
         # Modifica stato in emessa        
         self.input(None,'Stato*').setByText("Emessa")
+        self.driver.execute_script('window.scrollTo(0,0)')
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()

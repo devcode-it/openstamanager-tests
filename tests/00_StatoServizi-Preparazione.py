@@ -23,7 +23,8 @@ class StatoServizi(Test):
         #Aggiunta Google API Key
         self.api_key()
 
-
+        #Aggiunta articolo
+        self.articolo()
 
     def attiva_moduli(self):
         self.expandSidebar("Strumenti")
@@ -67,3 +68,17 @@ class StatoServizi(Test):
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-2"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting61"]'))).send_keys("AIzaSyC0vGSW3zSzCCEhMzO5JVhkeJR7HmuDelg", Keys.ENTER)
 
+    def articolo(self):
+        self.navigateTo("Magazzino")
+        self.navigateTo("Articoli")
+        sleep(2)
+
+        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Codice').setValue('001')
+        self.input(modal, 'Descrizione').setValue('Articolo 1')
+
+        # Submit
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()

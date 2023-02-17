@@ -1,3 +1,10 @@
+from common.Test import Test, get_html
+from selenium.webdriver.common.keys import Keys
+from time import sleep
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webdriver import WebElement
@@ -22,7 +29,8 @@ class RowManager:
 
     def add_sconto(self, data: dict):
         # Aggiunge un nuovo sconto. 
-        self.get_button('Sconto/maggiorazione').click()
+        self.tester.find(By.XPATH, '//button[@class="btn btn-primary dropdown-toggle"]').click()
+        self.tester.find(By.XPATH, '//a[@data-title="Aggiungi sconto/maggiorazione"]').click()
         modal = self.tester.wait_modal()
 
         if 'descrizione' in data:
@@ -52,7 +60,7 @@ class RowManager:
 
     def add_riga(self, data: dict):
         # Aggiunge una nuova riga. 
-        self.get_button('Riga').click()
+        self.tester.find(By.XPATH, '//a[@class="btn btn-primary"]').click()
         modal = self.tester.wait_modal()
 
         # Completamento informazioni
@@ -63,20 +71,13 @@ class RowManager:
         self.tester.wait_loader()
 
     def add_articolo(self, data: dict):
-        # Aggiunge un nuovo articolo. 
-        self.get_button('Articolo').click()
-        modal = self.tester.wait_modal()
 
         # Selezione articolo
-        select = self.input(modal, 'Articolo')
-        select.setByText(data['articolo'])
+        modal.find_element(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
+        modal.find_element(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        modal.find_element(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click()
 
-        # Completamento informazioni
-        self.fill(modal, data)
-
-        # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.tester.wait_loader()
+       
 
     def fill(self, modal, data: dict):
         # Completa le informazioni per la creazione di un nuovo elemento. 
