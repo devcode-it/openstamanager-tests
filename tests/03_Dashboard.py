@@ -18,13 +18,12 @@ class Dashboard(Test):
 
         self.input(modal, 'Cliente').setByText("Cliente")
         self.input(modal, 'Tipo').setByIndex("1")
-        self.input(modal, 'Stato').setByIndex("2")
-        ora="Int. 1 Cliente\nTecnici: Mario Rossi"
+        ora="Int. 1 Cliente\nTecnici: Stefano Bianchi"
         
         self.driver.find_element(By.XPATH,'//div[@class="box box-info collapsable "]//span[@class="input-group-addon after no-padding"]//i[@class="fa fa-plus"]').click()
         sleep(1)
 
-        self.input(self.driver.find_element(By.XPATH,'//div[@class="modal-dialog modal-lg"]'),'Denominazione').setValue("Mario Rossi")
+        self.input(self.driver.find_element(By.XPATH,'//div[@class="modal-dialog modal-lg"]'),'Denominazione').setValue("Stefano Bianchi")
         modal.find_element(By.XPATH, '//div[@class="col-md-12 text-right"]//button[@type="submit"]').click()
         sleep(1)
         modal.find_element(By.XPATH, '//div[@class="col-md-12 text-right"]//button[@type="button"]').click()
@@ -52,8 +51,8 @@ class Dashboard(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)
         sleep(1)
         
-        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
-        self.assertEqual("1",modificato)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[10]').text
+        self.assertEqual("Stefano Bianchi",modificato)
 
         #rimuovi elemento
         self.navigateTo("Attività")

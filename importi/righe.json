@@ -23,13 +23,18 @@
         {
             "tipo": "sconto",
             "sconto_percentuale": "10"
+        },
+        {
+            "tipo": "articolo",
+            "descrizione": "Articolo 1"
         }
     ],
+
     "totali": {
-        "Imponibile": "332,00",
-        "Sconto/maggiorazione": "87,20",
-        "Totale imponibile": "244,80",
-        "IVA": "53,86",
-        "Totale": "298,66"
+        "Imponibile": "",
+        "Sconto/maggiorazione": "",
+        "Totale imponibile": "",
+        "IVA": "",
+        "Totale": ""
     }
 }

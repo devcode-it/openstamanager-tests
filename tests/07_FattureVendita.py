@@ -68,7 +68,7 @@ class FattureVendita(Test):
 
         # Inserisco le righe
         row_manager = RowManager(self)
-        row_manager.compile(file_importi)
+        self.valori=row_manager.compile(file_importi)
 
     def modifica_fattura_vendita(self, modifica=str):
         self.navigateTo("Fatture di vendita")
@@ -78,6 +78,8 @@ class FattureVendita(Test):
         self.wait_loader()
         
         self.input(None,'Stato*').setByText(modifica)
+        sleep(1)
+
         self.driver.execute_script('window.scrollTo(0,0)')
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
@@ -94,8 +96,12 @@ class FattureVendita(Test):
         sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
         totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
         iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
-        iva = '-' + iva
         totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
+
+        self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"]+ ' €'))
+        self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"]+ ' €'))
+        self.assertEqual(iva, (self.valori["IVA"] + ' €'))
+        self.assertEqual(totale, (self.valori["Totale"] + ' €'))
 
         # Controllo Scadenzario
         scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
@@ -104,8 +110,7 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::a').click()
         self.wait_loader()
 
-        scadenza_scadenzario = self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text
-        scadenza_scadenzario = scadenza_scadenzario+' €'
+        scadenza_scadenzario = self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text + ' €'
         self.assertEqual(totale, scadenza_scadenzario)
 
         # Torno alla tabella delle Fatture
@@ -131,19 +136,15 @@ class FattureVendita(Test):
         self.driver.switch_to.window(self.driver.window_handles[1])
         perc_iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]').text
         iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]').text
-        iva_FE ='-'+iva_FE+' €'
-        totale_imponibile_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[5]').text
-        totale_imponibile_FE = totale_imponibile_FE+' €'
-        totale_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[3]/td[4]').text
-        totale_FE = totale_FE+' €'
-        scadenza_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][4]/tbody/tr[1]/td[4]').text
-        scadenza_FE = scadenza_FE+' €'
+        totale_imponibile_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[5]').text + ' €'
+        totale_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[3]/td[4]').text + ' €'
+        scadenza_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][4]/tbody/tr[1]/td[4]').text + ' €'
 
         self.assertEqual('22,00', perc_iva_FE)
-        self.assertEqual(iva, iva_FE)
-        self.assertEqual(totale_imponibile, totale_imponibile_FE)
-        self.assertEqual(totale, totale_FE)
-        self.assertEqual(totale, scadenza_FE)
+        self.assertEqual((self.valori["IVA"]), iva_FE)
+        self.assertEqual((self.valori["Totale imponibile"]+ ' €'), totale_imponibile_FE)
+        self.assertEqual((self.valori["Totale"] + ' €'), totale_FE)
+        self.assertEqual((self.valori["Totale"] + ' €'), scadenza_FE)
 
         self.driver.switch_to.window(self.driver.window_handles[0])
         self.driver.close()
@@ -173,7 +174,6 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//*[@id="movimenti-106"]//*[@class="fa fa-plus"]').click()        
         self.wait_loader()
         conto_iva = self.find(By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]').text
-        conto_iva= '-'+ conto_iva
 
         self.assertEqual(totale_imponibile, conto_ricavi)
         self.assertEqual(totale, conto_cliente)
@@ -206,6 +206,8 @@ class FattureVendita(Test):
         
         self.input(None,'Stato*').setByText(modifica)
         self.driver.execute_script('window.scrollTo(0,0)')
+        sleep(1)
+
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
@@ -401,5 +403,7 @@ class FattureVendita(Test):
         # Modifica stato in emessa        
         self.input(None,'Stato*').setByText("Emessa")
         self.driver.execute_script('window.scrollTo(0,0)')
+        sleep(1)
+        
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()

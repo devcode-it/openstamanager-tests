@@ -51,7 +51,8 @@ class Attivita(Test):
         self.wait_loader()
 
         row_manager = RowManager(self)
-        row_manager.compile(file_importi)
+        self.valori=row_manager.compile(file_importi)
+
 
     def duplica_attività(self):
         wait = WebDriverWait(self.driver, 20)
@@ -118,27 +119,27 @@ class Attivita(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
 
-        imponibilerighe=('{:,.2f} €'.format(332)).replace('.',',')
-        scontorighe='{:,.2f} €'.format(2*15+150*20/100+272*10/100).replace('.',',')
-        totalerighe='{:,.2f} €'.format(332-87.20).replace('.',',')
         imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]').text
         sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
         totale = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
-        self.assertEqual(imponibile, imponibilerighe)
-        self.assertEqual(sconto, scontorighe)
-        self.assertEqual(totale, totalerighe)
-        IVARIGHE='{:,.2f} €'.format(0.44+2.20*15+1.76*15-5.98).replace('.',',')
-        totalefinalerighe='{:,.2f} €'.format(244.80+53.86).replace('.',',')
+
+        self.assertEqual(imponibile, (self.valori["Imponibile"] + ' €'))
+        self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"]+ ' €'))
+        self.assertEqual(totale, (self.valori["Totale imponibile"]+ ' €'))
+
+
         imponibilefinale=self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[1]//td[2]').text
         scontofinale=self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[2]//td[2]').text
         totaleimpfinale=self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[3]//td[2]').text
         IVA=self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[4]//td[2]').text
         totalefinale=self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[5]//td[2]').text
+
         self.assertEqual(imponibilefinale,imponibile)
         self.assertEqual(scontofinale,sconto)
         self.assertEqual(totaleimpfinale,totale)
-        self.assertEqual(IVA, IVARIGHE)
-        self.assertEqual(totalefinale, totalefinalerighe)
+        self.assertEqual(IVA, (self.valori["IVA"] + ' €'))
+        self.assertEqual(totalefinale, (self.valori["Totale"] + ' €'))
+
         self.navigateTo("Attività")
         self.wait_loader()
 

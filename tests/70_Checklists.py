@@ -16,8 +16,8 @@ class Checklists(Test):
 
     def test_checklists(self):
         # Creazione Checklist
-        self.checklists("Checklist di Prova da Modificare", "Anagrafiche", "Interventi svolti")
-        self.checklists("Checklist di Prova da Eliminare", "Anagrafiche", "Interventi svolti")
+        self.checklists("Checklist di Prova da Modificare", "Attività", "Interventi svolti")
+        self.checklists("Checklist di Prova da Eliminare", "Attività", "Interventi svolti")
 
         # Modifica Checklist
         self.modifica_checklist("Checklist di Prova")
@@ -52,8 +52,17 @@ class Checklists(Test):
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.input(None,'Nome').setValue(modifica)
+
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="content"]'))).send_keys('TestPadre', Keys.ENTER)
+        sleep(2)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="content"]'))).send_keys('TestFiglio')
+        self.find(By.XPATH, '//span[@id="select2-parent-container"]').click()
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-success"]').click()
+        sleep(2)
 
         self.navigateTo("Checklists")
         self.wait_loader()    
@@ -94,6 +103,31 @@ class Checklists(Test):
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Checklist di Prova da Eliminare", Keys.ENTER)
         sleep(1)
-        
-        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+        self.navigateTo("Attività")
+        self.wait_loader()   
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@href="#tab_checks"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//a[@data-title="Aggiungi check"])[2]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//div[@class="modal-content"]//span[@class="select2-selection__placeholder"]').click()
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        self.find(By.XPATH, '//button[@id="check-add"]').click()
+        sleep(2)
+
+        TestPadre = self.find(By.XPATH, '(//div[@id="tab_checks"]//tbody//td[2]//span)[1]').text
+        TestFiglio = self.find(By.XPATH, '(//div[@id="tab_checks"]//tbody//td[2]//span)[3]').text
+        self.assertEqual("TestPadre", TestPadre)
+        self.assertEqual("TestFiglio", TestFiglio)
+
+        self.find(By.XPATH, '(//input[@class="checkbox"])[2]').click()
+
+        test1 = self.find(By.XPATH, '(//input[@class="checkbox"])[1]').is_selected()
+        test2 = self.find(By.XPATH, '(//input[@class="checkbox"])[2]').is_selected()
+        self.assertEqual(test1, False)
+        self.assertEqual(test2, True)                

@@ -18,11 +18,11 @@ class Articoli(Test):
 
     def test_creazione_articolo(self):
         # Crea un nuovo articolo. *Required*
-        self.creazione_articolo("01", "Articolo di Prova",)
-        self.creazione_articolo("02", "Articolo di Prova da Eliminare")
+        self.creazione_articolo("002", "Articolo di Prova",)
+        self.creazione_articolo("003", "Articolo di Prova da Eliminare")
         
         # Modifica articolo
-        self.modifica_articolo("10,00")
+        self.modifica_articolo("10", "2", "1", "carico di test")
         
         # Cancellazione articolo
         self.elimina_articolo()
@@ -47,20 +47,23 @@ class Articoli(Test):
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
        
-    def modifica_articolo(self, qta=str):
+    def modifica_articolo(self, acquisto:str, coefficiente:str, qta: str, descrizione: str):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Articolo di Prova', Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Articolo 1', Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//label[@class="btn btn-default"][@for="qta_manuale"]').click()
+        self.input(None, 'Prezzo di acquisto').setValue(acquisto)
+        self.input(None, 'Coefficiente').setValue(coefficiente)
+
+        self.find(By.XPATH, '//div[@class="btn-group checkbox-buttons"]//label[@for="qta_manuale"]').click()
         self.input(None, 'Quantità').setValue(qta)
-        self.input(None, 'Descrizione movimento').setValue("Movimento di prova")
+        self.input(None, 'Descrizione').setValue(descrizione)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         sleep(1)
@@ -70,7 +73,7 @@ class Articoli(Test):
         sleep(1)
         
         verificaqta = self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[10]//div[1][1]').text
-        self.assertEqual(verificaqta, qta)
+        self.assertEqual(verificaqta, "1,00")
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 
@@ -98,11 +101,11 @@ class Articoli(Test):
         self.wait_loader()    
 
         #verifica elemento modificato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Qtà"]/input'))).send_keys("10,00", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("001", Keys.ENTER)
         sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[10]').text
-        self.assertEqual("10,00",modificato)
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[9]').text
+        self.assertEqual("20,00",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
         sleep(1)
 

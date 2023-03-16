@@ -52,7 +52,7 @@ class DdtUscita(Test):
         self.wait_loader()
 
         row_manager = RowManager(self)
-        row_manager.compile(file_importi)
+        self.valori=row_manager.compile(file_importi)
 
     def duplica_ddt_uscita(self):
         self.find(By.XPATH, '//button[@class="btn btn-primary ask"]').click()
@@ -78,6 +78,18 @@ class DdtUscita(Test):
         sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@id="save"]'))).click()
+        sleep(2)
+        
+        # Estrazione totali righe
+        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
+        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
+        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
+
+        self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"]+ ' €'))
+        self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"]+ ' €'))
+        self.assertEqual(iva, (self.valori["IVA"] + ' €'))
+        self.assertEqual(totale, (self.valori["Totale"] + ' €'))
 
         self.navigateTo("Ddt in uscita")
         self.wait_loader()    

@@ -51,7 +51,7 @@ class DdtEntrata(Test):
         self.wait_loader()
 
         row_manager = RowManager(self)
-        row_manager.compile(file_importi)
+        self.valori=row_manager.compile(file_importi)
 
     def duplica_ddt_entrata(self):
         self.find(By.XPATH, '//button[@class="btn btn-primary ask"]').click()
@@ -80,6 +80,17 @@ class DdtEntrata(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()        
         self.wait_loader()
         
+        # Estrazione totali righe
+        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
+        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
+        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
+
+        self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"]+ ' €'))
+        self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"]+ ' €'))
+        self.assertEqual(iva, (self.valori["IVA"] + ' €'))
+        self.assertEqual(totale, (self.valori["Totale"] + ' €'))
+
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
@@ -115,7 +126,7 @@ class DdtEntrata(Test):
         sleep(1)
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[11]').text
-        self.assertEqual("Evaso",modificato)
+        self.assertEqual("Evaso", self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[11]').text)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
 
         #verifica elemento eliminato

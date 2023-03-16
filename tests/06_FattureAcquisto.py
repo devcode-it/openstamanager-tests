@@ -58,7 +58,8 @@ class FattureAcquisto(Test):
         #toast = self.driver.find_elements(By.CLASS_NAME, 'toast-message')
         #self.assertIn('Aggiunto fattura', toast)
         row_manager = RowManager(self)
-        row_manager.compile(file_importi)
+        self.valori=row_manager.compile(file_importi)
+
 
     def modifica_fattura_acquisto(self, modifica=str):
         self.navigateTo("Fatture di acquisto")
@@ -83,17 +84,21 @@ class FattureAcquisto(Test):
         totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
         iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
         totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
-        totale='-'+totale
+
+        self.assertEqual(sconto, self.valori["Sconto/maggiorazione"]+ ' €')
+        self.assertEqual(totale_imponibile, self.valori["Totale imponibile"]+ ' €')
+        self.assertEqual(iva, self.valori["IVA"] + ' €')
+        self.assertEqual(totale, self.valori["Totale"] + ' €')
 
         # Controllo Scadenzario
+        totale = '-'+ totale
         scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
         self.assertEqual(totale, scadenza_fattura[12:21])
         self.driver.execute_script('$("a").removeAttr("target")')
         self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::a').click()
         self.wait_loader()
 
-        scadenza_scadenzario = self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text
-        scadenza_scadenzario = scadenza_scadenzario+' €'
+        scadenza_scadenzario = (self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text + ' €')
         self.assertEqual(totale, scadenza_scadenzario)
 
         # Torno alla tabella delle Fatture
@@ -227,6 +232,8 @@ class FattureAcquisto(Test):
         # Modifica stato in emessa        
         self.input(None,'Stato*').setByText("Emessa")
         self.driver.execute_script('window.scrollTo(0,0)')
+        sleep(1)
+        
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         sleep(1)
 
@@ -242,5 +249,6 @@ class FattureAcquisto(Test):
         # Modifica stato in emessa        
         self.input(None,'Stato*').setByText("Emessa")
         self.driver.execute_script('window.scrollTo(0,0)')
+        sleep(1)
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()

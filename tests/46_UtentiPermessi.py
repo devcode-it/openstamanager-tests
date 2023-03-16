@@ -49,7 +49,7 @@ class UtentiPermessi(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@class="pull-right btn btn-primary bound clickable"]').click()
-        self.wait_loader()
+        sleep(1)
 
         self.input(None, 'Username').setValue(user)
         sleep(1)

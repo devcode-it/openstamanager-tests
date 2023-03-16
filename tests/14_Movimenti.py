@@ -26,6 +26,9 @@ class Movimenti(Test):
         # Verifica movimento
         self.verifica_movimento()
 
+        # Verifica movimenti documenti
+        self.verifica_movimenti_documenti()
+
     def creazione_movimento(self, qta: str, articolo: str, descrizione:str):
         # Crea un nuovo movimento. 
         # Apre la schermata di nuovo elemento
@@ -76,3 +79,32 @@ class Movimenti(Test):
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
 
+    def verifica_movimenti_documenti(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        #verifica elemento modificato
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("001", Keys.ENTER)
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]'))).click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_10"]'))).click()
+
+        movimento = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[1]'))).text
+        ddtuscita = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[2]'))).text
+        ddtentrata = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[3]'))).text
+        fatturavendita = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[4]'))).text
+        fatturaacquisto = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[5]'))).text
+        attività = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[6]'))).text
+        carico = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[7]'))).text
+
+        self.assertEqual(movimento, "10,00")
+        self.assertEqual(ddtuscita, "-1,00")
+        self.assertEqual(ddtentrata, "1,00")
+        self.assertEqual(fatturavendita, "-1,00")
+        self.assertEqual(fatturaacquisto, "1,00")
+        self.assertEqual(attività, "-1,00")
+        self.assertEqual(carico, "1,00")

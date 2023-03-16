@@ -73,9 +73,10 @@ class RowManager:
     def add_articolo(self, data: dict):
 
         # Selezione articolo
-        modal.find_element(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
-        modal.find_element(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
-        modal.find_element(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click()
+        self.tester.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
+        self.tester.find(By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]').send_keys("002", Keys.ENTER)
+        sleep(1)
+        self.tester.find(By.XPATH, '//button[@onclick="salvaArticolo()"]').click()
 
        
 
@@ -141,7 +142,7 @@ class RowManager:
             if riga['tipo'] == 'riga':
                 self.add_riga(riga)
             elif riga['tipo'] == 'articolo':
-                self.add_riga(riga)
+                self.add_articolo(riga)
             elif riga['tipo'] == 'descrizione':
                 self.add_descrizione(riga)
             elif riga['tipo'] == 'sconto':
@@ -150,10 +151,16 @@ class RowManager:
         time.sleep(4)
 
         tablePattern = "//div[@class='panel-heading']/parent::*//table//tr[contains(., '|name|')][1]//td[2]"
+        valori = {}
+
         for key, value in importi['totali'].items():
             totale = self.tester.find(
                 By.XPATH, tablePattern.replace('|name|', key.upper() + ':'))
-            valore = get_text(totale).split()[0]
+            valori[key] = get_text(totale).split()[0]
+
+        return valori
+
+
 
 
     def read(self, filename: str) -> dict:
