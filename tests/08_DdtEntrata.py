@@ -30,7 +30,7 @@ class DdtEntrata(Test):
         # Cancellazione Ddt
         self.elimina_ddt()
         
-        # Veridica DDT
+        # Verifica DDT
         self.verifica_ddt()
 
     def creazione_ddt_entrata(self, fornitore: str, causale: str, file_importi: str):
