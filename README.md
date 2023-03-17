@@ -27,8 +27,7 @@ python3 -m unittest discover tests -p '*.py'
 ## Stato di avanzamento
 
 Legenda:
-- :eye: Visualizza
--  :heavy_plus_sign: Crea
+- :heavy_plus_sign: Crea
 - :pencil: Modifica
 - :wastebasket: Elimina
 - :bookmark_tabs: Righe
