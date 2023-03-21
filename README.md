@@ -72,7 +72,7 @@ Legenda:
 |34| Scadenzario |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |35| Piani sconto maggiorazione |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |36| Listini |-|-|-|-|-|-|
-|37| Giacenze sedi|-|-|-|-|-|-|
+|37| Giacenze sedi|:heavy_check_mark:|:heavy_check_mark:| -|:heavy_check_mark:|+spostamento tra sedi|
 |38| Attributi combinazioni |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |39| Combinazioni |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |40| Impianti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|

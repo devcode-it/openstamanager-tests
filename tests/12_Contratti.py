@@ -20,7 +20,7 @@ class Contratti(Test):
     def test_creazione_contratto(self):
         # Crea una nuovo contratto *Required*
         importi = RowManager.list()
-        self.creazione_contratto("Contratto di Prova da Modificare", "Cliente", "1", importi[0])
+        self.creazione_contratto("Contratto di Prova da Modificare", "Cliente", importi[0])
 
         # Duplica un contratto *Required*
         self.duplica_contratto()
@@ -34,7 +34,7 @@ class Contratti(Test):
         # Verifica contratto
         self.verifica_contratto()
 
-    def creazione_contratto(self, nome:str, cliente: str, stato: str, file_importi: str):
+    def creazione_contratto(self, nome:str, cliente: str, file_importi: str):
         self.navigateTo("Contratti")
         self.wait_loader() 
 
@@ -46,7 +46,6 @@ class Contratti(Test):
         self.input(modal, 'Nome').setValue(nome)
         select = self.input(modal, 'Cliente')
         select.setByText(cliente)
-        self.input(modal, 'Stato').setByIndex(stato)
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()

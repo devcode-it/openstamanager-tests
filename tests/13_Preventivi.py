@@ -19,7 +19,7 @@ class Preventivi(Test):
     def test_creazione_preventivo(self):
         # Crea un nuovo preventivo *Required*
         importi = RowManager.list()
-        self.creazione_preventivo("Preventivo di Prova","Cliente", "1","Bozza", importi[0])
+        self.creazione_preventivo("Preventivo di Prova","Cliente", "1", importi[0])
 
         # Duplica un preventivo *Required*
         self.duplica_preventivo()
@@ -51,7 +51,7 @@ class Preventivi(Test):
         # Verifica preventivi
         self.verifica_preventivi()
 
-    def creazione_preventivo(self, nome:str, cliente:str, idtipo: str, stato:str, file_importi: str):
+    def creazione_preventivo(self, nome:str, cliente:str, idtipo: str, file_importi: str):
         self.navigateTo("Preventivi")
         self.wait_loader() 
 
@@ -64,8 +64,6 @@ class Preventivi(Test):
         select.setByText(cliente)
         select = self.input(modal, 'Tipo di Attività')
         select.setByIndex(idtipo)
-        select = self.input(modal, 'Stato')
-        select.setByText(stato)
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
