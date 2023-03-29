@@ -221,7 +221,7 @@ class Anagrafiche(Test):
         sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[1]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[9]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[8]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="cke_inner cke_reset"]//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]'))).send_keys("Test")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="col-md-12 text-right"]//button[@type="button"]'))).click()
