@@ -66,7 +66,7 @@ class StatoServizi(Test):
 
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ricerca_impostazioni"]'))).send_keys("Google Maps API key", Keys.ENTER)
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-2"]'))).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting61"]'))).send_keys("AIzaSyC0vGSW3zSzCCEhMzO5JVhkeJR7HmuDelg", Keys.ENTER)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting61"]'))).send_keys("AIzaSyC0vGSW3zSzCCEhMzO5JVhkeJR7HmuDel", Keys.ENTER)
 
     def articolo(self):
         self.navigateTo("Magazzino")
