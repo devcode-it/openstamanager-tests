@@ -88,7 +88,7 @@ class FattureAcquisto(Test):
         self.assertEqual(sconto, self.valori["Sconto/maggiorazione"]+ ' €')
         self.assertEqual(totale_imponibile, self.valori["Totale imponibile"]+ ' €')
         self.assertEqual(iva, self.valori["IVA"] + ' €')
-        self.assertEqual(totale, self.valori["Totale"] + ' €')
+        self.assertEqual(totale, self.valori["Totale documento"] + ' €')
 
         # Controllo Scadenzario
         totale = '-'+ totale

@@ -89,7 +89,7 @@ class DdtEntrata(Test):
         self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"]+ ' €'))
         self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"]+ ' €'))
         self.assertEqual(iva, (self.valori["IVA"] + ' €'))
-        self.assertEqual(totale, (self.valori["Totale"] + ' €'))
+        self.assertEqual(totale, (self.valori["Totale documento"] + ' €'))
 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()

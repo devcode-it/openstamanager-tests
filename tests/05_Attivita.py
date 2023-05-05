@@ -138,7 +138,7 @@ class Attivita(Test):
         self.assertEqual(scontofinale,sconto)
         self.assertEqual(totaleimpfinale,totale)
         self.assertEqual(IVA, (self.valori["IVA"] + ' €'))
-        self.assertEqual(totalefinale, (self.valori["Totale"] + ' €'))
+        self.assertEqual(totalefinale, (self.valori["Totale documento"] + ' €'))
 
         self.navigateTo("Attività")
         self.wait_loader()

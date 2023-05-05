@@ -101,7 +101,7 @@ class FattureVendita(Test):
         self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"]+ ' €'))
         self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"]+ ' €'))
         self.assertEqual(iva, (self.valori["IVA"] + ' €'))
-        self.assertEqual(totale, (self.valori["Totale"] + ' €'))
+        self.assertEqual(totale, (self.valori["Totale documento"] + ' €'))
 
         # Controllo Scadenzario
         scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
@@ -143,8 +143,8 @@ class FattureVendita(Test):
         self.assertEqual('22,00', perc_iva_FE)
         self.assertEqual((self.valori["IVA"]), iva_FE)
         self.assertEqual((self.valori["Totale imponibile"]+ ' €'), totale_imponibile_FE)
-        self.assertEqual((self.valori["Totale"] + ' €'), totale_FE)
-        self.assertEqual((self.valori["Totale"] + ' €'), scadenza_FE)
+        self.assertEqual((self.valori["Totale documento"] + ' €'), totale_FE)
+        self.assertEqual((self.valori["Totale documento"] + ' €'), scadenza_FE)
 
         self.driver.switch_to.window(self.driver.window_handles[0])
         self.driver.close()
