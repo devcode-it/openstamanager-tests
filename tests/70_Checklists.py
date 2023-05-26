@@ -106,7 +106,7 @@ class Checklists(Test):
         self.navigateTo("Attività")
         self.wait_loader()   
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//tr[2]//td[2]').click()
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@href="#tab_checks"]').click()
@@ -121,7 +121,7 @@ class Checklists(Test):
         sleep(2)
 
         TestPadre = self.find(By.XPATH, '(//div[@id="tab_checks"]//tbody//td[2]//span)[1]').text
-        TestFiglio = self.find(By.XPATH, '(//div[@id="tab_checks"]//tbody//td[2]//span)[3]').text
+        TestFiglio = self.find(By.XPATH, '(//div[@id="tab_checks"]//tbody//td[2]//span)[2]').text
         self.assertEqual("TestPadre", TestPadre)
         self.assertEqual("TestFiglio", TestFiglio)
 

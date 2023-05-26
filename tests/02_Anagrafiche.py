@@ -162,10 +162,10 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_2-4"]//i[@class="fa fa-plus"])[2]'))).click()
 
         #Verifica sede
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//th[@id="th_Nome"]/input)[2]'))).send_keys("Filiale XY", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Filiale XY", Keys.ENTER)
         sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'(//tbody//tr[1]//td[2])[2]').text
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Filiale XY", modificato)
         self.navigateTo("Anagrafiche")
         self.wait_loader()    
