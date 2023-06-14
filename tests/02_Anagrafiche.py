@@ -15,7 +15,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         
 
-    def test_creazione_anagrafica(self, tipologia="Privato"):
+    def test_creazione_anagrafica(self):
         # Creazione anagrafiche *Required*
         self.add_anagrafica('Cliente', 'Cliente')  
         self.add_anagrafica('Tecnico', 'Tecnico') 
@@ -25,7 +25,7 @@ class Anagrafiche(Test):
         self.add_anagrafica('Anagrafica di Prova da Eliminare', 'Cliente')
 
         # Modifica anagrafica
-        self.modifica_anagrafica()
+        self.modifica_anagrafica('Privato')
 
         # Aggiunta referente
         self.aggiunta_referente()
@@ -77,7 +77,7 @@ class Anagrafiche(Test):
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
 
-    def modifica_anagrafica(self): 
+    def modifica_anagrafica(self, tipologia:str): 
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
  
@@ -85,11 +85,8 @@ class Anagrafiche(Test):
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="module-edit"]//span[@class="selection"]//b[@role="presentation"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-results"]//li[@class="select2-results__option"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_nazione-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Italia")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="select2-tipo-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[3]'))).send_keys(tipologia, Keys.ENTER)
         self.wait_loader()
 
         self.input(None, 'Partita IVA').setValue("05024030287")
