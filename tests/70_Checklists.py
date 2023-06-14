@@ -125,9 +125,9 @@ class Checklists(Test):
         self.assertEqual("TestPadre", TestPadre)
         self.assertEqual("TestFiglio", TestFiglio)
 
-        self.find(By.XPATH, '(//input[@class="checkbox"])[2]').click()
+        self.find(By.XPATH, '(//input[@class="checkbox unblockable"])[2]').click()
 
-        test1 = self.find(By.XPATH, '(//input[@class="checkbox"])[1]').is_selected()
-        test2 = self.find(By.XPATH, '(//input[@class="checkbox"])[2]').is_selected()
+        test1 = self.find(By.XPATH, '(//input[@class="checkbox unblockable"])[1]').is_selected()
+        test2 = self.find(By.XPATH, '(//input[@class="checkbox unblockable"])[2]').is_selected()
         self.assertEqual(test1, False)
         self.assertEqual(test2, True)                

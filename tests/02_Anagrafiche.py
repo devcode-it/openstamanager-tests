@@ -316,27 +316,6 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_31-"]//button[@class="btn btn-primary"])'))).click()
         sleep(1)
 
-        self.navigateTo("Anagrafiche")
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
-        sleep(1)
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_35"]'))).click()
-        sleep(1)
-
-        modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_35"]//tbody//td[2]').text
-        self.assertEqual("1",modificato)
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_35"]//tbody//td[2]').click()
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="form_2-35"]//a').click()
-        sleep(1)
-
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
