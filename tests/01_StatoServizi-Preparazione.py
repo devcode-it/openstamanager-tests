@@ -20,9 +20,6 @@ class StatoServizi(Test):
         #Aggiunta P.IVA e dati anagrafica azienda   
         self.compila_azienda()
 
-        #Aggiunta Google API Key
-        self.api_key()
-
         #Aggiunta articolo
         self.articolo()
 
@@ -57,14 +54,6 @@ class StatoServizi(Test):
 
         self.find(By.XPATH, '//a[@id="save"]').click()
 
-
-    def api_key(self):
-        self.navigateTo("Strumenti")
-        self.navigateTo("Impostazioni")
-
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ricerca_impostazioni"]'))).send_keys("Google Maps API key", Keys.ENTER)
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-2"]'))).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting61"]'))).send_keys("AIzaSyC0vGSW3zSzCCEhMzO5JVhkeJR7HmuDel", Keys.ENTER)
 
     def articolo(self):
         self.navigateTo("Magazzino")
