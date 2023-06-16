@@ -63,11 +63,11 @@ class Viste(Test):
 
         self.navigateTo("Ddt in uscita")
         self.wait_loader()
-        self.controllo_viste("01") 
+        self.controllo_viste("02") 
 
         self.navigateTo("Ddt in entrata")
         self.wait_loader()
-        self.controllo_viste("1") 
+        self.controllo_viste("2") 
     def controllo_viste(self, test: str):
         verifica = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
         self.assertEqual(verifica, test)

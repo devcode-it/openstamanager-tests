@@ -95,7 +95,12 @@ class GiacenzeSedi(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
         sleep(1) 
 
-        self.find(By.XPATH, '//button[@onclick="completaTrasporto()"]').click()  
+        self.find(By.XPATH, '//button[@onclick="completaTrasporto()"]').click()
+        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()
+        self.find(By.XPATH, '//input[@class="select2-search__field"]').send_keys("Standard ddt in entrata")
+        sleep(1)
+
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]').click()  
         sleep(2)
 
