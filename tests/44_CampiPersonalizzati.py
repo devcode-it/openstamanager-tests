@@ -17,7 +17,7 @@ class Campi_personalizzati(Test):
 
         self.expandSidebar("Strumenti")
         
-    def test_campi_perosonalizzati(self):
+    def test_campi_personalizzati(self):
         # Creazione campi personalizzati *Required*
         self.creazione_campi_personalizzati(nome="Campo personalizzato di Prova da Modificare", contenuto="Prova")
         self.creazione_campi_personalizzati(nome="Campo personalizzato di Prova da Eliminare", contenuto="Prova")
@@ -44,7 +44,7 @@ class Campi_personalizzati(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
 
         self.input(modal, 'Nome').setValue(nome)
-        self.input(modal, 'Contenuto').setValue(contenuto)
+        self.input(modal, 'Codice').setValue(contenuto)
 
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
