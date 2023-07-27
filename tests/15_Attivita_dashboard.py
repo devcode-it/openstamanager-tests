@@ -47,7 +47,7 @@ class Attivita_Dashboard(Test):
 
     def attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
         self.navigateTo("Attività")
-
+        wait = WebDriverWait(self.driver, 20)
         # Crea un nuovo intervento. 
         # Apre la schermata di nuovo elemento
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
@@ -56,8 +56,9 @@ class Attivita_Dashboard(Test):
         self.input(modal, 'Cliente').setByText(cliente)
         self.input(modal, 'Tipo').setByIndex(tipo)
         
-        # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[class="btn btn-primary"]').click()
+        self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]').click()  
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).send_keys("Test")
+        self.find(By.XPATH, '//div[@class="col-md-12 text-right"]//button[@type="button"]').click()
         self.wait_loader()
 
         row_manager = RowManager(self)

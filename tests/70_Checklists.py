@@ -56,13 +56,17 @@ class Checklists(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="content"]'))).send_keys('TestPadre', Keys.ENTER)
-        sleep(2)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="content"]'))).send_keys('TestFiglio')
-        self.find(By.XPATH, '//span[@id="select2-parent-container"]').click()
+        self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]').click()  
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).send_keys("TestPadre")
+        self.find(By.XPATH, '(//button[@type="submit"])[3]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]').click()  
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).send_keys("TestFiglio")
+        self.find(By.XPATH, '(//span[@class="select2-selection select2-selection--single"])[3]').click()
         self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-success"]').click()
-        sleep(2)
+        self.find(By.XPATH, '(//button[@type="submit"])[3]').click()
+        sleep(1)
 
         self.navigateTo("Checklists")
         self.wait_loader()    
