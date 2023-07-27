@@ -10,6 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class Dashboard(Test):
       
     def test_Dashboard(self):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Dashboard")
         
         actions = webdriver.common.action_chains.ActionChains(self.driver)
@@ -26,7 +27,11 @@ class Dashboard(Test):
         self.input(self.driver.find_element(By.XPATH,'//div[@class="modal-dialog modal-lg"]'),'Denominazione').setValue("Stefano Bianchi")
         modal.find_element(By.XPATH, '//div[@class="col-md-12 text-right"]//button[@type="submit"]').click()
         sleep(1)
-        modal.find_element(By.XPATH, '//div[@class="col-md-12 text-right"]//button[@type="button"]').click()
+
+        self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]').click()  
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).send_keys("Test")
+        self.find(By.XPATH, '//div[@class="col-md-12 text-right"]//button[@type="button"]').click()
+        sleep(1)
 
         self.navigateTo("Dashboard")
         self.wait_loader()
