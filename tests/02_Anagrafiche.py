@@ -155,8 +155,13 @@ class Anagrafiche(Test):
         self.input(None, 'Nome sede').setValue("Filiale XY")
         self.find(By.XPATH, '(//input[@id="citta"])[2]').click()
         self.find(By.XPATH, '(//input[@id="citta"])[2]').send_keys("Padova")
+        sleep(1)
+        
+        self.find(By.XPATH, '(//span[@id="select2-id_nazione-container"])[2]').click()
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_2-4"]//i[@class="fa fa-plus"])[2]'))).click()
+        self.find(By.XPATH, '(//div[@id="form_2-4"]//i[@class="fa fa-plus"])[2]').click()
+        sleep(1)
 
         #Verifica sede
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Filiale XY", Keys.ENTER)
@@ -218,10 +223,11 @@ class Anagrafiche(Test):
         sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[1]'))).click()
+        sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[8]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
         sleep(1)
-        self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]').click()  
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]'))).click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]'))).send_keys("Test")
         self.find(By.XPATH, '//div[@class="col-md-12 text-right"]//button[@type="button"]').click()
         sleep(1)
