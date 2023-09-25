@@ -57,6 +57,7 @@ class TipiDocumento(Test):
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.input(None,'Descrizione').setValue(modifica)
+        self.input(None, 'Sezionale predefinito').setByText('Autofatture')
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
 

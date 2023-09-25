@@ -18,7 +18,7 @@ class Articoli(Test):
 
     def test_creazione_articolo(self):
         # Crea un nuovo articolo. *Required*
-        self.creazione_articolo("002", "Articolo di Prova",)
+        self.creazione_articolo("002", "Articolo di Prova")
         self.creazione_articolo("003", "Articolo di Prova da Eliminare")
         
         # Modifica articolo
