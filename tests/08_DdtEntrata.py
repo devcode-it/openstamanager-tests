@@ -60,9 +60,6 @@ class DdtEntrata(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@id="save"]').click()
-        self.wait_loader()
-
     def modifica_ddt(self, modifica):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Ddt in entrata")
