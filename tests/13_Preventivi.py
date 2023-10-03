@@ -249,7 +249,7 @@ class Preventivi(Test):
         totaleordinefornitore=self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
         
         # Controllo valori righe preventivo
-        self.assertEqual(totaleordinefornitore, '254,80 €')
+        self.assertEqual(totaleordinefornitore, self.valori["Totale imponibile"] + ' €')
         sleep(1)
 
         # Eliminazione ordine

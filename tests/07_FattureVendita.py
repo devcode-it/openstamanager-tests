@@ -20,6 +20,9 @@ class FattureVendita(Test):
         importi = RowManager.list()
         self.creazione_fattura_vendita("Cliente", importi[0])
 
+        # Duplicazione fattura di vendita
+        self.duplica()
+
         # Modifica fattura di vendita
         self.modifica_fattura_vendita("Emessa")
 
@@ -48,7 +51,7 @@ class FattureVendita(Test):
         self.verifica_fattura_di_vendita()
 
         # Verifica XML fattura estera
-        self.verifica_xml_fattura_estera(importi[0])
+        self.verifica_xml_fattura_estera(importi[0], "1")
 
     def creazione_fattura_vendita(self, cliente: str, file_importi: str):
         self.navigateTo("Fatture di vendita")
@@ -69,6 +72,13 @@ class FattureVendita(Test):
         # Inserisco le righe
         row_manager = RowManager(self)
         self.valori=row_manager.compile(file_importi)
+
+    def duplica(self):
+        self.find(By.XPATH, '//button[@class="btn btn-primary ask"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
+        self.wait_loader()
 
     def modifica_fattura_vendita(self, modifica=str):
         self.navigateTo("Fatture di vendita")
@@ -201,7 +211,7 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@class="row"]//tbody//tr[2]//td[6]').click()
+        self.find(By.XPATH, '//div[@class="row"]//tbody//tr[3]//td[6]').click()
         self.wait_loader()
         
         self.input(None,'Stato*').setByText(modifica)
@@ -335,9 +345,9 @@ class FattureVendita(Test):
         sleep(1)
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella",eliminato)
+        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
 
-    def verifica_xml_fattura_estera(self, file_importi: str):
+    def verifica_xml_fattura_estera(self, file_importi: str, pagamento: str):
         wait = WebDriverWait(self.driver, 20)
         self.expandSidebar("Anagrafiche")
         self.wait_loader()  
@@ -380,25 +390,80 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//a[@id="save"]').click()
         self.wait_loader()
 
-        #Creazione fattura di vendita estera
-        self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
+        #Creazione fattura di acquisto estera
+        self.expandSidebar("Acquisti")
+        self.navigateTo("Fatture di acquisto")
         self.wait_loader()  
 
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
-        select = self.input(modal, 'Cliente')
-        select.setByText("Cliente Estero")
+        select = self.input(modal, 'Fornitore')
+        select.setByText("Fornitore Estero")
         sleep(1)
+        self.input(modal, 'N. fattura del fornitore').setValue("02")
 
         # Submit
-        modal.find_element(By.XPATH, '//div[@id="modals"]//button[@type="submit"]').click()
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
 
         # Inserisco le righe
+        select = self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Pagamento')
+        select.setByIndex(pagamento)
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
+
+        self.find(By.XPATH, '(//a[@title="Modifica riga"])[1]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@type="submit"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//a[@title="Modifica riga"])[2]').click()  
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@type="submit"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//a[@title="Modifica riga"])[3]').click()  
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@type="submit"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//a[@title="Modifica riga"])[4]').click()  
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@type="submit"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//a[@title="Modifica riga"])[5]').click()  
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@type="submit"]'))).click()
+        sleep(1)
+
+        # Modifica stato in emessa        
+        self.input(None,'Stato*').setByText("Emessa")
+        self.driver.execute_script('window.scrollTo(0,0)')
+        sleep(1)
+        
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        sleep(1)
+
+        # Creazione autofattura
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary unblockable dropdown-toggle "]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li//a[@class="bound clickable"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//span[@class="select2-selection select2-selection--single"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("TD17")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//button[@type="submit"]'))).click()
+        self.wait_loader()
 
         # Modifica stato in emessa        
         self.input(None,'Stato*').setByText("Emessa")
@@ -407,3 +472,11 @@ class FattureVendita(Test):
         
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
+
+        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]').text
+        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
+        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+
+        self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"]+ ' €'))
+        self.assertEqual(iva, (self.valori["IVA"] + ' €'))
+        self.assertEqual(totale, (self.valori["Totale documento"] + ' €'))

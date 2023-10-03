@@ -252,3 +252,9 @@ class FattureAcquisto(Test):
         sleep(1)
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
+
+        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]').text
+        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
+
+        self.assertEqual(totale_imponibile, ('0,00 €'))
+        self.assertEqual(totale, ('0,00 €'))

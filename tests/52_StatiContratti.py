@@ -18,8 +18,8 @@ class StatiContratti(Test):
 
     def test_creazione_stati_contratti(self):
         # Creazione stato contratti     *Required*
-        self.creazione_stato_contratti( descrizione= "Stato dei Contratti di Prova da Modificare", icona="fa fa-check text-success")
-        self.creazione_stato_contratti( descrizione= "Stato dei Contratti di Prova da Eliminare", icona="fa fa-thumbs-down text-danger")
+        self.creazione_stato_contratti("Stato dei Contratti di Prova da Modificare", "fa fa-check text-success", "#9d2929" )
+        self.creazione_stato_contratti("Stato dei Contratti di Prova da Eliminare", "fa fa-thumbs-down text-danger", "#38468f")
 
         # Modifica Stato dei contratti
         self.modifica_stato_contratti("Stato dei Contratti di Prova")
@@ -30,12 +30,13 @@ class StatiContratti(Test):
         # Verifica Stato dei contratti
         self.verifica_stato_contratti()
 
-    def creazione_stato_contratti(self, descrizione=str, icona=str):
+    def creazione_stato_contratti(self, descrizione=str, icona=str, colore=str):
         self.navigateTo("Stati dei contratti")
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Descrizione').setValue(descrizione)
+        self.input(modal, 'Colore').setValue(colore)
         self.input(modal, 'Icona').setValue(icona)
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
