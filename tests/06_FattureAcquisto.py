@@ -126,9 +126,9 @@ class FattureAcquisto(Test):
        
         self.find(By.XPATH, '//*[@id="conto3-8"]//*[@class="fa fa-plus"]').click()
         sleep(1)
-        self.find(By.XPATH, '//*[@id="movimenti-120"]//*[@class="fa fa-plus"]').click()
+        self.find(By.XPATH, '//*[@id="movimenti-122"]//*[@class="fa fa-plus"]').click()
         sleep(1) 
-        conto_fornitore = self.find(By.XPATH, '//*[@id="conto_120"]//*[@class="text-right"]').text
+        conto_fornitore = self.find(By.XPATH, '//*[@id="conto_122"]//*[@class="text-right"]').text
         conto_fornitore='-'+conto_fornitore
 
         self.find(By.XPATH, '//*[@id="conto3-22"]//*[@class="fa fa-plus"]').click()
@@ -167,47 +167,8 @@ class FattureAcquisto(Test):
 
     def verifica_xml_autofattura(self, file_importi: str, pagamento: str):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Anagrafiche")
-        self.wait_loader()  
-
-        # Crea una nuova anagrafica estera
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
-        modal = self.wait_modal()
-
-        # Completamento dei campi per il nuovo elemento
-        self.input(modal, 'Denominazione').setValue("Fornitore Estero")
-        select = self.input(modal, 'Tipo di anagrafica')
-        select.setByText("Fornitore")
-
-        # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()  
-
-        # Completamento anagrafica
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()  
- 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Fornitore Estero", Keys.ENTER)    
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        sleep(1)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_nazione-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Germania")
-        sleep(1)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-
-        self.input(None, 'Partita IVA').setValue("05024030286")
-        self.input(None, 'Codice fiscale').setValue("05024030286")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))).send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
-        self.input(None, 'C.A.P.').setValue("35042")
-        self.input(None, 'Città').setValue("Berlino")
-
-        self.find(By.XPATH, '//a[@id="save"]').click()
-        self.wait_loader()
-
+    
         #Creazione fattura di acquisto estera
-        self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()  
 
