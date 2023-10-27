@@ -57,7 +57,6 @@ class GiacenzeSedi(Test):
 
 
     def creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):  
-        self.expandSidebar("Magazzino")
         self.navigateTo("Ddt in uscita")
         sleep(1)
 

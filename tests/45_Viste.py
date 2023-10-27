@@ -43,7 +43,7 @@ class Viste(Test):
 
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
-        self.controllo_viste("01") 
+        self.controllo_viste("02") 
 
         self.expandSidebar("Contabilità")
 
