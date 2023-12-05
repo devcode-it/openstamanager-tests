@@ -20,7 +20,7 @@ class Scadenzario(Test):
 
     def test_creazione_scadenzario(self):
         # Crea una nuova scadenza. *Required*
-        self.creazione_scadenzario("Cliente", "Scadenze generiche", "10", "Scadenza di Prova da Modificare")
+        self.creazione_scadenzario("Cliente", "Scadenze generiche", "10", "Scadenza di Prova")
         self.creazione_scadenzario("Cliente", "Scadenze generiche", "10", "Scadenza di Prova da Eliminare")
 
         # Modifica scadenza
@@ -34,6 +34,7 @@ class Scadenzario(Test):
 
 
     def creazione_scadenzario(self, nome: str, tipo: str, importo: str, descrizione: str):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Scadenzario")
         self.wait_loader() 
 
@@ -45,7 +46,9 @@ class Scadenzario(Test):
         self.input(modal, 'Tipo').setByText(tipo)
         self.input(modal, 'Anagrafica').setByText(nome)
         self.input(modal, 'Importo').setValue(importo)
-        self.input(modal, 'Descrizione').setValue(descrizione)
+
+        self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]').click()  
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).send_keys(descrizione)
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
@@ -56,15 +59,13 @@ class Scadenzario(Test):
         self.navigateTo("Scadenzario")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys('Scadenza di Prova da Modificare', Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys('Scadenza di Prova', Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
         
-        element=self.find(By.XPATH,'//textarea[@id="descrizione"]')
-        element.clear()
-        element.send_keys(modifica)  
+        self.find(By.XPATH,'(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]').send_keys(modifica) 
 
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         self.wait_loader()
