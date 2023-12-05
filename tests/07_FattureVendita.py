@@ -41,9 +41,6 @@ class FattureVendita(Test):
         # Confronto valori fattura e nota credito
         self.controllo_fattura_nota_credito()
 
-        # Cancellazione nota credito
-        self.elimina_documento()
-
         # Cancellazione fattura di vendita
         self.elimina_documento()
 
@@ -329,8 +326,8 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//td[@class="bound clickable"]').click()
-        sleep(1)
+        self.find(By.XPATH, '//div[@class="row"]//tbody//tr[3]//td[2]').click()
+        self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
@@ -358,44 +355,46 @@ class FattureVendita(Test):
 
     def verifica_xml_fattura_estera(self, file_importi: str, pagamento: str):
         wait = WebDriverWait(self.driver, 20)
+
         # Inserisco le righe
         self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Pagamento').setByIndex(pagamento)
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
 
+
         self.find(By.XPATH, '(//a[@title="Modifica riga"])[1]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@type="submit"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="submitForm()"]'))).click()
         sleep(1)
 
         self.find(By.XPATH, '(//a[@title="Modifica riga"])[2]').click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@type="submit"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="submitForm()"]'))).click()
         sleep(1)
 
         self.find(By.XPATH, '(//a[@title="Modifica riga"])[3]').click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@type="submit"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="submitForm()"]'))).click()
         sleep(1)
 
         self.find(By.XPATH, '(//a[@title="Modifica riga"])[4]').click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@type="submit"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="submitForm()"]'))).click()
         sleep(1)
 
         self.find(By.XPATH, '(//a[@title="Modifica riga"])[5]').click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@type="submit"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="submitForm()"]'))).click()
         sleep(1)
 
         # Modifica stato in emessa        

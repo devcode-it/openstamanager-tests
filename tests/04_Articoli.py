@@ -22,7 +22,7 @@ class Articoli(Test):
         self.creazione_articolo("003", "Articolo di Prova da Eliminare")
         
         # Modifica articolo
-        self.modifica_articolo("20", "1", "1", "carico di test")
+        self.modifica_articolo("20", "1", "2", "carico di test")
         
         # Cancellazione articolo
         self.elimina_articolo()
@@ -73,7 +73,7 @@ class Articoli(Test):
         sleep(1)
         
         verificaqta = self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[10]//div[1][1]').text
-        self.assertEqual(verificaqta, "1,00")
+        self.assertEqual(verificaqta, "2,00")
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
 

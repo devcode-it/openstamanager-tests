@@ -44,7 +44,7 @@ class RowManager:
                 modal, 'Sconto/maggiorazione unitario').setValue(data['sconto_unitario'])
 
         # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        modal.find_element(By.CSS_SELECTOR, 'button[onclick="submitForm()"]').click()
         self.tester.wait_loader()
 
     def add_descrizione(self, data: dict):
@@ -67,7 +67,7 @@ class RowManager:
         self.fill(modal, data)
 
         # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        modal.find_element(By.CSS_SELECTOR, 'button[onclick="submitForm()"]').click()
         self.tester.wait_loader()
 
     def add_articolo(self, data: dict):
