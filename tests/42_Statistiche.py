@@ -27,7 +27,7 @@ class GiacenzeSedi(Test):
 
         clienti = self.find(By.XPATH, '(//h3[@class="box-title"])[2]').text
         articoli = self.find(By.XPATH, '(//h3[@class="box-title"])[3]').text
-        periodo = "01/01/2023 - 31/12/2023"
+        periodo = "01/01/2024 - 31/12/2024"
 
         self.assertEqual(clienti, "I 20 clienti TOP per il periodo: "+periodo)
         self.assertEqual(articoli, "I 20 articoli più venduti per il periodo: "+periodo)

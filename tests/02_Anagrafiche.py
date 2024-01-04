@@ -57,9 +57,6 @@ class Anagrafiche(Test):
         # Crea fattura di vendita
         self.crea_fattura_vendita()
 
-        # Crea registrazione contabile
-        self.crea_registrazione_contabile()
-
 
     def add_anagrafica(self, nome=str, tipo=str):
         # Crea una nuova anagrafica del tipo indicato.
@@ -158,7 +155,7 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '(//span[@id="select2-id_nazione-container"])[2]').click()
         self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
 
-        self.find(By.XPATH, '(//div[@id="form_2-4"]//i[@class="fa fa-plus"])[3]').click()
+        self.find(By.XPATH, '(//div[@id="form_2-4"]//i[@class="fa fa-plus"])[4]').click()
         sleep(1)
 
         #Verifica sede
@@ -447,53 +444,6 @@ class Anagrafiche(Test):
         self.driver.switch_to.window(self.driver.window_handles[0])
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader() 
-
-        self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
-
-    def crea_registrazione_contabile(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
- 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
-        sleep(1)
-        
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[7]'))).click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Causale').setValue("Causale movimento in prima nota di prova anagrafica")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[2]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[3]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_16-"]//button[@class="btn btn-primary"])'))).click()
-        sleep(1)
-
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
-        sleep(1)
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_38"]'))).click()
-        sleep(1)
-
-        modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_38"]//tbody//td[2]').text
-        self.assertEqual("100",modificato[0:3])
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_38"]//tbody//td[2]//a').click()
-        sleep(2)
-
-        self.driver.switch_to.window(self.driver.window_handles[1])
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader() 
 

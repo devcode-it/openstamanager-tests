@@ -33,7 +33,7 @@ class Viste(Test):
 
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
-        self.controllo_viste("0002/2023") 
+        self.controllo_viste("0002/2024") 
 
         self.expandSidebar("Acquisti")
 

@@ -52,7 +52,7 @@ class GiacenzeSedi(Test):
         self.find(By.XPATH, '(//span[@id="select2-id_nazione-container"])[2]').click()
         self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_2-4"]//i[@class="fa fa-plus"])[3]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_2-4"]//i[@class="fa fa-plus"])[4]'))).click()
         sleep(2)
 
 
