@@ -23,7 +23,7 @@ class PrimaNota(Test):
         self.creazione_prima_nota(causale = "Prima Nota da Eliminare")
 
        # Modifica Prima Nota
-        self.modifica_prima_nota("Prima Nota di Prova (Fatt. n.1 del 01/01/2022)")
+        self.modifica_prima_nota("Prima Nota di Prova (Fatt. n.1 del 01/01/2024)")
      
         # Cancellazione Prima nota
         self.elimina_prima_nota()
@@ -98,11 +98,11 @@ class PrimaNota(Test):
         self.wait_loader()    
 
         #verifica elemento modificato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys("Prima Nota di Prova (Fatt. n.1 del 01/01/2022)", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys("Prima Nota di Prova (Fatt. n.1 del 01/01/2024)", Keys.ENTER)
         sleep(1)
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[4]').text
-        self.assertEqual("Prima Nota di Prova (Fatt. n.1 del 01/01/2022)",modificato)
+        self.assertEqual("Prima Nota di Prova (Fatt. n.1 del 01/01/2024)",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
         sleep(1)
 

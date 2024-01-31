@@ -16,8 +16,8 @@ class Segmenti(Test):
 
     def test_creazione_segmenti(self):
         # Creazione segmento        *Required*
-        self.creazione_segmenti("Segmento di Prova da Modificare", "1234/2022", "Articoli")
-        self.creazione_segmenti("Segmento di Prova da Eliminare", "1234/2022", "Articoli")
+        self.creazione_segmenti("Segmento di Prova da Modificare", "1234/2024", "Articoli")
+        self.creazione_segmenti("Segmento di Prova da Eliminare", "1234/2024", "Articoli")
 
         # Modifica Segmenti
         self.modifica_segmento("Segmento di Prova")

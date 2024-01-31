@@ -46,6 +46,7 @@ class GiacenzeSedi(Test):
         sleep(1)
 
         self.input(None, 'Nome sede').setValue("Sede di Roma")
+        self.find(By.XPATH, '(//input[@id="cap"])[2]').send_keys("35042")
         self.find(By.XPATH, '(//input[@id="citta"])[2]').click()
         self.find(By.XPATH, '(//input[@id="citta"])[2]').send_keys("Roma")
 
