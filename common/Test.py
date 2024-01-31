@@ -47,7 +47,7 @@ class Test(unittest.TestCase):
         password_input = self.find(By.NAME, 'password')
         password_input.send_keys(password)
 
-        self.find(By.ID, 'login').click()
+        self.find(By.XPATH, '//button[@type="submit"]').click()
         self.wait_loader()
 
         # Rimozione barra di debug

@@ -148,6 +148,7 @@ class Anagrafiche(Test):
         sleep(1)
 
         self.input(None, 'Nome sede').setValue("Filiale XY")
+        self.input(None, 'CAP').setValue("35042")
         self.find(By.XPATH, '(//input[@id="citta"])[2]').click()
         self.find(By.XPATH, '(//input[@id="citta"])[2]').send_keys("Padova")
         sleep(1)
