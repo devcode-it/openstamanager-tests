@@ -106,7 +106,8 @@ class Checklists(Test):
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Checklist di Prova da Eliminare", Keys.ENTER)
-        sleep(1)
+        sleep(2)
+
         self.navigateTo("Attività")
         self.wait_loader()   
 

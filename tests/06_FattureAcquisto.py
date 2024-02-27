@@ -118,20 +118,20 @@ class FattureAcquisto(Test):
         self.expandSidebar("Contabilità")
         self.navigateTo("Piano dei conti")
 
-        self.find(By.XPATH, '//*[@id="conto3-14"]//*[@class="fa fa-plus"]').click()
+        self.find(By.XPATH, '//*[@id="conto2-14"]//*[@class="fa fa-plus"]').click()
         sleep(1) 
         self.find(By.XPATH, '//*[@id="movimenti-55"]//*[@class="fa fa-plus"]').click()
         sleep(1) 
         conto_costi = self.find(By.XPATH, '//*[@id="conto_55"]//*[@class="text-right"]').text
        
-        self.find(By.XPATH, '//*[@id="conto3-8"]//*[@class="fa fa-plus"]').click()
+        self.find(By.XPATH, '//*[@id="conto2-8"]//*[@class="fa fa-plus"]').click()
         sleep(1)
         self.find(By.XPATH, '//*[@id="movimenti-122"]//*[@class="fa fa-plus"]').click()
         sleep(1) 
         conto_fornitore = self.find(By.XPATH, '//*[@id="conto_122"]//*[@class="text-right"]').text
         conto_fornitore='-'+conto_fornitore
 
-        self.find(By.XPATH, '//*[@id="conto3-22"]//*[@class="fa fa-plus"]').click()
+        self.find(By.XPATH, '//*[@id="conto2-22"]//*[@class="fa fa-plus"]').click()
         sleep(1)
         self.find(By.XPATH, '//*[@id="movimenti-107"]//*[@class="fa fa-plus"]').click()        
         sleep(1) 

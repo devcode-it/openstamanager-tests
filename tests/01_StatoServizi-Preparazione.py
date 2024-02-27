@@ -31,13 +31,13 @@ class StatoServizi(Test):
 
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
-        sleep(1)
+        sleep(2)
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
-        sleep(1)
+        sleep(2)
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
-        sleep(1)
+        sleep(2)
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
 
@@ -50,6 +50,7 @@ class StatoServizi(Test):
         
         self.input(None, 'Partita IVA').setValue("05024030289")
         self.input(None, 'Codice fiscale').setValue("05024030289")
+        self.input(None, 'Tipologia').setValue("Azienda")
         self.driver.find_element(By.XPATH,'//input[@id="indirizzo"]').send_keys("Via Rovigo, 51")
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Este")
