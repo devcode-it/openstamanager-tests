@@ -361,7 +361,6 @@ class FattureVendita(Test):
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
 
-
         self.find(By.XPATH, '(//a[@title="Modifica riga"])[1]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')

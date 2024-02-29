@@ -90,6 +90,7 @@ class StatoServizi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
 
         self.input(None, 'Partita IVA').setValue("05024030286")
+        self.input(None, 'Tipologia').setValue("Azienda")
         self.input(None, 'Codice fiscale').setValue("05024030286")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))).send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
         self.input(None, 'C.A.P.').setValue("35042")
@@ -135,6 +136,7 @@ class StatoServizi(Test):
 
         self.input(None, 'Partita IVA').setValue("05024030288")
         self.input(None, 'Codice fiscale').setValue("05024030288")
+        self.input(None, 'Tipologia').setValue("Azienda")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))).send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Piacenza d'Adige")
