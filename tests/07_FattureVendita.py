@@ -403,7 +403,6 @@ class FattureVendita(Test):
         
         self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
         sleep(1)
-
         # Creazione autofattura
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary unblockable dropdown-toggle "]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li//a[@class="bound clickable"]'))).click()

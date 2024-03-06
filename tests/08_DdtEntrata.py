@@ -61,7 +61,7 @@ class DdtEntrata(Test):
         self.wait_loader()
 
     def modifica_ddt(self, modifica):
-        wait = WebDriverWait(self.driver, 20)
+        wait = WebDriverWait(self.driver, 0)
         self.navigateTo("Ddt in entrata")
         self.wait_loader()
 

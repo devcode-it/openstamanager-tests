@@ -39,6 +39,7 @@ class Attivita_Dashboard(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//button[@class="btn btn-block counter_object btn-danger"]').click()
+        sleep(1)
         self.find(By.XPATH, '//input[@class="dashboard_tecnico"]').click()
 
         att="Int. 2 Cliente\nTecnici: Stefano Bianchi"

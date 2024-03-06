@@ -1,4 +1,3 @@
-from common.Test import Test, get_html
 from selenium.webdriver.common.keys import Keys
 from time import sleep
 from selenium import webdriver
