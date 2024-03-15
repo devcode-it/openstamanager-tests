@@ -122,8 +122,8 @@ class GiacenzeSedi(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_10"]'))).click()
 
-        scarico = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[4])[1]'))).text
-        carico = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[4])[2]'))).text
+        scarico = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[5])[1]'))).text
+        carico = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[5])[2]'))).text
 
         self.assertEqual(scarico, "Sede di Roma")
         self.assertEqual(carico, "Sede legale")

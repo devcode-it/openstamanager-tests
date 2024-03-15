@@ -54,8 +54,8 @@ class Pagamenti(Test):
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.input(None,'Descrizione').setValue(modifica)
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
-        self.wait_loader()
+        self.find(By.XPATH, '//input[@id="percentuale1"]').send_keys('100', Keys.ENTER)
+        sleep(2)
 
         self.navigateTo("Pagamenti")
         self.wait_loader()    
