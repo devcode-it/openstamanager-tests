@@ -156,7 +156,7 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '(//span[@id="select2-id_nazione-container"])[2]').click()
         self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
 
-        self.find(By.XPATH, '(//div[@id="form_2-4"]//i[@class="fa fa-plus"])[4]').click()
+        self.find(By.XPATH, '(//div[@id="form_2-4"]//i[@class="fa fa-plus"])[3]').click()
         sleep(1)
 
         #Verifica sede
