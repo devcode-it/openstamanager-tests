@@ -41,7 +41,7 @@ class Attivita_Dashboard(Test):
         self.find(By.XPATH, '//button[@class="btn btn-block counter_object btn-danger"]').click()
         sleep(1)
         self.find(By.XPATH, '//input[@class="dashboard_tecnico"]').click()
-
+        sleep(1)
         att="Int. 2 Cliente\nTecnici: Stefano Bianchi"
         trova=self.find(By.XPATH, '//div[@class="fc-event-main"]').text
         self.assertEqual(trova, att)
