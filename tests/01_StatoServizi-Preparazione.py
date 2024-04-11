@@ -108,10 +108,11 @@ class StatoServizi(Test):
         # Completamento dei campi per il nuovo elemento
         self.input(modal, 'Denominazione').setValue("Cliente Estero")
         self.input(modal, 'Tipo di anagrafica').setByText("Cliente")
-
+        sleep(2)
+        
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()  
+        sleep(2)
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()  

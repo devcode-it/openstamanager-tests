@@ -287,6 +287,7 @@ class Anagrafiche(Test):
         sleep(2)
 
         self.driver.switch_to.window(self.driver.window_handles[1])
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
@@ -327,12 +328,13 @@ class Anagrafiche(Test):
     def crea_ordine_cliente(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
- 
+        self.wait_loader()
+        
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        self.wait_loader()
+        sleep(2)
            
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[4]'))).click()
@@ -345,7 +347,7 @@ class Anagrafiche(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
-        sleep(1)
+        sleep(2)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-box-tool"]'))).click()
         sleep(1)
