@@ -17,8 +17,8 @@ class AttributiCombinazioni(Test):
 
     def test_creazione_attributi(self):
         # Creazione attributi *Required*
-        self.creazione_attributi(nome="Attributo di Prova ", titolo="Titolo")
-        self.creazione_attributi(nome="Attributo di Prova da Eliminare", titolo="Titolo")
+        self.creazione_attributi("Attributo di Prova ",)
+        self.creazione_attributi("Attributo di Prova da Eliminare")
 
         # Modifica Attributi
         self.modifica_attributi("Attributo modificato")
@@ -29,13 +29,12 @@ class AttributiCombinazioni(Test):
         # Verifica Attributi
         self.verifica_attributi()
 
-    def creazione_attributi(self, nome=str, titolo=str):
+    def creazione_attributi(self, titolo=str):
         self.navigateTo("Attributi Combinazioni")
 
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
-        self.input(modal, 'Nome').setValue(nome)
         self.input(modal, 'Titolo').setValue(titolo)
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
@@ -82,11 +81,11 @@ class AttributiCombinazioni(Test):
         self.wait_loader()    
 
         #verifica elemento modificato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Attributo di Prova", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Attributo modificato", Keys.ENTER)
         sleep(1)
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
-        self.assertEqual("Attributo di Prova",modificato)
+        self.assertEqual("Attributo modificato",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
         sleep(1)
 

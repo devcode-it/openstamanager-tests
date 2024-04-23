@@ -17,8 +17,8 @@ class TipiScadenze(Test):
        
     def test_creazione_tipi_scadenze(self):
         # Creazione tipo di scadenza    *Required*
-        self.creazione_tipi_scadenze(nome= "Tipo di Scadenza di Prova da Modificare",descrizione= "Descrizione tipo di Scadenza")
-        self.creazione_tipi_scadenze(nome= "Tipo di Scadenza di Prova da Eliminare",descrizione= "Descrizione tipo di Scadenza")
+        self.creazione_tipi_scadenze(nome= "Tipo di Scadenza di Prova da Modificare",descrizione= "Descrizione tipo di Scadenza da Modificare")
+        self.creazione_tipi_scadenze(nome= "Tipo di Scadenza di Prova da Eliminare",descrizione= "Descrizione tipo di Scadenza da Eliminare")
 
         # Modifica Tipo di scadenza
         self.modifica_tipi_scadenze("Tipo di Scadenza di Prova")

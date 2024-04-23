@@ -18,8 +18,8 @@ class Combinazioni(Test):
 
     def test_creazione_combinazioni(self):
         # Creazione combinazioni *Required*
-        self.creazione_combinazioni(codice="0001", nome="Combinazione di Prova da Modificare", categoria="Componenti", attributi="Attributo di Prova")
-        self.creazione_combinazioni(codice="0002", nome="Combinazione di Prova da Eliminare", categoria="Componenti", attributi="Attributo di Prova")
+        self.creazione_combinazioni(codice="0001", nome="Combinazione di Prova da Modificare", attributi="Attributo modificato")
+        self.creazione_combinazioni(codice="0002", nome="Combinazione di Prova da Eliminare", attributi="Attributo modificato")
 
         # Modifica Combinazioni
         self.modifica_combinazioni("Combinazione di Prova")
@@ -30,15 +30,13 @@ class Combinazioni(Test):
         # Verifica Combinazioni
         self.verifica_combinazioni()
 
-    def creazione_combinazioni(self, codice: str, nome: str, categoria: str, attributi: str):
+    def creazione_combinazioni(self, codice: str, nome: str, attributi: str):
         self.navigateTo("Combinazioni")
         self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Codice').setValue(codice)
         self.input(modal, 'Nome').setValue(nome)
-        select = self.input(modal, 'Categoria')
-        select.setByText(categoria)
         select = self.input(modal, 'Attributi')
         select.setByText(attributi)
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()

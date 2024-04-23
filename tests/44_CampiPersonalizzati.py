@@ -40,7 +40,7 @@ class Campi_personalizzati(Test):
         modal = self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-module_id-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Interventi")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Attività")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
 
         self.input(modal, 'Nome').setValue(nome)
