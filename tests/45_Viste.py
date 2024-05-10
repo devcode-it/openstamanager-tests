@@ -15,7 +15,7 @@ class Viste(Test):
 
         self.navigateTo("Attività")
         self.wait_loader()
-        self.controllo_viste("2")
+        self.controllo_viste("1")
 
         self.expandSidebar("Vendite")
 
