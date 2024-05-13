@@ -113,3 +113,4 @@ Legenda:
 |75| Marche impianti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |76| Adattatori di archiviazione |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |77| Gestione task |-|:heavy_check_mark:|-|-|:heavy_check_mark:|-|
+|78| Stati fatture |-|:heavy_check_mark:|-|-|:heavy_check_mark:|-|
