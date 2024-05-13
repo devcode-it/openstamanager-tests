@@ -114,3 +114,4 @@ Legenda:
 |76| Adattatori di archiviazione |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |77| Gestione task |-|:heavy_check_mark:|-|-|:heavy_check_mark:|-|
 |78| Stati fatture |-|:heavy_check_mark:|-|-|:heavy_check_mark:|-|
+|79| Stati degli ordini |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
