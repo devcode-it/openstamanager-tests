@@ -32,7 +32,7 @@ class TipiScadenze(Test):
     def creazione_tipi_scadenze(self, nome=str, descrizione=str):
         self.navigateTo("Tipi scadenze")
 
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue(nome)
@@ -59,7 +59,7 @@ class TipiScadenze(Test):
         self.navigateTo("Tipi scadenze")
         self.wait_loader()    
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def elimina_tipi_scadenze(self):
         wait = WebDriverWait(self.driver, 20)
@@ -77,7 +77,7 @@ class TipiScadenze(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()        
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def verifica_tipi_scadenze(self):
         wait = WebDriverWait(self.driver, 20)
@@ -90,7 +90,7 @@ class TipiScadenze(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Tipo di Scadenza di Prova",modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Tipo di Scadenza di Prova da Eliminare", Keys.ENTER)

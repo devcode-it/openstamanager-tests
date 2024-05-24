@@ -60,7 +60,7 @@ class Anagrafiche(Test):
 
     def add_anagrafica(self, nome=str, tipo=str):
         # Crea una nuova anagrafica del tipo indicato.
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Denominazione').setValue(nome)
@@ -90,12 +90,13 @@ class Anagrafiche(Test):
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Este")
 
-        self.find(By.XPATH, '//a[@id="save"]').click()
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        sleep(1)
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()    
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
     def aggiunta_referente(self):
         wait = WebDriverWait(self.driver, 20)
@@ -129,7 +130,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()    
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
     def aggiunta_sede(self):
         wait = WebDriverWait(self.driver, 20)
@@ -168,7 +169,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()    
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
     def elimina_anagrafica(self):
         wait = WebDriverWait(self.driver, 20)     
@@ -185,7 +186,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
     def verifica_anagrafica(self):
         wait = WebDriverWait(self.driver, 20)
@@ -198,7 +199,7 @@ class Anagrafiche(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Cliente",modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Anagrafica di Prova da Eliminare", Keys.ENTER)
@@ -206,7 +207,7 @@ class Anagrafiche(Test):
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[1]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
     def crea_attivita(self):
         wait = WebDriverWait(self.driver, 20)
@@ -248,7 +249,7 @@ class Anagrafiche(Test):
         self.wait_loader()
 
         self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
     def crea_preventivo(self):
         wait = WebDriverWait(self.driver, 20)
@@ -297,7 +298,7 @@ class Anagrafiche(Test):
         self.driver.switch_to.window(self.driver.window_handles[0])
 
         self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
     def crea_contratto(self):
         wait = WebDriverWait(self.driver, 20)
@@ -323,7 +324,7 @@ class Anagrafiche(Test):
         self.wait_loader() 
 
         self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
     def crea_ordine_cliente(self):
         wait = WebDriverWait(self.driver, 20)
@@ -364,7 +365,7 @@ class Anagrafiche(Test):
         self.wait_loader() 
 
         self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
@@ -409,7 +410,7 @@ class Anagrafiche(Test):
         self.wait_loader() 
 
         self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
     def crea_fattura_vendita(self):
         wait = WebDriverWait(self.driver, 20)
@@ -451,4 +452,4 @@ class Anagrafiche(Test):
         self.wait_loader() 
 
         self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()

@@ -64,7 +64,7 @@ class GiacenzeSedi(Test):
 
         # Crea un nuovo ddt al cliente indicato. 
         # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         select = self.input(modal, 'Destinatario')

@@ -31,7 +31,7 @@ class CategorieImpianti(Test):
 
     def creazione_categorie_impianti(self, nome=str, colore=str):
         self.navigateTo("Categorie impianti")
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Colore').setValue(colore)
@@ -58,7 +58,7 @@ class CategorieImpianti(Test):
         self.navigateTo("Categorie impianti")
         self.wait_loader()    
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def elimina_categorie_impianti(self):
         wait = WebDriverWait(self.driver, 20)
@@ -76,7 +76,7 @@ class CategorieImpianti(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def verifica_categorie_impianti(self):
         wait = WebDriverWait(self.driver, 20)
@@ -89,7 +89,7 @@ class CategorieImpianti(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Categoria Impianti di Prova",modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Categoria Impianti di Prova da Eliminare", Keys.ENTER)

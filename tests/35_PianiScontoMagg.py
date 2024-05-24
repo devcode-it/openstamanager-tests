@@ -36,7 +36,7 @@ class PianiScontoMagg(Test):
 
         # Crea un nuovo piano. 
         # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue(nome)
@@ -65,7 +65,7 @@ class PianiScontoMagg(Test):
         self.navigateTo("Piani di sconto/magg.")
         self.wait_loader()  
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def elimina_piano_sconto(self):
         wait = WebDriverWait(self.driver, 20)
@@ -82,7 +82,7 @@ class PianiScontoMagg(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def verifica_piano_sconto(self):
         wait = WebDriverWait(self.driver, 20)
@@ -95,7 +95,7 @@ class PianiScontoMagg(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Piano di sconto di Prova",modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Piano di sconto di Prova da Eliminare", Keys.ENTER)

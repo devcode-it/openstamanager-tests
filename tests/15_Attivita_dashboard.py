@@ -51,7 +51,7 @@ class Attivita_Dashboard(Test):
         wait = WebDriverWait(self.driver, 20)
         # Crea un nuovo intervento. 
         # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Cliente').setByText(cliente)

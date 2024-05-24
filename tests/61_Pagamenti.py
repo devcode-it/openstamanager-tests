@@ -32,7 +32,7 @@ class Pagamenti(Test):
 
     def creazione_pagamenti(self, descrizione= str, codice=str):
         self.navigateTo("Pagamenti")
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Descrizione').setValue(descrizione)
@@ -60,7 +60,7 @@ class Pagamenti(Test):
         self.navigateTo("Pagamenti")
         self.wait_loader()    
 
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
 
     def elimina_pagamento(self):
         wait = WebDriverWait(self.driver, 20)
@@ -78,7 +78,7 @@ class Pagamenti(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()   
 
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
 
     def verifica_pagamento(self):
         wait = WebDriverWait(self.driver, 20)
@@ -91,7 +91,7 @@ class Pagamenti(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Pagamento di Prova",modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Pagamento di Prova da Eliminare", Keys.ENTER)

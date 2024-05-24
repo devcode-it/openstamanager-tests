@@ -32,7 +32,7 @@ class RitenutePrevidenziali(Test):
 
     def creazione_ritenute_previdenziali(self, descrizione=str, percentuale=str, percentualeimp=str):
         self.navigateTo("Ritenute previdenziali")
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Descrizione').setValue(descrizione)
@@ -62,7 +62,7 @@ class RitenutePrevidenziali(Test):
         self.navigateTo("Ritenute previdenziali")
         self.wait_loader()    
 
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
 
     def elimina_ritenute_previdenziali(self):
         wait = WebDriverWait(self.driver, 20)
@@ -80,7 +80,7 @@ class RitenutePrevidenziali(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()  
                 
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
 
     def verifica_ritenuta_previdenziale(self):
         wait = WebDriverWait(self.driver, 20)
@@ -93,7 +93,7 @@ class RitenutePrevidenziali(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
         self.assertEqual("Ritenuta Previdenziale di Prova",modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Ritenuta Previdenziale di Prova da Eliminare", Keys.ENTER)

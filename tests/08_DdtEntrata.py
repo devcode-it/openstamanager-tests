@@ -37,7 +37,7 @@ class DdtEntrata(Test):
         self.navigateTo("Ddt in entrata")
         # Crea un nuovo ddt del fornitore indicato.
         # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         select = self.input(modal, 'Mittente')
@@ -94,7 +94,7 @@ class DdtEntrata(Test):
         self.navigateTo("Ddt in entrata")
         self.wait_loader()    
 
-        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
 
     def elimina_ddt(self):
         wait = WebDriverWait(self.driver, 20)
@@ -111,7 +111,7 @@ class DdtEntrata(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
 
     def verifica_ddt(self):
         wait = WebDriverWait(self.driver, 20)
@@ -124,7 +124,7 @@ class DdtEntrata(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[11]').text
         self.assertEqual("Evaso", self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[11]').text)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)

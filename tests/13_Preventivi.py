@@ -55,7 +55,7 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader() 
 
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         # Completamento dei campi per il nuovo elemento
@@ -123,7 +123,7 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()  
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def elimina_preventivo(self):
         wait = WebDriverWait(self.driver, 20)
@@ -142,7 +142,7 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()  
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def creazione_contratto(self):
         wait = WebDriverWait(self.driver, 20)
@@ -182,7 +182,7 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def creazione_ordine_cliente(self):
         wait = WebDriverWait(self.driver, 20)
@@ -223,7 +223,7 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()  
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def creazione_ordine_fornitore(self):
         wait = WebDriverWait(self.driver, 20)
@@ -266,7 +266,7 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()  
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def creazione_attività(self):
         wait = WebDriverWait(self.driver, 20)
@@ -312,7 +312,7 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()  
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def creazione_ddt_uscita(self):
         wait = WebDriverWait(self.driver, 20)
@@ -357,7 +357,7 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()  
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def creazione_fattura(self):
         wait = WebDriverWait(self.driver, 20)
@@ -396,7 +396,7 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()  
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def verifica_preventivi(self):
         wait = WebDriverWait(self.driver, 20)
@@ -409,7 +409,7 @@ class Preventivi(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
         self.assertEqual("Preventivo di Prova",modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
         #verifica elemento eliminato

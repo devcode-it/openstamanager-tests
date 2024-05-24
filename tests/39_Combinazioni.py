@@ -32,7 +32,7 @@ class Combinazioni(Test):
 
     def creazione_combinazioni(self, codice: str, nome: str, attributi: str):
         self.navigateTo("Combinazioni")
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Codice').setValue(codice)
@@ -60,7 +60,7 @@ class Combinazioni(Test):
         self.navigateTo("Combinazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def elimina_combinazioni(self):
         wait = WebDriverWait(self.driver, 20)
@@ -77,7 +77,7 @@ class Combinazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         sleep(1)
         
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
         
     def verifica_combinazioni(self):
         wait = WebDriverWait(self.driver, 20)
@@ -90,7 +90,7 @@ class Combinazioni(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
         self.assertEqual("Combinazione di Prova",modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Attributo di Prova da Eliminare", Keys.ENTER)

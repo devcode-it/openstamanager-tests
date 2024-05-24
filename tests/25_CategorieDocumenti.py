@@ -33,7 +33,7 @@ class CategorieDocumenti(Test):
 
         # Crea una nuova  categoria documenti.   
         # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         # Completamento dei campi per il nuovo elemento
@@ -61,7 +61,7 @@ class CategorieDocumenti(Test):
         self.navigateTo("Categorie documenti")
         self.wait_loader()  
 
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
 
     def elimina_categoria_documenti(self):
         wait = WebDriverWait(self.driver, 20)
@@ -78,7 +78,7 @@ class CategorieDocumenti(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
 
     def verifica_categoria_documento(self):
         wait = WebDriverWait(self.driver, 20)
@@ -91,7 +91,7 @@ class CategorieDocumenti(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Categoria Documenti di Prova",modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Categoria Documenti di Prova da Eliminare", Keys.ENTER)

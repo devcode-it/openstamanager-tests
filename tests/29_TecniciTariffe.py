@@ -41,7 +41,7 @@ class TecniciTariffe(Test):
         self.navigateTo("Tecnici e tariffe")
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def verifica_tariffe(self):
         wait = WebDriverWait(self.driver, 20)

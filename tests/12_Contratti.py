@@ -39,7 +39,7 @@ class Contratti(Test):
         self.wait_loader() 
 
         # Crea una nuovo contratto per il cliente indicato. 
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         # Completamento dei campi per il nuovo elemento
@@ -103,7 +103,7 @@ class Contratti(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def elimina_contratto(self):
         wait = WebDriverWait(self.driver, 20)
@@ -120,7 +120,7 @@ class Contratti(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
 
     def verifica_contratto(self):
         wait = WebDriverWait(self.driver, 20)
@@ -133,7 +133,7 @@ class Contratti(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
         self.assertEqual("Contratto di Prova",modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
         #verifica elemento eliminato

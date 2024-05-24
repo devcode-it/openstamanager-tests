@@ -37,7 +37,7 @@ class Articoli(Test):
         # 1/2 Crea un nuovo articolo. 
         # #
         # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Codice').setValue(codice)
@@ -75,7 +75,7 @@ class Articoli(Test):
         verificaqta = self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[10]//div[1][1]').text
         self.assertEqual(verificaqta, "2,00")
 
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
 
     def elimina_articolo(self):
         wait = WebDriverWait(self.driver, 20)
@@ -92,7 +92,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         sleep(1)
 
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
     def verifica_articolo(self):
@@ -106,7 +106,7 @@ class Articoli(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[9]').text
         self.assertEqual("20,00",modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
         #verifica elemento eliminato

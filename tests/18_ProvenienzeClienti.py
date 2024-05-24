@@ -31,7 +31,7 @@ class Provenienze_clienti(Test):
         self.verifica_provenienze_clienti()
 
     def creazione_provenienze_clienti(self, descrizione=str, colore=str):
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Colore').setValue(colore)
@@ -63,7 +63,7 @@ class Provenienze_clienti(Test):
         self.navigateTo("Provenienze clienti")
         self.wait_loader()    
 
-        self.find(By.XPATH, '//th[@id="th_descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_descrizione"]/i[@class="deleteicon fa fa-times"]').click()
 
     def elimina_provenienze_clienti(self):
         wait = WebDriverWait(self.driver, 20)
@@ -81,7 +81,7 @@ class Provenienze_clienti(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()      
 
-        self.find(By.XPATH, '//th[@id="th_descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_descrizione"]/i[@class="deleteicon fa fa-times"]').click()
 
     def verifica_provenienze_clienti(self):
         wait = WebDriverWait(self.driver, 20)
@@ -94,7 +94,7 @@ class Provenienze_clienti(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
         self.assertEqual("Provenienza Clienti di Prova",modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))).send_keys("Provenienza Clienti di Prova da Eliminare", Keys.ENTER)

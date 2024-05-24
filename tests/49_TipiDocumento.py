@@ -32,7 +32,7 @@ class TipiDocumento(Test):
        
     def creazione_tipi_documento(self, descrizione=str, direzione=str, codice=str):
         self.navigateTo("Tipi documento")
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Descrizione').setValue(descrizione)
@@ -64,7 +64,7 @@ class TipiDocumento(Test):
         self.navigateTo("Tipi documento")
         self.wait_loader()    
 
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
 
     def elimina_documento(self):
         wait = WebDriverWait(self.driver, 20)
@@ -82,7 +82,7 @@ class TipiDocumento(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         sleep(1)
 
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
 
     def verifica_tipo_documento(self):
         wait = WebDriverWait(self.driver, 20)
@@ -95,7 +95,7 @@ class TipiDocumento(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Tipo di Documento di Prova",modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Tipo di Documento di Prova da Eliminare", Keys.ENTER)

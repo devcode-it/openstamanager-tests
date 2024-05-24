@@ -41,7 +41,7 @@ class FattureAcquisto(Test):
 
         # Crea una nuova fattura per il fornitore indicato. 
         # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'N. fattura del fornitore').setValue(numero)
@@ -172,7 +172,7 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()  
 
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         select = self.input(modal, 'Fornitore')

@@ -56,7 +56,7 @@ class FattureVendita(Test):
 
         # Crea una nuova fattura per il cliente indicato. 
         # Apre la schermata di nuovo elemento
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         select = self.input(modal, 'Cliente')
@@ -341,7 +341,7 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()  
 
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         select = self.input(modal, 'Fornitore')

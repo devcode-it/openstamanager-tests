@@ -34,7 +34,7 @@ class Movimenti(Test):
         # Apre la schermata di nuovo elemento
         self.navigateTo("Movimenti")
         self.wait_loader()
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Articolo').setByText(articolo)
@@ -65,7 +65,7 @@ class Movimenti(Test):
 
         self.navigateTo("Movimenti")
         self.wait_loader() 
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
 
     def verifica_movimento(self):
         wait = WebDriverWait(self.driver, 20)
