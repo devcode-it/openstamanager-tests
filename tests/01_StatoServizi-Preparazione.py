@@ -52,7 +52,7 @@ class StatoServizi(Test):
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Este")
 
-        self.find(By.XPATH, '//a[@id="save"]').click()
+        self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()  
 
     def creazione_fornitore_estero(self):
@@ -61,7 +61,7 @@ class StatoServizi(Test):
         self.wait_loader()  
 
         # Crea una nuova anagrafica estera
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         # Completamento dei campi per il nuovo elemento
@@ -93,7 +93,7 @@ class StatoServizi(Test):
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Berlino")
 
-        self.find(By.XPATH, '//a[@id="save"]').click()
+        self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
 
     def creazione_cliente_estero(self):
@@ -102,7 +102,7 @@ class StatoServizi(Test):
         self.wait_loader()  
 
         # Crea una nuova anagrafica estera
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         # Completamento dei campi per il nuovo elemento
@@ -117,10 +117,10 @@ class StatoServizi(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()  
 
-        self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/i[@class="deleteicon fa fa-times fa-2x"]').click()
+        self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/i[@class="deleteicon fa fa-times"]').click()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente Estero", Keys.ENTER)  
-        sleep(1)
+        
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
@@ -128,7 +128,7 @@ class StatoServizi(Test):
         # Modifica dati
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_nazione-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Germania")
-        sleep(1)
+        
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         self.wait_loader()
 
@@ -139,14 +139,14 @@ class StatoServizi(Test):
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Piacenza d'Adige")
         self.driver.execute_script('window.scrollTo(0,0)')
-        self.find(By.XPATH, '//a[@id="save"]').click()
+        self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
     def articolo(self):
         self.navigateTo("Magazzino")
         self.navigateTo("Articoli")
         self.wait_loader()  
 
-        self.find(By.CSS_SELECTOR, '#tabs > li:first-child .btn-primary > .fa-plus').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'Codice').setValue('001')

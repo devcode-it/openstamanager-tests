@@ -81,7 +81,7 @@ class Test(unittest.TestCase):
         condition = expected_conditions.element_to_be_clickable(
             (By.CLASS_NAME, 'sidebar'))
         self.wait(condition)
-        sleep(1)  
+          
 
         # URL pagina corrente
         current_url = self.driver.current_url
