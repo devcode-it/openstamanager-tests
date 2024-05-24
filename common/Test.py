@@ -13,7 +13,6 @@ import re
 from selenium.webdriver.firefox.options import Options
 from time import sleep
 
-
 class Test(unittest.TestCase):
     def __init__(self, methodName):
         super().__init__(methodName)
@@ -50,8 +49,6 @@ class Test(unittest.TestCase):
         self.find(By.XPATH, '//button[@type="submit"]').click()
         self.wait_loader()
 
-        # Rimozione barra di debug
-        self.driver.execute_script('$(".phpdebugbar-close-btn").click()')
 
     def close(self):
         # Chiude il test.
@@ -89,7 +86,7 @@ class Test(unittest.TestCase):
         # URL pagina corrente
         current_url = self.driver.current_url
 
-        xpath = ''.join(['//a/span[text()="', name, '"]'])
+        xpath = ''.join(['//a[contains(., "', name, '")]'])
         link = self.find(By.XPATH, xpath)
 
         try:
@@ -103,8 +100,8 @@ class Test(unittest.TestCase):
 
     def expandSidebar(self, name: str):
         xpath = ''.join(
-            ['//a[contains(., "', name, '")]//span[contains(@class, "pull-right-container")]'])
-
+            ['//a[contains(., "', name, '")]//i[contains(@class, "fa-angle-left")]'])
+            
         self.find(By.XPATH, xpath).click()
 
     def find(self, by=By.ID, value=None):
@@ -133,7 +130,8 @@ class Test(unittest.TestCase):
             'if(document.getElementsByClassName("local-loader")[0]!==undefined){ return  document.getElementsByClassName("local-loader")[0].classList.contains("hidden"); } else { return true; }') == True)
 """
         self.wait(expected_conditions.invisibility_of_element_located(
-            (By.ID, 'main_loading')))
+            (By.CLASS_NAME, 'animation__shake')))
+
 
     def wait_modal(self):
         # Attende il caricamento del modal e ne restituisce un riferimento.
