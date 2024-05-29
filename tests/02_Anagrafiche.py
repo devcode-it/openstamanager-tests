@@ -75,7 +75,7 @@ class Anagrafiche(Test):
     def modifica_anagrafica(self, tipologia:str): 
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
- 
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
@@ -97,16 +97,20 @@ class Anagrafiche(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        self.wait_loader()
 
     def aggiunta_referente(self):
         wait = WebDriverWait(self.driver, 20)
+        sleep(2)
         self.navigateTo("Anagrafiche")
  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
+        self.wait_loader()
         #Aggiunta referente
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_3"]'))).click()
         sleep(1)
 
@@ -131,9 +135,11 @@ class Anagrafiche(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        self.wait_loader()
 
     def aggiunta_sede(self):
         wait = WebDriverWait(self.driver, 20)
+        self.wait_loader()  
         self.navigateTo("Anagrafiche")
  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
@@ -142,6 +148,7 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         sleep(1) 
         #Aggiunta sede
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_4"]'))).click()
         sleep(1)
 
@@ -170,6 +177,7 @@ class Anagrafiche(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        self.wait_loader()
 
     def elimina_anagrafica(self):
         wait = WebDriverWait(self.driver, 20)     
@@ -235,6 +243,7 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
         sleep(2)
 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_28"]'))).click()
         sleep(2)
 
@@ -395,6 +404,7 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
         sleep(1)
 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_17"]'))).click()
         sleep(2)
 
