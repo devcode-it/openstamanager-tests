@@ -54,13 +54,14 @@ class RitenuteAcconto(Test):
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.input(None,'Descrizione').setValue(modifica)
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
 
         self.navigateTo("Ritenute acconto")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def elimina_ritenuta_acconto(self):
         wait = WebDriverWait(self.driver, 20)
@@ -79,7 +80,8 @@ class RitenuteAcconto(Test):
         self.wait_loader()     
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-
+        sleep(2)
+        
     def verifica_ritenuta_acconto(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Ritenute acconto")
@@ -92,6 +94,7 @@ class RitenuteAcconto(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Ritenuta Acconto di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Ritenuta Acconto di Prova da Eliminare", Keys.ENTER)

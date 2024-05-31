@@ -60,18 +60,19 @@ class Listini(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("10,00")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="sconto_percentuale"]'))).send_keys("10")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-success"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@class="btn btn-success"])[2]'))).click()
         sleep(1)
 
         self.input(None,'Nome').setValue(modifica)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="save"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="save"]'))).click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="back"]'))).click()
         sleep(1)
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def elimina_listino_cliente(self):
         wait = WebDriverWait(self.driver, 20)
@@ -103,7 +104,7 @@ class Listini(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Listino cliente di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+        sleep(2)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Listino cliente di Prova da Eliminare", Keys.ENTER)

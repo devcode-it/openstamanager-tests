@@ -14,7 +14,7 @@ class Articoli(Test):
     def setUp(self):
         super().setUp()
         self.expandSidebar("Magazzino")
-
+        self.wait_loader()
 
     def test_creazione_articolo(self):
         # Crea un nuovo articolo. *Required*
@@ -32,7 +32,7 @@ class Articoli(Test):
 
     def creazione_articolo(self, codice: str, descrizione: str):
         self.navigateTo("Articoli")
-        sleep(2)
+        self.wait_loader()
         # #
         # 1/2 Crea un nuovo articolo. 
         # #
@@ -65,7 +65,7 @@ class Articoli(Test):
         self.input(None, 'Quantità').setValue(qta)
         self.input(None, 'Descrizione').setValue(descrizione)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         sleep(1)
 
         # Controllo quantità 
@@ -107,7 +107,7 @@ class Articoli(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[9]').text
         self.assertEqual("20,00",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+        self.wait_loader()
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Articolo di prova da Eliminare", Keys.ENTER)

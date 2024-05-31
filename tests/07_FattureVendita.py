@@ -88,7 +88,7 @@ class FattureVendita(Test):
         sleep(1)
 
         self.driver.execute_script('window.scrollTo(0,0)')
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
         
     def controllo_fattura_vendita(self):
@@ -166,21 +166,21 @@ class FattureVendita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//*[@id="conto2-20"]//*[@class="fa fa-plus"]').click()
-        self.wait_loader()
+        sleep(2)
         self.find(By.XPATH, '//*[@id="movimenti-94"]//*[@class="fa fa-plus"]').click()
-        self.wait_loader()
+        sleep(2)
         conto_ricavi = self.find(By.XPATH, '//*[@id="conto_94"]//*[@class="text-right"]').text
        
         self.find(By.XPATH, '//*[@id="conto2-2"]//*[@class="fa fa-plus"]').click()
-        self.wait_loader()
+        sleep(2)
         self.find(By.XPATH, '//*[@id="movimenti-121"]//*[@class="fa fa-plus"]').click()
-        self.wait_loader()
+        sleep(2)
         conto_cliente = self.find(By.XPATH, '//*[@id="conto_121"]//*[@class="text-right"]').text
    
         self.find(By.XPATH, '//*[@id="conto2-22"]//*[@class="fa fa-plus"]').click()
-        self.wait_loader()
+        sleep(2)
         self.find(By.XPATH, '//*[@id="movimenti-106"]//*[@class="fa fa-plus"]').click()        
-        self.wait_loader()
+        sleep(2)
         conto_iva = self.find(By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]').text
 
         self.assertEqual(totale_imponibile, conto_ricavi)
@@ -192,13 +192,13 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@class="row"]//tbody//tr[1]//td[6]').click()
+        self.find(By.XPATH, '//tbody//tr[1]//td[6]').click()
         self.wait_loader()
         
         # Crea una nuova nota di credito 
         # Apre la schermata di nuovo elemento
         self.find(By.XPATH, '//button[@class="btn btn-primary unblockable dropdown-toggle "]').click()
-        self.find(By.XPATH, '(//a[@class="bound clickable"])[2]').click()
+        self.find(By.XPATH, '(//a[@class="dropdown-item bound clickable"])[2]').click()
         modal = self.wait_modal()
 
         # Submit
@@ -209,14 +209,14 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@class="row"]//tbody//tr[3]//td[6]').click()
+        self.find(By.XPATH, '//tbody//tr[3]//td[6]').click()
         self.wait_loader()
         
         self.input(None,'Stato*').setByText(modifica)
         self.driver.execute_script('window.scrollTo(0,0)')
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
 
     def controllo_nota_credito(self):
@@ -254,6 +254,7 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//tr[1]//td[2]').click()
         self.wait_loader()
 
+        self.find(By.XPATH, '//div[@class="control-sidebar-button"]').click()
         self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
         self.wait_loader()
 
@@ -288,21 +289,21 @@ class FattureVendita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//*[@id="conto2-20"]//*[@class="fa fa-plus"]').click()
-        self.wait_loader()
+        sleep(2)
         self.find(By.XPATH, '//*[@id="movimenti-94"]//*[@class="fa fa-plus"]').click()
-        self.wait_loader()
+        sleep(2)
         conto_ricavi = self.find(By.XPATH, '//*[@id="conto_94"]//*[@class="text-right"]').text
        
         self.find(By.XPATH, '//*[@id="conto2-2"]//*[@class="fa fa-plus"]').click()
-        self.wait_loader()
+        sleep(2)
         self.find(By.XPATH, '//*[@id="movimenti-121"]//*[@class="fa fa-plus"]').click()
-        self.wait_loader()
+        sleep(2)
         conto_cliente = self.find(By.XPATH, '//*[@id="conto_121"]//*[@class="text-right"]').text
    
         self.find(By.XPATH, '//*[@id="conto2-22"]//*[@class="fa fa-plus"]').click()
-        self.wait_loader()
+        sleep(2)
         self.find(By.XPATH, '//*[@id="movimenti-106"]//*[@class="fa fa-plus"]').click()        
-        self.wait_loader()
+        sleep(2)
 
         conto_iva = self.find(By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]').text
         conto_iva= '-'+ conto_iva
@@ -317,8 +318,8 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        fattura=self.find(By.XPATH, '//div[@class="row"]//tbody//tr[2]//td[6]').text
-        notacredito=self.find(By.XPATH, '//div[@class="row"]//tbody//tr[1]//td[6]').text
+        fattura=self.find(By.XPATH, '//tbody//tr[2]//td[6]').text
+        notacredito=self.find(By.XPATH, '//tbody//tr[1]//td[6]').text
         fattura='-'+ fattura
         self.assertEqual(fattura,notacredito)
 
@@ -327,7 +328,7 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@class="row"]//tbody//tr[3]//td[2]').click()
+        self.find(By.XPATH, '//tbody//tr[3]//td[2]').click()
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
@@ -402,11 +403,11 @@ class FattureVendita(Test):
         self.driver.execute_script('window.scrollTo(0,0)')
         sleep(1)
         
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         sleep(1)
         # Creazione autofattura
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary unblockable dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//li//a[@class="bound clickable"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//span[@class="select2-selection select2-selection--single"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("TD17")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
@@ -418,7 +419,7 @@ class FattureVendita(Test):
         self.driver.execute_script('window.scrollTo(0,0)')
         sleep(1)
         
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
 
         totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]').text

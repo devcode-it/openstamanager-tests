@@ -26,7 +26,7 @@ class StatoServizi(Test):
         self.articolo()
 
     def attiva_moduli(self):
-        self.expandSidebar("Strumenti")
+        self.expandSidebar("Strumenti")   
         self.navigateTo("Stato dei servizi")
 
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
@@ -39,6 +39,7 @@ class StatoServizi(Test):
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
 
     def compila_azienda(self):
+
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
@@ -53,12 +54,12 @@ class StatoServizi(Test):
         self.input(None, 'Città').setValue("Este")
 
         self.find(By.XPATH, '//button[@id="save"]').click()
-        self.wait_loader()  
+        self.wait_loader()
 
     def creazione_fornitore_estero(self):
         wait = WebDriverWait(self.driver, 20)
         self.expandSidebar("Anagrafiche")
-        self.wait_loader()  
+        self.wait_loader() 
 
         # Crea una nuova anagrafica estera
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
@@ -70,9 +71,9 @@ class StatoServizi(Test):
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()  
+        self.wait_loader() 
 
-        # Completamento anagrafica
+        # Completamento anagrafica  
         self.navigateTo("Anagrafiche")
         self.wait_loader()  
  
@@ -99,7 +100,7 @@ class StatoServizi(Test):
     def creazione_cliente_estero(self):
         wait = WebDriverWait(self.driver, 20)
         self.expandSidebar("Anagrafiche")
-        self.wait_loader()  
+        self.wait_loader()
 
         # Crea una nuova anagrafica estera
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
@@ -114,8 +115,9 @@ class StatoServizi(Test):
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         sleep(2)
 
+  
         self.navigateTo("Anagrafiche")
-        self.wait_loader()  
+        self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/i[@class="deleteicon fa fa-times"]').click()
 
@@ -140,10 +142,11 @@ class StatoServizi(Test):
         self.driver.execute_script('window.scrollTo(0,0)')
         self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
+
     def articolo(self):
-        self.navigateTo("Magazzino")
+        self.navigateTo("Magazzino") 
         self.navigateTo("Articoli")
-        self.wait_loader()  
+        self.wait_loader()
 
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()

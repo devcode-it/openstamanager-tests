@@ -32,16 +32,17 @@ class TecniciTariffe(Test):
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="input-group has-feedback"]/input[@id="costo_ore1"]'))).send_keys(modifica)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="input-group"]/input[@id="costo_ore1"]'))).send_keys(modifica)
         sleep(1)
             
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
         
         self.navigateTo("Tecnici e tariffe")
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def verifica_tariffe(self):
         wait = WebDriverWait(self.driver, 20)
@@ -55,7 +56,7 @@ class TecniciTariffe(Test):
         self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//div[@class="input-group has-feedback"]/input[@id="costo_ore1"][@value="28.000000"]').click()
+        self.find(By.XPATH, '//div[@class="input-group"]/input[@id="costo_ore1"][@value="28.000000"]').click()
         modificato="28.000000"
         self.assertEqual("28.000000",modificato)
 

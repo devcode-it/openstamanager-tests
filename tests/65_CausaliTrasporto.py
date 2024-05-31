@@ -52,13 +52,14 @@ class Causali(Test):
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.input(None,'Descrizione').setValue(modifica)
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
 
         self.navigateTo("Causali trasporto")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def elimina_causale(self):
         wait = WebDriverWait(self.driver, 20)
@@ -77,7 +78,8 @@ class Causali(Test):
         self.wait_loader()     
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click() 
-
+        sleep(2)
+        
     def verifica_causale(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Causali trasporto")
@@ -90,6 +92,7 @@ class Causali(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Causale di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Causale di Prova da Eliminare", Keys.ENTER)

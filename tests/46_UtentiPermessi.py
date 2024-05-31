@@ -83,6 +83,7 @@ class UtentiPermessi(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Gruppo"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def elimina_utenti_permessi(self):
         wait = WebDriverWait(self.driver, 20)
@@ -99,7 +100,8 @@ class UtentiPermessi(Test):
         self.wait_loader() 
 
         self.find(By.XPATH, '//th[@id="th_Gruppo"]/i[@class="deleteicon fa fa-times"]').click()     
-
+        sleep(2)
+        
     def verifica_utenti_permessi(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Utenti e permessi")

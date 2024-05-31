@@ -44,7 +44,7 @@ class RowManager:
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[onclick="submitForm()"]').click()
-        self.tester.wait_loader()
+        sleep(2)
 
     def add_descrizione(self, data: dict):
         # Aggiunge una nuova descrizione. 
@@ -55,7 +55,7 @@ class RowManager:
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.tester.wait_loader()
+        sleep(2)
 
     def add_riga(self, data: dict):
         # Aggiunge una nuova riga. 
@@ -67,7 +67,7 @@ class RowManager:
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[onclick="submitForm()"]').click()
-        self.tester.wait_loader()
+        sleep(2)
 
     def add_articolo(self, data: dict):
 
@@ -76,6 +76,7 @@ class RowManager:
         self.tester.find(By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]').send_keys("002", Keys.ENTER)
         sleep(1)
         self.tester.find(By.XPATH, '//button[@onclick="salvaArticolo()"]').click()
+        sleep(2)
 
        
 
@@ -149,7 +150,7 @@ class RowManager:
 
         time.sleep(4)
 
-        tablePattern = "//div[@class='panel-heading']/parent::*//table//tr[contains(., '|name|')][1]//td[2]"
+        tablePattern = "//div[@class='card-header']/parent::*//table//tr[contains(., '|name|')][1]//td[2]"
         valori = {}
 
         for key, value in importi['totali'].items():

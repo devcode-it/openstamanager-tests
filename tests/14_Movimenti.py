@@ -43,11 +43,8 @@ class Movimenti(Test):
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
-        
-        #toast = self.driver.find_elements(By.CLASS_NAME, 'toast-message')
-        #self.assertIn('Aggiunto movimento', toast)
-        
+        sleep(2)
+              
     def elimina_movimento(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Movimenti")
@@ -65,7 +62,9 @@ class Movimenti(Test):
 
         self.navigateTo("Movimenti")
         self.wait_loader() 
+
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def verifica_movimento(self):
         wait = WebDriverWait(self.driver, 20)
@@ -78,7 +77,8 @@ class Movimenti(Test):
         
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
-
+        sleep(2)
+        
     def verifica_movimenti_documenti(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Articoli")

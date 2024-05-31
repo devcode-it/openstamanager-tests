@@ -77,7 +77,7 @@ class DdtUscita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Evaso")
         sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@id="save"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//button[@id="save"]'))).click()
         sleep(2)
         
         # Estrazione totali righe
@@ -95,6 +95,7 @@ class DdtUscita(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def elimina_ddt(self):
         wait = WebDriverWait(self.driver, 20)
@@ -111,7 +112,8 @@ class DdtUscita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
-
+        sleep(2)
+        
     def verifica_ddt(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Ddt in uscita")
@@ -124,6 +126,7 @@ class DdtUscita(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[11]').text
         self.assertEqual("Evaso",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("02", Keys.ENTER)

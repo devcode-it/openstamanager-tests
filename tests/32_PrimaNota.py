@@ -67,13 +67,14 @@ class PrimaNota(Test):
         self.wait_loader()
         
         self.input(None,'Causale').setValue(modifica)
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
 
         self.navigateTo("Prima nota")
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Causale"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def elimina_prima_nota(self):
         wait = WebDriverWait(self.driver, 20)
@@ -91,6 +92,7 @@ class PrimaNota(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Causale"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def verifica_prima_nota(self):
         wait = WebDriverWait(self.driver, 20)
@@ -104,7 +106,7 @@ class PrimaNota(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[4]').text
         self.assertEqual("Prima Nota di Prova (Fatt. n.1 del 01/01/2024)",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+        sleep(2)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys("Prima nota da Eliminare", Keys.ENTER)

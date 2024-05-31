@@ -19,7 +19,7 @@ class GiacenzeSedi(Test):
 
         # Creazione ddt in uscita
         importi = RowManager.list()
-        self.creazione_ddt_uscita("Admin spa", "2", importi[0])
+        self.creazione_ddt_uscita("Admin spa", "Vendita", importi[0])
 
         # Trasporto sedi
         self.trasporto()
@@ -70,13 +70,16 @@ class GiacenzeSedi(Test):
 
         select = self.input(modal, 'Destinatario')
         select.setByText(cliente)
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        sleep(1)
 
         select = self.input(modal, 'Causale trasporto')
-        select.setByIndex(causale)
+        select.setByText(causale)
+        sleep(1)
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
+        sleep(2)
 
         row_manager = RowManager(self)
         self.valori=row_manager.compile(file_importi)
@@ -90,7 +93,7 @@ class GiacenzeSedi(Test):
 
         self.find(By.XPATH, '//span[@id="select2-idstatoddt-container"]').click()
         self.find(By.XPATH, '//input[@class="select2-search__field"]').send_keys("Evaso", Keys.ENTER)    
-        self.find(By.XPATH, '//a[@id="save"]').click()    
+        self.find(By.XPATH, '//button[@id="save"]').click()    
         sleep(1) 
 
     def trasporto(self):  

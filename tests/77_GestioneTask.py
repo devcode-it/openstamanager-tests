@@ -35,14 +35,14 @@ class GestioneTask (Test):
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.input(None,'Nome').setValue(modifica)
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
 
         self.navigateTo("Gestione task")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-
+        sleep(2)
     
     def verifica_task(self):
         wait = WebDriverWait(self.driver, 20)
@@ -56,3 +56,4 @@ class GestioneTask (Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Backup",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)

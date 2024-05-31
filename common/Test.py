@@ -81,11 +81,10 @@ class Test(unittest.TestCase):
         condition = expected_conditions.element_to_be_clickable(
             (By.CLASS_NAME, 'sidebar'))
         self.wait(condition)
-          
 
         # URL pagina corrente
         current_url = self.driver.current_url
-
+        
         xpath = ''.join(['//a[contains(., "', name, '")]'])
         link = self.find(By.XPATH, xpath)
 
@@ -103,6 +102,7 @@ class Test(unittest.TestCase):
             ['//a[contains(., "', name, '")]//i[contains(@class, "fa-angle-left")]'])
             
         self.find(By.XPATH, xpath).click()
+        self.wait_loader()   
 
     def find(self, by=By.ID, value=None):
         # Ricerca una componente HTML nella pagina.

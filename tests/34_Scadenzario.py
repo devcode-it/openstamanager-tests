@@ -67,13 +67,14 @@ class Scadenzario(Test):
         
         self.find(By.XPATH,'(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]').send_keys(modifica) 
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
-        self.wait_loader()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
+        sleep(2)
                 
         self.navigateTo("Scadenzario")
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Descrizione-scadenza"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def elimina_scadenza(self):
         wait = WebDriverWait(self.driver, 20)
@@ -91,6 +92,7 @@ class Scadenzario(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Descrizione-scadenza"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def verifica_scadenza(self):
         wait = WebDriverWait(self.driver, 20)
@@ -104,6 +106,7 @@ class Scadenzario(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Scadenza di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
         sleep(1)
 
         #verifica elemento eliminato

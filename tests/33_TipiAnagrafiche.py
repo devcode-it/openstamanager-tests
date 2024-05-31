@@ -50,13 +50,14 @@ class TipiAnagrafiche(Test):
         self.wait_loader()
         
         self.input(None,'Descrizione').setValue(modifica)
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
 
         self.navigateTo("Tipi di anagrafiche")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def elimina_tipo_anagrafiche(self):
         wait = WebDriverWait(self.driver, 20)
@@ -74,7 +75,8 @@ class TipiAnagrafiche(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-
+        sleep(2)
+        
     def verifica_tipo_anagrafiche(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Tipi di anagrafiche")
@@ -87,6 +89,7 @@ class TipiAnagrafiche(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Tipo di anagrafica di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Tipo di anagrafica di Prova da Eliminare", Keys.ENTER)

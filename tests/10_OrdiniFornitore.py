@@ -58,13 +58,13 @@ class OrdiniFornitore(Test):
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('1', Keys.ENTER)
-        sleep(1)
+        sleep(3)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatoordine-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@type="search"]'))).send_keys("Accettato")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Accettato")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@id="save"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//button[@id="save"]'))).click()
         sleep(2)
 
         # Estrazione totali righe
@@ -82,6 +82,7 @@ class OrdiniFornitore(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def elimina_ordine_fornitore(self):
         wait = WebDriverWait(self.driver, 20)
@@ -99,6 +100,7 @@ class OrdiniFornitore(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def verifica_ordine_fornitore(self):
         wait = WebDriverWait(self.driver, 20)
@@ -112,6 +114,7 @@ class OrdiniFornitore(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[6]').text
         self.assertEqual("Accettato",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)

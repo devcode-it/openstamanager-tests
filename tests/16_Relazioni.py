@@ -13,6 +13,7 @@ class Relazioni(Test):
 
         self.expandSidebar("Anagrafiche")
         self.navigateTo("Relazioni")
+        self.wait_loader()
 
     def test_creazione_relazioni(self):
         # Creazione relazione *Required*
@@ -29,7 +30,6 @@ class Relazioni(Test):
         self.verifica_relazione()
 
     def creazione_relazioni(self, descrizione=str, colore=str):
-
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
@@ -37,7 +37,7 @@ class Relazioni(Test):
         self.input(modal, 'Descrizione').setValue(descrizione)
 
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
+        sleep(2)
 
     def modifica_relazioni(self, modifica=str):
         wait = WebDriverWait(self.driver, 20)
@@ -51,13 +51,14 @@ class Relazioni(Test):
         self.wait_loader()
         
         self.input(None,'Descrizione').setValue(modifica)
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
 
         self.navigateTo("Relazioni")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def elimina_relazioni(self):
         wait = WebDriverWait(self.driver, 20)
@@ -75,7 +76,8 @@ class Relazioni(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-
+        sleep(2)
+        
     def verifica_relazione(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Relazioni")
@@ -88,6 +90,7 @@ class Relazioni(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Relazione di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Relazione di Prova da Eliminare", Keys.ENTER)

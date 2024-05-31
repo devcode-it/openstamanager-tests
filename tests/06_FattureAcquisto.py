@@ -69,7 +69,7 @@ class FattureAcquisto(Test):
         self.wait_loader()
         
         self.input(None,'Stato*').setByText(modifica)
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
 
     def controllo_fattura_acquisto(self):
@@ -104,6 +104,7 @@ class FattureAcquisto(Test):
         # Torno alla tabella delle Fatture
         self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
+        self.wait_loader()
 
         # Estrazione Totale widgets
         widget_fatturato = self.find(By.XPATH, '(//span[@class="info-box-number"])[1]').text
@@ -117,6 +118,7 @@ class FattureAcquisto(Test):
         # Estrazione valori Piano dei conti
         self.expandSidebar("Contabilità")
         self.navigateTo("Piano dei conti")
+        self.wait_loader()
 
         self.find(By.XPATH, '//*[@id="conto2-14"]//*[@class="fa fa-plus"]').click()
         sleep(1) 
@@ -152,6 +154,7 @@ class FattureAcquisto(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
 
     def verifica_fattura_acquisto(self):
         wait = WebDriverWait(self.driver, 20)
@@ -195,12 +198,12 @@ class FattureAcquisto(Test):
         self.driver.execute_script('window.scrollTo(0,0)')
         sleep(1)
         
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         sleep(1)
 
         # Creazione autofattura
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary unblockable dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//li//a[@class="bound clickable"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//span[@class="select2-selection select2-selection--single"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("TD17")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
@@ -211,7 +214,8 @@ class FattureAcquisto(Test):
         self.input(None,'Stato*').setByText("Emessa")
         self.driver.execute_script('window.scrollTo(0,0)')
         sleep(1)
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
 
         totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]').text

@@ -73,8 +73,9 @@ class Anagrafiche(Test):
         self.wait_loader()
 
     def modifica_anagrafica(self, tipologia:str): 
-        wait = WebDriverWait(self.driver, 20)
+        wait = WebDriverWait(self.driver, 20)  
         self.navigateTo("Anagrafiche")
+        self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
@@ -91,18 +92,18 @@ class Anagrafiche(Test):
         self.input(None, 'Città').setValue("Este")
 
         self.find(By.XPATH, '//button[@id="save"]').click()
-        sleep(1)
-
+        self.wait_loader()   
+        
         self.navigateTo("Anagrafiche")
-        self.wait_loader()    
+        self.wait_loader() 
 
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        self.wait_loader()
+        sleep(2)
 
     def aggiunta_referente(self):
-        wait = WebDriverWait(self.driver, 20)
-        sleep(2)
+        wait = WebDriverWait(self.driver, 20)   
         self.navigateTo("Anagrafiche")
+        self.wait_loader() 
  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
@@ -131,16 +132,17 @@ class Anagrafiche(Test):
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
         self.assertEqual("Segretario", modificato)
+
         self.navigateTo("Anagrafiche")
-        self.wait_loader()    
+        self.wait_loader() 
 
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        self.wait_loader()
+        sleep(2)
 
     def aggiunta_sede(self):
         wait = WebDriverWait(self.driver, 20)
-        self.wait_loader()  
         self.navigateTo("Anagrafiche")
+        self.wait_loader() 
  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
@@ -171,16 +173,16 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Filiale XY", Keys.ENTER)
         sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
+        modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_4"]//tbody//td[2]').text
         self.assertEqual("Filiale XY", modificato)
         self.navigateTo("Anagrafiche")
-        self.wait_loader()    
+        self.wait_loader()  
 
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        self.wait_loader()
+        sleep(2)
 
     def elimina_anagrafica(self):
-        wait = WebDriverWait(self.driver, 20)     
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
@@ -195,11 +197,12 @@ class Anagrafiche(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def verifica_anagrafica(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
-        self.wait_loader()    
+        self.wait_loader()  
 
         #verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipologia"]/input'))).send_keys("Privato", Keys.ENTER)
@@ -208,6 +211,7 @@ class Anagrafiche(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Cliente",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Anagrafica di Prova da Eliminare", Keys.ENTER)
@@ -216,18 +220,20 @@ class Anagrafiche(Test):
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[1]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def crea_attivita(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
- 
+        self.wait_loader()
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
         sleep(1)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[1]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[1]'))).click()
         sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[8]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
@@ -235,7 +241,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]'))).click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]'))).send_keys("Test")
         self.find(By.XPATH, '//div[@class="col-md-12 text-right"]//button[@type="button"]').click()
-        sleep(1)
+        sleep(2) 
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()
@@ -256,22 +262,24 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
-
+  
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def crea_preventivo(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
- 
+        self.wait_loader()
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[2]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[2]'))).click()
         modal = self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[4]'))).click()
@@ -280,7 +288,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
         self.input(modal, 'Nome').setValue("Preventivo di prova anagrafica")
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_13-"]//button[@class="btn btn-primary"])'))).click()
-        sleep(1)
+        sleep(2)   
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()
@@ -288,12 +296,12 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-box-tool"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-tool"]'))).click()
         sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'(//div[@class="box-body"]//li)[1]').text
+        modificato=self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[8]').text
         self.assertEqual("Preventivo 1",modificato[0:12])
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="box-body"]//li//a'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//li//a)[5]'))).click()
         sleep(2)
 
         self.driver.switch_to.window(self.driver.window_handles[1])
@@ -301,25 +309,28 @@ class Anagrafiche(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader() 
+        self.wait_loader()
 
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
+  
 
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def crea_contratto(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
- 
+        self.wait_loader()
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()  
         sleep(1)  
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[3]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[3]'))).click()
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue("Contratto di prova anagrafica")
@@ -330,73 +341,79 @@ class Anagrafiche(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader() 
-
+        self.wait_loader()
+ 
         self.navigateTo("Anagrafiche")
+        self.wait_loader()
+
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def crea_ordine_cliente(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
         self.wait_loader()
-        
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         sleep(2)
            
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[4]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[4]'))).click()
         modal = self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_24-"]//button[@class="btn btn-primary"])'))).click()
-        sleep(1)
+        sleep(2)   
 
         self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        sleep(2)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
         sleep(2)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-box-tool"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-tool"]'))).click()
         sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'(//div[@class="box-body"]//li)[1]').text
+        modificato=self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[8]').text
         self.assertEqual("Ordine cliente 01",modificato[0:17])
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="box-body"]//li//a'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//li//a)[5]'))).click()
         sleep(2)
 
         self.driver.switch_to.window(self.driver.window_handles[1])
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader() 
+        self.wait_loader()
 
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
-  
+        sleep(2)
+
     def crea_DDT_uscita(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
- 
+        self.wait_loader()  
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         sleep(1)    
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[5]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[5]'))).click()
         modal = self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[3]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_26-"]//button[@class="btn btn-primary"])'))).click()
-        sleep(1)
+        sleep(2)   
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()
@@ -417,26 +434,28 @@ class Anagrafiche(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader() 
-
+        self.wait_loader()
+ 
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def crea_fattura_vendita(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
- 
+        self.wait_loader() 
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]'))).click()
         sleep(1)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@type="button"])[3]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bound clickable"])[6]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[6]'))).click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_14-"]//button[@class="btn btn-primary"])'))).click()
-        sleep(1)
+        sleep(2) 
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()
@@ -444,12 +463,12 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-box-tool"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-tool"]'))).click()
         sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'(//div[@class="box-body"]//li)[1]').text
+        modificato=self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[8]').text
         self.assertEqual("Fattura immediata di vendita",modificato[0:28])
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="box-body"]//li//a'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//li//a)[5]'))).click()
         sleep(1)
 
         self.driver.close() 
@@ -459,7 +478,8 @@ class Anagrafiche(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader() 
-
+        self.wait_loader()
+  
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)

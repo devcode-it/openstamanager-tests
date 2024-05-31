@@ -82,18 +82,19 @@ class Attivita(Test):
         self.wait_loader()
         
         self.input(None,'Stato').setValue(modifica)
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
 
         self.navigateTo("Attività")
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def elimina_attività(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Attività")
-        self.wait_loader()  
+        self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('2', Keys.ENTER)        
         sleep(1)
@@ -109,6 +110,7 @@ class Attivita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def controllo_righe(self):
         wait = WebDriverWait(self.driver, 20)
@@ -146,6 +148,7 @@ class Attivita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def verifica_attività(self):
         wait = WebDriverWait(self.driver, 20)
@@ -159,6 +162,7 @@ class Attivita(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[7]').text
         self.assertEqual("Fatturato",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)

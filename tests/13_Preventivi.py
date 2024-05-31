@@ -72,6 +72,7 @@ class Preventivi(Test):
         # Inserimento righe
         row_manager = RowManager(self)
         self.valori=row_manager.compile(file_importi)
+        sleep(2)
 
     def duplica_preventivo(self):
         wait = WebDriverWait(self.driver, 20)
@@ -83,14 +84,14 @@ class Preventivi(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="pulsanti-modulo"]//button[@class="btn ask btn-primary"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
-        sleep(1)
+        sleep(2)
 
         self.driver.execute_script('window.scrollTo(0,0)')
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys(" da Eliminare")
-        sleep(1)
+        sleep(2)
         
-        self.find(By.XPATH, '//a[@class="btn btn-success"]').click()
-        self.wait_loader()
+        self.find(By.XPATH, '//button[@class="btn btn-success"]').click()
+        sleep(2)
 
     def modifica_preventivo(self, stato:str):
         wait = WebDriverWait(self.driver, 20)
@@ -106,7 +107,7 @@ class Preventivi(Test):
         # Modifica stato preventivo
         select = self.input(None, 'Stato')
         select.setByText(stato)
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         sleep(2)
 
         # Estrazione totali righe
@@ -124,6 +125,7 @@ class Preventivi(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def elimina_preventivo(self):
         wait = WebDriverWait(self.driver, 20)
@@ -138,11 +140,13 @@ class Preventivi(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        sleep(2)
 
         self.navigateTo("Preventivi")
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def creazione_contratto(self):
         wait = WebDriverWait(self.driver, 20)
@@ -158,7 +162,7 @@ class Preventivi(Test):
 
         # Creazione contratto
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="pulsanti-modulo"]//button[@class="btn btn-info dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="bound clickable"][@data-title="Crea contratto"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"][@data-title="Crea contratto"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="submit_btn"]'))).click()
@@ -183,6 +187,7 @@ class Preventivi(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def creazione_ordine_cliente(self):
         wait = WebDriverWait(self.driver, 20)
@@ -199,7 +204,7 @@ class Preventivi(Test):
 
         # Creazione ordine cliente
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="bound clickable"][@data-title="Crea ordine cliente"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"][@data-title="Crea ordine cliente"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="submit_btn"]'))).click()
@@ -224,6 +229,7 @@ class Preventivi(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def creazione_ordine_fornitore(self):
         wait = WebDriverWait(self.driver, 20)
@@ -238,8 +244,8 @@ class Preventivi(Test):
 
         # Creazione ordine fornitore
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="bound clickable"][@data-title="Crea ordine fornitore"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="input-group has-feedback"]//span[@class="selection"]//span [@id="select2-idanagrafica-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"][@data-title="Crea ordine fornitore"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//span [@id="select2-idanagrafica-container"])[2]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
@@ -267,6 +273,7 @@ class Preventivi(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def creazione_attività(self):
         wait = WebDriverWait(self.driver, 20)
@@ -283,7 +290,7 @@ class Preventivi(Test):
 
         # Creazione attività
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="bound clickable"][@data-title="Crea attività"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"][@data-title="Crea attività"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_tipo_intervento-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato_intervento-container"]'))).click()
@@ -313,6 +320,7 @@ class Preventivi(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def creazione_ddt_uscita(self):
         wait = WebDriverWait(self.driver, 20)
@@ -329,7 +337,7 @@ class Preventivi(Test):
 
         # Creazione ddt uscita
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="bound clickable"][@data-title="Crea ordine cliente"]//i[@class="fa fa-truck"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"][@data-title="Crea ordine cliente"]//i[@class="fa fa-truck"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_causale_trasporto-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
@@ -358,6 +366,7 @@ class Preventivi(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def creazione_fattura(self):
         wait = WebDriverWait(self.driver, 20)
@@ -374,7 +383,7 @@ class Preventivi(Test):
 
         # Creazione fattura
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="bound clickable"][@data-title="Crea fattura"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"][@data-title="Crea fattura"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="submit_btn"]'))).click()
         sleep(1)
 
@@ -397,6 +406,7 @@ class Preventivi(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def verifica_preventivi(self):
         wait = WebDriverWait(self.driver, 20)
@@ -410,6 +420,7 @@ class Preventivi(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
         self.assertEqual("Preventivo di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
         sleep(1)
 
         #verifica elemento eliminato

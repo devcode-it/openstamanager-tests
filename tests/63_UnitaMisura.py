@@ -53,13 +53,14 @@ class UnitaMisura(Test):
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.input(None,'Valore').setValue(modifica)
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
 
         self.navigateTo("Unità di misura")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Valore"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def elimina_unita_misura(self):
         wait = WebDriverWait(self.driver, 20)
@@ -78,7 +79,8 @@ class UnitaMisura(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Valore"]/i[@class="deleteicon fa fa-times"]').click()
-
+        sleep(2)
+        
     def verifica_unita_misura(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Unità di misura")
@@ -91,6 +93,7 @@ class UnitaMisura(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("UdMdP",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Valore"]/input'))).send_keys("UdMdPdE", Keys.ENTER)

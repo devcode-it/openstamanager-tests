@@ -14,7 +14,7 @@ class DdtEntrata(Test):
         super().setUp()
 
         self.expandSidebar("Magazzino")
-        
+        self.wait_loader()
 
     def test_creazione_ddt_entrata(self):
         # Crea un nuovo ddt dal fornitore "Fornitore". *Required*
@@ -35,6 +35,7 @@ class DdtEntrata(Test):
 
     def creazione_ddt_entrata(self, fornitore: str, causale: str, file_importi: str):
         self.navigateTo("Ddt in entrata")
+        self.wait_loader()
         # Crea un nuovo ddt del fornitore indicato.
         # Apre la schermata di nuovo elemento
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
@@ -52,8 +53,10 @@ class DdtEntrata(Test):
 
         row_manager = RowManager(self)
         self.valori=row_manager.compile(file_importi)
+        sleep(2)
 
     def duplica_ddt_entrata(self):
+        self.driver.execute_script('window.scrollTo(0,0)')
         self.find(By.XPATH, '//button[@class="btn btn-primary ask"]').click()
         self.wait_loader()
 
@@ -88,13 +91,14 @@ class DdtEntrata(Test):
         self.assertEqual(iva, (self.valori["IVA"] + ' €'))
         self.assertEqual(totale, (self.valori["Totale documento"] + ' €'))
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//a[@id="save"]').click()
+        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         self.wait_loader()
 
         self.navigateTo("Ddt in entrata")
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def elimina_ddt(self):
         wait = WebDriverWait(self.driver, 20)
@@ -112,6 +116,7 @@ class DdtEntrata(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def verifica_ddt(self):
         wait = WebDriverWait(self.driver, 20)
@@ -125,6 +130,7 @@ class DdtEntrata(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[11]').text
         self.assertEqual("Evaso", self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[11]').text)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)

@@ -30,7 +30,7 @@ class Attivita_Dashboard(Test):
         actions.drag_and_drop_by_offset(attivita, -1000, 0).perform()
         sleep(2)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="box box-info collapsable "]//input[@class="select2-search__field"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="card card-info collapsable "]//input[@class="select2-search__field"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         self.find(By.XPATH, '//div[@class="modal-content"]//button[@onclick="salva(this)"]').click()
         sleep(2)
@@ -45,6 +45,7 @@ class Attivita_Dashboard(Test):
         att="Int. 2 Cliente\nTecnici: Stefano Bianchi"
         trova=self.find(By.XPATH, '//div[@class="fc-event-main"]').text
         self.assertEqual(trova, att)
+        sleep(2)
 
     def attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
         self.navigateTo("Attività")
