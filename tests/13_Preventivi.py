@@ -100,8 +100,8 @@ class Preventivi(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('=Preventivo di Prova', Keys.ENTER)
         sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//tr[2]//td[3]').click()
+        
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
         
         # Modifica stato preventivo

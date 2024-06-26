@@ -123,6 +123,7 @@ class Anagrafiche(Test):
         modal=self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-content"]//div[@id="form_82-"]//input[@id="nome"]'))).send_keys("Segretario")
+        sleep(1)
         self.find(By.XPATH, '(//button[@type="submit"])[4]').click()
         sleep(1)
         self.find(By.XPATH, '(//button[@type="submit"])[3]').click()        
@@ -466,7 +467,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-tool"]'))).click()
         sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[8]').text
+        modificato=self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[7]').text
         self.assertEqual("Fattura immediata di vendita",modificato[0:28])
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//li//a)[5]'))).click()
         sleep(1)
