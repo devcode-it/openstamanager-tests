@@ -82,7 +82,7 @@ class Anagrafiche(Test):
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
         wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="select2-tipo-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[3]'))).send_keys(tipologia, Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys(tipologia, Keys.ENTER)
         self.wait_loader()
 
         self.input(None, 'Partita IVA').setValue("05024030287")
@@ -122,10 +122,10 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]//i[@class="fa fa-plus"]'))).click()
         modal=self.wait_modal()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-content"]//div[@id="form_82-"]//input[@id="nome"]'))).send_keys("Segretario", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-content"]//div[@id="form_82-"]//input[@id="nome"]'))).send_keys("Segretario")
+        self.find(By.XPATH, '(//button[@type="submit"])[4]').click()
         sleep(1)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_2-3"]//i[@class="fa fa-plus"])[3]'))).click()
-        
+        self.find(By.XPATH, '(//button[@type="submit"])[3]').click()        
         #Verifica referente
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Mansione"]/input'))).send_keys("Segretario", Keys.ENTER)
         sleep(1)
@@ -166,11 +166,11 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '(//span[@id="select2-id_nazione-container"])[2]').click()
         self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
 
-        self.find(By.XPATH, '(//div[@id="form_2-4"]//i[@class="fa fa-plus"])[3]').click()
+        self.find(By.XPATH, '(//button[@type="submit"])[3]').click()
         sleep(1)
 
         #Verifica sede
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Filiale XY", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//th[@id="th_Nome"]/input)[2]'))).send_keys("Filiale XY", Keys.ENTER)
         sleep(1)
 
         modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_4"]//tbody//td[2]').text
@@ -299,7 +299,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-tool"]'))).click()
         sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[8]').text
+        modificato=self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[7]').text
         self.assertEqual("Preventivo 1",modificato[0:12])
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//li//a)[5]'))).click()
         sleep(2)
@@ -376,7 +376,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-tool"]'))).click()
         sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[8]').text
+        modificato=self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[7]').text
         self.assertEqual("Ordine cliente 01",modificato[0:17])
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//li//a)[5]'))).click()
         sleep(2)
