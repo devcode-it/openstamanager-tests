@@ -31,7 +31,6 @@ class TipiScadenze(Test):
         
     def creazione_tipi_scadenze(self, nome=str, descrizione=str):
         self.navigateTo("Tipi scadenze")
-
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 

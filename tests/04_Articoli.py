@@ -76,6 +76,7 @@ class Articoli(Test):
         self.assertEqual(verificaqta, "2,00")
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
+        self.wait_loader()  
 
     def elimina_articolo(self):
         wait = WebDriverWait(self.driver, 20)
