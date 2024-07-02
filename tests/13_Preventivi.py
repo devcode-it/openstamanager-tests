@@ -82,7 +82,7 @@ class Preventivi(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="pulsanti-modulo"]//button[@class="btn ask btn-primary"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="pulsanti"]//button[@class="btn ask btn-primary"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
         sleep(2)
 
@@ -161,7 +161,7 @@ class Preventivi(Test):
         totalepreventivo=self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
 
         # Creazione contratto
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="pulsanti-modulo"]//button[@class="btn btn-info dropdown-toggle "]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="pulsanti"]//button[@class="btn btn-info dropdown-toggle "]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"][@data-title="Crea contratto"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()

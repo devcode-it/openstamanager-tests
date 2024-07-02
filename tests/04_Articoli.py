@@ -76,12 +76,12 @@ class Articoli(Test):
         self.assertEqual(verificaqta, "2,00")
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        self.wait_loader()  
+        sleep(2)  
 
     def elimina_articolo(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Articoli")
-        self.wait_loader()  
+        self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Articolo di Prova da Eliminare', Keys.ENTER)
         sleep(1)

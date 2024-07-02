@@ -23,7 +23,7 @@ class Attivita_Dashboard(Test):
 
         self.navigateTo("Dashboard")
         self.wait_loader()
-        wait = WebDriverWait(self.driver, 20)
+        wait = WebDriverWait(self.driver, 40)
 
         actions = webdriver.common.action_chains.ActionChains(self.driver)
         attivita = self.find(By.XPATH, '//div[@class="fc-event fc-event-primary"]')

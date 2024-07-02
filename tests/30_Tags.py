@@ -18,6 +18,9 @@ class Tags(Test):
         
     def test_creazione_tags(self):
         # Creazione tags 
+        self.expandSidebar("Strumenti")
+        self.expandSidebar("Tabelle")
+
         self.creazione_tags("Tags di Prova da Modificare")
         self.creazione_tags("Tags di Prova da Eliminare")
         

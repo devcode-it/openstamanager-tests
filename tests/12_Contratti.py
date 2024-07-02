@@ -62,7 +62,7 @@ class Contratti(Test):
         self.find(By.XPATH, '//tbody//td[@class="bound clickable"]').click()
         sleep(1)
         
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="pulsanti-modulo"]//button[@class="btn btn-primary ask"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="pulsanti"]//button[@class="btn btn-primary ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
         self.wait_loader()
 
