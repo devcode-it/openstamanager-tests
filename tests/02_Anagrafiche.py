@@ -33,6 +33,9 @@ class Anagrafiche(Test):
         # Aggiunta sede
         self.aggiunta_sede()
 
+        # Plugin statistiche
+        self.plugin_statistiche()
+
         # Cancellazione anagrafica
         self.elimina_anagrafica()
       
@@ -181,6 +184,37 @@ class Anagrafiche(Test):
 
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
+
+    def plugin_statistiche(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+ 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        sleep(1) 
+        #Aggiunta sede
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_7"]'))).click()
+        sleep(1)
+
+        preventivi=wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="info-box-text pull-left"]'))).text
+        self.assertEqual(preventivi, "Preventivi")
+        contratti=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[2]'))).text
+        self.assertEqual(contratti, "Contratti")
+        ordini_cliente=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[3]'))).text
+        self.assertEqual(ordini_cliente, "Ordini cliente")
+        attivita=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[4]'))).text
+        self.assertEqual(attivita, "Attività")
+        ddt_in_uscita=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[5]'))).text
+        self.assertEqual(ddt_in_uscita, "Ddt in uscita")
+        fatture=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[6]'))).text
+        self.assertEqual(fatture, "Fatture")
+        ore_lavorate=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[7]'))).text
+        self.assertEqual(ore_lavorate, "Ore lavorate")
+
 
     def elimina_anagrafica(self):
         wait = WebDriverWait(self.driver, 20)
