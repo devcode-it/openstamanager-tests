@@ -214,7 +214,7 @@ class Anagrafiche(Test):
         self.assertEqual(fatture, "Fatture")
         ore_lavorate=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[7]'))).text
         self.assertEqual(ore_lavorate, "Ore lavorate")
-
+    
 
     def elimina_anagrafica(self):
         wait = WebDriverWait(self.driver, 20)
@@ -222,7 +222,7 @@ class Anagrafiche(Test):
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys('Anagrafica di Prova da Eliminare', Keys.ENTER)
-        sleep(1)
+        sleep(2)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         sleep(1)
@@ -403,7 +403,7 @@ class Anagrafiche(Test):
         sleep(2)   
 
         self.navigateTo("Anagrafiche")
-        sleep(2)
+        self.wait_loader()
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
         sleep(2)
