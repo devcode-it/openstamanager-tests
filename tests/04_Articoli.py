@@ -36,6 +36,12 @@ class Articoli(Test):
         #plugin provvigioni
         self.provvigioni()
 
+        #plugin listino fornitori
+        self.listino_fornitori()
+
+        #plugin giacenze
+        self.giacenze()
+
     def creazione_articolo(self, codice: str, descrizione: str):
         self.navigateTo("Articoli")
         self.wait_loader()
@@ -197,3 +203,67 @@ class Articoli(Test):
 
         self.find(By.XPATH, '(//a[@class="btn btn-danger ask"])[2]').click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+
+    def listino_fornitori(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Articolo 1', Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_32"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-id_fornitore_informazioni-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("Fornitore", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-info"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="qta_minima"]'))).send_keys("100")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="giorni_consegna"]'))).send_keys("15")
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        self.wait_loader()
+
+        nome=self.find(By.XPATH, '(//tr//td[2])[30]').text
+        self.assertEqual(nome, "Articolo 1")
+        self.find(By.XPATH, '//a[@class="btn btn-secondary btn-danger ask"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
+
+        messaggio=self.find(By.XPATH, '(//div[@class="alert alert-info"])[5]').text
+        self.assertEqual(messaggio, "Nessuna informazione disponibile...")
+
+    def giacenze(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Articolo 1', Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_22"]').click()
+        sleep(1)
+
+        totale=self.find(By.XPATH, '(//td[@class="text-right"])[7]').text
+        self.assertEqual(totale, "12,00")
+        self.find(By.XPATH, '//a[@class="btn btn-xs btn-info"]').click()
+        sleep(1)
+
+        totale_2=self.find(By.XPATH, '(//th[@class="text-right"])[4]').text
+        self.assertEqual(totale_2, "12,00")
+        
