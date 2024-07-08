@@ -51,6 +51,12 @@ class Preventivi(Test):
         # Verifica preventivi
         self.verifica_preventivi()
 
+        #Plugin consuntivo
+        self.consuntivo()
+
+        #Plugin revisioni
+        self.revisioni()
+
     def creazione_preventivo(self, nome:str, cliente:str, idtipo: str, file_importi: str):
         self.navigateTo("Preventivi")
         self.wait_loader() 
@@ -421,7 +427,6 @@ class Preventivi(Test):
         self.assertEqual("Preventivo di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
-        sleep(1)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Preventivo di Prova da Eliminare", Keys.ENTER)
@@ -429,3 +434,29 @@ class Preventivi(Test):
 
         eliminato=self.driver.find_element(By.XPATH,'//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+    def consuntivo(self):
+        self.navigateTo("Preventivi")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[3]').click()
+        self.wait_loader()
+        self.find(By.XPATH,'//div[@class="control-sidebar-button"]').click()
+        self.wait_loader() 
+        self.find(By.XPATH, '//a[@id="link-tab_12"]').click()
+        self.wait_loader() 
+        budget=self.find(By.XPATH, '//span[@class="text-success"]').text
+        self.assertEqual(budget,"+264,80 €")        #controlla se il budget coincide con 264,80
+
+    def revisioni(self):
+        self.navigateTo("Preventivi")
+        self.wait_loader() 
+        self.find(By.XPATH, '//tbody//tr[1]//td[3]').click()
+        self.wait_loader()
+        self.find(By.XPATH,'//div[@class="control-sidebar-button"]').click()
+        self.wait_loader() 
+        self.find(By.XPATH,'//a[@id="link-tab_20"]').click()
+        self.wait_loader() 
+        self.find(By.XPATH, '//div[@id="tab_20"]//td[@class="text-center"][1]') #controlla la presenza del dot rosso delle revisioni

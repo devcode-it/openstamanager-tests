@@ -60,6 +60,8 @@ class Anagrafiche(Test):
         # Crea fattura di vendita
         self.crea_fattura_vendita()
 
+        #Plugin dichiarazione d'intento
+        self.dichiarazione_di_intento()
     
     def add_anagrafica(self, nome=str, tipo=str):
         # Crea una nuova anagrafica del tipo indicato.
@@ -558,6 +560,137 @@ class Anagrafiche(Test):
         self.wait_loader() 
         self.find(By.XPATH, '//div[@id="tab_30"]//a[@class="btn btn-xs btn-primary"]')
 
+        self.navigateTo("Anagrafiche")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+    def dichiarazione_di_intento(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_25"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//i[@class="fa fa-plus"])[11]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_protocollo"]'))).send_keys("012345678901234567890123")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_protocollo"]'))).send_keys("08/07/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_progressivo"]'))).send_keys("001")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("08/07/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))).send_keys("08/09/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="massimale"]'))).send_keys("50000")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_emissione"]'))).send_keys("08/07/2024", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//button[@class="btn btn-primary"])[2]').click()
+        self.wait_loader()
+
+        #controllo se è stata creata la dichiarazione
+        self.find(By.XPATH, '(//td[@class="  select-checkbox"])[4]') #checkbox
+        
+
+        #controllo se apppare il pop up quando vado a creare una fattura di vendita per lo stesso cliente
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//i[@class="fa fa-plus"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//div[@class="alert alert-info"])[1]') #controllo del pop up
+
+        #aggiunta riga (totale 100+2 euro)
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("prova per dichiarazione")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="qta"]'))).send_keys("100")
+        self.find(By.XPATH, '//span[@id="select2-um-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("pz", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1")
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Anagrafiche")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+
+        #controllo se il totale utilizzato cambia da 0 a 102
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_25"]').click()
+        sleep(1)
+
+        totale=self.find(By.XPATH, '(//tbody//tr//td[5]//div)[4]').text
+        self.assertEqual(totale, "102.00")
+
+        #modifica della dichiarazione
+        self.find(By.XPATH, '(//tr//td[2])[13]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_progressivo"]'))).send_keys(Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE, "01")
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        self.wait_loader()
+
+        num_progressivo=self.find(By.XPATH, '(//td[3]//div)[9]').text
+        self.assertEqual(num_progressivo, "01")
+
+        #elimina dichiarazione
+        self.find(By.XPATH, '(//tr//td[2])[13]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask "]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
+
+        messaggio=self.find(By.XPATH, '(//td[@class="dataTables_empty"])[2]').text
+        self.assertEqual(messaggio, "Nessun dato presente nella tabella")
+
+        #eliminazione fattura creata per la dichiarazione
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//tr//td[2])[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
+        
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)

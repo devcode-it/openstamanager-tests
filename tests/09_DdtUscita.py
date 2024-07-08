@@ -33,6 +33,9 @@ class DdtUscita(Test):
         # Verifica DDT
         self.verifica_ddt()
 
+        # Verifica plugin DDT del cliente
+        self.ddt_del_cliente()
+
     def creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):
         self.navigateTo("Ddt in uscita")
 
@@ -134,3 +137,20 @@ class DdtUscita(Test):
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+
+    def ddt_del_cliente(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche") #trova pulsante Anagrafiche
+        self.wait_loader() #aspetta il caricamento
+ 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER) #filtra la parola "Cliente"
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click() #click sul primo risultato
+        sleep(1) 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click() #apre la barra dei plugin
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_17"]'))).click() #arpe "DDT del cliente"
+        sleep(1)
+
+        self.find(By.XPATH, '//tr[10]//td[3]').click()

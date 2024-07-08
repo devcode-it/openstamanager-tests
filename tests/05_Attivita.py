@@ -34,6 +34,9 @@ class Attivita(Test):
 
         # Verifica attività
         self.verifica_attività()
+
+        #controllo storico attività
+        self.storico_attivita()
         
     def attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
         wait = WebDriverWait(self.driver, 20)
@@ -170,3 +173,25 @@ class Attivita(Test):
         
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+
+    
+
+    def storico_attivita(self):  
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        sleep(1) 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+        self.find(By.XPATH, '//a[@id="link-tab_28"]').click() #apre pagina con tutte le attività
+        self.find(By.XPATH, '//div[@id="tab_28"]//tbody//tr[1]//td[1]') #se rileva il checkbox della attività il test è superato
+
+        self.navigateTo("Anagrafiche")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
