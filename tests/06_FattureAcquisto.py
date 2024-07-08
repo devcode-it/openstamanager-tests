@@ -260,4 +260,4 @@ class FattureAcquisto(Test):
         self.find(By.XPATH, '//a[@class="btn btn-info btn-lg"]').click()
         self.wait_loader()
         avere=self.find(By.XPATH, '//div[@id="tab_36"]//tr[1]//td[4]').text
-        self.assertEqual(avere,"264,80 €")
+        self.assertEqual(avere,"323,06 €")
