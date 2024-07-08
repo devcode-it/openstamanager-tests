@@ -14,7 +14,8 @@ class TipiScadenze(Test):
 
         self.expandSidebar("Strumenti")
         self.expandSidebar("Tabelle")
-       
+        sleep(2)
+
     def test_creazione_tipi_scadenze(self):
         # Creazione tipo di scadenza    *Required*
         self.creazione_tipi_scadenze(nome= "Tipo di Scadenza di Prova da Modificare",descrizione= "Descrizione tipo di Scadenza da Modificare")
@@ -31,6 +32,8 @@ class TipiScadenze(Test):
         
     def creazione_tipi_scadenze(self, nome=str, descrizione=str):
         self.navigateTo("Tipi scadenze")
+        self.wait_loader()
+
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
