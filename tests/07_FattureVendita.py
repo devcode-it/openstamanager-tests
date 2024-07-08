@@ -50,6 +50,20 @@ class FattureVendita(Test):
         # Verifica XML fattura estera
         self.verifica_xml_fattura_estera(importi[0], "1")
 
+        #Verifica plugin movimenti contabili da anagrafiche
+        self.movimenti_contabili()
+
+        #plugin regole pagamenti da Anagrafiche
+        self.regole_pagamenti()
+
+        #plugin registrazioni
+        self.registrazioni()   
+
+        #controllo allegati
+        self.controlla_allegati()
+
+                     
+
     def creazione_fattura_vendita(self, cliente: str, file_importi: str):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
@@ -429,3 +443,142 @@ class FattureVendita(Test):
         self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"]+ ' €'))
         self.assertEqual(iva, (self.valori["IVA"] + ' €'))
         self.assertEqual(totale, (self.valori["Totale documento"] + ' €'))
+
+    def movimenti_contabili(self):               
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+        
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipo"]/input'))).send_keys("Fattura immediata di vendita", Keys.ENTER)
+        sleep(1) 
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader() 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        self.wait_loader() 
+        self.find(By.XPATH, '//a[@id="link-tab_37"]').click()
+        sleep(1)
+        self.find(By.XPATH, '//a[@class="btn btn-info btn-lg"]').click()
+        self.wait_loader() 
+        
+        dare=self.find(By.XPATH, '(//td[@class="text-right"])[21]').text
+        avere_1=self.find(By.XPATH, '(//td[@class="text-right"])[25]').text
+        avere_2=self.find(By.XPATH, '(//td[@class="text-right"])[28]').text
+        self.assertEqual(dare,"323,06 €")
+        self.assertEqual(avere_1,"264,80 €")
+        self.assertEqual(avere_2,"58,26 €")
+
+        self.navigateTo("Fatture di vendita")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+    def regole_pagamenti(self):     #rivedere
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        sleep(2) 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+        self.find(By.XPATH, '//a[@id="link-tab_40"]').click()
+        sleep(1)
+        
+        self.find(By.XPATH, '//div[@id="tab_40"]//h4//button').click() #apre pop up aggiungi
+        modal=self.wait_modal()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="select2-mese-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("Agosto", Keys.ENTER)
+        
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="select2-giorno_fisso-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("8", Keys.ENTER)
+        self.wait_loader()
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="tab_40"]//h4//button').click() #apre pop up aggiungi
+        modal=self.wait_modal()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="select2-mese-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("Aprile", Keys.ENTER)
+        
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="select2-giorno_fisso-container"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("8", Keys.ENTER)
+        self.wait_loader()
+
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+        wait.until(EC.visibility_of_element_located((By.XPATH,  '//div[@id="tab_40"]//tbody//td[2]//div[1]'))).click()
+        sleep(1)
+             
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-danger "]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        sleep(2)
+
+        self.expandSidebar("Contabilità")
+        self.navigateTo("Scadenzario")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Anagrafica"]/input'))).send_keys('Cliente', Keys.ENTER)
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH,  '//div[@id="tab_0"]//tbody//td[2]//div[1]'))).click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_concordata0"]'))).send_keys('08/09/2024')
+        sleep(2)
+
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning"]')))
+
+        self.navigateTo("Anagrafiche")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+    def registrazioni(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+        
+        self.find(By.XPATH, '//div[@class="control-sidebar-button"]').click()
+        self.find(By.XPATH, '//a[@id="link-tab_42"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="tab_42"]//tr[5]//td[1]')
+        sleep(2)
+
+    def controlla_allegati(self): 
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        sleep(2) 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+        self.find(By.XPATH, '//a[@id="link-tab_30"]').click()
+        sleep(1)
+        self.find(By.XPATH, '//div[@id="tab_30"]//a[@class="btn btn-info btn-lg"]').click()
+        self.wait_loader() 
+        self.find(By.XPATH, '//div[@id="tab_30"]//a[@class="btn btn-xs btn-primary"]')
+
+        self.navigateTo("Anagrafiche")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+    
+    
+    

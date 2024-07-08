@@ -30,6 +30,12 @@ class Articoli(Test):
         # Verifica articolo
         self.verifica_articolo()
 
+        #plugin seriali
+        self.serial()
+
+        #plugin provvigioni
+        self.provvigioni()
+
     def creazione_articolo(self, codice: str, descrizione: str):
         self.navigateTo("Articoli")
         self.wait_loader()
@@ -116,3 +122,78 @@ class Articoli(Test):
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[1]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+
+    def serial(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Articolo 1', Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+        
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default"])[1]').click()
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        self.find(By.XPATH, '//a[@id="link-tab_11"]').click()
+        sleep(1)
+        self.find(By.XPATH, '//input[@id="serial_start"]').send_keys("1")
+        sleep(1)
+        self.find(By.XPATH, '//input[@id="serial_end"]').send_keys(Keys.BACK_SPACE, "2")
+        sleep(1)
+        self.find(By.XPATH, '(//button[@class="btn btn-primary"])[3]').click()
+        sleep(1)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
+        sleep(1)
+        serial = self.find(By.XPATH, '//div[@id="tab_11"]//tbody//tr[2]//td[1]').text
+        self.assertEqual(serial, "1")
+        self.wait_loader()
+
+        #elimina seriale e verifica eliminazione 
+        self.find(By.XPATH, '(//a[@class="btn btn-danger btn-sm ask"])[2]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()  
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@id="tab_11"]//tbody//tr[2]//td[1]')))  
+
+    def provvigioni(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Articolo 1', Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_43"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//i[@class="fa fa-plus"])[12]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idagente-container"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("Agente", Keys.ENTER)
+        sleep(1)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="provvigione"]'))).send_keys("1.00", Keys.ENTER)
+        sleep(2)
+        self.wait_loader()
+        
+        self.find(By.XPATH, '//td[@class="  select-checkbox"]') #se trova il checkbox test superato
+        
+        #eliminazione provvigione
+        self.find(By.XPATH, '//td[@class="bound clickable"][1]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '(//a[@class="btn btn-danger ask"])[2]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
