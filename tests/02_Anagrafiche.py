@@ -17,53 +17,53 @@ class Anagrafiche(Test):
 
     def test_creazione_anagrafica(self):
         #Creazione anagrafiche *Required*
-        #self.add_anagrafica('Cliente', 'Cliente')  
-        #self.add_anagrafica('Tecnico', 'Tecnico') 
-        #self.add_anagrafica('Fornitore', 'Fornitore')
-        #self.add_anagrafica('Vettore', 'Vettore') 
-        #self.add_anagrafica('Agente', 'Agente')
-        #self.add_anagrafica('Anagrafica di Prova da Eliminare', 'Cliente')
+        self.add_anagrafica('Cliente', 'Cliente')  
+        self.add_anagrafica('Tecnico', 'Tecnico') 
+        self.add_anagrafica('Fornitore', 'Fornitore')
+        self.add_anagrafica('Vettore', 'Vettore') 
+        self.add_anagrafica('Agente', 'Agente')
+        self.add_anagrafica('Anagrafica di Prova da Eliminare', 'Cliente')
 
         # Modifica anagrafica
-        #self.modifica_anagrafica('Privato')
+        self.modifica_anagrafica('Privato')
 
         # Aggiunta referente
-        #self.aggiunta_referente()
+        self.aggiunta_referente()
 
         # Aggiunta sede
-        #self.aggiunta_sede()
+        self.aggiunta_sede()
 
         # Plugin statistiche
-        #self.plugin_statistiche()
+        self.plugin_statistiche()
 
         # Cancellazione anagrafica
-        #self.elimina_anagrafica()       
+        self.elimina_anagrafica()       
       
         # Verifica test
-        #self.verifica_anagrafica()         
+        self.verifica_anagrafica()         
 
         # Crea attività
-        #self.crea_attivita()             
+        self.crea_attivita()             
 
         # Crea preventivo
-        #self.crea_preventivo()         
+        self.crea_preventivo()         
 
         # Crea contratto
-        #self.crea_contratto()
+        self.crea_contratto()
 
         # Crea ordine cliente
-        #self.crea_ordine_cliente()       
+        self.crea_ordine_cliente()       
 
         # Crea DDT in uscita
-        #self.crea_DDT_uscita()              
+        self.crea_DDT_uscita()              
 
         # Crea fattura di vendita
-        #self.crea_fattura_vendita()
+        self.crea_fattura_vendita()
 
-        #Plugin dichiarazione d'intento
-        #self.dichiarazione_di_intento()
+        # Plugin dichiarazione d'intento
+        self.dichiarazione_di_intento()
 
-        #plugin assicurazione crediti
+        # Plugin assicurazione crediti
         self.assicurazione_crediti()
     
     def add_anagrafica(self, nome=str, tipo=str):
@@ -576,15 +576,11 @@ class Anagrafiche(Test):
         sleep(1)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        sleep(2)
+        self.wait_loader() 
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
-        sleep(1)
-
         self.find(By.XPATH, '//a[@id="link-tab_25"]').click()
-        sleep(1)
-
-        self.find(By.XPATH, '(//i[@class="fa fa-plus"])[11]').click()
+        self.find(By.XPATH, '//div[@id="tab_25"]//i[@class="fa fa-plus"]').click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_protocollo"]'))).send_keys("012345678901234567890123")
@@ -594,15 +590,14 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))).send_keys("08/09/2024")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="massimale"]'))).send_keys("50000")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_emissione"]'))).send_keys("08/07/2024", Keys.ENTER)
-        sleep(1)
+        self.wait_loader() 
 
         self.find(By.XPATH, '(//button[@class="btn btn-primary"])[2]').click()
         self.wait_loader()
 
         #controllo se è stata creata la dichiarazione
-        self.find(By.XPATH, '(//td[@class="  select-checkbox"])[4]') #checkbox
+        self.find(By.XPATH, '//div[@id="tab_25"]//tbody//tr//td[1]')
         
-
         #controllo se apppare il pop up quando vado a creare una fattura di vendita per lo stesso cliente
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
@@ -638,7 +633,6 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
-
 
         #controllo se il totale utilizzato cambia da 0 a 102
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
