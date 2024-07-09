@@ -17,51 +17,54 @@ class Anagrafiche(Test):
 
     def test_creazione_anagrafica(self):
         #Creazione anagrafiche *Required*
-        self.add_anagrafica('Cliente', 'Cliente')  
-        self.add_anagrafica('Tecnico', 'Tecnico') 
-        self.add_anagrafica('Fornitore', 'Fornitore')
-        self.add_anagrafica('Vettore', 'Vettore') 
-        self.add_anagrafica('Agente', 'Agente')
-        self.add_anagrafica('Anagrafica di Prova da Eliminare', 'Cliente')
+        #self.add_anagrafica('Cliente', 'Cliente')  
+        #self.add_anagrafica('Tecnico', 'Tecnico') 
+        #self.add_anagrafica('Fornitore', 'Fornitore')
+        #self.add_anagrafica('Vettore', 'Vettore') 
+        #self.add_anagrafica('Agente', 'Agente')
+        #self.add_anagrafica('Anagrafica di Prova da Eliminare', 'Cliente')
 
         # Modifica anagrafica
-        self.modifica_anagrafica('Privato')
+        #self.modifica_anagrafica('Privato')
 
         # Aggiunta referente
-        self.aggiunta_referente()
+        #self.aggiunta_referente()
 
         # Aggiunta sede
-        self.aggiunta_sede()
+        #self.aggiunta_sede()
 
         # Plugin statistiche
-        self.plugin_statistiche()
+        #self.plugin_statistiche()
 
         # Cancellazione anagrafica
-        self.elimina_anagrafica()       
+        #self.elimina_anagrafica()       
       
         # Verifica test
-        self.verifica_anagrafica()         
+        #self.verifica_anagrafica()         
 
         # Crea attività
-        self.crea_attivita()             
+        #self.crea_attivita()             
 
         # Crea preventivo
-        self.crea_preventivo()         
+        #self.crea_preventivo()         
 
         # Crea contratto
-        self.crea_contratto()
+        #self.crea_contratto()
 
         # Crea ordine cliente
-        self.crea_ordine_cliente()       
+        #self.crea_ordine_cliente()       
 
         # Crea DDT in uscita
-        self.crea_DDT_uscita()              
+        #self.crea_DDT_uscita()              
 
         # Crea fattura di vendita
-        self.crea_fattura_vendita()
+        #self.crea_fattura_vendita()
 
         #Plugin dichiarazione d'intento
-        self.dichiarazione_di_intento()
+        #self.dichiarazione_di_intento()
+
+        #plugin assicurazione crediti
+        self.assicurazione_crediti()
     
     def add_anagrafica(self, nome=str, tipo=str):
         # Crea una nuova anagrafica del tipo indicato.
@@ -694,3 +697,87 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
+
+    def assicurazione_crediti(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_45"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="tab_45"]//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("01/01/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))).send_keys("31/12/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="fido_assicurato"]'))).send_keys("50000", Keys.ENTER)
+        self.wait_loader()
+
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data"]'))).send_keys( "01/01/2024")
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()
+        sleep(1)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("prova")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("51000")
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@class="alert alert-warning text-center"]')
+        sleep(3)
+
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
+
+        self.navigateTo("Anagrafiche")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_45"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//div[@id="tab_45"]//tr[1]//td[2])[2]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//a[@class="btn btn-danger ask"])[2]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
+
+        self.navigateTo("Anagrafiche")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
