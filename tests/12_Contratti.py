@@ -34,6 +34,9 @@ class Contratti(Test):
         # Verifica contratto
         self.verifica_contratto()
 
+        #Plugin contratti del cliente da Anagrafiche
+        self.contratti_del_cliente()
+
     def creazione_contratto(self, nome:str, cliente: str, file_importi: str):
         self.navigateTo("Contratti")
         self.wait_loader() 
@@ -144,3 +147,22 @@ class Contratti(Test):
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+
+    def contratti_del_cliente(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        sleep(2) 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+        self.find(By.XPATH, '//a[@id="link-tab_35"]').click()
+        sleep(1)
+        self.find(By.XPATH, '//div[@id="tab_35"]//tr[@id="2"]//td[1]')
+        self.navigateTo("Anagrafiche")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)

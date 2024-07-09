@@ -35,6 +35,12 @@ class FattureAcquisto(Test):
         # Verifica XML autofattura
         self.verifica_xml_autofattura(importi[0], "1")
 
+        #plugin Registrazioni
+        self.registrazioni()
+
+        #plugin movimenti contabili
+        self.movimenti_contabili()
+
     def creazione_fattura_acquisto(self, fornitore: str, numero: str, pagamento: str, file_importi: str):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
@@ -223,3 +229,35 @@ class FattureAcquisto(Test):
 
         self.assertEqual(totale_imponibile, ('0,00 €'))
         self.assertEqual(totale, ('0,00 €'))
+
+    def registrazioni(self):        #controllare la presenza della 5 riga come quinto articolo
+        wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Acquisti")
+        self.navigateTo("Fatture di acquisto")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@class="control-sidebar-button"]').click()
+        self.find(By.XPATH, '//a[@id="link-tab_41"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tr[5]//td[1]')
+       
+
+    def movimenti_contabili(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Acquisti")
+        self.navigateTo("Fatture di acquisto")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@class="control-sidebar-button"]').click()
+        self.find(By.XPATH, '//a[@id="link-tab_36"]').click()
+        self.find(By.XPATH, '//a[@class="btn btn-info btn-lg"]').click()
+        self.wait_loader()
+        avere=self.find(By.XPATH, '//div[@id="tab_36"]//tr[1]//td[4]').text
+        self.assertEqual(avere,"323,06 €")

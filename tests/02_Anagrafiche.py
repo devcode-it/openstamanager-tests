@@ -16,7 +16,7 @@ class Anagrafiche(Test):
         
 
     def test_creazione_anagrafica(self):
-        # Creazione anagrafiche *Required*
+        #Creazione anagrafiche *Required*
         self.add_anagrafica('Cliente', 'Cliente')  
         self.add_anagrafica('Tecnico', 'Tecnico') 
         self.add_anagrafica('Fornitore', 'Fornitore')
@@ -33,34 +33,45 @@ class Anagrafiche(Test):
         # Aggiunta sede
         self.aggiunta_sede()
 
-        # Plugin statistiche
-        self.plugin_statistiche()
-
         # Cancellazione anagrafica
-        self.elimina_anagrafica()
+        self.elimina_anagrafica()       
       
         # Verifica test
-        self.verifica_anagrafica()
+        self.verifica_anagrafica()         
 
         # Crea attività
-        self.crea_attivita()
+        self.crea_attivita()             
 
         # Crea preventivo
-        self.crea_preventivo()
+        self.crea_preventivo()         
 
         # Crea contratto
         self.crea_contratto()
 
         # Crea ordine cliente
-        self.crea_ordine_cliente()
+        self.crea_ordine_cliente()       
 
         # Crea DDT in uscita
-        self.crea_DDT_uscita()
+        self.crea_DDT_uscita()              
 
         # Crea fattura di vendita
         self.crea_fattura_vendita()
 
+        # Aggiunta referente
+        self.aggiunta_referente()
 
+        # Aggiunta sede
+        self.aggiunta_sede()
+
+        # Plugin statistiche
+        self.plugin_statistiche()
+
+        # Plugin dichiarazione d'intento
+        self.dichiarazione_di_intento()
+
+        # Plugin assicurazione crediti
+        self.assicurazione_crediti()
+    
     def add_anagrafica(self, nome=str, tipo=str):
         # Crea una nuova anagrafica del tipo indicato.
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
@@ -99,88 +110,6 @@ class Anagrafiche(Test):
         
         self.navigateTo("Anagrafiche")
         self.wait_loader() 
-
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
-
-    def aggiunta_referente(self):
-        wait = WebDriverWait(self.driver, 20)   
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
- 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
-        self.wait_loader()
-        #Aggiunta referente
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_3"]'))).click()
-        sleep(1)
-
-        self.find(By.XPATH, '//h4//i[@class="fa fa-plus"]').click()
-        sleep(1)
-
-        self.input(None,'Nominativo').setValue("Referente di prova")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]//i[@class="fa fa-plus"]'))).click()
-        modal=self.wait_modal()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-content"]//div[@id="form_82-"]//input[@id="nome"]'))).send_keys("Segretario")
-        sleep(1)
-        self.find(By.XPATH, '(//button[@type="submit"])[4]').click()
-        sleep(1)
-        self.find(By.XPATH, '(//button[@type="submit"])[3]').click()        
-        #Verifica referente
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Mansione"]/input'))).send_keys("Segretario", Keys.ENTER)
-        sleep(1)
-
-        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
-        self.assertEqual("Segretario", modificato)
-
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
-
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
-
-    def aggiunta_sede(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
- 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        sleep(1) 
-        #Aggiunta sede
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_4"]'))).click()
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_4"]//i[@class="fa fa-plus"]').click()
-        sleep(1)
-
-        self.input(None, 'Nome sede').setValue("Filiale XY")
-        self.find(By.XPATH, '(//input[@id="cap"])[2]').send_keys("35042")
-        self.find(By.XPATH, '(//input[@id="citta"])[2]').click()
-        self.find(By.XPATH, '(//input[@id="citta"])[2]').send_keys("Padova")
-        sleep(1)
-        
-        self.find(By.XPATH, '(//span[@id="select2-id_nazione-container"])[2]').click()
-        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
-
-        self.find(By.XPATH, '(//button[@type="submit"])[3]').click()
-        sleep(1)
-
-        #Verifica sede
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//th[@id="th_Nome"]/input)[2]'))).send_keys("Filiale XY", Keys.ENTER)
-        sleep(1)
-
-        modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_4"]//tbody//td[2]').text
-        self.assertEqual("Filiale XY", modificato)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()  
 
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
@@ -518,3 +447,317 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
+
+    def aggiunta_referente(self):
+        wait = WebDriverWait(self.driver, 20)   
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+ 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
+        self.wait_loader()
+        #Aggiunta referente
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_3"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//h4//i[@class="fa fa-plus"]').click()
+        sleep(1)
+
+        self.input(None,'Nominativo').setValue("Referente di prova")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]//i[@class="fa fa-plus"]'))).click()
+        modal=self.wait_modal()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-content"]//div[@id="form_82-"]//input[@id="nome"]'))).send_keys("Segretario")
+        sleep(1)
+        self.find(By.XPATH, '(//button[@type="submit"])[4]').click()
+        sleep(1)
+        self.find(By.XPATH, '(//button[@type="submit"])[3]').click()        
+        #Verifica referente
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Mansione"]/input'))).send_keys("Segretario", Keys.ENTER)
+        sleep(1)
+
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
+        self.assertEqual("Segretario", modificato)
+
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+    def aggiunta_sede(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+ 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        sleep(1) 
+        #Aggiunta sede
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_4"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_4"]//i[@class="fa fa-plus"]').click()
+        sleep(1)
+
+        self.input(None, 'Nome sede').setValue("Filiale XY")
+        self.find(By.XPATH, '(//input[@id="cap"])[2]').send_keys("35042")
+        self.find(By.XPATH, '(//input[@id="citta"])[2]').click()
+        self.find(By.XPATH, '(//input[@id="citta"])[2]').send_keys("Padova")
+        sleep(1)
+        
+        self.find(By.XPATH, '(//span[@id="select2-id_nazione-container"])[2]').click()
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+
+        self.find(By.XPATH, '(//button[@type="submit"])[3]').click()
+        sleep(1)
+
+        #Verifica sede
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//th[@id="th_Nome"]/input)[2]'))).send_keys("Filiale XY", Keys.ENTER)
+        sleep(1)
+
+        modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_4"]//tbody//td[2]').text
+        self.assertEqual("Filiale XY", modificato)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader()  
+
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+    def plugin_statistiche(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+ 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1) 
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader() 
+        
+        #Aggiunta sede
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_7"]'))).click()
+        sleep(1)
+
+        preventivi=wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="info-box-text pull-left"]'))).text
+        self.assertEqual(preventivi, "Preventivi")
+        contratti=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[2]'))).text
+        self.assertEqual(contratti, "Contratti")
+        ordini_cliente=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[3]'))).text
+        self.assertEqual(ordini_cliente, "Ordini cliente")
+        attivita=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[4]'))).text
+        self.assertEqual(attivita, "Attività")
+        ddt_in_uscita=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[5]'))).text
+        self.assertEqual(ddt_in_uscita, "Ddt in uscita")
+        fatture=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[6]'))).text
+        self.assertEqual(fatture, "Fatture")
+        ore_lavorate=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[7]'))).text
+        self.assertEqual(ore_lavorate, "Ore lavorate")
+
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+    
+    def dichiarazione_di_intento(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        self.find(By.XPATH, '//a[@id="link-tab_25"]').click()
+        self.find(By.XPATH, '//div[@id="tab_25"]//i[@class="fa fa-plus"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_protocollo"]'))).send_keys("012345678901234567890123")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_protocollo"]'))).send_keys("08/07/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_progressivo"]'))).send_keys("001")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("08/07/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))).send_keys("08/09/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="massimale"]'))).send_keys("50000")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_emissione"]'))).send_keys("08/07/2024", Keys.ENTER)
+        self.wait_loader() 
+
+        self.find(By.XPATH, '(//button[@class="btn btn-primary"])[2]').click()
+        self.wait_loader()
+
+        #controllo se è stata creata la dichiarazione
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_25"]//tbody//tr//td[1]')))
+        
+        #controllo se apppare il pop up quando vado a creare una fattura di vendita per lo stesso cliente
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//i[@class="fa fa-plus"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        elemento = self.find(By.XPATH, '(//div[@class="alert alert-info"])[1]').text
+        self.assertEqual("La fattura è collegata ad una dichiarazione d'intento", elemento[0:53])
+
+        #aggiunta riga (totale 100+2 euro)
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("prova per dichiarazione")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="qta"]'))).send_keys("100")
+        self.find(By.XPATH, '//span[@id="select2-um-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("pz", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1")
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+
+        #controllo del totale della dichiarazione
+        self.navigateTo("Anagrafiche")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        self.find(By.XPATH, '//a[@id="link-tab_25"]').click()
+        sleep(1)
+
+        totale=self.find(By.XPATH, '//div[@id="tab_25"]//tbody//tr//td[5]').text
+        self.assertEqual(totale, "102.00")
+
+        #modifica della dichiarazione
+        self.find(By.XPATH, '//div[@id="tab_25"]//tbody//tr//td[5]').click()
+        sleep(1)
+
+        element = wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_progressivo"]')))
+        element.clear()
+        element.send_keys("01")
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        self.wait_loader()
+
+        num_progressivo=self.find(By.XPATH, '//div[@id="tab_25"]//tbody//td[3]').text
+        self.assertEqual(num_progressivo, "01")
+
+        #elimina dichiarazione
+        self.find(By.XPATH, '//div[@id="tab_25"]//tbody//td[3]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask "]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
+
+        messaggio=self.find(By.XPATH, '//div[@id="tab_25"]//td[@class="dataTables_empty"]').text
+        self.assertEqual(messaggio, "Nessun dato presente nella tabella")
+
+        #eliminazione fattura creata per la dichiarazione
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//tr//td[2])[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
+        
+        self.navigateTo("Anagrafiche")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+    def assicurazione_crediti(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        self.find(By.XPATH, '//a[@id="link-tab_45"]').click()
+        self.find(By.XPATH, '//div[@id="tab_45"]//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("01/01/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))).send_keys("31/12/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="fido_assicurato"]'))).send_keys("50000", Keys.ENTER)
+        self.wait_loader()
+
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data"]'))).send_keys( "01/01/2024")
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()
+        sleep(1)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("prova")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("51000")
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+
+        elemento = self.find(By.XPATH, '//div[@class="alert alert-warning text-center"]').text
+        self.assertEqual("Attenzione!", elemento[0:11])
+
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
+
+        self.navigateTo("Anagrafiche")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        self.find(By.XPATH, '//a[@id="link-tab_45"]').click()
+
+        self.find(By.XPATH, '//div[@id="tab_45"]//tbody//tr//td[2]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="modals"]//a[@class="btn btn-danger ask"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
+
+        self.navigateTo("Anagrafiche")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
