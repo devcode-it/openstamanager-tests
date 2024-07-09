@@ -57,6 +57,12 @@ class Preventivi(Test):
         #Plugin revisioni
         self.revisioni()
 
+        #Plugin consuntivo
+        self.consuntivo()
+
+        #Plugin revisioni
+        self.revisioni()
+
     def creazione_preventivo(self, nome:str, cliente:str, idtipo: str, file_importi: str):
         self.navigateTo("Preventivi")
         self.wait_loader() 

@@ -41,6 +41,12 @@ class FattureAcquisto(Test):
         #plugin movimenti contabili
         self.movimenti_contabili()
 
+        #plugin Registrazioni
+        self.registrazioni()
+
+        #plugin movimenti contabili
+        self.movimenti_contabili()
+
     def creazione_fattura_acquisto(self, fornitore: str, numero: str, pagamento: str, file_importi: str):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()

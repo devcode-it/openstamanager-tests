@@ -38,6 +38,10 @@ class Attivita(Test):
         #controllo storico attività
         self.storico_attivita()
         
+
+        #controllo storico attività
+        self.storico_attivita()
+        
     def attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Attività")
