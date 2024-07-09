@@ -35,11 +35,7 @@ class Attivita(Test):
         # Verifica attività
         self.verifica_attività()
 
-        #controllo storico attività
-        self.storico_attivita()
-        
-
-        #controllo storico attività
+        #controllo storico attività plugin in Anagrafica
         self.storico_attivita()
         
     def attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):

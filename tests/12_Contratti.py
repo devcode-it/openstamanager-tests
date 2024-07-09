@@ -37,6 +37,12 @@ class Contratti(Test):
         #Plugin contratti del cliente da Anagrafiche
         self.contratti_del_cliente()
 
+        #plugin consuntivo
+        self.consuntivo()
+        
+        #plugin pianificazione attività
+        self.pianificazione_attivita()
+
     def creazione_contratto(self, nome:str, cliente: str, file_importi: str):
         self.navigateTo("Contratti")
         self.wait_loader() 
@@ -147,6 +153,8 @@ class Contratti(Test):
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def contratti_del_cliente(self):
         wait = WebDriverWait(self.driver, 20)
@@ -166,3 +174,87 @@ class Contratti(Test):
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
+
+    def consuntivo(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Contratti")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Contratto di Prova", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_13"]').click()
+        sleep(1)
+        budget=self.find(By.XPATH, '//div[@id="tab_13"]//span[1]').text
+        self.assertEqual(budget, "264,80 €")
+        self.navigateTo("Contratti")
+        self.wait_loader()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+    def pianificazione_attivita(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Contratti")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+        
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys("Manutenzione")
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2024")
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-primary"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Manutenzione")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="qta"]'))).send_keys("12")
+        self.find(By.XPATH, '//span[@id="select2-um-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("pz", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("50")
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("In lavorazione", Keys.ENTER)
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_14"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-id_tipo_promemoria-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@class="select2-search__field"]'))).send_keys("Generico", Keys.ENTER)
+        self.find(By.XPATH, '//button[@id="add_promemoria"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[3]'))).click()  
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[3]'))).send_keys("Manutenzione")
+        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@class="select2-search__field"]'))).send_keys("Standard attività", Keys.ENTER)
+        self.find(By.XPATH, '//div[@class="modal-content"]//button[@class="btn btn-primary"]').click()
+        sleep(2)
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-sm  "]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '(//button[@class="btn btn-primary"])[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//a') #se trova il link il test è superato
+        
+        

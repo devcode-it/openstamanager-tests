@@ -50,7 +50,7 @@ class FattureVendita(Test):
         # Verifica XML fattura estera
         self.verifica_xml_fattura_estera(importi[0], "1")
 
-        #Verifica plugin movimenti contabili da anagrafiche
+        #Verifica plugin movimenti contabili da fatture di vendita
         self.movimenti_contabili()
 
         #plugin regole pagamenti da Anagrafiche

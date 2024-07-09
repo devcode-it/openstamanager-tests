@@ -33,6 +33,9 @@ class OrdiniCliente(Test):
         # Verifica ordine cliente
         self.verifica_ordine_cliente()
 
+        #plugin consuntivi
+        self.consuntivi()
+
 
     def creazione_ordine_cliente(self, cliente: str, file_importi: str):
         self.navigateTo("Ordini cliente")
@@ -129,3 +132,23 @@ class OrdiniCliente(Test):
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+
+    def consuntivi(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Ordini cliente")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('1', Keys.ENTER)        
+        sleep(1)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_29"]').click()
+        self.wait_loader()
+
+        budget=self.find(By.XPATH, '(//div[@id="tab_29"]//span)[2]').text
+        self.assertEqual(budget, "+264,80 €")
