@@ -558,7 +558,7 @@ class Anagrafiche(Test):
         self.wait_loader()
 
         #controllo se è stata creata la dichiarazione
-        self.find(By.XPATH, '//div[@id="tab_25"]//tbody//tr//td[1]')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_25"]//tbody//tr//td[1]')))
         
         #controllo se apppare il pop up quando vado a creare una fattura di vendita per lo stesso cliente
         self.expandSidebar("Vendite")
