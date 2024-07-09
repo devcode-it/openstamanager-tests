@@ -47,7 +47,16 @@ class Articoli(Test):
 
         #plugin statistiche
         self.statische()
-        
+
+        #plugin netto clienti
+        self.netto_clienti()
+
+        #plugin statistiche vendite
+        self.statistiche_vendita()
+
+        #plugin varianti articoli
+        self.varianti_articoli()
+
     def creazione_articolo(self, codice: str, descrizione: str):
         self.navigateTo("Articoli")
         self.wait_loader()
@@ -390,4 +399,138 @@ class Articoli(Test):
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
+    def netto_clienti(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Articolo 1', Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_27"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-id_cliente_informazioni-container"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys('Cliente', Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-info btn-block"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default"])[4]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))).send_keys('5', Keys.ENTER)
+        sleep(2)
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="tab_27"]//tr[3]//td[1]')
+        self.find(By.XPATH, '//button[@class="btn btn-xs btn-warning"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default"])[4]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        self.wait_loader()
+
+        messaggio=self.find(By.XPATH, '//div[@id="tab_27"]//div[@class="alert alert-info"]').text
+        self.assertEqual(messaggio,"Nessuna informazione disponibile...")
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+    def statistiche_vendita(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_44"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//div[@id="tab_44"]//tr[1]//td[1])[2]')   #checkbox
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+    def varianti_articoli(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Attributi Combinazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="titolo"]'))).send_keys('Taglie', Keys.ENTER)
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('S', Keys.ENTER)
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('M', Keys.ENTER)
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('L', Keys.ENTER)
+        self.wait_loader()
+
+        self.navigateTo("Combinazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="codice"]'))).send_keys('001')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('Vestito')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-selection select2-selection--multiple"]'))).send_keys('Taglie', Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-warning "]').click()
+        self.wait_loader()
+
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Vestito', Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_34"]').click() 
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="tab_34"]//tr[3]')
+
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)

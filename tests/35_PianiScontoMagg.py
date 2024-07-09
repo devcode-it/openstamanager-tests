@@ -31,6 +31,9 @@ class PianiScontoMagg(Test):
         # Verifica piano di sconto
         self.verifica_piano_sconto()
 
+        #plugin sconto e maggiorazione da articoli
+        self.plugin_sconto_maggiorazione()
+
     def creazione_piano_sconto_magg(self, nome: str, sconto: str):
         self.navigateTo("Piani di sconto/magg.")
 
@@ -106,3 +109,30 @@ class PianiScontoMagg(Test):
         
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+
+    def plugin_sconto_maggiorazione(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Articolo 1', Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_33"]').click()
+        sleep(1)
+
+        prezzo_nuovo=self.find(By.XPATH, '//div[@id="tab_33"]//tr[3]//td[2]').text
+        self.assertEqual(prezzo_nuovo, "18,00 €")
+        sleep(1)
+        
+        self.navigateTo("Articoli")
+        self.wait_loader()
+        
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]//i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
