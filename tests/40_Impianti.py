@@ -170,6 +170,11 @@ class Impianti(Test):
 
         matricola=self.find(By.XPATH, '(//tbody//tr[2]//td[2])[5]').text
         self.assertEqual(matricola,"01")
+        self.find(By.XPATH, '//button[@class="btn btn-sm btn-danger "]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
+        sleep(2)
 
         self.navigateTo("Attività")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
@@ -227,7 +232,16 @@ class Impianti(Test):
 
         self.find(By.XPATH, '//div[@id="tab_31"]//button[@class="btn btn-tool"]').click()
         sleep(1)
+        #modifica
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_installazione_1"]'))).send_keys("01/01/2024")
+        self.find(By.XPATH, '//button[@class="btn btn-success pull-right"]').click()
+        self.wait_loader()
 
+        data_installazione=self.find(By.XPATH, '//div[@id="tab_31"]//tr[1]//td[3]').text
+        self.assertEqual(data_installazione, "01/01/2024")
+        #elimina
+        self.find(By.XPATH, '//div[@id="tab_31"]//button[@class="btn btn-tool"]').click()
+        sleep(1)
         self.find(By.XPATH, '//button[@class="btn btn-warning pull-right"]').click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
         self.wait_loader()
