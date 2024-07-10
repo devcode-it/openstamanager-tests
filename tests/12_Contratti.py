@@ -34,14 +34,20 @@ class Contratti(Test):
         # Verifica contratto
         self.verifica_contratto()
 
-        #Plugin contratti del cliente da Anagrafiche
+        # Plugin contratti del cliente da Anagrafiche
         self.contratti_del_cliente()
 
-        #plugin consuntivo
+        # Plugin consuntivo
         self.consuntivo()
         
-        #plugin pianificazione attività
+        # Plugin pianificazione attività
         self.pianificazione_attivita()
+
+        # Plugin pianificazione fatturazione
+        self.pianificazione_fatturazione()
+
+        # Plugin rinnovi
+        self.rinnovi()
 
     def creazione_contratto(self, nome:str, cliente: str, file_importi: str):
         self.navigateTo("Contratti")
@@ -256,5 +262,118 @@ class Contratti(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr[1]//a') #se trova il link il test è superato
+
+    def pianificazione_fatturazione(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Contratti")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
         
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys("Test")
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2024")
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("In lavorazione", Keys.ENTER)
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_26"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@id="pianifica"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//div[@class="nav-tabs-custom"]//a[@class="nav-link"])[2]').click()
+        self.find(By.XPATH, '//button[@id="btn_procedi"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//button[@class="btn btn-primary btn-sm "])[1]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idtipodocumento-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("Fattura immediata di vendita", Keys.ENTER)
+        
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Dashboard")
+        self.wait_loader() 
+
+        self.find(By.XPATH, '(//div[@id="widget_11"]//div)[2]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//button[@class="btn btn-default btn-sm"])[1]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idtipodocumento-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])'))).send_keys("Fattura immediata di vendita", Keys.ENTER)
+        
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Contratti")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Test", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_26"]').click()
+        self.wait_loader()
+
+        link=wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_26"]//tr[1]//td[2]//a'))).text
+        self.assertEqual(link, "Fattura num.  del 01/01/2024")
+
+    def rinnovi(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Contratti")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+        
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys("Test")
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2024")
+        self.find(By.XPATH, '//button[@class="btn btn-tool"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//label[@class="btn btn-default"]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("Accettato", Keys.ENTER)
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+        
+        self.find(By.XPATH, '//button[@class="btn btn-warning ask "]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]'))).click()
+        self.wait_loader()
+
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_23"]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_23"]//tr[1]//td[1]')))
         
