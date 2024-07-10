@@ -53,13 +53,13 @@ class FattureVendita(Test):
         #Verifica plugin movimenti contabili da fatture di vendita
         self.movimenti_contabili()
 
-        #plugin regole pagamenti da Anagrafiche
+        # Plugin regole pagamenti da Anagrafiche
         self.regole_pagamenti()
 
-        #plugin registrazioni
+        # Plugin registrazioni
         self.registrazioni()   
 
-        #controllo allegati
+        # Plugin allegati da Anagrafiche
         self.controlla_allegati()
 
                      
@@ -547,6 +547,9 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipo"]/input'))).send_keys("Fattura immediata di vendita", Keys.ENTER)
+        sleep(1) 
+
         self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
         self.wait_loader()
         
@@ -554,8 +557,19 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//a[@id="link-tab_42"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="tab_42"]//tr[5]//td[1]')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_42"]//tr[5]//td[1]'))) #check 5 riga
         sleep(2)
+
+        #modifica
+        self.find(By.XPATH, '//span[@id="select2-idconto33-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("220.000010 Fabbricati", Keys.ENTER)
+        self.find(By.XPATH, '//div[@id="tab_42"]//button[@class="btn btn-success"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-idconto33-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("700.000010 Ricavi merci c/to vendite", Keys.ENTER)
+        self.find(By.XPATH, '//div[@id="tab_42"]//button[@class="btn btn-success"]').click()
+        self.wait_loader()
 
     def controlla_allegati(self): 
         wait = WebDriverWait(self.driver, 20)

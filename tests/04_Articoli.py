@@ -157,7 +157,6 @@ class Articoli(Test):
         self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
         self.wait_loader()
         
-
         self.find(By.XPATH, '(//label[@class="btn btn-default"])[1]').click()
         self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
@@ -217,6 +216,15 @@ class Articoli(Test):
         self.wait_loader()
         
         self.find(By.XPATH, '//td[@class="  select-checkbox"]') #se trova il checkbox test superato
+        #modifica provvigione
+        self.find(By.XPATH, '(//div[@id="tab_43"]//tr[1]//td[2])[2]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="provvigione"]'))).send_keys("2", Keys.ENTER)
+        self.wait_loader()
+
+        provvigione=self.find(By.XPATH, '(//div[@id="tab_43"]//tr[1]//td[3]/div)[2]').text
+        self.assertEqual(provvigione, "2.00 €")
         
         #eliminazione provvigione
         self.find(By.XPATH, '//td[@class="bound clickable"][1]').click()
@@ -295,6 +303,17 @@ class Articoli(Test):
 
         nome=self.find(By.XPATH, '//div[@id="tab_32"]//tr//td[2]').text
         self.assertEqual(nome, "Articolo 1")
+        #modifica
+        self.find(By.XPATH, '//a[@class="btn btn-secondary btn-warning"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="codice_fornitore"]'))).send_keys(Keys.BACKSPACE,Keys.BACK_SPACE,"1", Keys.ENTER)
+        self.wait_loader()
+
+        codice=self.find(By.XPATH, '(//div[@id="tab_32"]//td[3])[1]').text
+        self.assertEqual(codice,"01")
+
+        #elimina
         self.find(By.XPATH, '//a[@class="btn btn-secondary btn-danger ask"]').click()
         sleep(1)
 
@@ -430,7 +449,18 @@ class Articoli(Test):
         sleep(2)
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="tab_27"]//tr[3]//td[1]')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_27"]//tr[3]//td[1]')))
+        #modifica
+        self.find(By.XPATH, '//button[@class="btn btn-xs btn-warning"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))).send_keys(Keys.BACK_SPACE,'2', Keys.ENTER)
+        sleep(2)
+        self.wait_loader()
+
+        prezzo=self.find(By.XPATH, '//div[@id="tab_27"]//tr[3]//td[4]').text
+        self.assertEqual(prezzo[0:6], "2,00 €")
+        #eliminazione
         self.find(By.XPATH, '//button[@class="btn btn-xs btn-warning"]').click()
         sleep(1)
 
@@ -527,7 +557,55 @@ class Articoli(Test):
         self.find(By.XPATH, '//a[@id="link-tab_34"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="tab_34"]//tr[3]')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_34"]//tr[3]')))
+        #modifica
+        self.navigateTo("Attributi Combinazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//button[@class="btn btn-warning btn-xs"])[1]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys(Keys.BACKSPACE,"XS",Keys.ENTER)
+        self.wait_loader()
+
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2) 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Vestito', Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_34"]').click() 
+        self.wait_loader()
+
+        taglia=self.find(By.XPATH, '//div[@id="tab_34"]//tr[1]//td[2]').text
+        self.assertEqual(taglia, "Taglie: XS")
+        #elimina
+        self.navigateTo("Attributi Combinazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        scritta=self.find(By.XPATH, '//tbody//tr[1]').text
+        self.assertEqual(scritta, "Nessun dato presente nella tabella")
 
         self.navigateTo("Articoli")
         self.wait_loader()

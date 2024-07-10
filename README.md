@@ -115,3 +115,49 @@ Legenda:
 |77| Gestione task |-|:heavy_check_mark:|-|-|:heavy_check_mark:|-|
 |78| Stati fatture |-|:heavy_check_mark:|-|-|:heavy_check_mark:|-|
 |79| Stati degli ordini |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
+
+## Stato di avanzamento test automatici
+
+Legenda:
+- :heavy_plus_sign: Aggiunta
+- :pencil: Modifica
+- :wastebasket: Eliminazione
+- :question: Funzionamento
+
+
+|N°| Modulo  | Plugin |:heavy_plus_sign:|:pencil:|:wastebasket:|:question:|
+|--|-------- | :-------------:|:-------: |:--------:|:----------:|:--------------:
+|01| Anagrafiche | Dichiarazione d'intento |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|02| Anagrafiche | Assicurazione crediti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|03| Anagrafiche | Regole pagamenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|04| Anagrafiche | Contratti del cliente |:heavy_check_mark:|-|-|:heavy_check_mark:|
+|05| Anagrafiche | Allegati|:heavy_check_mark:|-|-|:heavy_check_mark:|
+|06| Anagrafiche | Storico attività |-|-|-|:heavy_check_mark:|
+|07| Anagrafiche | Impianti del cliente |-|-|-|:heavy_check_mark:|
+|08| Anagrafiche | Ddt del cliente |-|-|-|:heavy_check_mark:|
+|09| Anagrafiche | Statistiche |-|-|-|:heavy_check_mark:|
+|10| Anagrafiche | Movimenti contabili |-|-|-|:heavy_check_mark:|
+|11| Attività | Impianti |:heavy_check_mark:|-|:heavy_check_mark:|:heavy_check_mark:|
+|12| Preventivi | Consuntivo |-|-|-|:heavy_check_mark:|
+|13| Preventivi | Revisioni |-|-|-|:heavy_check_mark:|
+|14| Fatture di vendita | Movimenti contabilili |-|-|-|:heavy_check_mark:|
+|15| Fatture di vendita | Registrazioni |-|:heavy_check_mark:|-|:heavy_check_mark:|
+|16| Fatture di acquisto | Movimenti contabilili |-|-|-|:heavy_check_mark:| 
+|17| Fatture di acquisto | Registrazioni |-|:heavy_check_mark:|-|:heavy_check_mark:|
+|18| Articoli | Netto clienti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|19| Articoli | Movimenti |-|-|-|:heavy_check_mark:|
+|20| Articoli | Statistiche |-|-|-|:heavy_check_mark:|
+|21| Articoli | Listino fornitori |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|22| Articoli | Piani di sconto/maggiorazione |-|-|-|:heavy_check_mark:|
+|23| Articoli | Varianti articolo |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|24| Articoli | Provvigioni |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|25| Articoli | Giacenze |-|-|-|:heavy_check_mark:|
+|26| Articoli | Serial |:heavy_check_mark:|-|:heavy_check_mark:|:heavy_check_mark:|
+|27| Articoli | Statistiche vendita |-|-|-|:heavy_check_mark:|
+|28| Ordini cliente | Consuntivo |-|-|-|:heavy_check_mark:|
+|29| Impianti | Interventi svolti |-|-|-|:heavy_check_mark:|
+|30| Impianti | Componenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|31| Contratti | Pianificazione fatturazione |:heavy_check_mark:|-|-|:heavy_check_mark:|
+|32| Contratti | Rinnovi |:heavy_check_mark:|-|-|:heavy_check_mark:|
+|33| Contratti | Pianificazione attività |:heavy_check_mark:|-|-|:heavy_check_mark:|
+|34| Contratti | Consuntivo |-|-|-|:heavy_check_mark:|

@@ -65,6 +65,9 @@ class Anagrafiche(Test):
 
         # Plugin assicurazione crediti
         self.assicurazione_crediti()
+
+        # Plugin movimenti contabili
+        self.movimenti_contabili()
     
     def add_anagrafica(self, nome=str, tipo=str):
         # Crea una nuova anagrafica del tipo indicato.
@@ -504,7 +507,6 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
         self.wait_loader() 
         
-        #Aggiunta sede
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_7"]'))).click()
         sleep(1)
@@ -711,7 +713,20 @@ class Anagrafiche(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_45"]').click()
+        #modifica
+        self.find(By.XPATH, '//div[@id="tab_45"]//tbody//tr//td[2]').click()
+        sleep(1)
 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="fido_assicurato"]'))).send_keys(Keys.BACK_SPACE, "49000")
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        sleep(2) #sleep perchè non si carica subito la tabella
+        self.wait_loader()
+
+        nuovo=self.find(By.XPATH, '(//div[@id="tab_45"]//tr[1]//td[2]//div)[2]').text
+        self.assertEqual(nuovo, "49000.00")
+        self.wait_loader()
+
+        #elimina
         self.find(By.XPATH, '//div[@id="tab_45"]//tbody//tr//td[2]').click()
         sleep(1)
 
@@ -721,6 +736,30 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
+        self.navigateTo("Anagrafiche")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+    def movimenti_contabili(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        self.find(By.XPATH, '//a[@id="link-tab_38"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_38"]//a[@class="btn btn-info btn-lg"]').click()
+        self.wait_loader()
+
+        dare=self.find(By.XPATH, '//div[@id="tab_38"]//tr[1]//td[3]').text
+        self.assertEqual(dare, "323,06 €")
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
