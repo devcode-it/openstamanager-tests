@@ -230,7 +230,7 @@ class FattureAcquisto(Test):
         self.assertEqual(totale_imponibile, ('0,00 €'))
         self.assertEqual(totale, ('0,00 €'))
 
-    def registrazioni(self):        #controllare la presenza della 5 riga come quinto articolo
+    def registrazioni(self):
         wait = WebDriverWait(self.driver, 20)
         self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
@@ -243,7 +243,17 @@ class FattureAcquisto(Test):
         self.find(By.XPATH, '//a[@id="link-tab_41"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tr[5]//td[1]')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_41"]//tr[5]//td[1]'))) #controlla la presenza della 5 riga come quinto articolo
+        #modifica
+        self.find(By.XPATH, '//span[@id="select2-idconto48-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("220.000010 Fabbricati", Keys.ENTER)
+        self.find(By.XPATH, '//div[@id="tab_41"]//button[@class="btn btn-success"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-idconto48-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("600.000010 Costi merci c/acquisto di rivendita", Keys.ENTER)
+        self.find(By.XPATH, '//div[@id="tab_41"]//button[@class="btn btn-success"]').click()
+        self.wait_loader()
        
 
     def movimenti_contabili(self):
