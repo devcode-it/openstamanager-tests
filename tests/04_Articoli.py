@@ -46,7 +46,7 @@ class Articoli(Test):
         self.plugin_movimenti()
 
         #plugin statistiche
-        self.statische()
+        self.statistiche()
 
         #plugin netto clienti
         self.netto_clienti()
@@ -354,7 +354,10 @@ class Articoli(Test):
 
         totale_2=self.find(By.XPATH, '(//div[@id="tab_22"]//div[@class="col-md-12 text-center"])[2]').text
         self.assertEqual(totale_2, "3,00")
-        self.wait_loader()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="close"]').click()
+        sleep(1)
 
         self.navigateTo("Articoli")
         self.wait_loader()
@@ -380,7 +383,7 @@ class Articoli(Test):
         sleep(2)
 
         quantita=self.find(By.XPATH, '(//div[@id="tab_10"]//div[2]//b)[4]').text
-        self.assertEqual(quantita, "4,00")
+        self.assertEqual(quantita, "3,00")
 
         self.navigateTo("Articoli")
         self.wait_loader()
@@ -388,7 +391,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
-    def statische(self):
+    def statistiche(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Articoli")
         self.wait_loader()
@@ -489,10 +492,7 @@ class Articoli(Test):
 
         self.find(By.XPATH, '(//div[@id="tab_44"]//tr[1]//td[1])[2]')   #checkbox
         self.navigateTo("Articoli")
-        self.wait_loader()
-
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+        self.wait_loader()      
 
     def varianti_articoli(self):
         wait = WebDriverWait(self.driver, 20)

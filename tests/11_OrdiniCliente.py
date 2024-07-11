@@ -132,6 +132,8 @@ class OrdiniCliente(Test):
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     def consuntivi(self):
         wait = WebDriverWait(self.driver, 20)
@@ -151,4 +153,9 @@ class OrdiniCliente(Test):
         self.wait_loader()
 
         budget=self.find(By.XPATH, '(//div[@id="tab_29"]//span)[2]').text
+        self.navigateTo("Ordini cliente")
+        self.wait_loader()
+
         self.assertEqual(budget, "+264,80 €")
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)

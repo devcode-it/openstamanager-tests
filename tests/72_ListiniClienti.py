@@ -27,6 +27,9 @@ class Listini(Test):
         # Verifica listino cliente
         self.verifica_listino_cliente()
 
+        # Aggiorna listino cliente (Azione di gruppo) da anagrafiche
+        self.aggiorna_listino_cliente()
+
     def creazione_listino_cliente(self, nome:str, dataatt: str, datascad: str):
         self.navigateTo("Listini cliente")
         self.wait_loader()
@@ -112,3 +115,31 @@ class Listini(Test):
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[1]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+
+    def aggiorna_listino_cliente(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[6]'))).click()
+        self.find(By.XPATH, '//span[@id="select2-id_listino-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Listino cliente di Prova", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//span[@class="select2-selection__clear"])[4]').click()
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Anagrafiche")
+        self.wait_loader()
+        self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)

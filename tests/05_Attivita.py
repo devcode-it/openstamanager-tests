@@ -35,9 +35,18 @@ class Attivita(Test):
         # Verifica attività
         self.verifica_attività()
 
-        #controllo storico attività plugin in Anagrafica
+        # Controllo storico attività plugin in Anagrafica
         self.storico_attivita()
         
+        # Cambio stato (Azioni di gruppo)
+        self.cambio_stato()
+
+        # Duplica attività (Azioni di gruppo)
+        self.duplica()
+
+        # Elimina selezionati (Azioni di gruppo)
+        self.elimina_selezionati()
+
     def attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Attività")
@@ -125,6 +134,7 @@ class Attivita(Test):
         
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
         self.wait_loader()
+        sleep(1)
 
         imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]').text
         sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
@@ -173,6 +183,8 @@ class Attivita(Test):
         
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
 
     
 
@@ -193,5 +205,94 @@ class Attivita(Test):
         self.find(By.XPATH, '//div[@id="tab_28"]//tbody//tr[1]//td[1]') #se rileva il checkbox della attività il test è superato
 
         self.navigateTo("Anagrafiche")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+    def cambio_stato(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Attività")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[4]'))).click()
+        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Da programmare")
+        sleep(2)
+
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        stato=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[7]//div)[2]').text
+        self.assertEqual(stato, "Da programmare")
+        #ritorno come era prima
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[4]'))).click()
+        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Programmato")
+        sleep(2)
+
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        nuovo_stato=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[7]//div)[2]').text
+        self.assertEqual(nuovo_stato, "Programmato")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+    def duplica(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Attività")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[5]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idstatointervento-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Da programmare")
+        sleep(2)
+
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]')))
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+    def elimina_selezionati(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Attività")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        scritta=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1])[4]').text
+        self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)

@@ -24,7 +24,7 @@ L'avvio di tutti gli script può essere effettuato attraverso al seguente riga d
 python3 -m unittest discover tests -p '*.py'
 ```
 
-## Stato di avanzamento
+## Moduli
 
 Legenda:
 - :heavy_plus_sign: Crea
@@ -116,48 +116,57 @@ Legenda:
 |78| Stati fatture |-|:heavy_check_mark:|-|-|:heavy_check_mark:|-|
 |79| Stati degli ordini |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 
-## Stato di avanzamento test automatici
+## Plugin
 
 Legenda:
 - :heavy_plus_sign: Aggiunta
 - :pencil: Modifica
 - :wastebasket: Eliminazione
+- ☑️ Verifica
 - :question: Funzionamento
 
 
-|N°| Modulo  | Plugin |:heavy_plus_sign:|:pencil:|:wastebasket:|:question:|
-|--|-------- | :-------------:|:-------: |:--------:|:----------:|:--------------:
-|01| Anagrafiche | Dichiarazione d'intento |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-|02| Anagrafiche | Assicurazione crediti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-|03| Anagrafiche | Regole pagamenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-|04| Anagrafiche | Contratti del cliente |:heavy_check_mark:|-|-|:heavy_check_mark:|
-|05| Anagrafiche | Allegati|:heavy_check_mark:|-|-|:heavy_check_mark:|
-|06| Anagrafiche | Storico attività |-|-|-|:heavy_check_mark:|
-|07| Anagrafiche | Impianti del cliente |-|-|-|:heavy_check_mark:|
-|08| Anagrafiche | Ddt del cliente |-|-|-|:heavy_check_mark:|
-|09| Anagrafiche | Statistiche |-|-|-|:heavy_check_mark:|
-|10| Anagrafiche | Movimenti contabili |-|-|-|:heavy_check_mark:|
-|11| Attività | Impianti |:heavy_check_mark:|-|:heavy_check_mark:|:heavy_check_mark:|
-|12| Preventivi | Consuntivo |-|-|-|:heavy_check_mark:|
-|13| Preventivi | Revisioni |-|-|-|:heavy_check_mark:|
-|14| Fatture di vendita | Movimenti contabilili |-|-|-|:heavy_check_mark:|
-|15| Fatture di vendita | Registrazioni |-|:heavy_check_mark:|-|:heavy_check_mark:|
-|16| Fatture di acquisto | Movimenti contabilili |-|-|-|:heavy_check_mark:| 
-|17| Fatture di acquisto | Registrazioni |-|:heavy_check_mark:|-|:heavy_check_mark:|
-|18| Articoli | Netto clienti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-|19| Articoli | Movimenti |-|-|-|:heavy_check_mark:|
-|20| Articoli | Statistiche |-|-|-|:heavy_check_mark:|
-|21| Articoli | Listino fornitori |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-|22| Articoli | Piani di sconto/maggiorazione |-|-|-|:heavy_check_mark:|
-|23| Articoli | Varianti articolo |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-|24| Articoli | Provvigioni |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-|25| Articoli | Giacenze |-|-|-|:heavy_check_mark:|
-|26| Articoli | Serial |:heavy_check_mark:|-|:heavy_check_mark:|:heavy_check_mark:|
-|27| Articoli | Statistiche vendita |-|-|-|:heavy_check_mark:|
-|28| Ordini cliente | Consuntivo |-|-|-|:heavy_check_mark:|
-|29| Impianti | Interventi svolti |-|-|-|:heavy_check_mark:|
-|30| Impianti | Componenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-|31| Contratti | Pianificazione fatturazione |:heavy_check_mark:|-|-|:heavy_check_mark:|
-|32| Contratti | Rinnovi |:heavy_check_mark:|-|-|:heavy_check_mark:|
-|33| Contratti | Pianificazione attività |:heavy_check_mark:|-|-|:heavy_check_mark:|
-|34| Contratti | Consuntivo |-|-|-|:heavy_check_mark:|
+:heavy_check_mark: ok
+- non previsto
+:x: prevista ma non testata
+
+|N°| Modulo  | Plugin | :heavy_plus_sign: | :pencil: | :wastebasket: | ☑️ | :question: |
+|--|-------- | -------| :---------------: | :------: | :-----------: |:-:| -------- |
+|40| Anagrafiche | Impianti del cliente |-|-|-|:heavy_check_mark:|-|
+|02| Anagrafiche | Referenti |:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|aggiunta mansione|
+|02| Anagrafiche | Sedi aggiuntive |:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|-|
+|02| Anagrafiche | Statistiche |-|-|-|:heavy_check_mark:|-|
+|09| Anagrafiche | Ddt del cliente |-|-|-|:heavy_check_mark:|-|
+|02| Anagrafiche | Dichiarazione d'intento |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|controllo in fatture|
+|05| Anagrafiche | Storico attività |-|-|-|:heavy_check_mark:|-|
+|07| Anagrafiche | Allegati |-|-|-|:heavy_check_mark:|-|
+|12| Anagrafiche | Contratti del cliente |-|-|-|:heavy_check_mark:|-|
+|02| Anagrafiche | Assicurazione crediti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|controllo in fatture|
+|07| Anagrafiche | Movimenti contabili |-|-|-|:heavy_check_mark:|-|
+|07| Anagrafiche | Regole pagamenti |:heavy_check_mark:|:x:|:heavy_check_mark:|:heavy_check_mark:|controllo in scadenzario|
+|40| Attività | Impianti |:heavy_check_mark:|:x:|:heavy_check_mark:|:heavy_check_mark:|:x: (controllo impianti interventi svolti)|
+|12| Contratti | Consuntivo |-|-|-|:heavy_check_mark:|-|
+|12| Contratti | Pianificazione attività |:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|-|
+|12| Contratti | Rinnovi |:heavy_check_mark:|-|:heavy_check_mark:|-|-|
+|12| Contratti | Pianificazione fatturazione |:heavy_check_mark:|-|-|:heavy_check_mark:|controllo in Fatture e widget Dashboard|
+|13| Preventivi | Consuntivo |-|-|-|:heavy_check_mark:|-|
+|13| Preventivi | Revisioni |-|-|-|:heavy_check_mark:|-|
+|11| Ordini cliente | Consuntivo |-|-|-|:heavy_check_mark:|-|
+|:x:| Fatture di vendita | Fatturazione elettronica |:x:|:x:|:x:|:x:|:x:|
+|07| Fatture di vendita | Movimenti contabilili |-|-|-|:heavy_check_mark:|-|
+|07| Fatture di vendita | Registrazioni |-|:heavy_check_mark:|-|:heavy_check_mark:|-|
+|06| Fatture di acquisto | Movimenti contabilili |-|-|-|:heavy_check_mark:|-|
+|06| Fatture di acquisto | Registrazioni |-|:heavy_check_mark:|-|-|-|
+|:x:| Scadenzario | Presentazioni bancarie |:x:|:x:|:x:|:x:|:x:|
+|04| Articoli | Movimenti |-|-|-|:heavy_check_mark:|-|
+|04| Articoli | Serial |:heavy_check_mark:|-|:heavy_check_mark:|:heavy_check_mark:|-|
+|04| Articoli | Giacenze |-|-|-|:heavy_check_mark:|-|
+|04| Articoli | Statistiche |-|-|-|:heavy_check_mark:|-|
+|04| Articoli | Netto clienti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
+|04| Articoli | Listino fornitori |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
+|35| Articoli | Piani di sconto/maggiorazione |-|-|-|:heavy_check_mark:|-|
+|04| Articoli | Varianti articolo |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|controllo e creazione in attributi combinazioni|
+|04| Articoli | Provvigioni |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
+|04| Articoli | Statistiche vendita |-|-|-|:heavy_check_mark:|-|
+|40| Impianti | Interventi svolti |-|-|-|:heavy_check_mark:|-|
+|40| Impianti | Componenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|

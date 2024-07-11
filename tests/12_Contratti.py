@@ -176,7 +176,7 @@ class Contratti(Test):
         sleep(1)
         self.find(By.XPATH, '//a[@id="link-tab_35"]').click()
         sleep(1)
-        self.find(By.XPATH, '//div[@id="tab_35"]//tr[@id="2"]//td[1]')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_35"]//tr[@id="2"]//td[1]')))
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
@@ -337,7 +337,7 @@ class Contratti(Test):
         self.wait_loader()
 
         link=wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_26"]//tr[1]//td[2]//a'))).text
-        self.assertEqual(link, "Fattura num.  del 01/01/2024")
+        self.assertEqual(link, "Fattura num. del 01/01/2024")
 
     def rinnovi(self):
         wait = WebDriverWait(self.driver, 20)
@@ -376,4 +376,5 @@ class Contratti(Test):
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_23"]//tr[1]//td[1]')))
+
         

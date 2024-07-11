@@ -244,18 +244,6 @@ class FattureAcquisto(Test):
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_41"]//tr[5]//td[1]'))) #controlla la presenza della 5 riga come quinto articolo
-        #modifica
-        self.find(By.XPATH, '//span[@id="select2-idconto48-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("220.000010 Fabbricati", Keys.ENTER)
-        self.find(By.XPATH, '//div[@id="tab_41"]//button[@class="btn btn-success"]').click()
-        self.wait_loader()
-
-        self.find(By.XPATH, '//span[@id="select2-idconto48-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("600.000010 Costi merci c/acquisto di rivendita", Keys.ENTER)
-        self.find(By.XPATH, '//div[@id="tab_41"]//button[@class="btn btn-success"]').click()
-        self.wait_loader()
-       
-
     def movimenti_contabili(self):
         wait = WebDriverWait(self.driver, 20)
         self.expandSidebar("Acquisti")

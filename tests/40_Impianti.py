@@ -176,6 +176,11 @@ class Impianti(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
         sleep(2)
 
+        self.find(By.XPATH, '//span[@id="select2-id_impianto_add-container"]').click()
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-default tip tooltipstered"]').click()
+        sleep(1)
+
         self.navigateTo("Attività")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)

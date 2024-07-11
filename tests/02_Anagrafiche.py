@@ -66,8 +66,14 @@ class Anagrafiche(Test):
         # Plugin assicurazione crediti
         self.assicurazione_crediti()
 
-        # Plugin movimenti contabili
-        self.movimenti_contabili()
+        # Ricerca coordinate (Azioni di gruppo)
+        self.ricerca_coordinate()
+
+        # Elimina selezionati (Azioni di gruppo)
+        self.elimina_selezionati()
+
+        # Cambia relazione (Azioni di gruppo)
+        self.cambia_relazione()
     
     def add_anagrafica(self, nome=str, tipo=str):
         # Crea una nuova anagrafica del tipo indicato.
@@ -740,7 +746,58 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
-    def movimenti_contabili(self):
+    def ricerca_coordinate(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Admin spa", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[3]'))).click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-primary btn-block"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul//li[2]//div').click()
+        latitudine=self.find(By.XPATH, '//input[@id="lat"]').text
+        self.assertNotEqual(latitudine, "0")
+        longitudine=self.find(By.XPATH, '//input[@id="lng"]').text
+        self.assertNotEqual(longitudine, "0")
+        self.find(By.XPATH, '//button[@class="close"]').click()
+        self.wait_loader()
+        
+        self.navigateTo("Anagrafiche")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+    def elimina_selezionati(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Vettore", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]'))).click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        scritta=self.find(By.XPATH, '//tbody//tr[1]').text
+        self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+    def cambia_relazione(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
         self.wait_loader() 
@@ -748,18 +805,32 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
-        self.wait_loader() 
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[5]'))).click()
+        self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Attivo")
+        sleep(2)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
-        self.find(By.XPATH, '//a[@id="link-tab_38"]').click()
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_38"]//a[@class="btn btn-info btn-lg"]').click()
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
         self.wait_loader()
 
-        dare=self.find(By.XPATH, '//div[@id="tab_38"]//tr[1]//td[3]').text
-        self.assertEqual(dare, "323,06 €")
+        stato=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[7])[2]').text
+        self.assertEqual(stato, "Attivo")
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//span[@class="select2-selection__clear"])[4]').click()
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+
         self.navigateTo("Anagrafiche")
+        self.wait_loader()
+
+        nuovo_stato=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[7])[2]').text
+        self.assertNotEqual(nuovo_stato, "Attivo")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+        
+
+

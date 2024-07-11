@@ -53,6 +53,9 @@ class FattureVendita(Test):
         #Verifica plugin movimenti contabili da fatture di vendita
         self.movimenti_contabili()
 
+        # Plugin movimenti contabili da Anagrafiche
+        self.plugin_movimenti_contabili()
+
         # Plugin regole pagamenti da Anagrafiche
         self.regole_pagamenti()
 
@@ -471,7 +474,31 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
 
-    def regole_pagamenti(self):     #rivedere
+    def plugin_movimenti_contabili(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        self.find(By.XPATH, '//a[@id="link-tab_38"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_38"]//a[@class="btn btn-info btn-lg"]').click()
+        self.wait_loader()
+
+        dare=self.find(By.XPATH, '//div[@id="tab_38"]//tr[1]//td[3]').text
+        self.assertEqual(dare, "323,06 €")
+        self.navigateTo("Anagrafiche")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+    def regole_pagamenti(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
         self.wait_loader() 
@@ -559,18 +586,6 @@ class FattureVendita(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_42"]//tr[5]//td[1]'))) #check 5 riga
         sleep(2)
-
-        #modifica
-        self.find(By.XPATH, '//span[@id="select2-idconto33-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("220.000010 Fabbricati", Keys.ENTER)
-        self.find(By.XPATH, '//div[@id="tab_42"]//button[@class="btn btn-success"]').click()
-        self.wait_loader()
-
-        self.find(By.XPATH, '//span[@id="select2-idconto33-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("700.000010 Ricavi merci c/to vendite", Keys.ENTER)
-        self.find(By.XPATH, '//div[@id="tab_42"]//button[@class="btn btn-success"]').click()
-        self.wait_loader()
-
     def controlla_allegati(self): 
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
@@ -587,8 +602,9 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//a[@id="link-tab_30"]').click()
         sleep(1)
         self.find(By.XPATH, '//div[@id="tab_30"]//a[@class="btn btn-info btn-lg"]').click()
-        self.wait_loader() 
-        self.find(By.XPATH, '//div[@id="tab_30"]//a[@class="btn btn-xs btn-primary"]')
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_30"]//a[@class="btn btn-xs btn-primary"]')))
 
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
