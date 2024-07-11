@@ -33,7 +33,7 @@ class DdtUscita(Test):
         # Verifica DDT
         self.verifica_ddt()
 
-        # Verifica plugin DDT del cliente
+        # Verifica plugin DDT del cliente da Anagrafiche
         self.ddt_del_cliente()
 
     def creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):
@@ -150,7 +150,7 @@ class DdtUscita(Test):
         sleep(1) 
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click() #apre la barra dei plugin
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_17"]'))).click() #arpe "DDT del cliente"
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_17"]'))).click() #apre "DDT del cliente"
         sleep(1)
 
         self.find(By.XPATH, '//tr[10]//td[3]').click()
