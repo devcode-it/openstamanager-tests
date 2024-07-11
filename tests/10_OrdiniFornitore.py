@@ -31,6 +31,9 @@ class OrdiniFornitore(Test):
         # Verifica ordine fornitore
         self.verifica_ordine_fornitore()
 
+        # Cambia stato (Azioni di gruppo)
+        self.cambia_stato()
+
     def creazione_ordine_fornitore(self, fornitore: str, file_importi: str):
         self.navigateTo("Ordini fornitore")
 
@@ -122,3 +125,49 @@ class OrdiniFornitore(Test):
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+    def cambia_stato(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Ordini fornitore")
+        self.wait_loader() 
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+        
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Fornitore", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Ordini fornitore")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[1]'))).send_keys("2", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Accettato")
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_stato-results"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        stato=self.find(By.XPATH, '(//tbody//td[6]//span)[2]').text
+        self.assertEqual(stato, "Accettato")
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)

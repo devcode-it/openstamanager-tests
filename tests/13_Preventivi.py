@@ -51,11 +51,17 @@ class Preventivi(Test):
         # Verifica preventivi
         self.verifica_preventivi()
 
-        #Plugin consuntivo
+        # Plugin consuntivo
         self.consuntivo()
 
-        #Plugin revisioni
+        # Plugin revisioni
         self.revisioni()
+
+        # Cambia stato (Azioni di gruppo)
+        self.cambia_stato()
+
+        # Fattura preventivi (Azioni di gruppo)
+        self.fattura_preventivi()
 
     def creazione_preventivo(self, nome:str, cliente:str, idtipo: str, file_importi: str):
         self.navigateTo("Preventivi")
@@ -438,25 +444,116 @@ class Preventivi(Test):
         sleep(2)
 
     def consuntivo(self):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Preventivi")
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr[1]//td[3]').click()
         self.wait_loader()
+
         self.find(By.XPATH,'//div[@class="control-sidebar-button"]').click()
-        self.wait_loader() 
+        self.wait_loader()
+
         self.find(By.XPATH, '//a[@id="link-tab_12"]').click()
-        self.wait_loader() 
+        self.wait_loader()
+
         budget=self.find(By.XPATH, '//span[@class="text-success"]').text
         self.assertEqual(budget,"+264,80 €")        #controlla se il budget coincide con 264,80
 
     def revisioni(self):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Preventivi")
-        self.wait_loader() 
+        self.wait_loader()
+
         self.find(By.XPATH, '//tbody//tr[1]//td[3]').click()
         self.wait_loader()
+
         self.find(By.XPATH,'//div[@class="control-sidebar-button"]').click()
-        self.wait_loader() 
+        self.wait_loader()
+
         self.find(By.XPATH,'//a[@id="link-tab_20"]').click()
         self.wait_loader() 
+
         self.find(By.XPATH, '//div[@id="tab_20"]//td[@class="text-center"][1]') #controlla la presenza del dot rosso delle revisioni
+
+    def cambia_stato(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Preventivi")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input[@class="form-control"]'))).send_keys("1", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Bozza")
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_stato-results"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        stato=self.find(By.XPATH, '(//tr[1]//td[5]//span)[2]').text
+        self.assertEqual(stato,"Bozza")
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("In lavorazione")
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_stato-results"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+    def fattura_preventivi(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Preventivi")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input[@class="form-control"]'))).send_keys("1", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-raggruppamento-results"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("In lavorazione", Keys.ENTER)
+        self.find(By.XPATH, '//button[@id="save"]')
+        self.wait_loader()
+
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[9]'))).send_keys("Bozza",Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
