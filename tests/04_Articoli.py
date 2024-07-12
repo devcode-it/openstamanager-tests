@@ -30,32 +30,50 @@ class Articoli(Test):
         # Verifica articolo
         self.verifica_articolo()
 
-        #plugin seriali
+        # Plugin seriali
         self.serial()
 
-        #plugin provvigioni
+        # Plugin provvigioni
         self.provvigioni()
 
-        #plugin listino fornitori
+        # Plugin listino fornitori
         self.listino_fornitori()
 
-        #plugin giacenze
+        # Plugin giacenze
         self.giacenze()
 
-        #plugin movimenti
+        # Plugin movimenti
         self.plugin_movimenti()
 
-        #plugin statistiche
+        # Plugin statistiche
         self.statistiche()
 
-        #plugin netto clienti
+        # Plugin netto clienti
         self.netto_clienti()
 
-        #plugin statistiche vendite
+        # Plugin statistiche vendite
         self.statistiche_vendita()
 
-        #plugin varianti articoli
+        # Plugin varianti articoli
         self.varianti_articoli()
+
+        # Aggiorna prezzo di acquisto (Azioni di gruppo)
+        self.aggiorna_prezzo_acquisto()
+
+        # Aggiorna prezzo di vendita (Azioni di gruppo)
+        self.aggiorna_prezzo_vendita()
+
+        # Aggiorna coefficiente di vendita (Azioni di gruppo)
+        self.coefficiente_vendita()
+
+        # Aggiorna quantità (Azioni di gruppo)
+        self.aggiorna_quantita()
+
+        # Aggiorna aliquota iva (Azioni di gruppo)
+        self.aggiorna_iva()
+
+        # Aggiorna unità di misura (Azioni di gruppo)
+        self.aggiorna_unita_misura()
 
     def creazione_articolo(self, codice: str, descrizione: str):
         self.navigateTo("Articoli")
@@ -611,4 +629,183 @@ class Articoli(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+    def aggiorna_prezzo_acquisto(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="codice"]'))).send_keys("08")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione"]'))).send_keys("Prova")
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_acquisto"]'))).send_keys("1")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_vendita"]'))).send_keys("1")
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+        
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[3]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="percentuale"]'))).send_keys("10")
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        prezzo=self.find(By.XPATH, '//tbody//tr[1]//td[8]//div').text
+        self.assertEqual(prezzo, "1,10")
+        self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+        
+    def aggiorna_prezzo_vendita(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[4]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-prezzo_partenza-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Prezzo di vendita")
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-prezzo_partenza-results"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="percentuale"]'))).send_keys("20")
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        prezzo=self.find(By.XPATH, '//tbody//tr[1]//td[9]//div').text
+        self.assertEqual(prezzo, "0,98")
+        self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+    def coefficiente_vendita(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[5]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="coefficiente"]'))).send_keys("12")
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        prezzo=self.find(By.XPATH, '//tbody//tr[1]//td[9]//div').text
+        self.assertEqual(prezzo, "13,20")
+        self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+    def aggiorna_quantita(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[7]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="qta"]'))).send_keys("3")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="descrizione"]'))).send_keys("test")
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        quantita=self.find(By.XPATH, '//tbody//tr[1]//td[10]//div').text
+        self.assertEqual(quantita, "3")
+        self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+    def aggiorna_iva(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
+        sleep(2)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[10]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_iva-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Iva 10%")
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_iva-results"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+
+        iva=self.find(By.XPATH, '//span[@id="select2-idiva_vendita-container"]').text
+        self.assertEqual(iva[2:20], "10 - Aliq. Iva 10%")
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+    def aggiorna_unita_misura(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
+        sleep(2)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[12]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-um-container"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("pz")
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-um-results"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+
+        unita_misura=self.find(By.XPATH, '//span[@id="select2-um-container"]').text
+        self.assertEqual(unita_misura[2:5], "pz")
+
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click()
         sleep(1)

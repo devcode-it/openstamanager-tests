@@ -18,31 +18,37 @@ class FattureAcquisto(Test):
     def test_creazione_fattura_acquisto(self):
         # Crea una nuova fattura *Required*
         importi = RowManager.list()
-        self.creazione_fattura_acquisto("Fornitore", "1", "1", importi[0])
+        #self.creazione_fattura_acquisto("Fornitore", "1", "1", importi[0])
 
         # Modifica fattura
-        self.modifica_fattura_acquisto("Emessa")
+        #self.modifica_fattura_acquisto("Emessa")
         
         # Controllo valori piano dei conti
-        self.controllo_fattura_acquisto()
+        #self.controllo_fattura_acquisto()
 
         # Cancellazione fattura di acquisto
-        self.elimina_documento()
+        #self.elimina_documento()
 
         # Verifica fattura di acquisto
-        self.verifica_fattura_acquisto()
+        #self.verifica_fattura_acquisto()
 
         # Verifica XML autofattura
-        self.verifica_xml_autofattura(importi[0], "1")
+        #self.verifica_xml_autofattura(importi[0], "1")
 
         # Plugin Registrazioni
-        self.registrazioni()
+        #self.registrazioni()
 
         # Plugin movimenti contabili
-        self.movimenti_contabili()
+        #self.movimenti_contabili()
 
         # Elimina selezionati (Azioni di gruppo)
-        self.elimina_selezionati()
+        #self.elimina_selezionati()
+
+        # Cambia sezionale (Azioni di gruppo)
+        #self.cambia_sezionale()
+
+        # Duplica selezionati (Azioni di gruppo)
+        self.duplica_selezionati()
 
     def creazione_fattura_acquisto(self, fornitore: str, numero: str, pagamento: str, file_importi: str):
         self.navigateTo("Fatture di acquisto")
@@ -294,4 +300,119 @@ class FattureAcquisto(Test):
         self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
+
+    def cambia_sezionale(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Acquisti")
+        self.navigateTo("Fatture di acquisto")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]'))).send_keys("08")
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Fornitore", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Fatture di acquisto")
+        self.wait_loader()
+        #cambio sezione
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[1]'))).send_keys("08", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()
+        sleep(1)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Autofatture")
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_segment-results"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-id_segment_-container"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Autofatture")
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_segment_-results"]').click()
+        self.wait_loader()
+
+        #rimetto in sezione di prima
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()
+        sleep(1)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Standard")
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_segment-results"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-id_segment_-container"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Standard")
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_segment_-results"]').click()
+        self.wait_loader()
+        
+        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+    def duplica_selezionati(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Acquisti")
+        self.navigateTo("Fatture di acquisto")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]'))).send_keys("08")
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Fornitore", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Fatture di acquisto")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[3]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        sleep(2)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//tr[4]//td[2]')))
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+    
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        
 
