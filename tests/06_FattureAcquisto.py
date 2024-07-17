@@ -290,6 +290,7 @@ class FattureAcquisto(Test):
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
         self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()
+        sleep(1)
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
@@ -400,14 +401,18 @@ class FattureAcquisto(Test):
         sleep(2)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
-        self.wait_loader()
-
         sleep(2)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//tr[4]//td[2]')))
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
     
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        
+        self.wait_loader()
 
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
+        self.wait_loader()
+    
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()

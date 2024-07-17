@@ -18,64 +18,67 @@ class FattureVendita(Test):
     def test_creazione_fattura_vendita(self):
         # Crea una nuova fattura per il cliente "Cliente". *Required*
         importi = RowManager.list()
-        #self.creazione_fattura_vendita("Cliente", importi[0])
+        self.creazione_fattura_vendita("Cliente", importi[0])
 
         # Duplicazione fattura di vendita
-        #self.duplica()
+        self.duplica()
 
         # Modifica fattura di vendita
-        #self.modifica_fattura_vendita("Emessa")
+        self.modifica_fattura_vendita("Emessa")
 
         # Controllo valori fattura elettronica e piano dei conti
-        #self.controllo_fattura_vendita()
+        self.controllo_fattura_vendita()
 
         # Creazione nota di credito
-        #self.creazione_nota_credito()
+        self.creazione_nota_credito()
 
         # Modifica nota di credito
-        #self.modifica_nota_credito("Emessa")
+        self.modifica_nota_credito("Emessa")
 
         # Controllo valori nota credito
-        #self.controllo_nota_credito()
+        self.controllo_nota_credito()
 
         # Confronto valori fattura e nota credito
-        #self.controllo_fattura_nota_credito()
+        self.controllo_fattura_nota_credito()
 
         # Cancellazione fattura di vendita
-        #self.elimina_documento()
+        self.elimina_documento()
 
         # Verifica fattura di vendita
-        #self.verifica_fattura_di_vendita()
+        self.verifica_fattura_di_vendita()
 
         # Verifica XML fattura estera
-        #self.verifica_xml_fattura_estera(importi[0], "1")
+        self.verifica_xml_fattura_estera(importi[0], "1")
 
         #Verifica plugin movimenti contabili da fatture di vendita
-        #self.movimenti_contabili()
+        self.movimenti_contabili()
 
         # Plugin movimenti contabili da Anagrafiche
-        #self.plugin_movimenti_contabili()
+        self.plugin_movimenti_contabili()
 
         # Plugin regole pagamenti da Anagrafiche
-        #self.regole_pagamenti()
+        self.regole_pagamenti()
 
         # Plugin registrazioni
-        #self.registrazioni()   
+        self.registrazioni()   
 
         # Plugin allegati da Anagrafiche
-        #self.controlla_allegati()
+        self.controlla_allegati()
 
         # Elimina selezionati (Azioni di gruppo)
-        #self.elimina_selezionati()
+        self.elimina_selezionati()
 
         # Cambia sezionale (Azioni di gruppo)
         self.cambia_sezionale()    
 
         # Duplica selezionati (Azioni di gruppo)
-        #self.duplica_selezionati()
+        self.duplica_selezionati()
          
         # Emetti fatture (Azioni di gruppo)
-        #self.emetti_fatture()      
+        self.emetti_fatture()      
+
+        # Plugin statistiche vendite in Articoli
+        self.statistiche_vendita()
 
     def creazione_fattura_vendita(self, cliente: str, file_importi: str):
         self.navigateTo("Fatture di vendita")
@@ -578,6 +581,7 @@ class FattureVendita(Test):
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
+        
     def registrazioni(self):
         wait = WebDriverWait(self.driver, 20)
         self.expandSidebar("Vendite")
@@ -596,6 +600,7 @@ class FattureVendita(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_42"]//tr[5]//td[1]'))) #check 5 riga
         sleep(2)
+
     def controlla_allegati(self): 
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
@@ -626,36 +631,18 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
-        sleep(1)
-
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//span[@id="select2-idtipodocumento-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("TD06 - Parcella", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
-        self.wait_loader()
-
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[3]'))).send_keys("Parcella", Keys.ENTER)
-        sleep(1)
-
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[5]').click()
+        self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
-        scritta=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').text
-        self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        test=self.find(By.XPATH, '//tbody//tr//td[2]').text
+        self.assertEqual(test, "0001/2024")
+
 
     def cambia_sezionale(self):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
@@ -675,7 +662,7 @@ class FattureVendita(Test):
 
         self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()
+        self.find(By.XPATH, '//a[@data-op="cambia-sezionale"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()
@@ -696,7 +683,7 @@ class FattureVendita(Test):
 
         self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()
+        self.find(By.XPATH, '//a[@data-op="cambia-sezionale"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()
@@ -740,7 +727,7 @@ class FattureVendita(Test):
 
         self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[4]').click()
+        self.find(By.XPATH, '//a[@data-op="copy-bulk"]').click()
         sleep(1)
         
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
@@ -780,7 +767,7 @@ class FattureVendita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[6]').click()
+        self.find(By.XPATH, '//a[@data-op="change-stato"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
@@ -798,3 +785,20 @@ class FattureVendita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
+
+    def statistiche_vendita(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Magazzino")
+        self.wait_loader()
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_44"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//div[@id="tab_44"]//tr[1]//td[1])[2]')   #checkbox
+        self.navigateTo("Articoli")
+        self.wait_loader()     
