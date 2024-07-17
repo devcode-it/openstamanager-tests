@@ -51,9 +51,6 @@ class Articoli(Test):
         # Plugin netto clienti
         self.netto_clienti()
 
-        # Plugin statistiche vendite
-        self.statistiche_vendita()
-
         # Plugin varianti articoli
         self.varianti_articoli()
 
@@ -497,20 +494,6 @@ class Articoli(Test):
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
-    def statistiche_vendita(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Articoli")
-        self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
-        sleep(1)
-
-        self.find(By.XPATH, '//a[@id="link-tab_44"]').click()
-        self.wait_loader()
-
-        self.find(By.XPATH, '(//div[@id="tab_44"]//tr[1]//td[1])[2]')   #checkbox
-        self.navigateTo("Articoli")
-        self.wait_loader()      
 
     def varianti_articoli(self):
         wait = WebDriverWait(self.driver, 20)
@@ -518,28 +501,28 @@ class Articoli(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
-        sleep(1)
+        self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="titolo"]'))).send_keys('Taglie', Keys.ENTER)
-        self.wait_loader()
+        sleep(2)
 
         self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
-        sleep(1)
+        self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('S', Keys.ENTER)
-        self.wait_loader()
+        sleep(2)
 
         self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
-        sleep(1)
+        self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('M', Keys.ENTER)
-        self.wait_loader()
+        sleep(2)
 
         self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
-        sleep(1)
+        self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('L', Keys.ENTER)
-        self.wait_loader()
+        sleep(2)
 
         self.navigateTo("Combinazioni")
         self.wait_loader()
@@ -657,7 +640,7 @@ class Articoli(Test):
 
         self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[3]').click()
+        self.find(By.XPATH, '//a[@data-op="change-acquisto"]').click()
         sleep(2)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="percentuale"]'))).send_keys("10")
@@ -679,7 +662,7 @@ class Articoli(Test):
 
         self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[4]').click()
+        self.find(By.XPATH, '//a[@data-op="change-vendita"]').click()
         sleep(2)
 
         self.find(By.XPATH, '//span[@id="select2-prezzo_partenza-container"]').click()
@@ -708,7 +691,7 @@ class Articoli(Test):
 
         self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[5]').click()
+        self.find(By.XPATH, '//a[@data-op="change-coefficiente"]').click()
         sleep(2)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="coefficiente"]'))).send_keys("12")
@@ -730,7 +713,7 @@ class Articoli(Test):
 
         self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[7]').click()
+        self.find(By.XPATH, '//a[@data-op="change-qta"]').click()
         sleep(2)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="qta"]'))).send_keys("3")
@@ -739,7 +722,7 @@ class Articoli(Test):
         self.wait_loader()
 
         quantita=self.find(By.XPATH, '//tbody//tr[1]//td[10]//div').text
-        self.assertEqual(quantita, "3")
+        self.assertEqual(quantita, "3,00")
         self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
@@ -753,7 +736,7 @@ class Articoli(Test):
 
         self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[10]').click()
+        self.find(By.XPATH, '//a[@data-op="change-iva"]').click()
         sleep(2)
 
         self.find(By.XPATH, '//span[@id="select2-id_iva-container"]').click()
@@ -785,7 +768,7 @@ class Articoli(Test):
 
         self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[12]').click()
+        self.find(By.XPATH, '//a[@data-op="change-um"]').click()
         sleep(2)
 
         self.find(By.XPATH, '//span[@id="select2-um-container"]').click()
