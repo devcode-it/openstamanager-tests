@@ -78,23 +78,16 @@ class Test(unittest.TestCase):
 
     def navigateTo(self, name):
         # Naviga attraverso la sidebar principale per accedere al modulo di cui viene indicato il nome.
-        condition = expected_conditions.element_to_be_clickable(
-            (By.CLASS_NAME, 'sidebar'))
+        condition = expected_conditions.visibility_of_element_located((By.CLASS_NAME, 'sidebar'))
         self.wait(condition)
 
         # URL pagina corrente
         current_url = self.driver.current_url
-        
-        xpath = ''.join(['//a[contains(., "', name, '")]'])
-        link = self.find(By.XPATH, xpath)
 
-        try:
-            link.click()
-
-            self.driver.switch_to.alert.accept()  # Gestione eventuali alert
-        except (NoAlertPresentException, UnexpectedAlertPresentException):
-            None
-
+        xpath = f'//a[contains(., "{name}")]'
+        element = self.find(By.XPATH, xpath)
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+        element.click()
         self.wait_loader()
 
     def expandSidebar(self, name: str):
@@ -102,7 +95,7 @@ class Test(unittest.TestCase):
             ['//a[contains(., "', name, '")]//i[contains(@class, "fa-angle-left")]'])
             
         self.find(By.XPATH, xpath).click()
-        self.wait_loader()   
+        sleep(1)
 
     def find(self, by=By.ID, value=None):
         # Ricerca una componente HTML nella pagina.

@@ -14,7 +14,6 @@ class TipiScadenze(Test):
 
         self.expandSidebar("Strumenti")
         self.expandSidebar("Tabelle")
-        sleep(2)
 
     def test_creazione_tipi_scadenze(self):
         # Creazione tipo di scadenza    *Required*
@@ -43,9 +42,9 @@ class TipiScadenze(Test):
         self.wait_loader()
 
     def modifica_tipi_scadenze(self, modifica=str):
-        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Tipi scadenze")
         self.wait_loader()
+        wait = WebDriverWait(self.driver, 20)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Tipo di Scadenza di Prova da Modificare', Keys.ENTER)
         sleep(1)

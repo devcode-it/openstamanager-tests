@@ -92,7 +92,7 @@ class FasceOrarie(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Fascia Oraria di Prova", Keys.ENTER)
         sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Fascia Oraria di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
