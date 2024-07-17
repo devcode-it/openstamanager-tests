@@ -73,7 +73,6 @@ class Attivita(Test):
         row_manager = RowManager(self)
         self.valori=row_manager.compile(file_importi)
 
-
     def duplica_attività(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Attività")
@@ -192,8 +191,6 @@ class Attivita(Test):
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
 
-    
-
     def storico_attivita(self):  
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
@@ -202,17 +199,16 @@ class Attivita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
-        sleep(1) 
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.wait_loader() 
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         sleep(1)
-        self.find(By.XPATH, '//a[@id="link-tab_28"]').click() #apre pagina con tutte le attività
-        self.find(By.XPATH, '//div[@id="tab_28"]//tbody//tr[1]//td[1]') #se rileva il checkbox della attività il test è superato
 
-        self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        self.find(By.XPATH, '//a[@id="link-tab_28"]').click() #apre pagina con tutte le attività
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@id="tab_28"]//tbody//tr//td[1]') #se rileva il checkbox della attività il test è superato
 
     def cambio_stato(self):
         wait = WebDriverWait(self.driver, 20)
@@ -222,9 +218,9 @@ class Attivita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td[1]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[4]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="cambia_stato"]'))).click()
         self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Da programmare")
         sleep(2)
@@ -237,7 +233,7 @@ class Attivita(Test):
         self.assertEqual(stato, "Da programmare")
         #ritorno come era prima
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[4]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="cambia_stato"]'))).click()
         self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Programmato")
         sleep(2)
@@ -259,9 +255,9 @@ class Attivita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[5]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="copy-bulk"]'))).click()
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idstatointervento-container"]').click()
@@ -290,9 +286,9 @@ class Attivita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="delete-bulk"]'))).click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
@@ -329,9 +325,9 @@ class Attivita(Test):
         self.navigateTo("Attività")
         self.wait_loader()
 
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[8]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="firma-intervento"]'))).click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@id="firma"]').click()
@@ -390,9 +386,9 @@ class Attivita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("4", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[3]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="crea_fattura"]'))).click()
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()
