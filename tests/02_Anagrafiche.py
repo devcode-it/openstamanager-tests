@@ -756,7 +756,7 @@ class Anagrafiche(Test):
 
         self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[3]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="ricerca-coordinate"]'))).click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
         self.wait_loader()
 
@@ -788,7 +788,7 @@ class Anagrafiche(Test):
 
         self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="delete-bulk"]'))).click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
@@ -807,7 +807,7 @@ class Anagrafiche(Test):
 
         self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[5]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="cambia-relazione"]'))).click()
         self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Attivo")
         sleep(2)
@@ -816,12 +816,12 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
         self.wait_loader()
 
-        stato=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[7])[2]').text
+        stato=self.find(By.XPATH, '//tbody//tr//td[7]').text
         self.assertEqual(stato, "Attivo")
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td[7]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '(//span[@class="select2-selection__clear"])[4]').click()
+        self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]//span').click()
         self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
 
