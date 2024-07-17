@@ -47,6 +47,12 @@ class Attivita(Test):
         # Elimina selezionati (Azioni di gruppo)
         self.elimina_selezionati()
 
+        # Firma interventi (Azioni di gruppo)
+        self.firma_interventi()
+
+        # Fattura attività
+        self.fattura_attivita()
+
     def attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Attività")
@@ -296,3 +302,112 @@ class Attivita(Test):
         self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
+
+    def firma_interventi(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Attività")
+        self.wait_loader()
+
+        #creo attività
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-dropdown select2-dropdown--below"]//input'))).send_keys("Cliente", Keys.ENTER)
+        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Generico")
+        sleep(1)
+
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).send_keys("Test")
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+        sleep(2)
+
+        #firmo attività
+        self.navigateTo("Attività")
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[8]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@id="firma"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="firma_nome"]'))).send_keys("firma")
+        self.find(By.XPATH, '//button[@class="btn btn-success pull-right"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_0"]//div[@class="text-center row"]//div)[3]'))) #check firma
+
+    def fattura_attivita(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Attività")
+        self.wait_loader()
+
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-dropdown select2-dropdown--below"]//input'))).send_keys("Cliente", Keys.ENTER)
+        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Generico")
+        sleep(1)
+
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).send_keys("Test")
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Test")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1")
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idstatointervento-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//input[@class="select2-search__field"])[3]').send_keys("Completato", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@id="back"]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("4", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[3]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
+        self.find(By.XPATH, '//ul[@id="select2-raggruppamento-results"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        stato=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[7]//div)[2]').text
+        self.assertEqual(stato, "Fatturato")
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
