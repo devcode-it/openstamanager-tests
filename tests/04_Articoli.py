@@ -638,7 +638,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
         self.find(By.XPATH, '//a[@data-op="change-acquisto"]').click()
         sleep(2)
@@ -660,7 +660,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
         self.find(By.XPATH, '//a[@data-op="change-vendita"]').click()
         sleep(2)
@@ -689,7 +689,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
         self.find(By.XPATH, '//a[@data-op="change-coefficiente"]').click()
         sleep(2)
@@ -711,7 +711,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
         self.find(By.XPATH, '//a[@data-op="change-qta"]').click()
         sleep(2)
@@ -734,7 +734,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
         sleep(2)
 
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
         self.find(By.XPATH, '//a[@data-op="change-iva"]').click()
         sleep(2)
@@ -766,7 +766,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
         sleep(2)
 
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
         self.find(By.XPATH, '//a[@data-op="change-um"]').click()
         sleep(2)
