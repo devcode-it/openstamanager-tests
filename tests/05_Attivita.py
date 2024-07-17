@@ -400,7 +400,7 @@ class Attivita(Test):
         stato=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[7]//div)[2]').text
         self.assertEqual(stato, "Fatturato")
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="crea_fattura"]'))).click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
