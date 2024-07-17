@@ -18,37 +18,37 @@ class Attivita(Test):
     def test_attivita(self):
         # Crea un nuovo intervento. *Required*
         importi = RowManager.list()
-        #self.attivita("Cliente", "1", "2", importi[0])
+        self.attivita("Cliente", "1", "2", importi[0])
 
         # Duplica attività
-        #self.duplica_attività()
+        self.duplica_attività()
 
         # Modifica intervento
-        #self.modifica_attività("3")
+        self.modifica_attività("3")
 
         # Cancellazione intervento
-        #self.elimina_attività()
+        self.elimina_attività()
 
         # Controllo righe
-        #self.controllo_righe()
+        self.controllo_righe()
 
         # Verifica attività
-        #self.verifica_attività()
+        self.verifica_attività()
 
         # Controllo storico attività plugin in Anagrafica
-        #self.storico_attivita()
+        self.storico_attivita()
         
         # Cambio stato (Azioni di gruppo)
-        #self.cambio_stato()
+        self.cambio_stato()
 
         # Duplica attività (Azioni di gruppo)
-        #self.duplica()
+        self.duplica()
 
         # Elimina selezionati (Azioni di gruppo)
-        #self.elimina_selezionati()
+        self.elimina_selezionati()
 
         # Firma interventi (Azioni di gruppo)
-        #self.firma_interventi()
+        self.firma_interventi()
 
         # Fattura attività
         self.fattura_attivita()
