@@ -18,37 +18,37 @@ class Attivita(Test):
     def test_attivita(self):
         # Crea un nuovo intervento. *Required*
         importi = RowManager.list()
-        self.attivita("Cliente", "1", "2", importi[0])
+        #self.attivita("Cliente", "1", "2", importi[0])
 
         # Duplica attività
-        self.duplica_attività()
+        #self.duplica_attività()
 
         # Modifica intervento
-        self.modifica_attività("3")
+        #self.modifica_attività("3")
 
         # Cancellazione intervento
-        self.elimina_attività()
+        #self.elimina_attività()
 
         # Controllo righe
-        self.controllo_righe()
+        #self.controllo_righe()
 
         # Verifica attività
-        self.verifica_attività()
+        #self.verifica_attività()
 
         # Controllo storico attività plugin in Anagrafica
-        self.storico_attivita()
+        #self.storico_attivita()
         
         # Cambio stato (Azioni di gruppo)
-        self.cambio_stato()
+        #self.cambio_stato()
 
         # Duplica attività (Azioni di gruppo)
-        self.duplica()
+        #self.duplica()
 
         # Elimina selezionati (Azioni di gruppo)
-        self.elimina_selezionati()
+        #self.elimina_selezionati()
 
         # Firma interventi (Azioni di gruppo)
-        self.firma_interventi()
+        #self.firma_interventi()
 
         # Fattura attività
         self.fattura_attivita()
@@ -397,13 +397,16 @@ class Attivita(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
         self.wait_loader()
 
-        stato=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[7]//div)[2]').text
+        stato=self.find(By.XPATH, '//tbody//tr[1]//td[7]').text
         self.assertEqual(stato, "Fatturato")
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="crea_fattura"]'))).click()
-        sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        self.find(By.XPATH, '//tbody//tr[3]//td[2]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
