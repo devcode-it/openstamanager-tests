@@ -18,34 +18,34 @@ class FattureAcquisto(Test):
     def test_creazione_fattura_acquisto(self):
         # Crea una nuova fattura *Required*
         importi = RowManager.list()
-        #self.creazione_fattura_acquisto("Fornitore", "1", "1", importi[0])
+        self.creazione_fattura_acquisto("Fornitore", "1", "1", importi[0])
 
         # Modifica fattura
-        #self.modifica_fattura_acquisto("Emessa")
+        self.modifica_fattura_acquisto("Emessa")
         
         # Controllo valori piano dei conti
-        #self.controllo_fattura_acquisto()
+        self.controllo_fattura_acquisto()
 
         # Cancellazione fattura di acquisto
-        #self.elimina_documento()
+        self.elimina_documento()
 
         # Verifica fattura di acquisto
-        #self.verifica_fattura_acquisto()
+        self.verifica_fattura_acquisto()
 
         # Verifica XML autofattura
-        #self.verifica_xml_autofattura(importi[0], "1")
+        self.verifica_xml_autofattura(importi[0], "1")
 
         # Plugin Registrazioni
-        #self.registrazioni()
+        self.registrazioni()
 
         # Plugin movimenti contabili
-        #self.movimenti_contabili()
+        self.movimenti_contabili()
 
         # Elimina selezionati (Azioni di gruppo)
-        #self.elimina_selezionati()
+        self.elimina_selezionati()
 
         # Cambia sezionale (Azioni di gruppo)
-        #self.cambia_sezionale()
+        self.cambia_sezionale()
 
         # Duplica selezionati (Azioni di gruppo)
         self.duplica_selezionati()
@@ -74,7 +74,6 @@ class FattureAcquisto(Test):
         #self.assertIn('Aggiunto fattura', toast)
         row_manager = RowManager(self)
         self.valori=row_manager.compile(file_importi)
-
 
     def modifica_fattura_acquisto(self, modifica=str):
         self.navigateTo("Fatture di acquisto")
@@ -255,7 +254,6 @@ class FattureAcquisto(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_41"]//tr[5]//td[1]'))) #controlla la presenza della 5 riga come quinto articolo
     def movimenti_contabili(self):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
@@ -271,7 +269,6 @@ class FattureAcquisto(Test):
 
     def elimina_selezionati(self):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
@@ -292,18 +289,17 @@ class FattureAcquisto(Test):
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[4]').click()
+        self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
-        scritta=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').text
+        scritta=self.find(By.XPATH, '//tbody//tr//td').text
         self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
 
     def cambia_sezionale(self):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
@@ -324,7 +320,7 @@ class FattureAcquisto(Test):
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()
+        self.find(By.XPATH, '//a[@data-op="cambia-sezionale"]').click()
         sleep(2)
 
         self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()
@@ -351,7 +347,7 @@ class FattureAcquisto(Test):
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()
+        self.find(By.XPATH, '//a[@data-op="cambia-sezionale"]').click()
         sleep(2)
 
         self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()
@@ -383,7 +379,6 @@ class FattureAcquisto(Test):
 
     def duplica_selezionati(self):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
@@ -401,7 +396,7 @@ class FattureAcquisto(Test):
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[3]').click()
+        self.find(By.XPATH, '//a[@data-op="copy-bulk"]').click()
         sleep(2)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
