@@ -10,10 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class Stampe(Test):
     def setUp(self):
         super().setUp()
-        self.expandSidebar("Strumenti")
-
 
     def test_stampe(self, modifica=str):
-        wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Strumenti")
         self.navigateTo("Stampe")
-        self.wait_loader()

@@ -93,7 +93,7 @@ class Dashboard(Test):
 
         self.find(By.XPATH, '(//div[@class="info-box"])[12]').click()
         sleep(1)
-        widget=self.find(By.XPATH, '//div[@class="modal-body"]//p').text
-        self.assertEqual(widget, "Non ci sono attività programmate.")
+        widget=self.find(By.XPATH, '//div[@class="modal-body"]//tbody//tr//th').text
+        self.assertEqual(widget, "Attività")
         self.find(By.XPATH, '//div[@class="modal-content"]//button[@class="close"]').click()
         sleep(1)
