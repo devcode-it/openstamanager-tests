@@ -322,7 +322,7 @@ class Preventivi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
 
         #verifica elemento eliminato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("6", Keys.ENTER)
         sleep(1)
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
@@ -486,7 +486,7 @@ class Preventivi(Test):
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()
+        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
@@ -500,7 +500,7 @@ class Preventivi(Test):
         stato=self.find(By.XPATH, '(//tr[1]//td[5]//span)[2]').text
         self.assertEqual(stato,"Bozza")
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()
+        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
@@ -522,9 +522,9 @@ class Preventivi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input[@class="form-control"]'))).send_keys("1", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[1]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click()
+        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()

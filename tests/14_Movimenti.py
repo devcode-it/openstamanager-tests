@@ -32,12 +32,15 @@ class Movimenti(Test):
     def creazione_movimento(self, qta: str, articolo: str, descrizione:str):
         # Crea un nuovo movimento. 
         # Apre la schermata di nuovo elemento
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Movimenti")
         self.wait_loader()
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
-        self.input(modal, 'Articolo').setByText(articolo)
+        self.find(By.XPATH,'//span[@id="select2-idarticolo-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(articolo, Keys.ENTER)
+
         self.input(modal, 'Quantità').setValue(qta)
         self.input(modal, 'Descrizione movimento').setValue(descrizione)
 
@@ -98,18 +101,16 @@ class Movimenti(Test):
         ddt_uscita = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[2]'))).text
         ddt_entrata = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[3]'))).text
         fattura_acquisto2 = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[4]'))).text
-        nota_credito = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[5]'))).text
-        fattura_vendita = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[6]'))).text
-        fattura_acquisto = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[7]'))).text
-        attività = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[8]'))).text
-        carico = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[9]'))).text
+        fattura_acquisto = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[5]'))).text
+        attività = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[6]'))).text
+        eliminazioneserial = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[7]'))).text
+        carico = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[8]'))).text
 
         self.assertEqual(movimento, "10,00")
         self.assertEqual(ddt_uscita, "-1,00")
         self.assertEqual(ddt_entrata, "1,00")
         self.assertEqual(fattura_acquisto2, "1,00")
-        self.assertEqual(nota_credito, "1,00")
-        self.assertEqual(fattura_vendita, "-1,00")
         self.assertEqual(fattura_acquisto, "1,00")
         self.assertEqual(attività, "-1,00")
+        self.assertEqual(eliminazioneserial, "-1,00")
         self.assertEqual(carico, "2,00")

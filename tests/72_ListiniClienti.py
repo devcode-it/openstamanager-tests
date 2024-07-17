@@ -126,7 +126,7 @@ class Listini(Test):
 
         self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[6]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="aggiorna.listino"]'))).click()
         self.find(By.XPATH, '//span[@id="select2-id_listino-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Listino cliente di Prova", Keys.ENTER)
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
