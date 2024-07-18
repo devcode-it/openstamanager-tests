@@ -27,7 +27,10 @@ class CategorieArticoli(Test):
         self.elimina_categoria_articoli()
 
         # Verifica Categoria Articoli
-        self.verifica_categoria:articoli()
+        self.verifica_categoria_articoli()
+
+        # Aggiorna categoria e sottocategoria (Azioni di gruppo)
+        self.aggiorna_categoria_sottocategoria()
 
     def creazione_categorie_articoli(self, nome= str, colore=str, nota=str):
         self.navigateTo("Categorie articoli")
@@ -103,3 +106,31 @@ class CategorieArticoli(Test):
         
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+
+    def aggiorna_categoria_sottocategoria(self): #da rivedere
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Categorie articoli")
+        self.wait_loader()
+        sleep(1)
+        self.expandSidebar("Magazzino")
+        self.wait_loader()
+
+        self.navigateTo("Articoli")
+        self.wait_loader()
+ 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
+        sleep(1)
+ 
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[9]').click()
+        sleep(2)
+        
+        self.find(By.XPATH, '//span[@id="select2-id_categoria-container"]').click()
+        self.find(By.XPATH, '//ul[@id="select2-id_categoria-results"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+ 
+        categoria=self.find(By.XPATH, '//tbody//tr[1]//td[5]//div').text
+        self.assertEqual(categoria, "Categoria Articoli di Prova")
+        

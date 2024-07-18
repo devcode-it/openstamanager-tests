@@ -36,6 +36,9 @@ class DdtUscita(Test):
         # Verifica plugin DDT del cliente da Anagrafiche
         self.ddt_del_cliente()
 
+        # Cambia stato (Azioni di gruppo)
+        self.cambia_stato()
+
     def creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):
         self.navigateTo("Ddt in uscita")
 
@@ -154,3 +157,50 @@ class DdtUscita(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tr[10]//td[3]').click()
+
+    def cambia_stato(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Ddt in uscita")
+        self.wait_loader() 
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Admin spa", Keys.ENTER)
+        self.find(By.XPATH, '//span[@id="select2-idcausalet-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Conto lavorazione", Keys.ENTER)
+        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Standard ddt in uscita", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Ddt in uscita")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("02", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[3]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Evaso", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        stato=self.find(By.XPATH, '(//tr[1]//td[11]//span)[2]').text
+        self.assertEqual(stato, "Evaso")
+        #elimina
+        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]').click()
+        self.wait_loader()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+        
+        

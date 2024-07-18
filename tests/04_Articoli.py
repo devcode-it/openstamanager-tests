@@ -66,11 +66,26 @@ class Articoli(Test):
         # Aggiorna quantità (Azioni di gruppo)
         self.aggiorna_quantita()
 
+        # Crea preventivo (Azioni di gruppo)
+        self.crea_preventivo()
+
         # Aggiorna aliquota iva (Azioni di gruppo)
         self.aggiorna_iva()
 
         # Aggiorna unità di misura (Azioni di gruppo)
         self.aggiorna_unita_misura()
+
+        # Aggiorna conto predefinito di acquisto (Azioni di gruppo)
+        self.conto_predefinito_acquisto()
+
+        # Aggiorna conto predefinito di vendita (Azioni di gruppo)
+        self.conto_predefinito_vendita()
+
+        # Imposta una provvigione (Azioni di gruppo)
+        self.imposta_provvigione()
+
+        # Elimina selezionati (Azioni di gruppo)
+        self.elimina_selezionati()      #da tenere come ultimo test delle azioni di gruppo
 
     def creazione_articolo(self, codice: str, descrizione: str):
         self.navigateTo("Articoli")
@@ -726,6 +741,34 @@ class Articoli(Test):
         self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
+    def crea_preventivo(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
+        sleep(2)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[8]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys("Prova")
+        self.find(By.XPATH, '//span[@id="select2-id_cliente-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Standard preventivi", Keys.ENTER)
+        self.find(By.XPATH, '//span[@id="select2-id_tipo-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Generico", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #creazione preventivo
+        self.wait_loader()
+
+        #elimina preventivo
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+        
     def aggiorna_iva(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Articoli")
@@ -790,5 +833,130 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
+        self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+    def conto_predefinito_acquisto(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
+        sleep(2)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[13]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-conto_acquisto-container"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Fabbricati")
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-conto_acquisto-results"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+
+        conto=self.find(By.XPATH, '//span[@id="select2-idconto_acquisto-container"]').text
+        self.assertEqual(conto[2:24], "220.000010 Fabbricati")
+        sleep(2)
+
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+    def conto_predefinito_vendita(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
+        sleep(2)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[14]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-conto_vendita-container"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Automezzi")
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-conto_vendita-results"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+
+        conto=self.find(By.XPATH, '//span[@id="select2-idconto_vendita-container"]').text
+        self.assertEqual(conto[2:24], "220.000030 Automezzi")
+        sleep(2)
+
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
+    def imposta_provvigione(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
+        sleep(2)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[15]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-idagente-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Agente", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="provvigione"]'))).send_keys("10")
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="link-tab_43"]').click()
+        sleep(1)
+
+        provvigione=self.find(By.XPATH, '(//div[@id="tab_43" ]//tr[1]//td[3]//div)[2]').text
+        self.assertEqual(provvigione, "10.00 %")
+        
+
+    def elimina_selezionati(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
+        sleep(2)
+
+        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        risultato=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').text
+        self.assertEqual(risultato, "La ricerca non ha portato alcun risultato.")
         self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
