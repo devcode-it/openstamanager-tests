@@ -39,6 +39,9 @@ class DdtUscita(Test):
         # Cambia stato (Azioni di gruppo)
         self.cambia_stato()
 
+        # Elimina selezionati (Azioni di gruppo)
+        self.elimina_selezionati()
+
     def creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):
         self.navigateTo("Ddt in uscita")
 
@@ -193,14 +196,26 @@ class DdtUscita(Test):
 
         stato=self.find(By.XPATH, '(//tr[1]//td[11]//span)[2]').text
         self.assertEqual(stato, "Evaso")
-        #elimina
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]').click()
-        self.wait_loader()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+    def elimina_selezionati(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Ddt in uscita")
+        self.wait_loader() 
+        
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("02", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        scritta=self.find(By.XPATH, '//tbody//tr[1]').text
+        self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
-        
-        

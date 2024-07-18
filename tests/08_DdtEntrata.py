@@ -33,6 +33,12 @@ class DdtEntrata(Test):
         # Verifica DDT
         self.verifica_ddt()
 
+        # Cambia stato (Azioni di gruppo)
+        self.cambia_stato()
+
+        # Elimina selezionati (Azioni di gruppo)
+        self.elimina_selezionati()
+
     def creazione_ddt_entrata(self, fornitore: str, causale: str, file_importi: str):
         self.navigateTo("Ddt in entrata")
         self.wait_loader()
@@ -138,3 +144,59 @@ class DdtEntrata(Test):
         
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+
+    def cambia_stato(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Ddt in entrata")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Admin spa", Keys.ENTER)
+        self.find(By.XPATH, '//span[@id="select2-idcausalet-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Conto lavorazione", Keys.ENTER)
+        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Standard ddt in entrata", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Ddt in entrata")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[3]').click()
+        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Evaso", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        scritta=self.find(By.XPATH, '(//tbody//tr[1]//td[11]//span)[2]').text
+        self.assertEqual(scritta, "Evaso")
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
+    def elimina_selezionati(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Ddt in entrata")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click()
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        scritta=self.find(By.XPATH, '//tbody//tr').text
+        self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
