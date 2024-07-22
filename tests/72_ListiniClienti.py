@@ -30,6 +30,9 @@ class Listini(Test):
         # Aggiorna listino cliente (Azione di gruppo) da anagrafiche
         self.aggiorna_listino_cliente()
 
+        # Aggiungi a listino cliente (Azioni di gruppo) da Articoli
+        self.aggiungi_a_listino_cliente()
+
     def creazione_listino_cliente(self, nome:str, dataatt: str, datascad: str):
         self.navigateTo("Listini cliente")
         self.wait_loader()
@@ -121,25 +124,58 @@ class Listini(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)   #cerca Cliente
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="aggiorna-listino"]'))).click()
+        self.find(By.XPATH, '//tbody//tr//td').click()  #seleziona cliente
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apre Azioni di gruppo
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="aggiorna-listino"]'))).click()    #click su aggiorna listino
         self.find(By.XPATH, '//span[@id="select2-id_listino-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Listino cliente di Prova", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Listino cliente di Prova", Keys.ENTER)   #seleziona "Listino cliente di Prova"
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click di conferma
         self.wait_loader()
 
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()  #apre anagrafica "Cliente" 
         self.wait_loader()
 
-        self.find(By.XPATH, '(//span[@class="select2-selection__clear"])[4]').click()
-        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.find(By.XPATH, '(//span[@class="select2-selection__clear"])[4]').click()   #toglie listino
+        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva 
         self.wait_loader()
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()
-        self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/i[@class="deleteicon fa fa-times"]').click()
+        self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/i[@class="deleteicon fa fa-times"]').click()    #cancella ricerca
         sleep(1)
+
+    def aggiungi_a_listino_cliente(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        sleep(2)
+
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono il primo risultato
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[16]').click() #click su aggiungi a listino cliente
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_listino-container"]').click() #scelgo il listino "Listino cliente di Prova"
+        sleep(1)
+
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="sconto_percentuale"]'))).send_keys("10")   #seleziono 10% di sconto
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click su procedi
+        self.wait_loader()
+
+        self.navigateTo("Listini cliente")
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #click sul listino
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//tr[1]//td[8]'))) #controlla se l'articolo è stato aggiunto al listino
+        self.find(By.XPATH, '//tr[1]//td[9]//a[2]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()  #tolgo l'articolo dal listino
+        self.wait_loader()
+        

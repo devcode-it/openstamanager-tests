@@ -118,19 +118,19 @@ class CategorieArticoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
  
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerca l'articolo con il codice 08
         sleep(1)
  
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[9]').click()
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziona il primo risultato
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apre azioni di gruppo
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[9]').click()   #click su Aggiorna categoria e sottocategoria 
         sleep(2)
         
-        self.find(By.XPATH, '//span[@id="select2-id_categoria-container"]').click()
+        self.find(By.XPATH, '//span[@id="select2-id_categoria-container"]').click() #seleziona la categoria "Categoria Articoli di Prova"
         self.find(By.XPATH, '//ul[@id="select2-id_categoria-results"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi
         self.wait_loader()
  
         categoria=self.find(By.XPATH, '//tbody//tr[1]//td[5]//div').text
-        self.assertEqual(categoria, "Categoria Articoli di Prova")
+        self.assertEqual(categoria, "Categoria Articoli di Prova")  #controlla se la categoria è "Categoria Articoli di Prova"
         
