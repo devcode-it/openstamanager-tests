@@ -21,23 +21,23 @@ class OrdiniCliente(Test):
     def test_creazione_ordine_cliente(self):
         # Crea una nuovo ordine cliente per il cliente "Cliente". *Required*
         importi = RowManager.list()
-        #self.creazione_ordine_cliente("Cliente", importi[0])
-        #self.creazione_ordine_cliente("Cliente", importi[0])
+        self.creazione_ordine_cliente("Cliente", importi[0])
+        self.creazione_ordine_cliente("Cliente", importi[0])
 
         # Modifica ordine cliente
-        #self.modifica_ordine_cliente()
+        self.modifica_ordine_cliente()
 
         # Cancellazione ordine cliente
-        #self.elimina_ordine_cliente()
+        self.elimina_ordine_cliente()
 
         # Verifica ordine cliente
-        #self.verifica_ordine_cliente()
+        self.verifica_ordine_cliente()
 
         # Plugin consuntivi
-        #self.consuntivi()
+        self.consuntivi()
 
         # Cambia stato (Azioni di gruppo)
-        #self.cambia_stato()
+        self.cambia_stato()
 
         # Fattura ordini cliente (Azioni di gruppo)
         self.fattura_ordini_clienti()

@@ -18,37 +18,37 @@ class FattureAcquisto(Test):
     def test_creazione_fattura_acquisto(self):
         # Crea una nuova fattura *Required*
         importi = RowManager.list()
-        #self.creazione_fattura_acquisto("Fornitore", "1", "1", importi[0])
+        self.creazione_fattura_acquisto("Fornitore", "1", "1", importi[0])
 
         # Modifica fattura
-        #self.modifica_fattura_acquisto("Emessa")
+        self.modifica_fattura_acquisto("Emessa")
         
         # Controllo valori piano dei conti
-        #self.controllo_fattura_acquisto()
+        self.controllo_fattura_acquisto()
 
         # Cancellazione fattura di acquisto
-        #self.elimina_documento()
+        self.elimina_documento()
 
         # Verifica fattura di acquisto
-        #self.verifica_fattura_acquisto()
+        self.verifica_fattura_acquisto()
 
         # Verifica XML autofattura
-        #self.verifica_xml_autofattura(importi[0], "1")
+        self.verifica_xml_autofattura(importi[0], "1")
 
         # Plugin Registrazioni
-        #self.registrazioni()
+        self.registrazioni()
 
         # Plugin movimenti contabili
-        #self.movimenti_contabili()
+        self.movimenti_contabili()
 
         # Elimina selezionati (Azioni di gruppo)
-        #self.elimina_selezionati()
+        self.elimina_selezionati()
 
         # Cambia sezionale (Azioni di gruppo)
-        #self.cambia_sezionale()
+        self.cambia_sezionale()
 
         # Duplica selezionati (Azioni di gruppo)
-        #self.duplica_selezionati()
+        self.duplica_selezionati()
 
         # Registrazione contabile (Azioni di gruppo)
         self.registrazione_contabile()

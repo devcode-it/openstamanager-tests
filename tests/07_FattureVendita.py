@@ -845,7 +845,10 @@ class FattureVendita(Test):
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi
-        #wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="toast toast-success"]'))) #se trova la notifica il test è superato
+        sleep(1)
+        #commentato perchè in fase di controllo fatture non riesco a leggere il widget
+        #widget=self.find(By.XPATH, '//div[@class="toast toast-success"]//div[3]').text  #se trova il widget il test è superato
+        #self.assertEqual(widget, "Nessuna anomalia!")  
 
     def registrazione_contabile(self):
         wait = WebDriverWait(self.driver, 20)
@@ -858,7 +861,7 @@ class FattureVendita(Test):
         self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono prima fattura
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
         self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[13]').click()    #click su registrazione contabile
-        sleep(1)
+        sleep(3)
 
         totale=self.find(By.XPATH, '(//tfoot//tr[1]//td[2])[3]').text   #controllo se il totale è uguale a 1,22 €
         self.assertEqual(totale, "1,22 €")

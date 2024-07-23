@@ -87,6 +87,12 @@ class Articoli(Test):
         # Aggiorna prezzo unitario (Azioni di gruppo) da Listini
         self.aggiorna_prezzo_unitario()
 
+        # Copia listini (Azioni di gruppo) da Listini
+        self.copia_listini()
+
+        # Imposta prezzo di acquisto da fattura (Azioni di gruppo)
+        self.imposta_prezzo_da_fattura()
+
         # Elimina selezionati (Azioni di gruppo)
         self.elimina_selezionati()      #da tenere come ultimo test delle azioni di gruppo
 
@@ -941,6 +947,8 @@ class Articoli(Test):
 
         provvigione=self.find(By.XPATH, '(//div[@id="tab_43" ]//tr[1]//td[3]//div)[2]').text
         self.assertEqual(provvigione, "10.00 %")    #controllo se la provvigione è del 10%
+        self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click() #cancello ricerca
+        sleep(1)
 
     def aggiorna_prezzo_unitario(self):
         wait = WebDriverWait(self.driver, 20)
@@ -984,7 +992,53 @@ class Articoli(Test):
 
         prezzo=self.find(By.XPATH, '(//tr[1]//td[8])[2]').text  #controllo se il prezzo è cambiato
         self.assertEqual(prezzo, "18,00")
-        #cancello listino
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click() #elimina ricerca
+        sleep(1)
+
+    def copia_listini(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Listini")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-id_segment_-container"]').click()  #vado in sezionale "Fornitori"
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Fornitori")
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        sleep(2)
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono primo listino
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click() #click su copia listini
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-selection select2-selection--multiple"]'))).send_keys("Estero") #seleziono Fornitore Estero
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-selection select2-selection--multiple"]'))).send_keys(Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click di conferma
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #tolgo checkbox
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("Fornitore Estero", Keys.ENTER)
+        sleep(2)
+
+        articolo=self.find(By.XPATH, '(//tr[1]//td[2]//div)[2]').text #controllo se è stato creato il listino
+        self.assertEqual(articolo, "08 - Prova")
+        sleep(2)
+
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        sleep(2)
+
         self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #click su articolo
         self.wait_loader()
 
@@ -994,10 +1048,17 @@ class Articoli(Test):
         self.find(By.XPATH, '//a[@id="link-tab_32"]').click() #apro plugin listino fornitori
         sleep(1)
 
-        self.find(By.XPATH, '//a[@class="btn btn-secondary btn-danger ask"]').click()   #click su elimina
+        self.find(By.XPATH, '//a[@class="btn btn-secondary btn-danger ask"]').click() #elimino listino fornitore
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()  #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-warning"]').click() #elimino listino fornitore estero
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[5]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
         self.wait_loader()
 
         self.navigateTo("Articoli")
@@ -1005,6 +1066,85 @@ class Articoli(Test):
 
         self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click() #elimina ricerca
         sleep(1)
+
+    def imposta_prezzo_da_fattura(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click() #click su +
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="codice"]'))).send_keys("09")   #scrivo 09 come codice
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione"]'))).send_keys("Test")    #scrivo Test come descrizione
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.wait_loader()
+        
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        self.expandSidebar("Acquisti")
+        self.navigateTo("Fatture di acquisto")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]'))).send_keys("04")   #scrivo 04 come numero esterno
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono "Fornitore" come fornitore
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Fornitore", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-idpagamento-container"]').click() #aggiungi pagamento
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Assegno")
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()  #aggiungi articolo
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field" ]'))).send_keys("Test")
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field" ]'))).send_keys(Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@class="btn btn-xs btn-warning"]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1")   #imposta prezzo a 1
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+
+        self.expandSidebar("Magazzino")
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("09", Keys.ENTER) #cerco l'articolo con il codice 09
+        sleep(2)
+
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono articolo
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[11]').click() #click su imposta prezzo di acquisto da fattura
+        sleep(2)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click di conferma
+        self.wait_loader()
+
+        prezzo=self.find(By.XPATH, '(//tr[1]//td[8]//div)[2]').text #controllo se il prezzo è cambiato
+        self.assertEqual(prezzo, "1,00")
+
+        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #cancella ricerca
+        self.wait_loader()
+
+
+        
+
 
 
     def elimina_selezionati(self):

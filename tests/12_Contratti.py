@@ -20,40 +20,40 @@ class Contratti(Test):
     def test_creazione_contratto(self):
         # Crea una nuovo contratto *Required*
         importi = RowManager.list()
-        #self.creazione_contratto("Contratto di Prova da Modificare", "Cliente", importi[0])
+        self.creazione_contratto("Contratto di Prova da Modificare", "Cliente", importi[0])
 
         # Duplica un contratto *Required*
-        #self.duplica_contratto()
+        self.duplica_contratto()
 
         # Modifica Contratto
-        #self.modifica_contratto("Contratto di Prova")
+        self.modifica_contratto("Contratto di Prova")
 
         # Cancellazione contratto
-        #self.elimina_contratto()     
+        self.elimina_contratto()     
 
         # Verifica contratto
-        #self.verifica_contratto()
+        self.verifica_contratto()
 
         # Plugin contratti del cliente da Anagrafiche
-        #self.contratti_del_cliente()
+        self.contratti_del_cliente()
 
         # Plugin consuntivo
-        #self.consuntivo()
+        self.consuntivo()
         
         # Plugin pianificazione attività
-        #self.pianificazione_attivita()
+        self.pianificazione_attivita()
 
         # Plugin pianificazione fatturazione
-        #self.pianificazione_fatturazione()
+        self.pianificazione_fatturazione()
 
         # Plugin rinnovi
-        #self.rinnovi()
+        self.rinnovi()
 
         # Cambia stato (Azioni di gruppo)
-        #self.cambia_stato()
+        self.cambia_stato()
 
         # Fattura contratti (Azioni di gruppo)
-        #self.fattura_contratti()
+        self.fattura_contratti()
 
         # Rinnova contratti (Azioni di gruppo)
         self.rinnova_contratti()
