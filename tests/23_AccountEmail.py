@@ -113,7 +113,7 @@ class AccountEmail(Test):
         self.navigateTo("Account email")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[1]'))).send_keys("1", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[1]'))).send_keys("1", Keys.ENTER)  #cerco account mail numero 1
         sleep(1)
 
         self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
@@ -167,15 +167,15 @@ class AccountEmail(Test):
         self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[7]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-id_template-container"]').click()
+        self.find(By.XPATH, '//span[@id="select2-id_template-container"]').click()  #scelgo il template
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("rapportino")
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #invio email
         self.wait_loader()
 
-        scritta=self.find(By.XPATH, '(//tr[1]//td[14]//div)[2]').text
+        scritta=self.find(By.XPATH, '(//tr[1]//td[14]//div)[2]').text   #controllo se l'email è stata inviata
         self.assertEqual(scritta, "Inviata via email")
 
 
