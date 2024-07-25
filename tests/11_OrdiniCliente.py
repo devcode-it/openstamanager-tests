@@ -72,7 +72,7 @@ class OrdiniCliente(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('1', Keys.ENTER)        
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
         sleep(2)
         
@@ -108,7 +108,7 @@ class OrdiniCliente(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('2', Keys.ENTER)        
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
@@ -198,9 +198,9 @@ class OrdiniCliente(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('02', Keys.ENTER) #cerco l'ordine 02     
         sleep(1)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()  #seleziono l'ordine
+        self.find(By.XPATH, '//tbody//tr//td').click()  #seleziono l'ordine
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()   #click su cambia stato
+        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click()   #click su cambia stato
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click() #seleziono nuovo stato (Fatturato)
@@ -253,11 +253,11 @@ class OrdiniCliente(Test):
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()  #seleziono l'ordine
+        self.find(By.XPATH, '//tbody//tr//td').click()  #seleziono l'ordine
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click()   #click su fattura ordini cliente
+        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click()   #click su fattura ordini cliente
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()   #ragruppa per cliente

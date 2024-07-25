@@ -35,7 +35,7 @@ class GiacenzeSedi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Admin spa", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()    
         sleep(1) 
 
         #Aggiunta sede
@@ -100,7 +100,7 @@ class GiacenzeSedi(Test):
         self.navigateTo("Ddt in uscita")
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()    
         sleep(1) 
 
         self.find(By.XPATH, '//button[@onclick="completaTrasporto()"]').click()
@@ -121,7 +121,7 @@ class GiacenzeSedi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("001", Keys.ENTER)
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))).click()
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()

@@ -75,7 +75,7 @@ class CategorieArticoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Categoria Articoli di Prova da Eliminare', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(1)
 
         self.driver.execute_script('window.scrollTo(0,0)')
@@ -118,12 +118,12 @@ class CategorieArticoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
  
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerca l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerca l'articolo con il codice 08
         sleep(1)
  
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziona il primo risultato
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziona il primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apre azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[9]').click()   #click su Aggiorna categoria e sottocategoria 
+        self.find(By.XPATH, '//a[@data-op="change-categoria"]').click()   #click su Aggiorna categoria e sottocategoria 
         sleep(2)
         
         self.find(By.XPATH, '//span[@id="select2-id_categoria-container"]').click() #seleziona la categoria "Categoria Articoli di Prova"

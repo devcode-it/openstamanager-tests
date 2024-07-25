@@ -80,7 +80,7 @@ class DdtEntrata(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('1', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
         
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatoddt-container"]'))).click()
@@ -117,7 +117,7 @@ class DdtEntrata(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('2', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
@@ -173,7 +173,7 @@ class DdtEntrata(Test):
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[3]').click()   #click su cambia stato
+        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click()   #click su cambia stato
         self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click() #seleziono lo stato "Evaso"
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Evaso", Keys.ENTER)
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click su procedi
@@ -194,7 +194,7 @@ class DdtEntrata(Test):
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()   #click su fattura ddt in entrata
+        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click()   #click su fattura ddt in entrata
         self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()   
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")    #ragruppa per Cliente
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
@@ -218,7 +218,7 @@ class DdtEntrata(Test):
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click()   #seleziono elimina selezionati
+        self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()   #seleziono elimina selezionati
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click su procedi
         self.wait_loader()
 

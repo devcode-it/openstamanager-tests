@@ -56,7 +56,7 @@ class Listini(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Listino cliente di Prova da Modificare', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()  
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-selection select2-selection--single"]'))).click()
@@ -88,7 +88,7 @@ class Listini(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Listino cliente di Prova da Eliminare', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
@@ -152,12 +152,12 @@ class Listini(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(2)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono il primo risultato
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono il primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[16]').click() #click su aggiungi a listino cliente
+        self.find(By.XPATH, '//a[@data-op="add-listino"]').click() #click su aggiungi a listino cliente
         sleep(2)
 
         self.find(By.XPATH, '//span[@id="select2-id_listino-container"]').click() #scelgo il listino "Listino cliente di Prova"

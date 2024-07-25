@@ -67,7 +67,7 @@ class Scadenzario(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys('Scadenza di Prova', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
         
         self.find(By.XPATH,'(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]').send_keys(modifica) 
@@ -89,7 +89,7 @@ class Scadenzario(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys('Scadenza di Prova da Eliminare', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
@@ -129,9 +129,9 @@ class Scadenzario(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys("Fattura immediata di acquisto numero 08", Keys.ENTER)  #cerca fattura 08
         sleep(1)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziona primo risultato
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziona primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apre azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click() #apre registrazione contabile
+        self.find(By.XPATH, '//a[@data-op="registrazione-contabile"]').click() #apre registrazione contabile
         sleep(1)
 
         prezzo=self.find(By.XPATH, '(//tfoot//tr[1]//td[2])[3]').text
@@ -139,7 +139,7 @@ class Scadenzario(Test):
         self.find(By.XPATH, '//button[@class="close"]').click() #chiude registrazione contabile
         sleep(1)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #toglie checkbox
+        self.find(By.XPATH, '//tbody//tr//td').click() #toglie checkbox
         self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #cancella ricerca
         sleep(2)
 
@@ -151,9 +151,9 @@ class Scadenzario(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys("Fattura immediata di acquisto numero 08", Keys.ENTER)  #cerca fattura 08
         sleep(1)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziona primo risultato
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziona primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apre azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click() #apre info distinta
+        self.find(By.XPATH, '//a[@data-op="change_distinta"]').click() #apre info distinta
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="distinta"]'))).send_keys("Prova") #scrivo Prova come info distinta

@@ -62,7 +62,7 @@ class Banche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Banca di Prova da Modificare', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(1)
 
         self.driver.execute_script('window.scrollTo(0,0)')
@@ -84,7 +84,7 @@ class Banche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Banca di Prova da Eliminare', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(1)
 
         self.driver.execute_script('window.scrollTo(0,0)')
@@ -147,7 +147,7 @@ class Banche(Test):
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click() #seleziono prima fattura
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click() #click su aggiorna banca
+        self.find(By.XPATH, '//a[@data-op="change-bank"]').click() #click su aggiorna banca
         sleep(2)
 
         self.find(By.XPATH, '//span[@id="select2-id_banca-container"]').click() #aggiorna banca in Admin spa
@@ -181,11 +181,11 @@ class Banche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipo-di-pagamento"]//input'))).send_keys("Bonifico", Keys.ENTER) #cerca il bonifico
         sleep(1)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono prima fattura
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono prima fattura
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apre azioni di gruppo
         sleep(1)
 
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[3]').click() #apre aggiorna banca
+        self.find(By.XPATH, '//a[@data-op="change-bank"]').click() #apre aggiorna banca
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-id_banca-container"]').click() #aggiorna banca in Admin spa
@@ -200,7 +200,7 @@ class Banche(Test):
         widget=self.find(By.XPATH, '//div[@class="toast toast-success"]//div[3]').text  #se trova il widget il test è superato
         self.assertEqual(widget, "Banca aggiornata per le Fatture 0001/2024 !")  
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #tolgo checkbox
+        self.find(By.XPATH, '//tbody//tr//td').click() #tolgo checkbox
         self.find(By.XPATH, '//span[@class="select2-selection__clear"]').click() #esco dal sezionale
         self.wait_loader()
 
@@ -232,9 +232,9 @@ class Banche(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono prima fattura
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono prima fattura
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click()    #click su aggiorna banca
+        self.find(By.XPATH, '//a[@data-op="change-bank"]').click()    #click su aggiorna banca
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-id_banca-container"]').click() #aggiorna banca in Admin spa

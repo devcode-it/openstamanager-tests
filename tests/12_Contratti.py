@@ -104,7 +104,7 @@ class Contratti(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('=Contratto di Prova da Modificare', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
         
         element=self.find(By.XPATH,'//input[@id="nome"]')
@@ -138,7 +138,7 @@ class Contratti(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Contratto di Prova da Eliminare', Keys.ENTER)        
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
@@ -462,7 +462,7 @@ class Contratti(Test):
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo contratto
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click() #click su fattura contratti
+        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click() #click su fattura contratti
         sleep(2)
 
         self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()   #ragruppa per Cliente
@@ -524,7 +524,7 @@ class Contratti(Test):
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo contratto
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click() #click su rinnova contratti
+        self.find(By.XPATH, '//a[@data-op="renew_contratto"]').click() #click su rinnova contratti
         sleep(2)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi

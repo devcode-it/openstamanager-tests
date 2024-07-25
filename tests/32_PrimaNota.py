@@ -63,7 +63,7 @@ class PrimaNota(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys('Prima Nota da Modificare', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
         
         self.input(None,'Causale').setValue(modifica)
@@ -84,7 +84,7 @@ class PrimaNota(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))).send_keys('Prima Nota da Eliminare', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()

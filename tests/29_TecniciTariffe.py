@@ -31,7 +31,7 @@ class TecniciTariffe(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Tecnico', Keys.ENTER)        
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="input-group"]/input[@id="costo_ore1"]'))).send_keys(modifica)
         sleep(1)
             

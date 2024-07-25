@@ -82,7 +82,7 @@ class DdtUscita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('01', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
         
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatoddt-container"]'))).click()
@@ -117,7 +117,7 @@ class DdtUscita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('02', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
@@ -155,7 +155,7 @@ class DdtUscita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER) #filtra la parola "Cliente"
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click() #click sul primo risultato
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #click sul primo risultato
         sleep(1) 
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click() #apre la barra dei plugin
@@ -187,9 +187,9 @@ class DdtUscita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("02", Keys.ENTER) #cerco ddt numero 02
         sleep(1)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono ddt in prima riga
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono ddt in prima riga
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[3]').click()   #click su "cambia stato"
+        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click()   #click su "cambia stato"
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click() #seleziono stato "Evaso"
@@ -210,9 +210,9 @@ class DdtUscita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("02", Keys.ENTER) #cerco ddt numero 02
         sleep(1)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono ddt in prima riga
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono ddt in prima riga
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()   #click su "Fattura ddt in uscita"
+        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click()   #click su "Fattura ddt in uscita"
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()   
@@ -239,7 +239,7 @@ class DdtUscita(Test):
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziona primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apre azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click()   #click su elimina selezionati
+        self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()   #click su elimina selezionati
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() #click su procedi

@@ -461,7 +461,7 @@ class FattureAcquisto(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[9]').click() #click su registrazione contabile
+        self.find(By.XPATH, '//a[@data-op="registrazione-contabile"]').click() #click su registrazione contabile
         sleep(2)
 
         prezzo=self.find(By.XPATH, '(//tfoot//tr[1]//td[2]//span)[1]').text #controllo prezzo
