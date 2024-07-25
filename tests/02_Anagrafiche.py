@@ -97,7 +97,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()    
         wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="select2-tipo-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys(tipologia, Keys.ENTER)
         self.wait_loader()
@@ -125,7 +125,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys('Anagrafica di Prova da Eliminare', Keys.ENTER)
         sleep(2)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(1)
              
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
@@ -166,7 +166,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()    
         sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[1]'))).click()
@@ -182,7 +182,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()   
         sleep(2)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
@@ -211,7 +211,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()   
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
@@ -229,7 +229,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()   
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-tool"]'))).click()
@@ -263,7 +263,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()  
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()  
         sleep(1)  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[3]'))).click()
@@ -293,7 +293,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(2)
            
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
@@ -306,7 +306,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()   
         sleep(2)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-tool"]'))).click()
@@ -339,7 +339,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(1)    
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
@@ -354,7 +354,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()   
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
@@ -384,7 +384,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))).click()
         sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[6]'))).click()
@@ -396,7 +396,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()   
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()   
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-tool"]'))).click()
@@ -428,7 +428,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()    
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()    
         self.wait_loader()
         #Aggiunta referente
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
@@ -468,7 +468,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(1) 
         #Aggiunta sede
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
@@ -545,7 +545,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader() 
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
@@ -714,7 +714,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
@@ -805,7 +805,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)   #cerca Cliente
         sleep(1)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()  #seleziona Cliente
+        self.find(By.XPATH, '//tbody//tr//td').click()  #seleziona Cliente
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apre Azioni di gruppo
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="cambia-relazione"]'))).click()    #seleziona cambia relazione
         self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]').click()  #seleziona Attivo
@@ -816,8 +816,8 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click di conferma
         self.wait_loader()
 
-        stato=self.find(By.XPATH, '//tbody//tr//td[7]').text    #controlla se lo stato è "Attivo"
-        self.assertEqual(stato, "Attivo")
+        relazione=self.find(By.XPATH, '//tbody//tr//td[7]').text    #controlla se la relazione è "Attivo"
+        self.assertEqual(relazione, "Attivo")
         self.find(By.XPATH, '//tbody//tr//td[7]').click()  #apre Cliente 
         self.wait_loader()
 
@@ -828,7 +828,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        nuovo_stato=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[7])[2]').text   #controlla se non è presente lo stato "Attivo"
+        nuovo_stato=self.find(By.XPATH, '//tbody//tr//td[7]').text   #controlla se non è presente lo stato "Attivo"
         self.assertNotEqual(nuovo_stato, "Attivo")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() #cancella ricerca
         
