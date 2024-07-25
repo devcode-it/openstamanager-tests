@@ -821,7 +821,8 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//tbody//tr//td[7]').click()  #apre Cliente 
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]//span').click()    #elimina relazione
+        self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]//span').click()    #deseleziona la relazione
+        self.driver.execute_script('window.scrollTo(0,0)')
         self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
         self.wait_loader()
 
