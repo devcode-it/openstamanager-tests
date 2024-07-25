@@ -290,7 +290,7 @@ class FattureAcquisto(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[1]'))).send_keys("09", Keys.ENTER) #cerco fatture con 09 come numero esterno
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo risultato
+        self.find(By.XPATH, '//tbody//tr//td').click()    #seleziono primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
         self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()  #click su elimina selezionati
         sleep(1)
