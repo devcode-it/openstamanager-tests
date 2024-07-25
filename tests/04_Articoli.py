@@ -18,80 +18,80 @@ class Articoli(Test):
 
     def test_creazione_articolo(self):
         # Crea un nuovo articolo. *Required*
-        #self.creazione_articolo("002", "Articolo di Prova")
-        #self.creazione_articolo("003", "Articolo di Prova da Eliminare")
+        self.creazione_articolo("002", "Articolo di Prova")
+        self.creazione_articolo("003", "Articolo di Prova da Eliminare")
         
         # Modifica articolo
-        #self.modifica_articolo("20", "1", "2", "carico di test")
+        self.modifica_articolo("20", "1", "2", "carico di test")
         
         # Cancellazione articolo
-        #self.elimina_articolo()
+        self.elimina_articolo()
         
         # Verifica articolo
-        #self.verifica_articolo()
+        self.verifica_articolo()
 
         # Plugin seriali
-        #self.serial()
+        self.serial()
 
         # Plugin provvigioni
-        #self.provvigioni()
+        self.provvigioni()
 
         # Plugin listino fornitori
-        #self.listino_fornitori()
+        self.listino_fornitori()
 
         # Plugin giacenze
-        #self.giacenze()
+        self.giacenze()
 
         # Plugin movimenti
-        #self.plugin_movimenti()
+        self.plugin_movimenti()
 
         # Plugin statistiche
-        #self.statistiche()
+        self.statistiche()
 
         # Plugin netto clienti
-        #self.netto_clienti()
+        self.netto_clienti()
 
         # Plugin varianti articoli
-        #self.varianti_articoli()
+        self.varianti_articoli()
 
         # Aggiorna prezzo di acquisto (Azioni di gruppo)
-        #self.aggiorna_prezzo_acquisto()
+        self.aggiorna_prezzo_acquisto()
 
         # Aggiorna prezzo di vendita (Azioni di gruppo)
-        #self.aggiorna_prezzo_vendita()
+        self.aggiorna_prezzo_vendita()
 
         # Aggiorna coefficiente di vendita (Azioni di gruppo)
-        #self.coefficiente_vendita()
+        self.coefficiente_vendita()
 
         # Aggiorna quantità (Azioni di gruppo)
-        #self.aggiorna_quantita()
+        self.aggiorna_quantita()
 
         # Crea preventivo (Azioni di gruppo)
-        #self.crea_preventivo()
+        self.crea_preventivo()
 
         # Aggiorna aliquota iva (Azioni di gruppo)
-        #self.aggiorna_iva()
+        self.aggiorna_iva()
 
         # Aggiorna unità di misura (Azioni di gruppo)
-        #self.aggiorna_unita_misura()
+        self.aggiorna_unita_misura()
 
         # Aggiorna conto predefinito di acquisto (Azioni di gruppo)
-        #self.conto_predefinito_acquisto()
+        self.conto_predefinito_acquisto()
 
         # Aggiorna conto predefinito di vendita (Azioni di gruppo)
-        #self.conto_predefinito_vendita()
+        self.conto_predefinito_vendita()
 
         # Imposta una provvigione (Azioni di gruppo)
-        #self.imposta_provvigione()
+        self.imposta_provvigione()
 
         # Aggiorna prezzo unitario (Azioni di gruppo) da Listini
-        #self.aggiorna_prezzo_unitario()
+        self.aggiorna_prezzo_unitario()
 
         # Copia listini (Azioni di gruppo) da Listini
-        #self.copia_listini()
+        self.copia_listini()
 
         # Imposta prezzo di acquisto da fattura (Azioni di gruppo)
-        #self.imposta_prezzo_da_fattura()
+        self.imposta_prezzo_da_fattura()
 
         # Stampa etichette (Azioni di gruppo)
         self.stampa_etichette()
@@ -1153,8 +1153,20 @@ class Articoli(Test):
         self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #cancella ricerca
         self.wait_loader()
 
+        self.expandSidebar("Acquisti")
+        self.navigateTo("Fatture di acquisto")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//td[@class="bound clickable"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
+
     def stampa_etichette(self):
         wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Magazzino")
         self.navigateTo("Articoli")
         self.wait_loader()
 
