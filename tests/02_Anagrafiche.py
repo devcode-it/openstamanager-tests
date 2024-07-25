@@ -821,15 +821,15 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//tbody//tr//td[7]').click()  #apre Cliente 
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]//span').click()    #elimina stato
+        self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]//span').click()    #elimina relazione
         self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
         self.wait_loader()
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        nuovo_stato=self.find(By.XPATH, '//tbody//tr//td[7]').text   #controlla se non è presente lo stato "Attivo"
-        self.assertNotEqual(nuovo_stato, "Attivo")
+        nuova_relazione=self.find(By.XPATH, '//tbody//tr//td[7]').text   #controlla se non è presente la relazione "Attivo"
+        self.assertNotEqual(nuova_relazione, "Attivo")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() #cancella ricerca
         
 
