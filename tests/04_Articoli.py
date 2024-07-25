@@ -121,7 +121,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Articolo 1', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
         self.input(None, 'Prezzo di acquisto').setValue(acquisto)
@@ -152,7 +152,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Articolo di Prova da Eliminare', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
@@ -659,7 +659,7 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click()  #seleziono primo risultato
@@ -681,7 +681,7 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono primo risultato
@@ -710,7 +710,7 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() #click sul primo risultato
@@ -732,7 +732,7 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono il primo risultato
@@ -755,12 +755,12 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(2)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono il primo risultato
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono il primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[8]').click() #click su crea preventivo
+        self.find(By.XPATH, '//a[@data-op="crea-preventivo"]').click() #click su crea preventivo
         sleep(2)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys("Prova") #scrivo "Prova" come nome
@@ -780,10 +780,11 @@ class Articoli(Test):
         
     def aggiorna_iva(self):
         wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Magazzino")
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(2)
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono il primo risultato
@@ -815,7 +816,7 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(2)
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono il primo risultato
@@ -850,12 +851,12 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(2)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono il primo risultato
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono il primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[13]').click()  #seleziono aggiorna conto predefinito di acquisto
+        self.find(By.XPATH, '//a[@data-op="change-conto-acquisto"]').click()  #seleziono aggiorna conto predefinito di acquisto
         sleep(2)
 
         self.find(By.XPATH, '//span[@id="select2-conto_acquisto-container"]').click()
@@ -886,12 +887,12 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(2)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono il primo risultato
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono il primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[14]').click() #click su Aggiorna conto predefinito di vendita
+        self.find(By.XPATH, '//a[@data-op="change-conto-vendita"]').click() #click su Aggiorna conto predefinito di vendita
         sleep(2)
 
         self.find(By.XPATH, '//span[@id="select2-conto_vendita-container"]').click()
@@ -922,12 +923,12 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(2)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono il primo risultato
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono il primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[15]').click() #click su imposta provvigione
+        self.find(By.XPATH, '//a[@data-op="set-provvigione"]').click() #click su imposta provvigione
         sleep(2)
 
         self.find(By.XPATH, '//span[@id="select2-idagente-container"]').click()
@@ -947,6 +948,10 @@ class Articoli(Test):
 
         provvigione=self.find(By.XPATH, '(//div[@id="tab_43" ]//tr[1]//td[3]//div)[2]').text
         self.assertEqual(provvigione, "10.00 %")    #controllo se la provvigione è del 10%
+
+        self.navigateTo("Articoli") #torno indietro
+        self.wait_loader()
+
         self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click() #cancello ricerca
         sleep(1)
 
@@ -955,7 +960,7 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(2)
 
         self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #click su articolo
@@ -981,9 +986,9 @@ class Articoli(Test):
         self.navigateTo("Listini")
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono primo listino
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono primo listino
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click() #click su aggiorna prezzo unitario
+        self.find(By.XPATH, '//a[@data-op="change-acquisto"]').click() #click su aggiorna prezzo unitario
         sleep(2)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="percentuale"]'))).send_keys("20") #seleziono 20 come percentuale
@@ -1011,9 +1016,9 @@ class Articoli(Test):
         sleep(2)
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono primo listino
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono primo listino
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click() #click su copia listini
+        self.find(By.XPATH, '//a[@data-op="copy_listino"]').click() #click su copia listini
         sleep(2)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-selection select2-selection--multiple"]'))).send_keys("Estero") #seleziono Fornitore Estero
@@ -1025,7 +1030,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click di conferma
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #tolgo checkbox
+        self.find(By.XPATH, '//tbody//tr//td').click() #tolgo checkbox
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("Fornitore Estero", Keys.ENTER)
         sleep(2)
 
@@ -1036,7 +1041,7 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(2)
 
         self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #click su articolo
@@ -1123,28 +1128,24 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("09", Keys.ENTER) #cerco l'articolo con il codice 09
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("09", Keys.ENTER) #cerco l'articolo con il codice 09
         sleep(2)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono articolo
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono articolo
         self.wait_loader()
 
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[11]').click() #click su imposta prezzo di acquisto da fattura
+        self.find(By.XPATH, '//a[@data-op="set-acquisto-ifzero"]').click() #click su imposta prezzo di acquisto da fattura
         sleep(2)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click di conferma
         self.wait_loader()
 
-        prezzo=self.find(By.XPATH, '(//tr[1]//td[8]//div)[2]').text #controllo se il prezzo è cambiato
+        prezzo=self.find(By.XPATH, '//tbody//tr//td[8]').text #controllo se il prezzo è cambiato
         self.assertEqual(prezzo, "1,00")
 
         self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #cancella ricerca
         self.wait_loader()
-
-
-        
-
 
 
     def elimina_selezionati(self):
@@ -1152,18 +1153,18 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(2)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono il primo risultato
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono il primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click() #click su elimina selezionati
+        self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click() #click su elimina selezionati
         sleep(2)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
         self.wait_loader()
 
-        risultato=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[1])[2]').text #controlla se appare la scritta e quindi se è stato eliminato l'articolo
+        risultato=self.find(By.XPATH, '//tbody//tr//td').text #controlla se appare la scritta e quindi se è stato eliminato l'articolo
         self.assertEqual(risultato, "La ricerca non ha portato alcun risultato.")
         self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click() #elimina ricerca
         sleep(1)
