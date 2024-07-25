@@ -133,48 +133,48 @@ class OrdiniFornitore(Test):
         self.navigateTo("Ordini fornitore")
         self.wait_loader() 
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click() #click su +
         sleep(1)
         
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click() #seleziono "Fornitore" come fornitore 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Fornitore", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
         self.wait_loader()
 
-        self.navigateTo("Ordini fornitore")
+        self.navigateTo("Ordini fornitore") #torno indietro
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[1]'))).send_keys("2", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[1]'))).send_keys("2", Keys.ENTER) #cerco ordine numero 2
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click()
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono primo ordine
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
+        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click() #click su cambia stato
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
+        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click() #seleziono lo stato "Accettato"
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Accettato")
         sleep(2)
 
-        self.find(By.XPATH, '//ul[@id="select2-id_stato-results"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.find(By.XPATH, '//ul[@id="select2-id_stato-results"]').click() #click sul primo risultato
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click di conferma
         self.wait_loader()
 
         stato=self.find(By.XPATH, '(//tbody//td[6]//span)[2]').text
-        self.assertEqual(stato, "Accettato")
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.assertEqual(stato, "Accettato")    #controllo se lo stato è "Accettato"
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()    #apro l'ordine
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click() #elimino l'ordine
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click() #elimino ricerca
         sleep(2)
 
-        self.find(By.XPATH, '//tbody//tr[2]//td[2]').click()
+        self.find(By.XPATH, '//tbody//tr[2]//td[2]').click()    #apro secondo ordine
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()  #elimino ordine
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()

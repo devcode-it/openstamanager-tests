@@ -29,9 +29,14 @@ class Scadenzario(Test):
         # Cancellazione scadenza
         self.elimina_scadenza()
 
-        #Verifica scadenza
+        # Verifica scadenza
         self.verifica_scadenza()
 
+        # Registrazione contabile (Azioni di gruppo)
+        self.registrazione_contabile()
+
+        # Info distinta (Azioni di gruppo)
+        self.info_distinta()
 
     def creazione_scadenzario(self, nome: str, tipo: str, importo: str, descrizione: str):
         wait = WebDriverWait(self.driver, 20)
@@ -115,3 +120,51 @@ class Scadenzario(Test):
         
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+    
+    def registrazione_contabile(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Scadenzario")
+        self.wait_loader() 
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys("Fattura immediata di acquisto numero 08", Keys.ENTER)  #cerca fattura 08
+        sleep(1)
+
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziona primo risultato
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apre azioni di gruppo
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click() #apre registrazione contabile
+        sleep(1)
+
+        prezzo=self.find(By.XPATH, '(//tfoot//tr[1]//td[2])[3]').text
+        self.assertEqual(prezzo, "1,22 €")  #controlla se il prezzo è uguale a 1,22
+        self.find(By.XPATH, '//button[@class="close"]').click() #chiude registrazione contabile
+        sleep(1)
+
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #toglie checkbox
+        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #cancella ricerca
+        sleep(2)
+
+    def info_distinta(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Scadenzario")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys("Fattura immediata di acquisto numero 08", Keys.ENTER)  #cerca fattura 08
+        sleep(1)
+
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziona primo risultato
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apre azioni di gruppo
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click() #apre info distinta
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="distinta"]'))).send_keys("Prova") #scrivo Prova come info distinta
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #click sulla fattura
+        self.wait_loader()
+
+        self.navigateTo("Scadenzario")
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #cancella ricerca
+        sleep(2)

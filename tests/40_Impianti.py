@@ -27,17 +27,20 @@ class Impianti(Test):
         # Verifica Impianto
         self.verifica_impianto()
 
-        #plugin impianti del cliente da anagrafiche 
+        # Plugin impianti del cliente da anagrafiche 
         self.apri_impianti()
 
-        #plugin impianti da attività
+        # Plugin impianti da attività
         self.plugin_impianti()
 
-        #plugin interventi svolti
+        # Plugin interventi svolti
         self.plugin_interventi_svolti()
 
-        #plugin componenti
+        # Plugin componenti
         self.componenti()
+
+        # Elimina selezionati (Azioni di gruppo)
+        self.elimina_selezionati()
         
     def add_impianto(self, matricola: str, nome:str, cliente: str):
         self.navigateTo("Impianti")
@@ -258,3 +261,35 @@ class Impianti(Test):
 
         self.find(By.XPATH, '//th[@id="th_Nome"]//i').click()
         sleep(1)
+
+    def elimina_selezionati(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Impianti")
+        self.wait_loader()  
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click() #click su +
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="matricola"]'))).send_keys("08")    #seleziono "08" come matricola
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys("Prova")      #seleziono "Prova" come nome
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_impianto-container"]').click()        #seleziono "Cliente" come cliente
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.wait_loader()
+
+        self.navigateTo("Impianti") #torno indietro
+        self.wait_loader() 
+        
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Matricola"]/input'))).send_keys("08", Keys.ENTER)  #cerco impianto con matricola "08"
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//td[1]').click() #seleziono primo risultato
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()   #click su elimina selezionati
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click su procedi
+        self.wait_loader()
+
+        scritta=self.find(By.XPATH, '//tbody//tr').text
+        self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.") #controllo se l' impianto è stato eliminato
+        self.find(By.XPATH, '//th[@id="th_Matricola"]//i').click()  #cancella ricerca
+        sleep(2)

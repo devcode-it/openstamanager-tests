@@ -481,37 +481,38 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input[@class="form-control"]'))).send_keys("1", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input[@class="form-control"]'))).send_keys("1", Keys.ENTER)  #cerco preventivo numero 1
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click()
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo risultato
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
+        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click() #click su cambia stato
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
+        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click() #seleziono lo stato "Bozza"
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Bozza")
         sleep(2)
 
-        self.find(By.XPATH, '//ul[@id="select2-id_stato-results"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.find(By.XPATH, '//ul[@id="select2-id_stato-results"]').click() #click primo risultato
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click di conferma
         self.wait_loader()
 
         stato=self.find(By.XPATH, '(//tr[1]//td[5]//span)[2]').text
-        self.assertEqual(stato,"Bozza")
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click()
+        self.assertEqual(stato,"Bozza") #controllo se lo stato è cambiato in "Bozza"
+        #torno come prima
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
+        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click() #click su cambia stato
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click()
+        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click() #seleziono lo stato "In lavorazione"
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("In lavorazione")
         sleep(2)
 
-        self.find(By.XPATH, '//ul[@id="select2-id_stato-results"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.find(By.XPATH, '//ul[@id="select2-id_stato-results"]').click() #click primo risultato
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click di conferma
         self.wait_loader()
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() #cancella ricerca
         sleep(2)
 
     def fattura_preventivi(self):
@@ -519,41 +520,41 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input[@class="form-control"]'))).send_keys("1", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input[@class="form-control"]'))).send_keys("1", Keys.ENTER)  #cerca preventivo numero 1
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td[1]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click()
+        self.find(By.XPATH, '//tbody//tr//td[1]').click() #seleziono primo risultato
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
+        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click() #click su crea fattura
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()
+        self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()   #seleziono cliente
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
         sleep(2)
 
-        self.find(By.XPATH, '//ul[@id="select2-raggruppamento-results"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.find(By.XPATH, '//ul[@id="select2-raggruppamento-results"]').click() #click sul primo risultato
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click di conferma
         self.wait_loader()
 
-        self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[2])[2]').click()
+        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()  #apro preventivo
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()
+        self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()  #cambio stato in "In lavorazione"
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("In lavorazione", Keys.ENTER)
-        self.find(By.XPATH, '//button[@id="save"]')
+        self.find(By.XPATH, '//button[@id="save"]') #click su salva
         self.wait_loader()
 
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.wait_loader()  
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[9]'))).send_keys("Bozza",Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[9]'))).send_keys("Bozza",Keys.ENTER)   #cerco fattura in stato di Bozza
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()    #apro primo risultato
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@id="elimina"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.find(By.XPATH, '//a[@id="elimina"]').click()   #click su elimina
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() #click di conferma
         self.wait_loader()
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() #cancello ricerca

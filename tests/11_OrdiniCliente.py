@@ -33,8 +33,14 @@ class OrdiniCliente(Test):
         # Verifica ordine cliente
         self.verifica_ordine_cliente()
 
-        #plugin consuntivi
+        # Plugin consuntivi
         self.consuntivi()
+
+        # Cambia stato (Azioni di gruppo)
+        self.cambia_stato()
+
+        # Fattura ordini cliente (Azioni di gruppo)
+        self.fattura_ordini_clienti()
 
 
     def creazione_ordine_cliente(self, cliente: str, file_importi: str):
@@ -159,3 +165,128 @@ class OrdiniCliente(Test):
         self.assertEqual(budget, "+264,80 €")
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
+
+    def cambia_stato(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Ordini cliente")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su tasto +
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()     #scelta di "Cliente" come anagrafica per l'ordine
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Cliente', Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su tasto aggiungi
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-primary"]').click()  #click su tasto aggiungi riga
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys('Test') #aggiunta descrizione riga
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys('1')   #aggiunta prezzo unitario
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatoordine-container"]'))).click()   #cambio stato in Accettato
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Accettato', Keys.ENTER)
+        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.wait_loader()
+
+        self.navigateTo("Ordini cliente")   #torna in pagina principale
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys('02', Keys.ENTER) #cerco l'ordine 02     
+        sleep(1)
+
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()  #seleziono l'ordine
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()   #click su cambia stato
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click() #seleziono nuovo stato (Fatturato)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Fatturato')
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su Procedi
+        self.wait_loader()
+
+        stato=self.find(By.XPATH, '(//tbody//tr[1]//td[7]//span)[2]').text #controllo se lo stato è stato cambiato correttamente
+        self.assertEqual(stato, "Fatturato")
+        #elimino ordine
+        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() 
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click() #cancello la ricerca
+        sleep(2)
+
+    def fattura_ordini_clienti(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Ordini cliente")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su tasto +
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()     #scelta di "Cliente" come anagrafica per l'ordine
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Cliente', Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su tasto aggiungi
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-primary"]').click()  #click su tasto aggiungi riga
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys('Test') #aggiunta descrizione riga
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys('1')   #aggiunta prezzo unitario
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatoordine-container"]'))).click()   #cambio stato in Accettato
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Accettato', Keys.ENTER)
+        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.wait_loader()
+
+        self.navigateTo("Ordini cliente")
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()  #seleziono l'ordine
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[1]').click()   #click su fattura ordini cliente
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()   #ragruppa per cliente
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Cliente')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click su procedi
+        self.wait_loader()
+
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        tipo=self.find(By.XPATH, '(//tr[1]//td[4]//div)[2]').text
+        self.assertEqual(tipo, "Fattura immediata di vendita")  #controlla se è stata creata la fattura
+        #elimina fattura
+        self.find(By.XPATH, '(//tr[1]//td[4]//div)[2]').click()
+        self.wait_loader()
+    
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        #elimina ordine
+        self.navigateTo("Ordini cliente")
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() 
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+

@@ -126,10 +126,6 @@ Legenda:
 - :question: Funzionamento
 
 
-:heavy_check_mark: ok
-- non previsto
-:x: prevista ma non testata
-
 |N°| Modulo  | Plugin | :heavy_plus_sign: | :pencil: | :wastebasket: | ☑️ | :question: |
 |--|-------- | -------| :---------------: | :------: | :-----------: |:-:| -------- |
 |40| Anagrafiche | Impianti del cliente |-|-|-|:heavy_check_mark:|-|
@@ -170,3 +166,89 @@ Legenda:
 |04| Articoli | Statistiche vendita |-|-|-|:heavy_check_mark:|-|
 |40| Impianti | Interventi svolti |-|-|-|:heavy_check_mark:|-|
 |40| Impianti | Componenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
+
+
+## Azioni di gruppo
+
+Legenda:
+- ☑️ Verifica
+
+
+|N°| Modulo  | Azioni di gruppo | ☑️ |
+|--|-------- | ---------------- |:-:|
+|02| Anagrafiche  | Esporta selezionati | |
+|02| Anagrafiche  | Cambia relazione |:heavy_check_mark:|
+|02| Anagrafiche  | Aggiorna listino cliente |:heavy_check_mark:|
+|02| Anagrafiche  | Elimina selezionati |:heavy_check_mark:|
+|02| Anagrafiche  | Ricerca coordinate |:heavy_check_mark:|
+|05| Attività | Esporta stampe | |
+|05| Attività | Fattura attività |:heavy_check_mark:|
+|05| Attività | Cambia stato |:heavy_check_mark:|
+|05| Attività | Duplica attività |:heavy_check_mark:|
+|05| Attività | Stampa riepilogo | |
+|23| Attività | Invia mail |:heavy_check_mark:|
+|05| Attività | Firma interventi  |:heavy_check_mark:|
+|05| Attività | Elimina selezionati |:heavy_check_mark:|
+|12| Contratti | Fattura contratti |:heavy_check_mark:|
+|12| Contratti | Rinnova contratti |:heavy_check_mark:|
+|12| Contratti | Cambia stato |:heavy_check_mark:|
+|13| Preventivi | Fattura preventivi |:heavy_check_mark:|
+|13| Preventivi | Cambia stato |:heavy_check_mark:|
+|11| Ordini cliente | Fattura ordini cliente |:heavy_check_mark:|
+|11| Ordini cliente | Cambia stato |:heavy_check_mark:|
+|11| Ordini cliente | Unisci RDO | |
+|58| Fatture di vendita | Aggiorna banca |:heavy_check_mark:|
+|07| Fatture di vendita | Cambia sezionale |:heavy_check_mark:|
+|07| Fatture di vendita | Controlla fatture elettroniche ||
+|07| Fatture di vendita | Duplica selezionati |:heavy_check_mark:|
+|07| Fatture di vendita | Emetti fatture |:heavy_check_mark:|
+|07| Fatture di vendita | Esporta stampe ||
+|07| Fatture di vendita | Esporta stampe FE ||
+|07| Fatture di vendita | Esporta ricevute ||
+|07| Fatture di vendita | Esporta XML ||
+|07| Fatture di vendita | Genera fatture elettroniche ||
+|07| Fatture di vendita | Registrazione contabile |:heavy_check_mark:|
+|07| Fatture di vendita | Coda di invio FE ||
+|07| Fatture di vendita | Elimina selezionati |:heavy_check_mark:|
+|10| Ordini fornitore | Cambia stato |:heavy_check_mark:|
+|58| Fatture di acquisto | Aggiorna banca |:heavy_check_mark:|
+|06| Fatture di acquisto | Cambia sezionale |:heavy_check_mark:|
+|06| Fatture di acquisto | Duplica selezionati |:heavy_check_mark:|
+|06| Fatture di acquisto | Esporta selezionati | |
+|06| Fatture di acquisto | Esporta stampa FE | |
+|06| Fatture di acquisto | Esporta ricevute | |
+|06| Fatture di acquisto | Esporta XML | |
+|06| Fatture di acquisto | Registrazione contabile |:heavy_check_mark:|
+|06| Fatture di acquisto | Elimina selezionati |:heavy_check_mark:|
+|32| Prima nota | Esporta PDF | |
+|34| Scadenzario | Registrazione contabile |:heavy_check_mark:|
+|34| Scadenzario | Info distinta |:heavy_check_mark:|
+|58| Scadenzario | Aggiorna banca |:heavy_check_mark:|
+|34| Scadenzario | Invia mail sollecito | |
+|04| Articoli | Esporta selezionati | |
+|04| Articoli | Aggiorna prezzo di acquisto |:heavy_check_mark:|
+|04| Articoli | Aggiorna prezzo di vendita |:heavy_check_mark:|
+|04| Articoli | Aggiorna coefficiente di vendita |:heavy_check_mark:|
+|04| Articoli | Stampa etichette | |
+|04| Articoli | Aggiorna quantità |:heavy_check_mark:|
+|04| Articoli | Crea preventivo |:heavy_check_mark:|
+|04| Articoli | Aggiorna categoria e sottocategoria |:heavy_check_mark:|
+|04| Articoli | Aggiorna aliquota iva |:heavy_check_mark:|
+|04| Articoli | Imposta prezzo di acquisto da fattura |:heavy_check_mark:|
+|04| Articoli | Aggiorna unità di misura |:heavy_check_mark:|
+|04| Articoli | Aggiorna conto predefinito di acquisto |:heavy_check_mark:|
+|04| Articoli | Aggiorna conto predefinito di vendita |:heavy_check_mark:|
+|04| Articoli | Imposta una provvigione |:heavy_check_mark:|
+|04| Articoli | Aggiungi a listino cliente |:heavy_check_mark:|
+|04| Articoli | Elimina selezionati |:heavy_check_mark:|
+|36| Listini | Copia listini |:heavy_check_mark:|
+|36| Listini | Aggiorna prezzo unitario |:heavy_check_mark:|
+|09| Ddt in uscita | Fattura ddt in uscita |:heavy_check_mark:|
+|09| Ddt in uscita | Cambia stato |:heavy_check_mark:|
+|09| Ddt in uscita | Elimina selezionati |:heavy_check_mark:|
+|08| Ddt in entrata | Fattura ddt in entrata |:heavy_check_mark:|
+|08| Ddt in entrata | Cambia stato |:heavy_check_mark:|
+|08| Ddt in entrata | Elimina selezionati |:heavy_check_mark:|
+|40| Impianti | Esporta selezionati | |
+|40| Impianti | Elimina selezionati |:heavy_check_mark:|
+

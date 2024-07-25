@@ -751,31 +751,31 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Admin spa", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Admin spa", Keys.ENTER) #cerca "Admin spa"
         sleep(1)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="ricerca-coordinate"]'))).click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()  #seleziona primo risultato
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apre azioni di gruppo
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="ricerca-coordinate"]'))).click()  #click su ricerca coordinate
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click su procedi
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
+        self.find(By.XPATH, '//tbody//td[2]//div[1]').click()   #apre Admin spa
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary btn-block"]').click()
+        self.find(By.XPATH, '//a[@class="btn btn-primary btn-block"]').click()  #click su definisci posizione
         sleep(2)
 
-        self.find(By.XPATH, '//ul//li[2]//div').click()
-        latitudine=self.find(By.XPATH, '//input[@id="lat"]').text
+        self.find(By.XPATH, '//ul//li[2]//div').click() #seleziona indirizzo
+        latitudine=self.find(By.XPATH, '//input[@id="lat"]').text   #controlla se la latitudine è diversa da zero
         self.assertNotEqual(latitudine, "0")
-        longitudine=self.find(By.XPATH, '//input[@id="lng"]').text
-        self.assertNotEqual(longitudine, "0")
-        self.find(By.XPATH, '//button[@class="close"]').click()
+        longitudine=self.find(By.XPATH, '//input[@id="lng"]').text  #controlla se la longitudine è diversa da zero
+        self.assertNotEqual(longitudine, "0")   
+        self.find(By.XPATH, '//button[@class="close"]').click() #click su chiudi
         self.wait_loader()
         
         self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() #cancella ricerca
         sleep(1)
 
     def elimina_selezionati(self):
@@ -783,18 +783,18 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Vettore", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Vettore", Keys.ENTER)   #cerca "Vettore"
         sleep(1)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="delete-bulk"]'))).click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()  #seleziona Vettore
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apre azioni di gruppo
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="delete-bulk"]'))).click() #seleziona "elimina selezionati"
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
         self.wait_loader()
 
-        scritta=self.find(By.XPATH, '//tbody//tr[1]').text
+        scritta=self.find(By.XPATH, '//tbody//tr[1]').text  #controlla se appare la scritta e quindi se l'anagrafica è stata cancellata
         self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() #cancella ricerca
         sleep(1)
 
     def cambia_relazione(self):
@@ -802,35 +802,35 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)   #cerca Cliente
         sleep(1)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="cambia-relazione"]'))).click()
-        self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]').click()
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()  #seleziona Cliente
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apre Azioni di gruppo
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="cambia-relazione"]'))).click()    #seleziona cambia relazione
+        self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]').click()  #seleziona Attivo
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Attivo")
         sleep(2)
 
         self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click di conferma
         self.wait_loader()
 
-        stato=self.find(By.XPATH, '//tbody//tr//td[7]').text
+        stato=self.find(By.XPATH, '//tbody//tr//td[7]').text    #controlla se lo stato è "Attivo"
         self.assertEqual(stato, "Attivo")
-        self.find(By.XPATH, '//tbody//tr//td[7]').click()
+        self.find(By.XPATH, '//tbody//tr//td[7]').click()  #apre Cliente 
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]//span').click()
-        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]//span').click()    #elimina stato
+        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
         self.wait_loader()
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        nuovo_stato=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[7])[2]').text
+        nuovo_stato=self.find(By.XPATH, '(//div[@id="tab_0"]//tr[1]//td[7])[2]').text   #controlla se non è presente lo stato "Attivo"
         self.assertNotEqual(nuovo_stato, "Attivo")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() #cancella ricerca
         
 
 
