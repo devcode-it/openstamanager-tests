@@ -754,7 +754,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Admin spa", Keys.ENTER) #cerca "Admin spa"
         sleep(1)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()  #seleziona primo risultato
+        self.find(By.XPATH, '//tbody//tr//td').click()  #seleziona primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apre azioni di gruppo
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="ricerca-coordinate"]'))).click()  #click su ricerca coordinate
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click su procedi
@@ -786,7 +786,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Vettore", Keys.ENTER)   #cerca "Vettore"
         sleep(1)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click()  #seleziona Vettore
+        self.find(By.XPATH, '//tbody//tr//td').click()  #seleziona Vettore
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apre azioni di gruppo
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="delete-bulk"]'))).click() #seleziona "elimina selezionati"
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
