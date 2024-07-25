@@ -135,7 +135,7 @@ class Listini(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click di conferma
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()  #apre anagrafica "Cliente" 
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()  #apre anagrafica "Cliente" 
         self.wait_loader()
 
         self.find(By.XPATH, '(//span[@class="select2-selection__clear"])[4]').click()   #toglie listino
@@ -171,7 +171,7 @@ class Listini(Test):
         self.navigateTo("Listini cliente")
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #click sul listino
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #click sul listino
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//tr[1]//td[8]'))) #controlla se l'articolo è stato aggiunto al listino

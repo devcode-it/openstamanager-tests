@@ -710,7 +710,7 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//ul[@id="select2-id_segment_-results"]').click() #click sul primo risultato
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #apro prima fattura
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #apro prima fattura
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@id="elimina"]').click()   #elimino fattura
@@ -743,7 +743,7 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click di conferma
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #apro prima fattura
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #apro prima fattura
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@id="elimina"]').click() #elimina fattura
@@ -759,7 +759,7 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()  #apro prima fattura
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()  #apro prima fattura
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@class="btn btn-primary"]').click() #click su aggiungi riga
@@ -785,7 +785,7 @@ class FattureVendita(Test):
 
         stato=self.find(By.XPATH, '(//div[@id="tab_0"]//td[10]//span)[2]').text
         self.assertEqual(stato, "Emessa")   #controllo se lo stato della fattura è "Emessa"
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()  #apro fattura
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()  #apro fattura
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@id="elimina"]').click()   #elimino fattura
@@ -916,7 +916,7 @@ class FattureVendita(Test):
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
         sleep(2)
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()  #apro prima fattura
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()  #apro prima fattura
         self.wait_loader()
 
         self.find(By.XPATH, '//button[@class="btn btn-xs btn-info"]').click()   #apri fattura elettronica

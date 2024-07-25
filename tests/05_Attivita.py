@@ -339,7 +339,7 @@ class Attivita(Test):
         self.find(By.XPATH, '//button[@class="btn btn-success pull-right"]').click()    #click su Salva firma
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()    #apro attività
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()    #apro attività
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="text-center row"]//div)[3]'))) #check firma
@@ -364,7 +364,7 @@ class Attivita(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su Aggiungi
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()  #apro attività
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()  #apro attività
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #click su aggiungi riga
@@ -387,7 +387,7 @@ class Attivita(Test):
         self.find(By.XPATH, '//a[@id="back"]').click() #torno in attività
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("4", Keys.ENTER)  #cerco attività numero 4
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("3", Keys.ENTER)  #cerco attività numero 4
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono attività 
@@ -497,6 +497,3 @@ class Attivita(Test):
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
-
-        
-

@@ -248,7 +248,7 @@ class Banche(Test):
 
         banca=self.find(By.XPATH, '(//tr[1]//td[7]//div)[2]').text  #controlla se la banca è stata aggiornata
         self.assertEqual(banca, "Banca Admin spa - IT11C1234512345678912345679")
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #elimino fattura
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #elimino fattura
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@id="elimina"]').click()

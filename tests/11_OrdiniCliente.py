@@ -214,7 +214,7 @@ class OrdiniCliente(Test):
         stato=self.find(By.XPATH, '(//tbody//tr[1]//td[7]//span)[2]').text #controllo se lo stato è stato cambiato correttamente
         self.assertEqual(stato, "Fatturato")
         #elimino ordine
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() 
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() 
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
@@ -283,7 +283,7 @@ class OrdiniCliente(Test):
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() 
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() 
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()

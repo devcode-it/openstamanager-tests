@@ -160,7 +160,7 @@ class Scadenzario(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #click sulla fattura
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #click sulla fattura
         self.wait_loader()
 
         self.navigateTo("Scadenzario")

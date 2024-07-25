@@ -373,7 +373,7 @@ class FattureAcquisto(Test):
         self.find(By.XPATH, '//ul[@id="select2-id_segment_-results"]').click()
         self.wait_loader()
         
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()  #click sulla prima fattura
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()  #click sulla prima fattura
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@id="elimina"]').click()   #elimino fattura

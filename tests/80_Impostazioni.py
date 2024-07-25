@@ -133,7 +133,7 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #apro prima fattura
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #apro prima fattura
         self.wait_loader()
 
         nuova_valuta=self.find(By.XPATH, '//tbody//tr[1]//td[5]//div//span').text   #controllo se è cambiata la valuta
@@ -329,7 +329,7 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Gruppo"]//input'))).send_keys('Tecnici', Keys.ENTER)   #cerca utente tecnici
         sleep(2)
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #apro primo risultato
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #apro primo risultato
         self.wait_loader()           
 
         self.find(By.XPATH, '//a[@class="pull-right btn btn-primary bound clickable"]').click() #aggiungi utente
@@ -694,7 +694,7 @@ class Impostazioni(Test):
         stato=self.find(By.XPATH, '(//tr[1]//td[7])[2]').text
         self.assertEqual(stato, "Completato")
         #elimino attività
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
@@ -762,7 +762,7 @@ class Impostazioni(Test):
         stato=self.find(By.XPATH, '(//tr[1]//td[7])[2]').text
         self.assertEqual(stato, "Completato")
         #elimino attività
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
@@ -885,7 +885,7 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//button[@class="close"]').click() #esco
         sleep(1)
         #elimino prima attività
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
@@ -968,7 +968,7 @@ class Impostazioni(Test):
         self.navigateTo("Attività")
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()  #elimino attività
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()  #elimino attività
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()

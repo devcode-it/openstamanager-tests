@@ -536,7 +536,7 @@ class Preventivi(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click di conferma
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click()  #apro preventivo
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()  #apro preventivo
         self.wait_loader()
 
         self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()  #cambio stato in "In lavorazione"

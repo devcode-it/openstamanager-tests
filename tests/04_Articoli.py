@@ -803,7 +803,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #apro articolo
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #apro articolo
         self.wait_loader()
 
         iva=self.find(By.XPATH, '//span[@id="select2-idiva_vendita-container"]').text
@@ -837,7 +837,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #apri articolo
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #apri articolo
         self.wait_loader()
 
         unita_misura=self.find(By.XPATH, '//span[@id="select2-um-container"]').text
@@ -872,7 +872,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #apro articolo
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #apro articolo
         self.wait_loader()
 
         conto=self.find(By.XPATH, '//span[@id="select2-idconto_acquisto-container"]').text
@@ -908,7 +908,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #apro articolo
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #apro articolo
         self.wait_loader()
 
         conto=self.find(By.XPATH, '//span[@id="select2-idconto_vendita-container"]').text
@@ -940,7 +940,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #apro articolo
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #apro articolo
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()  #apro barra dei plugin
@@ -966,7 +966,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(2)
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #click su articolo
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #click su articolo
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()  #apro barra dei plugin
@@ -991,7 +991,7 @@ class Articoli(Test):
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono primo listino
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
-        self.find(By.XPATH, '//a[@data-op="change-acquisto"]').click() #click su aggiorna prezzo unitario
+        self.find(By.XPATH, '//a[@data-op="change_prezzo"]').click() #click su aggiorna prezzo unitario
         sleep(2)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="percentuale"]'))).send_keys("20") #seleziono 20 come percentuale
@@ -1047,7 +1047,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(2)
 
-        self.find(By.XPATH, '(//tr[1]//td[2])[2]').click() #click su articolo
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() #click su articolo
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()  #apro barra dei plugin
