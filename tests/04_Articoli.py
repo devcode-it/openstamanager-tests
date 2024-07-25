@@ -93,6 +93,9 @@ class Articoli(Test):
         # Imposta prezzo di acquisto da fattura (Azioni di gruppo)
         self.imposta_prezzo_da_fattura()
 
+        # Stampa etichette (Azioni di gruppo)
+        self.stampa_etichette()
+
         # Elimina selezionati (Azioni di gruppo)
         self.elimina_selezionati()      #da tenere come ultimo test delle azioni di gruppo
 
@@ -1146,6 +1149,35 @@ class Articoli(Test):
 
         self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #cancella ricerca
         self.wait_loader()
+
+    def stampa_etichette(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        sleep(2)
+
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono il primo risultato
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
+        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[6]').click() #click su stampa etichette
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        sleep(1)
+
+        self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
+        sleep(1)
+
+        prezzo=self.find(By.XPATH, '//span[@style="left: 34.35%; top: 39.3%; font-size: calc(var(--scale-factor)*15.00px); font-family: sans-serif; transform: scaleX(0.991876);"]').text
+        self.assertEqual(prezzo, "€ 13,20") #check del etichetta
+        self.driver.close() #chiude scheda
+        self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
+        sleep(1)
+
+        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #tolgo selezione
+        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #cancella ricerca
+        sleep(1)
 
 
     def elimina_selezionati(self):
