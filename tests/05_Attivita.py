@@ -364,9 +364,6 @@ class Attivita(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su Aggiungi
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()  #apro attività
-        self.wait_loader()
-
         self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #click su aggiungi riga
         sleep(1)
 
@@ -414,77 +411,26 @@ class Attivita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click() #elimina fattura
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
-        #elimina attività
-        self.navigateTo("Attività")
-        self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("4", Keys.ENTER)  #cerco attività numero 4
-        sleep(1)
-
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click() #apro attività
-        self.wait_loader()
-
-        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click() #elimino attività
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-
-        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[2]').click()    #cancello ricerca
-        sleep(2)
 
     def stampa_riepilogo(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Attività")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()  #click su +
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("3", Keys.ENTER)  #cerco attività numero 3
         sleep(1)
-
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click() #seleziono Cliente come anagrafica
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-dropdown select2-dropdown--below"]//input'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click() #seleziono Generico come tipo di intervento
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Generico")
-        sleep(1)
-
-        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()  #click sul primo risultato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).send_keys("Test")   #scrivo "Test" come richiesta
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su Aggiungi
-        self.wait_loader()
-
-        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click() #aggiungo articolo
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("08") 
-        sleep(2)
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click()
-        sleep(1)
-
-        self.find(By.XPATH, '//span[@id="select2-idstatointervento-container"]').click()    #seleziona stato "Programmato"
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Programmato")
-        sleep(2)
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@id="save"]').click()
-        self.wait_loader()
-
-        self.navigateTo("Attività")
-        self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono attività 
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[6]').click()
+        self.find(By.XPATH, '//a[@data-op="stampa-riepilogo"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
         sleep(2)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        prezzo=self.find(By.XPATH, '//span[@style="left: 84.78%; top: 33.71%; font-size: calc(var(--scale-factor)*9.00px); font-family: sans-serif; transform: scaleX(0.991126);"]').text
-        self.assertEqual(prezzo, "€ 14,52")
+        prezzo=self.find(By.XPATH, '(//div[@id="viewer"]//span)[73]').text
+        self.assertEqual(prezzo, "1,22 €")
         self.driver.close() #chiude scheda
         self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
         sleep(2)
