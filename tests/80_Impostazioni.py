@@ -72,8 +72,26 @@ class Impostazioni(Test):
         # Cambia automaticamente stato ddt fatturati (Ddt)
         self.cambia_stato_ddt_fatturati()
 
-        # Stato dell'attività alla chiusura (Attività)
-        self.stato_attivita_chiusa()
+        # Stato dell'attività dopo la firma (Attività)
+        self.stato_attivita_firma()
+
+        # Formato ore in stampa (Attività)
+        self.formato_ore_stampa()
+
+        # Visualizzare domenica sul calendario (Dashboard)
+        self.visualizzare_domenica_calendario()
+
+        # Ora inizio sul calendario (Dashboard)
+        self.ora_inizio_calendario()
+
+        # Ora fine sul calendario (Dashboard)
+        self.ora_fine_calendario()
+
+        # Visualizza informazioni aggiuntive sul calendario (Dashboard)
+        self.visualizza_informazioni_aggiuntive()
+
+        # Iva predefinita (Fatturazione)
+        self.iva_predefinita()
 
     def cifre_decimali_importi(self):
         wait = WebDriverWait(self.driver, 20)
@@ -1249,7 +1267,7 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
         self.wait_loader()
 
-    def stato_attivita_chiusa(self):
+    def stato_attivita_firma(self):
         wait = WebDriverWait(self.driver, 20)  
         self.navigateTo("Impostazioni")
         self.wait_loader()
@@ -1257,7 +1275,7 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//div[@id="impostazioni-4"]').click() #apro Attività
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting122-container"]').click() #seleziono stato "Fatturato"
+        self.find(By.XPATH, '//span[@id="select2-setting123-container"]').click() #seleziono stato "Fatturato"
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Fatturato")
         sleep(1)
 
@@ -1296,3 +1314,329 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="firma_nome"]'))).send_keys('Prova')
         self.find(By.XPATH,'//button[@class="btn btn-success pull-right"]').click()
         self.wait_loader()
+
+        stato=self.find(By.XPATH, '(//tr[1]//td[7]//div)[2]').text
+        self.assertEqual(stato, "Fatturato")    #check se il stato è cambiato in fatturato
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()  #elimino attività
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-4"]').click() #apro Attività
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-setting123-container"]').click() #seleziono stato "Completato"
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Completato")
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
+        sleep(2)
+
+    def formato_ore_stampa(self):
+        wait = WebDriverWait(self.driver, 20)  
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-4"]').click() #apro Attività
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-setting142-container"]').click()   #seleziono formato in sessantesimi
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-setting142-results"]').click()
+        sleep(2)
+
+        self.navigateTo("Attività")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click() #creo nuova attività
+        sleep(1)
+        #cliente
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Cliente')
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
+        #tipo
+        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Generico')
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
+        #richiesta
+        self.find(By.XPATH, '//div[@id="cke_1_contents"]//iframe').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="cke_1_contents"]//iframe'))).send_keys('test')
+        #sessioni di lavoro
+        self.find(By.XPATH, '(//button[@class="btn btn-tool"])[5]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//ul[@class="select2-selection__rendered"])[4]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idtecnico-results"]//li[1]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su Aggiungi
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@id="print-button_p"]').click()    #stampa intervento
+        sleep(2)
+
+        self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
+        sleep(2)
+
+        ore=self.find(By.XPATH, '//span[@style="left: 17.35%; top: 40.11%; font-size: calc(var(--scale-factor)*9.00px); font-family: sans-serif; transform: scaleX(0.996142);"]').text
+        self.assertEqual(ore, "1:00")
+        self.driver.close() #chiude scheda
+        self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
+        sleep(1)
+
+        #elimina attività
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-4"]').click() #apro Attività
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-setting142-container"]').click()   #seleziono formato in decimi
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-setting142-results"]').click()
+        sleep(2)
+    
+    def visualizzare_domenica_calendario(self):
+        wait = WebDriverWait(self.driver, 20)  
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-7"]').click() #apro Dashboard
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[2]').click() #disattiva impostazione
+        sleep(2)
+
+        self.navigateTo("Dashboard")
+        self.wait_loader()
+
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '//tr[1]//th[8]')))    #check se non è visibile la domenica
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-7"]').click() #apro Dashboard
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[2]').click() #attiva impostazione
+        sleep(2)
+
+    def vista_dashboard(self):
+        wait = WebDriverWait(self.driver, 20)  
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-7"]').click() #apro Dashboard
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-setting50-container"]').click()    #seleziona vista per mese
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("mese")
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        sleep(2)
+
+        self.navigateTo("Dashboard")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="fc-dayGridMonth-button fc-button fc-button-primary fc-button-active"]')))    #controlla se la vista è per mese
+        sleep(1)
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-7"]').click() #apro Dashboard
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-setting50-container"]').click()    #seleziona vista per settimana
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("settimana")
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        sleep(2)
+
+    def ora_inizio_calendario(self):
+        wait = WebDriverWait(self.driver, 20)  
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-7"]').click() #apro Dashboard
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting77"]'))).send_keys("01:00") #seleziono 01:00 come prima ora del calendario
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting77"]'))).send_keys(Keys.ENTER)
+        sleep(2)
+
+        self.navigateTo("Dashboard")
+        self.wait_loader()
+
+        ora=self.find(By.XPATH, '//tr[1]//div[@class="fc-timegrid-slot-label-cushion fc-scrollgrid-shrink-cushion"]').text  #controllo se la prima ora è quella inserita
+        self.assertEqual(ora, "01:00")
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-7"]').click() #apro Dashboard
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting77"]'))).send_keys("00:00") #seleziono 00:00 come prima ora del calendario
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting77"]'))).send_keys(Keys.ENTER)
+        sleep(2)
+
+    def ora_fine_calendario(self):
+        wait = WebDriverWait(self.driver, 20)  
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-7"]').click() #apro Dashboard
+        sleep(1)
+
+        ora_fine=self.find(By.XPATH, '//input[@id="setting78"]')
+        ora_fine.clear()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting78"]'))).send_keys("13:30") #seleziono 13:30 come ultima ora del calendario
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting78"]'))).send_keys(Keys.ENTER)
+        sleep(2)
+
+        self.navigateTo("Dashboard")
+        self.wait_loader()
+
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '//tr[55]//div'))) #check se non trova le ore dopo le 13.30
+        sleep(1)
+
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-7"]').click() #apro Dashboard
+        sleep(1)
+
+        ora_fine=self.find(By.XPATH, '//input[@id="setting78"]')
+        ora_fine.clear()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting78"]'))).send_keys("23:59") #seleziono 23:59 come ultima ora del calendario
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting78"]'))).send_keys(Keys.ENTER)
+        sleep(2)
+
+    def visualizza_informazioni_aggiuntive(self):
+        wait = WebDriverWait(self.driver, 20)  
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-7"]').click() #apro Dashboard
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[3]').click()    #attiva impostazione
+        sleep(2)
+
+        self.navigateTo("Dashboard")
+        self.wait_loader()
+
+        scritta=self.find(By.XPATH, '//tr[1]//td[@class="fc-timegrid-axis fc-scrollgrid-shrink"]').text
+        self.assertEqual(scritta, "Tutto il giorno")    #check se appare impostazione
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-7"]').click() #apro Dashboard
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[3]').click()    #disattiva impostazione
+        sleep(2)
+
+    def iva_predefinita(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-setting6-container"]').click() #aggiungi iva al 10
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Aliq. Iva 10")
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        sleep(2)
+
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click() #aggiungi riga
+        sleep(1)
+
+        iva=self.find(By.XPATH, '//span[@id="select2-idiva-container"]').text   #check iva
+        self.assertEqual(iva[2:21], "10 - Aliq. Iva 10%")
+        self.find(By.XPATH, '//button[@class="close"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="elimina"]').click() #elimina fattura
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.wait_loader()
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-setting6-container"]').click() #aggiungi iva al 22
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Aliq. Iva 22")
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        sleep(2)

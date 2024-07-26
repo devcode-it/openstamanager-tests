@@ -647,7 +647,7 @@ class FattureVendita(Test):
         self.wait_loader()
 
         test=self.find(By.XPATH, '//tbody//tr//td[2]').text
-        self.assertEqual(test, "0001/2024") #controllo se trova la seconda fattura e non la prima in prima riga
+        self.assertEqual(test, "0002/2024") #controllo se trova la seconda fattura e non la prima in prima riga
 
 
     def cambia_sezionale(self):
@@ -809,12 +809,15 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//a[@id="link-tab_44"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '(//div[@id="tab_44"]//tr[1]//td[1])[2]')   #checkbox
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_44"]//tr[1]//td[1])[2]')))   #checkbox
+        sleep(1)
+
         self.navigateTo("Articoli")
         self.wait_loader()
 
     def controlla_fatture_elettroniche(self):
         wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
@@ -858,7 +861,7 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[1]'))).send_keys("0003", Keys.ENTER) #cerco fattura numero 0003
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[1]'))).send_keys("0001", Keys.ENTER) #cerco fattura numero 0001
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono prima fattura

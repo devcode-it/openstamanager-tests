@@ -781,6 +781,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
+        self.expandSidebar("Magazzino")
         self.navigateTo("Articoli")
         self.wait_loader()
 
@@ -788,7 +789,6 @@ class Articoli(Test):
         sleep(1)
     def aggiorna_iva(self):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Magazzino")
         self.navigateTo("Articoli")
         self.wait_loader()
 
@@ -1008,6 +1008,9 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
+        self.find(By.XPATH, '//tbody//tr//td').click() #deseleziono primo listino
+        sleep(1)
+
         self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click() #elimina ricerca
         sleep(1)
 
@@ -1185,7 +1188,7 @@ class Articoli(Test):
         sleep(1)
 
         prezzo=self.find(By.XPATH, '(//div[@id="viewer"]//span)[3]').text
-        self.assertEqual(prezzo, "0,00 €") #check del etichetta
+        self.assertEqual(prezzo, "13,20 €") #check del etichetta
         self.driver.close() #chiude scheda
         self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
         sleep(1)

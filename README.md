@@ -281,12 +281,11 @@ Legenda:
 | Giorni lavorativi | ||
 | Notifica al tecnico l'aggiunta della sessione nell'attività | ||
 | Notifica al tecnico la rimozione della sessione dall'attività | ||
-| Stato dell'attività alla chiusura |:heavy_check_mark:|Crea attività|
-| Stato dell'attività dopo la firma |:heavy_check_mark:|Crea attività|
+| Stato dell'attività dopo la firma |:heavy_check_mark:|Crea attività e firma attività|
 | Espandi automaticamente la sezione "Dettagli aggiuntivi" |:heavy_check_mark:|Crea attività|
 | Alert occupazione tecnici | ||
 | Verifica numero intervento |:heavy_check_mark:|Crea attività|
-| Formato ore in stampa | ||
+| Formato ore in stampa |:heavy_check_mark:|Stampa intervento|
 | Notifica al tecnico l'assegnazione all'attività | ||
 | Notifica al tecnico la rimozione dell'assegnazione dall'attività | ||
 | Descrizione personalizzata in fatturazione |:heavy_check_mark:||
@@ -300,15 +299,15 @@ Legenda:
 | Crea contratto rinnovabile di default |:heavy_check_mark:|Crea contratto|
 | Giorni di preavviso di default |:heavy_check_mark:||
 | Utilizzare i tooltip sul calendario | ||
-| Visualizzare la domenica sul calendario | ||
-| Vista dashboard | ||
-| Ora inizio sul calendario | ||
-| Ora fine sul calendario | ||
-| Visualizza informazioni aggiuntive sul calendario | ||
+| Visualizzare la domenica sul calendario |:heavy_check_mark:|Calendario|
+| Vista dashboard |:heavy_check_mark:|Calendario|
+| Ora inizio sul calendario |:heavy_check_mark:|Calendario|
+| Ora fine sul calendario |:heavy_check_mark:|Calendario|
+| Visualizza informazioni aggiuntive sul calendario |:heavy_check_mark:|Calendario|
 | Visualizzazione colori sessioni | ||
 | Tempo predefinito di snap attività sul calendario | ||
 | Cambia automaticamente stato ddt fatturati |:heavy_check_mark:|Crea ddt sia in entrata che in uscita|
-| Iva predefinita | ||
+| Iva predefinita |:heavy_check_mark:|Crea fattura|
 | Tipo di pagamento predefinito | ||
 | Ritenuta d'acconto predefinita | ||
 | Cassa previdenziale predefinita | ||

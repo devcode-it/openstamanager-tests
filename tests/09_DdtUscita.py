@@ -163,9 +163,11 @@ class DdtUscita(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tr[10]//td[3]').click()
+        self.wait_loader()
 
     def cambia_stato(self):
         wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Magazzino")
         self.navigateTo("Ddt in uscita")
         self.wait_loader() 
 
@@ -225,7 +227,7 @@ class DdtUscita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        tipo=self.find(By.XPATH, '(//tr[1]//td[5])[2]').text    #controllo se è stata creata la fattura
+        tipo=self.find(By.XPATH, '//tr[2]//td[5]').text    #controllo se è stata creata la fattura
         self.assertEqual(tipo, "Admin spa")
         
 
