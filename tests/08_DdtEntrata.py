@@ -154,22 +154,17 @@ class DdtEntrata(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click() #click su +
-        sleep(1)
+        sleep(3)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono "Admin spa" come mittente
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Admin spa", Keys.ENTER)
         self.find(By.XPATH, '//span[@id="select2-idcausalet-container"]').click()   #seleziono "Conto lavorazione" come causale
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Conto lavorazione", Keys.ENTER)
-        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click() #seleziono "Standard ddt in entrata" come sezionale
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Standard ddt in entrata", Keys.ENTER)
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su procedi
         self.wait_loader()
 
         self.navigateTo("Ddt in entrata") #torno indietro
         self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)  #cerco ddt numero 2
-        sleep(1)
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
@@ -208,18 +203,17 @@ class DdtEntrata(Test):
         ragione_sociale=self.find(By.XPATH, '(//tr[1]//td[4])[2]').text #controllo se è stata fatta la fattura di acquisto
         self.assertEqual(ragione_sociale, "Admin spa")
 
+        self.expandSidebar("Magazzino")
+
     def elimina_selezionati(self):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Magazzino")
         self.navigateTo("Ddt in entrata")
-        self.wait_loader()
+        sleep(2)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER) #cerco ddt numero 2
-        sleep(1)
-
-        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo risultato
+        self.find(By.XPATH, '//tbody//tr//td').click()    #seleziono primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
         self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()   #seleziono elimina selezionati
+        sleep(1)
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click su procedi
         self.wait_loader()
 

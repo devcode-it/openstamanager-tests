@@ -73,7 +73,6 @@ class DdtUscita(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
         sleep(1)
 
-
     def modifica_ddt(self, modifica):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Ddt in uscita")
@@ -167,7 +166,6 @@ class DdtUscita(Test):
 
     def cambia_stato(self):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Magazzino")
         self.navigateTo("Ddt in uscita")
         self.wait_loader() 
 
@@ -178,8 +176,6 @@ class DdtUscita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Admin spa", Keys.ENTER)
         self.find(By.XPATH, '//span[@id="select2-idcausalet-container"]').click()   #seleziono causale "Conto lavorazione"
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Conto lavorazione", Keys.ENTER)
-        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()   #seleziono sezionale "Standard ddt in uscita"
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Standard ddt in uscita", Keys.ENTER)
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
         self.wait_loader()
 
@@ -229,17 +225,15 @@ class DdtUscita(Test):
 
         tipo=self.find(By.XPATH, '//tr[2]//td[5]').text    #controllo se è stata creata la fattura
         self.assertEqual(tipo, "Admin spa")
-        
+
+        self.expandSidebar("Magazzino")
 
     def elimina_selezionati(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Ddt in uscita")
-        self.wait_loader() 
-        
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("02", Keys.ENTER) #cerca ddt numero 02
-        sleep(1)
+        sleep(2)
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziona primo risultato
+        self.find(By.XPATH, '//tbody//tr//td').click()    #seleziona primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apre azioni di gruppo
         self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()   #click su elimina selezionati
         sleep(1)
