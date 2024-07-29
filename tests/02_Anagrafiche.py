@@ -446,7 +446,8 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-content"]//div[@id="form_82-"]//input[@id="nome"]'))).send_keys("Segretario")
         sleep(1)
         self.find(By.XPATH, '(//button[@type="submit"])[4]').click()
-        sleep(1)
+        sleep(2)
+
         self.find(By.XPATH, '(//button[@type="submit"])[3]').click()        
         #Verifica referente
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Mansione"]/input'))).send_keys("Segretario", Keys.ENTER)
@@ -822,10 +823,9 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//tbody//tr//td[7]').click()  #apre Cliente 
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]//span').click()    #deseleziona la relazione
-        self.driver.execute_script('window.scrollTo(0,0)')
-        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
-        self.wait_loader()
+        self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]//span[@class="select2-selection__clear"]').click()    #deseleziona la relazione
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="save"]'))).click()
+        sleep(2)
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()
