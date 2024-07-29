@@ -521,7 +521,6 @@ class Articoli(Test):
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
-
     def varianti_articoli(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Attributi Combinazioni")
@@ -1024,7 +1023,7 @@ class Articoli(Test):
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
-        sleep(2)
+        sleep(3)
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono primo listino
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
@@ -1094,9 +1093,6 @@ class Articoli(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
         self.wait_loader()
         
-        self.navigateTo("Articoli")
-        self.wait_loader()
-
         self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
@@ -1126,7 +1122,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//a[@class="btn btn-xs btn-warning"]').click()
         sleep(2)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1")   #imposta prezzo a 1
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("10")   #imposta prezzo a 10
         self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
         sleep(2)
 
@@ -1151,7 +1147,7 @@ class Articoli(Test):
         self.wait_loader()
 
         prezzo=self.find(By.XPATH, '//tbody//tr//td[8]').text #controllo se il prezzo è cambiato
-        self.assertEqual(prezzo, "1,00")
+        self.assertEqual(prezzo, "10,00")
 
         self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #cancella ricerca
         self.wait_loader()
@@ -1197,13 +1193,29 @@ class Articoli(Test):
         self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #cancella ricerca
         sleep(1)
 
-
     def elimina_selezionati(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Articoli")
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        sleep(2)
+
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono il primo risultato
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
+        self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click() #click su elimina selezionati
+        sleep(2)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.wait_loader()
+
+        risultato=self.find(By.XPATH, '//tbody//tr//td').text #controlla se appare la scritta e quindi se è stato eliminato l'articolo
+        self.assertEqual(risultato, "La ricerca non ha portato alcun risultato.")
+        self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click() #elimina ricerca
+        sleep(1)
+
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("09", Keys.ENTER) #cerco l'articolo con il codice 09
         sleep(2)
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono il primo risultato
