@@ -384,7 +384,7 @@ class Attivita(Test):
         self.find(By.XPATH, '//a[@id="back"]').click() #torno in attività
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("3", Keys.ENTER)  #cerco attività numero 4
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("3", Keys.ENTER)  #cerco attività numero 3
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono attività 

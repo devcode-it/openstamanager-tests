@@ -184,6 +184,8 @@ class FattureAcquisto(Test):
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella",eliminato)
+        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #elimina ricerca
+        sleep(2)
 
     def verifica_xml_autofattura(self, file_importi: str, pagamento: str):
         wait = WebDriverWait(self.driver, 20)
@@ -287,7 +289,7 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto") #torno indietro
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[1]'))).send_keys("09", Keys.ENTER) #cerco fatture con 09 come numero esterno
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input'))).send_keys("09", Keys.ENTER) #cerco fattura numero 09
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click()    #seleziono primo risultato

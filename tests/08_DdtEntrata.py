@@ -210,6 +210,7 @@ class DdtEntrata(Test):
 
     def elimina_selezionati(self):
         wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Magazzino")
         self.navigateTo("Ddt in entrata")
         self.wait_loader()
 

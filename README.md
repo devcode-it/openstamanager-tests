@@ -259,182 +259,182 @@ Legenda:
 - ☑️ Verifica
 - :question: Funzionamento
 
-| Nome | ☑️ | :question: |
-|------|:-:|:----------:| 
-| Attiva aggiornamenti | ||
-| Abilita canale pre-release per aggiornamenti | ||
-| Formato codice anagrafica |:heavy_check_mark:|Crea anagrafica|
-| Lunghezza pagine per API | ||
-| apilayer API key for VAT number | ||
-| Google Maps API key per Tecnici | ||
-| Mostra prezzi | ||
-| Sincronizza solo i Clienti per cui il Tecnico ha lavorato in passato | ||
-| Mesi per lo storico delle Attività | ||
-| Abilita la modifica di altri tecnici | ||
-| Visualizza promemoria | ||
-| Visualizza solo promemoria assegnati | ||
-| Permetti l'accesso agli amministratori | ||
-| Limita la visualizzazione degli impianti a quelli gestiti dal tecnico | ||
-| Mostra i prezzi al tecnico |:heavy_check_mark:|Crea attività|
-| Stampa per anteprima e firma | ||
-| Permetti inserimento sessioni degli altri tecnici |:heavy_check_mark:|Crea attività|
-| Giorni lavorativi | ||
-| Notifica al tecnico l'aggiunta della sessione nell'attività | ||
-| Notifica al tecnico la rimozione della sessione dall'attività | ||
-| Stato dell'attività alla chiusura |:heavy_check_mark:|Crea attività|
-| Stato dell'attività dopo la firma |:heavy_check_mark:|Crea attività|
-| Espandi automaticamente la sezione "Dettagli aggiuntivi" |:heavy_check_mark:|Crea attività|
-| Alert occupazione tecnici | ||
-| Verifica numero intervento |:heavy_check_mark:|Crea attività|
-| Formato ore in stampa | ||
-| Notifica al tecnico l'assegnazione all'attività | ||
-| Notifica al tecnico la rimozione dell'assegnazione dall'attività | ||
-| Descrizione personalizzata in fatturazione |:heavy_check_mark:||
-| Stato predefinito dell'attività da Dashboard |:heavy_check_mark:|Crea attività|
-| Stato predefinito dell'attività |:heavy_check_mark:|Crea attività|
-| Numero di minuti di avanzamento delle sessioni delle attività | ||
-| Numero di backup da mantenere | ||
-| Backup automatico | ||
-| Permetti il ripristino di backup da file esterni | ||
-| "Condizioni generali di fornitura contratti" |:heavy_check_mark:|Crea contratto|
-| Crea contratto rinnovabile di default |:heavy_check_mark:|Crea contratto|
-| Giorni di preavviso di default |:heavy_check_mark:||
-| Utilizzare i tooltip sul calendario | ||
-| Visualizzare la domenica sul calendario | ||
-| Vista dashboard | ||
-| Ora inizio sul calendario | ||
-| Ora fine sul calendario | ||
-| Visualizza informazioni aggiuntive sul calendario | ||
-| Visualizzazione colori sessioni | ||
-| Tempo predefinito di snap attività sul calendario | ||
-| Cambia automaticamente stato ddt fatturati |:heavy_check_mark:|Crea ddt sia in entrata che in uscita|
-| Iva predefinita | ||
-| Tipo di pagamento predefinito | ||
-| Ritenuta d'acconto predefinita | ||
-| Cassa previdenziale predefinita | ||
-| Importo marca da bollo | ||
-| Soglia minima per l'applicazione della marca da bollo | ||
-| Conto aziendale predefinito | ||
-| Conto predefinito fatture di vendita | ||
-| Conto predefinito fatture di acquisto | ||
-| "Dicitura fissa fattura" | ||
-| Metodologia calcolo ritenuta d'acconto predefinito | ||
-| Ritenuta previdenziale predefinita | ||
-| Addebita marca da bollo al cliente | ||
-| Descrizione addebito bollo | ||
-| Conto predefinito per la marca da bollo | ||
-| Iva per lettere d'intento | ||
-| Utilizza prezzi di vendita comprensivi di IVA  | ||
-| Liquidazione iva | ||
-| Conto anticipo clienti | ||
-| Conto anticipo fornitori | ||
-| Descrizione fattura pianificata | ||
-| Aggiorna info di acquisto | ||
-| Sezionale per autofatture di vendita | ||
-| Sezionale per autofatture di acquisto | ||
-| Bloccare i prezzi inferiori al minimo di vendita | ||
-| Permetti fatturazione delle attività collegate a contratti | ||
-| Data emissione fattura automatica  | ||
-| Permetti fatturazione delle attività collegate a ordini | ||
-| Permetti fatturazione delle attività collegate a preventivi | ||
-| Data inizio verifica contatore fattura di vendita | ||
-| Raggruppa attività per tipologia in fattura | ||
-| Allega stampa per fattura verso Privati | ||
-| Allega stampa per fattura verso Aziende | ||
-| Allega stampa per fattura verso PA | ||
-| Regime Fiscale | ||
-| Tipo Cassa Previdenziale | ||
-| Causale ritenuta d'acconto | ||
-| Authorization ID Indice PA | ||
-| OSMCloud Services API Token | ||
-| Terzo intermediario | ||
-| Riferimento dei documenti in Fattura Elettronica | ||
-| OSMCloud Services API URL | ||
-| OSMCloud Services API Version | ||
-| Data inizio controlli su stati FE | ||
-| Movimenta magazzino da fatture di acquisto | ||
-| Rimuovi avviso fatture estere | ||
-| Creazione seriali in import FE | ||
-| Giorni validità fattura scartata | ||
-| Azienda predefinita | ||
-| Nascondere la barra sinistra di default |:heavy_check_mark:|Impostazioni|
-| Cifre decimali per importi |:heavy_check_mark:|Crea fattura|
-| CSS Personalizzato | ||
-| Attiva notifica di presenza utenti sul record | ||
-| Timeout notifica di presenza (minuti) | ||
-| Prima pagina | ||
-| Cifre decimali per quantità | ||
-| Tempo di attesa ricerche in secondi | ||
-| Logo stampe | ||
-| Abilita esportazione Excel e PDF | ||
-| Valuta |:heavy_check_mark:|Apro fattura|
-| Visualizza riferimento su ogni riga in stampa | ||
-| Lunghezza in pagine del buffer Datatables | ||
-| Autocompletamento form | ||
-| Filigrana stampe | ||
-| Attiva scorciatoie da tastiera | ||
-| Modifica Viste di default | ||
-| Totali delle tabelle ristretti alla selezione | ||
-| Nascondere la barra dei plugin di default | ||
-| Soft quota | ||
-| Permetti selezione articoli con quantità minore o uguale a zero in Documenti di Vendita | ||
-| Inizio periodo calendario |:heavy_check_mark:|Dashboard|
-| Fine periodo calendario |:heavy_check_mark:|Dashboard|
-| Permetti il superamento della soglia quantità dei documenti di origine | ||
-| Aggiungi riferimento tra documenti | ||
-| Mantieni riferimenti tra tutti i documenti collegati | ||
-| Aggiungi le note delle righe tra documenti | ||
-| Dimensione widget predefinita | ||
-| Posizione del simbolo valuta | ||
-| Tile server OpenStreetMap | ||
-| Sistema di firma | ||
-| Tipo di sconto predefinito | ||
-| Cifre decimali per importi in stampa | ||
-| Cifre decimali per quantità in stampa | ||
-| Cifre decimali per totali in stampa | ||
-| Listino cliente predefinito | ||
-| Lingua |:heavy_check_mark:|Impostazioni|
-| Ridimensiona automaticamente le immagini caricate | ||
-| Larghezza per ridimensionamento immagini | ||
-| Movimenta il magazzino durante l'inserimento o eliminazione dei lotti/serial n|umber | |
-| Serial number abilitato di default | ||
-| Magazzino cespiti | ||
-| Numero di giorni mantenimento coda di invio | ||
-| Numero massimo di tentativi | ||
-| Numero email da inviare in contemporanea per account | ||
-| Cambia automaticamente stato ordini fatturati | ||
-| Conferma automaticamente le quantità negli ordini cliente | ||
-| Conferma automaticamente le quantità negli ordini fornitore | ||
-| Visualizza numero ordine cliente | ||
-| Conto per Riepilogativo fornitori | ||
-| Conto per Riepilogativo clienti | ||
-| Conto per Iva indetraibile | ||
-| Conto per Iva su vendite | ||
-| Conto per Iva su acquisti | ||
-| Conto per Erario c/ritenute d'acconto | ||
-| Conto per Erario c/INPS | ||
-| Conto per Erario c/enasarco | ||
-| Conto per Apertura conti patrimoniali | ||
-| Conto per Chiusura conti patrimoniali | ||
-| Conto per autofattura | ||
-| Conto di secondo livello per i crediti clienti | ||
-| Conto di secondo livello per i debiti fornitori | ||
-| "Condizioni generali di fornitura preventivi" | ||
-| Conferma automaticamente le quantità nei preventivi | ||
-| Esclusioni default preventivi | ||
-| Invio solleciti in automatico | ||
-| Template email primo sollecito | ||
-| Ritardo in giorni della scadenza della fattura per invio sollecito pagamento || |
-| Ritardo in giorni dall'ultima email per invio sollecito pagamento | ||
-| Template email secondo sollecito | ||
-| Template email terzo sollecito | ||
-| Template email mancato pagamento dopo i solleciti | ||
-| Indirizzo email mancato pagamento dopo i solleciti | ||
-| Template email promemoria scadenza | ||
-| Intervallo di giorni in anticipo per invio promemoria scadenza | ||
-| Licenza Wacom SDK - Key | ||
-| Sfondo firma tavoletta Wacom | ||
-| Luminosità firma Wacom | ||
-| Contrasto firma Wacom | ||
-| Secondi timeout tavoletta Wacom | ||
-| Licenza Wacom SDK - Secret | ||
+| Sezione | Nome | ☑️ | :question: |
+|---------|------|:-:|:----------:| 
+| Aggiornamenti | Attiva aggiornamenti | ||
+| Aggiornamenti | Abilita canale pre-release per aggiornamenti | || 
+| Anagrafiche | Formato codice anagrafica |:heavy_check_mark:|Crea anagrafica| 
+| API | Lunghezza pagine per API| ||
+| API | apilayer API key for VAT number| ||
+| Applicazione | Google Maps API key per Tecnici | ||
+| Applicazione | Mostra prezzi | ||
+| Applicazione | Sincronizza solo i Clienti per cui il Tecnico ha lavorato in passato | ||
+| Applicazione | Mesi per lo storico delle Attività | ||
+| Applicazione | Abilita la modifica di altri tecnici | ||
+| Applicazione | Visualizza promemoria | ||
+| Applicazione | Visualizza solo promemoria assegnati | ||
+| Applicazione | Permetti l'accesso agli amministratori | ||
+| Applicazione | Limita la visualizzazione degli impianti a quelli gestiti dal tecnico | ||
+| Attività | Mostra i prezzi al tecnico |:heavy_check_mark:|Crea attività|
+| Attività | Stampa per anteprima e firma | ||
+| Attività | Permetti inserimento sessioni degli altri tecnici |:heavy_check_mark:|Crea attività|
+| Attività | Giorni lavorativi | ||
+| Attività | Notifica al tecnico l'aggiunta della sessione nell'attività | ||
+| Attività | Notifica al tecnico la rimozione della sessione dall'attività | ||
+| Attività | Stato dell'attività dopo la firma |:heavy_check_mark:|Crea attività e firma attività|
+| Attività | Espandi automaticamente la sezione "Dettagli aggiuntivi" |:heavy_check_mark:|Crea attività|
+| Attività | Alert occupazione tecnici | ||
+| Attività | Verifica numero intervento |:heavy_check_mark:|Crea attività|
+| Attività | Formato ore in stampa |:heavy_check_mark:|Stampa intervento|
+| Attività | Notifica al tecnico l'assegnazione all'attività | ||
+| Attività | Notifica al tecnico la rimozione dell'assegnazione dall'attività | ||
+| Attività | Descrizione personalizzata in fatturazione |:heavy_check_mark:|Fattura attività|
+| Attività | Stato predefinito dell'attività da Dashboard |:heavy_check_mark:|Crea attività|
+| Attività | Stato predefinito dell'attività |:heavy_check_mark:|Crea attività|
+| Attività | Numero di minuti di avanzamento delle sessioni delle attività | ||
+| Backup | Numero di backup da mantenere | ||
+| Backup | Backup automatico | ||
+| Backup | Permetti il ripristino di backup da file esterni | ||
+| Contratti | "Condizioni generali di fornitura contratti" |:heavy_check_mark:|Crea contratto|
+| Contratti | Crea contratto rinnovabile di default |:heavy_check_mark:|Crea contratto|
+| Contratti | Giorni di preavviso di default |:heavy_check_mark:||
+| Dashboard | Utilizzare i tooltip sul calendario | ||
+| Dashboard | Visualizzare la domenica sul calendario |:heavy_check_mark:|Calendario|
+| Dashboard | Vista dashboard |:heavy_check_mark:|Calendario|
+| Dashboard | Ora inizio sul calendario |:heavy_check_mark:|Calendario|
+| Dashboard | Ora fine sul calendario |:heavy_check_mark:|Calendario|
+| Dashboard | Visualizza informazioni aggiuntive sul calendario |:heavy_check_mark:|Calendario|
+| Dashboard | Visualizzazione colori sessioni | ||
+| Dashboard | Tempo predefinito di snap attività sul calendario | ||
+| Ddt| Cambia automaticamente stato ddt fatturati |:heavy_check_mark:|Crea ddt sia in entrata che in uscita|
+| Fatturazione | Iva predefinita |:heavy_check_mark:|Crea fattura|
+| Fatturazione | Tipo di pagamento predefinito |:heavy_check_mark:|Crea fattura|
+| Fatturazione | Ritenuta d'acconto predefinita |:heavy_check_mark:|Aggiungi riga|
+| Fatturazione | Cassa previdenziale predefinita | ||
+| Fatturazione | Importo marca da bollo | ||
+| Fatturazione | Soglia minima per l'applicazione della marca da bollo | ||
+| Fatturazione | Conto aziendale predefinito | ||
+| Fatturazione | Conto predefinito fatture di vendita | ||
+| Fatturazione | Conto predefinito fatture di acquisto | ||
+| Fatturazione | "Dicitura fissa fattura" | ||
+| Fatturazione | Metodologia calcolo ritenuta d'acconto predefinito | ||
+| Fatturazione | Ritenuta previdenziale predefinita | ||
+| Fatturazione | Addebita marca da bollo al cliente | ||
+| Fatturazione | Descrizione addebito bollo | ||
+| Fatturazione | Conto predefinito per la marca da bollo | ||
+| Fatturazione | Iva per lettere d'intento | ||
+| Fatturazione | Utilizza prezzi di vendita comprensivi di IVA  | ||
+| Fatturazione | Liquidazione iva | ||
+| Fatturazione | Conto anticipo clienti | ||
+| Fatturazione | Conto anticipo fornitori | ||
+| Fatturazione | Descrizione fattura pianificata | ||
+| Fatturazione | Aggiorna info di acquisto | ||
+| Fatturazione | Sezionale per autofatture di vendita | ||
+| Fatturazione | Sezionale per autofatture di acquisto | ||
+| Fatturazione | Bloccare i prezzi inferiori al minimo di vendita | ||
+| Fatturazione | Permetti fatturazione delle attività collegate a contratti | ||
+| Fatturazione | Data emissione fattura automatica  | ||
+| Fatturazione | Permetti fatturazione delle attività collegate a ordini | ||
+| Fatturazione | Permetti fatturazione delle attività collegate a preventivi | ||
+| Fatturazione | Data inizio verifica contatore fattura di vendita | ||
+| Fatturazione | Raggruppa attività per tipologia in fattura | ||
+| Fatturazione Elettronica | Allega stampa per fattura verso Privati | ||
+| Fatturazione Elettronica | Allega stampa per fattura verso Aziende | ||
+| Fatturazione Elettronica | Allega stampa per fattura verso PA | ||
+| Fatturazione Elettronica | Regime Fiscale | ||
+| Fatturazione Elettronica | Tipo Cassa Previdenziale | ||
+| Fatturazione Elettronica | Causale ritenuta d'acconto | ||
+| Fatturazione Elettronica | Authorization ID Indice PA | ||
+| Fatturazione Elettronica | OSMCloud Services API Token | ||
+| Fatturazione Elettronica | Terzo intermediario | ||
+| Fatturazione Elettronica | Riferimento dei documenti in Fattura Elettronica | ||
+| Fatturazione Elettronica | OSMCloud Services API URL | ||
+| Fatturazione Elettronica | OSMCloud Services API Version | ||
+| Fatturazione Elettronica | Data inizio controlli su stati FE | ||
+| Fatturazione Elettronica | Movimenta magazzino da fatture di acquisto | ||
+| Fatturazione Elettronica | Rimuovi avviso fatture estere | ||
+| Fatturazione Elettronica | Creazione seriali in import FE | ||
+| Fatturazione Elettronica | Giorni validità fattura scartata | ||
+| Generali | Azienda predefinita | ||
+| Generali | Nascondere la barra sinistra di default |:heavy_check_mark:|Impostazioni|
+| Generali | Cifre decimali per importi |:heavy_check_mark:|Crea fattura|
+| Generali | CSS Personalizzato | ||
+| Generali | Attiva notifica di presenza utenti sul record | ||
+| Generali | Timeout notifica di presenza (minuti) | ||
+| Generali | Prima pagina |:heavy_check_mark:|Anagrafiche|
+| Generali | Cifre decimali per quantità | ||
+| Generali | Tempo di attesa ricerche in secondi | ||
+| Generali | Logo stampe | ||
+| Generali | Abilita esportazione Excel e PDF | ||
+| Generali | Valuta |:heavy_check_mark:|Apro fattura|
+| Generali | Visualizza riferimento su ogni riga in stampa | ||
+| Generali | Lunghezza in pagine del buffer Datatables | ||
+| Generali | Autocompletamento form | ||
+| Generali | Filigrana stampe | ||
+| Generali | Attiva scorciatoie da tastiera | ||
+| Generali | Modifica Viste di default | ||
+| Generali | Totali delle tabelle ristretti alla selezione | ||
+| Generali | Nascondere la barra dei plugin di default | ||
+| Generali | Soft quota | ||
+| Generali | Permetti selezione articoli con quantità minore o uguale a zero in Documenti di Vendita | ||
+| Generali | Inizio periodo calendario |:heavy_check_mark:|Dashboard|
+| Generali | Fine periodo calendario |:heavy_check_mark:|Dashboard|
+| Generali | Permetti il superamento della soglia quantità dei documenti di origine | ||
+| Generali | Aggiungi riferimento tra documenti | ||
+| Generali | Mantieni riferimenti tra tutti i documenti collegati | ||
+| Generali | Aggiungi le note delle righe tra documenti | ||
+| Generali | Dimensione widget predefinita | ||
+| Generali | Posizione del simbolo valuta | ||
+| Generali | Tile server OpenStreetMap | ||
+| Generali | Sistema di firma | ||
+| Generali | Tipo di sconto predefinito | ||
+| Generali | Cifre decimali per importi in stampa | ||
+| Generali | Cifre decimali per quantità in stampa | ||
+| Generali | Cifre decimali per totali in stampa | ||
+| Generali | Listino cliente predefinito | ||
+| Generali | Lingua |:heavy_check_mark:|Impostazioni|
+| Generali | Ridimensiona automaticamente le immagini caricate | ||
+| Generali | Larghezza per ridimensionamento immagini | ||
+| Magazzino | Movimenta il magazzino durante l'inserimento o eliminazione dei lotti/serial n|umber | |
+| Magazzino | Serial number abilitato di default | ||
+| Magazzino | Magazzino cespiti | ||
+| Magazzino | Utilizza codice articolo come barcode | ||
+| Mail | Numero di giorni mantenimento coda di invio | ||
+| Newsletter | Numero massimo di tentativi | ||
+| Newsletter | Numero email da inviare in contemporanea per account | ||
+| Ordini | Cambia automaticamente stato ordini fatturati |:heavy_check_mark:|Fattura ordine|
+| Ordini | Conferma automaticamente le quantità negli ordini cliente | ||
+| Ordini | Conferma automaticamente le quantità negli ordini fornitore | ||
+| Ordini | Visualizza numero ordine cliente | ||
+| Piano dei conti | Conto per Riepilogativo fornitori | ||
+| Piano dei conti | Conto per Riepilogativo clienti | ||
+| Piano dei conti | Conto per Iva indetraibile | ||
+| Piano dei conti | Conto per Iva su vendite | ||
+| Piano dei conti | Conto per Iva su acquisti | ||
+| Piano dei conti | Conto per Erario c/ritenute d'acconto | ||
+| Piano dei conti | Conto per Erario c/INPS | ||
+| Piano dei conti | Conto per Erario c/enasarco | ||
+| Piano dei conti | Conto per Apertura conti patrimoniali | ||
+| Piano dei conti | Conto per Chiusura conti patrimoniali | ||
+| Piano dei conti | Conto per autofattura | ||
+| Piano dei conti | Conto di secondo livello per i crediti clienti | ||
+| Piano dei conti | Conto di secondo livello per i debiti fornitori | ||
+| Preventivi | "Condizioni generali di fornitura preventivi" | ||
+| Preventivi | Conferma automaticamente le quantità nei preventivi | ||
+| Preventivi | Esclusioni default preventivi | ||
+| Scadenzario | Invio solleciti in automatico | ||
+| Scadenzario | Template email primo sollecito | ||
+| Scadenzario | Ritardo in giorni della scadenza della fattura per invio sollecito pagamento | ||
+| Scadenzario | Ritardo in giorni dall'ultima email per invio sollecito pagamento | ||
+| Scadenzario | Template email secondo sollecito | ||
+| Scadenzario | Template email terzo sollecito | ||
+| Scadenzario | Template email mancato pagamento dopo i solleciti | ||
+| Scadenzario | Indirizzo email mancato pagamento dopo i solleciti | ||
+| Scadenzario | Template email promemoria scadenza | ||
+| Scadenzario | Intervallo di giorni in anticipo per invio promemoria scadenza | ||
+| Tavoletta Wacom | Licenza Wacom SDK - Key | ||
+| Tavoletta Wacom | Sfondo firma tavoletta Wacom | ||
+| Tavoletta Wacom | Luminosità firma Wacom | ||
+| Tavoletta Wacom | Contrasto firma Wacom | ||
+| Tavoletta Wacom | Secondi timeout tavoletta Wacom | ||
+| Tavoletta Wacom | Licenza Wacom SDK - Secret | ||

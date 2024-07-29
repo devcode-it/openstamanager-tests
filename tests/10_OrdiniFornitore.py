@@ -171,10 +171,3 @@ class OrdiniFornitore(Test):
 
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click() #elimino ricerca
         sleep(2)
-
-        self.find(By.XPATH, '//tbody//tr[2]//td[2]').click()    #apro secondo ordine
-        sleep(1)
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()  #elimino ordine
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader()
