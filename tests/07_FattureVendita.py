@@ -590,10 +590,11 @@ class FattureVendita(Test):
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
+
+        self.expandSidebar("Vendite")
         
     def registrazioni(self):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
@@ -608,6 +609,12 @@ class FattureVendita(Test):
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_42"]//tr[5]//td[1]'))) #check 5 riga
+        sleep(2)
+
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
 
     def controlla_allegati(self): 
@@ -634,9 +641,10 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
 
+        self.expandSidebar("Vendite")
+
     def elimina_selezionati(self):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
@@ -644,11 +652,10 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
         self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()  #click su elimina selezionati
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
-        self.wait_loader()
+        sleep(2)
 
         test=self.find(By.XPATH, '//tbody//tr//td[2]').text
         self.assertEqual(test, "0002/2024") #controllo se trova la seconda fattura e non la prima in prima riga
-
 
     def cambia_sezionale(self):
         wait = WebDriverWait(self.driver, 20)
@@ -852,26 +859,26 @@ class FattureVendita(Test):
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi
         sleep(1)
-        #commentato perchè in fase di controllo fatture non riesco a leggere il widget
-        #widget=self.find(By.XPATH, '//div[@class="toast toast-success"]//div[3]').text  #se trova il widget il test è superato
-        #self.assertEqual(widget, "Nessuna anomalia!")  
 
     def registrazione_contabile(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[1]'))).send_keys("0001", Keys.ENTER) #cerco fattura numero 0001
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("0001")
         sleep(1)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys(Keys.ENTER)
+        sleep(3)
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono prima fattura
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
         self.find(By.XPATH, '//a[@data-op="registrazione-contabile"]').click()    #click su registrazione contabile
         sleep(3)
 
-        totale=self.find(By.XPATH, '(//tfoot//tr[1]//td[2])[3]').text   #controllo se il totale è uguale a 1,22 €
+        totale=self.find(By.XPATH, '//th[@id="totale_dare"]').text   #controllo se il totale è uguale a 1,22 €
         self.assertEqual(totale, "1,22 €")
 
+        #TODO aggiungere registrazione contabile e verificare importo in prima nota anzichè chiuderla
         self.find(By.XPATH, '//button[@class="close"]').click() #chiudo registrazione contabile
         sleep(1)
 
