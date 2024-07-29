@@ -119,6 +119,8 @@ class StatoServizi(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
+        self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/i[@class="deleteicon fa fa-times"]').click()
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente Estero", Keys.ENTER)  
         sleep(1)
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
