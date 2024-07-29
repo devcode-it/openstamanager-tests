@@ -98,19 +98,23 @@ class Movimenti(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_10"]'))).click()
 
         movimento = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[1]'))).text
-        ddt_uscita = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[2]'))).text
-        ddt_entrata = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[3]'))).text
-        fattura_acquisto2 = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[4]'))).text
-        fattura_acquisto = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[5]'))).text
-        attività = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[6]'))).text
-        eliminazioneserial = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[7]'))).text
-        carico = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[8]'))).text
+        fattura_vendita = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[2]'))).text
+        ddt_uscita = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[3]'))).text
+        ddt_entrata = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[4]'))).text
+        fattura_acquisto2 = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[5]'))).text
+        fattura_acquisto = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[6]'))).text
+        attività = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[7]'))).text
+        eliminazioneserial = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[8]'))).text
+        serial = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[9]'))).text
+        carico = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[10]'))).text
 
         self.assertEqual(movimento, "10,00")
+        self.assertEqual(fattura_vendita, "-1,00")
         self.assertEqual(ddt_uscita, "-1,00")
         self.assertEqual(ddt_entrata, "1,00")
         self.assertEqual(fattura_acquisto2, "1,00")
         self.assertEqual(fattura_acquisto, "1,00")
         self.assertEqual(attività, "-1,00")
         self.assertEqual(eliminazioneserial, "-1,00")
+        self.assertEqual(serial, "2,00")
         self.assertEqual(carico, "2,00")

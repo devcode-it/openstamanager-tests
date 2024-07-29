@@ -187,7 +187,6 @@ class Contratti(Test):
         sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_35"]//tr[@id="2"]//td[1]')))
 
-
     def consuntivo(self):
         wait = WebDriverWait(self.driver, 20)
         self.expandSidebar("Vendite")

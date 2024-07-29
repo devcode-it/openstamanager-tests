@@ -543,18 +543,3 @@ class Preventivi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("In lavorazione", Keys.ENTER)
         self.find(By.XPATH, '//button[@id="save"]') #click su salva
         self.wait_loader()
-
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()  
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[9]'))).send_keys("Bozza",Keys.ENTER)   #cerco fattura in stato di Bozza
-        sleep(1)
-
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()    #apro primo risultato
-        self.wait_loader()
-
-        self.find(By.XPATH, '//a[@id="elimina"]').click()   #click su elimina
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() #click di conferma
-        self.wait_loader()
-
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() #cancello ricerca
