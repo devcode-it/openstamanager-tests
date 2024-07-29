@@ -412,6 +412,9 @@ class Attivita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() #cancella ricerca
+        sleep(2)    
+
     def stampa_riepilogo(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Attività")
