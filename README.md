@@ -314,8 +314,8 @@ Legenda:
 | Fatturazione | Importo marca da bollo | ||
 | Fatturazione | Soglia minima per l'applicazione della marca da bollo | ||
 | Fatturazione | Conto aziendale predefinito | ||
-| Fatturazione | Conto predefinito fatture di vendita | ||
-| Fatturazione | Conto predefinito fatture di acquisto | ||
+| Fatturazione | Conto predefinito fatture di vendita |:heavy_check_mark:|Aggiungi riga|
+| Fatturazione | Conto predefinito fatture di acquisto |:heavy_check_mark:|Aggiungi riga|
 | Fatturazione | "Dicitura fissa fattura" | ||
 | Fatturazione | Metodologia calcolo ritenuta d'acconto predefinito | ||
 | Fatturazione | Ritenuta previdenziale predefinita | ||
@@ -329,8 +329,6 @@ Legenda:
 | Fatturazione | Conto anticipo fornitori | ||
 | Fatturazione | Descrizione fattura pianificata | ||
 | Fatturazione | Aggiorna info di acquisto | ||
-| Fatturazione | Sezionale per autofatture di vendita | ||
-| Fatturazione | Sezionale per autofatture di acquisto | ||
 | Fatturazione | Bloccare i prezzi inferiori al minimo di vendita | ||
 | Fatturazione | Permetti fatturazione delle attività collegate a contratti | ||
 | Fatturazione | Data emissione fattura automatica  | ||
@@ -341,8 +339,8 @@ Legenda:
 | Fatturazione Elettronica | Allega stampa per fattura verso Privati | ||
 | Fatturazione Elettronica | Allega stampa per fattura verso Aziende | ||
 | Fatturazione Elettronica | Allega stampa per fattura verso PA | ||
-| Fatturazione Elettronica | Regime Fiscale | ||
-| Fatturazione Elettronica | Tipo Cassa Previdenziale | ||
+| Fatturazione Elettronica | Regime Fiscale |:heavy_check_mark:|Apri fattura elettronica|
+| Fatturazione Elettronica | Tipo Cassa Previdenziale |:heavy_check_mark:|Apri fattura elettronica|
 | Fatturazione Elettronica | Causale ritenuta d'acconto | ||
 | Fatturazione Elettronica | Authorization ID Indice PA | ||
 | Fatturazione Elettronica | OSMCloud Services API Token | ||
@@ -362,7 +360,7 @@ Legenda:
 | Generali | Attiva notifica di presenza utenti sul record | ||
 | Generali | Timeout notifica di presenza (minuti) | ||
 | Generali | Prima pagina |:heavy_check_mark:|Anagrafiche|
-| Generali | Cifre decimali per quantità | ||
+| Generali | Cifre decimali per quantità |:heavy_check_mark:|Crea fattura|
 | Generali | Tempo di attesa ricerche in secondi | ||
 | Generali | Logo stampe | ||
 | Generali | Abilita esportazione Excel e PDF | ||
@@ -376,7 +374,7 @@ Legenda:
 | Generali | Totali delle tabelle ristretti alla selezione | ||
 | Generali | Nascondere la barra dei plugin di default | ||
 | Generali | Soft quota | ||
-| Generali | Permetti selezione articoli con quantità minore o uguale a zero in Documenti di Vendita | ||
+| Generali | Permetti selezione articoli con quantità minore o uguale a zero in Documenti di Vendita |:heavy_check_mark:|Crea fattura|
 | Generali | Inizio periodo calendario |:heavy_check_mark:|Dashboard|
 | Generali | Fine periodo calendario |:heavy_check_mark:|Dashboard|
 | Generali | Permetti il superamento della soglia quantità dei documenti di origine | ||
@@ -388,17 +386,16 @@ Legenda:
 | Generali | Tile server OpenStreetMap | ||
 | Generali | Sistema di firma | ||
 | Generali | Tipo di sconto predefinito | ||
-| Generali | Cifre decimali per importi in stampa | ||
-| Generali | Cifre decimali per quantità in stampa | ||
-| Generali | Cifre decimali per totali in stampa | ||
-| Generali | Listino cliente predefinito | ||
+| Generali | Cifre decimali per importi in stampa |:heavy_check_mark:|Stampa fattura|
+| Generali | Cifre decimali per quantità in stampa |:heavy_check_mark:|Stampa fattura|
+| Generali | Cifre decimali per totali in stampa |:heavy_check_mark:|Stampa fattura|
+| Generali | Listino cliente predefinito |:heavy_check_mark:|Crea anagrafica|
 | Generali | Lingua |:heavy_check_mark:|Impostazioni|
 | Generali | Ridimensiona automaticamente le immagini caricate | ||
 | Generali | Larghezza per ridimensionamento immagini | ||
-| Magazzino | Movimenta il magazzino durante l'inserimento o eliminazione dei lotti/serial n|umber | |
+| Magazzino | Movimenta il magazzino durante l'inserimento o eliminazione dei lotti/serial number | ||
 | Magazzino | Serial number abilitato di default | ||
 | Magazzino | Magazzino cespiti | ||
-| Magazzino | Utilizza codice articolo come barcode | ||
 | Mail | Numero di giorni mantenimento coda di invio | ||
 | Newsletter | Numero massimo di tentativi | ||
 | Newsletter | Numero email da inviare in contemporanea per account | ||
