@@ -278,15 +278,15 @@ Legenda:
 | Attività | Mostra i prezzi al tecnico |:heavy_check_mark:|Crea attività|
 | Attività | Stampa per anteprima e firma | ||
 | Attività | Permetti inserimento sessioni degli altri tecnici |:heavy_check_mark:|Crea attività|
-| Attività | Giorni lavorativi | ||
-| Attività | Notifica al tecnico l'aggiunta della sessione nell'attività | ||
+| Attività | Giorni lavorativi |:heavy_check_mark:|Calendario|
+| Attività | Notifica al tecnico l'aggiunta della sessione nell'attività |:heavy_check_mark:|Aggiungi sessione di lavoro|
 | Attività | Notifica al tecnico la rimozione della sessione dall'attività | ||
 | Attività | Stato dell'attività dopo la firma |:heavy_check_mark:|Crea attività e firma attività|
 | Attività | Espandi automaticamente la sezione "Dettagli aggiuntivi" |:heavy_check_mark:|Crea attività|
-| Attività | Alert occupazione tecnici | ||
+| Attività | Alert occupazione tecnici |:heavy_check_mark:|Crea attività|
 | Attività | Verifica numero intervento |:heavy_check_mark:|Crea attività|
 | Attività | Formato ore in stampa |:heavy_check_mark:|Stampa intervento|
-| Attività | Notifica al tecnico l'assegnazione all'attività | ||
+| Attività | Notifica al tecnico l'assegnazione all'attività |:heavy_check_mark:|Aggiungi assegnazione|
 | Attività | Notifica al tecnico la rimozione dell'assegnazione dall'attività | ||
 | Attività | Descrizione personalizzata in fatturazione |:heavy_check_mark:|Fattura attività|
 | Attività | Stato predefinito dell'attività da Dashboard |:heavy_check_mark:|Crea attività|
@@ -310,9 +310,9 @@ Legenda:
 | Fatturazione | Iva predefinita |:heavy_check_mark:|Crea fattura|
 | Fatturazione | Tipo di pagamento predefinito |:heavy_check_mark:|Crea fattura|
 | Fatturazione | Ritenuta d'acconto predefinita |:heavy_check_mark:|Aggiungi riga|
-| Fatturazione | Cassa previdenziale predefinita | ||
-| Fatturazione | Importo marca da bollo | ||
-| Fatturazione | Soglia minima per l'applicazione della marca da bollo | ||
+| Fatturazione | Cassa previdenziale predefinita |:heavy_check_mark:|Crea anagrafica|
+| Fatturazione | Importo marca da bollo |:heavy_check_mark:|Aggiungi riga|
+| Fatturazione | Soglia minima per l'applicazione della marca da bollo |:heavy_check_mark:|Aggiungi riga|
 | Fatturazione | Conto aziendale predefinito | ||
 | Fatturazione | Conto predefinito fatture di vendita |:heavy_check_mark:|Aggiungi riga|
 | Fatturazione | Conto predefinito fatture di acquisto |:heavy_check_mark:|Aggiungi riga|
@@ -341,7 +341,7 @@ Legenda:
 | Fatturazione Elettronica | Allega stampa per fattura verso PA | ||
 | Fatturazione Elettronica | Regime Fiscale |:heavy_check_mark:|Apri fattura elettronica|
 | Fatturazione Elettronica | Tipo Cassa Previdenziale |:heavy_check_mark:|Apri fattura elettronica|
-| Fatturazione Elettronica | Causale ritenuta d'acconto | ||
+| Fatturazione Elettronica | Causale ritenuta d'acconto |:heavy_check_mark:|Apri fattura elettronica|
 | Fatturazione Elettronica | Authorization ID Indice PA | ||
 | Fatturazione Elettronica | OSMCloud Services API Token | ||
 | Fatturazione Elettronica | Terzo intermediario | ||
@@ -394,14 +394,14 @@ Legenda:
 | Generali | Ridimensiona automaticamente le immagini caricate | ||
 | Generali | Larghezza per ridimensionamento immagini | ||
 | Magazzino | Movimenta il magazzino durante l'inserimento o eliminazione dei lotti/serial number | ||
-| Magazzino | Serial number abilitato di default | ||
+| Magazzino | Serial number abilitato di default |:heavy_check_mark:|Crea articolo|
 | Magazzino | Magazzino cespiti | ||
 | Mail | Numero di giorni mantenimento coda di invio | ||
 | Newsletter | Numero massimo di tentativi | ||
 | Newsletter | Numero email da inviare in contemporanea per account | ||
 | Ordini | Cambia automaticamente stato ordini fatturati |:heavy_check_mark:|Fattura ordine|
-| Ordini | Conferma automaticamente le quantità negli ordini cliente | ||
-| Ordini | Conferma automaticamente le quantità negli ordini fornitore | ||
+| Ordini | Conferma automaticamente le quantità negli ordini cliente |:heavy_check_mark:|Crea ordine cliente|
+| Ordini | Conferma automaticamente le quantità negli ordini fornitore |:heavy_check_mark:|Crea ordine fornitore|
 | Ordini | Visualizza numero ordine cliente | ||
 | Piano dei conti | Conto per Riepilogativo fornitori | ||
 | Piano dei conti | Conto per Riepilogativo clienti | ||
