@@ -266,15 +266,6 @@ Legenda:
 | Anagrafiche | Formato codice anagrafica |:heavy_check_mark:|Crea anagrafica| 
 | API | Lunghezza pagine per API| ||
 | API | apilayer API key for VAT number| ||
-| Applicazione | Google Maps API key per Tecnici | ||
-| Applicazione | Mostra prezzi | ||
-| Applicazione | Sincronizza solo i Clienti per cui il Tecnico ha lavorato in passato | ||
-| Applicazione | Mesi per lo storico delle Attività | ||
-| Applicazione | Abilita la modifica di altri tecnici | ||
-| Applicazione | Visualizza promemoria | ||
-| Applicazione | Visualizza solo promemoria assegnati | ||
-| Applicazione | Permetti l'accesso agli amministratori | ||
-| Applicazione | Limita la visualizzazione degli impianti a quelli gestiti dal tecnico | ||
 | Attività | Mostra i prezzi al tecnico |:heavy_check_mark:|Crea attività|
 | Attività | Stampa per anteprima e firma | ||
 | Attività | Permetti inserimento sessioni degli altri tecnici |:heavy_check_mark:|Crea attività|
@@ -377,7 +368,7 @@ Legenda:
 | Generali | Permetti selezione articoli con quantità minore o uguale a zero in Documenti di Vendita |:heavy_check_mark:|Crea fattura|
 | Generali | Inizio periodo calendario |:heavy_check_mark:|Dashboard|
 | Generali | Fine periodo calendario |:heavy_check_mark:|Dashboard|
-| Generali | Permetti il superamento della soglia quantità dei documenti di origine | ||
+| Generali | Permetti il superamento della soglia quantità dei documenti di origine |:heavy_check_mark:|Crea attività, preventivo, contratto, ddt, ordine, fattura|
 | Generali | Aggiungi riferimento tra documenti | ||
 | Generali | Mantieni riferimenti tra tutti i documenti collegati | ||
 | Generali | Aggiungi le note delle righe tra documenti | ||
