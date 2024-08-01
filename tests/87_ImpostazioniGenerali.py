@@ -36,6 +36,9 @@ class Impostazioni(Test):
         # Cambio periodo calendario (23-24)
         self.periodo_calendario()
 
+        # Permetti il superamento della soglia quantità dei documenti di origine (25)
+        self.superamento_soglia_quantita()
+
         # Cifre decimali per importi in stampa (34)
         self.importi_stampa()
 
@@ -426,6 +429,488 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="password"]'))).send_keys('') #password da mettere prima del test
         self.find(By.XPATH, '//button[@class="btn btn-danger btn-block btn-flat"]').click() 
         sleep(2)
+        self.wait_loader()
+
+    def superamento_soglia_quantita(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Impostazioni")
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[9]').click()    #attivo impostazione
+        sleep(2)
+        #crea attività
+        self.navigateTo("Attività")
+        self.wait_loader()
+
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()  #click su +
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click() #seleziono Cliente come anagrafica
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-dropdown select2-dropdown--below"]//input'))).send_keys("Cliente", Keys.ENTER)
+        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click() #seleziono Generico come tipo di intervento
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Generico")
+        sleep(1)
+
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()  #click su primo risultato
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).send_keys("Test")   #scrivo "Test" come richiesta
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su Aggiungi
+        self.wait_loader()
+        sleep(2)
+        #aggiungi articolo
+        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@class="select2-results__options select2-results__options--nested"]//li[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click() #click su aggiungi
+        sleep(2)
+        #cambio stato
+        self.find(By.XPATH, '//span[@id="select2-idstatointervento-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idstatointervento-results"]//li[1]').click() #imposto stato "Completato"
+        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.wait_loader()
+
+        #creo preventivo
+        self.expandSidebar("Vendite")
+        self.navigateTo("Preventivi")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        sleep(1)
+        #nome
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('Test')
+        #cliente
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idanagrafica-results"]//li[2]').click()
+        #tipo di attività
+        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idtipointervento-results"]//li[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
+        self.wait_loader()
+        #aggiungi articolo
+        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@class="select2-results__options select2-results__options--nested"]//li[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click() #click su aggiungi
+        sleep(2)
+
+        self.driver.execute_script('window.scrollTo(0,0)')
+        sleep(1)
+
+        #cambio stato
+        self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-idstato-results"]//li[1]').click() #imposto stato "Accettato"
+        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.wait_loader()
+
+        #crea contratto
+        self.navigateTo("Contratti")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys("Test")
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2024")
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_loader()
+        #aggiungi articolo
+        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@class="select2-results__options select2-results__options--nested"]//li[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click() #click su aggiungi
+        sleep(2)
+        #cambio stato
+        self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idstato-results"]//li[1]').click() #imposto stato "Accettato"
+        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.wait_loader()
+        #creo ddt
+        self.expandSidebar("Magazzino")
+        self.navigateTo("Ddt in uscita")
+        self.wait_loader()
+
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #click su +
+        sleep(1)
+        #seleziono destinatario
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        #seleziono causale trasporto
+        self.find(By.XPATH, '//span[@id="select2-idcausalet-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Conto lavorazione")
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.wait_loader()
+
+        #aggiungi articolo
+        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@class="select2-results__options select2-results__options--nested"]//li[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click() #click su aggiungi
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-idstatoddt-container"]').click() #cambio stato in evaso
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Evaso", Keys.ENTER)
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+        #crea ordine
+        self.expandSidebar("Vendite")
+        self.navigateTo("Ordini cliente")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su tasto +
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()     #scelta di "Cliente" come anagrafica per l'ordine
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Cliente')
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su tasto aggiungi
+        self.wait_loader()
+        #aggiungi articolo
+        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@class="select2-results__options select2-results__options--nested"]//li[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click() #click su aggiungi
+        sleep(2)
+        #cambio stato
+        self.find(By.XPATH, '//span[@id="select2-idstatoordine-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Accettato", Keys.ENTER)
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+        
+        #crea fattura
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary dropdown-toggle"]').click() #click su altro
+        #attività
+        self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[3]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-idintervento-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idintervento-results"]//li[2]').click()  #seleziona attività creata prima
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody[@id="righe"]//tr[2]//td[4]//input'))).send_keys("2", Keys.ENTER) #imposta quantità a 2
+        sleep(2)
+
+        qta_element = self.find(By.XPATH, '//tbody[@id="righe"]//tr[2]//td[4]//input')    #controllo se la quantità è cambiata
+        qta = qta_element.get_attribute("value")
+        self.assertEqual(qta, "2,00") 
+        self.find(By.XPATH, '//input[@id="check_all"]').click() #elimino righe
+        self.find(By.XPATH, '//button[@id="elimina_righe"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
+        sleep(2)
+        #preventivi
+        self.find(By.XPATH, '//button[@class="btn btn-primary dropdown-toggle"]').click() #click su altro
+        self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[4]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_documento-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_documento-results"]//li[2]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody[@id="righe_documento_importato"]//tr[1]//td[4]//input'))).send_keys("2", Keys.ENTER)
+        sleep(3)
+
+        qta_element = self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[4]//input')    #controllo se la quantità è cambiata
+        qta = qta_element.get_attribute("value")
+        self.assertEqual(qta, "2,00") 
+        self.find(By.XPATH, '//input[@id="check_all"]').click() #elimino righe
+        self.find(By.XPATH, '//button[@id="elimina_righe"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
+        sleep(2)
+        #contratti
+        self.find(By.XPATH, '//button[@class="btn btn-primary dropdown-toggle"]').click() #click su altro
+        self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[5]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_documento-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_documento-results"]//li[3]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody[@id="righe_documento_importato"]//tr[1]//td[4]//input'))).send_keys("2", Keys.ENTER)
+        sleep(3)
+
+        qta_element = self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[4]//input')    #controllo se la quantità è cambiata
+        qta = qta_element.get_attribute("value")
+        self.assertEqual(qta, "2,00") 
+        self.find(By.XPATH, '//input[@id="check_all"]').click() #elimino righe
+        self.find(By.XPATH, '//button[@id="elimina_righe"]').click()
+        sleep(1)
+        #ddt
+        self.find(By.XPATH, '//button[@class="btn btn-primary dropdown-toggle"]').click() #click su altro
+        self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[6]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_documento-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_documento-results"]//li[1]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody[@id="righe_documento_importato"]//tr[1]//td[4]//input'))).send_keys("2", Keys.ENTER)
+        sleep(3)
+
+        qta_element = self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[4]//input')    #controllo se la quantità è cambiata
+        qta = qta_element.get_attribute("value")
+        self.assertEqual(qta, "2,00") 
+        self.find(By.XPATH, '//input[@id="check_all"]').click() #elimino righe
+        self.find(By.XPATH, '//button[@id="elimina_righe"]').click()
+        sleep(1)
+        #ordine
+        self.find(By.XPATH, '//button[@class="btn btn-primary dropdown-toggle"]').click() #click su altro
+        self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[7]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_documento-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_documento-results"]//li[1]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody[@id="righe_documento_importato"]//tr[1]//td[4]//input'))).send_keys("2", Keys.ENTER)
+        sleep(3)
+
+        qta_element = self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[4]//input')    #controllo se la quantità è cambiata
+        qta = qta_element.get_attribute("value")
+        self.assertEqual(qta, "2,00") 
+        self.find(By.XPATH, '//input[@id="check_all"]').click() #elimino righe
+        self.find(By.XPATH, '//button[@id="elimina_righe"]').click()
+        sleep(1)
+
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[9]').click()    #disattivo impostazione
+        sleep(2)
+        
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()    #apro fattura
+        self.wait_loader()
+
+        #attività
+        self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[3]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-idintervento-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idintervento-results"]//li[3]').click()  #seleziona attività creata prima
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody[@id="righe"]//tr[2]//td[4]//input'))).send_keys("2", Keys.ENTER) #imposta quantità a 2
+        sleep(3)
+
+        qta_element = self.find(By.XPATH, '//tbody[@id="righe"]//tr[2]//td[4]//input')    #controllo se la quantità è cambiata a 1 e non a 2
+        qta = qta_element.get_attribute("value")
+        self.assertEqual(qta, "1") 
+        self.find(By.XPATH, '//input[@id="check_all"]').click() #elimino righe
+        self.find(By.XPATH, '//button[@id="elimina_righe"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
+        sleep(2)
+
+        #preventivi
+        self.find(By.XPATH, '//button[@class="btn btn-primary dropdown-toggle"]').click() #click su altro
+        self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[4]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_documento-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_documento-results"]//li[2]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody[@id="righe_documento_importato"]//tr[1]//td[4]//input'))).send_keys("2", Keys.ENTER)
+        sleep(3)
+
+        qta_element = self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[4]//input')    #controllo se la quantità è cambiata a 1 e non a 2
+        qta = qta_element.get_attribute("value")
+        self.assertEqual(qta, "1")
+        self.find(By.XPATH, '//input[@id="check_all"]').click() #elimino righe
+        self.find(By.XPATH, '//button[@id="elimina_righe"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
+        sleep(2)
+        #contratti
+        self.find(By.XPATH, '//button[@class="btn btn-primary dropdown-toggle"]').click() #click su altro
+        self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[5]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_documento-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_documento-results"]//li[3]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody[@id="righe_documento_importato"]//tr[1]//td[4]//input'))).send_keys("2", Keys.ENTER)
+        sleep(3)
+
+        qta_element = self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[4]//input')    #controllo se la quantità è cambiata a 1 e non a 2
+        qta = qta_element.get_attribute("value")
+        self.assertEqual(qta, "1")
+        self.find(By.XPATH, '//input[@id="check_all"]').click() #elimino righe
+        self.find(By.XPATH, '//button[@id="elimina_righe"]').click()
+        sleep(1)
+        #ddt
+        self.find(By.XPATH, '//button[@class="btn btn-primary dropdown-toggle"]').click() #click su altro
+        self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[6]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_documento-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_documento-results"]//li[1]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody[@id="righe_documento_importato"]//tr[1]//td[4]//input'))).send_keys("2", Keys.ENTER)
+        sleep(3)
+
+        qta_element = self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[4]//input')    #controllo se la quantità è cambiata a 1 e non a 2
+        qta = qta_element.get_attribute("value")
+        self.assertEqual(qta, "1")
+        self.find(By.XPATH, '//input[@id="check_all"]').click() #elimino righe
+        self.find(By.XPATH, '//button[@id="elimina_righe"]').click()
+        sleep(1)
+        #ordine
+        self.find(By.XPATH, '//button[@class="btn btn-primary dropdown-toggle"]').click() #click su altro
+        self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[7]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_documento-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_documento-results"]//li[1]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody[@id="righe_documento_importato"]//tr[1]//td[4]//input'))).send_keys("2", Keys.ENTER)
+        sleep(3)
+
+        qta_element = self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[4]//input')    #controllo se la quantità è cambiata a 1 e non a 2
+        qta = qta_element.get_attribute("value")
+        self.assertEqual(qta, "1")
+        self.find(By.XPATH, '//input[@id="check_all"]').click() #elimino righe
+        self.find(By.XPATH, '//button[@id="elimina_righe"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="elimina"]').click() #elimina fattura
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+        #elimino attività
+        self.navigateTo("Attività")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+        #elimino preventivo
+        self.expandSidebar("Vendite")
+        self.navigateTo("Preventivi")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+        #elimina contratto
+        self.navigateTo("Contratti")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[4]//td[2]').click() #apre contratto
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()  #elimino contratto 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
+        #elimina ddt
+        self.expandSidebar("Magazzino") 
+        self.navigateTo("Ddt in uscita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+        #elimina ordini
+        self.expandSidebar("Vendite")
+        self.navigateTo("Ordini cliente")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click() 
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
     def importi_stampa(self):

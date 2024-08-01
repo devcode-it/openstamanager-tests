@@ -266,28 +266,19 @@ Legenda:
 | Anagrafiche | Formato codice anagrafica |:heavy_check_mark:|Crea anagrafica| 
 | API | Lunghezza pagine per API| ||
 | API | apilayer API key for VAT number| ||
-| Applicazione | Google Maps API key per Tecnici | ||
-| Applicazione | Mostra prezzi | ||
-| Applicazione | Sincronizza solo i Clienti per cui il Tecnico ha lavorato in passato | ||
-| Applicazione | Mesi per lo storico delle Attività | ||
-| Applicazione | Abilita la modifica di altri tecnici | ||
-| Applicazione | Visualizza promemoria | ||
-| Applicazione | Visualizza solo promemoria assegnati | ||
-| Applicazione | Permetti l'accesso agli amministratori | ||
-| Applicazione | Limita la visualizzazione degli impianti a quelli gestiti dal tecnico | ||
 | Attività | Mostra i prezzi al tecnico |:heavy_check_mark:|Crea attività|
 | Attività | Stampa per anteprima e firma | ||
 | Attività | Permetti inserimento sessioni degli altri tecnici |:heavy_check_mark:|Crea attività|
 | Attività | Giorni lavorativi |:heavy_check_mark:|Calendario|
 | Attività | Notifica al tecnico l'aggiunta della sessione nell'attività |:heavy_check_mark:|Aggiungi sessione di lavoro|
-| Attività | Notifica al tecnico la rimozione della sessione dall'attività | ||
+| Attività | Notifica al tecnico la rimozione della sessione dall'attività |:heavy_check_mark:|Elimina sessione di lavoro|
 | Attività | Stato dell'attività dopo la firma |:heavy_check_mark:|Crea attività e firma attività|
 | Attività | Espandi automaticamente la sezione "Dettagli aggiuntivi" |:heavy_check_mark:|Crea attività|
 | Attività | Alert occupazione tecnici |:heavy_check_mark:|Crea attività|
 | Attività | Verifica numero intervento |:heavy_check_mark:|Crea attività|
 | Attività | Formato ore in stampa |:heavy_check_mark:|Stampa intervento|
 | Attività | Notifica al tecnico l'assegnazione all'attività |:heavy_check_mark:|Aggiungi assegnazione|
-| Attività | Notifica al tecnico la rimozione dell'assegnazione dall'attività | ||
+| Attività | Notifica al tecnico la rimozione dell'assegnazione dall'attività |:heavy_check_mark:|Elimina assegnazione|
 | Attività | Descrizione personalizzata in fatturazione |:heavy_check_mark:|Fattura attività|
 | Attività | Stato predefinito dell'attività da Dashboard |:heavy_check_mark:|Crea attività|
 | Attività | Stato predefinito dell'attività |:heavy_check_mark:|Crea attività|
@@ -377,7 +368,7 @@ Legenda:
 | Generali | Permetti selezione articoli con quantità minore o uguale a zero in Documenti di Vendita |:heavy_check_mark:|Crea fattura|
 | Generali | Inizio periodo calendario |:heavy_check_mark:|Dashboard|
 | Generali | Fine periodo calendario |:heavy_check_mark:|Dashboard|
-| Generali | Permetti il superamento della soglia quantità dei documenti di origine | ||
+| Generali | Permetti il superamento della soglia quantità dei documenti di origine |:heavy_check_mark:|Crea attività, preventivo, contratto, ddt, ordine, fattura|
 | Generali | Aggiungi riferimento tra documenti | ||
 | Generali | Mantieni riferimenti tra tutti i documenti collegati | ||
 | Generali | Aggiungi le note delle righe tra documenti | ||
@@ -416,9 +407,9 @@ Legenda:
 | Piano dei conti | Conto per autofattura | ||
 | Piano dei conti | Conto di secondo livello per i crediti clienti | ||
 | Piano dei conti | Conto di secondo livello per i debiti fornitori | ||
-| Preventivi | "Condizioni generali di fornitura preventivi" | ||
-| Preventivi | Conferma automaticamente le quantità nei preventivi | ||
-| Preventivi | Esclusioni default preventivi | ||
+| Preventivi | "Condizioni generali di fornitura preventivi" |:heavy_check_mark:|Stampa preventivo|
+| Preventivi | Conferma automaticamente le quantità nei preventivi |:heavy_check_mark:|Aggiungi articolo|
+| Preventivi | Esclusioni default preventivi |:heavy_check_mark:|Crea preventivo|
 | Scadenzario | Invio solleciti in automatico | ||
 | Scadenzario | Template email primo sollecito | ||
 | Scadenzario | Ritardo in giorni della scadenza della fattura per invio sollecito pagamento | ||
