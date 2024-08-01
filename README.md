@@ -280,14 +280,14 @@ Legenda:
 | Attività | Permetti inserimento sessioni degli altri tecnici |:heavy_check_mark:|Crea attività|
 | Attività | Giorni lavorativi |:heavy_check_mark:|Calendario|
 | Attività | Notifica al tecnico l'aggiunta della sessione nell'attività |:heavy_check_mark:|Aggiungi sessione di lavoro|
-| Attività | Notifica al tecnico la rimozione della sessione dall'attività | ||
+| Attività | Notifica al tecnico la rimozione della sessione dall'attività |:heavy_check_mark:|Elimina sessione di lavoro|
 | Attività | Stato dell'attività dopo la firma |:heavy_check_mark:|Crea attività e firma attività|
 | Attività | Espandi automaticamente la sezione "Dettagli aggiuntivi" |:heavy_check_mark:|Crea attività|
 | Attività | Alert occupazione tecnici |:heavy_check_mark:|Crea attività|
 | Attività | Verifica numero intervento |:heavy_check_mark:|Crea attività|
 | Attività | Formato ore in stampa |:heavy_check_mark:|Stampa intervento|
 | Attività | Notifica al tecnico l'assegnazione all'attività |:heavy_check_mark:|Aggiungi assegnazione|
-| Attività | Notifica al tecnico la rimozione dell'assegnazione dall'attività | ||
+| Attività | Notifica al tecnico la rimozione dell'assegnazione dall'attività |:heavy_check_mark:|Elimina assegnazione|
 | Attività | Descrizione personalizzata in fatturazione |:heavy_check_mark:|Fattura attività|
 | Attività | Stato predefinito dell'attività da Dashboard |:heavy_check_mark:|Crea attività|
 | Attività | Stato predefinito dell'attività |:heavy_check_mark:|Crea attività|
@@ -416,9 +416,9 @@ Legenda:
 | Piano dei conti | Conto per autofattura | ||
 | Piano dei conti | Conto di secondo livello per i crediti clienti | ||
 | Piano dei conti | Conto di secondo livello per i debiti fornitori | ||
-| Preventivi | "Condizioni generali di fornitura preventivi" | ||
-| Preventivi | Conferma automaticamente le quantità nei preventivi | ||
-| Preventivi | Esclusioni default preventivi | ||
+| Preventivi | "Condizioni generali di fornitura preventivi" |:heavy_check_mark:|Stampa preventivo|
+| Preventivi | Conferma automaticamente le quantità nei preventivi |:heavy_check_mark:|Aggiungi articolo|
+| Preventivi | Esclusioni default preventivi |:heavy_check_mark:|Crea preventivo|
 | Scadenzario | Invio solleciti in automatico | ||
 | Scadenzario | Template email primo sollecito | ||
 | Scadenzario | Ritardo in giorni della scadenza della fattura per invio sollecito pagamento | ||
