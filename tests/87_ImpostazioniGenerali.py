@@ -39,6 +39,15 @@ class Impostazioni(Test):
         # Permetti il superamento della soglia quantità dei documenti di origine (25)
         self.superamento_soglia_quantita()
 
+        # Aggiungi riferimento tra documenti (26)
+        self.aggiungi_riferimento_documenti()
+
+        # Aggiungi riferimento tra tutti i documenti collegati (27)
+        self.aggiungi_riferimenti_tutti_documenti()
+
+        # Dimensione widget predefinita (29)
+        self.dimensione_widget_predefinita()
+
         # Cifre decimali per importi in stampa (34)
         self.importi_stampa()
 
@@ -912,6 +921,427 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
+
+    def aggiungi_riferimento_documenti(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Impostazioni") #primo caso (no,no)
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[10]').click()   #disattiva impostazione
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[11]').click() #disattiva seconda impostazione da riattivare alla fine
+        sleep(2)
+
+        #creo ddt
+        self.expandSidebar("Magazzino")
+        self.navigateTo("Ddt in uscita")
+        self.wait_loader()
+
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #click su +
+        sleep(1)
+        #seleziono destinatario
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        #seleziono causale trasporto
+        self.find(By.XPATH, '//span[@id="select2-idcausalet-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Conto lavorazione")
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.wait_loader()
+
+        #aggiungi articolo
+        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@class="select2-results__options select2-results__options--nested"]//li[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click() #click su aggiungi
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-idstatoddt-container"]').click() #cambio stato in evaso
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Evaso", Keys.ENTER)
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+        #crea fattura
+        self.find(By.XPATH, '//button[@class="btn btn-info bound clickable"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//button[@id="submit_btn"]').click()   #click su aggiungi
+        self.wait_loader()
+
+        riferimento=self.find(By.XPATH, '(//tbody[@id="righe"]//tr[1]//td[3]//a)[2]').text  #controllo se è presente il riferimento
+        self.assertEqual(riferimento, "001 - Articolo 1")
+        #elimina riga
+        self.find(By.XPATH, '//a[@class="btn btn-xs btn-danger"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
+        sleep(3)
+        #rimetto stato in evaso del ddt
+        self.expandSidebar("Magazzino")
+        self.navigateTo("Ddt in uscita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()    #apri ddt
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-idstatoddt-container"]').click() #cambio stato in evaso
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Evaso", Keys.ENTER)
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Impianti")
+        self.wait_loader()
+
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni") #secondo caso (si,no)
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[10]').click()   #attiva impostazione
+        sleep(2)
+
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()    #apri fattura
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary dropdown-toggle"]').click() #click su altro
+        self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[6]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_documento-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_documento-results"]//li[1]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//button[@id="submit_btn"]').click()   #click su aggiungi
+        self.wait_loader()
+
+        riferimento=self.find(By.XPATH, '(//tbody[@id="righe"]//tr[1]//td[3]//a)[2]').text  #controllo se è presente il riferimento
+        self.assertEqual(riferimento[17:43], "Rif. ddt in uscita num. 02")
+        self.find(By.XPATH, '//a[@id="elimina"]').click() #elimina fattura
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        #elimino ddt
+        self.expandSidebar("Magazzino")
+        self.navigateTo("Ddt in uscita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()    #apro primo ddt
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        self.navigateTo("Impianti")
+        self.wait_loader()
+
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+        
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[11]').click() #attiva seconda impostazione
+        sleep(2)
+
+
+    def aggiungi_riferimenti_tutti_documenti(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Impostazioni") #prima con opzione (no,si)
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali  
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[10]').click() #disattiva prima impostazione
+        sleep(2)
+
+        #creo preventivo
+        self.expandSidebar("Vendite")
+        self.navigateTo("Preventivi")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        sleep(1)
+        #nome
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('Test')
+        #cliente
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idanagrafica-results"]//li[2]').click()
+        #tipo di attività
+        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idtipointervento-results"]//li[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
+        self.wait_loader()
+        #aggiungi articolo
+        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@class="select2-results__options select2-results__options--nested"]//li[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click() #click su aggiungi
+        sleep(2)
+
+        self.driver.execute_script('window.scrollTo(0,0)')
+        sleep(1)
+
+        #cambio stato
+        self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-idstato-results"]//li[1]').click() #imposto stato "Accettato"
+        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]').click() #click su crea
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@class="dropdown-menu dropdown-menu-right show"]//a[5]').click()
+        sleep(2)
+        #ddt
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_causale_trasporto-container"]'))).click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        self.find(By.XPATH, '//button[@id="submit_btn"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-idstatoddt-container"]').click()   #cambio stato
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idstatoddt-results"]//li[2]').click()    #imposta stato "Evaso"
+        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-info bound clickable"]').click()  #crea fattura
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@id="submit_btn"]').click()   #click su aggiungi
+        self.wait_loader()
+
+        riferimento1=self.find(By.XPATH, '(//tbody[@id="righe"]//tr[1]//td[3]//a)[2]').text
+        self.assertEqual(riferimento1[17:39], "Rif. preventivo num. 2")
+        riferimento2=self.find(By.XPATH, '(//tbody[@id="righe"]//tr[1]//td[3]//a)[2]').text
+        self.assertEqual(riferimento2[55:81], "Rif. ddt in uscita num. 02")
+        #elimina fattura
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.wait_loader()
+        #elimino ddt
+        self.expandSidebar("Magazzino")
+        self.navigateTo("Ddt in entrata")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+        #elimino preventivo
+        self.expandSidebar("Vendite")
+        self.navigateTo("Preventivi")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+        self.navigateTo("Impianti")
+        self.wait_loader()
+
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni") #test con opzioni messe a (si,si)
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[10]').click() #attiva prima impostazione
+        sleep(2)
+
+        #creo preventivo
+        self.expandSidebar("Vendite")
+        self.navigateTo("Preventivi")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        sleep(1)
+        #nome
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('Test')
+        #cliente
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idanagrafica-results"]//li[2]').click()
+        #tipo di attività
+        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idtipointervento-results"]//li[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
+        self.wait_loader()
+        #aggiungi articolo
+        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@class="select2-results__options select2-results__options--nested"]//li[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click() #click su aggiungi
+        sleep(2)
+
+        self.driver.execute_script('window.scrollTo(0,0)')
+        sleep(1)
+
+        #cambio stato
+        self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-idstato-results"]//li[1]').click() #imposto stato "Accettato"
+        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]').click() #click su crea
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@class="dropdown-menu dropdown-menu-right show"]//a[5]').click()
+        sleep(2)
+        #ddt
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_causale_trasporto-container"]'))).click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        self.find(By.XPATH, '//button[@id="submit_btn"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-idstatoddt-container"]').click()   #cambio stato
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idstatoddt-results"]//li[2]').click()    #imposta stato "Evaso"
+        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-info bound clickable"]').click()  #crea fattura
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@id="submit_btn"]').click()   #click su aggiungi
+        self.wait_loader()
+
+        riferimento1=self.find(By.XPATH, '(//tbody[@id="righe"]//tr[1]//td[3]//a)[2]').text
+        self.assertEqual(riferimento1[17:39], "Rif. preventivo num. 2")
+        riferimento2=self.find(By.XPATH, '(//tbody[@id="righe"]//tr[1]//td[3]//a)[2]').text
+        self.assertEqual(riferimento2[55:81], "Rif. ddt in uscita num. 02")
+        #elimina fattura
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.wait_loader()
+        #elimino ddt
+        self.expandSidebar("Magazzino")
+        self.navigateTo("Ddt in entrata")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+        #elimino preventivo
+        self.expandSidebar("Vendite")
+        self.navigateTo("Preventivi")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+
+    def dimensione_widget_predefinita(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-setting166-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-setting166-results"]//li[1]').click()    #metto dimensione col-md-1
+        sleep(2)
+
+        self.navigateTo("Dashboard")
+        self.wait_loader()
+
+        dimensione_element = self.find(By.XPATH, '(//div[@id="widget-top"]//div)[1]')    #controllo se la dimensione è cambiata
+        dimensione = dimensione_element.get_attribute("class")
+        self.assertEqual(dimensione[9:17], "col-md-1")
+        self.navigateTo("Impianti")
+        self.wait_loader()
+
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-setting166-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-setting166-results"]//li[3]').click()    #metto dimensione col-md-3
+        sleep(2)
+
+        self.navigateTo("Dashboard")
+        self.wait_loader()
+
+        dimensione_element = self.find(By.XPATH, '(//div[@id="widget-top"]//div)[1]')    #controllo se la dimensione è cambiata
+        dimensione = dimensione_element.get_attribute("class")
+        self.assertEqual(dimensione[9:17], "col-md-3")
+
 
     def importi_stampa(self):
         wait = WebDriverWait(self.driver, 20)

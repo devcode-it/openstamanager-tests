@@ -314,16 +314,16 @@ Legenda:
 | Fatturazione | Descrizione addebito bollo | ||
 | Fatturazione | Conto predefinito per la marca da bollo | ||
 | Fatturazione | Iva per lettere d'intento | ||
-| Fatturazione | Utilizza prezzi di vendita comprensivi di IVA  | ||
+| Fatturazione | Utilizza prezzi di vendita comprensivi di IVA |:heavy_check_mark:|Crea articolo e fatturazione|
 | Fatturazione | Liquidazione iva | ||
 | Fatturazione | Conto anticipo clienti | ||
 | Fatturazione | Conto anticipo fornitori | ||
 | Fatturazione | Descrizione fattura pianificata | ||
 | Fatturazione | Aggiorna info di acquisto | ||
 | Fatturazione | Bloccare i prezzi inferiori al minimo di vendita | ||
-| Fatturazione | Permetti fatturazione delle attività collegate a contratti | ||
+| Fatturazione | Permetti fatturazione delle attività collegate a contratti |:heavy_check_mark:|Crea attività e contratto|
 | Fatturazione | Data emissione fattura automatica  | ||
-| Fatturazione | Permetti fatturazione delle attività collegate a ordini | ||
+| Fatturazione | Permetti fatturazione delle attività collegate a ordini |:heavy_check_mark:|Crea attività e ordine|
 | Fatturazione | Permetti fatturazione delle attività collegate a preventivi | ||
 | Fatturazione | Data inizio verifica contatore fattura di vendita | ||
 | Fatturazione | Raggruppa attività per tipologia in fattura | ||
@@ -336,7 +336,7 @@ Legenda:
 | Fatturazione Elettronica | Authorization ID Indice PA | ||
 | Fatturazione Elettronica | OSMCloud Services API Token | ||
 | Fatturazione Elettronica | Terzo intermediario | ||
-| Fatturazione Elettronica | Riferimento dei documenti in Fattura Elettronica | ||
+| Fatturazione Elettronica | Riferimento dei documenti in Fattura Elettronica |:heavy_check_mark:|Apri fattura elettronica|
 | Fatturazione Elettronica | OSMCloud Services API URL | ||
 | Fatturazione Elettronica | OSMCloud Services API Version | ||
 | Fatturazione Elettronica | Data inizio controlli su stati FE | ||
@@ -369,10 +369,10 @@ Legenda:
 | Generali | Inizio periodo calendario |:heavy_check_mark:|Dashboard|
 | Generali | Fine periodo calendario |:heavy_check_mark:|Dashboard|
 | Generali | Permetti il superamento della soglia quantità dei documenti di origine |:heavy_check_mark:|Crea attività, preventivo, contratto, ddt, ordine, fattura|
-| Generali | Aggiungi riferimento tra documenti | ||
+| Generali | Aggiungi riferimento tra documenti |:heavy_check_mark:|Aggiungi ddt in fattura|
 | Generali | Mantieni riferimenti tra tutti i documenti collegati | ||
 | Generali | Aggiungi le note delle righe tra documenti | ||
-| Generali | Dimensione widget predefinita | ||
+| Generali | Dimensione widget predefinita |:heavy_check_mark:|Dashboard|
 | Generali | Posizione del simbolo valuta | ||
 | Generali | Tile server OpenStreetMap | ||
 | Generali | Sistema di firma | ||
@@ -420,9 +420,3 @@ Legenda:
 | Scadenzario | Indirizzo email mancato pagamento dopo i solleciti | ||
 | Scadenzario | Template email promemoria scadenza | ||
 | Scadenzario | Intervallo di giorni in anticipo per invio promemoria scadenza | ||
-| Tavoletta Wacom | Licenza Wacom SDK - Key | ||
-| Tavoletta Wacom | Sfondo firma tavoletta Wacom | ||
-| Tavoletta Wacom | Luminosità firma Wacom | ||
-| Tavoletta Wacom | Contrasto firma Wacom | ||
-| Tavoletta Wacom | Secondi timeout tavoletta Wacom | ||
-| Tavoletta Wacom | Licenza Wacom SDK - Secret | ||
