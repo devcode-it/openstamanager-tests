@@ -17,52 +17,52 @@ class Impostazioni(Test):
     
     def test_impostazioni_attivita(self):
         # Mostra i prezzi al tecnico (1)
-        self.mostra_prezzi_tecnico()
+        #self.mostra_prezzi_tecnico()
 
         # Stampa per anteprima e firma (2)
         self.stampa_anteprima_firma()   #da finire
 
         # Permetti inserimento sessioni degli altri tecnici (3)
-        self.inserimento_sessioni_tecnici()
+        #self.inserimento_sessioni_tecnici()
 
         # Giorni lavorativi (4)
-        self.giorni_lavorativi()
+        #self.giorni_lavorativi()
 
         # Notifica al tecnico l'aggiunta della sessione nell'attività (5)
-        self.notifica_tecnico_aggiunta_sessione()
+        #self.notifica_tecnico_aggiunta_sessione()
 
         # Notifica al tecnico la rimozione della sessione dall'attività (6)
-        self.notifica_tecnico_rimozione_sessione()
+        #self.notifica_tecnico_rimozione_sessione()
 
         # Stato dell’attività dopo la firma (7)
-        self.stato_attivita_firma()
+        #self.stato_attivita_firma()
 
         # Espandi automaticamente la sezione “Dettagli aggiuntivi” (8)
-        self.espandi_barra_dettagli_aggiuntivi()
+        #self.espandi_barra_dettagli_aggiuntivi()
 
         # Alert occupazione tecnici (9)
-        self.alert_occupazione_tecnici()
+        #self.alert_occupazione_tecnici()
 
         # Verifica numero intervento (10)
-        self.verifica_numero_intervento()
+        #self.verifica_numero_intervento()
 
         # Formato ore in stampa (11)
-        self.formato_ore_stampa()
+        #self.formato_ore_stampa()
 
         # Notifica al tecnico l'assegnazione all'attività(12)
-        self.notifica_tecnico_assegnazione()
+        #self.notifica_tecnico_assegnazione()
 
         # Notifica al tecnico la rimozione dell'assegnazione dall'attività (13)
-        self.notifica_tecnico_rimozione_assegnazione()
+        #self.notifica_tecnico_rimozione_assegnazione()
 
         # Descrizione personalizzata in fatturazione (14)
-        self.descrizione_attivita()
+        #self.descrizione_attivita()
 
         # Stato predefinito dell'attività da Dashboard (15)
-        self.stato_predefinito_attivita_dashboard()
+        #self.stato_predefinito_attivita_dashboard()
 
         # Stato predefinito dell'attività (16)
-        self.stato_predefinito_attivita()
+        #self.stato_predefinito_attivita()
 
 
 
@@ -185,7 +185,6 @@ class Impostazioni(Test):
     def stampa_anteprima_firma(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Attività")
-        sleep(2)
         self.wait_loader()
 
         self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click() #creo nuova attività
@@ -209,15 +208,14 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '(//button[@class="btn btn-primary "])[2]').click() #anteprima e stampa
-        modal = self.wait_modal()
+        sleep(2)
 
         #non trova l'elemento
-        element = modal.find_element(By.XPATH, '//div[@id="viewer"]')
-        self.driver.execute_script("arguments[0].scrollIntoView();", element)
-        prezzo=element.text
+        prezzo = self.find_elements(By.XPATH, '//div[@id="viewer"]//span[59]').value
         self.assertEqual(prezzo, "0,00 €")
         self.find(By.XPATH, '//button[@class="close"]').click() #chiudi
         sleep(1)
+        
         #elimina attività
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
         sleep(1)

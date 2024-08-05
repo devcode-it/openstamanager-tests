@@ -44,7 +44,7 @@ class Impostazioni(Test):
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo ddt
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()   #click su fattura ddt
+        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click()   #click su fattura ddt
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()   
@@ -107,7 +107,7 @@ class Impostazioni(Test):
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo ddt
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[2]').click()   #click su fattura ddt
+        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click()   #click su fattura ddt
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")    #ragruppa per Cliente

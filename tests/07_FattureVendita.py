@@ -915,9 +915,9 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() #seleziono prima fattura
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono prima fattura
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
-        self.find(By.XPATH, '(//a[@class="bulk-action clickable dropdown-item"])[12]').click()    #click su genera fatture elettroniche
+        self.find(By.XPATH, '//a[@data-op="genera-xml"]').click()    #click su genera fatture elettroniche
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi
