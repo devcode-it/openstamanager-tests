@@ -390,7 +390,7 @@ class Contratti(Test):
         self.wait_loader()
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input[@class="form-control"]'))).send_keys("5", Keys.ENTER) #cerco contratto numero 5
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("5", Keys.ENTER) #cerco contratto numero 5
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo risultato
@@ -443,7 +443,7 @@ class Contratti(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input[@class="form-control"]'))).send_keys("3", Keys.ENTER) #cerco contratto numero 3
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("3", Keys.ENTER) #cerco contratto numero 3
         sleep(1)
         self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()    #apro primo risultato
         self.wait_loader()
@@ -518,7 +518,7 @@ class Contratti(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input[@class="form-control"]'))).send_keys("4", Keys.ENTER) #cerco contratto numero 4
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("4", Keys.ENTER) #cerco contratto numero 4
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo contratto
@@ -532,7 +532,7 @@ class Contratti(Test):
         self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #cancello ricerca vecchia
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input[@class="form-control"]'))).send_keys("5", Keys.ENTER) #cerco contratto numero 7
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("5", Keys.ENTER) #cerco contratto numero 7
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))) #se trova un risultato significa che è stato rinnovato
@@ -546,7 +546,7 @@ class Contratti(Test):
         self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #cancello ricerca vecchia
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input[@class="form-control"]'))).send_keys("4", Keys.ENTER) #cerco contratto numero 4
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("4", Keys.ENTER) #cerco contratto numero 4
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td[2]').click() #apre contratto

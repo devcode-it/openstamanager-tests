@@ -481,7 +481,7 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input[@class="form-control"]'))).send_keys("1", Keys.ENTER)  #cerco preventivo numero 1
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)  #cerco preventivo numero 1
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo risultato
@@ -520,7 +520,7 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input[@class="form-control"]'))).send_keys("1", Keys.ENTER)  #cerca preventivo numero 1
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)  #cerca preventivo numero 1
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td[1]').click() #seleziono primo risultato
