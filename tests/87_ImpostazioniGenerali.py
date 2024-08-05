@@ -27,6 +27,9 @@ class Impostazioni(Test):
         # Cifre decimali per quantità (8)
         self.cifre_decimali_quantita()
 
+        # Abilita esportazione Excel e PDF (11)
+        self.esportazione_excel_pdf
+
         # Cambio valuta (12)
         self.valuta()
         
@@ -45,8 +48,14 @@ class Impostazioni(Test):
         # Aggiungi riferimento tra tutti i documenti collegati (27)
         self.aggiungi_riferimenti_tutti_documenti()
 
+        # Aggiungi le note delle righe tra documenti (28)
+        self.aggiungi_note_documenti()
+
         # Dimensione widget predefinita (29)
         self.dimensione_widget_predefinita()
+
+        # Tipo di sconto predefinito (33)
+        self.tipo_sconto_predefinito()
 
         # Cifre decimali per importi in stampa (34)
         self.importi_stampa()
@@ -271,6 +280,48 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//span[@id="select2-setting60-container"]').click()    #seleziono 2 cifre decimali per le quanità
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('2', Keys.ENTER)
         sleep(1)
+
+    def esportazione_excel_pdf(self):
+        wait = WebDriverWait(self.driver, 20)  
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[6]').click()    #attiva impostazione
+        sleep(2)
+
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono prima fattura
+        self.find(By.XPATH, '//button[@class="btn btn-primary table-btn dropdown-toggle"]').click() #click su esporta
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@class="dropdown-menu show"]//a[1]').click()
+        sleep(2)
+
+        self.driver.close() #chiude scheda
+        self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary table-btn dropdown-toggle"]').click() #click su esporta
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//ul[@class="dropdown-menu show"]//a[2]'))) #controllo se c'è l'esporta excel
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #diseleziono prima fattura
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[6]').click()    #disattiva impostazione
+        sleep(2)
 
 
     def valuta(self):
@@ -1297,6 +1348,156 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
+    def aggiungi_note_documenti(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[12]').click()   #attiva impostazione
+        sleep(2)
+
+        self.expandSidebar("Vendite")
+        self.navigateTo("Preventivi")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #crea preventivo
+        sleep(1)
+        #nome
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('Test')
+        #cliente
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idanagrafica-results"]//li[2]').click()
+        #tipo di attività
+        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idtipointervento-results"]//li[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//a[@class="btn btn-primary"])[1]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Test") #scrivo "Test" come descrizione riga
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1") #scrivo 1 come prezzo unitario
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Nota di prova")   #aggiungo note
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        sleep(2)
+
+        #cambio stato
+        self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-idstato-results"]//li[1]').click() #imposto stato "Accettato"
+        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]').click() #click su crea
+        self.find(By.XPATH, '//div[@class="dropdown-menu dropdown-menu-right show"]//a[6]').click() #crea fattura
+        sleep(2)
+
+        self.find(By.XPATH, '//button[@id="submit_btn"]').click()
+        self.wait_loader()
+
+        nota=self.find(By.XPATH, '//tbody[@id="righe"]//td[3]//span').text  #controllo se ha aggiunto la nota dal preventivo
+        self.assertEqual(nota, "Nota di prova")
+        #elimina fattura
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.wait_loader()
+        #elimino preventivo
+        self.navigateTo("Preventivi")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        self.expandSidebar("Vendite")
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1) 
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[12]').click()   #disattiva impostazione
+        sleep(2)
+
+        self.expandSidebar("Vendite")
+        self.navigateTo("Preventivi")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #crea preventivo
+        sleep(1)
+        #nome
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('Test')
+        #cliente
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idanagrafica-results"]//li[2]').click()
+        #tipo di attività
+        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idtipointervento-results"]//li[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
+        self.wait_loader()
+
+        self.find(By.XPATH, '(//a[@class="btn btn-primary"])[1]').click()
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Test") #scrivo "Test" come descrizione riga
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1") #scrivo 1 come prezzo unitario
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Nota di prova")   #aggiungo note
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        sleep(2)
+
+        #cambio stato
+        self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-idstato-results"]//li[1]').click() #imposto stato "Accettato"
+        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]').click() #click su crea
+        self.find(By.XPATH, '//div[@class="dropdown-menu dropdown-menu-right show"]//a[6]').click() #crea fattura
+        sleep(2)
+
+        self.find(By.XPATH, '//button[@id="submit_btn"]').click()
+        self.wait_loader()
+
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '//tbody[@id="righe"]//td[3]//span')))   #controllo se non ha aggiunto la nota dal preventivo
+        
+        #elimina fattura
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.wait_loader()
+        #elimino preventivo
+        self.navigateTo("Preventivi")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
 
     def dimensione_widget_predefinita(self):
         wait = WebDriverWait(self.driver, 20)
@@ -1341,6 +1542,74 @@ class Impostazioni(Test):
         dimensione_element = self.find(By.XPATH, '(//div[@id="widget-top"]//div)[1]')    #controllo se la dimensione è cambiata
         dimensione = dimensione_element.get_attribute("class")
         self.assertEqual(dimensione[9:17], "col-md-3")
+
+
+    def tipo_sconto_predefinito(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH,'//span[@id="select2-setting189-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-setting189-results"]//li[2]').click()    #sconto predefinito in eur
+        sleep(2)
+
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.wait_loader()
+        #aggiungo articolo
+        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@class="select2-results__options select2-results__options--nested"]//li[1]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click()
+        sleep(2)
+
+        sconto_element = self.find(By.XPATH, '//tbody[@id="righe"]//span[@class="select2-selection select2-selection--single"]//span[1]')    #check valore dello sconto
+        sconto = sconto_element.get_attribute("title")
+        self.assertEqual(sconto, "€")
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH,'//span[@id="select2-setting189-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-setting189-results"]//li[1]').click()    #sconto predefinito in percentuale
+        sleep(2)
+
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.wait_loader()
+
+        sconto_element = self.find(By.XPATH, '//tbody[@id="righe"]//span[@class="select2-selection select2-selection--single"]//span[1]')    #check valore dello sconto
+        sconto = sconto_element.get_attribute("title")
+        self.assertEqual(sconto, "%")
+        #elimina fattura
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
 
 
     def importi_stampa(self):
