@@ -158,8 +158,8 @@ class Impostazioni(Test):
         sleep(2)
 
         #login
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="form-control"]'))).send_keys('admin')
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="password"]'))).send_keys('adminadmin') #password da mettere prima del test
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="form-control"]'))).send_keys(self.getConfig('login.username'))
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="password"]'))).send_keys(self.getConfig('login.password')) #password da mettere prima del test
         self.find(By.XPATH, '//button[@class="btn btn-danger btn-block btn-flat"]').click() 
         sleep(2)
         self.wait_loader()
@@ -188,8 +188,8 @@ class Impostazioni(Test):
         sleep(2)
 
         #login
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="form-control"]'))).send_keys('admin')
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="password"]'))).send_keys('adminadmin') #password da mettere prima del test
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="form-control"]'))).send_keys(self.getConfig('login.username'))
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="password"]'))).send_keys(self.getConfig('login.password')) #password da mettere prima del test
         self.find(By.XPATH, '//button[@class="btn btn-danger btn-block btn-flat"]').click() 
         sleep(2)
         self.wait_loader()
@@ -410,7 +410,7 @@ class Impostazioni(Test):
         sleep(2)
 
         #login
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="form-control"]'))).send_keys('admin')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="form-control"]'))).send_keys(self.getConfig('login.username'))
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="password"]'))).send_keys('') #password da mettere prima del test
         self.find(By.XPATH, '//button[@class="btn btn-danger btn-block btn-flat"]').click() 
         sleep(2)
@@ -434,8 +434,8 @@ class Impostazioni(Test):
         self.wait_loader()
 
         #login
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="form-control"]'))).send_keys('admin')
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="password"]'))).send_keys('') #password da mettere prima del test
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="form-control"]'))).send_keys(self.getConfig('login.username'))
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="password"]'))).send_keys(self.getConfig('login.password')) #password da mettere prima del test
         self.find(By.XPATH, '//button[@class="btn btn-danger btn-block btn-flat"]').click() 
         sleep(2)
         self.wait_loader()
