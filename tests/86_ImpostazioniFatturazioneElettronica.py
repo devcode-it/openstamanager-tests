@@ -24,6 +24,9 @@ class Impostazioni(Test):
         # Causale ritenuta d'acconto (6)
         self.causale_ritenuta_acconto()
 
+        # Riferimento dei documenti in fattura elettronica (10)
+        self.riferimento_documenti_fattura_elettronica()
+
     def regime_fiscale(self):
         wait = WebDriverWait(self.driver, 20)
         self.expandSidebar("Vendite")   #test con impostazioni preselezionate
@@ -375,5 +378,154 @@ class Impostazioni(Test):
 
         self.find(By.XPATH, '//span[@id="select2-setting75-container"]//span').click()  #togli causale
         sleep(2)
+
+    def riferimento_documenti_fattura_elettronica(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.wait_loader()
+        #aggiungi preventivo
+        self.find(By.XPATH, '//button[@class="btn btn-primary dropdown-toggle"]').click() #click su altro
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[4]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_documento-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_documento-results"]//li[1]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//input[@id="import_all"]').click()    #deseleziona tutte le righe
+        sleep(1)
+
+        self.find(By.XPATH, '//input[@id="checked_3"]').click() #seleziono solo la riga del articolo
+        self.find(By.XPATH, '//button[@id="submit_btn"]').click()   #click su aggiungi
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-idstatodocumento-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Emessa")
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+        #stampa fattura elettronica
+        self.find(By.XPATH, '//button[@class="btn btn-info dropdown-toggle dropdown-toggle-split"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="print-button_1"]').click()
+        sleep(2)
+
+        self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
+        sleep(2)
+
+        riferimento=self.find(By.XPATH, '(//div[@id="viewer"]//span)[50]').text
+        self.assertEqual(riferimento[10:32], "Rif. preventivo num. 1")
+
+        self.driver.close() #chiude scheda
+        self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
+        sleep(2)
+
+        #elimina fattura
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.wait_loader()
+        
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-10"]').click() #apro Fatturazione Elettronica
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[4]').click()    #disattiva impostazione
+        sleep(2)
+
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.wait_loader()
+        #aggiungi preventivo
+        self.find(By.XPATH, '//button[@class="btn btn-primary dropdown-toggle"]').click() #click su altro
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[4]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//span[@id="select2-id_documento-container"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_documento-results"]//li[1]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//input[@id="import_all"]').click()    #deseleziona tutte le righe
+        sleep(1)
+
+        self.find(By.XPATH, '//input[@id="checked_3"]').click() #seleziono solo la riga del articolo
+        self.find(By.XPATH, '//button[@id="submit_btn"]').click()   #click su aggiungi
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-idstatodocumento-container"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Emessa")
+        sleep(2)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        self.find(By.XPATH, '//button[@id="save"]').click()
+        self.wait_loader()
+        #stampa fattura elettronica
+        self.find(By.XPATH, '//button[@class="btn btn-info dropdown-toggle dropdown-toggle-split"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//a[@id="print-button_1"]').click()
+        sleep(2)
+
+        self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
+        sleep(2)
+
+        riferimento=self.find(By.XPATH, '(//div[@id="viewer"]//span)[50]').text
+        self.assertNotEqual(riferimento[10:32], "Rif. preventivo num. 1")
+
+        self.driver.close() #chiude scheda
+        self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
+        sleep(2)
+
+        #elimina fattura
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.wait_loader()
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-10"]').click() #apro Fatturazione Elettronica
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[4]').click()    #attiva impostazione
+        sleep(2)
+
 
 
