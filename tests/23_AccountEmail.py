@@ -17,11 +17,11 @@ class AccountEmail(Test):
 
     def test_creazione_accountemail(self):
         # Creazione account email   *Required* 
-        self.creazione_account_email(nomeaccount= "Account di Prova da Modificare", nomevisualizzato="Nome Cognome", emailmittente="accountprova@email.com")
-        self.creazione_account_email(nomeaccount= "Account di Prova da Eliminare", nomevisualizzato="Nome Cognome", emailmittente="accountprova@email.it")
+        self.creazione_account_email("Account di Prova da Modificare", self.getConfig('tests.email_user'), self.getConfig('tests.email_user'))
+        self.creazione_account_email("Account di Prova da Eliminare", self.getConfig('tests.email_user'), self.getConfig('tests.email_user'))
 
         # Modifica account email
-        self.modifica_account_email("Account Email di Prova", "1", "1")
+        self.modifica_account_email("Account Email", "smtps.aruba.it", "465")
 
         # Cancellazione account email
         self.elimina_account_email()
@@ -93,11 +93,11 @@ class AccountEmail(Test):
         self.wait_loader()    
 
         #verifica elemento modificato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome-account"]/input'))).send_keys("Account Email di Prova", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome-account"]/input'))).send_keys("Account Email", Keys.ENTER)
         sleep(1)
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
-        self.assertEqual("Account Email di Prova",modificato)
+        self.assertEqual("Account Email",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(2)
 
@@ -108,39 +108,27 @@ class AccountEmail(Test):
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
 
+        self.find(By.XPATH, '//th[@id="th_Nome-account"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(2)
+
     def invia_mail(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Account email")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[1]'))).send_keys("1", Keys.ENTER)  #cerco account mail numero 1
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome-account"]/input'))).send_keys("Account email", Keys.ENTER)  #cerco account mail numero 1
         sleep(1)
 
         self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
         self.wait_loader()
-        #server smpt
-        server=self.find(By.XPATH, '//input[@id="server"]')
-        server.clear()
-        server.send_keys("smtps.aruba.it")
-        #mail mittente
-        mail=self.find(By.XPATH, '//input[@id="from_address"]')
-        mail.clear()
-        mail.send_keys("assistenza@openstamanager.com")
-        #porta smpt
-        porta=self.find(By.XPATH, '//input[@id="port"]')
-        porta.clear()
-        porta.send_keys("465")
+
         #sicurezza smpt
         self.find(By.XPATH, '//span[@id="select2-encryption-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("SSL", Keys.ENTER)
-        #username
-        user=self.find(By.XPATH, '//input[@id="username"]')
-        user.clear()
-        user.send_keys("assistenza@openstamanager.com")
+
         #password smpt
-        pas=self.find(By.XPATH, '//input[@id="password"]')
-        pas.clear()
-        pas.send_keys("") #password da valorizzare prima di ogni test
+        self.input(None, 'Password SMTP').setValue(self.getConfig('tests.email_password'))
+
         self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
 
@@ -153,7 +141,7 @@ class AccountEmail(Test):
         self.find(By.XPATH, '//tbody//td[2]//div[1]').click()   #aggiungo email a "Cliente"
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="email"]'))).send_keys("assistenza@openstamanager.com")
+        self.input(None, 'Email').setValue(self.getConfig('tests.email_user'))
         self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
 

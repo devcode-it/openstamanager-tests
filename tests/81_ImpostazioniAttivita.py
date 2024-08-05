@@ -403,8 +403,8 @@ class Impostazioni(Test):
  
         self.find(By.XPATH, '//tbody//td[2]//div[1]').click()   #aggiungo email a "Tecnico"
         sleep(1)
- 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="email"]'))).send_keys("testing@openstamanager.com")
+
+        self.input(None, 'Email').setValue(self.getConfig('tests.tecnico_email'))
         self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
 

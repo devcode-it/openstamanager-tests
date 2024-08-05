@@ -11,5 +11,12 @@
     },
     "server": "http://localhost/openstamanager",
     "browser": "chrome",
-    "headless": false
+    "headless": false,
+
+    "tests": {
+        "email_user": "",
+        "email_password" : "",
+        "tecnico_email": ""
+    }
+
 }
