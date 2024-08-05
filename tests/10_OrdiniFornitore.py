@@ -144,7 +144,7 @@ class OrdiniFornitore(Test):
         self.navigateTo("Ordini fornitore") #torno indietro
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[1]'))).send_keys("2", Keys.ENTER) #cerco ordine numero 2
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER) #cerco ordine numero 2
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono primo ordine

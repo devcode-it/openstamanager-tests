@@ -147,7 +147,7 @@ class Impianti(Test):
         self.navigateTo("Attività")
         self.wait_loader()    
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]//input[@class="form-control"]'))).send_keys("Cliente", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]//input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1) 
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//td[@class="bound clickable"])[1]'))).click()

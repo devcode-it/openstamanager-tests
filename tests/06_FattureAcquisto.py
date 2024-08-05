@@ -322,7 +322,7 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")  #torno indietro
         self.wait_loader()
         #cambio sezione
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[1]'))).send_keys("08", Keys.ENTER) #cerco fatture con 08 come numero esterno
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco fatture con 08 come numero esterno
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click() #seleziono primo risultato

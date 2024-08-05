@@ -673,7 +673,7 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[9]'))).send_keys("Bozza", Keys.ENTER) #cerco fattura in stato di bozza
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("Bozza", Keys.ENTER) #cerco fattura in stato di bozza
         sleep(2)
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono primo risultato

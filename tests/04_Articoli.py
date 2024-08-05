@@ -1039,7 +1039,7 @@ class Articoli(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td').click() #tolgo checkbox
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("Fornitore Estero", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Fornitore Estero", Keys.ENTER)
         sleep(2)
 
         articolo=self.find(By.XPATH, '(//tr[1]//td[2]//div)[2]').text #controllo se è stato creato il listino
@@ -1169,7 +1169,7 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="form-control"])[2]'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
         sleep(2)
 
         self.find(By.XPATH, '//tbody//tr/td').click() #seleziono il primo risultato
