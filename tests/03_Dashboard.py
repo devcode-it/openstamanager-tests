@@ -14,6 +14,7 @@ class Dashboard(Test):
         self.navigateTo("Dashboard")
         self.wait_loader() 
 
+        # Aggiunta attività in Dashboard
         actions = webdriver.common.action_chains.ActionChains(self.driver)
         actions.move_to_element(self.driver.find_element(By.XPATH,'//div[@id="calendar"]')).move_by_offset(300,100).click().perform()
         modal = self.wait_modal()
@@ -53,14 +54,14 @@ class Dashboard(Test):
         self.navigateTo("Attività")
         self.wait_loader()    
 
-        #verifica elemento modificato
+        # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)
         sleep(1)
         
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[11]').text
         self.assertEqual("Stefano Bianchi",modificato)
 
-        #rimuovi elemento
+        # Rimuovi elemento
         self.navigateTo("Attività")
         self.wait_loader()  
 
@@ -71,7 +72,7 @@ class Dashboard(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
         
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         self.navigateTo("Attività")
         self.wait_loader()  
         
