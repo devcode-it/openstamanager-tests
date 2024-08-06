@@ -31,15 +31,15 @@ class StatoServizi(Test):
 
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
-        sleep(2)
+        sleep(1)
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
-        sleep(2)
+        sleep(1)
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
+        sleep(1)
 
     def compila_azienda(self):
-
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
@@ -52,7 +52,6 @@ class StatoServizi(Test):
         self.driver.find_element(By.XPATH,'//input[@id="indirizzo"]').send_keys("Via Rovigo, 51")
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Este")
-
         self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
 
@@ -81,7 +80,8 @@ class StatoServizi(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        sleep(1)
+        self.wait_loader()
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_nazione-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Germania")
         sleep(1)
@@ -93,13 +93,18 @@ class StatoServizi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))).send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Berlino")
-
         self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
 
+        self.navigateTo("Anagrafiche")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
+
     def creazione_cliente_estero(self):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Anagrafiche")
+        self.navigateTo("Anagrafiche")
         self.wait_loader()
 
         # Crea una nuova anagrafica estera
@@ -109,17 +114,13 @@ class StatoServizi(Test):
         # Completamento dei campi per il nuovo elemento
         self.input(modal, 'Denominazione').setValue("Cliente Estero")
         self.input(modal, 'Tipo di anagrafica').setByText("Cliente")
-        sleep(2)
         
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        sleep(2)
+        sleep(1)
 
-  
         self.navigateTo("Anagrafiche")
         self.wait_loader()
-
-        self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/i[@class="deleteicon fa fa-times"]').click()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente Estero", Keys.ENTER)  
         sleep(1)
@@ -139,7 +140,6 @@ class StatoServizi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))).send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Piacenza d'Adige")
-        self.driver.execute_script('window.scrollTo(0,0)')
         self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
 
@@ -156,3 +156,4 @@ class StatoServizi(Test):
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()

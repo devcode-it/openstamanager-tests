@@ -44,7 +44,7 @@ class RowManager:
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[onclick="submitForm()"]').click()
-        sleep(2)
+        sleep(1)
 
     def add_descrizione(self, data: dict):
         # Aggiunge una nuova descrizione. 
@@ -55,7 +55,7 @@ class RowManager:
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        sleep(2)
+        sleep(1)
 
     def add_riga(self, data: dict):
         # Aggiunge una nuova riga. 
@@ -67,7 +67,7 @@ class RowManager:
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[onclick="submitForm()"]').click()
-        sleep(2)
+        sleep(1)
 
     def add_articolo(self, data: dict):
 
@@ -76,7 +76,7 @@ class RowManager:
         self.tester.find(By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]').send_keys("002", Keys.ENTER)
         sleep(1)
         self.tester.find(By.XPATH, '//button[@onclick="salvaArticolo()"]').click()
-        sleep(2)
+        sleep(1)
 
        
 
