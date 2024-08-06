@@ -11,9 +11,6 @@ class Impostazioni(Test):
     def setUp(self):
         super().setUp()
 
-        self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-
     
     def test_impostazioni_attivita(self):
         # Mostra i prezzi al tecnico (1)
@@ -52,7 +49,7 @@ class Impostazioni(Test):
         # Notifica al tecnico l'assegnazione all'attività(12)
         self.notifica_tecnico_assegnazione()
 
-        # Notifsica al tecnico la rimozione dell'assegnazione dall'attività (13)
+        # Notifica al tecnico la rimozione dell'assegnazione dall'attività (13)
         self.notifica_tecnico_rimozione_assegnazione()
 
         # Descrizione personalizzata in fatturazione (14)
@@ -65,9 +62,9 @@ class Impostazioni(Test):
         self.stato_predefinito_attivita()
 
 
-
     def mostra_prezzi_tecnico(self):
-        wait = WebDriverWait(self.driver, 20)  
+        wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Strumenti")  
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
@@ -211,7 +208,7 @@ class Impostazioni(Test):
         sleep(2)
 
         #non trova l'elemento
-        prezzo = self.find_elements(By.XPATH, '//div[@id="viewer"]//span')[59].text
+        prezzo = self.find_elements(By.XPATH, '//div[@id="viewer"]//span[59]').value
         self.assertEqual(prezzo, "0,00 €")
         self.find(By.XPATH, '//button[@class="close"]').click() #chiudi
         sleep(1)
@@ -356,10 +353,7 @@ class Impostazioni(Test):
         sleep(1)
 
     def giorni_lavorativi(self):
-        wait = WebDriverWait(self.driver, 20)  
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
-
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Dashboard")
         self.wait_loader() 
 
@@ -1508,4 +1502,4 @@ class Impostazioni(Test):
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        sleep(1)
+        

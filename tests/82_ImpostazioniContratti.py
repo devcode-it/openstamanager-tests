@@ -11,9 +11,6 @@ class Impostazioni(Test):
     def setUp(self):
         super().setUp()
 
-        self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-
     def test_impostazioni_contratti(self):
         # Condizioni generali di fornitura contratti (1)
         self.condizioni_generali_contratti()
@@ -25,7 +22,8 @@ class Impostazioni(Test):
         self.giorni_preavviso()
 
     def condizioni_generali_contratti(self):
-        wait = WebDriverWait(self.driver, 20)  
+        wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 

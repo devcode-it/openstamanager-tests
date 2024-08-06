@@ -307,21 +307,20 @@ Legenda:
 | Fatturazione | Cassa previdenziale predefinita |:heavy_check_mark:|Crea anagrafica|
 | Fatturazione | Importo marca da bollo |:heavy_check_mark:|Aggiungi riga|
 | Fatturazione | Soglia minima per l'applicazione della marca da bollo |:heavy_check_mark:|Aggiungi riga|
-| Fatturazione | Conto aziendale predefinito | ||
+| Fatturazione | Conto aziendale predefinito |:x:|:x:|
 | Fatturazione | Conto predefinito fatture di vendita |:heavy_check_mark:|Aggiungi riga|
 | Fatturazione | Conto predefinito fatture di acquisto |:heavy_check_mark:|Aggiungi riga|
 | Fatturazione | "Dicitura fissa fattura" | ||
 | Fatturazione | Metodologia calcolo ritenuta d'acconto predefinito | ||
-| Fatturazione | Ritenuta previdenziale predefinita | ||
-| Fatturazione | Addebita marca da bollo al cliente | ||
+| Fatturazione | Ritenuta previdenziale predefinita |:heavy_check_mark:|Crea fattura|
 | Fatturazione | Descrizione addebito bollo |:heavy_check_mark:|Crea fattura|
 | Fatturazione | Conto predefinito per la marca da bollo |:heavy_check_mark:|Crea fattura|
-| Fatturazione | Iva per lettere d'intento | ||
+| Fatturazione | Iva per lettere d'intento |:heavy_check_mark:|Crea fattura|
 | Fatturazione | Utilizza prezzi di vendita comprensivi di IVA |:heavy_check_mark:|Crea articolo e fatturazione|
-| Fatturazione | Liquidazione iva | ||
+| Fatturazione | Liquidazione iva |:heavy_check_mark:|Stampe contabili|
 | Fatturazione | Conto anticipo clienti | ||
 | Fatturazione | Conto anticipo fornitori | ||
-| Fatturazione | Descrizione fattura pianificata | ||
+| Fatturazione | Descrizione fattura pianificata |:heavy_check_mark:|Crea fattura pianificata|
 | Fatturazione | Aggiorna info di acquisto | ||
 | Fatturazione | Bloccare i prezzi inferiori al minimo di vendita | ||
 | Fatturazione | Permetti fatturazione delle attività collegate a contratti |:heavy_check_mark:|Crea attività e contratto|
@@ -359,7 +358,7 @@ Legenda:
 | Generali | Logo stampe | ||
 | Generali | Abilita esportazione Excel e PDF |:heavy_check_mark:|Esporta fattura|
 | Generali | Valuta |:heavy_check_mark:|Apro fattura|
-| Generali | Visualizza riferimento su ogni riga in stampa | ||
+| Generali | Visualizza riferimento su ogni riga in stampa |:heavy_check_mark:|Stampa fattura|
 | Generali | Lunghezza in pagine del buffer Datatables | ||
 | Generali | Autocompletamento form | ||
 | Generali | Filigrana stampe | ||

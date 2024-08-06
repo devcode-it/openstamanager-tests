@@ -11,9 +11,6 @@ class Impostazioni(Test):
     def setUp(self):
         super().setUp()
 
-        self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-
     def test_impostazioni_dashboard(self):
         # Visualizzare domenica sul calendario (2)
         self.visualizzare_domenica_calendario()
@@ -32,7 +29,8 @@ class Impostazioni(Test):
 
 
     def visualizzare_domenica_calendario(self):
-        wait = WebDriverWait(self.driver, 20)  
+        wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 

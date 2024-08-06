@@ -11,9 +11,6 @@ class Impostazioni(Test):
     def setUp(self):
         super().setUp()
 
-        self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-
     def test_impostazioni_ordini(self):
         # Cambia automaticamente stato ordini fatturati (1)
         self.cambia_stato_ordini()
@@ -26,6 +23,7 @@ class Impostazioni(Test):
 
     def cambia_stato_ordini(self):
         wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
