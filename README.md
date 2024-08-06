@@ -261,11 +261,11 @@ Legenda:
 
 | Sezione | Nome | ☑️ | :question: |
 |---------|------|:-:|:----------:| 
-| Aggiornamenti | Attiva aggiornamenti | ||
-| Aggiornamenti | Abilita canale pre-release per aggiornamenti | || 
+| Aggiornamenti | Attiva aggiornamenti |-|-|
+| Aggiornamenti | Abilita canale pre-release per aggiornamenti |-|-| 
 | Anagrafiche | Formato codice anagrafica |:heavy_check_mark:|Crea anagrafica| 
-| API | Lunghezza pagine per API| ||
-| API | apilayer API key for VAT number| ||
+| API | Lunghezza pagine per API|:x:|:x:|
+| API | apilayer API key for VAT number|:x:|:x:|
 | Attività | Mostra i prezzi al tecnico |:heavy_check_mark:|Crea attività|
 | Attività | Stampa per anteprima e firma | ||
 | Attività | Permetti inserimento sessioni degli altri tecnici |:heavy_check_mark:|Crea attività|
@@ -282,20 +282,19 @@ Legenda:
 | Attività | Descrizione personalizzata in fatturazione |:heavy_check_mark:|Fattura attività|
 | Attività | Stato predefinito dell'attività da Dashboard |:heavy_check_mark:|Crea attività|
 | Attività | Stato predefinito dell'attività |:heavy_check_mark:|Crea attività|
-| Attività | Numero di minuti di avanzamento delle sessioni delle attività | ||
-| Backup | Numero di backup da mantenere | ||
-| Backup | Backup automatico | ||
-| Backup | Permetti il ripristino di backup da file esterni | ||
+| Attività | Numero di minuti di avanzamento delle sessioni delle attività |-|-|
+| Backup | Numero di backup da mantenere |-|-|
+| Backup | Backup automatico |-|-|
 | Contratti | "Condizioni generali di fornitura contratti" |:heavy_check_mark:|Crea contratto|
 | Contratti | Crea contratto rinnovabile di default |:heavy_check_mark:|Crea contratto|
-| Contratti | Giorni di preavviso di default |:heavy_check_mark:||
+| Contratti | Giorni di preavviso di default |:heavy_check_mark:|Crea contratto|
 | Dashboard | Utilizzare i tooltip sul calendario | ||
 | Dashboard | Visualizzare la domenica sul calendario |:heavy_check_mark:|Calendario|
 | Dashboard | Vista dashboard |:heavy_check_mark:|Calendario|
 | Dashboard | Ora inizio sul calendario |:heavy_check_mark:|Calendario|
 | Dashboard | Ora fine sul calendario |:heavy_check_mark:|Calendario|
 | Dashboard | Visualizza informazioni aggiuntive sul calendario |:heavy_check_mark:|Calendario|
-| Dashboard | Visualizzazione colori sessioni | ||
+| Dashboard | Visualizzazione colori sessioni |:heavy_check_mark:|Calendario|
 | Dashboard | Tempo predefinito di snap attività sul calendario | ||
 | Ddt| Cambia automaticamente stato ddt fatturati |:heavy_check_mark:|Crea ddt sia in entrata che in uscita|
 | Fatturazione | Iva predefinita |:heavy_check_mark:|Crea fattura|
@@ -311,8 +310,8 @@ Legenda:
 | Fatturazione | Metodologia calcolo ritenuta d'acconto predefinito | ||
 | Fatturazione | Ritenuta previdenziale predefinita | ||
 | Fatturazione | Addebita marca da bollo al cliente | ||
-| Fatturazione | Descrizione addebito bollo | ||
-| Fatturazione | Conto predefinito per la marca da bollo | ||
+| Fatturazione | Descrizione addebito bollo |:heavy_check_mark:|Crea fattura|
+| Fatturazione | Conto predefinito per la marca da bollo |:heavy_check_mark:|Crea fattura|
 | Fatturazione | Iva per lettere d'intento | ||
 | Fatturazione | Utilizza prezzi di vendita comprensivi di IVA |:heavy_check_mark:|Crea articolo e fatturazione|
 | Fatturazione | Liquidazione iva | ||
@@ -327,9 +326,9 @@ Legenda:
 | Fatturazione | Permetti fatturazione delle attività collegate a preventivi | ||
 | Fatturazione | Data inizio verifica contatore fattura di vendita | ||
 | Fatturazione | Raggruppa attività per tipologia in fattura | ||
-| Fatturazione Elettronica | Allega stampa per fattura verso Privati | ||
-| Fatturazione Elettronica | Allega stampa per fattura verso Aziende | ||
-| Fatturazione Elettronica | Allega stampa per fattura verso PA | ||
+| Fatturazione Elettronica | Allega stampa per fattura verso Privati |:heavy_check_mark:|Crea fattura|
+| Fatturazione Elettronica | Allega stampa per fattura verso Aziende |:heavy_check_mark:|Crea fattura|
+| Fatturazione Elettronica | Allega stampa per fattura verso PA |:heavy_check_mark:|Crea fattura|
 | Fatturazione Elettronica | Regime Fiscale |:heavy_check_mark:|Apri fattura elettronica|
 | Fatturazione Elettronica | Tipo Cassa Previdenziale |:heavy_check_mark:|Apri fattura elettronica|
 | Fatturazione Elettronica | Causale ritenuta d'acconto |:heavy_check_mark:|Apri fattura elettronica|
@@ -354,7 +353,7 @@ Legenda:
 | Generali | Cifre decimali per quantità |:heavy_check_mark:|Crea fattura|
 | Generali | Tempo di attesa ricerche in secondi | ||
 | Generali | Logo stampe | ||
-| Generali | Abilita esportazione Excel e PDF | ||
+| Generali | Abilita esportazione Excel e PDF |:heavy_check_mark:|Esporta fattura|
 | Generali | Valuta |:heavy_check_mark:|Apro fattura|
 | Generali | Visualizza riferimento su ogni riga in stampa | ||
 | Generali | Lunghezza in pagine del buffer Datatables | ||
@@ -363,7 +362,7 @@ Legenda:
 | Generali | Attiva scorciatoie da tastiera | ||
 | Generali | Modifica Viste di default | ||
 | Generali | Totali delle tabelle ristretti alla selezione | ||
-| Generali | Nascondere la barra dei plugin di default | ||
+| Generali | Nascondere la barra dei plugin di default |:x:|:x:|
 | Generali | Soft quota | ||
 | Generali | Permetti selezione articoli con quantità minore o uguale a zero in Documenti di Vendita |:heavy_check_mark:|Crea fattura|
 | Generali | Inizio periodo calendario |:heavy_check_mark:|Dashboard|
@@ -371,12 +370,12 @@ Legenda:
 | Generali | Permetti il superamento della soglia quantità dei documenti di origine |:heavy_check_mark:|Crea attività, preventivo, contratto, ddt, ordine, fattura|
 | Generali | Aggiungi riferimento tra documenti |:heavy_check_mark:|Aggiungi ddt in fattura|
 | Generali | Mantieni riferimenti tra tutti i documenti collegati | ||
-| Generali | Aggiungi le note delle righe tra documenti | ||
+| Generali | Aggiungi le note delle righe tra documenti |:heavy_check_mark:|Fattura preventivo|
 | Generali | Dimensione widget predefinita |:heavy_check_mark:|Dashboard|
 | Generali | Posizione del simbolo valuta | ||
 | Generali | Tile server OpenStreetMap | ||
 | Generali | Sistema di firma | ||
-| Generali | Tipo di sconto predefinito | ||
+| Generali | Tipo di sconto predefinito |:heavy_check_mark:|Crea fattura|
 | Generali | Cifre decimali per importi in stampa |:heavy_check_mark:|Stampa fattura|
 | Generali | Cifre decimali per quantità in stampa |:heavy_check_mark:|Stampa fattura|
 | Generali | Cifre decimali per totali in stampa |:heavy_check_mark:|Stampa fattura|

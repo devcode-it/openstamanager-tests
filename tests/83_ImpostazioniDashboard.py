@@ -27,6 +27,9 @@ class Impostazioni(Test):
         # Visualizza informazioni aggiuntive sul calendario (6)
         self.visualizza_informazioni_aggiuntive()
 
+        # Visualizzazione colori sessioni (7)
+        self.visualizza_colori_sessioni()
+
 
     def visualizzare_domenica_calendario(self):
         wait = WebDriverWait(self.driver, 20)  
@@ -190,3 +193,91 @@ class Impostazioni(Test):
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[3]').click()    #disattiva impostazione
         sleep(2)
+
+    def visualizza_colori_sessioni(self):
+        wait = WebDriverWait(self.driver, 20)  
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-7"]').click() #apro Dashboard
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-setting153-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-setting153-results"]//li[2]').click()    #seleziono "Sfondo colore tecnico - bordo colore stato"
+        sleep(2)
+
+        self.navigateTo("Attività")
+        self.wait_loader()
+
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()  #click su +
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click() #seleziono Cliente come anagrafica
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-dropdown select2-dropdown--below"]//input'))).send_keys("Cliente")
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-dropdown select2-dropdown--below"]//input'))).send_keys(Keys.ENTER)
+        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click() #seleziono Generico come tipo di intervento
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Generico")
+        sleep(1)
+
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()  #click su primo risultato
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).send_keys("Test")   #scrivo "Test" come richiesta
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su Aggiungi
+        self.wait_loader()
+
+        self.find(By.XPATH, '//span[@id="select2-nuovo_tecnico-container"]').click()    #aggiungi sessione
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-nuovo_tecnico-results"]//li[2]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-block"]').click()
+        sleep(2)
+
+        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.wait_loader()
+
+        self.navigateTo("Dashboard")
+        self.wait_loader()
+        sleep(2)
+
+        colori_element = self.find(By.XPATH, '//div[@class="fc-timegrid-event-harness fc-timegrid-event-harness-inset"]//a')
+        colori = colori_element.get_attribute("style")  #check dei colori
+        self.assertEqual(colori, "border-color: rgb(255, 239, 153); background-color: rgb(255, 255, 255);")
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-7"]').click() #apro Dashboard
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-setting153-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-setting153-results"]//li[1]').click()    #seleziono "Sfondo colore stato - bordo colore tecnico"
+        sleep(2)
+
+        self.navigateTo("Dashboard")
+        self.wait_loader()
+
+        colori_element = self.find(By.XPATH, '//div[@class="fc-timegrid-event-harness fc-timegrid-event-harness-inset"]//a')
+        colori = colori_element.get_attribute("style")  #check dei colori
+        self.assertEqual(colori, "border-color: rgb(255, 255, 255); background-color: rgb(255, 239, 153);")
+        #elimino attività
+        self.navigateTo("Attività")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click() #apro attività
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click() #elimino attività
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+
+        
