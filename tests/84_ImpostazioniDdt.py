@@ -11,9 +11,6 @@ class Impostazioni(Test):
     def setUp(self):
         super().setUp()
 
-        self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-
     def test_impostazioni_ddt(self):
         # Cambia automaticamente stato ddt fatturati (1)
         self.cambia_stato_ddt_fatturati()

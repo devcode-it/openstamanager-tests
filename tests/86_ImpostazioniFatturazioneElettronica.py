@@ -11,9 +11,6 @@ class Impostazioni(Test):
     def setUp(self):
         super().setUp()
 
-        self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-
     def test_impostazioni_fatturazione_elettronica(self):
         # Allega stampa per fattura verso Privati (1)
         self.allega_stampa_privati()
@@ -38,6 +35,7 @@ class Impostazioni(Test):
 
     def allega_stampa_privati(self):
         wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
@@ -137,6 +135,7 @@ class Impostazioni(Test):
 
     def allega_stampa_aziende(self):
         wait = WebDriverWait(self.driver, 20)
+        self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 

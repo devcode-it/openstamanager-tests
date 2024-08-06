@@ -11,9 +11,6 @@ class Impostazioni(Test):
     def setUp(self):
         super().setUp()
 
-        self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-
     def test_impostazioni_anagrafiche(self):
         # Cambio formato codice anagrafiche (Anagrafiche)
         self.cambio_formato_codice()
