@@ -152,12 +152,12 @@ Legenda:
 |07| Articoli | Statistiche vendita |-|-|-|:heavy_check_mark:|-|
 |09| Anagrafiche | Ddt del cliente |-|-|-|:heavy_check_mark:|-|
 |11| Ordini cliente | Consuntivo |-|-|-|:heavy_check_mark:|-|
-
 |12| Anagrafiche | Contratti del cliente |-|-|-|:heavy_check_mark:|-|
 |12| Contratti | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |12| Contratti | Pianificazione attività |:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|-|
-|12| Contratti | Rinnovi |:heavy_check_mark:|-|:heavy_check_mark:|-|-|
 |12| Contratti | Pianificazione fatturazione |:heavy_check_mark:|-|-|:heavy_check_mark:|controllo in Fatture e widget Dashboard|
+|12| Contratti | Rinnovi |:x:|:x:|:x:|-|-|
+
 |13| Preventivi | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |13| Preventivi | Revisioni |-|-|-|:heavy_check_mark:|-|
 |35| Articoli | Piani di sconto/maggiorazione |-|-|-|:heavy_check_mark:|-|
@@ -220,10 +220,10 @@ Legenda:
 |10| Ordini fornitore | Cambia stato |:heavy_check_mark:|
 |11| Ordini cliente | Cambia stato |:heavy_check_mark:|
 |11| Ordini cliente | Fattura ordini cliente |:heavy_check_mark:|
-
+|12| Contratti | Cambia stato |:heavy_check_mark:|
 |12| Contratti | Fattura contratti |:heavy_check_mark:|
 |12| Contratti | Rinnova contratti |:heavy_check_mark:|
-|12| Contratti | Cambia stato |:heavy_check_mark:|
+
 |13| Preventivi | Fattura preventivi |:heavy_check_mark:|
 |13| Preventivi | Cambia stato |:heavy_check_mark:|
 |23| Attività | Invia mail |:heavy_check_mark:|
