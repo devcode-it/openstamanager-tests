@@ -157,9 +157,9 @@ Legenda:
 |12| Contratti | Pianificazione attività |:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|-|
 |12| Contratti | Pianificazione fatturazione |:heavy_check_mark:|-|-|:heavy_check_mark:|controllo in Fatture e widget Dashboard|
 |12| Contratti | Rinnovi |:x:|:x:|:x:|-|-|
-
 |13| Preventivi | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |13| Preventivi | Revisioni |-|-|-|:heavy_check_mark:|-|
+
 |35| Articoli | Piani di sconto/maggiorazione |-|-|-|:heavy_check_mark:|-|
 |40| Impianti | Interventi svolti |-|-|-|:heavy_check_mark:|-|
 |40| Impianti | Componenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
@@ -223,9 +223,9 @@ Legenda:
 |12| Contratti | Cambia stato |:heavy_check_mark:|
 |12| Contratti | Fattura contratti |:heavy_check_mark:|
 |12| Contratti | Rinnova contratti |:heavy_check_mark:|
-
-|13| Preventivi | Fattura preventivi |:heavy_check_mark:|
 |13| Preventivi | Cambia stato |:heavy_check_mark:|
+|13| Preventivi | Fattura preventivi |:heavy_check_mark:|
+
 |23| Attività | Invia mail |:heavy_check_mark:|
 |32| Prima nota | Esporta PDF | |
 |34| Scadenzario | Registrazione contabile |:heavy_check_mark:|

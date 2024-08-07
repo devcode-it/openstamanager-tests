@@ -67,24 +67,21 @@ class Preventivi(Test):
         self.navigateTo("Preventivi")
         self.wait_loader() 
 
+        # Creazione preventivo
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
-        # Completamento dei campi per il nuovo elemento
         self.input(modal, 'Nome').setValue(nome)
         select = self.input(modal, 'Cliente')
         select.setByText(cliente)
         select = self.input(modal, 'Tipo di Attività')
         select.setByIndex(idtipo)
-
-        # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
 
-        # Inserimento righe
         row_manager = RowManager(self)
         self.valori=row_manager.compile(file_importi)
-        sleep(2)
+        sleep(1)
 
     def duplica_preventivo(self):
         wait = WebDriverWait(self.driver, 20)
@@ -96,14 +93,14 @@ class Preventivi(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="pulsanti"]//button[@class="btn ask btn-primary"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
-        sleep(2)
+        sleep(1)
 
         self.driver.execute_script('window.scrollTo(0,0)')
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys(" da Eliminare")
-        sleep(2)
+        sleep(1)
         
         self.find(By.XPATH, '//button[@class="btn btn-success"]').click()
-        sleep(2)
+        sleep(1)
 
     def modifica_preventivo(self, stato:str):
         wait = WebDriverWait(self.driver, 20)
@@ -120,7 +117,7 @@ class Preventivi(Test):
         select = self.input(None, 'Stato')
         select.setByText(stato)
         self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
-        sleep(2)
+        sleep(1)
 
         # Estrazione totali righe
         sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
@@ -137,7 +134,7 @@ class Preventivi(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_preventivo(self):
         wait = WebDriverWait(self.driver, 20)
@@ -152,13 +149,13 @@ class Preventivi(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        sleep(2)
+        sleep(1)
 
         self.navigateTo("Preventivi")
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def creazione_contratto(self):
         wait = WebDriverWait(self.driver, 20)
@@ -178,7 +175,7 @@ class Preventivi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="submit_btn"]'))).click()
-        sleep(2)
+        sleep(1)
 
         totalecontratto=self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
         
@@ -189,7 +186,7 @@ class Preventivi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Preventivo di Prova", Keys.ENTER)
         sleep(1)
 
@@ -199,7 +196,7 @@ class Preventivi(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def creazione_ordine_cliente(self):
         wait = WebDriverWait(self.driver, 20)
@@ -231,7 +228,7 @@ class Preventivi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_icon_title_Stato"]/input'))).send_keys("Bozza", Keys.ENTER)
         sleep(1)
 
@@ -241,7 +238,7 @@ class Preventivi(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def creazione_ordine_fornitore(self):
         wait = WebDriverWait(self.driver, 20)
@@ -274,7 +271,7 @@ class Preventivi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_icon_title_Stato"]/input'))).send_keys("Bozza", Keys.ENTER)
         sleep(1)
 
@@ -285,7 +282,7 @@ class Preventivi(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def creazione_attività(self):
         wait = WebDriverWait(self.driver, 20)
@@ -321,7 +318,7 @@ class Preventivi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("6", Keys.ENTER)
         sleep(1)
 
@@ -332,7 +329,7 @@ class Preventivi(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def creazione_ddt_uscita(self):
         wait = WebDriverWait(self.driver, 20)
@@ -367,7 +364,7 @@ class Preventivi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         sleep(1)
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("02", Keys.ENTER)
         sleep(1)
 
@@ -378,7 +375,7 @@ class Preventivi(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def creazione_fattura(self):
         wait = WebDriverWait(self.driver, 20)
@@ -408,7 +405,7 @@ class Preventivi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("0003/2024", Keys.ENTER)
         sleep(1)
 
@@ -418,128 +415,119 @@ class Preventivi(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def verifica_preventivi(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Preventivi")
         self.wait_loader()  
 
-        #verifica elemento modificato
+        # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Preventivo di Prova", Keys.ENTER)
         sleep(1)
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
         self.assertEqual("Preventivo di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Preventivo di Prova da Eliminare", Keys.ENTER)
         sleep(1)
 
         eliminato=self.driver.find_element(By.XPATH,'//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def consuntivo(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[3]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
         self.find(By.XPATH,'//div[@class="control-sidebar-button"]').click()
-        self.wait_loader()
-
         self.find(By.XPATH, '//a[@id="link-tab_12"]').click()
-        self.wait_loader()
-
         budget=self.find(By.XPATH, '//span[@class="text-success"]').text
-        self.assertEqual(budget,"+264,80 €")        #controlla se il budget coincide con 264,80
-
+        self.assertEqual(budget,"+264,80 €")     
     def revisioni(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[3]').click()
+        self.find(By.XPATH, '//tbody//tr//td[3]').click()
         self.wait_loader()
 
         self.find(By.XPATH,'//div[@class="control-sidebar-button"]').click()
-        self.wait_loader()
-
         self.find(By.XPATH,'//a[@id="link-tab_20"]').click()
-        self.wait_loader() 
-
-        self.find(By.XPATH, '//div[@id="tab_20"]//td[@class="text-center"][1]') #controlla la presenza del dot rosso delle revisioni
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_20"]//td[@class="text-center"][1]')))
 
     def cambia_stato(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)  #cerco preventivo numero 1
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)  
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo risultato
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
-        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click() #click su cambia stato
+        self.find(By.XPATH, '//tbody//tr//td').click()   
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click() #seleziono lo stato "Bozza"
+        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Bozza")
-        sleep(2)
-
-        self.find(By.XPATH, '//ul[@id="select2-id_stato-results"]').click() #click primo risultato
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click di conferma
-        self.wait_loader()
-
-        stato=self.find(By.XPATH, '(//tr[1]//td[5]//span)[2]').text
-        self.assertEqual(stato,"Bozza") #controllo se lo stato è cambiato in "Bozza"
-        #torno come prima
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
-        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click() #click su cambia stato
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click() #seleziono lo stato "In lavorazione"
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("In lavorazione")
-        sleep(2)
-
-        self.find(By.XPATH, '//ul[@id="select2-id_stato-results"]').click() #click primo risultato
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click di conferma
+        self.find(By.XPATH, '//ul[@id="select2-id_stato-results"]').click() 
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() #cancella ricerca
-        sleep(2)
+        stato=self.find(By.XPATH, '//tbody//tr//td[5]').text
+        self.assertEqual(stato,"Bozza") 
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click() 
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click() 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Accettato")
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-id_stato-results"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() 
+        sleep(1)
 
     def fattura_preventivi(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)  #cerca preventivo numero 1
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER) 
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td[1]').click() #seleziono primo risultato
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
-        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click() #click su crea fattura
+        self.find(By.XPATH, '//tbody//tr//td[1]').click() 
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()   #seleziono cliente
+        self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
-        sleep(2)
+        sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-raggruppamento-results"]').click() #click sul primo risultato
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click di conferma
+        self.find(By.XPATH, '//ul[@id="select2-raggruppamento-results"]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()  #apro preventivo
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()  #cambio stato in "In lavorazione"
+        self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("In lavorazione", Keys.ENTER)
-        self.find(By.XPATH, '//button[@id="save"]') #click su salva
+        self.find(By.XPATH, '//button[@id="save"]')
         self.wait_loader()
