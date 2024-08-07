@@ -68,7 +68,7 @@ class Campi_personalizzati(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_campi_personalizzati(self):
         wait = WebDriverWait(self.driver, 20)
@@ -86,7 +86,7 @@ class Campi_personalizzati(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
         
     def verifica_campi_personalizzati(self):
         wait = WebDriverWait(self.driver, 20)
@@ -100,7 +100,7 @@ class Campi_personalizzati(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[4]').text
         self.assertEqual("Campo personalizzato di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Campo personalizzato di Prova da Eliminare", Keys.ENTER)

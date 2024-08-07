@@ -15,7 +15,7 @@ class Viste(Test):
 
         self.navigateTo("Attività")
         self.wait_loader()
-        self.controllo_viste("2")
+        self.controllo_viste("3")
 
         self.expandSidebar("Vendite")
 
@@ -43,16 +43,14 @@ class Viste(Test):
 
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
-        self.controllo_viste("02") 
+        self.controllo_viste("3") 
 
         self.expandSidebar("Contabilità")
-
         self.navigateTo("Scadenzario")
         self.wait_loader()
         self.controllo_viste("Fattura immediata di acquisto numero 01") 
 
         self.expandSidebar("Magazzino")
-
         self.navigateTo("Articoli")
         self.wait_loader()
         self.controllo_viste("Articolo 1") 
@@ -68,6 +66,7 @@ class Viste(Test):
         self.navigateTo("Ddt in entrata")
         self.wait_loader()
         self.controllo_viste("2") 
+        
     def controllo_viste(self, test: str):
         verifica = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
         self.assertEqual(verifica, test)
