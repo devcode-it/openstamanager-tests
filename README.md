@@ -159,8 +159,8 @@ Legenda:
 |12| Contratti | Rinnovi |:x:|:x:|:x:|-|-|
 |13| Preventivi | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |13| Preventivi | Revisioni |-|-|-|:heavy_check_mark:|-|
-
 |35| Articoli | Piani di sconto/maggiorazione |-|-|-|:heavy_check_mark:|-|
+
 |40| Impianti | Interventi svolti |-|-|-|:heavy_check_mark:|-|
 |40| Impianti | Componenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
 |40| Anagrafiche | Impianti del cliente |-|-|-|:heavy_check_mark:|-|

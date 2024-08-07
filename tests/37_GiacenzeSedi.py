@@ -55,7 +55,7 @@ class GiacenzeSedi(Test):
         self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_2-4"]//i[@class="fa fa-plus"])[4]'))).click()
-        sleep(2)
+        sleep(1)
 
 
     def creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):  
@@ -79,7 +79,7 @@ class GiacenzeSedi(Test):
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        sleep(2)
+        sleep(1)
 
         row_manager = RowManager(self)
         self.valori=row_manager.compile(file_importi)
@@ -110,7 +110,7 @@ class GiacenzeSedi(Test):
 
         self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]').click()  
-        sleep(2)
+        sleep(1)
 
     def verifica_movimenti(self):
         wait = WebDriverWait(self.driver, 20)
@@ -127,8 +127,8 @@ class GiacenzeSedi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_10"]'))).click()
 
-        scarico = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[5])[1]'))).text
-        carico = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[5])[2]'))).text
+        scarico = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr//td[6]'))).text
+        carico = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[2]//td[6]'))).text
 
         self.assertEqual(scarico, "Sede di Roma")
         self.assertEqual(carico, "Sede legale")
