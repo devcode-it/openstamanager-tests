@@ -141,8 +141,8 @@ Legenda:
 |04| Articoli | Statistiche |-|-|-|:heavy_check_mark:|-|
 |04| Articoli | Netto clienti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|-|
 |04| Articoli | Varianti articolo | - | - | - |:heavy_check_mark:| Attributi e combinazioni |
-
 |05| Anagrafiche | Storico attività |-|-|-|:heavy_check_mark:|-|
+
 |06| Fatture di acquisto | Movimenti contabilili |-|-|-|:heavy_check_mark:|-|
 |06| Fatture di acquisto | Registrazioni |-|:heavy_check_mark:|-|-|-|
 |06| Fatture di acquisto | Movimenti contabilili |-|-|-|:heavy_check_mark:|-|
@@ -198,14 +198,13 @@ Legenda:
 |04| Articoli | Imposta prezzo di acquisto da fattura |:heavy_check_mark:|
 |04| Articoli | Stampa etichette |:heavy_check_mark:|
 |04| Articoli | Elimina selezionati |:heavy_check_mark:|
-
-|05| Attività | Esporta stampe | |
-|05| Attività | Fattura attività |:heavy_check_mark:|
 |05| Attività | Cambia stato |:heavy_check_mark:|
 |05| Attività | Duplica attività |:heavy_check_mark:|
-|05| Attività | Stampa riepilogo |:heavy_check_mark:|
-|05| Attività | Firma interventi  |:heavy_check_mark:|
 |05| Attività | Elimina selezionati |:heavy_check_mark:|
+|05| Attività | Firma interventi  |:heavy_check_mark:|
+|05| Attività | Fattura attività |:heavy_check_mark:|
+|05| Attività | Stampa riepilogo |:heavy_check_mark:|
+
 |06| Fatture di acquisto | Cambia sezionale |:heavy_check_mark:|
 |06| Fatture di acquisto | Duplica selezionati |:heavy_check_mark:|
 |06| Fatture di acquisto | Esporta selezionati | |
@@ -256,6 +255,8 @@ Legenda:
 |:x:| Articoli | Esporta selezionati |:x:|
 |:x:| Articoli | Aggiorna categoria e sottocategoria |:x:|
 |:x:| Articoli | Aggiungi a listino cliente |:x:|
+|:x:| Attività | Esporta stampe |:x:|
+
 
 ## Impostazioni
 
