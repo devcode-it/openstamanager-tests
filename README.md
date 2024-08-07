@@ -160,11 +160,10 @@ Legenda:
 |13| Preventivi | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |13| Preventivi | Revisioni |-|-|-|:heavy_check_mark:|-|
 |35| Articoli | Piani di sconto/maggiorazione |-|-|-|:heavy_check_mark:|-|
-
-|40| Impianti | Interventi svolti |-|-|-|:heavy_check_mark:|-|
-|40| Impianti | Componenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
 |40| Anagrafiche | Impianti del cliente |-|-|-|:heavy_check_mark:|-|
 |40| Attività | Impianti |:heavy_check_mark:|:x:|:heavy_check_mark:|:heavy_check_mark:|:x: (controllo impianti interventi svolti)|
+|40| Impianti | Interventi svolti |-|-|-|:heavy_check_mark:|-|
+|40| Impianti | Componenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
 |:x:| Fatture di vendita | Fatturazione elettronica |:x:|:x:|:x:|:x:|:x:|
 |:x:| Scadenzario | Presentazioni bancarie |:x:|:x:|:x:|:x:|:x:|
 
@@ -228,11 +227,8 @@ Legenda:
 |23| Attività | Invia mail |:heavy_check_mark:|
 |34| Scadenzario | Registrazione contabile |:x:|
 |34| Scadenzario | Info distinta |:heavy_check_mark:|
-
-|32| Prima nota | Esporta PDF | |
-|34| Scadenzario | Invia mail sollecito | |
-|40| Impianti | Esporta selezionati | |
 |40| Impianti | Elimina selezionati |:heavy_check_mark:|
+
 |58| Fatture di vendita | Aggiorna banca |:heavy_check_mark:|
 |58| Fatture di acquisto | Aggiorna banca |:heavy_check_mark:|
 |58| Scadenzario | Aggiorna banca |:heavy_check_mark:|
@@ -251,7 +247,10 @@ Legenda:
 |:x:| Fatture di vendita | Esporta ricevute |:x:|
 |:x:| Fatture di vendita | Esporta XML |:x:|
 |:x:| Fatture di vendita | Coda di invio FE |:x:|
-|:x:| Ordini cliente | Unisci RDO |:x:|
+|:x:| Ordini cliente | Unisci RDO ||
+|:x:| Prima nota | Esporta PDF |:x:|
+|:x:| Scadenzario | Invia mail sollecito |:x:|
+|:x:| Impianti | Esporta selezionati |:x:|
 
 ## Impostazioni
 
