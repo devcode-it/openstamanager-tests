@@ -144,12 +144,13 @@ Legenda:
 |05| Anagrafiche | Storico attività |-|-|-|:heavy_check_mark:|-|
 |06| Fatture di acquisto | Registrazioni |-|-|-|:heavy_check_mark:|-|
 |06| Fatture di acquisto | Movimenti contabilili |-|-|-|:heavy_check_mark:|-|
-
-|07| Anagrafiche | Allegati |-|-|-|:heavy_check_mark:|-|
+|07| Fatture di vendita | Movimenti contabilili |-|-|-|:heavy_check_mark:|-|
 |07| Anagrafiche | Movimenti contabili |-|-|-|:heavy_check_mark:|-|
 |07| Anagrafiche | Regole pagamenti |:heavy_check_mark:|:x:|:heavy_check_mark:|:heavy_check_mark:|controllo in scadenzario|
-|07| Fatture di vendita | Movimenti contabilili |-|-|-|:heavy_check_mark:|-|
-|07| Fatture di vendita | Registrazioni |-|:heavy_check_mark:|-|:heavy_check_mark:|-|
+|07| Fatture di vendita | Registrazioni |-|-|-|:heavy_check_mark:|-|
+|07| Anagrafiche | Allegati |-|-|-|:heavy_check_mark:|-|
+|07| Articoli | Statistiche vendita |-|-|-|:heavy_check_mark:|-|
+
 |09| Anagrafiche | Ddt del cliente |-|-|-|:heavy_check_mark:|-|
 |12| Anagrafiche | Contratti del cliente |-|-|-|:heavy_check_mark:|-|
 |11| Ordini cliente | Consuntivo |-|-|-|:heavy_check_mark:|-|
@@ -166,8 +167,6 @@ Legenda:
 |40| Attività | Impianti |:heavy_check_mark:|:x:|:heavy_check_mark:|:heavy_check_mark:|:x: (controllo impianti interventi svolti)|
 |:x:| Fatture di vendita | Fatturazione elettronica |:x:|:x:|:x:|:x:|:x:|
 |:x:| Scadenzario | Presentazioni bancarie |:x:|:x:|:x:|:x:|:x:|
-
-| | Articoli | Statistiche vendita |-|-|-|:heavy_check_mark:|-|
 
 
 ## Azioni di gruppo
@@ -205,20 +204,14 @@ Legenda:
 |06| Fatture di acquisto | Duplica selezionati |:heavy_check_mark:|
 |06| Fatture di acquisto | Registrazione contabile |:heavy_check_mark:|
 |06| Fatture di acquisto | Elimina selezionati |:heavy_check_mark:|
-
-
 |07| Fatture di vendita | Cambia sezionale |:heavy_check_mark:|
-|07| Fatture di vendita | Controlla fatture elettroniche ||
 |07| Fatture di vendita | Duplica selezionati |:heavy_check_mark:|
 |07| Fatture di vendita | Emetti fatture |:heavy_check_mark:|
-|07| Fatture di vendita | Esporta stampe ||
-|07| Fatture di vendita | Esporta stampe FE ||
-|07| Fatture di vendita | Esporta ricevute ||
-|07| Fatture di vendita | Esporta XML ||
-|07| Fatture di vendita | Genera fatture elettroniche |:heavy_check_mark:|
+|07| Fatture di vendita | Controlla fatture elettroniche |:heavy_check_mark:|
 |07| Fatture di vendita | Registrazione contabile |:heavy_check_mark:|
-|07| Fatture di vendita | Coda di invio FE ||
+|07| Fatture di vendita | Genera fatture elettroniche |:heavy_check_mark:|
 |07| Fatture di vendita | Elimina selezionati |:heavy_check_mark:|
+
 |08| Ddt in entrata | Fattura ddt in entrata |:heavy_check_mark:|
 |08| Ddt in entrata | Cambia stato |:heavy_check_mark:|
 |08| Ddt in entrata | Elimina selezionati |:heavy_check_mark:|
@@ -254,6 +247,12 @@ Legenda:
 |:x:| Fatture di acquisto | Esporta stampa FE |:x:|
 |:x:| Fatture di acquisto | Esporta ricevute |:x:|
 |:x:| Fatture di acquisto | Esporta XML |:x:|
+|:x:| Fatture di vendita | Esporta stampe |:x:|
+|:x:| Fatture di vendita | Esporta stampe FE |:x:|
+|:x:| Fatture di vendita | Esporta ricevute |:x:|
+|:x:| Fatture di vendita | Esporta XML |:x:|
+|:x:| Fatture di vendita | Coda di invio FE |:x:|
+
 
 ## Impostazioni
 
