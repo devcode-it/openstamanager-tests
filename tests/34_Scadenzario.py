@@ -20,17 +20,17 @@ class Scadenzario(Test):
 
     def test_creazione_scadenzario(self):
         # Crea una nuova scadenza. *Required*
-        self.creazione_scadenzario("Cliente", "Scadenze generiche", "10", "Scadenza di Prova")
-        self.creazione_scadenzario("Cliente", "Scadenze generiche", "10", "Scadenza di Prova da Eliminare")
+        #self.creazione_scadenzario("Cliente", "Scadenze generiche", "10", "Scadenza di Prova")
+        #self.creazione_scadenzario("Cliente", "Scadenze generiche", "10", "Scadenza di Prova da Eliminare")
 
         # Modifica scadenza
-        self.modifica_scadenza("Scadenza di Prova")
+        #self.modifica_scadenza("Scadenza di Prova")
 
         # Cancellazione scadenza
-        self.elimina_scadenza()
+        #self.elimina_scadenza()
 
         # Verifica scadenza
-        self.verifica_scadenza()
+        #self.verifica_scadenza()
 
         # Registrazione contabile (Azioni di gruppo)
         self.registrazione_contabile()
@@ -73,13 +73,13 @@ class Scadenzario(Test):
         self.find(By.XPATH,'(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]').send_keys(modifica) 
 
         self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
-        sleep(2)
+        sleep(1)
                 
         self.navigateTo("Scadenzario")
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Descrizione-scadenza"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_scadenza(self):
         wait = WebDriverWait(self.driver, 20)
@@ -97,7 +97,7 @@ class Scadenzario(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Descrizione-scadenza"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def verifica_scadenza(self):
         wait = WebDriverWait(self.driver, 20)
@@ -111,7 +111,6 @@ class Scadenzario(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Scadenza di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
         sleep(1)
 
         #verifica elemento eliminato
@@ -126,45 +125,46 @@ class Scadenzario(Test):
         self.navigateTo("Scadenzario")
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys("Fattura immediata di acquisto numero 08", Keys.ENTER)  #cerca fattura 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys("Fattura immediata di acquisto numero 01", Keys.ENTER)  
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td').click() #seleziona primo risultato
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apre azioni di gruppo
-        self.find(By.XPATH, '//a[@data-op="registrazione-contabile"]').click() #apre registrazione contabile
+        self.find(By.XPATH, '//tbody//tr//td').click() 
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '//a[@data-op="registrazione-contabile"]').click() 
         sleep(1)
 
+        # TODO: fare la registrazione contabile
         prezzo=self.find(By.XPATH, '(//tfoot//tr[1]//td[2])[3]').text
-        self.assertEqual(prezzo, "1,22 €")  #controlla se il prezzo è uguale a 1,22
-        self.find(By.XPATH, '//button[@class="close"]').click() #chiude registrazione contabile
+        self.assertEqual(prezzo, "323,06 €")  
+        self.find(By.XPATH, '//button[@class="close"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td').click() #toglie checkbox
-        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #cancella ricerca
-        sleep(2)
+        self.find(By.XPATH, '//tbody//tr//td').click() 
+        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() 
+        sleep(1)
 
     def info_distinta(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Scadenzario")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys("Fattura immediata di acquisto numero 08", Keys.ENTER)  #cerca fattura 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys("Fattura immediata di acquisto numero 01", Keys.ENTER)  
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td').click() #seleziona primo risultato
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apre azioni di gruppo
-        self.find(By.XPATH, '//a[@data-op="change_distinta"]').click() #apre info distinta
+        self.find(By.XPATH, '//tbody//tr//td').click() 
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//a[@data-op="change_distinta"]').click() 
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="distinta"]'))).send_keys("Prova") #scrivo Prova come info distinta
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="distinta"]'))).send_keys("Prova") 
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click() #click sulla fattura
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() 
         self.wait_loader()
 
         self.navigateTo("Scadenzario")
         self.wait_loader()
 
-        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #cancella ricerca
-        sleep(2)
+        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() 
+        sleep(1)

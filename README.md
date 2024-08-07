@@ -225,12 +225,12 @@ Legenda:
 |12| Contratti | Rinnova contratti |:heavy_check_mark:|
 |13| Preventivi | Cambia stato |:heavy_check_mark:|
 |13| Preventivi | Fattura preventivi |:heavy_check_mark:|
-
 |23| Attività | Invia mail |:heavy_check_mark:|
-|32| Prima nota | Esporta PDF | |
-|34| Scadenzario | Registrazione contabile |:heavy_check_mark:|
-|34| Scadenzario | Invia mail sollecito | |
+|34| Scadenzario | Registrazione contabile |:x:|
 |34| Scadenzario | Info distinta |:heavy_check_mark:|
+
+|32| Prima nota | Esporta PDF | |
+|34| Scadenzario | Invia mail sollecito | |
 |40| Impianti | Esporta selezionati | |
 |40| Impianti | Elimina selezionati |:heavy_check_mark:|
 |58| Fatture di vendita | Aggiorna banca |:heavy_check_mark:|

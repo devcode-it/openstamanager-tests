@@ -63,7 +63,7 @@ class GestioneDocumentale(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_documento(self):
         wait = WebDriverWait(self.driver, 20)
@@ -81,7 +81,7 @@ class GestioneDocumentale(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
         
     def verifica_documento(self):
         wait = WebDriverWait(self.driver, 20)
@@ -95,7 +95,7 @@ class GestioneDocumentale(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
         self.assertEqual("Documento di prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Documento di prova da Eliminare", Keys.ENTER)

@@ -62,7 +62,7 @@ class CategorieDocumenti(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_categoria_documenti(self):
         wait = WebDriverWait(self.driver, 20)
@@ -80,7 +80,7 @@ class CategorieDocumenti(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
         
     def verifica_categoria_documento(self):
         wait = WebDriverWait(self.driver, 20)
@@ -94,7 +94,7 @@ class CategorieDocumenti(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Categoria Documenti di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Categoria Documenti di Prova da Eliminare", Keys.ENTER)

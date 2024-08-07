@@ -11,3 +11,5 @@ class StampeContabili(Test):
     def test_stampecontabili(self):
         self.navigateTo("Contabilità")
         self.navigateTo("Stampe contabili")
+
+    # TODO: test stampe contabili

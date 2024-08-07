@@ -63,7 +63,7 @@ class FasceOrarie(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_fasce_orarie(self):
         wait = WebDriverWait(self.driver, 20)
@@ -81,7 +81,7 @@ class FasceOrarie(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
         
     def verifica_fasce_orarie(self):
         wait = WebDriverWait(self.driver, 20)
@@ -95,7 +95,7 @@ class FasceOrarie(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Fascia Oraria di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
         
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Fascia Oraria di Prova da Eliminare", Keys.ENTER)
