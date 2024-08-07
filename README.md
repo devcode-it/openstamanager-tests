@@ -150,8 +150,8 @@ Legenda:
 |07| Fatture di vendita | Registrazioni |-|-|-|:heavy_check_mark:|-|
 |07| Anagrafiche | Allegati |-|-|-|:heavy_check_mark:|-|
 |07| Articoli | Statistiche vendita |-|-|-|:heavy_check_mark:|-|
-
 |09| Anagrafiche | Ddt del cliente |-|-|-|:heavy_check_mark:|-|
+
 |12| Anagrafiche | Contratti del cliente |-|-|-|:heavy_check_mark:|-|
 |11| Ordini cliente | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |12| Contratti | Consuntivo |-|-|-|:heavy_check_mark:|-|
@@ -214,10 +214,10 @@ Legenda:
 |08| Ddt in entrata | Cambia stato |:heavy_check_mark:|
 |08| Ddt in entrata | Fattura ddt in entrata |:heavy_check_mark:|
 |08| Ddt in entrata | Elimina selezionati |:heavy_check_mark:|
-
-|09| Ddt in uscita | Fattura ddt in uscita |:heavy_check_mark:|
 |09| Ddt in uscita | Cambia stato |:heavy_check_mark:|
+|09| Ddt in uscita | Fattura ddt in uscita |:heavy_check_mark:|
 |09| Ddt in uscita | Elimina selezionati |:heavy_check_mark:|
+
 |10| Ordini fornitore | Cambia stato |:heavy_check_mark:|
 |11| Ordini cliente | Fattura ordini cliente |:heavy_check_mark:|
 |11| Ordini cliente | Cambia stato |:heavy_check_mark:|
