@@ -35,6 +35,9 @@ class Impostazioni(Test):
 
         # Autocompletamento form (15)
         self.autocompletamento_form()   #da finire
+
+        # Totali delle tabelle ristretti alla selezione (19)
+        self.totali_tabelle_selezione()
         
         # Permetti selezione articoli con quantità minore o uguale a zero in Documenti di Vendita (22)
         self.quantita_minore_uguale_zero()
@@ -56,6 +59,9 @@ class Impostazioni(Test):
 
         # Dimensione widget predefinita (29)
         self.dimensione_widget_predefinita()
+
+        # Posizione del simbolo valuta (30)
+        self.posizione_simbolo_valuta()
 
         # Tipo di sconto predefinito (33)
         self.tipo_sconto_predefinito()
@@ -660,6 +666,53 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//ul[@id="select2-setting93-results"]//li[2]').click()
         sleep(2)
 
+    def totali_tabelle_selezione(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[6]').click()    #attivo impostazione
+        sleep(2)
+
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono prima fattura
+        self.find(By.XPATH, '//tbody//tr[2]//td[1]').click()    #seleziono seconda fattura
+        sleep(2)
+
+        totale=self.find(By.XPATH, '(//table//tr[1]//td[6])[3]').text   #controllo se il totale corrisponde a 314,80
+        self.assertEqual(totale, "314,80")
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #deseleziono prima fattura
+        self.find(By.XPATH, '//tbody//tr[2]//td[1]').click()    #deseleziono seconda fattura
+        sleep(2)
+
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[6]').click()    #disattivo impostazione
+        sleep(2)
+
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono prima fattura
+        self.find(By.XPATH, '//tbody//tr[2]//td[1]').click()    #seleziono seconda fattura
+        sleep(2)
+
+        totale=self.find(By.XPATH, '(//table//tr[1]//td[6])[3]').text   #controllo se il totale non corrisponde a 314,80
+        self.assertNotEqual(totale, "314,80")
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono prima fattura
+        self.find(By.XPATH, '//tbody//tr[2]//td[1]').click()    #seleziono seconda fattura
+        sleep(2)
 
     def quantita_minore_uguale_zero(self):
         wait = WebDriverWait(self.driver, 20)
@@ -1848,6 +1901,93 @@ class Impostazioni(Test):
         dimensione_element = self.find(By.XPATH, '(//div[@id="widget-top"]//div)[1]')    #controllo se la dimensione è cambiata
         dimensione = dimensione_element.get_attribute("class")
         self.assertEqual(dimensione[9:17], "col-md-3")
+
+    def posizione_simbolo_valuta(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-setting168-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-setting168-results"]//li[1]').click()    #simbolo prima
+        sleep(2)
+
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.wait_loader()
+        #aggiungo articolo
+        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@class="select2-results__options select2-results__options--nested"]//li[1]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click()
+        sleep(2)
+
+        totale=self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[9]').text   #check della posizione del simbolo
+        self.assertEqual(totale, "€ 20,00")
+        #elimino fattura
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.wait_loader()
+        #torno alle impostazioni di prima
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@id="impostazioni-11"]').click() #apro Generali
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-setting168-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-setting168-results"]//li[2]').click()    #simbolo dopo
+        sleep(2)
+
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        sleep(1)
+
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.wait_loader()
+        #aggiungo articolo
+        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@class="select2-results__options select2-results__options--nested"]//li[1]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click()
+        sleep(2)
+
+        totale=self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[9]').text   #check della posizione del simbolo
+        self.assertEqual(totale, "20,00 €")
+        #elimino fattura
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.wait_loader()
 
 
     def tipo_sconto_predefinito(self):
