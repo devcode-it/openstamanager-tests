@@ -151,9 +151,9 @@ Legenda:
 |07| Anagrafiche | Allegati |-|-|-|:heavy_check_mark:|-|
 |07| Articoli | Statistiche vendita |-|-|-|:heavy_check_mark:|-|
 |09| Anagrafiche | Ddt del cliente |-|-|-|:heavy_check_mark:|-|
+|11| Ordini cliente | Consuntivo |-|-|-|:heavy_check_mark:|-|
 
 |12| Anagrafiche | Contratti del cliente |-|-|-|:heavy_check_mark:|-|
-|11| Ordini cliente | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |12| Contratti | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |12| Contratti | Pianificazione attività |:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|-|
 |12| Contratti | Rinnovi |:heavy_check_mark:|-|:heavy_check_mark:|-|-|
@@ -218,10 +218,9 @@ Legenda:
 |09| Ddt in uscita | Fattura ddt in uscita |:heavy_check_mark:|
 |09| Ddt in uscita | Elimina selezionati |:heavy_check_mark:|
 |10| Ordini fornitore | Cambia stato |:heavy_check_mark:|
-
-|11| Ordini cliente | Fattura ordini cliente |:heavy_check_mark:|
 |11| Ordini cliente | Cambia stato |:heavy_check_mark:|
-|11| Ordini cliente | Unisci RDO | |
+|11| Ordini cliente | Fattura ordini cliente |:heavy_check_mark:|
+
 |12| Contratti | Fattura contratti |:heavy_check_mark:|
 |12| Contratti | Rinnova contratti |:heavy_check_mark:|
 |12| Contratti | Cambia stato |:heavy_check_mark:|
@@ -252,7 +251,7 @@ Legenda:
 |:x:| Fatture di vendita | Esporta ricevute |:x:|
 |:x:| Fatture di vendita | Esporta XML |:x:|
 |:x:| Fatture di vendita | Coda di invio FE |:x:|
-
+|:x:| Ordini cliente | Unisci RDO |:x:|
 
 ## Impostazioni
 
