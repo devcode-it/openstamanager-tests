@@ -142,19 +142,16 @@ Legenda:
 |04| Articoli | Netto clienti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|-|
 |04| Articoli | Varianti articolo | - | - | - |:heavy_check_mark:| Attributi e combinazioni |
 |05| Anagrafiche | Storico attività |-|-|-|:heavy_check_mark:|-|
+|06| Fatture di acquisto | Registrazioni |-|-|-|:heavy_check_mark:|-|
+|06| Fatture di acquisto | Movimenti contabilili |-|-|-|:heavy_check_mark:|-|
 
-|06| Fatture di acquisto | Movimenti contabilili |-|-|-|:heavy_check_mark:|-|
-|06| Fatture di acquisto | Registrazioni |-|:heavy_check_mark:|-|-|-|
-|06| Fatture di acquisto | Movimenti contabilili |-|-|-|:heavy_check_mark:|-|
-|06| Fatture di acquisto | Registrazioni |-|:heavy_check_mark:|-|-|-|
 |07| Anagrafiche | Allegati |-|-|-|:heavy_check_mark:|-|
-|09| Anagrafiche | Ddt del cliente |-|-|-|:heavy_check_mark:|-|
-|12| Anagrafiche | Contratti del cliente |-|-|-|:heavy_check_mark:|-|
-:heavy_check_mark:|:heavy_check_mark:|controllo in fatture|
 |07| Anagrafiche | Movimenti contabili |-|-|-|:heavy_check_mark:|-|
 |07| Anagrafiche | Regole pagamenti |:heavy_check_mark:|:x:|:heavy_check_mark:|:heavy_check_mark:|controllo in scadenzario|
 |07| Fatture di vendita | Movimenti contabilili |-|-|-|:heavy_check_mark:|-|
 |07| Fatture di vendita | Registrazioni |-|:heavy_check_mark:|-|:heavy_check_mark:|-|
+|09| Anagrafiche | Ddt del cliente |-|-|-|:heavy_check_mark:|-|
+|12| Anagrafiche | Contratti del cliente |-|-|-|:heavy_check_mark:|-|
 |11| Ordini cliente | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |12| Contratti | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |12| Contratti | Pianificazione attività |:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|-|
@@ -204,15 +201,12 @@ Legenda:
 |05| Attività | Firma interventi  |:heavy_check_mark:|
 |05| Attività | Fattura attività |:heavy_check_mark:|
 |05| Attività | Stampa riepilogo |:heavy_check_mark:|
-
 |06| Fatture di acquisto | Cambia sezionale |:heavy_check_mark:|
 |06| Fatture di acquisto | Duplica selezionati |:heavy_check_mark:|
-|06| Fatture di acquisto | Esporta selezionati | |
-|06| Fatture di acquisto | Esporta stampa FE | |
-|06| Fatture di acquisto | Esporta ricevute | |
-|06| Fatture di acquisto | Esporta XML | |
 |06| Fatture di acquisto | Registrazione contabile |:heavy_check_mark:|
 |06| Fatture di acquisto | Elimina selezionati |:heavy_check_mark:|
+
+
 |07| Fatture di vendita | Cambia sezionale |:heavy_check_mark:|
 |07| Fatture di vendita | Controlla fatture elettroniche ||
 |07| Fatture di vendita | Duplica selezionati |:heavy_check_mark:|
@@ -256,7 +250,10 @@ Legenda:
 |:x:| Articoli | Aggiorna categoria e sottocategoria |:x:|
 |:x:| Articoli | Aggiungi a listino cliente |:x:|
 |:x:| Attività | Esporta stampe |:x:|
-
+|:x:| Fatture di acquisto | Esporta selezionati |:x:|
+|:x:| Fatture di acquisto | Esporta stampa FE |:x:|
+|:x:| Fatture di acquisto | Esporta ricevute |:x:|
+|:x:| Fatture di acquisto | Esporta XML |:x:|
 
 ## Impostazioni
 

@@ -41,9 +41,6 @@ class FattureAcquisto(Test):
         # Plugin movimenti contabili
         self.movimenti_contabili()
 
-        # Elimina selezionati (Azioni di gruppo)
-        self.elimina_selezionati()
-
         # Cambia sezionale (Azioni di gruppo)
         self.cambia_sezionale()
 
@@ -53,28 +50,25 @@ class FattureAcquisto(Test):
         # Registrazione contabile (Azioni di gruppo)
         self.registrazione_contabile()
 
+        # Elimina selezionati (Azioni di gruppo)
+        self.elimina_selezionati()
+
     def creazione_fattura_acquisto(self, fornitore: str, numero: str, pagamento: str, file_importi: str):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
-        # Crea una nuova fattura per il fornitore indicato. 
-        # Apre la schermata di nuovo elemento
+        # Crea fattura
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
         self.input(modal, 'N. fattura del fornitore').setValue(numero)
         select = self.input(modal, 'Fornitore')
         select.setByText(fornitore)
-
-        # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
 
         select = self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Pagamento')
         select.setByIndex(pagamento)
-
-        #toast = self.driver.find_elements(By.CLASS_NAME, 'toast-message')
-        #self.assertIn('Aggiunto fattura', toast)
         row_manager = RowManager(self)
         self.valori=row_manager.compile(file_importi)
 
@@ -82,7 +76,7 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
-        self.find(By.XPATH, '//td[@class="bound clickable"]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
         
         self.input(None,'Stato*').setByText(modifica)
@@ -93,7 +87,7 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
-        self.find(By.XPATH, '//td[@class="bound clickable"]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
         
         # Estrazione totali righe
@@ -118,7 +112,6 @@ class FattureAcquisto(Test):
         scadenza_scadenzario = (self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text + ' €')
         self.assertEqual(totale, scadenza_scadenzario)
 
-        # Torno alla tabella delle Fatture
         self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
@@ -166,7 +159,7 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
-        self.find(By.XPATH, '//td[@class="bound clickable"]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
@@ -178,19 +171,20 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()  
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)
         sleep(1)
 
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella",eliminato)
-        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() #elimina ricerca
-        sleep(2)
+
+        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() 
+        sleep(1)
 
     def verifica_xml_autofattura(self, file_importi: str, pagamento: str):
         wait = WebDriverWait(self.driver, 20)
     
-        #Creazione fattura di acquisto estera
+        # Creazione fattura di acquisto estera
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()  
 
@@ -200,19 +194,15 @@ class FattureAcquisto(Test):
         select = self.input(modal, 'Fornitore')
         select.setByText("Fornitore Estero")
         sleep(1)
-        self.input(modal, 'N. fattura del fornitore').setValue("01")
 
-        # Submit
+        self.input(modal, 'N. fattura del fornitore').setValue("01")
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
 
-        # Inserisco le righe
         select = self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Pagamento')
         select.setByIndex(pagamento)
         row_manager = RowManager(self)
-        row_manager.compile(file_importi)
-
-        # Modifica stato in emessa        
+        row_manager.compile(file_importi)    
         self.input(None,'Stato*').setByText("Emessa")
         self.driver.execute_script('window.scrollTo(0,0)')
         sleep(1)
@@ -229,7 +219,7 @@ class FattureAcquisto(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//button[@type="submit"]'))).click()
         self.wait_loader()
 
-        # Modifica stato in emessa        
+      
         self.input(None,'Stato*').setByText("Emessa")
         self.driver.execute_script('window.scrollTo(0,0)')
         sleep(1)
@@ -249,97 +239,65 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
         self.find(By.XPATH, '//div[@class="control-sidebar-button"]').click()
         self.find(By.XPATH, '//a[@id="link-tab_41"]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_41"]//tr[5]//td[1]'))) #controlla la presenza della 5 riga come quinto articolo
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_41"]//tr[5]//td[1]'))) 
     def movimenti_contabili(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
         self.find(By.XPATH, '//div[@class="control-sidebar-button"]').click()
         self.find(By.XPATH, '//a[@id="link-tab_36"]').click()
         self.find(By.XPATH, '//a[@class="btn btn-info btn-lg"]').click()
         self.wait_loader()
-        avere=self.find(By.XPATH, '//div[@id="tab_36"]//tr[1]//td[4]').text
+
+        avere=self.find(By.XPATH, '//div[@id="tab_36"]//tr//td[4]').text
         self.assertEqual(avere,"323,06 €")
-
-    def elimina_selezionati(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Fatture di acquisto")
-        self.wait_loader()
-
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
-        sleep(1)
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]'))).send_keys("09")   #scrivo 09 come numero esterno
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono "Fornitore" come fornitore
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Fornitore", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
-        self.wait_loader()
-
-        self.navigateTo("Fatture di acquisto") #torno indietro
-        self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input'))).send_keys("09", Keys.ENTER) #cerco fattura numero 09
-        sleep(1)
-
-        self.find(By.XPATH, '//tbody//tr//td').click()    #seleziono primo risultato
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
-        self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()  #click su elimina selezionati
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
-        self.wait_loader()
-
-        scritta=self.find(By.XPATH, '//tbody//tr//td').text #controllo se appare la scritta e quindi se è stata eliminata la fattura
-        self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() #elimina ricerca
-        sleep(2)
 
     def cambia_sezionale(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
-        sleep(1)
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
+        modal = self.wait_modal()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]'))).send_keys("08")   #scrivo 08 come numero esterno
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono "Fornitore" come fornitore
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]'))).send_keys("2")
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Fornitore", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
         self.wait_loader()
 
-        self.navigateTo("Fatture di acquisto")  #torno indietro
+        self.navigateTo("Fatture di acquisto") 
         self.wait_loader()
-        #cambio sezione
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco fatture con 08 come numero esterno
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click() #seleziono primo risultato
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
-        self.find(By.XPATH, '//a[@data-op="cambia-sezionale"]').click() #click su cambia sezionale
-        sleep(2)
+        self.find(By.XPATH, '//tbody//tr//td').click() 
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//a[@data-op="cambia-sezionale"]').click() 
+        sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()   #seleziono "Autofatture" come sezionale
+        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()
         sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Autofatture")
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-id_segment-results"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@id="select2-id_segment_-container"]').click()  #vado in "Autofatture"
+        self.find(By.XPATH, '//span[@id="select2-id_segment_-container"]').click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Autofatture")
@@ -348,40 +306,30 @@ class FattureAcquisto(Test):
         self.find(By.XPATH, '//ul[@id="select2-id_segment_-results"]').click()
         self.wait_loader()
 
-        #rimetto in sezione di prima
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() #cancello ricerca
-        sleep(2)
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() 
+        sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click() #seleziono prima fattura
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
-        self.find(By.XPATH, '//a[@data-op="cambia-sezionale"]').click() #click su cambia sezionale
-        sleep(2)
+        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//a[@data-op="cambia-sezionale"]').click() 
+        sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click() #seleziono "Standard acquisti" come sezionale
+        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click() 
         sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Standard")
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-id_segment-results"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@id="select2-id_segment_-container"]').click()  #torno in sezionale "Standard acquisti"
+        self.find(By.XPATH, '//span[@id="select2-id_segment_-container"]').click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Standard")
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-id_segment_-results"]').click()
-        self.wait_loader()
-        
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()  #click sulla prima fattura
-        self.wait_loader()
-
-        self.find(By.XPATH, '//a[@id="elimina"]').click()   #elimino fattura
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
     def duplica_selezionati(self):
@@ -389,38 +337,19 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click() #click su + 
+        self.find(By.XPATH, '//tbody//tr//td[1]').click() 
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '//a[@data-op="copy-bulk"]').click() 
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]'))).send_keys("08")   #scrivo 08 come numero esterno
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Fornitore", Keys.ENTER)  #seleziono "Fornitore" come fornitore
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
-        self.wait_loader()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
+        sleep(1)
 
-        self.navigateTo("Fatture di acquisto") #torno indietro
-        self.wait_loader()
-
-        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click() #seleziono prima fattura
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
-        self.find(By.XPATH, '//a[@data-op="copy-bulk"]').click() #click su duplica selezionati
-        sleep(2)
-
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click di conferma
-        sleep(2)
-
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()   #click sulla fattura in prima riga
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() 
         self.wait_loader()
     
-        self.find(By.XPATH, '//a[@id="elimina"]').click()   #elimina fattura
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
-        self.wait_loader()
-
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()   #click sulla fattura in prima riga
-        self.wait_loader()
-    
-        self.find(By.XPATH, '//a[@id="elimina"]').click()   #elimina fattura
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//a[@id="elimina"]').click()  
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()  
         self.wait_loader()
 
     def registrazione_contabile(self):
@@ -428,47 +357,72 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click() #click su + 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]'))).send_keys("08")   #scrivo 08 come numero esterno
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Fornitore", Keys.ENTER)  #seleziono "Fornitore" come fornitore
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@id="select2-idpagamento-container"]').click()  #seleziono pagamento
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]'))).send_keys("2")
+        self.find(By.XPATH, '//span[@id="select2-idpagamento-container"]').click()
+        sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Assegno")
         sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Prova")   #Prova come descrizione
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1")   #1 come prezzo unitario
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click() #click su aggiungi
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Prova") 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1")   
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idstatodocumento-container"]').click() #cambio stato in "Emessa"
+        self.find(By.XPATH, '//span[@id="select2-idstatodocumento-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Emessa", Keys.ENTER) 
-        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.find(By.XPATH, '//button[@id="save"]').click() 
         self.wait_loader()
 
-        self.navigateTo("Fatture di acquisto") #torno indietro
+        self.navigateTo("Fatture di acquisto") 
         self.wait_loader()
 
-        self.find(By.XPATH, '(//tbody//tr//td[1])[1]').click()   #seleziono fattura in prima riga
+        self.find(By.XPATH, '//tbody//tr//td[1]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
-        self.find(By.XPATH, '//a[@data-op="registrazione-contabile"]').click() #click su registrazione contabile
-        sleep(2)
-
-        prezzo=self.find(By.XPATH, '(//tfoot//tr[1]//td[2]//span)[1]').text #controllo prezzo
-        self.assertEqual(prezzo, "1,22")
-        self.find(By.XPATH, '//button[@class="close"]').click() #chiudo registrazione contabile
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//a[@data-op="registrazione-contabile"]').click()
         sleep(1)
 
+        # TODO: Selezionare il conto Banca C/C e aggiungere la registrazione contabile
 
+        prezzo=self.find(By.XPATH, '//th[@id="totale_avere"]').text
+        self.assertEqual(prezzo, "1,22 €")
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="close"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() 
+        sleep(1)
+
+    def elimina_selezionati(self):
+        wait = WebDriverWait(self.driver, 20)
+        self.navigateTo("Fatture di acquisto")
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input'))).send_keys("2", Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//tbody//tr//td').click() 
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        scritta=self.find(By.XPATH, '//tbody//tr//td').text
+        self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() 
+        sleep(1)
