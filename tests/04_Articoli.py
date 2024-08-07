@@ -328,7 +328,9 @@ class Articoli(Test):
         self.find(By.XPATH, '//a[@class="btn btn-secondary btn-warning"]').click()
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="codice_fornitore"]'))).send_keys(Keys.BACKSPACE,Keys.BACK_SPACE,"1", Keys.ENTER)
+        element = self.find(By.XPATH, '//input[@id="codice_fornitore"]')
+        element.clear()
+        element.send_keys("1", Keys.ENTER)
         self.wait_loader()
 
         codice=self.find(By.XPATH, '//div[@id="tab_32"]//tbody//tr//td[3]').text
@@ -565,7 +567,9 @@ class Articoli(Test):
         self.find(By.XPATH, '(//button[@class="btn btn-warning btn-xs"])[1]').click()
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys(Keys.BACKSPACE,"XS",Keys.ENTER)
+        element = self.find(By.XPATH, '//input[@id="nome"]')
+        element.clear()
+        element.send_keys("XS",Keys.ENTER)
         self.wait_loader()
 
         self.navigateTo("Articoli")
