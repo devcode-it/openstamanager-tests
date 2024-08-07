@@ -59,7 +59,7 @@ class SettoriMerceologici(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_settore_merceologico(self):
         wait = WebDriverWait(self.driver, 20)
@@ -79,7 +79,7 @@ class SettoriMerceologici(Test):
         self.wait_loader()      
 
         self.find(By.XPATH, '//th[@id="th_descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def verifica_settore_merceologico(self):
         wait = WebDriverWait(self.driver, 20)
@@ -93,7 +93,7 @@ class SettoriMerceologici(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
         self.assertEqual("Settore Merceologico di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))).send_keys("Settore Merceologico di Prova da Eliminare", Keys.ENTER)

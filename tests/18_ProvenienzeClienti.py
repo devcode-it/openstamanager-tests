@@ -41,7 +41,7 @@ class Provenienze_clienti(Test):
         sleep(1)
         
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        sleep(2)
+        sleep(1)
 
 
     def modifica_provenienze_clienti(self, modifica=str):
@@ -64,7 +64,7 @@ class Provenienze_clienti(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_provenienze_clienti(self):
         wait = WebDriverWait(self.driver, 20)
@@ -83,7 +83,7 @@ class Provenienze_clienti(Test):
         self.wait_loader()      
 
         self.find(By.XPATH, '//th[@id="th_descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
         
     def verifica_provenienze_clienti(self):
         wait = WebDriverWait(self.driver, 20)
@@ -97,7 +97,7 @@ class Provenienze_clienti(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
         self.assertEqual("Provenienza Clienti di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))).send_keys("Provenienza Clienti di Prova da Eliminare", Keys.ENTER)

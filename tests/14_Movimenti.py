@@ -46,7 +46,7 @@ class Movimenti(Test):
 
         # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        sleep(2)
+        sleep(1)
               
     def elimina_movimento(self):
         wait = WebDriverWait(self.driver, 20)
@@ -67,7 +67,7 @@ class Movimenti(Test):
         self.wait_loader() 
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def verifica_movimento(self):
         wait = WebDriverWait(self.driver, 20)
@@ -80,7 +80,7 @@ class Movimenti(Test):
         
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
-        sleep(2)
+        sleep(1)
         
     def verifica_movimenti_documenti(self):
         wait = WebDriverWait(self.driver, 20)
@@ -97,16 +97,16 @@ class Movimenti(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_10"]'))).click()
 
-        movimento = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[1]'))).text
-        fattura_vendita = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[2]'))).text
-        ddt_uscita = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[3]'))).text
-        ddt_entrata = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[4]'))).text
-        fattura_acquisto2 = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[5]'))).text
-        fattura_acquisto = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[6]'))).text
-        attività = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[7]'))).text
-        eliminazioneserial = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[8]'))).text
-        serial = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[9]'))).text
-        carico = wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_10"]//tbody//td[1])[10]'))).text
+        movimento = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr//td[2]'))).text
+        fattura_vendita = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[2]//td[2]'))).text
+        ddt_uscita = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[3]//td[2]'))).text
+        ddt_entrata = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[4]//td[2]'))).text
+        fattura_acquisto2 = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[5]//td[2]'))).text
+        fattura_acquisto = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[6]//td[2]'))).text
+        attività = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[7]//td[2]'))).text
+        eliminazioneserial = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[8]//td[2]'))).text
+        serial = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[9]//td[2]'))).text
+        carico = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[10]//td[2]'))).text
 
         self.assertEqual(movimento, "10,00")
         self.assertEqual(fattura_vendita, "-1,00")

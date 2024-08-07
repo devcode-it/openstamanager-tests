@@ -23,12 +23,12 @@ class Attivita_Dashboard(Test):
         actions = webdriver.common.action_chains.ActionChains(self.driver)
         attivita = self.find(By.XPATH, '//div[@class="fc-event fc-event-primary"]')
         actions.drag_and_drop_by_offset(attivita, -1000, 0).perform()
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="select2-selection select2-selection--multiple"])[4]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         self.find(By.XPATH, '//div[@class="modal-content"]//button[@onclick="salva(this)"]').click()
-        sleep(2)
+        sleep(1)
 
         self.navigateTo("Dashboard")
         self.wait_loader()
@@ -40,4 +40,4 @@ class Attivita_Dashboard(Test):
         att="Int. 1 Cliente\nTecnici: Stefano Bianchi"
         trova=self.find(By.XPATH, '//div[@class="fc-event-main"]').text
         self.assertEqual(trova, att)
-        sleep(2)
+        sleep(1)
