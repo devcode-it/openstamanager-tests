@@ -211,10 +211,10 @@ Legenda:
 |07| Fatture di vendita | Registrazione contabile |:heavy_check_mark:|
 |07| Fatture di vendita | Genera fatture elettroniche |:heavy_check_mark:|
 |07| Fatture di vendita | Elimina selezionati |:heavy_check_mark:|
-
-|08| Ddt in entrata | Fattura ddt in entrata |:heavy_check_mark:|
 |08| Ddt in entrata | Cambia stato |:heavy_check_mark:|
+|08| Ddt in entrata | Fattura ddt in entrata |:heavy_check_mark:|
 |08| Ddt in entrata | Elimina selezionati |:heavy_check_mark:|
+
 |09| Ddt in uscita | Fattura ddt in uscita |:heavy_check_mark:|
 |09| Ddt in uscita | Cambia stato |:heavy_check_mark:|
 |09| Ddt in uscita | Elimina selezionati |:heavy_check_mark:|

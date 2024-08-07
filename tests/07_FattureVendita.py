@@ -18,73 +18,73 @@ class FattureVendita(Test):
     def test_creazione_fattura_vendita(self):
         # Crea una nuova fattura per il cliente "Cliente". *Required*
         importi = RowManager.list()
-        #self.creazione_fattura_vendita("Cliente", importi[0])
+        self.creazione_fattura_vendita("Cliente", importi[0])
 
         # Duplicazione fattura di vendita
-        #self.duplica()
+        self.duplica()
 
         # Modifica fattura di vendita
-        #self.modifica_fattura_vendita("Emessa")
+        self.modifica_fattura_vendita("Emessa")
 
         # Controllo valori fattura elettronica e piano dei conti
-        #self.controllo_fattura_vendita()
+        self.controllo_fattura_vendita()
 
         # Creazione nota di credito
-        #self.creazione_nota_credito()
+        self.creazione_nota_credito()
 
         # Modifica nota di credito
-        #self.modifica_nota_credito("Emessa")
+        self.modifica_nota_credito("Emessa")
 
         # Controllo valori nota credito
-        #self.controllo_nota_credito()
+        self.controllo_nota_credito()
 
         # Confronto valori fattura e nota credito
-        #self.controllo_fattura_nota_credito()
+        self.controllo_fattura_nota_credito()
 
         # Cancellazione fattura di vendita
-        #self.elimina_documento()
+        self.elimina_documento()
 
         # Verifica fattura di vendita
-        #self.verifica_fattura_di_vendita()
+        self.verifica_fattura_di_vendita()
 
         # Verifica XML fattura estera
-        #self.verifica_xml_fattura_estera(importi[0], "1")
+        self.verifica_xml_fattura_estera(importi[0], "1")
 
         # Verifica plugin movimenti contabili da fatture di vendita
-        #self.movimenti_contabili()
+        self.movimenti_contabili()
 
         # Plugin movimenti contabili da Anagrafiche
-        #self.plugin_movimenti_contabili()
+        self.plugin_movimenti_contabili()
 
         # Plugin regole pagamenti da Anagrafiche
-        #self.regole_pagamenti()
+        self.regole_pagamenti()
 
         # Plugin registrazioni
-        #self.registrazioni()   
+        self.registrazioni()   
 
         # Plugin allegati da Anagrafiche
-        #self.controlla_allegati()
+        self.controlla_allegati()
 
         # Duplica selezionati (Azioni di gruppo)
-        #self.duplica_selezionati()
+        self.duplica_selezionati()
          
         # Cambia sezionale (Azioni di gruppo)
-        #self.cambia_sezionale()    
+        self.cambia_sezionale()    
 
         # Emetti fatture (Azioni di gruppo)
-        #self.emetti_fatture()      
+        self.emetti_fatture()      
 
         # Plugin statistiche vendite in Articoli
-        #self.statistiche_vendita()
+        self.statistiche_vendita()
 
         # Controlla fatture elettroniche (Azioni di gruppo)
-        #self.controlla_fatture_elettroniche()
+        self.controlla_fatture_elettroniche()
 
         # Registrazione contabile (Azioni di gruppo)
-        #self.registrazione_contabile()
+        self.registrazione_contabile()
 
         # Genera fatture elettroniche (Azioni di gruppo)
-        #self.genera_fatture_elettroniche()
+        self.genera_fatture_elettroniche()
 
         # Elimina selezionati (Azioni di gruppo)
         self.elimina_selezionati()
