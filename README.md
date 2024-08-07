@@ -217,8 +217,8 @@ Legenda:
 |09| Ddt in uscita | Cambia stato |:heavy_check_mark:|
 |09| Ddt in uscita | Fattura ddt in uscita |:heavy_check_mark:|
 |09| Ddt in uscita | Elimina selezionati |:heavy_check_mark:|
-
 |10| Ordini fornitore | Cambia stato |:heavy_check_mark:|
+
 |11| Ordini cliente | Fattura ordini cliente |:heavy_check_mark:|
 |11| Ordini cliente | Cambia stato |:heavy_check_mark:|
 |11| Ordini cliente | Unisci RDO | |
