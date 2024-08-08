@@ -460,8 +460,8 @@ class Anagrafiche(Test):
         self.wait_loader()
 
         # Modifica referente
-        self.find(By.XPATH, '(//div[@id="tab_3"]//tr[1]//td[2])[2]').click()
-        sleep(2)
+        self.find(By.XPATH, '//div[@id="tab_3"]//tbody//tr//td[2]').click()
+        sleep(1)
 
         nome=self.find(By.XPATH, '(//input[@id="nome"])[2]')
         nome.clear()
@@ -469,11 +469,11 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//button[@class="btn btn-success pull-right"]').click()
         self.wait_loader()
 
-        modifica=self.find(By.XPATH, '(//div[@id="tab_3"]//tr[1]//td[2]//div)[2]').text
+        modifica=self.find(By.XPATH, '//div[@id="tab_3"]//tbody//tr//td[2]').text
         self.assertEqual(modifica, "Prova")
 
         # Elimina referente
-        self.find(By.XPATH, '(//div[@id="tab_3"]//tr[1]//td[2])[2]').click()
+        self.find(By.XPATH, '//div[@id="tab_3"]//tbody//tr//td[2]').click()
         sleep(1)
         
         self.find(By.XPATH, '(//a[@class="btn btn-danger ask"])[2]').click()
@@ -482,7 +482,7 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
-        eliminato=self.find(By.XPATH, '//div[@id="tab_3"]//tbody//tr[1]').text
+        eliminato=self.find(By.XPATH, '//div[@id="tab_3"]//tbody//tr').text
         self.assertEqual(eliminato, "Nessun dato presente nella tabella")
 
         # Aggiunta referente
@@ -503,7 +503,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Mansione"]/input'))).send_keys("Segretario", Keys.ENTER)
         sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'(//div[@id="tab_3"]//tr[1]//td[3]//div)[2]').text
+        modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_3"]//tbody//tr//td[3]').text
         self.assertEqual("Segretario", modificato)
 
         self.navigateTo("Anagrafiche")
@@ -543,7 +543,7 @@ class Anagrafiche(Test):
         sleep(1)
 
         # Modifica sede
-        self.find(By.XPATH, '(//div[@id="tab_4"]//tr[1]//td[2])[2]').click()
+        self.find(By.XPATH, '//div[@id="tab_4"]//tbody/tr//td[2]').click()
         sleep(1)
 
         nome=self.find(By.XPATH, '//input[@id="nomesede"]')
@@ -552,17 +552,18 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
         self.wait_loader()
 
-        modificato=self.find(By.XPATH, '(//div[@id="tab_4"]//tr[1]//td[2]//div)[2]')
+        modificato=self.find(By.XPATH, '//div[@id="tab_4"]//tbody/tr//td[2]')
         self.assertEqual(modificato, "Prova")
+
         # Elimina sede
-        self.find(By.XPATH, '(//div[@id="tab_4"]//tr[1]//td[2])[2]').click()
+        self.find(By.XPATH, '//div[@id="tab_4"]//tbody/tr//td[2]').click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="btn btn-danger "]').click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
-        eliminato=self.find(By.XPATH, '//div[@id="tab_4"]//tbody//tr[1]').text
+        eliminato=self.find(By.XPATH, '//div[@id="tab_4"]//tbody//tr').text
         self.assertEqual(eliminato, "Nessun dato presente nella tabella")
 
         # Aggiunta sede
