@@ -396,7 +396,7 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//tbody//td[2]//div[1]').click()   #aggiungo email a "Tecnico"
         sleep(1)
 
-        self.input(None, 'Email').setValue(self.getConfig('tests.tecnico_email'))
+        self.input(None, 'Email').setValue(self.getConfig('tests.email_receiver'))
         self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
 

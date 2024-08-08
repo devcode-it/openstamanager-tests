@@ -126,8 +126,8 @@ Legenda:
 - :question: Funzionamento
 
 
-|N°| Modulo  | Plugin | :heavy_plus_sign: | :pencil: | :wastebasket: | ☑️ | :question: |
-|--|-------- | -------| :---------------: | :------: | :-----------: |:--:| ---------- |
+|N°| Modulo | Plugin | :heavy_plus_sign: | :pencil: | :wastebasket: | ☑️ | :question: |
+|--|--------|--------|:-----------------:|:--------:|:-------------:|:-:|:----------:|
 |02| Anagrafiche | Referenti |:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|-|
 |02| Anagrafiche | Sedi aggiuntive |:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|-|
 |02| Anagrafiche | Statistiche |-|-|-|:heavy_check_mark:|-|
@@ -135,7 +135,7 @@ Legenda:
 |02| Anagrafiche | Assicurazione crediti |:heavy_check_mark:|:heavy_check_mark:| :heavy_check_mark:| :heavy_check_mark:| Fattura di vendita |
 |04| Articoli | Serial |:heavy_check_mark:|-|:heavy_check_mark:|:heavy_check_mark:|-|
 |04| Articoli | Provvigioni |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|-|
-|04| Articoli | Listino fornitori |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:| :x: |-|
+|04| Articoli | Listino fornitori |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|-|
 |04| Articoli | Giacenze |-|-|-|:heavy_check_mark:|-|
 |04| Articoli | Movimenti |-|-|-|:heavy_check_mark:|-|
 |04| Articoli | Statistiche |-|-|-|:heavy_check_mark:|-|
@@ -174,10 +174,10 @@ Legenda:
 - ☑️ Verifica
 
 |N°| Modulo  | Azioni di gruppo | ☑️ |
-|--|-------- | ---------------- |:--:|
-|02| Anagrafiche  | Ricerca coordinate |:heavy_check_mark:|
-|02| Anagrafiche  | Elimina selezionati |:heavy_check_mark:|
-|02| Anagrafiche  | Cambia relazione |:heavy_check_mark:|
+|--| ------- | ---------------- |:--:|
+|02| Anagrafiche | Ricerca coordinate |:heavy_check_mark:|
+|02| Anagrafiche | Elimina selezionati |:heavy_check_mark:|
+|02| Anagrafiche | Cambia relazione |:heavy_check_mark:|
 |04| Articoli | Aggiorna prezzo di acquisto |:heavy_check_mark:|
 |04| Articoli | Aggiorna prezzo di vendita |:heavy_check_mark:|
 |04| Articoli | Aggiorna coefficiente di vendita |:heavy_check_mark:|
@@ -228,7 +228,6 @@ Legenda:
 |34| Scadenzario | Registrazione contabile |:x:|
 |34| Scadenzario | Info distinta |:heavy_check_mark:|
 |40| Impianti | Elimina selezionati |:heavy_check_mark:|
-
 |58| Fatture di vendita | Aggiorna banca |:heavy_check_mark:|
 |58| Fatture di acquisto | Aggiorna banca |:heavy_check_mark:|
 |58| Scadenzario | Aggiorna banca |:heavy_check_mark:|
@@ -318,10 +317,10 @@ Legenda:
 | Fatturazione | Descrizione fattura pianificata |:heavy_check_mark:|Crea fattura pianificata|
 | Fatturazione | Aggiorna info di acquisto | ||
 | Fatturazione | Bloccare i prezzi inferiori al minimo di vendita | ||
-| Fatturazione | Permetti fatturazione delle attività collegate a contratti |:heavy_check_mark:|Crea attività e contratto|
+| Fatturazione | Permetti fatturazione delle attività collegate a contratti |:heavy_check_mark:|Fattura attività|
 | Fatturazione | Data emissione fattura automatica  | ||
-| Fatturazione | Permetti fatturazione delle attività collegate a ordini |:heavy_check_mark:|Crea attività e ordine|
-| Fatturazione | Permetti fatturazione delle attività collegate a preventivi | ||
+| Fatturazione | Permetti fatturazione delle attività collegate a ordini |:heavy_check_mark:|Fattura attività|
+| Fatturazione | Permetti fatturazione delle attività collegate a preventivi |:heavy_check_mark:|Fattura attività|
 | Fatturazione | Data inizio verifica contatore fattura di vendita | ||
 | Fatturazione | Raggruppa attività per tipologia in fattura | ||
 | Fatturazione Elettronica | Allega stampa per fattura verso Privati |:heavy_check_mark:|Crea fattura|
@@ -359,7 +358,7 @@ Legenda:
 | Generali | Filigrana stampe | ||
 | Generali | Attiva scorciatoie da tastiera | ||
 | Generali | Modifica Viste di default | ||
-| Generali | Totali delle tabelle ristretti alla selezione | ||
+| Generali | Totali delle tabelle ristretti alla selezione |:heavy_check_mark:|Seleziona fattura|
 | Generali | Nascondere la barra dei plugin di default |:x:|:x:|
 | Generali | Soft quota | ||
 | Generali | Permetti selezione articoli con quantità minore o uguale a zero in Documenti di Vendita |:heavy_check_mark:|Crea fattura|
@@ -370,7 +369,7 @@ Legenda:
 | Generali | Mantieni riferimenti tra tutti i documenti collegati | ||
 | Generali | Aggiungi le note delle righe tra documenti |:heavy_check_mark:|Fattura preventivo|
 | Generali | Dimensione widget predefinita |:heavy_check_mark:|Dashboard|
-| Generali | Posizione del simbolo valuta | ||
+| Generali | Posizione del simbolo valuta |:heavy_check_mark:|Crea fattura|
 | Generali | Tile server OpenStreetMap | ||
 | Generali | Sistema di firma | ||
 | Generali | Tipo di sconto predefinito |:heavy_check_mark:|Crea fattura|
@@ -391,19 +390,19 @@ Legenda:
 | Ordini | Conferma automaticamente le quantità negli ordini cliente |:heavy_check_mark:|Crea ordine cliente|
 | Ordini | Conferma automaticamente le quantità negli ordini fornitore |:heavy_check_mark:|Crea ordine fornitore|
 | Ordini | Visualizza numero ordine cliente | ||
-| Piano dei conti | Conto per Riepilogativo fornitori | ||
-| Piano dei conti | Conto per Riepilogativo clienti | ||
-| Piano dei conti | Conto per Iva indetraibile | ||
-| Piano dei conti | Conto per Iva su vendite | ||
-| Piano dei conti | Conto per Iva su acquisti | ||
-| Piano dei conti | Conto per Erario c/ritenute d'acconto | ||
-| Piano dei conti | Conto per Erario c/INPS | ||
-| Piano dei conti | Conto per Erario c/enasarco | ||
-| Piano dei conti | Conto per Apertura conti patrimoniali | ||
-| Piano dei conti | Conto per Chiusura conti patrimoniali | ||
-| Piano dei conti | Conto per autofattura | ||
-| Piano dei conti | Conto di secondo livello per i crediti clienti | ||
-| Piano dei conti | Conto di secondo livello per i debiti fornitori | ||
+| Piano dei conti | Conto per Riepilogativo fornitori |:heavy_check_mark:|Piano dei conti|
+| Piano dei conti | Conto per Riepilogativo clienti |:heavy_check_mark:|Piano dei conti|
+| Piano dei conti | Conto per Iva indetraibile |:heavy_check_mark:|Piano dei conti|
+| Piano dei conti | Conto per Iva su vendite |:heavy_check_mark:|Piano dei conti|
+| Piano dei conti | Conto per Iva su acquisti |:heavy_check_mark:|Piano dei conti|
+| Piano dei conti | Conto per Erario c/ritenute d'acconto |:heavy_check_mark:|Piano dei conti|
+| Piano dei conti | Conto per Erario c/INPS |:heavy_check_mark:|Piano dei conti|
+| Piano dei conti | Conto per Erario c/enasarco |:heavy_check_mark:|Piano dei conti|
+| Piano dei conti | Conto per Apertura conti patrimoniali |:heavy_check_mark:|Piano dei conti|
+| Piano dei conti | Conto per Chiusura conti patrimoniali |:heavy_check_mark:|Piano dei conti|
+| Piano dei conti | Conto per autofattura |:heavy_check_mark:|Piano dei conti|
+| Piano dei conti | Conto di secondo livello per i crediti clienti |:heavy_check_mark:|Piano dei conti|
+| Piano dei conti | Conto di secondo livello per i debiti fornitori |:heavy_check_mark:|Piano dei conti|
 | Preventivi | "Condizioni generali di fornitura preventivi" |:heavy_check_mark:|Stampa preventivo|
 | Preventivi | Conferma automaticamente le quantità nei preventivi |:heavy_check_mark:|Aggiungi articolo|
 | Preventivi | Esclusioni default preventivi |:heavy_check_mark:|Crea preventivo|
