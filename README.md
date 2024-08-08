@@ -336,7 +336,7 @@ Legenda:
 | Fatturazione Elettronica | OSMCloud Services API URL | ||
 | Fatturazione Elettronica | OSMCloud Services API Version | ||
 | Fatturazione Elettronica | Data inizio controlli su stati FE | ||
-| Fatturazione Elettronica | Movimenta magazzino da fatture di acquisto | ||
+| Fatturazione Elettronica | Movimenta magazzino da fatture di acquisto |:x:|:x:|
 | Fatturazione Elettronica | Rimuovi avviso fatture estere | ||
 | Fatturazione Elettronica | Creazione seriali in import FE | ||
 | Fatturazione Elettronica | Giorni validità fattura scartata | ||
