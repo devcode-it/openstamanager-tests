@@ -12,4 +12,4 @@ class Listini(Test):
         self.navigateTo("Magazzino")
         self.navigateTo("Listini")
 
-    #TODO aggiunta test listini
+

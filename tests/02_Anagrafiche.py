@@ -449,27 +449,61 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//h4//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
-        self.input(modal,'Nominativo').setValue("Referente di prova")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]//i[@class="fa fa-plus"]'))).click()
-        modal = self.wait_modal()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-content"]//div[@id="form_82-"]//input[@id="nome"]'))).send_keys("Segretario")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@id="nome"])[2]'))).send_keys("Referente di prova")
+        self.find(By.XPATH, '//span[@id="select2-idmansione-container"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '(//button[@type="submit"])[4]').click()
+        self.find(By.XPATH, '//ul[@id="select2-idmansione-results"]//li[1]').click()
         sleep(1)
 
         self.find(By.XPATH, '(//button[@type="submit"])[3]').click()   
         self.wait_loader()
 
-        # TODO: Modifica referente
-        # TODO: Elimina referente
+        # Modifica referente
+        self.find(By.XPATH, '(//div[@id="tab_3"]//tr[1]//td[2])[2]').click()
+        sleep(2)
+
+        nome=self.find(By.XPATH, '(//input[@id="nome"])[2]')
+        nome.clear()
+        nome.send_keys("Prova")
+        self.find(By.XPATH, '//button[@class="btn btn-success pull-right"]').click()
+        self.wait_loader()
+
+        modifica=self.find(By.XPATH, '(//div[@id="tab_3"]//tr[1]//td[2]//div)[2]').text
+        self.assertEqual(modifica, "Prova")
+
+        # Elimina referente
+        self.find(By.XPATH, '(//div[@id="tab_3"]//tr[1]//td[2])[2]').click()
+        sleep(1)
+        
+        self.find(By.XPATH, '(//a[@class="btn btn-danger ask"])[2]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        eliminato=self.find(By.XPATH, '//div[@id="tab_3"]//tbody//tr[1]').text
+        self.assertEqual(eliminato, "Nessun dato presente nella tabella")
+
+        # Aggiunta referente
+        self.find(By.XPATH, '//h4//i[@class="fa fa-plus"]').click()
+        modal = self.wait_modal()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@id="nome"])[2]'))).send_keys("Referente di prova")
+        self.find(By.XPATH, '//span[@id="select2-idmansione-container"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//ul[@id="select2-idmansione-results"]//li[1]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '(//button[@type="submit"])[3]').click()   
+        self.wait_loader()
 
         # Verifica referente
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Mansione"]/input'))).send_keys("Segretario", Keys.ENTER)
         sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
+        modificato=self.driver.find_element(By.XPATH,'(//div[@id="tab_3"]//tr[1]//td[3]//div)[2]').text
         self.assertEqual("Segretario", modificato)
 
         self.navigateTo("Anagrafiche")
@@ -486,7 +520,7 @@ class Anagrafiche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
         self.wait_loader()
         
         # Aggiunta sede
@@ -508,8 +542,43 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '(//button[@type="submit"])[3]').click()
         sleep(1)
 
-        # TODO: Modifica sede
-        # TODO: Elimina sede
+        # Modifica sede
+        self.find(By.XPATH, '(//div[@id="tab_4"]//tr[1]//td[2])[2]').click()
+        sleep(1)
+
+        nome=self.find(By.XPATH, '//input[@id="nomesede"]')
+        nome.clear()
+        nome.send_keys("Prova")
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        self.wait_loader()
+
+        modificato=self.find(By.XPATH, '(//div[@id="tab_4"]//tr[1]//td[2]//div)[2]')
+        self.assertEqual(modificato, "Prova")
+        # Elimina sede
+        self.find(By.XPATH, '(//div[@id="tab_4"]//tr[1]//td[2])[2]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="btn btn-danger "]').click()
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
+        self.wait_loader()
+
+        eliminato=self.find(By.XPATH, '//div[@id="tab_4"]//tbody//tr[1]').text
+        self.assertEqual(eliminato, "Nessun dato presente nella tabella")
+
+        # Aggiunta sede
+        self.find(By.XPATH, '//div[@id="tab_4"]//i[@class="fa fa-plus"]').click()
+        sleep(1)
+
+        self.input(None, 'Nome sede').setValue("Filiale XY")
+        self.find(By.XPATH, '(//input[@id="cap"])[2]').send_keys("35042")
+        self.find(By.XPATH, '(//input[@id="citta"])[2]').click()
+        self.find(By.XPATH, '(//input[@id="citta"])[2]').send_keys("Padova")
+        sleep(1)
+        
+        self.find(By.XPATH, '(//span[@id="select2-id_nazione-container"])[2]').click()
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        self.find(By.XPATH, '(//button[@type="submit"])[3]').click()
+        sleep(1)
 
         # Verifica sede
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//th[@id="th_Nome"]/input)[2]'))).send_keys("Filiale XY", Keys.ENTER)
