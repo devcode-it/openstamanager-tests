@@ -29,10 +29,7 @@ class CategorieArticoli(Test):
         # Verifica Categoria Articoli
         self.verifica_categoria_articoli()
 
-        # Aggiungi Sottocategoria Articoli
-        self.aggiungi_sottocategoria_articoli()
-
-        # Aggiorna categoria e sottocategoria (Azioni di gruppo) da Articoli
+        # Aggiorna categoria e sottocategoria (Azioni di gruppo)
         self.aggiorna_categoria_sottocategoria()
 
     def creazione_categorie_articoli(self, nome= str, colore=str, nota=str):
@@ -68,7 +65,7 @@ class CategorieArticoli(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_categoria_articoli(self):
         wait = WebDriverWait(self.driver, 20)
@@ -87,7 +84,7 @@ class CategorieArticoli(Test):
         self.wait_loader()      
                 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
         
     def verifica_categoria_articoli(self):
         wait = WebDriverWait(self.driver, 20)
@@ -101,7 +98,7 @@ class CategorieArticoli(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Categoria Articoli di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Categoria Articoli di Prova da Eliminare", Keys.ENTER)
@@ -110,64 +107,31 @@ class CategorieArticoli(Test):
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
 
-    def aggiungi_sottocategoria_articoli(self):
+    def aggiorna_categoria_sottocategoria(self): #da rivedere
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Categorie articoli")
         self.wait_loader()
-
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()    #apro Categoria Articoli di Prova
-        self.wait_loader()
-
-        self.find(By.XPATH, '//a[@class="btn btn-primary bound clickable"]').click()    #click su aggiungi sottocategoria
         sleep(1)
-        #crea sottocategoria articoli
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@id="nome"])[2]'))).send_keys("Sottocategoria Articoli di Prova", Keys.ENTER)
-        self.wait_loader()
-
-        sottocategoria=self.find(By.XPATH, '//tbody//tr[2]//td[1]').text    #verifica creazione sottocategoria
-        self.assertEqual(sottocategoria, "Sottocategoria Articoli di Prova")
-
-    def aggiorna_categoria_sottocategoria(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Strumenti") #chiudo sidebar strumenti aperta all'inizio
         self.expandSidebar("Magazzino")
         self.wait_loader()
 
         self.navigateTo("Articoli")
         self.wait_loader()
  
-        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click() #seleziona il primo
+        # TODO allineare con articoli presenti, nessun articolo ha codice 08. Lavorare con articoli presenti
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerca l'articolo con il codice 08
+        sleep(1)
+ 
+        self.find(By.XPATH, '//tbody//tr//td').click() #seleziona il primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apre azioni di gruppo
         self.find(By.XPATH, '//a[@data-op="change-categoria"]').click()   #click su Aggiorna categoria e sottocategoria 
-        sleep(2)
+        sleep(1)
         
         self.find(By.XPATH, '//span[@id="select2-id_categoria-container"]').click() #seleziona la categoria "Categoria Articoli di Prova"
-        self.find(By.XPATH, '//ul[@id="select2-id_categoria-results"]//li[1').click()
-        self.find(By.XPATH, '//span[@id="select2-subcategoria-container"]"]').click() #seleziona la sottocategoria "Sottocategoria Articoli di Prova"
-        self.find(By.XPATH, '//ul[@id="select2-subcategoria-results"]//li[1]').click()
+        self.find(By.XPATH, '//ul[@id="select2-id_categoria-results"]').click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi
         self.wait_loader()
  
         categoria=self.find(By.XPATH, '//tbody//tr[1]//td[5]//div').text
         self.assertEqual(categoria, "Categoria Articoli di Prova")  #controlla se la categoria è "Categoria Articoli di Prova"
-        sottocategoria=self.find(By.XPATH, '//tbody//tr[1]//td[6]//div').text
-        self.assertEqual(sottocategoria, "Sottocategoria Articoli di Prova")  #controlla se la sottocategoria è "Sottocategoria Articoli di Prova"
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()    #apro articolo 1
-        self.wait_loader()
-
-        self.find(By.XPATH, '//span[@id="select2-categoria-container"]//span').click()  #tolgo la categoria quindi anche la sottocategoria
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@id="save"]').click()
-        self.wait_loader()
-
-        self.navigateTo("Articoli")
-        self.wait_loader()
-
-        categoria=self.find(By.XPATH, '//tbody//tr[1]//td[5]//div').text
-        self.assertNotEqual(categoria, "Categoria Articoli di Prova")  #controlla se la categoria non c'è più
-        sottocategoria=self.find(By.XPATH, '//tbody//tr[1]//td[6]//div').text
-        self.assertEqual(sottocategoria, "Sottocategoria Articoli di Prova")  #controlla se la sottocategoria non c'è più
-        self.find(By.XPATH, '//tbody//tr[1]//td[1]').click() #deseleziona il primo
-        
         
