@@ -59,7 +59,7 @@ class TipiSpedizione(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
     def elimina_tipi_spedizione(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Tipi di spedizione")
@@ -77,7 +77,7 @@ class TipiSpedizione(Test):
         sleep(1)
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click() 
-        sleep(2)
+        sleep(1)
         
     def verifica_tipi_spedizione(self):
         wait = WebDriverWait(self.driver, 20)
@@ -91,7 +91,7 @@ class TipiSpedizione(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Tipo di Spedizione di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Tipo di Spedizione di Prova da Eliminare", Keys.ENTER)

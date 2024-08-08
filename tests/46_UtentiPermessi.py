@@ -62,7 +62,7 @@ class UtentiPermessi(Test):
 
         self.input(None, 'Password').setValue(passw)
         self.find(By.XPATH, '//button[@id="submit-button"]').click()
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-permesso_1-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(modifica, Keys.ENTER)
@@ -83,7 +83,7 @@ class UtentiPermessi(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Gruppo"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_utenti_permessi(self):
         wait = WebDriverWait(self.driver, 20)
@@ -100,7 +100,7 @@ class UtentiPermessi(Test):
         self.wait_loader() 
 
         self.find(By.XPATH, '//th[@id="th_Gruppo"]/i[@class="deleteicon fa fa-times"]').click()     
-        sleep(2)
+        sleep(1)
         
     def verifica_utenti_permessi(self):
         wait = WebDriverWait(self.driver, 20)

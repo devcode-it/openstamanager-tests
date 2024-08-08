@@ -491,7 +491,7 @@ class Articoli(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))).send_keys('5', Keys.ENTER)
         self.wait_loader()
-        sleep(2)
+        sleep(1)
 
         # Verifica listino cliente
         self.expandSidebar("Vendite")
@@ -513,7 +513,7 @@ class Articoli(Test):
 
         self.find(By.XPATH, '//ul[@class="select2-results__options select2-results__options--nested"]//li[1]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click() #click su aggiungi
-        sleep(2)
+        sleep(1)
 
         prezzo=self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[9]').text
         self.assertEqual(prezzo, "5,00 €")

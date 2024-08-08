@@ -115,25 +115,25 @@ class Combinazioni(Test):
         self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="titolo"]'))).send_keys('Taglie', Keys.ENTER)
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="aggiungiValore(this)"]'))).click()
         self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('S', Keys.ENTER)
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
         self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('M', Keys.ENTER)
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
         self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('L', Keys.ENTER)
-        sleep(2)
+        sleep(1)
 
         self.navigateTo("Combinazioni")
         self.wait_loader()
@@ -157,7 +157,7 @@ class Combinazioni(Test):
 
         # Verifica combinazioni
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Vestito', Keys.ENTER)
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
         self.wait_loader()

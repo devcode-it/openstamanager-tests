@@ -228,6 +228,7 @@ Legenda:
 |34| Scadenzario | Registrazione contabile |:x:|
 |34| Scadenzario | Info distinta |:heavy_check_mark:|
 |40| Impianti | Elimina selezionati |:heavy_check_mark:|
+
 |58| Fatture di vendita | Aggiorna banca |:heavy_check_mark:|
 |58| Fatture di acquisto | Aggiorna banca |:heavy_check_mark:|
 |58| Scadenzario | Aggiorna banca |:heavy_check_mark:|
@@ -336,7 +337,7 @@ Legenda:
 | Fatturazione Elettronica | OSMCloud Services API URL | ||
 | Fatturazione Elettronica | OSMCloud Services API Version | ||
 | Fatturazione Elettronica | Data inizio controlli su stati FE | ||
-| Fatturazione Elettronica | Movimenta magazzino da fatture di acquisto |:x:|:x:|
+| Fatturazione Elettronica | Movimenta magazzino da fatture di acquisto | ||
 | Fatturazione Elettronica | Rimuovi avviso fatture estere | ||
 | Fatturazione Elettronica | Creazione seriali in import FE | ||
 | Fatturazione Elettronica | Giorni validità fattura scartata | ||

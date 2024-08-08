@@ -39,10 +39,10 @@ class StampeContabili(Test):
 
         self.find(By.XPATH, '//ul[@id="select2-orientation-results"]//li[1]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-block"]').click() #click su stampa
-        sleep(2)
+        sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(2)
+        sleep(1)
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[2]').text   #check stampa
         self.assertEqual(stampa, "REGISTRO IVA VENDITE DAL 01/01/2024 AL 31/12/2024")
         self.driver.close() #chiude scheda
@@ -57,10 +57,10 @@ class StampeContabili(Test):
 
         self.find(By.XPATH, '//ul[@id="select2-id_sezionale-results"]//li[1]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-block"]').click() #click su stampa
-        sleep(2)
+        sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(2)
+        sleep(1)
 
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[2]').text   #check stampa
         self.assertEqual(stampa, "REGISTRO IVA ACQUISTI DAL 01/01/2024 AL 31/12/2024")
@@ -73,10 +73,10 @@ class StampeContabili(Test):
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-block"]').click() #click su stampa
-        sleep(2)
+        sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(2)
+        sleep(1)
 
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[1]').text   #check stampa
         self.assertEqual(stampa, "PROSPETTO LIQUIDAZIONE IVA DAL 01/01/2024 AL 31/12/2024")
@@ -89,10 +89,10 @@ class StampeContabili(Test):
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su stampa
-        sleep(2)
+        sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(2)
+        sleep(1)
 
         #manca il check per bug in fase di stampa
 
@@ -104,7 +104,7 @@ class StampeContabili(Test):
         sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(2)
+        sleep(1)
 
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[1]').text   #check stampa
         self.assertEqual(stampa, "STAMPA MASTRINO")
@@ -117,7 +117,7 @@ class StampeContabili(Test):
         sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(2)
+        sleep(1)
 
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[1]').text   #check stampa
         self.assertEqual(stampa, "STAMPA MASTRINO")
@@ -131,7 +131,7 @@ class StampeContabili(Test):
         sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(2)
+        sleep(1)
 
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[9]').text   #check stampa
         self.assertEqual(stampa, "FATTURATO MENSILE DAL 01/01/2024 AL 31/12/2024")
@@ -144,7 +144,7 @@ class StampeContabili(Test):
         sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(2)
+        sleep(1)
 
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[9]').text   #check stampa
         self.assertEqual(stampa, "ACQUISTI MENSILI DAL 01/01/2024 AL 31/12/2024")
@@ -157,7 +157,7 @@ class StampeContabili(Test):
         sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(2)
+        sleep(1)
 
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[1]').text   #check stampa
         self.assertEqual(stampa, "STAMPA LIBRO GIORNALE")
@@ -171,7 +171,7 @@ class StampeContabili(Test):
         
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su stampa
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda  
-        sleep(2)
+        sleep(1)
 
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[6]').text   #check stampa
         self.assertEqual(stampa, "SCADENZE DAL 01/01/2024 AL 31/12/2024")
