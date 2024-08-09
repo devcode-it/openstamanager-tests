@@ -335,6 +335,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
+        self.expandSidebar("Magazzino")
         self.navigateTo("Articoli")
         self.wait_loader()
 
@@ -362,7 +363,7 @@ class Articoli(Test):
         self.wait_loader()
 
         codice=self.find(By.XPATH, '//div[@id="tab_32"]//tbody//tr//td[3]').text
-        self.assertEqual(codice,"01")
+        self.assertEqual(codice,"1")
 
         # Elimina listino fornitore
         self.find(By.XPATH, '//a[@class="btn btn-secondary btn-danger ask"]').click()
@@ -919,6 +920,11 @@ class Articoli(Test):
 
         prezzo=self.find(By.XPATH, '(//tr[1]//td[8])[2]').text
         self.assertEqual(prezzo, "18,00")
+        self.navigateTo("Listini")
+        self.wait_loader()
+        
+        self.find(By.XPATH, '//tbody//tr//td').click()
+
         self.navigateTo("Articoli")
         self.wait_loader()
 
