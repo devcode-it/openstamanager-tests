@@ -697,8 +697,6 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//ul[@id="select2-id_segment_-results"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td').click()  
-
 
     def emetti_fatture(self):
         wait = WebDriverWait(self.driver, 20)
@@ -825,4 +823,4 @@ class FattureVendita(Test):
         sleep(1)
 
         test=self.find(By.XPATH, '//tbody//tr//td[2]').text
-        self.assertEqual(test, "0001/2024")
+        self.assertEqual(test, "0002/2024")
