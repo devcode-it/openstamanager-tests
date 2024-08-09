@@ -218,7 +218,7 @@ class Attivita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td[1]').click()
+        self.find(By.XPATH, '//tbody//tr//td').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="cambia_stato"]'))).click()
         sleep(1)
@@ -233,6 +233,10 @@ class Attivita(Test):
 
         stato=self.find(By.XPATH, '//tbody//tr//td[7]').text
         self.assertEqual(stato, "Da programmare")
+
+        self.find(By.XPATH, '//tbody//tr//td').click()
+        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() 
+        sleep(1)
 
     def duplica(self):
         wait = WebDriverWait(self.driver, 20)
@@ -261,7 +265,9 @@ class Attivita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("2", Keys.ENTER)
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]')))
+        numero = wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))).text
+        self.assertEqual(numero, "2")
+
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() 
         sleep(1)
 
