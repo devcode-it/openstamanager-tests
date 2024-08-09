@@ -30,7 +30,7 @@ class Impostazioni(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #crea preventivo
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #crea preventivo
         sleep(1)
         #nome
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('Test')
@@ -48,10 +48,10 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@id="print-button_p"]').click()    #stampa preventivo
-        sleep(2)
+        sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.invisibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[65]')))  #controlla se non trova l'elemento collegato alla condizione
         self.driver.close() #chiude scheda
@@ -72,13 +72,13 @@ class Impostazioni(Test):
         #scrivo "Prova" come scritta per condizioni generali 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]'))).click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]'))).send_keys("Prova")
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #crea preventivo
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #crea preventivo
         sleep(1)
         #nome
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('Test')
@@ -96,10 +96,10 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@id="print-button_p"]').click()    #stampa preventivo
-        sleep(2)
+        sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(2)
+        sleep(1)
 
         testo=self.find(By.XPATH, '(//div[@id="viewer"]//span)[65]').text   #controlla se la condizione coincide con quella messa in impostazioni
         self.assertEqual(testo, "Prova")
@@ -119,9 +119,10 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//div[@id="impostazioni-17"]').click() #apro preventivi
         sleep(1)
 
-        self.find(By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]'))).send_keys(Keys.BACKSPACE, Keys.BACKSPACE, Keys.BACKSPACE, Keys.BACKSPACE, Keys.BACKSPACE, Keys.BACKSPACE)
-        sleep(2)
+        element = self.find(By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]')
+        element.click()
+        element.clear()
+        sleep(1)
 
     def conferma_quantita_preventivi(self):
         wait = WebDriverWait(self.driver, 20)
@@ -129,7 +130,7 @@ class Impostazioni(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #crea preventivo
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #crea preventivo
         sleep(1)
         #nome
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('Test')
@@ -148,7 +149,7 @@ class Impostazioni(Test):
 
         self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()  #aggiungo un articolo
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Articolo 1')
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
         self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click() #click su aggiungi
@@ -168,13 +169,13 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//label[@class="btn btn-default active"]').click() #disattiva impostazione
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #crea preventivo
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #crea preventivo
         sleep(1)
         #nome
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('Test')
@@ -193,7 +194,7 @@ class Impostazioni(Test):
 
         self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()  #aggiungo un articolo
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Articolo 1')
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
         self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click() #click su aggiungi
@@ -214,7 +215,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//label[@class="btn btn-default active"]').click() #attiva impostazione
-        sleep(2)
+        sleep(1)
 
     def esclusioni_preventivi(self):
         wait = WebDriverWait(self.driver, 20)
@@ -222,7 +223,7 @@ class Impostazioni(Test):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #crea preventivo
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #crea preventivo
         sleep(1)
         #nome
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('Test')
@@ -254,13 +255,13 @@ class Impostazioni(Test):
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="setting205"]'))).send_keys("test")  #scrivo esclusioni
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Preventivi")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #crea preventivo
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #crea preventivo
         sleep(1)
         #nome
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('Test')
@@ -293,7 +294,7 @@ class Impostazioni(Test):
 
         testo=self.find(By.XPATH, '//textarea[@id="setting205"]')   #cancello testo
         testo.clear()
-        sleep(2)
+        sleep(1)
         
 
 

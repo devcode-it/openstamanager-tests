@@ -44,7 +44,7 @@ class StatiFatture(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
     
     def verifica_stati_fatture(self):
         wait = WebDriverWait(self.driver, 20)
@@ -58,4 +58,4 @@ class StatiFatture(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[3]').text
         self.assertEqual("fa fa-file-text text-muted",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)

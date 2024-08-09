@@ -72,7 +72,7 @@ class Checklists(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_checklist(self):
         wait = WebDriverWait(self.driver, 20)
@@ -91,7 +91,7 @@ class Checklists(Test):
         self.wait_loader()      
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
         
     def verifica_checklist(self):
         wait = WebDriverWait(self.driver, 20)
@@ -105,11 +105,11 @@ class Checklists(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Checklist di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Checklist di Prova da Eliminare", Keys.ENTER)
-        sleep(2)
+        sleep(1)
 
         self.navigateTo("Attività")  
 
@@ -121,12 +121,12 @@ class Checklists(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '(//a[@data-title="Aggiungi check"])[2]').click()
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//div[@class="modal-content"]//span[@class="select2-selection__placeholder"]').click()
         self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
         self.find(By.XPATH, '//button[@id="check-add"]').click()
-        sleep(2)
+        sleep(1)
 
         TestPadre = self.find(By.XPATH, '(//div[@id="tab_checks"]//tbody//td[2]//span)[1]').text
         TestFiglio = self.find(By.XPATH, '(//div[@id="tab_checks"]//tbody//td[2]//span)[2]').text

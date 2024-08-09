@@ -88,7 +88,7 @@ class DdtUscita(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
         
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatoddt-container"]'))).click()
+        self.find(By.XPATH, '//span[@id="select2-idstatoddt-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Evaso")
         sleep(1)
 

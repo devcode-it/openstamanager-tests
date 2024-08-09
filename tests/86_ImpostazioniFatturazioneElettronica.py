@@ -43,13 +43,13 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[1]').click()    #attivo impostazione
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
@@ -93,13 +93,13 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[1]').click()    #disattivo impostazione
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
@@ -143,18 +143,18 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[2]').click()    #attivo impostazione
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente Estero")
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
@@ -196,13 +196,13 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[2]').click()    #disattivo impostazione
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
@@ -242,8 +242,8 @@ class Impostazioni(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
-        sleep(2)
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
+        sleep(1)
         #creo anagrafica
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ragione_sociale_add"]'))).send_keys('Test')
         self.find(By.XPATH, '//span[@class="select2-selection select2-selection--multiple"]').click()
@@ -278,13 +278,13 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[3]').click()    #attivo impostazione
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Test come anagrafica
@@ -331,13 +331,13 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[3]').click()    #disattivo impostazione
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Test come anagrafica
@@ -378,7 +378,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Test", Keys.ENTER)
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()   
         self.wait_loader()
@@ -390,7 +390,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]//i').click()    #elimina ricerca
-        sleep(2)
+        sleep(1)
 
     def regime_fiscale(self):
         wait = WebDriverWait(self.driver, 20)
@@ -398,7 +398,7 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
@@ -448,13 +448,13 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-setting73-results"]//li[2]').click() #imposta il regime fiscale RF02
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")   #test con impostazioni diverse
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
@@ -504,7 +504,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-setting73-results"]//li[1]').click() #imposta il regime fiscale RF01
-        sleep(2)
+        sleep(1)
 
     def tipo_cassa_previdenziale(self):
         wait = WebDriverWait(self.driver, 20)
@@ -518,13 +518,13 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-setting74-results"]//li[1]').click() #seleziono cassa TC01
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
@@ -571,7 +571,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-setting74-container"]//span').click()    #tolgo cassa previdenziale
-        sleep(2)
+        sleep(1)
 
     def causale_ritenuta_acconto(self):
         wait = WebDriverWait(self.driver, 20)
@@ -579,7 +579,7 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
@@ -616,7 +616,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//a[@id="print-button_1"]').click()
-        sleep(2)
+        sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
         sleep(1)
@@ -672,13 +672,13 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-setting75-results"]//li[1]').click()
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
@@ -715,7 +715,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//a[@id="print-button_1"]').click()
-        sleep(2)
+        sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
         sleep(1)
@@ -742,7 +742,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-setting75-container"]//span').click()  #togli causale
-        sleep(2)
+        sleep(1)
 
     def riferimento_documenti_fattura_elettronica(self):
         wait = WebDriverWait(self.driver, 20)
@@ -750,12 +750,12 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
@@ -765,13 +765,13 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[4]').click()
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-id_documento-container"]').click()
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-id_documento-results"]//li[1]').click()
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//input[@id="import_all"]').click()    #deseleziona tutte le righe
         sleep(1)
@@ -782,7 +782,7 @@ class Impostazioni(Test):
 
         self.find(By.XPATH, '//span[@id="select2-idstatodocumento-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Emessa")
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
         self.find(By.XPATH, '//button[@id="save"]').click()
@@ -792,17 +792,17 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//a[@id="print-button_1"]').click()
-        sleep(2)
+        sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(2)
+        sleep(1)
 
         riferimento=self.find(By.XPATH, '(//div[@id="viewer"]//span)[50]').text
         self.assertEqual(riferimento[10:32], "Rif. preventivo num. 1")
 
         self.driver.close() #chiude scheda
         self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
-        sleep(2)
+        sleep(1)
 
         #elimina fattura
         self.find(By.XPATH, '//a[@id="elimina"]').click()
@@ -817,18 +817,18 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[4]').click()    #disattiva impostazione
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
@@ -838,13 +838,13 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//ul[@class="dropdown-menu dropdown-menu-right show"]//a[4]').click()
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-id_documento-container"]').click()
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-id_documento-results"]//li[1]').click()
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//input[@id="import_all"]').click()    #deseleziona tutte le righe
         sleep(1)
@@ -855,7 +855,7 @@ class Impostazioni(Test):
 
         self.find(By.XPATH, '//span[@id="select2-idstatodocumento-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Emessa")
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
         self.find(By.XPATH, '//button[@id="save"]').click()
@@ -865,17 +865,17 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//a[@id="print-button_1"]').click()
-        sleep(2)
+        sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(2)
+        sleep(1)
 
         riferimento=self.find(By.XPATH, '(//div[@id="viewer"]//span)[50]').text
         self.assertNotEqual(riferimento[10:32], "Rif. preventivo num. 1")
 
         self.driver.close() #chiude scheda
         self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
-        sleep(2)
+        sleep(1)
 
         #elimina fattura
         self.find(By.XPATH, '//a[@id="elimina"]').click()
@@ -890,7 +890,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[4]').click()    #attiva impostazione
-        sleep(2)
+        sleep(1)
 
 
 

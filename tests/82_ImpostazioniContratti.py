@@ -38,7 +38,7 @@ class Impostazioni(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         sleep(1)
         #creo contratto
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys("Manutenzione")
@@ -50,7 +50,7 @@ class Impostazioni(Test):
         self.wait_loader()
         
         self.find(By.XPATH, '//a[@id="print-button_p"]').click()    #click su stampa contratto
-        sleep(2)
+        sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
         scritta=self.find(By.XPATH, '//span[@style="left: 5.71%; top: 13.88%; font-size: calc(var(--scale-factor)*8.50px); font-family: sans-serif; transform: scaleX(0.913535);"]').text
@@ -70,8 +70,9 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]').click()   #cancello la descrizione "Prova"
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]'))).send_keys(Keys.BACKSPACE, Keys.BACKSPACE, Keys.BACKSPACE, Keys.BACKSPACE, Keys.BACKSPACE, Keys.BACKSPACE)
-        sleep(2)
+        element = self.find(By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]')
+        element.clear()
+        sleep(1)
         
     def crea_contratto_rinnovabile(self):
         wait = WebDriverWait(self.driver, 20)  
@@ -88,7 +89,7 @@ class Impostazioni(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="btn btn-tool"]').click()  #click su informazioni per rinnovo
@@ -128,7 +129,7 @@ class Impostazioni(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="btn btn-tool"]').click()  #click su informazioni per rinnovo

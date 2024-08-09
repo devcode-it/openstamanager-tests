@@ -59,7 +59,7 @@ class MansioniReferenti(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_mansione_referente(self):
         wait = WebDriverWait(self.driver, 20)
@@ -78,7 +78,7 @@ class MansioniReferenti(Test):
         self.wait_loader()      
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
         
     def verifica_mansione_referente(self):
         wait = WebDriverWait(self.driver, 20)
@@ -92,7 +92,7 @@ class MansioniReferenti(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Mansione Referente di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Mansione Referente di Prova da Eliminare", Keys.ENTER)

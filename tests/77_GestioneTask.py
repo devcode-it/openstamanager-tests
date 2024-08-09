@@ -42,7 +42,7 @@ class GestioneTask (Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
     
     def verifica_task(self):
         wait = WebDriverWait(self.driver, 20)
@@ -56,4 +56,4 @@ class GestioneTask (Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Backup",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)

@@ -60,7 +60,7 @@ class UnitaMisura(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Valore"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_unita_misura(self):
         wait = WebDriverWait(self.driver, 20)
@@ -79,7 +79,7 @@ class UnitaMisura(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Valore"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
         
     def verifica_unita_misura(self):
         wait = WebDriverWait(self.driver, 20)
@@ -93,7 +93,7 @@ class UnitaMisura(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("UdMdP",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Valore"]/input'))).send_keys("UdMdPdE", Keys.ENTER)

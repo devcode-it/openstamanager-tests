@@ -21,7 +21,7 @@ class Impostazioni(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click() #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #click su +
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione"]'))).send_keys("test") #descrizione
@@ -55,7 +55,7 @@ class Impostazioni(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click() #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #click su +
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione"]'))).send_keys("test") #descrizione

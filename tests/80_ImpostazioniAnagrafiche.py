@@ -20,8 +20,8 @@ class Impostazioni(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
-        sleep(2)
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
+        sleep(1)
         #creo anagrafica
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ragione_sociale_add"]'))).send_keys('Test')
         self.find(By.XPATH, '//span[@class="select2-selection select2-selection--multiple"]').click()
@@ -55,8 +55,8 @@ class Impostazioni(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()
-        sleep(2)
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
+        sleep(1)
         #creo anagrafica
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ragione_sociale_add"]'))).send_keys('Test')
         self.find(By.XPATH, '//span[@class="select2-selection select2-selection--multiple"]').click()
@@ -87,6 +87,6 @@ class Impostazioni(Test):
         formato=self.find(By.XPATH, '//input[@id="setting29"]') #cambio formato
         formato.clear()
         formato.send_keys("#######", Keys.ENTER) #metto il formato a 7#
-        sleep(2)
+        sleep(1)
 
     

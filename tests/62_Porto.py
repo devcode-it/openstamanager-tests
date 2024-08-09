@@ -59,7 +59,7 @@ class Porto(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_porto(self):
         wait = WebDriverWait(self.driver, 20)
@@ -78,7 +78,7 @@ class Porto(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()    
-        sleep(2)
+        sleep(1)
         
     def verifica_porto(self):
         wait = WebDriverWait(self.driver, 20)
@@ -92,7 +92,7 @@ class Porto(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Porto di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Porto di Prova da Eliminare", Keys.ENTER)

@@ -81,7 +81,7 @@ class Listini(Test):
         sleep(1)
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_listino_cliente(self):
         wait = WebDriverWait(self.driver, 20)
@@ -113,7 +113,7 @@ class Listini(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Listino cliente di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Listino cliente di Prova da Eliminare", Keys.ENTER)
@@ -156,12 +156,12 @@ class Listini(Test):
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerco l'articolo con il codice 08
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() #seleziono il primo risultato
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
         self.find(By.XPATH, '//a[@data-op="add-listino"]').click() #click su aggiungi a listino cliente
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-id_listino-container"]').click() #scelgo il listino "Listino cliente di Prova"
         sleep(1)

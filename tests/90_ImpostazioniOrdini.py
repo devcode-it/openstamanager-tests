@@ -31,13 +31,13 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[1]').click() #disattivo impostazione
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su tasto +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su tasto +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()     #scelta di "Cliente" come anagrafica per l'ordine
@@ -89,7 +89,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click() #cancello la ricerca
-        sleep(2)
+        sleep(1)
 
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
@@ -111,7 +111,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[1]').click() #attivo impostazione
-        sleep(2)
+        sleep(1)
 
     def conferma_quantita_ordini_cliente(self):
         wait = WebDriverWait(self.driver, 20)
@@ -119,7 +119,7 @@ class Impostazioni(Test):
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su tasto +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su tasto +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()     #scelta di "Cliente" come anagrafica per l'ordine
@@ -152,13 +152,13 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[2]').click() #disattivo impostazione
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click()   #click su tasto +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su tasto +
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()     #scelta di "Cliente" come anagrafica per l'ordine
@@ -191,7 +191,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[2]').click() #attivo impostazione
-        sleep(2)
+        sleep(1)
 
     def conferma_quantita_ordini_fornitore(self):
         wait = WebDriverWait(self.driver, 20)
@@ -199,7 +199,7 @@ class Impostazioni(Test):
         self.navigateTo("Ordini fornitore")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click() #crea ordine fornitore
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #crea ordine fornitore
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click() #imposta fornitore
@@ -231,13 +231,13 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[3]').click() #disattivo impostazione
-        sleep(2)
+        sleep(1)
 
         self.expandSidebar("Acquisti")
         self.navigateTo("Ordini fornitore")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary bound clickable"]').click() #crea ordine fornitore
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #crea ordine fornitore
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click() #imposta fornitore
@@ -270,4 +270,4 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[3]').click() #attivo impostazione
-        sleep(2)
+        sleep(1)

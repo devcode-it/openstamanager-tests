@@ -62,7 +62,7 @@ class Automezzi(Test):
         self.wait_loader()  
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
     def elimina_automezzo(self):
         wait = WebDriverWait(self.driver, 20)
@@ -80,7 +80,7 @@ class Automezzi(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
         
     def verifica_automezzo(self):
         wait = WebDriverWait(self.driver, 20)
@@ -94,7 +94,7 @@ class Automezzi(Test):
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
         self.assertEqual("Automezzo di Prova",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(2)
+        sleep(1)
 
         #verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Automezzo di Prova da Eliminare", Keys.ENTER)

@@ -38,7 +38,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[2]').click() #disattiva impostazione
-        sleep(2)
+        sleep(1)
 
         self.navigateTo("Dashboard")
         self.wait_loader()
@@ -53,7 +53,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[2]').click() #attiva impostazione
-        sleep(2)
+        sleep(1)
 
     def vista_dashboard(self):
         wait = WebDriverWait(self.driver, 20)  
@@ -67,10 +67,10 @@ class Impostazioni(Test):
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("mese")
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
-        sleep(2)
+        sleep(1)
 
         self.navigateTo("Dashboard")
         self.wait_loader()
@@ -89,10 +89,10 @@ class Impostazioni(Test):
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("settimana")
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
-        sleep(2)
+        sleep(1)
 
     def ora_inizio_calendario(self):
         wait = WebDriverWait(self.driver, 20)  
@@ -103,10 +103,10 @@ class Impostazioni(Test):
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting77"]'))).send_keys("01:00") #seleziono 01:00 come prima ora del calendario
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting77"]'))).send_keys(Keys.ENTER)
-        sleep(2)
+        sleep(1)
 
         self.navigateTo("Dashboard")
         self.wait_loader()
@@ -122,10 +122,10 @@ class Impostazioni(Test):
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting77"]'))).send_keys("00:00") #seleziono 00:00 come prima ora del calendario
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting77"]'))).send_keys(Keys.ENTER)
-        sleep(2)
+        sleep(1)
 
     def ora_fine_calendario(self):
         wait = WebDriverWait(self.driver, 20)  
@@ -138,10 +138,10 @@ class Impostazioni(Test):
         ora_fine=self.find(By.XPATH, '//input[@id="setting78"]')
         ora_fine.clear()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting78"]'))).send_keys("13:30") #seleziono 13:30 come ultima ora del calendario
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting78"]'))).send_keys(Keys.ENTER)
-        sleep(2)
+        sleep(1)
 
         self.navigateTo("Dashboard")
         self.wait_loader()
@@ -160,10 +160,10 @@ class Impostazioni(Test):
         ora_fine=self.find(By.XPATH, '//input[@id="setting78"]')
         ora_fine.clear()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting78"]'))).send_keys("23:59") #seleziono 23:59 come ultima ora del calendario
-        sleep(2)
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="setting78"]'))).send_keys(Keys.ENTER)
-        sleep(2)
+        sleep(1)
 
     def visualizza_informazioni_aggiuntive(self):
         wait = WebDriverWait(self.driver, 20)  
@@ -174,7 +174,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[3]').click()    #attiva impostazione
-        sleep(2)
+        sleep(1)
 
         self.navigateTo("Dashboard")
         self.wait_loader()
@@ -190,7 +190,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[3]').click()    #disattiva impostazione
-        sleep(2)
+        sleep(1)
 
     def visualizza_colori_sessioni(self):
         wait = WebDriverWait(self.driver, 20)  
@@ -204,7 +204,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-setting153-results"]//li[2]').click()    #seleziono "Sfondo colore tecnico - bordo colore stato"
-        sleep(2)
+        sleep(1)
 
         self.navigateTo("Attività")
         self.wait_loader()
@@ -232,14 +232,14 @@ class Impostazioni(Test):
 
         self.find(By.XPATH, '//ul[@id="select2-nuovo_tecnico-results"]//li[2]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-block"]').click()
-        sleep(2)
+        sleep(1)
 
         self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
         self.wait_loader()
 
         self.navigateTo("Dashboard")
         self.wait_loader()
-        sleep(2)
+        sleep(1)
 
         colori_element = self.find(By.XPATH, '//div[@class="fc-timegrid-event-harness fc-timegrid-event-harness-inset"]//a')
         colori = colori_element.get_attribute("style")  #check dei colori
@@ -256,7 +256,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-setting153-results"]//li[1]').click()    #seleziono "Sfondo colore stato - bordo colore tecnico"
-        sleep(2)
+        sleep(1)
 
         self.navigateTo("Dashboard")
         self.wait_loader()
