@@ -191,6 +191,13 @@ class DdtEntrata(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  
         self.wait_loader()
 
+        self.navigateTo("Ddt in entrata")
+        self.wait_loader()
+        self.find(By.XPATH, '//tbody//tr//td').click()   
+
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click() 
+        sleep(1)
+        
         self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
