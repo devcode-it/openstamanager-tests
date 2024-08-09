@@ -449,11 +449,14 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//h4//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@id="nome"])[2]'))).send_keys("Referente di prova")
-        self.find(By.XPATH, '//span[@id="select2-idmansione-container"]').click()
+        self.input(modal,'Nominativo').setValue("Referente di prova")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]//i[@class="fa fa-plus"]'))).click()
+        modal = self.wait_modal()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-content"]//div[@id="form_82-"]//input[@id="nome"]'))).send_keys("Segretario")
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-idmansione-results"]//li[1]').click()
+        self.find(By.XPATH, '(//button[@type="submit"])[4]').click()
         sleep(1)
 
         self.find(By.XPATH, '(//button[@type="submit"])[3]').click()   
@@ -552,7 +555,7 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
         self.wait_loader()
 
-        modificato=self.find(By.XPATH, '//div[@id="tab_4"]//tbody/tr//td[2]')
+        modificato=self.find(By.XPATH, '//div[@id="tab_4"]//tbody/tr//td[2]').text
         self.assertEqual(modificato, "Prova")
 
         # Elimina sede
@@ -828,6 +831,8 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
+
+        self.find(By.XPATH, '//tbody//tr//td').click() 
 
     def ricerca_coordinate(self):
         wait = WebDriverWait(self.driver, 20)
