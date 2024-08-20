@@ -912,7 +912,7 @@ class Anagrafiche(Test):
 
         self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]//span[@class="select2-selection__clear"]').click()   
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="save"]'))).click()
-        sleep(2)
+        self.wait_loader()
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()

@@ -345,9 +345,11 @@ class Contratti(Test):
         
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_23"]').click()
+
+        self.find(By.XPATH, '(//label[@for="rinnovabile"])[2]').click()
+        self.find(By.XPATH, '//div[@id="tab_23"]//button[@type="submit"]').click()
         self.wait_loader()
 
-        # TODO: test Rinnovi. Attiva Rinnovabile, aggiungi data accettazione e conclusione e verifica se viene segnalato il contratto in scadenza dal widget in dashboard e se al suo rinnovo, viene visualizzato il riferimento al contratto rinnovato nel plugin
 
     def cambia_stato(self):
         wait = WebDriverWait(self.driver, 20)
@@ -403,16 +405,17 @@ class Contratti(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        tipo=self.find(By.XPATH, '//tbody//tr//td[4]').text
+        tipo=self.find(By.XPATH, '//tbody//tr[2]//td[4]').text
         self.assertEqual(tipo, "Fattura immediata di vendita")
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()    
+        self.find(By.XPATH, '//tbody//tr[2]//td[4]').click()    
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@id="elimina"]').click()   
-        sleep(1)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() 
+        self.navigateTo("Contratti")
         self.wait_loader()
 
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
