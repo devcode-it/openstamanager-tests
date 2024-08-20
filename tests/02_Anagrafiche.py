@@ -911,6 +911,7 @@ class Anagrafiche(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]//span[@class="select2-selection__clear"]').click()   
+        sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="save"]'))).click()
         self.wait_loader()
 
@@ -921,5 +922,6 @@ class Anagrafiche(Test):
         self.assertNotEqual(nuova_relazione, "Attivo")
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() 
         
+
 
 

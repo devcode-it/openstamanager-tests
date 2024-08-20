@@ -17,16 +17,16 @@ class AccountEmail(Test):
 
     def test_creazione_accountemail(self):
         # Creazione account email   *Required* 
-        #self.creazione_account_email("Account di Prova da Eliminare", self.getConfig('tests.email_user'), self.getConfig('tests.email_user'))
+        self.creazione_account_email("Account di Prova da Eliminare", self.getConfig('tests.email_user'), self.getConfig('tests.email_user'))
 
         # Modifica account email
-        #self.modifica_account_email(self.getConfig('tests.email_user'), "smtps.aruba.it", "465")
+        self.modifica_account_email(self.getConfig('tests.email_user'), "smtps.aruba.it", "465")
 
         # Cancellazione account email
-        #self.elimina_account_email()
+        self.elimina_account_email()
 
         # Verifica account email
-        #self.verifica_account_email()
+        self.verifica_account_email()
 
         # Invia mail (Azioni di gruppo) da Attività
         self.invia_mail()

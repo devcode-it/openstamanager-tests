@@ -102,17 +102,19 @@ class Movimenti(Test):
         ddt_uscita = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[4]//td[2]'))).text
         ddt_entrata = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[5]//td[2]'))).text
         fattura_acquisto2 = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[6]//td[2]'))).text
-        fattura_acquisto = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[7]//td[2]'))).text
-        attività = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[8]//td[2]'))).text
-        eliminazioneserial = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[9]//td[2]'))).text
-        serial = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[10]//td[2]'))).text
-        carico = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[11]//td[2]'))).text
+        fattura_vendita = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[7]//td[2]'))).text
+        fattura_acquisto = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[8]//td[2]'))).text
+        attività = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[9]//td[2]'))).text
+        eliminazioneserial = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[10]//td[2]'))).text
+        serial = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[11]//td[2]'))).text
+        carico = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[12]//td[2]'))).text
 
         self.assertEqual(movimento, "10,00")
         self.assertEqual(fattura_vendita, "-1,00")
         self.assertEqual(ddt_uscita, "-1,00")
         self.assertEqual(ddt_entrata, "1,00")
         self.assertEqual(fattura_acquisto2, "1,00")
+        self.assertEqual(fattura_vendita, "-1,00")
         self.assertEqual(fattura_acquisto, "1,00")
         self.assertEqual(attività, "-1,00")
         self.assertEqual(eliminazioneserial, "-1,00")
