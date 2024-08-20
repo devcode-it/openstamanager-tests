@@ -32,9 +32,11 @@ class StatoServizi(Test):
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
         sleep(1)
+
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
         sleep(1)
+
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
         sleep(1)
@@ -67,8 +69,6 @@ class StatoServizi(Test):
         # Completamento dei campi per il nuovo elemento
         self.input(modal, 'Denominazione').setValue("Fornitore Estero")
         self.input(modal, 'Tipo di anagrafica').setByText("Fornitore")
-
-        # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader() 
 
@@ -85,8 +85,8 @@ class StatoServizi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_nazione-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Germania")
         sleep(1)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         self.input(None, 'Partita IVA').setValue("05024030286")
         self.input(None, 'Tipologia').setValue("Azienda")
         self.input(None, 'Codice fiscale').setValue("05024030286")
@@ -124,6 +124,7 @@ class StatoServizi(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente Estero", Keys.ENTER)  
         sleep(1)
+
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
@@ -131,6 +132,7 @@ class StatoServizi(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_nazione-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Germania")
         sleep(1)
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         self.wait_loader()
 
@@ -153,7 +155,5 @@ class StatoServizi(Test):
 
         self.input(modal, 'Codice').setValue('001')
         self.input(modal, 'Descrizione').setValue('Articolo 1')
-
-        # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()

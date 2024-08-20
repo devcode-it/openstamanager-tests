@@ -812,7 +812,7 @@ class Anagrafiche(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="fido_assicurato"]'))).send_keys(Keys.BACK_SPACE, "49000")
         self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
-        sleep(1)
+        sleep(2)
 
         modifica=self.find(By.XPATH, '//div[@id="tab_45"]//tbody//tr//td[2]').text
         self.assertEqual(modifica, "49000.00")
@@ -912,7 +912,7 @@ class Anagrafiche(Test):
 
         self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]//span[@class="select2-selection__clear"]').click()   
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="save"]'))).click()
-        sleep(1)
+        sleep(2)
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()
