@@ -87,8 +87,11 @@ class DdtUscita(Test):
 
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
-        
-        self.find(By.XPATH, '//span[@id="select2-idstatoddt-container"]').click()
+
+        self.driver.execute_script('window.scrollTo(0,0)')
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatoddt-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("Evaso")
         sleep(1)
 
@@ -217,10 +220,21 @@ class DdtUscita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        tipo=self.find(By.XPATH, '//tbody//tr//td[5]').text  
+        tipo=self.find(By.XPATH, '//tbody//tr[3]//td[5]').text  
         self.assertEqual(tipo, "Cliente")
 
+        self.find(By.XPATH, '//tbody//tr[3]//td[5]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.wait_loader()
+
         self.expandSidebar("Magazzino")
+        self.navigateTo("Ddt in uscita")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr//td').click()   
 
     def elimina_selezionati(self):
         wait = WebDriverWait(self.driver, 20)
@@ -230,7 +244,7 @@ class DdtUscita(Test):
         self.find(By.XPATH, '//tbody//tr//td').click()   
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
         self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()   
-        sleep(1)
+        sleep(2)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   
         self.wait_loader()
