@@ -11,19 +11,18 @@ from selenium.webdriver.support import expected_conditions as EC
 class StampeContabili(Test):
     def setUp(self):
         super().setUp()
-
+        self.navigateTo("Contabilità")
  
     def test_stampecontabili(self):
         # Test stampe contabili
         self.apri_stampe_contabili()
 
     def apri_stampe_contabili(self):
-        self.navigateTo("Contabilità")
         self.navigateTo("Stampe contabili")
         self.wait_loader()
 
         #Stampa registro IVA vendite
-        self.find(By.XPATH, '(//button[@class="btn btn-primary col-md-12 bound clickable"])[1]').click()
+        self.find(By.XPATH, '//button[@data-title="Stampa registro IVA vendite"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-id_sezionale-container"]').click() #sezionale
@@ -43,13 +42,14 @@ class StampeContabili(Test):
 
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
         sleep(1)
+
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[2]').text   #check stampa
         self.assertEqual(stampa, "REGISTRO IVA VENDITE DAL 01/01/2024 AL 31/12/2024")
         self.driver.close() #chiude scheda
         self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
 
         #Stampa registro IVA acquisti
-        self.find(By.XPATH, '(//button[@class="btn btn-primary col-md-12 bound clickable"])[2]').click()
+        self.find(By.XPATH, '//button[@data-title="Stampa registro IVA acquisti"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-id_sezionale-container"]').click() #sezionale
@@ -69,7 +69,7 @@ class StampeContabili(Test):
         self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
 
         #Stampa liquidazione IVA
-        self.find(By.XPATH, '(//button[@class="btn btn-primary col-md-12 bound clickable"])[3]').click()
+        self.find(By.XPATH, '//button[@data-title="Stampa liquidazione IVA"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-block"]').click() #click su stampa
@@ -85,7 +85,7 @@ class StampeContabili(Test):
         self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
 
         #Stampa Bilancio
-        self.find(By.XPATH, '(//button[@class="btn btn-primary col-md-12 bound clickable"])[4]').click()
+        self.find(By.XPATH, '//button[@data-title="Stampa Bilancio"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su stampa
@@ -94,11 +94,15 @@ class StampeContabili(Test):
         self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
         sleep(1)
 
-        #manca il check per bug in fase di stampa
+        stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[1]').text   #check stampa
+        self.assertEqual(stampa, "STAMPA BILANCIO")
 
         self.driver.close() #chiude scheda
         self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
-
+        
+        self.find(By.XPATH, '//button[@class="close"]').click()
+        sleep(1)
+        
         #Stampa Situazione patrimoniale
         self.find(By.XPATH, '(//a[@id="print-button"])[1]').click()
         sleep(1)
@@ -166,7 +170,7 @@ class StampeContabili(Test):
         self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
 
         #Stampa scadenziario
-        self.find(By.XPATH, '(//button[@class="btn btn-primary col-md-12 bound clickable"])[5]').click()
+        self.find(By.XPATH, '//button[@data-title="Stampa scadenzario"]').click()
         sleep(1)
         
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su stampa
