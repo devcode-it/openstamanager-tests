@@ -259,10 +259,8 @@ Legenda:
 |Test| Sezione | Nome | ☑️ | Altro |
 |----|---------|------|:--:|:-----:| 
 |80| Anagrafiche | Formato codice anagrafica |:heavy_check_mark:|Crea anagrafica| 
-
 || Aggiornamenti | Attiva aggiornamenti |-|-|
 || Aggiornamenti | Abilita canale pre-release per aggiornamenti |:x:|-| 
-
 || API | Lunghezza pagine per API|-|-|
 || API | apilayer API key for VAT number|:x:|:x:|
 || Applicazione| Google Maps API key per Tecnici|-|-|
