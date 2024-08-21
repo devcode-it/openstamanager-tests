@@ -74,7 +74,7 @@ class Movimenti(Test):
         self.navigateTo("Movimenti")
         self.wait_loader()    
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Movimento di prova da Eliminare", Keys.ENTER)
         sleep(1)
         
@@ -87,7 +87,7 @@ class Movimenti(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        #verifica elemento modificato
+        # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("001", Keys.ENTER)
         sleep(1)
 

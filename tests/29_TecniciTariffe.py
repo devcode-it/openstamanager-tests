@@ -49,7 +49,7 @@ class TecniciTariffe(Test):
         self.navigateTo("Tecnici e tariffe")
         self.wait_loader()    
 
-        #verifica elemento modificato
+        # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Tecnico", Keys.ENTER)
         sleep(1)
 

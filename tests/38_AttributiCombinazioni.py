@@ -17,11 +17,11 @@ class AttributiCombinazioni(Test):
 
     def test_creazione_attributi(self):
         # Creazione attributi *Required*
-        self.creazione_attributi("Attributo di Prova da Modificare",)
+        self.creazione_attributi("Attributo di Prova da Modificare")
         self.creazione_attributi("Attributo di Prova da Eliminare")
 
         # Modifica Attributi
-        self.modifica_attributi("Attributo di Prova")
+        self.modifica_attributi("Taglie")
         
         # Cancellazione Attributi
         self.elimina_attributi()
@@ -30,7 +30,9 @@ class AttributiCombinazioni(Test):
         self.verifica_attributi()
 
     def creazione_attributi(self, titolo=str):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Attributi Combinazioni")
+        self.wait_loader()
 
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
@@ -38,6 +40,26 @@ class AttributiCombinazioni(Test):
         self.input(modal, 'Titolo').setValue(titolo)
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="aggiungiValore(this)"]'))).click()
+        self.wait_modal()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('S', Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        self.wait_modal()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('M', Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        self.wait_modal()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('L', Keys.ENTER)
+        sleep(1)
+
+
 
     def modifica_attributi(self, modifica=str):
         wait = WebDriverWait(self.driver, 20)
@@ -82,16 +104,16 @@ class AttributiCombinazioni(Test):
         self.navigateTo("Attributi Combinazioni")
         self.wait_loader()    
 
-        #verifica elemento modificato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Attributo di Prova", Keys.ENTER)
+        # Verifica elemento modificato
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Taglie", Keys.ENTER)
         sleep(1)
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
-        self.assertEqual("Attributo di Prova",modificato)
+        self.assertEqual("Taglie",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Attributo di Prova da Eliminare", Keys.ENTER)
         sleep(1)
         

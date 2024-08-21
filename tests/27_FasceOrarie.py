@@ -88,7 +88,7 @@ class FasceOrarie(Test):
         self.navigateTo("Fasce orarie")
         self.wait_loader()    
 
-        #verifica elemento modificato
+        # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Fascia Oraria di Prova", Keys.ENTER)
         sleep(1)
 
@@ -97,7 +97,7 @@ class FasceOrarie(Test):
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
         
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Fascia Oraria di Prova da Eliminare", Keys.ENTER)
         sleep(1)
 

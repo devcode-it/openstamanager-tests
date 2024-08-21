@@ -29,7 +29,6 @@ class TipiAnagrafiche(Test):
         self.verifica_tipo_anagrafiche()
 
     def creazione_tipo_anagrafiche(self, descrizione=str, colore=str):
-
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
 
@@ -82,7 +81,7 @@ class TipiAnagrafiche(Test):
         self.navigateTo("Tipi di anagrafiche")
         self.wait_loader()    
 
-        #verifica elemento modificato
+        # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Tipo di anagrafica di Prova", Keys.ENTER)
         sleep(1)
 
@@ -91,7 +90,7 @@ class TipiAnagrafiche(Test):
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Tipo di anagrafica di Prova da Eliminare", Keys.ENTER)
         sleep(1)
 

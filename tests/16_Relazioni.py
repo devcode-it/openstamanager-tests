@@ -87,7 +87,7 @@ class Relazioni(Test):
         self.navigateTo("Relazioni")
         self.wait_loader()    
 
-        #verifica elemento modificato
+        # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Relazione di Prova", Keys.ENTER)
         sleep(1)
 
@@ -96,7 +96,7 @@ class Relazioni(Test):
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Relazione di Prova da Eliminare", Keys.ENTER)
         sleep(1)
 

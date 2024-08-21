@@ -89,7 +89,7 @@ class CassePrevidenziali(Test):
         self.navigateTo("Casse previdenziali")
         self.wait_loader()    
 
-        #verifica elemento modificato
+        # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Cassa Previdenziale di Prova", Keys.ENTER)
         sleep(1)
 
@@ -98,7 +98,7 @@ class CassePrevidenziali(Test):
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Cassa Previdenziale di Prova da Eliminare", Keys.ENTER)
         sleep(1)
         

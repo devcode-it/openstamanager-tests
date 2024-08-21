@@ -117,7 +117,7 @@ class GiacenzeSedi(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        #verifica elemento modificato
+        # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("001", Keys.ENTER)
         sleep(1)
 

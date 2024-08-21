@@ -15,7 +15,7 @@ class Viste(Test):
 
         self.navigateTo("Attività")
         self.wait_loader()
-        self.controllo_viste("3")
+        self.controllo_viste("1")
 
         self.expandSidebar("Vendite")
 
@@ -36,7 +36,6 @@ class Viste(Test):
         self.controllo_viste("") 
 
         self.expandSidebar("Acquisti")
-
         self.navigateTo("Ordini fornitore")
         self.wait_loader()
         self.controllo_viste("1") 
@@ -61,7 +60,7 @@ class Viste(Test):
 
         self.navigateTo("Ddt in uscita")
         self.wait_loader()
-        self.controllo_viste("02") 
+        self.controllo_viste("03") 
 
         self.navigateTo("Ddt in entrata")
         self.wait_loader()

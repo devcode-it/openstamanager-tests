@@ -103,7 +103,7 @@ class Impianti(Test):
         self.navigateTo("Impianti")
         self.wait_loader()    
 
-        #verifica elemento modificato
+        # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Impianto di Prova", Keys.ENTER)
         sleep(1)
 
@@ -112,7 +112,7 @@ class Impianti(Test):
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Impianto di Prova da Eliminare", Keys.ENTER)
         sleep(1)
         
@@ -148,26 +148,19 @@ class Impianti(Test):
         self.navigateTo("Attività")
         self.wait_loader()    
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]//input'))).send_keys("Cliente", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input'))).send_keys("2", Keys.ENTER)
         sleep(1) 
 
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        sleep(1) 
-
-        self.find(By.XPATH , '//span[@id="select2-idstatointervento-container"]').click()
-        sleep(1)
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[3]'))).send_keys("Programmato",Keys.ENTER)
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@id="save"]').click()
-        self.wait_loader()
+        self.wait_loader() 
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_2"]').click()
         self.wait_loader()
 
         self.find(By.XPATH, '//span[@id="select2-id_impianto_add-container"]').click()
+        sleep(1)
+        
         self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
         self.find(By.XPATH, '//button[@class="btn btn-default tip tooltipstered"]').click()
         sleep(1)

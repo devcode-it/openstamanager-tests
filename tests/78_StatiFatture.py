@@ -51,7 +51,7 @@ class StatiFatture(Test):
         self.navigateTo("Stati fatture")
         self.wait_loader()    
 
-        #verifica elemento modificato
+        # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Bozza", Keys.ENTER)
         sleep(1)
 

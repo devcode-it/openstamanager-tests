@@ -18,15 +18,16 @@ class Aggiornamenti(Test):
         self.navigateTo("Aggiornamenti")
         self.wait_loader()    
 
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary btn-block"]'))).click()
-        sleep(1)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="checksum(this)"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="close"]'))).click()
         sleep(1)
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info btn-block"]'))).click()
-        sleep(1)
+
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="database(this)"]'))).click()
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="close"]'))).click()
         sleep(1)
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-block"]'))).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-lg btn-block"]'))).click()
+
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="controlli(this)"]'))).click()
+        self.find(By.XPATH, '//button[@onclick="avviaControlli(this);"]').click()
         sleep(1)
+
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="close"]'))).click()

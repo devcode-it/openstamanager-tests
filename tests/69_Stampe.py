@@ -11,6 +11,15 @@ class Stampe(Test):
     def setUp(self):
         super().setUp()
 
-    def test_stampe(self, modifica=str):
         self.expandSidebar("Strumenti")
+
+
+    def test_stampe(self):
+        self.stampe()
+
+    def stampe(self):
+        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Stampe")
+        self.wait_loader()
+        
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()

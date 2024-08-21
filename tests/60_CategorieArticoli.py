@@ -91,7 +91,7 @@ class CategorieArticoli(Test):
         self.navigateTo("Categorie articoli")
         self.wait_loader()    
 
-        #verifica elemento modificato
+        # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Categoria Articoli di Prova", Keys.ENTER)
         sleep(1)
 
@@ -100,7 +100,7 @@ class CategorieArticoli(Test):
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Categoria Articoli di Prova da Eliminare", Keys.ENTER)
         sleep(1)
         
@@ -118,20 +118,19 @@ class CategorieArticoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
  
-        # TODO allineare con articoli presenti, nessun articolo ha codice 08. Lavorare con articoli presenti
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("08", Keys.ENTER) #cerca l'articolo con il codice 08
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("002", Keys.ENTER)
         sleep(1)
  
-        self.find(By.XPATH, '//tbody//tr//td').click() #seleziona il primo risultato
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apre azioni di gruppo
-        self.find(By.XPATH, '//a[@data-op="change-categoria"]').click()   #click su Aggiorna categoria e sottocategoria 
+        self.find(By.XPATH, '//tbody//tr//td').click() 
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//a[@data-op="change-categoria"]').click() 
         sleep(1)
         
-        self.find(By.XPATH, '//span[@id="select2-id_categoria-container"]').click() #seleziona la categoria "Categoria Articoli di Prova"
+        self.find(By.XPATH, '//span[@id="select2-id_categoria-container"]').click() 
         self.find(By.XPATH, '//ul[@id="select2-id_categoria-results"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() #click su procedi
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
         self.wait_loader()
  
-        categoria=self.find(By.XPATH, '//tbody//tr[1]//td[5]//div').text
-        self.assertEqual(categoria, "Categoria Articoli di Prova")  #controlla se la categoria è "Categoria Articoli di Prova"
+        categoria=self.find(By.XPATH, '//tbody//tr//td[5]').text
+        self.assertEqual(categoria, "Categoria Articoli di Prova")  
         

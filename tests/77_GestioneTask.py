@@ -49,7 +49,7 @@ class GestioneTask (Test):
         self.navigateTo("Gestione task")
         self.wait_loader()    
 
-        #verifica elemento modificato
+        # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Backup", Keys.ENTER)
         sleep(1)
 

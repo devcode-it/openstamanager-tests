@@ -88,7 +88,7 @@ class GestioneDocumentale(Test):
         self.navigateTo("Gestione documentale")
         self.wait_loader()    
 
-        #verifica elemento modificato
+        # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Documento di prova", Keys.ENTER)
         sleep(1)
 
@@ -97,7 +97,7 @@ class GestioneDocumentale(Test):
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Documento di prova da Eliminare", Keys.ENTER)
         sleep(1)
         

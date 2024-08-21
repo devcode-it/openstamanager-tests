@@ -107,7 +107,7 @@ class UtentiPermessi(Test):
         self.navigateTo("Utenti e permessi")
         self.wait_loader()    
 
-        #verifica elemento eliminato
+        # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Gruppo"]/input'))).send_keys("Tipo Utente di Prova", Keys.ENTER)
         sleep(1)
         
