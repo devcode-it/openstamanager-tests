@@ -11,18 +11,19 @@ class Impostazioni(Test):
     def setUp(self):
         super().setUp()
 
+        self.navigateTo("Anagrafiche")
+        self.wait_loader()
+
     def test_impostazioni_anagrafiche(self):
-        # Cambio formato codice anagrafiche (Anagrafiche)
+        # Test impostazione Formato codice anagrafica
         self.cambio_formato_codice()
 
     def cambio_formato_codice(self):
         wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
 
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         sleep(1)
-        #creo anagrafica
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ragione_sociale_add"]'))).send_keys('Test')
         self.find(By.XPATH, '//span[@class="select2-selection select2-selection--multiple"]').click()
         sleep(1)
@@ -31,11 +32,10 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
         self.wait_loader()
 
-        codice_element = self.find(By.XPATH, '//input[@id="codice"]')   #controllo se il codice ha formato 7 
+        codice_element = self.find(By.XPATH, '//input[@id="codice"]')
         codice = codice_element.get_attribute("value")
         self.assertEqual(codice, "00000010")
         
-        #elimino anagrafica
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
         sleep(1)
 
@@ -46,18 +46,19 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-1"]').click() #apro Anagrafiche
+        self.find(By.XPATH, '//div[@title="Anagrafiche"]').click()
         sleep(1)
 
-        formato=self.find(By.XPATH, '//input[@id="setting29"]') #cambio formato
+        formato = self.find(By.XPATH, '//div[@class="form-group" and contains(., "Formato codice anagrafica")]//input')
         formato.clear()
-        formato.send_keys("####", Keys.ENTER) #metto il formato a 4#
+        formato.send_keys("####", Keys.ENTER) 
+
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         sleep(1)
-        #creo anagrafica
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ragione_sociale_add"]'))).send_keys('Test')
         self.find(By.XPATH, '//span[@class="select2-selection select2-selection--multiple"]').click()
         sleep(1)
@@ -66,27 +67,25 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
         self.wait_loader()
 
-        codice_element = self.find(By.XPATH, '//input[@id="codice"]')   #controllo se il codice ha formato 4
+        codice_element = self.find(By.XPATH, '//input[@id="codice"]') 
         codice = codice_element.get_attribute("value")
-        self.assertEqual(codice, "0010")  
-        
-        #elimino anagrafica
+        self.assertEqual(codice, "0010")
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
-        #torno alle impostazioni di prima
+
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-1"]').click() #apro Anagrafiche
+        self.find(By.XPATH, '//div[@title="Anagrafiche"]').click()
         sleep(1)
 
-        formato=self.find(By.XPATH, '//input[@id="setting29"]') #cambio formato
+        formato = self.find(By.XPATH, '//div[@class="form-group" and contains(., "Formato codice anagrafica")]//input')
         formato.clear()
-        formato.send_keys("#######", Keys.ENTER) #metto il formato a 7#
+        formato.send_keys("########", Keys.ENTER)
         sleep(1)
 
     

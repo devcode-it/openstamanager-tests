@@ -78,13 +78,13 @@ class Scadenzario(Test):
         self.navigateTo("Scadenzario")
         self.wait_loader()  
 
-        self.find(By.XPATH, '//th[@id="th_Descrizione-scadenza"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
-
     def elimina_scadenza(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Scadenzario")
         self.wait_loader()  
+
+        self.find(By.XPATH, '//th[@id="th_Descrizione-scadenza"]/i[@class="deleteicon fa fa-times"]').click()
+        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione-scadenza"]/input'))).send_keys('Scadenza di Prova da Eliminare', Keys.ENTER)
         sleep(1)
@@ -134,6 +134,7 @@ class Scadenzario(Test):
         sleep(1)
 
         # TODO: fare la registrazione contabile
+        
         prezzo=self.find(By.XPATH, '(//tfoot//tr[1]//td[2])[3]').text
         self.assertEqual(prezzo, "323,06 €")  
         self.find(By.XPATH, '//button[@class="close"]').click() 
