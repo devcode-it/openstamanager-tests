@@ -123,10 +123,10 @@ Legenda:
 - :pencil: Modifica
 - :wastebasket: Eliminazione
 - ☑️ Verifica
-- :question: Funzionamento
 
 
-|N°| Modulo | Plugin | :heavy_plus_sign: | :pencil: | :wastebasket: | ☑️ | :question: |
+
+|N°| Modulo | Plugin | :heavy_plus_sign: | :pencil: | :wastebasket: | ☑️ | Altro |
 |--|--------|--------|:-----------------:|:--------:|:-------------:|:--:|:----------:|
 |02| Anagrafiche | Referenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
 |02| Anagrafiche | Sedi aggiuntive |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
@@ -255,17 +255,26 @@ Legenda:
 
 Legenda:
 - ☑️ Verifica
-- :question: Funzionamento
 
-| Sezione | Nome | ☑️ | :question: |
-|---------|------|:--:|:----------:| 
+| Sezione | Nome | ☑️ | Altro |
+|---------|------|:--:|:-----:| 
 | Aggiornamenti | Attiva aggiornamenti |-|-|
-| Aggiornamenti | Abilita canale pre-release per aggiornamenti |-|-| 
+| Aggiornamenti | Abilita canale pre-release per aggiornamenti |:x:|-| 
 | Anagrafiche | Formato codice anagrafica |:heavy_check_mark:|Crea anagrafica| 
-| API | Lunghezza pagine per API|:x:|:x:|
+| API | Lunghezza pagine per API|-|-|
 | API | apilayer API key for VAT number|:x:|:x:|
+| Applicazione| Google Maps API key per Tecnici|-|-|
+| Applicazione| Mostra prezzi|-|-|
+| Applicazione| Sincronizza solo i Clienti per cui il Tecnico ha lavorato in passato|-|-|
+| Applicazione| Mesi per lo storico delle Attività|-|-|
+| Applicazione| Stato dell'attività alla chiusura|-|-|
+| Applicazione| Abilita la modifica di altri tecnici|-|-|
+| Applicazione| Visualizza promemoria|-|-|
+| Applicazione| Visualizza solo promemoria assegnati|-|-|
+| Applicazione| Permetti l'accesso agli amministratori|-|-|
+| Applicazione| Limita la visualizzazione degli impianti a quelli gestiti dal tecnico|-|-|
 | Attività | Mostra i prezzi al tecnico |:heavy_check_mark:|Crea attività|
-| Attività | Stampa per anteprima e firma | ||
+| Attività | Stampa per anteprima e firma |:x:|-|
 | Attività | Permetti inserimento sessioni degli altri tecnici |:heavy_check_mark:|Crea attività|
 | Attività | Giorni lavorativi |:heavy_check_mark:|Calendario|
 | Attività | Notifica al tecnico l'aggiunta della sessione nell'attività |:heavy_check_mark:|Aggiungi sessione di lavoro|
@@ -283,10 +292,11 @@ Legenda:
 | Attività | Numero di minuti di avanzamento delle sessioni delle attività |-|-|
 | Backup | Numero di backup da mantenere |-|-|
 | Backup | Backup automatico |-|-|
+| Backup | Permetti il ripristino di backup da file esterni |-|-|
 | Contratti | "Condizioni generali di fornitura contratti" |:heavy_check_mark:|Crea contratto|
 | Contratti | Crea contratto rinnovabile di default |:heavy_check_mark:|Crea contratto|
 | Contratti | Giorni di preavviso di default |:heavy_check_mark:|Crea contratto|
-| Dashboard | Utilizzare i tooltip sul calendario | ||
+| Dashboard | Utilizzare i tooltip sul calendario |:x:|:x:|
 | Dashboard | Visualizzare la domenica sul calendario |:heavy_check_mark:|Calendario|
 | Dashboard | Vista dashboard |:heavy_check_mark:|Calendario|
 | Dashboard | Ora inizio sul calendario |:heavy_check_mark:|Calendario|
@@ -316,6 +326,8 @@ Legenda:
 | Fatturazione | Conto anticipo fornitori | ||
 | Fatturazione | Descrizione fattura pianificata |:heavy_check_mark:|Crea fattura pianificata|
 | Fatturazione | Aggiorna info di acquisto | ||
+| Fatturazione | Sezionale per autofatture di vendita | ||
+| Fatturazione | Sezionale per autofatture di acquisto | ||
 | Fatturazione | Bloccare i prezzi inferiori al minimo di vendita | ||
 | Fatturazione | Permetti fatturazione delle attività collegate a contratti |:heavy_check_mark:|Fattura attività|
 | Fatturazione | Data emissione fattura automatica  | ||
@@ -416,3 +428,9 @@ Legenda:
 | Scadenzario | Indirizzo email mancato pagamento dopo i solleciti | ||
 | Scadenzario | Template email promemoria scadenza | ||
 | Scadenzario | Intervallo di giorni in anticipo per invio promemoria scadenza | ||
+| Tavoletta Wacom |Licenza Wacom SDK - Key|-|-|
+| Tavoletta Wacom |Sfondo firma tavoletta Wacom|-|-|
+| Tavoletta Wacom |Sfondo firma tavoletta Wacom|-|-|
+| Tavoletta Wacom |Sfondo firma tavoletta Wacom|-|-|
+| Tavoletta Wacom |Sfondo firma tavoletta Wacom|-|-|
+| Tavoletta Wacom |Sfondo firma tavoletta Wacom|-|-|
