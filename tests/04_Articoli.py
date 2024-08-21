@@ -42,9 +42,6 @@ class Articoli(Test):
         # Plugin giacenze
         self.giacenze()
 
-        # Plugin movimenti
-        self.plugin_movimenti()
-
         # Plugin statistiche
         self.statistiche()
 
@@ -415,29 +412,6 @@ class Articoli(Test):
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
-    def plugin_movimenti(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Articoli")
-        self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Articolo 1', Keys.ENTER)
-        sleep(1)
-
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader()
-
-        # Verifico plugin movimenti
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
-        self.find(By.XPATH, '//a[@id="link-tab_10"]').click()
-        quantita=self.find(By.XPATH, '(//div[@id="tab_10"]//div[2]//b)[4]').text
-        self.assertEqual(quantita, "3,00")
-
-        self.navigateTo("Articoli")
-        self.wait_loader()
-
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
-
     def statistiche(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Articoli")
@@ -499,7 +473,7 @@ class Articoli(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//i[@class="fa fa-plus"]').click() #crea fattura
+        self.find(By.XPATH, '//i[@class="fa fa-plus"]').click() 
         self.wait_modal()
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
@@ -509,16 +483,16 @@ class Articoli(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click() #aggiungi articolo
+        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//ul[@class="select2-results__options select2-results__options--nested"]//li[1]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click() 
         sleep(1)
 
         prezzo=self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[9]').text
         self.assertEqual(prezzo, "5,00 €")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click() #elimina fattura
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 

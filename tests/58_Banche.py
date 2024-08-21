@@ -168,7 +168,7 @@ class Banche(Test):
         self.navigateTo("Scadenzario")
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@id="select2-id_segment_-container"]').click()  #vado in sezionale "Scadenzario clienti"
+        self.find(By.XPATH, '//span[@id="select2-id_segment_-container"]').click()  
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Scadenzario clienti")
@@ -182,14 +182,14 @@ class Banche(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipo-di-pagamento"]//input'))).send_keys("Bonifico", Keys.ENTER) #cerca il bonifico
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono prima fattura
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apre azioni di gruppo
+        self.find(By.XPATH, '//tbody//tr//td').click() 
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//a[@data-op="change-bank"]').click() #apre aggiorna banca
+        self.find(By.XPATH, '//a[@data-op="change-bank"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-id_banca-container"]').click() #aggiorna banca in Admin spa
+        self.find(By.XPATH, '//span[@id="select2-id_banca-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Banca Admin spa")
         sleep(1)
 
@@ -198,11 +198,11 @@ class Banche(Test):
         self.wait_loader()
         sleep(1)
 
-        widget=self.find(By.XPATH, '//div[@class="toast toast-success"]//div[3]').text  #se trova il widget il test è superato
+        widget=self.find(By.XPATH, '//div[@class="toast toast-success"]//div[3]').text 
         self.assertEqual(widget, "Banca aggiornata per le Fatture 0001/2024 !")  
 
-        self.find(By.XPATH, '//tbody//tr//td').click() #tolgo checkbox
-        self.find(By.XPATH, '//span[@class="select2-selection__clear"]').click() #esco dal sezionale
+        self.find(By.XPATH, '//tbody//tr//td').click() 
+        self.find(By.XPATH, '//span[@class="select2-selection__clear"]').click() 
         self.wait_loader()
 
     def aggiorna_banca_fatture_vendita(self):
@@ -211,20 +211,20 @@ class Banche(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()  
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click() #click su aggiungi riga
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click() 
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Test")    #scrivo "Test" come descrizione della riga
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1") #scrivo 1 come prezzo unitario
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click() #click su aggiungi
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Test")   
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1")
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//button[@id="save"]').click()
@@ -233,12 +233,12 @@ class Banche(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono prima fattura
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
-        self.find(By.XPATH, '//a[@data-op="change-bank"]').click()    #click su aggiorna banca
+        self.find(By.XPATH, '//tbody//tr//td').click()
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//a[@data-op="change-bank"]').click()  
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-id_banca-container"]').click() #aggiorna banca in Admin spa
+        self.find(By.XPATH, '//span[@id="select2-id_banca-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Banca Admin spa")
         sleep(1)
 
@@ -247,9 +247,9 @@ class Banche(Test):
         self.wait_loader()
         sleep(1)
 
-        banca=self.find(By.XPATH, '(//tr[1]//td[7]//div)[2]').text  #controlla se la banca è stata aggiornata
+        banca=self.find(By.XPATH, '//tbody//tr//td[7]').text  
         self.assertEqual(banca, "Banca Admin spa - IT11C1234512345678912345679")
-        self.find(By.XPATH, '//tbody//tr//td[2]').click() #elimino fattura
+        self.find(By.XPATH, '//tbody//tr//td[2]').click() 
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@id="elimina"]').click()

@@ -20,17 +20,17 @@ class Scadenzario(Test):
 
     def test_creazione_scadenzario(self):
         # Crea una nuova scadenza. *Required*
-        #self.creazione_scadenzario("Cliente", "Scadenze generiche", "10", "Scadenza di Prova")
-        #self.creazione_scadenzario("Cliente", "Scadenze generiche", "10", "Scadenza di Prova da Eliminare")
+        self.creazione_scadenzario("Cliente", "Scadenze generiche", "10", "Scadenza di Prova")
+        self.creazione_scadenzario("Cliente", "Scadenze generiche", "10", "Scadenza di Prova da Eliminare")
 
         # Modifica scadenza
-        #self.modifica_scadenza("Scadenza di Prova")
+        self.modifica_scadenza("Scadenza di Prova")
 
         # Cancellazione scadenza
-        #self.elimina_scadenza()
+        self.elimina_scadenza()
 
         # Verifica scadenza
-        #self.verifica_scadenza()
+        self.verifica_scadenza()
 
         # Registrazione contabile (Azioni di gruppo)
         self.registrazione_contabile()
