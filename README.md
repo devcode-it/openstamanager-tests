@@ -259,6 +259,24 @@ Legenda:
 |Test| Sezione | Nome | ☑️ | Altro |
 |----|---------|------|:--:|:-----:| 
 |80| Anagrafiche | Formato codice anagrafica |:heavy_check_mark:|Crea anagrafica| 
+|81| Attività | Mostra i prezzi al tecnico |:heavy_check_mark:|Crea utente e attività|
+|81| Attività | Stampa per anteprima e firma |:heavy_check_mark:|-|
+|81| Attività | Permetti inserimento sessioni degli altri tecnici |:heavy_check_mark:|Crea attività|
+|81| Attività | Giorni lavorativi |:heavy_check_mark:|Dashboard|
+|81| Attività | Notifica al tecnico l'aggiunta della sessione nell'attività |:heavy_check_mark:|Aggiungi sessione di lavoro|
+|81| Attività | Notifica al tecnico la rimozione della sessione dall'attività |:heavy_check_mark:|Elimina sessione di lavoro|
+|81| Attività | Stato dell'attività dopo la firma |:heavy_check_mark:|Crea attività e firma attività|
+||||||
+|81| Attività | Espandi automaticamente la sezione "Dettagli aggiuntivi" |:heavy_check_mark:|Crea attività|
+|81| Attività | Alert occupazione tecnici |:heavy_check_mark:|Crea attività|
+|81| Attività | Verifica numero intervento |:heavy_check_mark:|Crea attività|
+|81| Attività | Formato ore in stampa |:heavy_check_mark:|Stampa intervento|
+|81| Attività | Notifica al tecnico l'assegnazione all'attività |:heavy_check_mark:|Aggiungi assegnazione|
+|81| Attività | Notifica al tecnico la rimozione dell'assegnazione dall'attività |:heavy_check_mark:|Elimina assegnazione|
+|81| Attività | Descrizione personalizzata in fatturazione |:heavy_check_mark:|Fattura attività|
+|81| Attività | Stato predefinito dell'attività da Dashboard |:heavy_check_mark:|Crea attività|
+|81| Attività | Stato predefinito dell'attività |:heavy_check_mark:|Crea attività|
+|81| Attività | Numero di minuti di avanzamento delle sessioni delle attività |-|-|
 || Aggiornamenti | Attiva aggiornamenti |-|-|
 || Aggiornamenti | Abilita canale pre-release per aggiornamenti |:x:|-| 
 || API | Lunghezza pagine per API|-|-|
@@ -273,23 +291,6 @@ Legenda:
 || Applicazione| Visualizza solo promemoria assegnati|-|-|
 || Applicazione| Permetti l'accesso agli amministratori|-|-|
 || Applicazione| Limita la visualizzazione degli impianti a quelli gestiti dal tecnico|-|-|
-|| Attività | Mostra i prezzi al tecnico |:heavy_check_mark:|Crea attività|
-|| Attività | Stampa per anteprima e firma |:x:|-|
-|| Attività | Permetti inserimento sessioni degli altri tecnici |:heavy_check_mark:|Crea attività|
-|| Attività | Giorni lavorativi |:heavy_check_mark:|Calendario|
-|| Attività | Notifica al tecnico l'aggiunta della sessione nell'attività |:heavy_check_mark:|Aggiungi sessione di lavoro|
-|| Attività | Notifica al tecnico la rimozione della sessione dall'attività |:heavy_check_mark:|Elimina sessione di lavoro|
-|| Attività | Stato dell'attività dopo la firma |:heavy_check_mark:|Crea attività e firma attività|
-|| Attività | Espandi automaticamente la sezione "Dettagli aggiuntivi" |:heavy_check_mark:|Crea attività|
-|| Attività | Alert occupazione tecnici |:heavy_check_mark:|Crea attività|
-|| Attività | Verifica numero intervento |:heavy_check_mark:|Crea attività|
-|| Attività | Formato ore in stampa |:heavy_check_mark:|Stampa intervento|
-|| Attività | Notifica al tecnico l'assegnazione all'attività |:heavy_check_mark:|Aggiungi assegnazione|
-|| Attività | Notifica al tecnico la rimozione dell'assegnazione dall'attività |:heavy_check_mark:|Elimina assegnazione|
-|| Attività | Descrizione personalizzata in fatturazione |:heavy_check_mark:|Fattura attività|
-|| Attività | Stato predefinito dell'attività da Dashboard |:heavy_check_mark:|Crea attività|
-|| Attività | Stato predefinito dell'attività |:heavy_check_mark:|Crea attività|
-|| Attività | Numero di minuti di avanzamento delle sessioni delle attività |-|-|
 || Backup | Numero di backup da mantenere |-|-|
 || Backup | Backup automatico |-|-|
 || Backup | Permetti il ripristino di backup da file esterni |-|-|

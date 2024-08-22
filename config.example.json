@@ -16,7 +16,9 @@
     "tests": {
         "email_user": "",
         "email_password" : "",
-        "email_receiver": ""
+        "email_receiver": "",
+        "tecnico_user": "",
+        "tecnico_password": ""
     }
 
 }
