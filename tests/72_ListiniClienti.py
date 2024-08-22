@@ -134,7 +134,7 @@ class Listini(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="aggiorna-listino"]'))).click()    
         self.find(By.XPATH, '//span[@id="select2-id_listino-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Listino cliente di Prova", Keys.ENTER)  
@@ -165,7 +165,7 @@ class Listini(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="add-listino"]').click() 
         sleep(1)
 

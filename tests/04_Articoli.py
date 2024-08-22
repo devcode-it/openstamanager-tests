@@ -559,7 +559,7 @@ class Articoli(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()
         self.find(By.XPATH, '//a[@data-op="change-acquisto"]').click()
         sleep(1)
 
@@ -581,7 +581,7 @@ class Articoli(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()
         self.find(By.XPATH, '//a[@data-op="change-vendita"]').click() 
         sleep(1)
 
@@ -610,7 +610,7 @@ class Articoli(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()  
         self.find(By.XPATH, '//a[@data-op="change-coefficiente"]').click() 
         sleep(1)
 
@@ -632,7 +632,7 @@ class Articoli(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()
         self.find(By.XPATH, '//a[@data-op="change-qta"]').click() 
         sleep(1)
 
@@ -655,7 +655,7 @@ class Articoli(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="crea-preventivo"]').click() 
         sleep(1)
 
@@ -691,7 +691,7 @@ class Articoli(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()
         self.find(By.XPATH, '//a[@data-op="change-iva"]').click() 
         sleep(1)
 
@@ -723,7 +723,7 @@ class Articoli(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="change-um"]').click() 
         sleep(1)
 
@@ -758,7 +758,7 @@ class Articoli(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="change-conto-acquisto"]').click() 
         sleep(1)
 
@@ -794,7 +794,7 @@ class Articoli(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="change-conto-vendita"]').click()
         sleep(1)
 
@@ -830,7 +830,7 @@ class Articoli(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="set-provvigione"]').click() 
         sleep(1)
 
@@ -884,7 +884,7 @@ class Articoli(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="change_prezzo"]').click()
         sleep(1)
 
@@ -921,7 +921,7 @@ class Articoli(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="copy_listino"]').click()
         sleep(1)
 
@@ -1019,7 +1019,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//tbody//tr//td').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="set-acquisto-ifzero"]').click()
         sleep(1)
 
@@ -1054,7 +1054,7 @@ class Articoli(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr/td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="stampa-etichette"]').click() 
         sleep(1)
 
@@ -1083,7 +1083,7 @@ class Articoli(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click() 
         sleep(1)
 

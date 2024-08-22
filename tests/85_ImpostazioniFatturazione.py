@@ -1592,7 +1592,7 @@ class Impostazioni(Test):
         self.wait_loader()
         
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() #apro azioni di gruppo
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="crea_fattura"]'))).click()    #click su crea fattura
         sleep(1)
 
@@ -1680,7 +1680,7 @@ class Impostazioni(Test):
         self.wait_loader()
         
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() #apro azioni di gruppo
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="crea_fattura"]'))).click()    #click su crea fattura
         sleep(1)
 
@@ -1801,7 +1801,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click() #seleziono attività 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() #apro azioni di gruppo
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="crea_fattura"]'))).click()    #click su crea fattura
         sleep(1)
 
@@ -1920,7 +1920,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() #apro azioni di gruppo
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="crea_fattura"]'))).click()    #click su crea fattura
         sleep(1)
 

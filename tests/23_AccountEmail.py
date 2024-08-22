@@ -147,7 +147,7 @@ class AccountEmail(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//a[@data-op="send-mail"]').click()

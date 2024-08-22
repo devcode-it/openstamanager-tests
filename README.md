@@ -266,7 +266,6 @@ Legenda:
 |81| Attività | Notifica al tecnico l'aggiunta della sessione nell'attività |:heavy_check_mark:|Aggiungi sessione di lavoro|
 |81| Attività | Notifica al tecnico la rimozione della sessione dall'attività |:heavy_check_mark:|Elimina sessione di lavoro|
 |81| Attività | Stato dell'attività dopo la firma |:heavy_check_mark:|Crea attività e firma attività|
-||||||
 |81| Attività | Espandi automaticamente la sezione "Dettagli aggiuntivi" |:heavy_check_mark:|Crea attività|
 |81| Attività | Alert occupazione tecnici |:heavy_check_mark:|Crea attività|
 |81| Attività | Verifica numero intervento |:heavy_check_mark:|Crea attività|
@@ -276,7 +275,8 @@ Legenda:
 |81| Attività | Descrizione personalizzata in fatturazione |:heavy_check_mark:|Fattura attività|
 |81| Attività | Stato predefinito dell'attività da Dashboard |:heavy_check_mark:|Crea attività|
 |81| Attività | Stato predefinito dell'attività |:heavy_check_mark:|Crea attività|
-|81| Attività | Numero di minuti di avanzamento delle sessioni delle attività |-|-|
+|81| Attività | Numero di minuti di avanzamento delle sessioni delle attività |:x:|:x:|
+||||||
 || Aggiornamenti | Attiva aggiornamenti |-|-|
 || Aggiornamenti | Abilita canale pre-release per aggiornamenti |:x:|-| 
 || API | Lunghezza pagine per API|-|-|

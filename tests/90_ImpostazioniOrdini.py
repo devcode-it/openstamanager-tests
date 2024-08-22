@@ -68,7 +68,7 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click()  #seleziono l'ordine
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #click su azioni di gruppo
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() #click su azioni di gruppo
         self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click() #click su fattura ordini clienti
         sleep(1)
 

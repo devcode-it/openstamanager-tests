@@ -473,7 +473,7 @@ class Preventivi(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click()   
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click() 
         sleep(1)
 
@@ -488,7 +488,7 @@ class Preventivi(Test):
         stato=self.find(By.XPATH, '//tbody//tr//td[5]').text
         self.assertEqual(stato,"Bozza") 
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click() 
         sleep(1)
 
@@ -512,7 +512,7 @@ class Preventivi(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td[1]').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click() 
         sleep(1)
 

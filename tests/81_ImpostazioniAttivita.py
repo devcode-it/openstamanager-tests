@@ -36,31 +36,31 @@ class Impostazioni(Test):
         self.stato_attivita_firma()
 
         # Test impostazione Espandi automaticamente la sezione “Dettagli aggiuntivi”
-        #self.espandi_barra_dettagli_aggiuntivi()
+        self.espandi_barra_dettagli_aggiuntivi()
 
         # Test impostazione Alert occupazione tecnici
-        #self.alert_occupazione_tecnici()
+        self.alert_occupazione_tecnici()
 
         # Test impostazione Verifica numero intervento
-        #self.verifica_numero_intervento()
+        self.verifica_numero_intervento()
 
         # Test impostazione Formato ore in stampa
-        #self.formato_ore_stampa()
+        self.formato_ore_stampa()
 
         # Test impostazione Notifica al tecnico l'assegnazione all'attività
-        #self.notifica_tecnico_assegnazione()
+        self.notifica_tecnico_assegnazione()
 
         # Test impostazione Notifica al tecnico la rimozione dell'assegnazione dall'attività
-        #self.notifica_tecnico_rimozione_assegnazione()
+        self.notifica_tecnico_rimozione_assegnazione()
 
         # Test impostazione Descrizione personalizzata in fatturazione
-        #self.descrizione_attivita()
+        self.descrizione_attivita()
 
         # Test impostazione Stato predefinito dell'attività da Dashboard
-        #self.stato_predefinito_attivita_dashboard()
+        self.stato_predefinito_attivita_dashboard()
 
         # Test impostazione Stato predefinito dell'attività
-        #self.stato_predefinito_attivita()
+        self.stato_predefinito_attivita()
 
 
     def mostra_prezzi_tecnico(self):
@@ -372,7 +372,7 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//div[@title="Attività"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Giorni lavorativi")]//span').click() 
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Giorni lavorativi")]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//li[contains(., "Venerdì")]').click()
@@ -744,31 +744,30 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() #apro Attività
+        self.find(By.XPATH, '//div[@title="Attività"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[5]').click() #attivo impostazione espandi automaticamente Dettagli aggiuntivi
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Espandi automaticamente la sezione")]//div//label').click() 
         sleep(1)
 
         self.navigateTo("Attività")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_scadenza"]')))    #controllo se gli elementi della barra sono visibili
-        self.find(By.XPATH, '//button[@class="close"]').click() #chiudo
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_scadenza"]')))
+        self.find(By.XPATH, '//button[@class="close"]').click()
         sleep(1)
 
-        #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() #apro Attività
+        self.find(By.XPATH, '//div[@title="Attività"]').click()
         sleep(1)
         
-        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[5]').click() #disattivo impostazione espandi automaticamente Dettagli aggiuntivi
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Espandi automaticamente la sezione")]//div//label').click() 
         sleep(1)
 
     def alert_occupazione_tecnici(self):
@@ -776,103 +775,115 @@ class Impostazioni(Test):
         self.navigateTo("Attività")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #creo nuova attività
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
-        #cliente
+
         self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Cliente')
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #tipo
+
         self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Generico')
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #richiesta
+
         self.find(By.XPATH, '//div[@id="cke_1_contents"]//iframe').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="cke_1_contents"]//iframe'))).send_keys('test')
-        #cambio lo stato in "Programmato"
+
         self.find(By.XPATH, '//span[@id="select2-id-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Programmato')
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #sessione di lavoro
-        self.find(By.XPATH, '(//button[@class="btn btn-tool"])[5]').click() #apro sessione di lavoro
+
+        self.find(By.XPATH, '(//button[@class="btn btn-tool"])[5]').click()
         sleep(1)
 
-        #orario inizio
         orario_inizio=self.find(By.XPATH, '//input[@id="orario_inizio"]')
         orario_inizio.clear()
-        orario_inizio.send_keys("31/12/2024 09:00")     #data di inizio 31/12/2024 09:00
-        #orario fine
+        orario_inizio.send_keys("31/12/2024 09:00")    
+
         orario_fine=self.find(By.XPATH, '//input[@id="orario_fine"]')
         orario_fine.clear()
-        orario_fine.send_keys("31/12/2024 10:00")     #data di fine 31/12/2024 10:00
-        #tencico assegnato
+        orario_fine.send_keys("31/12/2024 10:00")    
+
         self.find(By.XPATH, '(//div[@class="card-body"]//span[@class="select2-selection select2-selection--multiple"])[2]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-idtecnico-results"]//li[2]').click() #assegno il tecnico "Tecnico"
+        self.find(By.XPATH, '//ul[@id="select2-idtecnico-results"]//li[2]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su Aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
         self.navigateTo("Attività")
         self.wait_loader()
-        #faccio un'altra attività uguale
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #creo nuova attività
+
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
-        #cliente
+
         self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Cliente')
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #tipo
+
         self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Generico')
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #richiesta
+
         self.find(By.XPATH, '//div[@id="cke_1_contents"]//iframe').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="cke_1_contents"]//iframe'))).send_keys('prova')
-        #cambio lo stato in "Programmato"
+
         self.find(By.XPATH, '//span[@id="select2-id-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Programmato')
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #sessione di lavoro
-        self.find(By.XPATH, '(//button[@class="btn btn-tool"])[5]').click() #apro sessione di lavoro
+
+        self.find(By.XPATH, '(//button[@class="btn btn-tool"])[5]').click() 
         sleep(1)
 
-        #orario inizio
         orario_inizio=self.find(By.XPATH, '//input[@id="orario_inizio"]')
         orario_inizio.clear()
-        orario_inizio.send_keys("31/12/2024 09:00")     #data di inizio 31/12/2024 09:00
-        #orario fine
+        orario_inizio.send_keys("31/12/2024 09:00")    
+
         orario_fine=self.find(By.XPATH, '//input[@id="orario_fine"]')
         orario_fine.clear()
-        orario_fine.send_keys("31/12/2024 10:00")     #data di fine 31/12/2024 10:00
-        self.find(By.XPATH, '(//div[@class="card-body"]//span[@class="select2-selection select2-selection--multiple"])[2]').click() #tencico assegnato
+        orario_fine.send_keys("31/12/2024 10:00")    
+        self.find(By.XPATH, '(//div[@class="card-body"]//span[@class="select2-selection select2-selection--multiple"])[2]').click() 
         sleep(1)
-        #assegno il tecnico "Tecnico"
+
         self.find(By.XPATH, '//ul[@id="select2-idtecnico-results"]//li[2]').click()
         sleep(1)
-        #controllo se appare l'alert
+
         scritta=self.find(By.XPATH, '//div[@class="card-header"]//h3').text
         self.assertEqual(scritta, "⚠️ Sono presenti dei conflitti con le sessioni di lavoro di alcuni tecnici")
-        self.find(By.XPATH, '//button[@class="close"]').click() #esco
+        self.find(By.XPATH, '//button[@class="close"]').click() 
         sleep(1)
-        #elimino prima attività
+
+        self.expandSidebar("Strumenti")   
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Alert occupazione tecnici")]//div//label').click() 
+        sleep(1)
+
+        self.navigateTo("Attività")
+        self.wait_loader()
+
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '/div[@class="card-header"]//h3')))
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
         sleep(1)
 
@@ -880,79 +891,98 @@ class Impostazioni(Test):
         self.wait_loader() 
         sleep(1)
 
+        self.expandSidebar("Strumenti")   
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Alert occupazione tecnici")]//div//label').click() 
+        sleep(1)
+
     def verifica_numero_intervento(self):
         wait = WebDriverWait(self.driver, 20)  
         self.navigateTo("Attività")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #creo nuova attività
-        sleep(1)
-        #cliente
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Cliente')
-        sleep(1)
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #tipo
-        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Generico')
-        sleep(1)
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #richiesta
-        self.find(By.XPATH, '//div[@id="cke_1_contents"]//iframe').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="cke_1_contents"]//iframe'))).send_keys('test')
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su Aggiungi
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        codice=self.find(By.XPATH, '//input[@id="codice"]') #cambio codice
-        codice.clear()
-        codice.send_keys("9")
-        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning alert-dismissable"]')))
+
+        self.expandSidebar("Strumenti")   
+        self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning alert-dismissable"]'))) #check se appare l'alert
-        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click() #elimino attività
+        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Verifica numero intervento")]//div//label').click() 
+        sleep(1)
+
+        self.navigateTo("Attività")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
+        self.wait_loader()
+
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning alert-dismissable"]')))
+
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader() 
+
+        self.expandSidebar("Strumenti")   
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Verifica numero intervento")]//div//label').click() 
+        sleep(1)
 
     def formato_ore_stampa(self):
         wait = WebDriverWait(self.driver, 20)  
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() #apro Attività
+        self.find(By.XPATH, '//div[@title="Attività"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting142-container"]').click()   #seleziono formato in sessantesimi
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Formato ore in stampa")]//div//span').click()
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-setting142-results"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Sessantesimi")
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
         sleep(1)
 
         self.navigateTo("Attività")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #creo nuova attività
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
-        #cliente
+
         self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Cliente')
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #tipo
+
         self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Generico')
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #richiesta
+
         self.find(By.XPATH, '//div[@id="cke_1_contents"]//iframe').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="cke_1_contents"]//iframe'))).send_keys('test')
-        #sessioni di lavoro
+
         self.find(By.XPATH, '(//button[@class="btn btn-tool"])[5]').click()
         sleep(1)
 
@@ -962,69 +992,88 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//ul[@id="select2-idtecnico-results"]//li[1]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su Aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()  
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@id="print-button_p"]').click()    #stampa intervento
+        self.find(By.XPATH, '//a[@id="print-button_p"]').click()  
         sleep(1)
 
-        self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
         sleep(1)
 
-        ore=self.find(By.XPATH, '//span[@style="left: 17.35%; top: 40.11%; font-size: calc(var(--scale-factor)*9.00px); font-family: sans-serif; transform: scaleX(0.996142);"]').text
+        ore=self.find(By.XPATH, '//div[@id="viewer"]//span[57]').text
         self.assertEqual(ore, "1:00")
-        self.driver.close() #chiude scheda
-        self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
+        self.driver.close() 
+        self.driver.switch_to.window(self.driver.window_handles[0]) 
         sleep(1)
 
-        #elimina attività
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Formato ore in stampa")]//div//span').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Decimale")
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
+        sleep(1)
+
+        self.navigateTo("Attività")
+        self.wait_loader()
+
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
+        self.wait_loader()
+
+        self.find(By.XPATH, '//a[@id="print-button_p"]').click()  
+        sleep(1)
+
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
+        sleep(1)
+
+        ore=self.find(By.XPATH, '//div[@id="viewer"]//span[57]').text
+        self.assertEqual(ore, "1,00")
+        self.driver.close() 
+        self.driver.switch_to.window(self.driver.window_handles[0]) 
+        sleep(1)
+
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
-        #torno alle impostazioni di prima
-        self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
-
-        self.find(By.XPATH, '//div[@title="Attività"]').click() #apro Attività
-        sleep(1)
-
-        self.find(By.XPATH, '//span[@id="select2-setting142-container"]').click()   #seleziono formato in decimi
-        sleep(1)
-
-        self.find(By.XPATH, '//ul[@id="select2-setting142-results"]').click()
-        sleep(1)
 
     def notifica_tecnico_assegnazione(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Attività")
         self.wait_loader()
  
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #creo nuova attività
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
-        #cliente
+
         self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Cliente')
         sleep(1)
  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #tipo
+
         self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Generico')
         sleep(1)
  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #richiesta
+
         self.find(By.XPATH, '//div[@id="cke_1_contents"]//iframe').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="cke_1_contents"]//iframe'))).send_keys('test')
-        #stato
+
         self.find(By.XPATH, '//span[@id="select2-id-container"]').click()
         sleep(1)
  
-        self.find(By.XPATH, '//ul[@id="select2-id-results"]//li[4]').click()    #stato programmato
-        #assegnazione
+        self.find(By.XPATH, '//ul[@id="select2-id-results"]//li[4]').click() 
         self.find(By.XPATH, '(//button[@class="btn btn-tool"])[4]').click()
         sleep(1)
 
@@ -1032,79 +1081,60 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-tecnici_assegnati-results"]//li[2]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()  
         self.wait_loader()
 
-        wait.until(EC.invisibility_of_element_located((By.XPATH, '(//div[@class="toast-message"])[2]')))#check se arriva la notifica di invio della mail
-        #elimino attività
-        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '(//div[@class="toast-message"])[2]')))
 
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() #apro Attività
+        self.find(By.XPATH, '//div[@title="Attività"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[8]').click()    #attiva impostazione
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico l\'assegnazione all\'attività")]//div//label').click() 
         sleep(1)
 
         self.navigateTo("Attività")
         self.wait_loader()
  
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #creo nuova attività
-        sleep(1)
-        #cliente
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Cliente')
-        sleep(1)
- 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #tipo
-        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Generico')
-        sleep(1)
- 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #richiesta
-        self.find(By.XPATH, '//div[@id="cke_1_contents"]//iframe').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="cke_1_contents"]//iframe'))).send_keys('test')
-        #stato
-        self.find(By.XPATH, '//span[@id="select2-id-container"]').click()
-        sleep(1)
- 
-        self.find(By.XPATH, '//ul[@id="select2-id-results"]//li[4]').click()    #stato programmato
-        #assegnazione
-        self.find(By.XPATH, '(//button[@class="btn btn-tool"])[4]').click()
+        self.find(By.XPATH,'//tbody//tr//td[2]').click() 
+        self.wait_loader()
+        
+        self.find(By.XPATH, '//span[@class="selection"]//ul//li//span').click()
         sleep(1)
 
-        self.find(By.XPATH, '(//span[@class="select2-selection select2-selection--multiple"])[3]').click()
-        sleep(1)
-
-        self.find(By.XPATH, '//ul[@id="select2-tecnici_assegnati-results"]//li[2]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-success"]').click()   
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="toast-message"])[2]')))#check se arriva la notifica di invio della mail
-        #elimino attività
+        self.find(By.XPATH, '//input[@class="select2-search__field"]').click()
+        sleep(1)
+        
+        tecnico = self.find(By.XPATH, '//input[@class="select2-search__field"]')
+        tecnico.send_keys('Tecnico')
+        sleep(1)
+        tecnico.send_keys(Keys.ENTER)
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="btn btn-success"]').click()   
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="toast-message"])[2]')))
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
-        #torno alle impostazioni di prima
+
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
  
-        self.find(By.XPATH, '//div[@title="Attività"]').click() #apro Attività
+        self.find(By.XPATH, '//div[@title="Attività"]').click()
         sleep(1)
-
-        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[8]').click()    #disattiva impostazione
+        
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico l\'assegnazione all\'attività")]//div//label').click() 
         sleep(1)
 
     def notifica_tecnico_rimozione_assegnazione(self):
@@ -1112,29 +1142,28 @@ class Impostazioni(Test):
         self.navigateTo("Attività")
         self.wait_loader()
  
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #creo nuova attività
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
-        #cliente
+
         self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Cliente')
         sleep(1)
  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #tipo
+
         self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Generico')
         sleep(1)
  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #richiesta
+
         self.find(By.XPATH, '//div[@id="cke_1_contents"]//iframe').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="cke_1_contents"]//iframe'))).send_keys('test')
-        #stato
+
         self.find(By.XPATH, '//span[@id="select2-id-container"]').click()
         sleep(1)
  
-        self.find(By.XPATH, '//ul[@id="select2-id-results"]//li[4]').click()    #stato programmato
-        #assegnazione
+        self.find(By.XPATH, '//ul[@id="select2-id-results"]//li[4]').click()  
         self.find(By.XPATH, '(//button[@class="btn btn-tool"])[4]').click()
         sleep(1)
 
@@ -1142,26 +1171,50 @@ class Impostazioni(Test):
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-tecnici_assegnati-results"]//li[2]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@class="select2-selection__choice__remove"]').click() #rimuovi assegnazione
-        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.find(By.XPATH, '//span[@class="select2-selection__choice__remove"]').click() 
+        self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
 
-        self.expandSidebar("Gestione email")
-        self.navigateTo("Coda di invio")
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '(//div[@class="toast-message"])[2]')))
+
+        self.expandSidebar("Strumenti")
+        self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        messaggio=self.find(By.XPATH, '//tbody//tr[1]//td').text    #check se non è stata inviata la mail
-        self.assertEqual(messaggio, "Nessun dato presente nella tabella")
+        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico la rimozione dell\'assegnazione dall\'attività")]//div//label').click() 
+        sleep(1)
+
         self.navigateTo("Attività")
         self.wait_loader()
-
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click() #apro attività
+ 
+        self.find(By.XPATH,'//tbody//tr//td[2]').click() 
+        self.wait_loader()
+        
+        self.find(By.XPATH, '//input[@class="select2-search__field"]').click()
+        sleep(1)
+        
+        tecnico = self.find(By.XPATH, '//input[@class="select2-search__field"]')
+        tecnico.send_keys('Tecnico')
+        sleep(1)
+        tecnico.send_keys(Keys.ENTER)
+        sleep(1)
+        
+        self.find(By.XPATH, '//button[@class="btn btn-success"]').click()   
         self.wait_loader()
 
-        #elimino attività
+        self.find(By.XPATH, '//span[@class="selection"]//ul//li//span').click()
+        sleep(1)
+
+        self.find(By.XPATH, '//button[@class="btn btn-success"]').click()   
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="toast-message"])[2]')))
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
         sleep(1)
 
@@ -1172,198 +1225,120 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() #apro Attività
+        self.find(By.XPATH, '//div[@title="Attività"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[9]').click()    #attiva impostazione
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico la rimozione dell\'assegnazione dall\'attività")]//div//label').click() 
         sleep(1)
-
-        self.navigateTo("Attività")
-        self.wait_loader()
- 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #creo nuova attività
-        sleep(1)
-        #cliente
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Cliente')
-        sleep(1)
- 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #tipo
-        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Generico')
-        sleep(1)
- 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #richiesta
-        self.find(By.XPATH, '//div[@id="cke_1_contents"]//iframe').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="cke_1_contents"]//iframe'))).send_keys('test')
-        #stato
-        self.find(By.XPATH, '//span[@id="select2-id-container"]').click()
-        sleep(1)
- 
-        self.find(By.XPATH, '//ul[@id="select2-id-results"]//li[4]').click()    #stato programmato
-        #assegnazione
-        self.find(By.XPATH, '(//button[@class="btn btn-tool"])[4]').click()
-        sleep(1)
-
-        self.find(By.XPATH, '(//span[@class="select2-selection select2-selection--multiple"])[3]').click()
-        sleep(1)
-
-        self.find(By.XPATH, '//ul[@id="select2-tecnici_assegnati-results"]//li[2]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
-        self.wait_loader()
-
-        self.find(By.XPATH, '//span[@class="select2-selection__choice__remove"]').click() #rimuovi assegnazione
-        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
-        self.wait_loader()
-
-        self.expandSidebar("Gestione email")
-        self.navigateTo("Coda di invio")
-        self.wait_loader()
-
-        messaggio=self.find(By.XPATH, '//tbody//tr[1]//td[5]//div').text    #controllo se è presente la mail in coda di invio
-        self.assertEqual(messaggio, "Notifica rimozione intervento")
-        self.navigateTo("Attività")
-        self.wait_loader()
-
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click() #apro attività
-        self.wait_loader()
-
-        #elimino attività
-        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-        #torno alle impostazioni di prima
-        self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
-
-        self.find(By.XPATH, '//div[@title="Attività"]').click() #apro Attività
-        sleep(1)
-
-        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[9]').click()    #disattiva impostazione
-        sleep(1)
-
 
     def descrizione_attivita(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() #apro Attività
+        self.find(By.XPATH, '//div[@title="Attività"]').click() 
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="setting155"]'))).send_keys('Attività num. {numero} in stato {stato}')
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Descrizione personalizzata in fatturazione")]//textarea').send_keys('Test')
         sleep(1)
-
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
 
         self.navigateTo("Attività")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()  #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-dropdown select2-dropdown--below"]//input'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click() #seleziono Generico come tipo di intervento
+        self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Generico")
         sleep(1)
 
-        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()  #click sul primo risultato
+        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).send_keys("Test")   #scrivo "Test" come richiesta
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su Aggiungi
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).send_keys("Test")   
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()  
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #click su aggiungi riga
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()  
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Test") #scrivo "Test" come descrizione riga
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1") #scrivo 1 come prezzo unitario
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Test") 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1") 
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()  
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idstatointervento-container"]').click()    #click su stato
+        self.find(By.XPATH, '//span[@id="select2-idstatointervento-container"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '(//input[@class="select2-search__field"])[3]').send_keys("Completato", Keys.ENTER) #seleziono Completato come nuovo stato
+        self.find(By.XPATH, '(//input[@class="select2-search__field"])[3]').send_keys("Completato", Keys.ENTER) 
         sleep(1)
 
-        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
+        self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@id="back"]').click() #torno in attività
+        self.find(By.XPATH, '//a[@id="back"]').click() 
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("4", Keys.ENTER)  #cerco attività numero 4
-        sleep(1)
-
-        self.find(By.XPATH, '//tbody//tr//td').click() #seleziono attività 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() #apro azioni di gruppo
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="crea_fattura"]'))).click()    #click su crea fattura
+        self.find(By.XPATH, '//tbody//tr//td').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="crea_fattura"]'))).click() 
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")    #seleziono cliente
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")    
         self.find(By.XPATH, '//ul[@id="select2-raggruppamento-results"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  
         self.wait_loader()
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")  
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()   #click sulla prima fattura
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()  
         self.wait_loader()
 
-        descrizione=self.find(By.XPATH, '(//tbody//tr[1]//td[3])[1]').text  #controlla se appare la descrizione personalizzata
-        self.assertEqual(descrizione[8:43], "Attività num. 4 in stato Completato")
-        #elimina fattura
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click() #elimina fattura
+        descrizione=self.find(By.XPATH, '(//tbody//tr[1]//td[3])[1]').text  
+        self.assertEqual(descrizione[8:43], "Test")
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
         self.navigateTo("Attività")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click() #apro attività
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click() #elimino attività
+        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
-        #torno alle impostazioni di prima
+
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() #apro Attività
+        self.find(By.XPATH, '//div[@title="Attività"]').click() 
         sleep(1)
 
-        testo=self.find(By.XPATH, '//textarea[@id="setting155"]')
-        testo.clear()
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Descrizione personalizzata in fatturazione")]//textarea').clear()
         sleep(1)
-
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
         
     def stato_predefinito_attivita_dashboard(self):
         wait = WebDriverWait(self.driver, 20)  
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() #apro Attività
+        self.find(By.XPATH, '//div[@title="Attività"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting170-container"]').click()   #cambio lo stato predefinito a completato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Completato')
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Stato predefinito dell\'attività da Dashboard")]//div//span').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Stato di Attività di Prova")
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
@@ -1372,28 +1347,31 @@ class Impostazioni(Test):
         self.navigateTo("Dashboard")
         self.wait_loader()
 
-        self.find(By.XPATH, '(//td[@class="fc-timegrid-slot fc-timegrid-slot-lane fc-timegrid-slot-minor"])[41]').click()   #click in calendario
+        actions = webdriver.common.action_chains.ActionChains(self.driver)
+        actions.move_to_element(self.driver.find_element(By.XPATH,'//div[@id="calendar"]')).move_by_offset(300,100).click().perform()
+        modal = self.wait_modal()
+
         self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Cliente')
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #tipo
+
         self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Generico')
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #richiesta
+
         self.find(By.XPATH, '//div[@id="cke_1_contents"]//iframe').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="cke_1_contents"]//iframe'))).send_keys('test')
-        #aggiunta tecnico
+
         self.find(By.XPATH, '(//ul[@class="select2-selection__rendered"])[4]').click()
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-idtecnico-results"]//li[2]'))) #controlla se appare tra le opzioni di scelta il tecnico
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-idtecnico-results"]//li[2]'))) 
         self.find(By.XPATH, '//ul[@id="select2-idtecnico-results"]//li[2]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su Aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
         sleep(1)
 
@@ -1401,8 +1379,8 @@ class Impostazioni(Test):
         self.wait_loader()
 
         stato=self.find(By.XPATH, '(//tr[1]//td[7])[2]').text
-        self.assertEqual(stato, "Completato")
-        #elimino attività
+        self.assertEqual(stato, "Stato di Attività di Prova")
+
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
@@ -1412,16 +1390,16 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader() 
 
-        #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() #apro Attività
+        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        sleep(1)
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Stato predefinito dell\'attività da Dashboard")]//div//span').click()
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting170-container"]').click()   #cambio lo stato predefinito a Programmato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Programmato')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Programmato")
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
@@ -1432,11 +1410,13 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() #apro Attività
+        self.find(By.XPATH, '//div[@title="Attività"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting171-container"]').click()   #cambio lo stato predefinito a completato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Completato')
+        self.find(By.XPATH, '(//div[@class="form-group" and contains(., "Stato predefinito dell\'attività")]//div//span)[8]').click()
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Stato di Attività di Prova")
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
@@ -1445,32 +1425,32 @@ class Impostazioni(Test):
         self.navigateTo("Attività")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #creo nuova attività
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
-        #cliente
+
         self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Cliente')
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #tipo
+
         self.find(By.XPATH, '//span[@id="select2-idtipointervento-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Generico')
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-        #richiesta
+
         self.find(By.XPATH, '//div[@id="cke_1_contents"]//iframe').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="cke_1_contents"]//iframe'))).send_keys('test')
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su Aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
         self.navigateTo("Attività")
         self.wait_loader()
 
         stato=self.find(By.XPATH, '(//tr[1]//td[7])[2]').text
-        self.assertEqual(stato, "Completato")
-        #elimino attività
+        self.assertEqual(stato, "Stato di Attività di Prova")
+
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
@@ -1480,15 +1460,14 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader() 
 
-        #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() #apro Attività
+        self.find(By.XPATH, '//div[@title="Attività"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting171-container"]').click()   #cambio lo stato predefinito a Da Programmare
+        self.find(By.XPATH, '//span[@id="select2-setting171-container"]').click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys('Da programmare')
         sleep(1)
 

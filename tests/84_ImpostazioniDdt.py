@@ -40,7 +40,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo ddt
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()  #apro azioni di gruppo
         self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click()   #click su fattura ddt
         sleep(1)
 
@@ -103,7 +103,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr[1]//td[1]').click()    #seleziono primo ddt
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  #apro azioni di gruppo
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()  #apro azioni di gruppo
         self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click()   #click su fattura ddt
         sleep(1)
 

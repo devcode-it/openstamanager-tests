@@ -162,7 +162,7 @@ class DdtEntrata(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td').click()  
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()  
         self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click() 
         sleep(1)
 
@@ -183,7 +183,7 @@ class DdtEntrata(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click()   
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()
         self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click()  
         self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()   
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")  
@@ -213,7 +213,7 @@ class DdtEntrata(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td').click()   
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()  
         self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()  
         sleep(1)
 

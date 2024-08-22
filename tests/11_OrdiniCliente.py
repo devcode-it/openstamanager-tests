@@ -168,7 +168,7 @@ class OrdiniCliente(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click() 
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))).click() 
@@ -192,7 +192,7 @@ class OrdiniCliente(Test):
 
         self.find(By.XPATH, '//tbody//tr//td').click()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click() 
         sleep(1)
 

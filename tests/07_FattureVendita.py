@@ -645,7 +645,7 @@ class FattureVendita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()  
         self.find(By.XPATH, '//a[@data-op="copy-bulk"]').click()   
         sleep(1)
         
@@ -660,7 +660,7 @@ class FattureVendita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="cambia-sezionale"]').click() 
         sleep(1)
 
@@ -679,7 +679,7 @@ class FattureVendita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="cambia-sezionale"]').click() 
         sleep(1)
 
@@ -705,7 +705,7 @@ class FattureVendita(Test):
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()
         self.find(By.XPATH, '//a[@data-op="change-stato"]').click() 
         sleep(1)
 
@@ -736,7 +736,7 @@ class FattureVendita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()  
         self.find(By.XPATH, '//a[@data-op="check-bulk"]').click()  
         sleep(1)
 
@@ -758,7 +758,7 @@ class FattureVendita(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()
         self.find(By.XPATH, '//a[@data-op="registrazione-contabile"]').click() 
         sleep(1)
 
@@ -780,7 +780,7 @@ class FattureVendita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click()  
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()  
         self.find(By.XPATH, '//a[@data-op="genera-xml"]').click()
         sleep(1)
 
@@ -815,7 +815,7 @@ class FattureVendita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td').click()  
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()  
         sleep(1)
 

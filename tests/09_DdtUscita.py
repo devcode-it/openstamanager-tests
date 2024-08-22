@@ -183,7 +183,7 @@ class DdtUscita(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="cambia_stato"]').click() 
         sleep(1)
 
@@ -206,7 +206,7 @@ class DdtUscita(Test):
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click()  
         sleep(1)
 
@@ -242,7 +242,7 @@ class DdtUscita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td').click()   
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-lg dropdown-toggle dropdown-toggle-split"]').click() 
+        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()   
         sleep(2)
 
