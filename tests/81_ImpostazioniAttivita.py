@@ -1295,7 +1295,7 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")  
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()  
+        self.find(By.XPATH, '//tbody//tr[4]//td[2]').click()  
         self.wait_loader()
 
         descrizione=self.find(By.XPATH, '(//tbody//tr[1]//td[3])[1]').text  
@@ -1308,7 +1308,7 @@ class Impostazioni(Test):
         self.navigateTo("Attività")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
+        self.find(By.XPATH, '//tbody//tr[2]//td[2]').click()
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
@@ -1378,7 +1378,7 @@ class Impostazioni(Test):
         self.navigateTo("Attività")
         self.wait_loader()
 
-        stato=self.find(By.XPATH, '(//tr[1]//td[7])[2]').text
+        stato=self.find(By.XPATH, '//tbody//tr[2]//td[7]').text
         self.assertEqual(stato, "Stato di Attività di Prova")
 
         self.find(By.XPATH, '//tbody//tr//td[2]').click()

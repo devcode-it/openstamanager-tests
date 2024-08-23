@@ -276,6 +276,16 @@ Legenda:
 |81| Attività | Stato predefinito dell'attività da Dashboard |:heavy_check_mark:|Crea attività|
 |81| Attività | Stato predefinito dell'attività |:heavy_check_mark:|Crea attività|
 |81| Attività | Numero di minuti di avanzamento delle sessioni delle attività |:x:|:x:|
+|82| Contratti | "Condizioni generali di fornitura contratti" |:heavy_check_mark:|Crea contratto|
+|82| Contratti | Crea contratto rinnovabile di default |:heavy_check_mark:|-|
+|82| Contratti | Giorni di preavviso di default |:heavy_check_mark:|-|
+|83| Dashboard | Visualizzare la domenica sul calendario |:heavy_check_mark:|-|
+|83| Dashboard | Vista dashboard |:heavy_check_mark:|-|
+|83| Dashboard | Ora inizio sul calendario |:heavy_check_mark:|-|
+|83| Dashboard | Ora fine sul calendario |:heavy_check_mark:|-|
+|83| Dashboard | Visualizza informazioni aggiuntive sul calendario |:heavy_check_mark:|-|
+|83| Dashboard | Visualizzazione colori sessioni |:heavy_check_mark:|-|
+|84| Ddt| Cambia automaticamente stato ddt fatturati |:heavy_check_mark:|Crea ddt sia in entrata che in uscita|
 ||||||
 || Aggiornamenti | Attiva aggiornamenti |-|-|
 || Aggiornamenti | Abilita canale pre-release per aggiornamenti |:x:|-| 
@@ -294,18 +304,8 @@ Legenda:
 || Backup | Numero di backup da mantenere |-|-|
 || Backup | Backup automatico |-|-|
 || Backup | Permetti il ripristino di backup da file esterni |-|-|
-|| Contratti | "Condizioni generali di fornitura contratti" |:heavy_check_mark:|Crea contratto|
-|| Contratti | Crea contratto rinnovabile di default |:heavy_check_mark:|Crea contratto|
-|| Contratti | Giorni di preavviso di default |:heavy_check_mark:|Crea contratto|
 || Dashboard | Utilizzare i tooltip sul calendario |:x:|:x:|
-|| Dashboard | Visualizzare la domenica sul calendario |:heavy_check_mark:|Calendario|
-|| Dashboard | Vista dashboard |:heavy_check_mark:|Calendario|
-|| Dashboard | Ora inizio sul calendario |:heavy_check_mark:|Calendario|
-|| Dashboard | Ora fine sul calendario |:heavy_check_mark:|Calendario|
-|| Dashboard | Visualizza informazioni aggiuntive sul calendario |:heavy_check_mark:|Calendario|
-|| Dashboard | Visualizzazione colori sessioni |:heavy_check_mark:|Calendario|
 || Dashboard | Tempo predefinito di snap attività sul calendario | ||
-|| Ddt| Cambia automaticamente stato ddt fatturati |:heavy_check_mark:|Crea ddt sia in entrata che in uscita|
 || Fatturazione | Iva predefinita |:heavy_check_mark:|Crea fattura|
 || Fatturazione | Tipo di pagamento predefinito |:heavy_check_mark:|Crea fattura|
 || Fatturazione | Ritenuta d'acconto predefinita |:heavy_check_mark:|Aggiungi riga|

@@ -47,13 +47,13 @@ class AttributiCombinazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('S', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="aggiungiValore(this)"]'))).click()
         self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('M', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="aggiungiValore(this)"]'))).click()
         self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('L', Keys.ENTER)

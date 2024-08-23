@@ -12,13 +12,13 @@ class Impostazioni(Test):
         super().setUp()
 
     def test_impostazioni_contratti(self):
-        # Condizioni generali di fornitura contratti (1)
+        # Test Condizioni generali di fornitura contratti
         self.condizioni_generali_contratti()
 
-        # Crea contratto rinnocabile di default (2)
+        # Test Crea contratto rinnovabile di default
         self.crea_contratto_rinnovabile()
 
-        # Giorni di preavviso di default (3)
+        # Test Giorni di preavviso di default
         self.giorni_preavviso()
 
     def condizioni_generali_contratti(self):
@@ -27,11 +27,12 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-6"]').click() #apro Contratti
+        self.find(By.XPATH, '//div[@title="Contratti"]').click()
         sleep(1)
-        #scrivo Prova come scritta per condizioni generali 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]'))).click()  
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]'))).send_keys("Prova")
+
+        element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Condizioni generali di fornitura contratti")]//iframe')
+        element.click()
+        element.send_keys('Prova')
         sleep(1)
 
         self.expandSidebar("Vendite")
@@ -40,7 +41,7 @@ class Impostazioni(Test):
 
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         sleep(1)
-        #creo contratto
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys("Manutenzione")
         self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
@@ -49,29 +50,31 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
         self.wait_loader()
         
-        self.find(By.XPATH, '//a[@id="print-button_p"]').click()    #click su stampa contratto
+        self.find(By.XPATH, '//a[@id="print-button_p"]').click() 
         sleep(1)
 
-        self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        scritta=self.find(By.XPATH, '//span[@style="left: 5.71%; top: 13.88%; font-size: calc(var(--scale-factor)*8.50px); font-family: sans-serif; transform: scaleX(0.913535);"]').text
-        self.assertEqual(scritta, "Prova")
-        self.driver.close() #chiude scheda
-        self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()  #elimino contratto 
+        test=self.find(By.XPATH, '(//div[@class="page"])[2]//span[9]').text
+        self.assertEqual(test, "Prova")
+        self.driver.close() 
+        self.driver.switch_to.window(self.driver.window_handles[0])
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
-        #torno alle impostazioni di prima
-        self.find(By.XPATH, '//div[@id="impostazioni-6"]').click() #apro Contratti
+
+        self.find(By.XPATH, '//div[@title="Contratti"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]').click()   #cancello la descrizione "Prova"
-        element = self.find(By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]')
-        element.clear()
+        element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Condizioni generali di fornitura contratti")]//iframe')
+        element.click()
+        element.send_keys(Keys.BACKSPACE * 5)
         sleep(1)
         
     def crea_contratto_rinnovabile(self):
@@ -79,37 +82,36 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-6"]').click() #apro Contratti
+        self.find(By.XPATH, '//div[@title="Contratti"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//label[@class="btn btn-default active"]').click() #attivo impostazione
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Crea contratto rinnovabile di default")]//div//label').click() 
         sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()  
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="btn btn-tool"]').click()  #click su informazioni per rinnovo
+        self.find(By.XPATH, '//button[@class="btn btn-tool"]').click() 
         sleep(1)
 
-        stato=self.find(By.XPATH, '//label[@class="btn btn-default active"]//span[1]').text #check per vedere se il rinnovo è attivato
+        stato=self.find(By.XPATH, '//label[@class="btn btn-default active"]//span[1]').text 
         self.assertEqual(stato, "Attivato")
 
-        self.find(By.XPATH, '//button[@class="close"]').click() #chiudi
+        self.find(By.XPATH, '//button[@class="close"]').click() 
         sleep(1)
 
-        #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-6"]').click() #apro Contratti
+        self.find(By.XPATH, '//div[@title="Contratti"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//label[@class="btn btn-default active"]').click() #disattivo impostazione
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Crea contratto rinnovabile di default")]//div//label').click() 
         sleep(1)
 
     def giorni_preavviso(self):
@@ -117,39 +119,34 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-6"]').click() #apro Contratti
+        self.find(By.XPATH, '//div[@title="Contratti"]').click()
         sleep(1)
-  
-        giorni=self.find(By.XPATH, '//input[@id="setting192"]') #imposto i giorni di preavviso a 3
-        giorni.clear()
-        giorni.send_keys("3", Keys.ENTER)
+
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Giorni di preavviso di default")]//input').send_keys('3,00')
         sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()  
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="btn btn-tool"]').click()  #click su informazioni per rinnovo
+        self.find(By.XPATH, '//button[@class="btn btn-tool"]').click() 
         sleep(1)
 
-        giorni_element = self.find(By.XPATH, '//input[@id="giorni_preavviso_rinnovo_add"]')   #controllo se i giorni di preavviso sono 3
+        giorni_element = self.find(By.XPATH, '//input[@id="giorni_preavviso_rinnovo_add"]')  
         giorni = giorni_element.get_attribute("value")
         self.assertEqual(giorni, "3,00")
-        self.find(By.XPATH, '//button[@class="close"]').click() #chiudi
+        self.find(By.XPATH, '//button[@class="close"]').click() 
         sleep(1)
 
-        #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-6"]').click() #apro Contratti
+        self.find(By.XPATH, '//div[@title="Contratti"]').click()
         sleep(1)
-  
-        giorni=self.find(By.XPATH, '//input[@id="setting192"]') #imposto i giorni di preavviso a 2
-        giorni.clear()
-        giorni.send_keys("2", Keys.ENTER)
+
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Giorni di preavviso di default")]//input').send_keys('2,00')
         sleep(1)
