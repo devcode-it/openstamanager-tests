@@ -286,6 +286,24 @@ Legenda:
 |83| Dashboard | Visualizza informazioni aggiuntive sul calendario |:heavy_check_mark:|-|
 |83| Dashboard | Visualizzazione colori sessioni |:heavy_check_mark:|-|
 |84| Ddt| Cambia automaticamente stato ddt fatturati |:heavy_check_mark:|Crea ddt sia in entrata che in uscita|
+|85| Fatturazione | Iva predefinita |:heavy_check_mark:|Crea fattura|
+|85| Fatturazione | Tipo di pagamento predefinito |:heavy_check_mark:|Crea fattura|
+|85| Fatturazione | Ritenuta d'acconto predefinita |:heavy_check_mark:|Aggiungi riga|
+|85| Fatturazione | Cassa previdenziale predefinita |:heavy_check_mark:|Crea anagrafica|
+|85| Fatturazione | Importo marca da bollo |:heavy_check_mark:|Aggiungi riga|
+|85| Fatturazione | Soglia minima per l'applicazione della marca da bollo |:heavy_check_mark:|Aggiungi riga|
+|85| Fatturazione | Conto predefinito fatture di vendita |:heavy_check_mark:|Aggiungi riga|
+|85| Fatturazione | Conto predefinito fatture di acquisto |:heavy_check_mark:|Aggiungi riga|
+|85| Fatturazione | "Dicitura fissa fattura"  |:heavy_check_mark:||
+|85| Fatturazione | Ritenuta previdenziale predefinita |:heavy_check_mark:|Crea fattura|
+|85| Fatturazione | Descrizione addebito bollo |:heavy_check_mark:|Crea fattura|
+|85| Fatturazione | Conto predefinito per la marca da bollo |:heavy_check_mark:|Crea fattura|
+|85| Fatturazione | Iva per lettere d'intento |:heavy_check_mark:|Crea fattura|
+|85| Fatturazione | Utilizza prezzi di vendita comprensivi di IVA |:heavy_check_mark:|Crea articolo e fatturazione|
+|85| Fatturazione | Liquidazione iva |:heavy_check_mark:|Stampe contabili|
+|85| Fatturazione | Descrizione fattura pianificata |:heavy_check_mark:|Crea fattura pianificata|
+|85| Fatturazione | Permetti fatturazione delle attività collegate a contratti |:heavy_check_mark:|Fattura attività|
+|85| Fatturazione | Permetti fatturazione delle attività collegate a ordini |:heavy_check_mark:|Fattura attività|
 ||||||
 || Aggiornamenti | Attiva aggiornamenti |-|-|
 || Aggiornamenti | Abilita canale pre-release per aggiornamenti |:x:|-| 
@@ -306,36 +324,18 @@ Legenda:
 || Backup | Permetti il ripristino di backup da file esterni |-|-|
 || Dashboard | Utilizzare i tooltip sul calendario |:x:|:x:|
 || Dashboard | Tempo predefinito di snap attività sul calendario | ||
-|| Fatturazione | Iva predefinita |:heavy_check_mark:|Crea fattura|
-|| Fatturazione | Tipo di pagamento predefinito |:heavy_check_mark:|Crea fattura|
-|| Fatturazione | Ritenuta d'acconto predefinita |:heavy_check_mark:|Aggiungi riga|
-|| Fatturazione | Cassa previdenziale predefinita |:heavy_check_mark:|Crea anagrafica|
-|| Fatturazione | Importo marca da bollo |:heavy_check_mark:|Aggiungi riga|
-|| Fatturazione | Soglia minima per l'applicazione della marca da bollo |:heavy_check_mark:|Aggiungi riga|
 || Fatturazione | Conto aziendale predefinito |:x:|:x:|
-|| Fatturazione | Conto predefinito fatture di vendita |:heavy_check_mark:|Aggiungi riga|
-|| Fatturazione | Conto predefinito fatture di acquisto |:heavy_check_mark:|Aggiungi riga|
-|| Fatturazione | "Dicitura fissa fattura" | ||
-|| Fatturazione | Metodologia calcolo ritenuta d'acconto predefinito | ||
-|| Fatturazione | Ritenuta previdenziale predefinita |:heavy_check_mark:|Crea fattura|
-|| Fatturazione | Descrizione addebito bollo |:heavy_check_mark:|Crea fattura|
-|| Fatturazione | Conto predefinito per la marca da bollo |:heavy_check_mark:|Crea fattura|
-|| Fatturazione | Iva per lettere d'intento |:heavy_check_mark:|Crea fattura|
-|| Fatturazione | Utilizza prezzi di vendita comprensivi di IVA |:heavy_check_mark:|Crea articolo e fatturazione|
-|| Fatturazione | Liquidazione iva |:heavy_check_mark:|Stampe contabili|
-|| Fatturazione | Conto anticipo clienti | ||
-|| Fatturazione | Conto anticipo fornitori | ||
-|| Fatturazione | Descrizione fattura pianificata |:heavy_check_mark:|Crea fattura pianificata|
-|| Fatturazione | Aggiorna info di acquisto | ||
-|| Fatturazione | Sezionale per autofatture di vendita | ||
-|| Fatturazione | Sezionale per autofatture di acquisto | ||
-|| Fatturazione | Bloccare i prezzi inferiori al minimo di vendita | ||
-|| Fatturazione | Permetti fatturazione delle attività collegate a contratti |:heavy_check_mark:|Fattura attività|
-|| Fatturazione | Data emissione fattura automatica  | ||
-|| Fatturazione | Permetti fatturazione delle attività collegate a ordini |:heavy_check_mark:|Fattura attività|
-|| Fatturazione | Permetti fatturazione delle attività collegate a preventivi |:heavy_check_mark:|Fattura attività|
-|| Fatturazione | Data inizio verifica contatore fattura di vendita | ||
-|| Fatturazione | Raggruppa attività per tipologia in fattura | ||
+|| Fatturazione | Metodologia calcolo ritenuta d'acconto predefinito |:x:|:x:|
+|| Fatturazione | Conto anticipo clienti |:x:|:x:|
+|| Fatturazione | Conto anticipo fornitori |:x:|:x:|
+|| Fatturazione | Aggiorna info di acquisto |:x:|:x:|
+|| Fatturazione | Sezionale per autofatture di vendita |:x:|:x:|
+|| Fatturazione | Sezionale per autofatture di acquisto |:x:|:x:|
+|| Fatturazione | Bloccare i prezzi inferiori al minimo di vendita |:x:|:x:|
+|| Fatturazione | Data emissione fattura automatica |:x:|:x:|
+|| Fatturazione | Permetti fatturazione delle attività collegate a preventivi |:x:|:x:|
+|| Fatturazione | Data inizio verifica contatore fattura di vendita |:x:|:x:|
+|| Fatturazione | Raggruppa attività per tipologia in fattura |:x:|:x:|
 || Fatturazione Elettronica | Allega stampa per fattura verso Privati |:heavy_check_mark:|Crea fattura|
 || Fatturazione Elettronica | Allega stampa per fattura verso Aziende |:heavy_check_mark:|Crea fattura|
 || Fatturazione Elettronica | Allega stampa per fattura verso PA |:heavy_check_mark:|Crea fattura|

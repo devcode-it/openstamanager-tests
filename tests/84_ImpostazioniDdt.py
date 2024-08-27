@@ -104,6 +104,7 @@ class Impostazioni(Test):
         self.valori=row_manager.compile(file_importi)
         sleep(1)
 
+        self.driver.execute_script('window.scrollTo(0,0)')
         self.find(By.XPATH, '//span[@id="select2-idstatoddt-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Evaso", Keys.ENTER)
         self.find(By.XPATH, '//button[@id="save"]').click()

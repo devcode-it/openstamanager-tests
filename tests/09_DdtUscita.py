@@ -235,6 +235,8 @@ class DdtUscita(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td').click()   
+        self.find(By.XPATH, '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]').click() 
+        sleep(1)
 
     def elimina_selezionati(self):
         wait = WebDriverWait(self.driver, 20)

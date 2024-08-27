@@ -1070,8 +1070,8 @@ class Articoli(Test):
         self.driver.switch_to.window(self.driver.window_handles[0]) 
         sleep(1)
 
-        self.find(By.XPATH, '(//tr[1]//td[1])[2]').click() 
-        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() 
+        self.find(By.XPATH, '//tbody//tr//td').click() 
+        self.find(By.XPATH, '//th[@id="th_Codice"]/i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 
     def elimina_selezionati(self):

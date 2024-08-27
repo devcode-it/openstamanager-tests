@@ -238,9 +238,14 @@ class Impostazioni(Test):
         self.navigateTo("Dashboard")
         self.wait_loader()
 
+        self.find(By.XPATH, '//button[@class="btn btn-block counter_object btn-danger"]').click()
+        sleep(1)
+        self.find(By.XPATH, '//input[@class="dashboard_tecnico"]').click()
+        sleep(1)
+
         colori_element = self.find(By.XPATH, '//td[@role="presentation"]//tbody//tr//td//a')
         colori = colori_element.get_attribute("style")
-        self.assertEqual(colori, "border-color: rgb(153, 230, 255); background-color: rgb(255, 255, 255);")
+        self.assertEqual(colori, "border-color: rgb(255, 239, 153); background-color: rgb(255, 255, 255);")
 
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
@@ -263,7 +268,7 @@ class Impostazioni(Test):
 
         colori_element = self.find(By.XPATH, '//div[@class="fc-timegrid-event-harness fc-timegrid-event-harness-inset"]//a')
         colori = colori_element.get_attribute("style")  
-        self.assertEqual(colori, "border-color: rgb(255, 255, 255); background-color: rgb(153, 230, 255);")
+        self.assertEqual(colori, "border-color: rgb(255, 255, 255); background-color: rgb(255, 239, 153);")
 
         self.navigateTo("Attività")
         self.wait_loader()
