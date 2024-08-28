@@ -820,7 +820,7 @@ class Anagrafiche(Test):
 
         # Elimina assicurazione crediti
         self.find(By.XPATH, '//div[@id="tab_45"]//tbody//tr//td[2]').click()
-        self.wait_loader()
+        sleep(1)
 
         self.find(By.XPATH, '//div[@id="modals"]//a[@class="btn btn-danger ask"]').click()
         sleep(1)

@@ -234,6 +234,7 @@ class Contratti(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
         sleep(1)
 
+        self.driver.execute_script('window.scrollTo(0,0)')
         self.find(By.XPATH, '//span[@id="select2-idstato-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("In lavorazione", Keys.ENTER)
         self.find(By.XPATH, '//button[@id="save"]').click()
