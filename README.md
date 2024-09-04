@@ -165,6 +165,7 @@ Legenda:
 |40| Impianti | Interventi svolti |-|-|-|:heavy_check_mark:|-|
 |40| Impianti | Componenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
 |:x:| Fatture di vendita | Fatturazione elettronica |:x:|:x:|:x:|:x:|:x:|
+|:x:| Fatture di acquisto | Fatturazione elettronica |:x:|:x:|:x:|:x:| Import FE e verifica dei dati|
 |:x:| Scadenzario | Presentazioni bancarie |:x:|:x:|:x:|:x:|:x:|
 
 
