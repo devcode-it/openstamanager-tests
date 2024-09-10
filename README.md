@@ -439,11 +439,11 @@ Legenda:
 
 
 
-## API
+## API  
 
-Legenda:
-- ☑️ Verifica
+Legenda:  
+- ☑️ Verifica  
 
-|Test| Resource | Nome | ☑️ | Altro |
-|----|---------|:--:|:-----:| 
-|| Interventi  | - |Recupero lista interventi| 
+| Test | Resource   | Nome                      | ☑️ | Altro                            |  
+|------|------------|---------------------------|----|----------------------------------|  
+|      | Interventi | Recupero lista interventi  |    |                                  |
