@@ -436,3 +436,14 @@ Legenda:
 || Tavoletta Wacom |Sfondo firma tavoletta Wacom|-|-|
 || Tavoletta Wacom |Sfondo firma tavoletta Wacom|-|-|
 || Tavoletta Wacom |Sfondo firma tavoletta Wacom|-|-|
+
+
+
+## API
+
+Legenda:
+- ☑️ Verifica
+
+|Test| Resource | Nome | ☑️ | Altro |
+|----|---------|:--:|:-----:| 
+|| Interventi  | - |Recupero lista interventi| 
