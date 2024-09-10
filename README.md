@@ -444,6 +444,6 @@ Legenda:
 Legenda:  
 - ☑️ Verifica  
 
-| Test | Resource   | Nome                      | ☑️ | Altro                            |  
-|------|------------|---------------------------|----|----------------------------------|  
-|      | Interventi | Recupero lista interventi  |    |                                  |
+| Test | Resource | Versione | Nome | ☑️ | Altro |  
+|------|----------|----------|------|-----|-------|  
+|| Interventi  | v1 | Recupero lista interventi |||
