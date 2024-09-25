@@ -25,25 +25,20 @@ class StatoServizi(Test):
         #Aggiunta articolo
         self.articolo()
 
+    def click_element(self, xpath):
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, xpath))).click()
+
     def attiva_moduli(self):
         self.expandSidebar("Strumenti")   
         self.navigateTo("Stato dei servizi")
 
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
-        sleep(1)
-
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
-        sleep(1)
-
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="abilitaSottoModuli(this)"]'))).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))).click()
-        sleep(1)
+        for _ in range(3):
+            self.click_element('//button[@onclick="abilitaSottoModuli(this)"]')
+            self.click_element('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
+            WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="toast-message"]'))).click()
 
     def compila_azienda(self):
         self.navigateTo("Anagrafiche")
-        self.wait_loader()
 
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
@@ -60,7 +55,6 @@ class StatoServizi(Test):
     def creazione_fornitore_estero(self):
         wait = WebDriverWait(self.driver, 20)
         self.expandSidebar("Anagrafiche")
-        self.wait_loader() 
 
         # Crea una nuova anagrafica estera
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
