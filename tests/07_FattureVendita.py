@@ -396,6 +396,7 @@ class FattureVendita(Test):
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
 
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="toast-message"]')))
         self.find(By.XPATH, '(//a[@title="Modifica riga"])[1]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
@@ -403,6 +404,7 @@ class FattureVendita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="submitForm()"]'))).click()
         sleep(1)
 
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="toast-message"]')))
         self.find(By.XPATH, '(//a[@title="Modifica riga"])[2]').click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
@@ -410,6 +412,7 @@ class FattureVendita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="submitForm()"]'))).click()
         sleep(1)
 
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="toast-message"]')))
         self.find(By.XPATH, '(//a[@title="Modifica riga"])[3]').click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
@@ -417,6 +420,7 @@ class FattureVendita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="submitForm()"]'))).click()
         sleep(1)
 
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="toast-message"]')))
         self.find(By.XPATH, '(//a[@title="Modifica riga"])[4]').click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
@@ -424,6 +428,7 @@ class FattureVendita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="submitForm()"]'))).click()
         sleep(1)
 
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="toast-message"]')))
         self.find(By.XPATH, '(//a[@title="Modifica riga"])[5]').click()  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')

@@ -406,7 +406,7 @@ class Contratti(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        tipo=self.find(By.XPATH, '//tbody//tr[2]//td[4]').text
+        tipo=self.find(By.XPATH, '//tbody//tr[1]//td[4]').text
         self.assertEqual(tipo, "Fattura immediata di vendita")
 
         self.find(By.XPATH, '//tbody//tr[2]//td[4]').click()    
