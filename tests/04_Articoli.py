@@ -18,11 +18,11 @@ class Articoli(Test):
 
     def test_creazione_articolo(self):
         # Crea un nuovo articolo. *Required*
-        self.creazione_articolo("002", "Articolo di Prova")
-        self.creazione_articolo("003", "Articolo di Prova da Eliminare")
+        self.creazione_articolo("001", "Articolo 1", "2")
+        self.creazione_articolo("002", "Articolo di Prova da Eliminare", "2")
         
         # Modifica articolo
-        self.modifica_articolo("20", "1", "2", "carico di test")
+        self.modifica_articolo("10", "2")
         
         # Cancellazione articolo
         self.elimina_articolo()
@@ -93,7 +93,7 @@ class Articoli(Test):
         # Elimina selezionati (Azioni di gruppo)
         self.elimina_selezionati()      
 
-    def creazione_articolo(self, codice: str, descrizione: str):
+    def creazione_articolo(self, codice: str, descrizione: str, qta: str):
         self.navigateTo("Articoli")
         self.wait_loader()
 
@@ -102,10 +102,15 @@ class Articoli(Test):
 
         self.input(modal, 'Codice').setValue(codice)
         self.input(modal, 'Descrizione').setValue(descrizione)
+
+        self.find(By.XPATH, '(//div[@id="modals"]//i[@class="fa fa-plus"])[3]').click()
+        sleep(1)
+
+        self.input(modal, 'Quantità iniziale').setValue(qta)
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
        
-    def modifica_articolo(self, acquisto:str, coefficiente:str, qta: str, descrizione: str):
+    def modifica_articolo(self, acquisto:str, coefficiente:str):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Articoli")
         self.wait_loader()
@@ -118,10 +123,6 @@ class Articoli(Test):
 
         self.input(None, 'Prezzo di acquisto').setValue(acquisto)
         self.input(None, 'Coefficiente').setValue(coefficiente)
-
-        self.find(By.XPATH, '//div[@class="btn-group checkbox-buttons"]//label[@for="qta_manuale"]').click()
-        self.input(None, 'Quantità').setValue(qta)
-        self.input(None, 'Descrizione').setValue(descrizione)
 
         self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
         sleep(1)
@@ -186,6 +187,9 @@ class Articoli(Test):
         self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
         self.wait_loader()
         
+        self.find(By.XPATH, '(//i[@class="fa fa-plus"])[2]').click()
+        sleep(1)
+
         # Abilito l'inserimento di serial
         self.find(By.XPATH, '//label[@for="abilita_serial"]').click()
         self.find(By.XPATH, '//button[@id="save"]').click()
@@ -203,7 +207,7 @@ class Articoli(Test):
         sleep(1)
 
         # Verifico serial
-        serial = self.find(By.XPATH, '//div[@id="tab_11"]//tbody//tr[2]//td[1]').text
+        serial = self.find(By.XPATH, '//div[@id="tab_11"]//div[@class="card"]//tbody//tr[2]//td[1]').text
         self.assertEqual(serial, "1")
         self.wait_loader()
 
@@ -214,7 +218,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()  
 
-        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@id="tab_11"]//tbody//tr[2]//td[1]'))) 
+        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@id="tab_11"]//div[@class="card"]//tbody//tr[2]//td[1]'))) 
 
         self.navigateTo("Articoli")
         self.wait_loader()
@@ -249,7 +253,7 @@ class Articoli(Test):
         
         # TODO: Verifica provvigione -> Questa provvigione viene impostata all'aggiunta di questo articolo in un documento dove è impostato come Agente questo agente. Creare una fattura di vendita con agente Agente e aggiungere Articolo 001 alle righe. 
 
-        self.find(By.XPATH, '//div[@id="tab_43"]//tbody//tr//td[2]').click()
+        self.find(By.XPATH, '(//div[@id="tab_43"]//tbody//tr//td[2])[8]').click()
         self.wait_modal()
 
         # Modifica provvigione
@@ -286,16 +290,18 @@ class Articoli(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_32"]').click()
+        sleep(1)
 
         # Aggiungo listino fornitore
         self.find(By.XPATH, '//span[@id="select2-id_fornitore_informazioni-container"]').click()
+        sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("Fornitore", Keys.ENTER)
         self.find(By.XPATH, '//button[@class="btn btn-info"]').click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="qta_minima"]'))).send_keys("100")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="giorni_consegna"]'))).send_keys("15")
-        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[4]').click()
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[3]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))).send_keys("15", Keys.ENTER)
         self.wait_loader()
 
@@ -369,7 +375,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
-        messaggio=self.find(By.XPATH, '(//div[@class="alert alert-info"])[5]').text
+        messaggio=self.find(By.XPATH, '(//div[@class="alert alert-info"])[4]').text
         self.assertEqual(messaggio, "Nessuna informazione disponibile...")
         self.wait_loader()
 
@@ -461,7 +467,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//button[@class="btn btn-info btn-block"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '(//label[@class="btn btn-default"])[4]').click()
+        self.find(By.XPATH, '(//label[@class="btn btn-default"])[3]').click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))).send_keys('5', Keys.ENTER)
@@ -521,7 +527,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//button[@class="btn btn-xs btn-warning"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '(//label[@class="btn btn-default"])[4]').click()
+        self.find(By.XPATH, '(//label[@class="btn btn-default"])[3]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
         self.wait_loader()
 
@@ -740,6 +746,9 @@ class Articoli(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
+        self.find(By.XPATH, '(//i[@class="fa fa-plus"])[2]').click()
+        sleep(1)
+
         unita_misura=self.find(By.XPATH, '//span[@id="select2-um-container"]').text
         self.assertEqual(unita_misura[2:5], "pz")  
 
@@ -869,15 +878,17 @@ class Articoli(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click() 
         self.find(By.XPATH, '//a[@id="link-tab_32"]').click()
-        self.find(By.XPATH, '//span[@id="select2-id_fornitore_informazioni-container"]').click() 
+
+        # Aggiungo listino fornitore
+        self.find(By.XPATH, '//span[@id="select2-id_fornitore_informazioni-container"]').click()
+        sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("Fornitore", Keys.ENTER)
         self.find(By.XPATH, '//button[@class="btn btn-info"]').click()
-        sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="qta_minima"]'))).send_keys("100") 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="qta_minima"]'))).send_keys("100")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="giorni_consegna"]'))).send_keys("15")
-        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[5]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))).send_keys("15", Keys.ENTER) 
+        self.find_element(By.XPATH, '(//label[@class="btn btn-default active"])[3]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))).send_keys("15", Keys.ENTER)
         self.wait_loader()
 
         self.navigateTo("Listini")
@@ -992,7 +1003,7 @@ class Articoli(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
         self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()  
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field" ]'))).send_keys("Articolo di Prova")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field" ]'))).send_keys("Articolo 1")
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field" ]'))).send_keys(Keys.ENTER)
@@ -1013,7 +1024,7 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("002", Keys.ENTER) 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("001", Keys.ENTER) 
         sleep(1)
 
         self.find(By.XPATH, '//tbody//tr//td').click() 

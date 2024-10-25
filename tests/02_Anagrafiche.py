@@ -416,7 +416,7 @@ class Anagrafiche(Test):
         modificato=self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[7]').text
         self.assertEqual("Fattura immediata di vendita",modificato[0:28])
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//li//a)[5]'))).click()
-        sleep(1)
+        sleep(2)
 
         self.driver.close() 
         self.driver.switch_to.window(self.driver.window_handles[0])

@@ -22,9 +22,6 @@ class StatoServizi(Test):
         self.creazione_fornitore_estero()
         self.creazione_cliente_estero()
 
-        #Aggiunta articolo
-        self.articolo()
-
     def click_element(self, xpath):
         WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, xpath))).click()
 
@@ -137,17 +134,4 @@ class StatoServizi(Test):
         self.input(None, 'C.A.P.').setValue("35042")
         self.input(None, 'Città').setValue("Piacenza d'Adige")
         self.find(By.XPATH, '//button[@id="save"]').click()
-        self.wait_loader()
-
-    def articolo(self):
-        self.navigateTo("Magazzino") 
-        self.navigateTo("Articoli")
-        self.wait_loader()
-
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Codice').setValue('001')
-        self.input(modal, 'Descrizione').setValue('Articolo 1')
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
