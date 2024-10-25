@@ -224,7 +224,6 @@ class FattureVendita(Test):
         self.expandSidebar("Vendite")
 
     def creazione_nota_credito(self):
-
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
@@ -232,7 +231,7 @@ class FattureVendita(Test):
         self.wait_loader()
         
         self.find(By.XPATH, '//button[@class="btn btn-primary unblockable dropdown-toggle "]').click()
-        self.find(By.XPATH, '(//a[@class="dropdown-item bound clickable"])[2]').click()
+        self.find(By.XPATH, '//a[@class="dropdown-item bound clickable"]').click()
         modal = self.wait_modal()
 
         self.find(By.XPATH, '//button[@id="submit_btn"]').click()
@@ -263,15 +262,14 @@ class FattureVendita(Test):
         totale_imponibile = '-'+totale_imponibile
         iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
         totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
-        totale = '-'+totale
 
         # Controllo Scadenzario
         scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
         self.assertEqual(totale, scadenza_fattura[12:21])
-        
         self.find(By.XPATH, '//div[@class="btn-group pull-right"]').click()
         sleep(1)
 
+        totale = '-'+totale
         self.driver.switch_to.window(self.driver.window_handles[1])
         scadenza_scadenzario = self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text
         scadenza_scadenzario = scadenza_scadenzario +' €'

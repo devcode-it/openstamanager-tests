@@ -102,13 +102,13 @@ class FattureAcquisto(Test):
         self.assertEqual(totale, self.valori["Totale documento"] + ' €')
 
         # Controllo Scadenzario
-        totale = '-'+ totale
         scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
         self.assertEqual(totale, scadenza_fattura[12:21])
         self.driver.execute_script('$("a").removeAttr("target")')
         self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::a').click()
         self.wait_loader()
 
+        totale = '-'+ totale
         scadenza_scadenzario = (self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text + ' €')
         self.assertEqual(totale, scadenza_scadenzario)
 
@@ -261,7 +261,7 @@ class FattureAcquisto(Test):
         self.wait_loader()
 
         avere=self.find(By.XPATH, '//div[@id="tab_36"]//tr//td[4]').text
-        self.assertEqual(avere,"323,06 €")
+        self.assertEqual(avere,"310,86 €")
 
     def cambia_sezionale(self):
         wait = WebDriverWait(self.driver, 20)

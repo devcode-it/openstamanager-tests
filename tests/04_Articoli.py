@@ -22,7 +22,7 @@ class Articoli(Test):
         self.creazione_articolo("002", "Articolo di Prova da Eliminare", "2")
         
         # Modifica articolo
-        self.modifica_articolo("10", "2")
+        self.modifica_articolo("20", "1")
         
         # Cancellazione articolo
         self.elimina_articolo()

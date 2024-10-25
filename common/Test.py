@@ -129,7 +129,7 @@ class Test(unittest.TestCase):
     def wait_modal(self):
         # Attende il caricamento del modal e ne restituisce un riferimento.
         self.wait(expected_conditions.visibility_of_element_located(
-            (By.CLASS_NAME, 'modal')))
+            (By.CLASS_NAME, 'modal-dialog')))
 
         return self.find_elements(By.CSS_SELECTOR, '.modal')[-1]
 
