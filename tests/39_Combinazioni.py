@@ -156,7 +156,7 @@ class Combinazioni(Test):
         self.find(By.XPATH, '//a[@id="link-tab_34"]').click() 
         self.wait_loader()
 
-        taglia=self.find(By.XPATH, '//div[@id="tab_34"]//tbody//tr//td[2]').text
+        taglia=self.find(By.XPATH, '//div[@id="tab_34"]//div[@class="card card-primary"]//tbody//tr//td[2]').text
         self.assertEqual(taglia, "Taglie: XS")
 
         # Elimina combinazioni

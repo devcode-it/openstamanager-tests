@@ -127,7 +127,7 @@ class PianiScontoMagg(Test):
         self.find(By.XPATH, '//a[@id="link-tab_33"]').click()
         sleep(1)
 
-        prezzo_nuovo=self.find(By.XPATH, '//div[@id="tab_33"]//tr[3]//td[2]').text
+        prezzo_nuovo=self.find(By.XPATH, '(//div[@id="tab_33"]//tr[3]//td[2])[2]').text
         self.assertEqual(prezzo_nuovo, "18,00 €")
         sleep(1)
         

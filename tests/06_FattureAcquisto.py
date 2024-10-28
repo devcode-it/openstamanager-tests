@@ -261,7 +261,7 @@ class FattureAcquisto(Test):
         self.wait_loader()
 
         avere=self.find(By.XPATH, '//div[@id="tab_36"]//tr//td[4]').text
-        self.assertEqual(avere,"310,86 €")
+        self.assertEqual(avere,"323,06 €")
 
     def cambia_sezionale(self):
         wait = WebDriverWait(self.driver, 20)

@@ -45,26 +45,26 @@ class AttributiCombinazioni(Test):
         self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('S', Keys.ENTER)
-        sleep(1)
+        self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="aggiungiValore(this)"]'))).click()
         self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('M', Keys.ENTER)
-        sleep(1)
+        self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="aggiungiValore(this)"]'))).click()
         self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys('L', Keys.ENTER)
-        sleep(1)
+        self.wait_loader()
 
 
 
     def modifica_attributi(self, modifica=str):
-        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Attributi Combinazioni")
         self.wait_loader()
+        wait = WebDriverWait(self.driver, 20)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Attributo di Prova da Modificare', Keys.ENTER)
         sleep(1)

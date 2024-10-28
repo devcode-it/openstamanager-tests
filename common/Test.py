@@ -110,21 +110,10 @@ class Test(unittest.TestCase):
         """
         Attende il completamento del caricamento della pagina, visibile attraverso il loader principale.
         """
-        """
-        self.wait(lambda x: self.driver.execute_script('return document.readyState;') == "complete")
-
-        self.wait(lambda x: self.driver.execute_script(
-            'return document.getElementById("main_loading").style.display === "none";') == True)
-
-        self.wait(lambda x: self.driver.execute_script(
-            'return document.getElementById("mini-loader").style.display === "none";') == True)
-
-        self.wait(lambda x: self.driver.execute_script(
-            'if(document.getElementsByClassName("local-loader")[0]!==undefined){ return  document.getElementsByClassName("local-loader")[0].classList.contains("hidden"); } else { return true; }') == True)
-"""
-        self.wait(expected_conditions.invisibility_of_element_located(
-            (By.CLASS_NAME, 'animation__shake')))
-
+        self.wait(expected_conditions.all_of(
+            expected_conditions.invisibility_of_element_located((By.ID, 'main_loading')),
+            expected_conditions.invisibility_of_element_located((By.ID, 'mini-loader'))
+        ))
 
     def wait_modal(self):
         # Attende il caricamento del modal e ne restituisce un riferimento.
