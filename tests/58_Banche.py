@@ -211,28 +211,6 @@ class Banche(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()  
-        sleep(1)
-
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
-        self.wait_loader()
-
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click() 
-        sleep(1)
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Test")   
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1")
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click() 
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@id="save"]').click()
-        self.wait_loader()
-
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
-
         self.find(By.XPATH, '//tbody//tr//td').click()
         self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         self.find(By.XPATH, '//a[@data-op="change-bank"]').click()  

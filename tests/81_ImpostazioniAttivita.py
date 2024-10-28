@@ -372,7 +372,7 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//div[@title="Attività"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Giorni lavorativi")]').click() 
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Giorni lavorativi")]//li[@class="select2-search select2-search--inline"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//li[contains(., "Venerdì")]').click()
@@ -1295,7 +1295,7 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")  
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr[2]//td[2]').click()  
+        self.find(By.XPATH, '//tbody//tr[4]//td[2]').click()  
         self.wait_loader()
 
         descrizione=self.find(By.XPATH, '//tbody//tr//td[3]').text  

@@ -118,7 +118,7 @@ class CategorieArticoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
  
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("002", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("001", Keys.ENTER)
         sleep(1)
  
         self.find(By.XPATH, '//tbody//tr//td').click() 
