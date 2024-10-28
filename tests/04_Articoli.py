@@ -887,7 +887,7 @@ class Articoli(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="qta_minima"]'))).send_keys("100")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="giorni_consegna"]'))).send_keys("15")
-        self.find_element(By.XPATH, '(//label[@class="btn btn-default active"])[3]').click()
+        self.find(By.XPATH, '//div[@class="modal-content"]//div[@class="btn-group checkbox-buttons"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))).send_keys("15", Keys.ENTER)
         self.wait_loader()
 
@@ -972,7 +972,7 @@ class Articoli(Test):
         self.find(By.XPATH, '//button[@class="btn btn-warning"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[5]').click()
+        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[4]').click()
         self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
         self.wait_loader()
 
@@ -1038,7 +1038,7 @@ class Articoli(Test):
         self.wait_loader()
 
         prezzo=self.find(By.XPATH, '//tbody//tr//td[8]').text
-        self.assertEqual(prezzo, "10,00")
+        self.assertEqual(prezzo, "20,00")
 
         self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click()
         sleep(1)

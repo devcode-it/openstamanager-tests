@@ -911,7 +911,7 @@ class Anagrafiche(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]//span[@class="select2-selection__clear"]').click()
-        self.find(By.XPATH, '//input[@class="select2-search__field"]').send_keys("Da contattare",Keys.ENTER)
+        self.find(By.XPATH, '(//input[@class="select2-search__field"])[2]').send_keys("Da contattare",Keys.ENTER)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="save"]'))).click()
         self.wait_loader()
