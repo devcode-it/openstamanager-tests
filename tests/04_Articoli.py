@@ -253,7 +253,7 @@ class Articoli(Test):
         
         # TODO: Verifica provvigione -> Questa provvigione viene impostata all'aggiunta di questo articolo in un documento dove è impostato come Agente questo agente. Creare una fattura di vendita con agente Agente e aggiungere Articolo 001 alle righe. 
 
-        self.find(By.XPATH, '(//div[@id="tab_43"]//tbody//tr//td[2])[8]').click()
+        self.find(By.XPATH, '//div[@id="tab_43"]//tbody//tr//td[3]').click()
         self.wait_modal()
 
         # Modifica provvigione

@@ -42,10 +42,10 @@ class Movimenti(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(articolo, Keys.ENTER)
 
         self.input(modal, 'Quantità').setValue(qta)
-        self.input(modal, 'Descrizione movimento').setValue(descrizione)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="movimento"]'))).send_keys(descrizione)
 
         # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.find(By.XPATH,'//button[@id="aggiungi"]').click()
         sleep(1)
               
     def elimina_movimento(self):
