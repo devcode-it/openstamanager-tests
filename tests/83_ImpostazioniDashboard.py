@@ -12,6 +12,8 @@ class Impostazioni(Test):
         super().setUp()
 
     def test_impostazioni_dashboard(self):
+        ## TODO: utilizzare i tooltip sul calendario
+
         # Test Visualizzare domenica sul calendario 
         self.visualizzare_domenica_calendario()
 
@@ -29,6 +31,8 @@ class Impostazioni(Test):
 
         # Test Visualizzazione colori sessioni 
         self.visualizza_colori_sessioni()
+
+        ## TODO: tempo predefinito di snap attività sul calendario
 
 
     def visualizzare_domenica_calendario(self):
@@ -113,7 +117,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         ora=self.find(By.XPATH, '//td[@role="presentation"]//tbody//tr//td').text 
-        self.assertEqual(ora, "1:00")
+        self.assertEqual(ora, "1:00", Keys.ENTER)
 
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
@@ -124,7 +128,7 @@ class Impostazioni(Test):
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ora inizio sul calendario")]//input')
         element.clear()
-        element.send_keys('00:00')
+        element.send_keys('6:00', Keys.ENTER)
         sleep(1)
 
     def ora_fine_calendario(self):
@@ -137,7 +141,7 @@ class Impostazioni(Test):
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ora fine sul calendario")]//input')
         element.clear()
-        element.send_keys('13:30')
+        element.send_keys('13:30', Keys.ENTER)
         sleep(1)
 
         self.navigateTo("Dashboard")
@@ -155,7 +159,7 @@ class Impostazioni(Test):
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ora fine sul calendario")]//input')
         element.clear()
-        element.send_keys('23:59')
+        element.send_keys('18:59', Keys.ENTER)
         sleep(1)
 
 
@@ -238,9 +242,14 @@ class Impostazioni(Test):
         self.navigateTo("Dashboard")
         self.wait_loader()
 
+        self.find(By.XPATH, '//button[@class="btn btn-block counter_object btn-danger"]').click()
+        sleep(1)
+        self.find(By.XPATH, '//input[@class="dashboard_tecnico"]').click()
+        sleep(1)
+
         colori_element = self.find(By.XPATH, '//td[@role="presentation"]//tbody//tr//td//a')
         colori = colori_element.get_attribute("style")
-        self.assertEqual(colori, "border-color: rgb(153, 230, 255); background-color: rgb(255, 255, 255);")
+        self.assertEqual(colori, "border-color: rgb(255, 239, 153); background-color: rgb(255, 255, 255);")
 
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
@@ -263,7 +272,7 @@ class Impostazioni(Test):
 
         colori_element = self.find(By.XPATH, '//div[@class="fc-timegrid-event-harness fc-timegrid-event-harness-inset"]//a')
         colori = colori_element.get_attribute("style")  
-        self.assertEqual(colori, "border-color: rgb(255, 255, 255); background-color: rgb(153, 230, 255);")
+        self.assertEqual(colori, "border-color: rgb(255, 255, 255); background-color: rgb(255, 239, 153);")
 
         self.navigateTo("Attività")
         self.wait_loader()

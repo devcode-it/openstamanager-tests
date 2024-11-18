@@ -18,6 +18,8 @@ class Impostazioni(Test):
         # Test impostazione Formato codice anagrafica
         self.cambio_formato_codice()
 
+        ## TODO: test geolocalizzazione automatica
+
     def cambio_formato_codice(self):
         wait = WebDriverWait(self.driver, 20)
 

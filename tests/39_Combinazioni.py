@@ -144,7 +144,7 @@ class Combinazioni(Test):
         element = self.find(By.XPATH, '//input[@id="nome"]')
         element.clear()
         element.send_keys("XS",Keys.ENTER)
-        self.wait_loader()
+        sleep(2)
 
         self.navigateTo("Articoli")
         self.wait_loader()

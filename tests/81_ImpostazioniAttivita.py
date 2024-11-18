@@ -62,6 +62,8 @@ class Impostazioni(Test):
         # Test impostazione Stato predefinito dell'attività
         self.stato_predefinito_attivita()
 
+        ## TODO: numero di minuti di avanzamento delle sessioni delle attività
+
 
     def mostra_prezzi_tecnico(self):
         wait = WebDriverWait(self.driver, 20)      
@@ -1295,11 +1297,11 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")  
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr[4]//td[2]').click()  
+        self.find(By.XPATH, '//tbody//tr[3]//td[2]').click()  
         self.wait_loader()
 
         descrizione=self.find(By.XPATH, '//tbody//tr//td[3]').text  
-        self.assertEqual(descrizione[26:31], "Test")
+        self.assertEqual(descrizione[8:13], "Test")
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
