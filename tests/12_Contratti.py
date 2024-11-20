@@ -179,7 +179,6 @@ class Contratti(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_35"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_35"]//tbody//tr/td[2]')))
 
@@ -195,7 +194,6 @@ class Contratti(Test):
         self.find(By.XPATH, '//tbody//tr/td[2]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_13"]').click()
 
         budget=self.find(By.XPATH, '//div[@id="tab_13"]//span[1]').text
@@ -240,7 +238,6 @@ class Contratti(Test):
         self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_14"]').click()
         self.wait_loader()
 
@@ -276,8 +273,7 @@ class Contratti(Test):
 
         self.find(By.XPATH,'//tbody//tr//td[2]').click()
         self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+ 
         self.find(By.XPATH, '//a[@id="link-tab_26"]').click()
         self.wait_loader()
 
@@ -317,8 +313,7 @@ class Contratti(Test):
 
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+ 
         self.find(By.XPATH, '//a[@id="link-tab_26"]').click()
         self.wait_loader()
 
@@ -343,8 +338,7 @@ class Contratti(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("Bozza", Keys.ENTER)
         self.find(By.XPATH, '//button[@id="save"]').click()
         self.wait_loader()
-        
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+         
         self.find(By.XPATH, '//a[@id="link-tab_23"]').click()
 
         self.find(By.XPATH, '(//label[@for="rinnovabile"])[2]').click()

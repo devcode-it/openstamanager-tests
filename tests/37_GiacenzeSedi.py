@@ -39,7 +39,6 @@ class GiacenzeSedi(Test):
         sleep(1) 
 
         #Aggiunta sede
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_4"]'))).click()
         sleep(1)
 
@@ -123,8 +122,7 @@ class GiacenzeSedi(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))).click()
         self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+ 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_10"]'))).click()
 
         scarico = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr//td[6]'))).text

@@ -125,7 +125,6 @@ class Combinazioni(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_34"]').click() 
         self.wait_loader()
 
@@ -152,7 +151,6 @@ class Combinazioni(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_34"]').click() 
         self.wait_loader()
 

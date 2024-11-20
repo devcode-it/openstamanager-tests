@@ -133,7 +133,6 @@ class Impianti(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         sleep(1) 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_1"]').click()
         self.find(By.XPATH, '//div[@class="text-right"]').click
         impianto=self.find(By.XPATH, '//div [@class="text-right"]').text
@@ -154,7 +153,6 @@ class Impianti(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_2"]').click()
         self.wait_loader()
 
@@ -193,7 +191,6 @@ class Impianti(Test):
         self.find(By.XPATH, '//tbody//tr//td[3]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_8"]').click()
         self.wait_loader()
 
@@ -215,8 +212,7 @@ class Impianti(Test):
 
         self.find(By.XPATH, '//tbody//tr//td[3]').click()
         self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+ 
         self.find(By.XPATH, '//a[@id="link-tab_31"]').click()
         self.wait_loader()
 

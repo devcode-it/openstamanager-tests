@@ -188,7 +188,6 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()   
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_28"]'))).click()
         modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_28"]//tbody//tr//td[2]').text
         self.assertEqual("1",modificato)
@@ -366,8 +365,7 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()   
         self.wait_loader()
 
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_17"]'))).click()
         modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_17"]//tbody//td[2]').text
         self.assertEqual("01",modificato)
@@ -444,7 +442,6 @@ class Anagrafiche(Test):
         self.wait_loader()
 
         # Aggiunta referente
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_3"]'))).click()
         self.find(By.XPATH, '//h4//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
@@ -527,7 +524,6 @@ class Anagrafiche(Test):
         self.wait_loader()
         
         # Aggiunta sede
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_4"]'))).click()
         sleep(1)
 
@@ -608,7 +604,6 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader() 
         
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_7"]'))).click()
 
         preventivi=wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="info-box-text pull-left"]'))).text
@@ -641,8 +636,7 @@ class Anagrafiche(Test):
 
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader() 
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+   
         self.find(By.XPATH, '//a[@id="link-tab_25"]').click()
         self.find(By.XPATH, '//div[@id="tab_25"]//i[@class="fa fa-plus"]').click()
         sleep(1)
@@ -696,7 +690,6 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_25"]').click()
         sleep(1)
 
@@ -756,7 +749,6 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_45"]').click()
         self.find(By.XPATH,'//div[@id="tab_45"]//i[@class="fa fa-plus"]').click()
         self.wait_loader() 
@@ -805,7 +797,6 @@ class Anagrafiche(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_45"]').click()
         self.find(By.XPATH, '//div[@id="tab_45"]//tbody//tr//td[2]').click()
         sleep(1)

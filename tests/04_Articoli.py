@@ -196,7 +196,6 @@ class Articoli(Test):
         self.wait_loader()
 
         # Aggiungo serial
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_11"]').click()
         self.find(By.XPATH, '//input[@id="serial_start"]').send_keys("1")
         self.find(By.XPATH, '//input[@id="serial_end"]').send_keys(Keys.BACK_SPACE, "2")
@@ -237,7 +236,6 @@ class Articoli(Test):
         self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_43"]').click()
         self.find(By.XPATH, '//div[@id="tab_43"]//i[@class="fa fa-plus"]').click()
         sleep(1)
@@ -288,7 +286,6 @@ class Articoli(Test):
         self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_32"]').click()
         sleep(1)
 
@@ -355,7 +352,6 @@ class Articoli(Test):
         self.wait_loader()
 
         # Modifica listino fornitore
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_32"]').click()
         self.find(By.XPATH, '//a[@class="btn btn-secondary btn-warning"]').click()
         sleep(1)
@@ -396,7 +392,6 @@ class Articoli(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_22"]').click()
 
         # Verifico giacenze
@@ -429,7 +424,6 @@ class Articoli(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_24"]').click()
 
         # Verifico statistiche
@@ -456,7 +450,6 @@ class Articoli(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_27"]').click()
 
         # Aggiungo listino cliente
@@ -509,7 +502,6 @@ class Articoli(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_27"]').click()
         sleep(1)
 
@@ -852,7 +844,6 @@ class Articoli(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click() 
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()  
         sleep(1)
 
         self.find(By.XPATH, '//a[@id="link-tab_43"]').click()  
@@ -875,8 +866,6 @@ class Articoli(Test):
 
         self.find(By.XPATH, '//tbody//tr//td[2]').click() 
         self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click() 
         self.find(By.XPATH, '//a[@id="link-tab_32"]').click()
 
         # Aggiungo listino fornitore
@@ -961,7 +950,6 @@ class Articoli(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_32"]').click()
         self.find(By.XPATH, '//a[@class="btn btn-secondary btn-danger ask"]').click()
         sleep(1)

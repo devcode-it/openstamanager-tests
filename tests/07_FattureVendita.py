@@ -170,7 +170,7 @@ class FattureVendita(Test):
         # Controllo importi fattura elettronica
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_18"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="text-center"]//a[@class="btn btn-info btn-lg "]'))).click()
         sleep(1)
@@ -476,7 +476,6 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_37"]').click()
         self.find(By.XPATH, '//a[@class="btn btn-info btn-lg"]').click()
         self.wait_loader() 
@@ -504,7 +503,6 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_38"]').click()
         self.find(By.XPATH, '//div[@id="tab_38"]//a[@class="btn btn-info btn-lg"]').click()
         self.wait_loader()
@@ -527,7 +525,6 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_40"]').click()        
         self.find(By.XPATH,'//div[@id="tab_40"]//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
@@ -629,7 +626,6 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_30"]').click()
         self.find(By.XPATH, '//div[@id="tab_30"]//a[@class="btn btn-info btn-lg"]').click()
         self.wait_loader()
@@ -726,7 +722,6 @@ class FattureVendita(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         self.find(By.XPATH, '//a[@id="link-tab_44"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_44"]//tbody//tr//td'))) 
         sleep(1)

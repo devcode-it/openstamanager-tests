@@ -121,7 +121,6 @@ class PianiScontoMagg(Test):
         self.find(By.XPATH, '//tbody//td[2]//div[1]').click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         sleep(1)
 
         self.find(By.XPATH, '//a[@id="link-tab_33"]').click()

@@ -169,7 +169,6 @@ class DdtUscita(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click() 
         sleep(1) 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_17"]'))).click()
         self.find(By.XPATH, '//tbody//tr[10]//td[2]').click()
         self.wait_loader()
