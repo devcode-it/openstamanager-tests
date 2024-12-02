@@ -285,7 +285,7 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//tr[1]//td[2]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@class="control-sidebar-button"]').click()
+
         self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
         self.wait_loader()
 
@@ -602,7 +602,7 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
         
-        self.find(By.XPATH, '//div[@class="control-sidebar-button"]').click()
+
         self.find(By.XPATH, '//a[@id="link-tab_42"]').click()
         self.wait_loader()
 

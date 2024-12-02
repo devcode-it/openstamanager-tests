@@ -996,7 +996,7 @@ class Articoli(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field" ]'))).send_keys(Keys.ENTER)
         self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click()
-        sleep(1)
+        sleep(2)
 
         self.find(By.XPATH, '//a[@class="btn btn-xs btn-warning"]').click()
         sleep(1)

@@ -324,7 +324,8 @@ class Anagrafiche(Test):
         sleep(1)
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-
+        sleep(1)
+        
         # Elimina ordine
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()

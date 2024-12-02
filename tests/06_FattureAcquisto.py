@@ -242,7 +242,6 @@ class FattureAcquisto(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@class="control-sidebar-button"]').click()
         self.find(By.XPATH, '//a[@id="link-tab_41"]').click()
         self.wait_loader()
 
@@ -255,7 +254,7 @@ class FattureAcquisto(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@class="control-sidebar-button"]').click()
+
         self.find(By.XPATH, '//a[@id="link-tab_36"]').click()
         self.find(By.XPATH, '//a[@class="btn btn-info btn-lg"]').click()
         self.wait_loader()

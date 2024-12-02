@@ -180,6 +180,8 @@ class Contratti(Test):
         self.wait_loader() 
 
         self.find(By.XPATH, '//a[@id="link-tab_35"]').click()
+        sleep(1)
+        
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_35"]//tbody//tr/td[2]')))
 
     def consuntivo(self):

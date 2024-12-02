@@ -448,7 +448,6 @@ class Preventivi(Test):
         self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        self.find(By.XPATH,'//div[@class="control-sidebar-button"]').click()
         self.find(By.XPATH, '//a[@id="link-tab_12"]').click()
         budget=self.find(By.XPATH, '//span[@class="text-success"]').text
         self.assertEqual(budget,"+264,80 €")     
@@ -460,7 +459,6 @@ class Preventivi(Test):
         self.find(By.XPATH, '//tbody//tr//td[3]').click()
         self.wait_loader()
 
-        self.find(By.XPATH,'//div[@class="control-sidebar-button"]').click()
         self.find(By.XPATH,'//a[@id="link-tab_20"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_20"]//td[@class="text-center"][1]')))
 

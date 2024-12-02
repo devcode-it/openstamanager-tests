@@ -116,7 +116,7 @@ class Checklists(Test):
         self.find(By.XPATH, '//div[@id="tab_0"]//tbody//tr[2]//td[2]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@class="control-sidebar-button"]').click()
+
         self.find(By.XPATH, '//a[@href="#tab_checks"]').click()
         self.wait_loader()
 
