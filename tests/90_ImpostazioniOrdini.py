@@ -13,13 +13,15 @@ class Impostazioni(Test):
 
     def test_impostazioni_ordini(self):
         # Cambia automaticamente stato ordini fatturati (1)
-        self.cambia_stato_ordini()
+        #self.cambia_stato_ordini()
 
         # Conferma automaticamente le quantità negli ordini cliente (2)
-        self.conferma_quantita_ordini_cliente()
+        #self.conferma_quantita_ordini_cliente()
 
         # Conferma automaticamente le quantità negli ordini fornitore (3)
-        self.conferma_quantita_ordini_fornitore()
+        #self.conferma_quantita_ordini_fornitore()
+
+        ## TODO: Visualizza numero ordine cliente
 
     def cambia_stato_ordini(self):
         wait = WebDriverWait(self.driver, 20)

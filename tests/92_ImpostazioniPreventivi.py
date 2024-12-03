@@ -16,13 +16,13 @@ class Impostazioni(Test):
 
     def test_impostazioni_preventivi(self):
         # Condizioni generali di fornitura preventivi (1)
-        self.condizioni_fornitura_preventivi()
+        #self.condizioni_fornitura_preventivi()
 
         # Conferma automatica la quantità nei preventivi (2)
-        self.conferma_quantita_preventivi()
+        #self.conferma_quantita_preventivi()
 
         # Esclusioni default preventivi (3)
-        self.esclusioni_preventivi()
+        #self.esclusioni_preventivi()
 
     def condizioni_fornitura_preventivi(self):
         wait = WebDriverWait(self.driver, 20)

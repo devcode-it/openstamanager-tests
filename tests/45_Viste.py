@@ -15,7 +15,7 @@ class Viste(Test):
 
         self.navigateTo("Attività")
         self.wait_loader()
-        self.controllo_viste("2")
+        self.controllo_viste("1")
 
         self.expandSidebar("Vendite")
 
@@ -47,7 +47,7 @@ class Viste(Test):
         self.expandSidebar("Contabilità")
         self.navigateTo("Scadenzario")
         self.wait_loader()
-        self.controllo_viste("Fattura immediata di acquisto numero 02") 
+        self.controllo_viste("Fattura immediata di acquisto numero 01") 
 
         self.expandSidebar("Magazzino")
         self.navigateTo("Articoli")

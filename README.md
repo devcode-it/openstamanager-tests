@@ -115,6 +115,11 @@ Legenda:
 |77| Gestione task |-|:heavy_check_mark:|-|-|:heavy_check_mark:|-|
 |78| Stati fatture |-|:heavy_check_mark:|-|-|:heavy_check_mark:|-|
 |79| Stati degli ordini |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
+|:x:| Piano dei conti |:x:|:x:|:x:|:x:|:x:|:x:|
+|:x:| Categorie contratti |:x:|:x:|:x:|:x:|:x:|:x:|
+|:x:| Marchi |:x:|:x:|:x:|:x:|:x:|:x:|
+|:x:| Stati dei DDT |:x:|:x:|:x:|:x:|:x:|:x:|
+|:x:| Accesso con OAuth |:x:|:x:|:x:|:x:|:x:|:x:|
 
 ## Plugin
 
@@ -123,8 +128,6 @@ Legenda:
 - :pencil: Modifica
 - :wastebasket: Eliminazione
 - ☑️ Verifica
-
-
 
 |N°| Modulo | Plugin | :heavy_plus_sign: | :pencil: | :wastebasket: | ☑️ | Altro |
 |--|--------|--------|:-----------------:|:--------:|:-------------:|:--:|:----------:|
@@ -167,7 +170,7 @@ Legenda:
 |:x:| Fatture di vendita | Fatturazione elettronica |:x:|:x:|:x:|:x:|:x:|
 |:x:| Fatture di acquisto | Fatturazione elettronica |:x:|:x:|:x:|:x:| Import FE e verifica dei dati|
 |:x:| Scadenzario | Presentazioni bancarie |:x:|:x:|:x:|:x:|:x:|
-
+|:x:| Attività | Mostra su mappa |:x:|:x:|:x:|:x:|:x:|
 
 ## Azioni di gruppo
 
@@ -176,41 +179,41 @@ Legenda:
 
 |N°| Modulo  | Azioni di gruppo | ☑️ |
 |--| ------- | ---------------- |:--:|
-|02| Anagrafiche | Ricerca coordinate |:heavy_check_mark:|
 |02| Anagrafiche | Elimina selezionati |:heavy_check_mark:|
+|02| Anagrafiche | Ricerca coordinate |:heavy_check_mark:|
 |02| Anagrafiche | Cambia relazione |:heavy_check_mark:|
-|04| Articoli | Aggiorna prezzo di acquisto |:heavy_check_mark:|
-|04| Articoli | Aggiorna prezzo di vendita |:heavy_check_mark:|
-|04| Articoli | Aggiorna coefficiente di vendita |:heavy_check_mark:|
-|04| Articoli | Aggiorna quantità |:heavy_check_mark:|
-|04| Articoli | Crea preventivo |:heavy_check_mark:|
 |04| Articoli | Aggiorna aliquota iva |:heavy_check_mark:|
-|04| Articoli | Aggiorna unità di misura |:heavy_check_mark:|
+|04| Articoli | Aggiorna coefficiente di vendita |:heavy_check_mark:|
 |04| Articoli | Aggiorna conto predefinito di acquisto |:heavy_check_mark:|
 |04| Articoli | Aggiorna conto predefinito di vendita |:heavy_check_mark:|
-|04| Articoli | Imposta una provvigione |:heavy_check_mark:|
-|04| Listini | Aggiorna prezzo unitario |:heavy_check_mark:|
-|04| Listini | Copia listini |:heavy_check_mark:|
-|04| Articoli | Imposta prezzo di acquisto da fattura |:heavy_check_mark:|
-|04| Articoli | Stampa etichette |:heavy_check_mark:|
+|04| Articoli | Aggiorna prezzo di acquisto |:heavy_check_mark:|
+|04| Articoli | Aggiorna prezzo di vendita |:heavy_check_mark:|
+|04| Articoli | Aggiorna quantità |:heavy_check_mark:|
+|04| Articoli | Aggiorna unità di misura |:heavy_check_mark:|
+|04| Articoli | Crea preventivo |:heavy_check_mark:|
 |04| Articoli | Elimina selezionati |:heavy_check_mark:|
+|04| Articoli | Imposta prezzo di acquisto da fattura |:heavy_check_mark:|
+|04| Articoli | Imposta una provvigione |:heavy_check_mark:|
+|04| Articoli | Stampa etichette |:heavy_check_mark:|
+|04| Listini | Copia listini |:heavy_check_mark:|
+|04| Listini | Aggiorna prezzo unitario |:heavy_check_mark:|
 |05| Attività | Cambia stato |:heavy_check_mark:|
 |05| Attività | Duplica attività |:heavy_check_mark:|
 |05| Attività | Elimina selezionati |:heavy_check_mark:|
-|05| Attività | Firma interventi  |:heavy_check_mark:|
 |05| Attività | Fattura attività |:heavy_check_mark:|
+|05| Attività | Firma interventi  |:heavy_check_mark:|
 |05| Attività | Stampa riepilogo |:heavy_check_mark:|
 |06| Fatture di acquisto | Cambia sezionale |:heavy_check_mark:|
 |06| Fatture di acquisto | Duplica selezionati |:heavy_check_mark:|
-|06| Fatture di acquisto | Registrazione contabile |:heavy_check_mark:|
 |06| Fatture di acquisto | Elimina selezionati |:heavy_check_mark:|
-|07| Fatture di vendita | Duplica selezionati |:heavy_check_mark:|
+|06| Fatture di acquisto | Registrazione contabile |:heavy_check_mark:|
 |07| Fatture di vendita | Cambia sezionale |:heavy_check_mark:|
-|07| Fatture di vendita | Emetti fatture |:heavy_check_mark:|
 |07| Fatture di vendita | Controlla fatture elettroniche |:heavy_check_mark:|
+|07| Fatture di vendita | Duplica selezionati |:heavy_check_mark:|
+|07| Fatture di vendita | Elimina selezionati |:heavy_check_mark:|
+|07| Fatture di vendita | Emetti fatture |:heavy_check_mark:|
 |07| Fatture di vendita | Registrazione contabile |:heavy_check_mark:|
 |07| Fatture di vendita | Genera fatture elettroniche |:heavy_check_mark:|
-|07| Fatture di vendita | Elimina selezionati |:heavy_check_mark:|
 |08| Ddt in entrata | Cambia stato |:heavy_check_mark:|
 |08| Ddt in entrata | Fattura ddt in entrata |:heavy_check_mark:|
 |08| Ddt in entrata | Elimina selezionati |:heavy_check_mark:|
@@ -233,20 +236,21 @@ Legenda:
 |58| Fatture di acquisto | Aggiorna banca |:heavy_check_mark:|
 |58| Scadenzario | Aggiorna banca |:heavy_check_mark:|
 |60| Articoli | Aggiorna categoria e sottocategoria |:heavy_check_mark:|
-|72| Anagrafiche  | Aggiorna listino cliente |:heavy_check_mark:|
+|72| Anagrafiche | Imposta listino |:heavy_check_mark:|
 |72| Articoli | Aggiungi a listino cliente |:heavy_check_mark:|
 |:x:| Anagrafiche  | Esporta selezionati |:x:|
 |:x:| Articoli | Esporta selezionati |:x:|
 |:x:| Attività | Esporta stampe |:x:|
+|:x:| Fatture di acquisto | Aggiorna banca |:x:|
 |:x:| Fatture di acquisto | Esporta selezionati |:x:|
 |:x:| Fatture di acquisto | Esporta stampa FE |:x:|
 |:x:| Fatture di acquisto | Esporta ricevute |:x:|
 |:x:| Fatture di acquisto | Esporta XML |:x:|
+|:x:| Fatture di vendita | Aggiorna banca |:x:|
 |:x:| Fatture di vendita | Esporta stampe |:x:|
 |:x:| Fatture di vendita | Esporta stampe FE |:x:|
 |:x:| Fatture di vendita | Esporta ricevute |:x:|
 |:x:| Fatture di vendita | Esporta XML |:x:|
-|:x:| Fatture di vendita | Coda di invio FE |:x:|
 |:x:| Ordini cliente | Unisci RDO ||
 |:x:| Prima nota | Esporta PDF |:x:|
 |:x:| Scadenzario | Invia mail sollecito |:x:|
@@ -260,6 +264,7 @@ Legenda:
 |Test| Sezione | Nome | ☑️ | Altro |
 |----|---------|------|:--:|:-----:| 
 |80| Anagrafiche | Formato codice anagrafica |:heavy_check_mark:|Crea anagrafica| 
+|80| Anagrafiche | Geolocalizzazione automatica |:x:|:x:| 
 |81| Attività | Mostra i prezzi al tecnico |:heavy_check_mark:|Crea utente e attività|
 |81| Attività | Stampa per anteprima e firma |:heavy_check_mark:|-|
 |81| Attività | Permetti inserimento sessioni degli altri tecnici |:heavy_check_mark:|Crea attività|
@@ -277,15 +282,19 @@ Legenda:
 |81| Attività | Stato predefinito dell'attività da Dashboard |:heavy_check_mark:|Crea attività|
 |81| Attività | Stato predefinito dell'attività |:heavy_check_mark:|Crea attività|
 |81| Attività | Numero di minuti di avanzamento delle sessioni delle attività |:x:|:x:|
+|81| Attività | Cambia automaticamente stato attività fatturate |:x:|:x:| 
 |82| Contratti | "Condizioni generali di fornitura contratti" |:heavy_check_mark:|Crea contratto|
 |82| Contratti | Crea contratto rinnovabile di default |:heavy_check_mark:|-|
 |82| Contratti | Giorni di preavviso di default |:heavy_check_mark:|-|
+|82| Contratti | Cambia automaticamente stato contratti fatturati |:x:|:x:| 
+|83| Dashboard | Utilizzare i tooltip sul calendario |:x:|:x:|
 |83| Dashboard | Visualizzare la domenica sul calendario |:heavy_check_mark:|-|
 |83| Dashboard | Vista dashboard |:heavy_check_mark:|-|
 |83| Dashboard | Ora inizio sul calendario |:heavy_check_mark:|-|
 |83| Dashboard | Ora fine sul calendario |:heavy_check_mark:|-|
 |83| Dashboard | Visualizza informazioni aggiuntive sul calendario |:heavy_check_mark:|-|
 |83| Dashboard | Visualizzazione colori sessioni |:heavy_check_mark:|-|
+|83| Dashboard | Tempo predefinito di snap attività sul calendario | ||
 |84| Ddt| Cambia automaticamente stato ddt fatturati |:heavy_check_mark:|Crea ddt sia in entrata che in uscita|
 |85| Fatturazione | Iva predefinita |:heavy_check_mark:|Crea fattura|
 |85| Fatturazione | Tipo di pagamento predefinito |:heavy_check_mark:|Crea fattura|
@@ -293,19 +302,124 @@ Legenda:
 |85| Fatturazione | Cassa previdenziale predefinita |:heavy_check_mark:|Crea anagrafica|
 |85| Fatturazione | Importo marca da bollo |:heavy_check_mark:|Aggiungi riga|
 |85| Fatturazione | Soglia minima per l'applicazione della marca da bollo |:heavy_check_mark:|Aggiungi riga|
+|85| Fatturazione | Conto aziendale predefinito |:x:|:x:|
 |85| Fatturazione | Conto predefinito fatture di vendita |:heavy_check_mark:|Aggiungi riga|
 |85| Fatturazione | Conto predefinito fatture di acquisto |:heavy_check_mark:|Aggiungi riga|
 |85| Fatturazione | "Dicitura fissa fattura"  |:heavy_check_mark:||
+|85| Fatturazione | Metodologia calcolo ritenuta d'acconto predefinito |:x:|:x:|
 |85| Fatturazione | Ritenuta previdenziale predefinita |:heavy_check_mark:|Crea fattura|
 |85| Fatturazione | Descrizione addebito bollo |:heavy_check_mark:|Crea fattura|
 |85| Fatturazione | Conto predefinito per la marca da bollo |:heavy_check_mark:|Crea fattura|
 |85| Fatturazione | Iva per lettere d'intento |:heavy_check_mark:|Crea fattura|
 |85| Fatturazione | Utilizza prezzi di vendita comprensivi di IVA |:heavy_check_mark:|Crea articolo e fatturazione|
 |85| Fatturazione | Liquidazione iva |:heavy_check_mark:|Stampe contabili|
+|85| Fatturazione | Conto anticipo clienti |:x:|:x:|
+|85| Fatturazione | Conto anticipo fornitori |:x:|:x:|
 |85| Fatturazione | Descrizione fattura pianificata |:heavy_check_mark:|Crea fattura pianificata|
+|85| Fatturazione | Aggiorna info di acquisto |:x:|:x:|
+|85| Fatturazione | Bloccare i prezzi inferiori al minimo di vendita |:x:|:x:|
 |85| Fatturazione | Permetti fatturazione delle attività collegate a contratti |:heavy_check_mark:|Fattura attività|
+|85| Fatturazione | Data emissione fattura automatica |:x:|:x:|
 |85| Fatturazione | Permetti fatturazione delle attività collegate a ordini |:heavy_check_mark:|Fattura attività|
-||||||
+|85| Fatturazione | Permetti fatturazione delle attività collegate a preventivi |:x:|:x:|
+|85| Fatturazione | Data inizio verifica contatore fattura di vendita |:x:|:x:|
+|85| Fatturazione | Raggruppa attività per tipologia in fattura |:x:|:x:|
+|85| Fatturazione | Metodo di importazione XML fatture di vendita |:x:|:x:|
+|86| Fatturazione Elettronica | Allega stampa per fattura verso Privati |:heavy_check_mark:|Crea fattura|
+|86| Fatturazione Elettronica | Allega stampa per fattura verso Aziende |:heavy_check_mark:|Crea fattura|
+|86| Fatturazione Elettronica | Allega stampa per fattura verso PA |:heavy_check_mark:|Crea fattura|
+|86| Fatturazione Elettronica | Regime Fiscale |:heavy_check_mark:|Apri fattura elettronica|
+|86| Fatturazione Elettronica | Tipo Cassa Previdenziale |:heavy_check_mark:|Apri fattura elettronica|
+|86| Fatturazione Elettronica | Causale ritenuta d'acconto |:heavy_check_mark:|Apri fattura elettronica|
+|86| Fatturazione Elettronica | Authorization ID Indice PA | ||
+|86| Fatturazione Elettronica | OSMCloud Services API Token | ||
+|86| Fatturazione Elettronica | Terzo intermediario | ||
+|86| Fatturazione Elettronica | Riferimento dei documenti in Fattura Elettronica |:heavy_check_mark:|Apri fattura elettronica|
+|86| Fatturazione Elettronica | OSMCloud Services API URL | ||
+|86| Fatturazione Elettronica | OSMCloud Services API Version | ||
+|86| Fatturazione Elettronica | Data inizio controlli su stati FE | ||
+|86| Fatturazione Elettronica | Movimenta magazzino da fatture di acquisto | ||
+|86| Fatturazione Elettronica | Rimuovi avviso fatture estere | ||
+|86| Fatturazione Elettronica | Creazione seriali in import FE | ||
+|86| Fatturazione Elettronica | Giorni validità fattura scartata | ||
+|87| Generali | Azienda predefinita | ||
+|87| Generali | Nascondere la barra sinistra di default |:heavy_check_mark:|Impostazioni|
+|87| Generali | Cifre decimali per importi |:heavy_check_mark:|Crea fattura|
+|87| Generali | CSS Personalizzato | ||
+|87| Generali | Attiva notifica di presenza utenti sul record | ||
+|87| Generali | Timeout notifica di presenza (minuti) | ||
+|87| Generali | Prima pagina |:heavy_check_mark:|Anagrafiche|
+|87| Generali | Cifre decimali per quantità |:heavy_check_mark:|Crea fattura|
+|87| Generali | Tempo di attesa ricerche in secondi | ||
+|87| Generali | Logo stampe | ||
+|87| Generali | Abilita esportazione Excel e PDF |:heavy_check_mark:|Esporta fattura|
+|87| Generali | Valuta |:heavy_check_mark:|Apro fattura|
+|87| Generali | Visualizza riferimento su ogni riga in stampa |:heavy_check_mark:|Stampa fattura|
+|87| Generali | Lunghezza in pagine del buffer Datatables | ||
+|87| Generali | Autocompletamento form | ||
+|87| Generali | Filigrana stampe | ||
+|87| Generali | Attiva scorciatoie da tastiera | ||
+|87| Generali | Modifica Viste di default | ||
+|87| Generali | Totali delle tabelle ristretti alla selezione |:heavy_check_mark:|Seleziona fattura|
+|87| Generali | Nascondere la barra dei plugin di default |:x:|:x:|
+|87| Generali | Soft quota | ||
+|87| Generali | Permetti selezione articoli con quantità minore o uguale a zero in Documenti di Vendita |:heavy_check_mark:|Crea fattura|
+|87| Generali | Inizio periodo calendario |:heavy_check_mark:|Dashboard||
+|87| Generali | Fine periodo calendario |:heavy_check_mark:|Dashboard||
+|87| Generali | Permetti il superamento della soglia quantità dei documenti di origine |:heavy_check_mark:|Crea attività, preventivo, contratto, |ddt, ordine, fattura|
+|87| Generali | Aggiungi riferimento tra documenti |:heavy_check_mark:|Aggiungi ddt in fattura||
+|87| Generali | Mantieni riferimenti tra tutti i documenti collegati | |||
+|87| Generali | Aggiungi le note delle righe tra documenti |:heavy_check_mark:|Fattura preventivo||
+|87| Generali | Dimensione widget predefinita |:heavy_check_mark:|Dashboard||
+|87| Generali | Posizione del simbolo valuta |:heavy_check_mark:|Crea fattura||
+|87| Generali | Tile server OpenStreetMap | |||
+|87| Generali | Sistema di firma | |||
+|87| Generali | Tipo di sconto predefinito |:heavy_check_mark:|Crea fattura||
+|87| Generali | Cifre decimali per importi in stampa |:heavy_check_mark:|Stampa fattura||
+|87| Generali | Cifre decimali per quantità in stampa |:heavy_check_mark:|Stampa fattura||
+|87| Generali | Cifre decimali per totali in stampa |:heavy_check_mark:|Stampa fattura||
+|87| Generali | Listino cliente predefinito |:heavy_check_mark:|Crea anagrafica||
+|87| Generali | Lingua |:heavy_check_mark:|Impostazioni||
+|87| Generali | Ridimensiona automaticamente le immagini caricate | |||
+|87| Generali | Larghezza per ridimensionamento immagini | |||
+|87| Generali | Gestore mappa | |||
+|87| Generali | Tile server satellite | |||
+|88| Magazzino | Movimenta il magazzino durante l'inserimento o eliminazione dei lotti/serial number | |||
+|88| Magazzino | Serial number abilitato di default |:heavy_check_mark:|Crea articolo||
+|88| Magazzino | Magazzino cespiti | |||
+|89| Mail | Numero di giorni mantenimento coda di invio | |||
+|89| Newsletter | Numero massimo di tentativi | ||
+|89| Newsletter | Numero email da inviare in contemporanea per account | ||
+|90| Ordini | Cambia automaticamente stato ordini fatturati |:heavy_check_mark:|Fattura ordine|
+|90| Ordini | Conferma automaticamente le quantità negli ordini cliente |:heavy_check_mark:|Crea ordine cliente|
+|90| Ordini | Conferma automaticamente le quantità negli ordini fornitore |:heavy_check_mark:|Crea ordine fornitore|
+|90| Ordini | Visualizza numero ordine cliente | ||
+|91| Piano dei conti | Conto per Riepilogativo fornitori |:heavy_check_mark:|Piano dei conti|
+|91| Piano dei conti | Conto per Riepilogativo clienti |:heavy_check_mark:|Piano dei conti|
+|91| Piano dei conti | Conto per Iva indetraibile |:heavy_check_mark:|Piano dei conti|
+|91| Piano dei conti | Conto per Iva su vendite |:heavy_check_mark:|Piano dei conti|
+|91| Piano dei conti | Conto per Iva su acquisti |:heavy_check_mark:|Piano dei conti|
+|91| Piano dei conti | Conto per Erario c/ritenute d'acconto |:heavy_check_mark:|Piano dei conti|
+|91| Piano dei conti | Conto per Erario c/INPS |:heavy_check_mark:|Piano dei conti|
+|91| Piano dei conti | Conto per Erario c/enasarco |:heavy_check_mark:|Piano dei conti|
+|91| Piano dei conti | Conto per Apertura conti patrimoniali |:heavy_check_mark:|Piano dei conti|
+|91| Piano dei conti | Conto per Chiusura conti patrimoniali |:heavy_check_mark:|Piano dei conti|
+|91| Piano dei conti | Conto per autofattura |:heavy_check_mark:|Piano dei conti|
+|91| Piano dei conti | Conto di secondo livello per i crediti clienti |:heavy_check_mark:|Piano dei conti|
+|91| Piano dei conti | Conto di secondo livello per i debiti fornitori |:heavy_check_mark:|Piano dei conti|
+|92| Preventivi | "Condizioni generali di fornitura preventivi" |:heavy_check_mark:|Stampa preventivo|
+|92| Preventivi | Conferma automaticamente le quantità nei preventivi |:heavy_check_mark:|Aggiungi articolo|
+|92| Preventivi | Esclusioni default preventivi |:heavy_check_mark:|Crea preventivo|
+|93| Scadenzario | Invio solleciti in automatico | ||
+|93| Scadenzario | Template email primo sollecito | ||
+|93| Scadenzario | Ritardo in giorni della scadenza della fattura per invio sollecito pagamento | ||
+|93| Scadenzario | Ritardo in giorni dall'ultima email per invio sollecito pagamento | ||
+|93| Scadenzario | Template email secondo sollecito | ||
+|93| Scadenzario | Template email terzo sollecito | ||
+|93| Scadenzario | Template email mancato pagamento dopo i solleciti | ||
+|93| Scadenzario | Indirizzo email mancato pagamento dopo i solleciti | ||
+|93| Scadenzario | Template email promemoria scadenza | ||
+|93| Scadenzario | Intervallo di giorni in anticipo per invio promemoria scadenza | ||
 || Aggiornamenti | Attiva aggiornamenti |-|-|
 || Aggiornamenti | Abilita canale pre-release per aggiornamenti |:x:|-| 
 || API | Lunghezza pagine per API|-|-|
@@ -323,121 +437,12 @@ Legenda:
 || Backup | Numero di backup da mantenere |-|-|
 || Backup | Backup automatico |-|-|
 || Backup | Permetti il ripristino di backup da file esterni |-|-|
-|| Dashboard | Utilizzare i tooltip sul calendario |:x:|:x:|
-|| Dashboard | Tempo predefinito di snap attività sul calendario | ||
-|| Fatturazione | Conto aziendale predefinito |:x:|:x:|
-|| Fatturazione | Metodologia calcolo ritenuta d'acconto predefinito |:x:|:x:|
-|| Fatturazione | Conto anticipo clienti |:x:|:x:|
-|| Fatturazione | Conto anticipo fornitori |:x:|:x:|
-|| Fatturazione | Aggiorna info di acquisto |:x:|:x:|
-|| Fatturazione | Sezionale per autofatture di vendita |:x:|:x:|
-|| Fatturazione | Sezionale per autofatture di acquisto |:x:|:x:|
-|| Fatturazione | Bloccare i prezzi inferiori al minimo di vendita |:x:|:x:|
-|| Fatturazione | Data emissione fattura automatica |:x:|:x:|
-|| Fatturazione | Permetti fatturazione delle attività collegate a preventivi |:x:|:x:|
-|| Fatturazione | Data inizio verifica contatore fattura di vendita |:x:|:x:|
-|| Fatturazione | Raggruppa attività per tipologia in fattura |:x:|:x:|
-|| Fatturazione Elettronica | Allega stampa per fattura verso Privati |:heavy_check_mark:|Crea fattura|
-|| Fatturazione Elettronica | Allega stampa per fattura verso Aziende |:heavy_check_mark:|Crea fattura|
-|| Fatturazione Elettronica | Allega stampa per fattura verso PA |:heavy_check_mark:|Crea fattura|
-|| Fatturazione Elettronica | Regime Fiscale |:heavy_check_mark:|Apri fattura elettronica|
-|| Fatturazione Elettronica | Tipo Cassa Previdenziale |:heavy_check_mark:|Apri fattura elettronica|
-|| Fatturazione Elettronica | Causale ritenuta d'acconto |:heavy_check_mark:|Apri fattura elettronica|
-|| Fatturazione Elettronica | Authorization ID Indice PA | ||
-|| Fatturazione Elettronica | OSMCloud Services API Token | ||
-|| Fatturazione Elettronica | Terzo intermediario | ||
-|| Fatturazione Elettronica | Riferimento dei documenti in Fattura Elettronica |:heavy_check_mark:|Apri fattura elettronica|
-|| Fatturazione Elettronica | OSMCloud Services API URL | ||
-|| Fatturazione Elettronica | OSMCloud Services API Version | ||
-|| Fatturazione Elettronica | Data inizio controlli su stati FE | ||
-|| Fatturazione Elettronica | Movimenta magazzino da fatture di acquisto | ||
-|| Fatturazione Elettronica | Rimuovi avviso fatture estere | ||
-|| Fatturazione Elettronica | Creazione seriali in import FE | ||
-|| Fatturazione Elettronica | Giorni validità fattura scartata | ||
-|| Generali | Azienda predefinita | ||
-|| Generali | Nascondere la barra sinistra di default |:heavy_check_mark:|Impostazioni|
-|| Generali | Cifre decimali per importi |:heavy_check_mark:|Crea fattura|
-|| Generali | CSS Personalizzato | ||
-|| Generali | Attiva notifica di presenza utenti sul record | ||
-|| Generali | Timeout notifica di presenza (minuti) | ||
-|| Generali | Prima pagina |:heavy_check_mark:|Anagrafiche|
-|| Generali | Cifre decimali per quantità |:heavy_check_mark:|Crea fattura|
-|| Generali | Tempo di attesa ricerche in secondi | ||
-|| Generali | Logo stampe | ||
-|| Generali | Abilita esportazione Excel e PDF |:heavy_check_mark:|Esporta fattura|
-|| Generali | Valuta |:heavy_check_mark:|Apro fattura|
-|| Generali | Visualizza riferimento su ogni riga in stampa |:heavy_check_mark:|Stampa fattura|
-|| Generali | Lunghezza in pagine del buffer Datatables | ||
-|| Generali | Autocompletamento form | ||
-|| Generali | Filigrana stampe | ||
-|| Generali | Attiva scorciatoie da tastiera | ||
-|| Generali | Modifica Viste di default | ||
-|| Generali | Totali delle tabelle ristretti alla selezione |:heavy_check_mark:|Seleziona fattura|
-|| Generali | Nascondere la barra dei plugin di default |:x:|:x:|
-|| Generali | Soft quota | ||
-|| Generali | Permetti selezione articoli con quantità minore o uguale a zero in Documenti di Vendita |:heavy_check_mark:|Crea fattura|
-|| Generali | Inizio periodo calendario |:heavy_check_mark:|Dashboard||
-|| Generali | Fine periodo calendario |:heavy_check_mark:|Dashboard||
-|| Generali | Permetti il superamento della soglia quantità dei documenti di origine |:heavy_check_mark:|Crea attività, preventivo, contratto, |ddt, ordine, fattura|
-|| Generali | Aggiungi riferimento tra documenti |:heavy_check_mark:|Aggiungi ddt in fattura||
-|| Generali | Mantieni riferimenti tra tutti i documenti collegati | |||
-|| Generali | Aggiungi le note delle righe tra documenti |:heavy_check_mark:|Fattura preventivo||
-|| Generali | Dimensione widget predefinita |:heavy_check_mark:|Dashboard||
-|| Generali | Posizione del simbolo valuta |:heavy_check_mark:|Crea fattura||
-|| Generali | Tile server OpenStreetMap | |||
-|| Generali | Sistema di firma | |||
-|| Generali | Tipo di sconto predefinito |:heavy_check_mark:|Crea fattura||
-|| Generali | Cifre decimali per importi in stampa |:heavy_check_mark:|Stampa fattura||
-|| Generali | Cifre decimali per quantità in stampa |:heavy_check_mark:|Stampa fattura||
-|| Generali | Cifre decimali per totali in stampa |:heavy_check_mark:|Stampa fattura||
-|| Generali | Listino cliente predefinito |:heavy_check_mark:|Crea anagrafica||
-|| Generali | Lingua |:heavy_check_mark:|Impostazioni||
-|| Generali | Ridimensiona automaticamente le immagini caricate | |||
-|| Generali | Larghezza per ridimensionamento immagini | |||
-|| Magazzino | Movimenta il magazzino durante l'inserimento o eliminazione dei lotti/serial number | |||
-|| Magazzino | Serial number abilitato di default |:heavy_check_mark:|Crea articolo||
-|| Magazzino | Magazzino cespiti | |||
-|| Mail | Numero di giorni mantenimento coda di invio | |||
-|| Newsletter | Numero massimo di tentativi | ||
-|| Newsletter | Numero email da inviare in contemporanea per account | ||
-|| Ordini | Cambia automaticamente stato ordini fatturati |:heavy_check_mark:|Fattura ordine|
-|| Ordini | Conferma automaticamente le quantità negli ordini cliente |:heavy_check_mark:|Crea ordine cliente|
-|| Ordini | Conferma automaticamente le quantità negli ordini fornitore |:heavy_check_mark:|Crea ordine fornitore|
-|| Ordini | Visualizza numero ordine cliente | ||
-|| Piano dei conti | Conto per Riepilogativo fornitori |:heavy_check_mark:|Piano dei conti|
-|| Piano dei conti | Conto per Riepilogativo clienti |:heavy_check_mark:|Piano dei conti|
-|| Piano dei conti | Conto per Iva indetraibile |:heavy_check_mark:|Piano dei conti|
-|| Piano dei conti | Conto per Iva su vendite |:heavy_check_mark:|Piano dei conti|
-|| Piano dei conti | Conto per Iva su acquisti |:heavy_check_mark:|Piano dei conti|
-|| Piano dei conti | Conto per Erario c/ritenute d'acconto |:heavy_check_mark:|Piano dei conti|
-|| Piano dei conti | Conto per Erario c/INPS |:heavy_check_mark:|Piano dei conti|
-|| Piano dei conti | Conto per Erario c/enasarco |:heavy_check_mark:|Piano dei conti|
-|| Piano dei conti | Conto per Apertura conti patrimoniali |:heavy_check_mark:|Piano dei conti|
-|| Piano dei conti | Conto per Chiusura conti patrimoniali |:heavy_check_mark:|Piano dei conti|
-|| Piano dei conti | Conto per autofattura |:heavy_check_mark:|Piano dei conti|
-|| Piano dei conti | Conto di secondo livello per i crediti clienti |:heavy_check_mark:|Piano dei conti|
-|| Piano dei conti | Conto di secondo livello per i debiti fornitori |:heavy_check_mark:|Piano dei conti|
-|| Preventivi | "Condizioni generali di fornitura preventivi" |:heavy_check_mark:|Stampa preventivo|
-|| Preventivi | Conferma automaticamente le quantità nei preventivi |:heavy_check_mark:|Aggiungi articolo|
-|| Preventivi | Esclusioni default preventivi |:heavy_check_mark:|Crea preventivo|
-|| Scadenzario | Invio solleciti in automatico | ||
-|| Scadenzario | Template email primo sollecito | ||
-|| Scadenzario | Ritardo in giorni della scadenza della fattura per invio sollecito pagamento | ||
-|| Scadenzario | Ritardo in giorni dall'ultima email per invio sollecito pagamento | ||
-|| Scadenzario | Template email secondo sollecito | ||
-|| Scadenzario | Template email terzo sollecito | ||
-|| Scadenzario | Template email mancato pagamento dopo i solleciti | ||
-|| Scadenzario | Indirizzo email mancato pagamento dopo i solleciti | ||
-|| Scadenzario | Template email promemoria scadenza | ||
-|| Scadenzario | Intervallo di giorni in anticipo per invio promemoria scadenza | ||
 || Tavoletta Wacom |Licenza Wacom SDK - Key|-|-|
 || Tavoletta Wacom |Sfondo firma tavoletta Wacom|-|-|
 || Tavoletta Wacom |Sfondo firma tavoletta Wacom|-|-|
 || Tavoletta Wacom |Sfondo firma tavoletta Wacom|-|-|
 || Tavoletta Wacom |Sfondo firma tavoletta Wacom|-|-|
 || Tavoletta Wacom |Sfondo firma tavoletta Wacom|-|-|
-
-
 
 ## API  
 

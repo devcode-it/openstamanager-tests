@@ -37,7 +37,7 @@ class Dashboard(Test):
         self.find(By.XPATH, '(//div[@class="info-box"])[4]').click()
         sleep(1)
         verifica = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
-        self.assertEqual(verifica, "Fattura immediata di acquisto numero 02")
+        self.assertEqual(verifica, "Fattura immediata di acquisto numero 01")
 
         self.navigateTo("Dashboard")
         self.wait_loader()

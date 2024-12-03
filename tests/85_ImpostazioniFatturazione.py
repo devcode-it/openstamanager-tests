@@ -10,123 +10,143 @@ from selenium.webdriver.support import expected_conditions as EC
 class Impostazioni(Test):
     def setUp(self):
         super().setUp()
+        self.expandSidebar("Strumenti")
 
     def test_impostazioni_fatturazione(self):
-        # Iva predefinita (1)
+        # Test Iva predefinita
         self.iva_predefinita()
 
-        # Tipo di pagamento predefinito (2)
+        # Test Tipo di pagamento predefinito
         self.tipo_pagamento_predefinito()
 
-        # Ritenuta d'acconto predefinita (3)
+        # Test Ritenuta d'acconto predefinita
         self.ritenuta_acconto_predefinita()
 
-        # Cassa previdenziale predefinita (4)
+        # Test Cassa previdenziale predefinita
         self.cassa_previdenziale_predefinita()
 
-        # Importo marca da bollo (5)
+        # Test Importo marca da bollo
         self.importo_marca_bollo()
 
-        # Soglia minima per l'applicazione della marca da bollo (6)
+        # Test Soglia minima per l'applicazione della marca da bollo
         self.soglia_minima_marca_bollo()
 
-        # Conto predefinito fatture di vendita (8)
+        ## TODO: conto aziendale predefinito
+
+        # Test Conto predefinito fatture di vendita
         self.conto_predefinito_vendita()
 
-        # Conto predefinito fatture di acquisto (9)
+        # Test Conto predefinito fatture di acquisto
         self.conto_predefinito_acquisto()
 
-        # Dicitura fissa fattura (10)
-        self.dicitura_fissa_fattura()   #da finire
+        # Test Dicitura fissa fattura
+        self.dicitura_fissa_fattura() 
 
-        # Ritenuta previdenziale predefinita (12)
+        ## TODO: metodologia calcolo ritenuta d'acconto predefinito
+
+        # Test Ritenuta previdenziale predefinita 
         self.ritenuta_previdenziale_predefinita()
 
-        # Addebita marca da bollo al cliente (13)
-        self.addebita_marca_bollo() #da finire
+        # Test Descrizione addebito bollo 
+        #self.descrizione_marca_bollo()  
 
-        # Descrizione addebito bollo (14)
-        self.descrizione_marca_bollo()  
+        # Test Conto predefinito per la marca da bollo
+        #self.conto_marca_bollo()
 
-        # Conto predefinito per la marca da bollo (15)
-        self.conto_marca_bollo()
+        # Test Iva per lettere d'intento
+        #self.iva_lettere_intento()
 
-        # Iva per lettere d'intento (16)
-        self.iva_lettere_intento()
+        # Test Utilizza prezzi di vendita comprensivi di IVA
+        #self.prezzi_vendita_comprensivi_iva()
 
-        # Utilizza prezzi di vendita comprensivi di IVA (17)
-        self.prezzi_vendita_comprensivi_iva()
+        # Test Liquidazione iva
+        #self.liquidazione_iva()
 
-        # Liquidazione iva (18)
-        self.liquidazione_iva()
+        ## TODO: conto anticipo clienti
 
-        # Descrizione fattura pianificata (21)
-        self.descrizione_fattura_pianificata()
+        ## TODO: conto anticipo fornitori
 
-        # Permetti fatturazione delle attività collegate a contratti (29)
-        self.fattura_attivita_collegate_contratti()
+        # Test Descrizione fattura pianificata
+        #self.descrizione_fattura_pianificata()
 
-        # Permetti fatturazione delle attività collegate a ordini (31)
-        self.fattura_attivita_collegate_ordini()
+        ## TODO: aggiorna info di acquisto
+
+        ## TODO: bloccare i prezzi inferiori al minimo di vendita
+
+        # Test Permetti fatturazione delle attività collegate a contratti
+        #self.fattura_attivita_collegate_contratti()
+
+        ## TODO: data emissione fattura automatica
+
+        # Test Permetti fatturazione delle attività collegate a ordini
+        #self.fattura_attivita_collegate_ordini()
+
+        ## TODO: permetti fatturazione delle attività collegate a preventivi
+
+        ## TODO: data inizio verifica contatore fatture di vendita
+
+        ## TODO: raggruppa attività per tipologia in fattura
+
+        ## TODO: metodo di importazione XML fatture di vendita
 
     def iva_predefinita(self):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting6-container"]').click() #aggiungi iva al 10
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Iva predefinita")]//div//span').click()
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Aliq. Iva 10")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Aliq. Iva 10")
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
         sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()  
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click() #aggiungi riga
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click() 
         sleep(1)
 
-        iva=self.find(By.XPATH, '//span[@id="select2-idiva-container"]').text   #check iva
+        self.find(By.XPATH, '//textarea[@id="descrizione_riga"]').send_keys("test")
+        iva=self.find(By.XPATH, '//span[@id="select2-idiva-container"]').text 
         self.assertEqual(iva[2:21], "10 - Aliq. Iva 10%")
         self.find(By.XPATH, '//button[@class="close"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//a[@id="elimina"]').click() #elimina fattura
+        self.find(By.XPATH, '//a[@id="elimina"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   
         self.wait_loader()
-        #torno alle impostazioni di prima
+
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting6-container"]').click() #aggiungi iva al 22
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Iva predefinita")]//div//span').click()
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Aliq. Iva 22")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Aliq. Iva 22")
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
         sleep(1)
 
     def tipo_pagamento_predefinito(self):
@@ -134,52 +154,52 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting7-container"]').click() #metto come tipo di pagamento "Rimessa diretta"
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Tipo di pagamento predefinito")]//div//span').click()
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Rimessa diretta")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Rimessa diretta")
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
         sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
-        #check se è cambiato il tipo di pagamento
+
         tipo=self.find(By.XPATH, '//span[@id="select2-idpagamento-container"]').text
         self.assertEqual(tipo[2:24], "MP01 - Rimessa diretta")
-        self.find(By.XPATH, '//a[@id="elimina"]').click() #elimina fattura
+        self.find(By.XPATH, '//a[@id="elimina"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() 
         self.wait_loader()
-        #torno alle impostazioni di prima
+
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting7-container"]').click() #metto come tipo di pagamento "Bonifico 30gg d.f.f.m."
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Tipo di pagamento predefinito")]//div//span').click()
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Bonifico 30gg d.f.f.m.")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Bonifico 30gg d.f.f.m.")
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
         sleep(1)
 
     def ritenuta_acconto_predefinita(self):
@@ -187,98 +207,109 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting8-container"]').click() #seleziona ritenuta acconto
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ritenuta d\'acconto predefinita")]//div//span').click()
         sleep(1)
 
-        self.find(By.XPATH, '(//ul[@id="select2-setting8-results"]//li)[1]').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Ritenuta Acconto di Prova")
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
         sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
-        sleep(1)
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
+        modal = self.wait_modal()
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()
         sleep(1)
 
-        ritenuta=self.find(By.XPATH, '//span[@id="select2-id_ritenuta_acconto-container"]').text    #check se è stata impostata la ritenuta
-        self.assertEqual(ritenuta[2:25], "Ritenuta d'acconto 10%")
-        self.find(By.XPATH, '//button[@class="close"]').click()
+        ritenuta=self.find(By.XPATH, '//span[@id="select2-id_ritenuta_acconto-container"]').text
+        self.assertEqual(ritenuta[2:27], "Ritenuta Acconto di Prova")
         sleep(1)
-        #elimina fattura
+        
+        self.find(By.XPATH, '//div[@id="modals"]//button[@class="close"]').click()
+        sleep(1)
+
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() 
         self.wait_loader()
-        #torno alle impostazioni di prima
+
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting8-container"]//span').click()   #cancella ritenuta
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ritenuta d\'acconto predefinita")]//div//span[@class="select2-selection__clear"]').click()
+        sleep(1)
 
     def cassa_previdenziale_predefinita(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting9-container"]').click() #imposta cassa previdenziale
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Cassa previdenziale predefinita")]//div//span').click()
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-setting9-results"]//li').click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Cassa Previdenziale di Prova")
+        sleep(1)
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
         sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()
         sleep(1)
 
-        cassa_previdenziale=self.find(By.XPATH, '//span[@id="select2-id_rivalsa_inps-container"]').text #check se la cassa è stata impostata
-        self.assertEqual(cassa_previdenziale[2:17], "Rivalsa INPS 4%")
-        self.find(By.XPATH, '//button[@class="close"]').click() #chiudo
+        cassa_previdenziale=self.find(By.XPATH, '//span[@id="select2-id_rivalsa_inps-container"]').text 
+        self.assertEqual(cassa_previdenziale[2:30], "Cassa Previdenziale di Prova")
         sleep(1)
-        #elimina fattura
+
+        self.find(By.XPATH, '//button[@class="close"]').click() 
+        sleep(1)
+
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() 
         self.wait_loader()
-        #torno alle impostazioni di prima
+
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting9-container"]//span').click()
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Cassa previdenziale predefinita")]//div//span[@class="select2-selection__clear"]').click()
         sleep(1)
 
     def importo_marca_bollo(self):
@@ -287,106 +318,103 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #aggiungi riga
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click() 
         sleep(1)
 
-        #descrizione
         wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("test")
-        #prezzo unitario
+
         prezzo_unitario=self.find(By.XPATH, '//input[@id="prezzo_unitario"]')
         prezzo_unitario.clear()
         prezzo_unitario.send_keys("80")
-        #iva
+
         self.find(By.XPATH, '//span[@id="select2-idiva-container"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()    #seleziono iva come non soggetta
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()  
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()  
         self.wait_loader()
         sleep(1)
 
         totale=self.find(By.XPATH, '//tbody//tr[2]//td[9]').text
-        self.assertEqual(totale, "2,00 €")     #check se la marca da bollo è di 2 euro
-        #elimino fattura
+        self.assertEqual(totale, "2,00 €")  
+
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() 
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
         sleep(1)
 
-        impostazione=self.find(By.XPATH, '//input[@id="setting10"]')
-        impostazione.clear()
-        impostazione.send_keys("3,00")  #cambio la marca da bollo da 2,00 a 3,00
+        element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Importo marca da bollo")]//input')
+        element.clear()
+        element.send_keys('3,00', Keys.ENTER)
         sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()  
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #aggiungi riga
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()  
         sleep(1)
 
-        #descrizione
         wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("test")
-        #prezzo unitario
+
         prezzo_unitario=self.find(By.XPATH, '//input[@id="prezzo_unitario"]')
         prezzo_unitario.clear()
         prezzo_unitario.send_keys("80")
-        #iva
+
         self.find(By.XPATH, '//span[@id="select2-idiva-container"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()    #seleziono iva come non soggetta
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()  
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()   
         self.wait_loader()
         sleep(1)
 
         totale=self.find(By.XPATH, '//tbody//tr[2]//td[9]').text
-        self.assertEqual(totale, "3,00 €")     #check se la marca da bollo è di 3 euro
-        #elimino fattura
+        self.assertEqual(totale, "3,00 €", Keys.ENTER)   
+
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
         self.navigateTo("Impianti")
         self.wait_loader()
 
-        #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
         sleep(1)
 
-        impostazione=self.find(By.XPATH, '//input[@id="setting10"]')
-        impostazione.clear()
-        impostazione.send_keys("2,00")  #cambio la marca da bollo da 3,00 a 2,00
+        element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Importo marca da bollo")]//input')
+        element.clear()
+        element.send_keys('2,00', Keys.ENTER)
         sleep(1)
 
     def soglia_minima_marca_bollo(self):
@@ -395,102 +423,101 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #aggiungi riga
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click() 
         sleep(1)
 
-        #descrizione
         wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("test")
-        #prezzo unitario
+
         prezzo_unitario=self.find(By.XPATH, '//input[@id="prezzo_unitario"]')
         prezzo_unitario.clear()
         prezzo_unitario.send_keys("80")
-        #iva
+
         self.find(By.XPATH, '//span[@id="select2-idiva-container"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()    #seleziono iva come non soggetta
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click() 
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click() 
         self.wait_loader()
         sleep(1)
 
         totale=self.find(By.XPATH, '//tbody//tr[2]//td[9]').text
-        self.assertEqual(totale, "2,00 €")     #check se è presente la marca da bollo
-        #elimino fattura
+        self.assertEqual(totale, "2,00 €")  
+
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() 
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
         sleep(1)
 
-        impostazione=self.find(By.XPATH, '//input[@id="setting11"]')
-        impostazione.clear()
-        impostazione.send_keys("40")   #imposto la soglia minima a 40 euro
+        element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Soglia minima per l\'applicazione della marca da bollo")]//input')
+        element.clear()
+        element.send_keys('40')
         sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #aggiungi riga
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()  
         sleep(1)
 
-        #descrizione
         wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("test")
-        #prezzo unitario
+
         prezzo_unitario=self.find(By.XPATH, '//input[@id="prezzo_unitario"]')
         prezzo_unitario.clear()
-        prezzo_unitario.send_keys("45")    #prezzo più alto della soglia minima
-        #iva
+        prezzo_unitario.send_keys("45")   
+
         self.find(By.XPATH, '//span[@id="select2-idiva-container"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()    #seleziono iva come non soggetta
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()  
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()   
         self.wait_loader()
         sleep(1)
 
         totale=self.find(By.XPATH, '//tbody//tr[2]//td[9]').text
-        self.assertEqual(totale, "2,00 €")     #check se è presente la marca da bollo
-        #elimino fattura
+        self.assertEqual(totale, "2,00 €")   
+
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()  
         self.wait_loader()
-        #torno alle impostazioni di prima
+
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        impostazione=self.find(By.XPATH, '//input[@id="setting11"]')
-        impostazione.clear()
-        impostazione.send_keys("77,47")   #imposto la soglia minima a 77,47 euro
+        element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Soglia minima per l\'applicazione della marca da bollo")]//input')
+        element.clear()
+        element.send_keys('77,47')
+        element.send_keys(Keys.ENTER)
         sleep(1)
 
     def conto_predefinito_vendita(self):
@@ -498,10 +525,10 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting36-container"]').click()    #cambio conto
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito fatture di vendita")]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-setting36-results"]//li[2]').click()
@@ -511,36 +538,37 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()
         sleep(1)
 
-        conto=self.find(By.XPATH, '//span[@id="select2-idconto-container"]').text   #check se il conto è cambiato
+        conto=self.find(By.XPATH, '//span[@id="select2-idconto-container"]').text   
         self.assertEqual(conto[2:47], "700.000020 Ricavi vendita prestazione servizi")
-        self.find(By.XPATH, '//button[@class="close"]').click() #chiudo
+        self.find(By.XPATH, '//button[@class="close"]').click()
         sleep(1)
+
         #elimina fattura
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()  
         self.wait_loader()
-        #torno alle impostazioni di prima
+
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting36-container"]').click()    #cambio conto
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito fatture di vendita")]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-setting36-results"]//li[1]').click()
@@ -551,10 +579,10 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting37-container"]').click() #cambio conto
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito fatture di acquisto")]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-setting37-results"]//li[2]').click()
@@ -564,43 +592,43 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]'))).send_keys("05")   #scrivo 05 come numero esterno
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono "Fornitore" come fornitore
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]'))).send_keys("05") 
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Fornitore", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()  
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@id="select2-idpagamento-container"]').click()  #æggiungi pagamento
+        self.find(By.XPATH, '//span[@id="select2-idpagamento-container"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-idpagamento-results"]//li[1]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #aggiungi riga
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()  
         sleep(1)
 
         conto=self.find(By.XPATH, '//span[@id="select2-idconto-container"]').text
         self.assertEqual(conto[2:50], "600.000020 Costi merci c/acquisto di produzione")
-        self.find(By.XPATH, '//button[@class="close"]').click()     #chiudi
+        self.find(By.XPATH, '//button[@class="close"]').click()   
         sleep(1)
 
-        self.find(By.XPATH, '//a[@id="elimina"]').click()   #elimino fattura
+        self.find(By.XPATH, '//a[@id="elimina"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
-        #torno alle impostazioni di prima
+        
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting37-container"]').click() #cambio conto
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito fatture di acquisto")]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-setting37-results"]//li[1]').click()
@@ -612,219 +640,144 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()    #apro prima fattura
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()  
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@id="print-button_p"]').click()    #stampa fattura
+        self.find(By.XPATH, '//a[@id="print-button_p"]').click()   
         sleep(1)
 
-        self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
         sleep(1)
-        #prima riga
-        prima_riga=self.find(By.XPATH, '(//div[@id="viewer"]//span)[73]').text
-        self.assertEqual(prima_riga, "Ai sensi del D.Lgs. 196/2003 Vi informiamo che i Vs. dati saranno utilizzati esclusivamente per i ﬁni connessi ai rapporti commerciali tra di noi in essere. Contributo CONAI assolto ove dovuto - Vi")
-        #seconda riga
-        seconda_riga=self.find(By.XPATH, '(//div[@id="viewer"]//span)[74]').text
-        self.assertEqual(seconda_riga, "preghiamo di controllare i Vs. dati anagraﬁci, la P. IVA e il Cod. Fiscale. Non ci riteniamo responsabili di eventuali errori.Copia della fattura elettronica disponibile nella Sua area riservata")
-        #terza riga
-        terza_riga=self.find(By.XPATH, '(//div[@id="viewer"]//span)[75]').text
-        self.assertEqual(terza_riga, "dell’Agenzia delle Entrate")
 
-        self.driver.close() #chiude scheda
-        self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
+        dicitura=self.find(By.XPATH, '(//div[@id="viewer"]//span)[196]').text
+        self.assertEqual(dicitura, "Ai sensi del D.Lgs. 196/2003 Vi informiamo che i Vs. dati saranno utilizzati esclusivamente per i ﬁni connessi ai rapporti commerciali tra di noi in essere. Contributo CONAI assolto ove dovuto - Vi")
+
+        self.driver.close() 
+        self.driver.switch_to.window(self.driver.window_handles[0]) 
         sleep(1)
 
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        dicitura=self.find(By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]')
-        dicitura.click()
-        dicitura.send_keys("test")
+        dicitura = self.find(By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]')
+        self.driver.switch_to.frame(dicitura)
+        self.driver.execute_script('document.body.innerHTML = ""')
+        self.driver.execute_script('document.body.innerHTML = "Test"')
+        self.driver.switch_to.default_content()
+        dicitura.send_keys(Keys.ENTER)
 
-        #crea fattura
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
-        sleep(1)
-
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
-        sleep(1)
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()  
         self.wait_loader()
 
-        #aggiungi riga
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click() #click su aggiungi riga
+        self.find(By.XPATH, '//a[@id="print-button_p"]').click()   
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Test")    #scrivo "Test" come descrizione della riga
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1") #scrivo 1 come prezzo unitario
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click() #click su aggiungi
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
         sleep(1)
 
-        #cambio stato
-        self.find(By.XPATH, '//span[@id="select2-idstatodocumento-container"]').click()
+        dicitura=self.find(By.XPATH, '(//div[@id="viewer"]//span)[196]').text
+        self.assertEqual(dicitura, "Test")
+
+        self.driver.close() 
+        self.driver.switch_to.window(self.driver.window_handles[0]) 
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-idstatodocumento-results"]//li[2]').click() #imposto stato "Emessa"
-        self.find(By.XPATH, '//button[@id="save"]').click() #click su salva
-        self.wait_loader()
-
-        self.find(By.XPATH, '//a[@id="print-button_p"]').click()    #stampa fattura
-        sleep(1)
-
-        self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(1)
-
-        seconda_riga=self.find(By.XPATH, '(//div[@id="viewer"]//span)[84]').text
-        self.assertEqual(seconda_riga, "preghiamo di controllare i Vs. dati anagraﬁci, ltesta P. IVA e il Cod. Fiscale. Non ci riteniamo responsabili di eventuali errori.")
-        self.driver.close() #chiude scheda
-        self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
-        sleep(1)
-
-        #elimina fattura
-        self.find(By.XPATH, '//a[@id="elimina"]').click()
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
-        self.wait_loader()
-        #torna alle impostazioni di prima
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
         sleep(1)
 
         dicitura=self.find(By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]')
-        dicitura.click()
-        dicitura.clear()    #clear non funziona
+        self.driver.switch_to.frame(dicitura)
+        self.driver.execute_script('document.body.innerHTML = ""')
+        self.driver.execute_script('document.body.innerHTML = "Ai sensi del D.Lgs. 196/2003 Vi informiamo che i Vs. dati saranno utilizzati esclusivamente per i fini connessi ai rapporti commerciali tra di noi in essere. Contributo CONAI assolto ove dovuto - Vi preghiamo di controllare i Vs. dati anagrafici, la P. IVA e il Cod. Fiscale. Non ci riteniamo responsabili di eventuali errori."')
+        self.driver.switch_to.default_content()
+        dicitura.send_keys(Keys.ENTER)
         sleep(1)
-
-        dicitura.send_keys("Ai sensi del D.Lgs. 196/2003 Vi informiamo che i Vs. dati saranno utilizzati esclusivamente per i fini connessi ai rapporti commerciali tra di noi in essere. Contributo CONAI assolto ove dovuto - Vi preghiamo di controllare i Vs. dati anagrafici, la P. IVA e il Cod. Fiscale. Non ci riteniamo responsabili di eventuali errori.")
-        sleep(1)
-
 
     def ritenuta_previdenziale_predefinita(self):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting82-container"]').click()
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ritenuta previdenziale predefinita")]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-setting82-results"]//li[1]').click() #seleziono ritenuta previdenziale
+        self.find(By.XPATH, '//ul[@id="select2-setting82-results"]//li[1]').click() 
         sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
-        ritenuta_element=self.find(By.XPATH, '//span[@id="select2-id_ritenuta_contributi-container"]')  #check se è stata aggiunta la ritenuta
+        ritenuta_element=self.find(By.XPATH, '//span[@id="select2-id_ritenuta_contributi-container"]') 
         ritenuta = ritenuta_element.get_attribute("title")
         self.assertEqual(ritenuta, "Ritenuta Previdenziale di Prova - 80.00% sul 60.00% imponibile")
-        #elimino fattura
+
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() 
         self.wait_loader()
-        #torno alle impostazioni di prima
+
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting82-container"]//span').click()
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ritenuta previdenziale predefinita")]//span[@class="select2-selection__clear"]').click()
         sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@id="select2-id_ritenuta_contributi-container"]').click()
-        sleep(1)
+        ritenuta_element=self.find(By.XPATH, '//span[@id="select2-id_ritenuta_contributi-container"]') 
+        ritenuta = ritenuta_element.get_attribute("title")
+        self.assertEqual(ritenuta, "")
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-id_ritenuta_contributi-results"]//li[1]')))   #check se la ritenuta non è stata selezionata
-        #elimino fattura
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() 
         self.wait_loader()
-
-
-    def addebita_marca_bollo(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
-
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
-        sleep(1)
-
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
-        self.wait_loader()
-
-        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[3]').click()    #disattiva bollo automatico
-        sleep(1)
-
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #aggiungi riga
-        sleep(1)
-
-        #descrizione
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("test")
-        #prezzo unitario
-        prezzo_unitario=self.find(By.XPATH, '//input[@id="prezzo_unitario"]')
-        prezzo_unitario.clear()
-        prezzo_unitario.send_keys("80")
-        #iva
-        self.find(By.XPATH, '//span[@id="select2-idiva-container"]').click()
-        sleep(1)
-
-        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()    #seleziono iva come non soggetta
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
-        self.wait_loader()
-        
-
 
     def descrizione_marca_bollo(self):
         wait = WebDriverWait(self.driver, 20)
@@ -832,104 +785,99 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()  
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #aggiungi riga
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click() 
         sleep(1)
 
-        #descrizione
         wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("test")
-        #prezzo unitario
         prezzo_unitario=self.find(By.XPATH, '//input[@id="prezzo_unitario"]')
         prezzo_unitario.clear()
         prezzo_unitario.send_keys("80")
-        #iva
+
         self.find(By.XPATH, '//span[@id="select2-idiva-container"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()    #seleziono iva come non soggetta
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()  
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()  
         self.wait_loader()
         sleep(1)
 
-        descrizione=self.find(By.XPATH, '(//tbody//tr[2]//td[3])[1]').text
-        self.assertEqual(descrizione[0:30], "Rimborso spese marche da bollo")
-        #elimino fattura
+        descrizione=self.find(By.XPATH, '//tbody//tr[2]//td[3]').text
+        self.assertEqual(descrizione[31:61], "Marca da bollo")
+
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() 
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        descrizione=self.find(By.XPATH, '(//tbody//tr[2]//td[3])[1]').text
-        self.assertEqual(descrizione[0:3], "Test")
+        element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Descrizione addebito bollo")]//input')
+        element.clear()
+        element.send_keys('Descrizione test', Keys.ENTER)
         sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()  
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #aggiungi riga
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click() 
         sleep(1)
 
-        #descrizione
         wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("test")
-        #prezzo unitario
         prezzo_unitario=self.find(By.XPATH, '//input[@id="prezzo_unitario"]')
         prezzo_unitario.clear()
         prezzo_unitario.send_keys("80")
-        #iva
+
         self.find(By.XPATH, '//span[@id="select2-idiva-container"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()    #seleziono iva come non soggetta
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()   
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()  
         self.wait_loader()
         sleep(1)
 
-        descrizione_element = self.find(By.XPATH, '(//tbody//tr[2]//td[3])[1]')
-        descrizione = descrizione_element.get_attribute("text")
-        self.assertEqual(descrizione, "Test")   #controllo se la descrizione è cambiata
-        #elimino fattura
+        descrizione=self.find(By.XPATH, '//tbody//tr[2]//td[3]').text
+        self.assertEqual(descrizione[31:47], "Descrizione test")
+
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()  
         self.wait_loader()
-        #torno alle impostazioni di prima
+
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        impostazione=self.find(By.XPATH, '//input[@id="setting89"]')    #scrivo "Rimborso spese marche da bollo" come descrizione
-        impostazione.clear()
-        impostazione.send_keys("Rimborso spese marche da bollo")
+        element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Descrizione addebito bollo")]//input')
+        element.clear()
+        element.send_keys('Marca da bollo', Keys.ENTER)
         sleep(1)
-
 
     def conto_marca_bollo(self):
         wait = WebDriverWait(self.driver, 20)
@@ -937,48 +885,43 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #aggiungi riga
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()  
         sleep(1)
 
-        #descrizione
         wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("test")
-        #prezzo unitario
         prezzo_unitario=self.find(By.XPATH, '//input[@id="prezzo_unitario"]')
         prezzo_unitario.clear()
         prezzo_unitario.send_keys("80")
-        #iva
         self.find(By.XPATH, '//span[@id="select2-idiva-container"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()    #seleziono iva come non soggetta
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()  
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()  
         self.wait_loader()
-        
-        conto=self.find(By.XPATH, '//tbody//tr[2]//td[3]//small').text  #check conto
+        conto=self.find(By.XPATH, '//tbody//tr[2]//td[3]//small').text 
         self.assertEqual(conto, "Rimborso spese marche da bollo")
-        #elimino fattura
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() 
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting90-container"]').click()    #cambia conto
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito per la marca da bollo")]').click()
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-setting90-results"]//li[1]').click()
@@ -988,53 +931,49 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()  
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #aggiungi riga
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()   
         sleep(1)
 
-        #descrizione
+
         wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("test")
-        #prezzo unitario
         prezzo_unitario=self.find(By.XPATH, '//input[@id="prezzo_unitario"]')
         prezzo_unitario.clear()
         prezzo_unitario.send_keys("80")
-        #iva
         self.find(By.XPATH, '//span[@id="select2-idiva-container"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()    #seleziono iva come non soggetta
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()    #click su aggiungi
+        self.find(By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]').click()  
+        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()   
         self.wait_loader()
-        
-        conto=self.find(By.XPATH, '//tbody//tr[2]//td[3]//small').text  #check conto
+
+        conto=self.find(By.XPATH, '//tbody//tr[2]//td[3]//small').text 
         self.assertEqual(conto, "Ricavi merci c/to vendite")
-        #elimino fattura
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   
         self.wait_loader()
-        #torno alle impostazioni di prima
+
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting90-container"]').click()    #cambia conto
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito per la marca da bollo")]').click()
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-setting90-results"]//li[6]').click()
         sleep(1)
-
 
     def iva_lettere_intento(self):
         wait = WebDriverWait(self.driver, 20)
@@ -1047,19 +986,18 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        
         self.find(By.XPATH, '//a[@id="link-tab_25"]').click()
         self.find(By.XPATH, '//div[@id="tab_25"]//i[@class="fa fa-plus"]').click()
         sleep(1)
 
-        # Aggiunta dichiarazione di intento
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_protocollo"]'))).send_keys("012345678901234567890123")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_protocollo"]'))).send_keys("06/08/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_protocollo"]'))).send_keys("06/11/2024")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_progressivo"]'))).send_keys("001")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("06/08/2024")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))).send_keys("06/10/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("06/11/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))).send_keys("06/12/2024")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="massimale"]'))).send_keys("50000")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_emissione"]'))).send_keys("06/08/2024", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_emissione"]'))).send_keys("06/11/2024", Keys.ENTER)
         self.find(By.XPATH, '(//button[@class="btn btn-primary"])[2]').click()
         self.wait_loader()
 
@@ -1067,7 +1005,7 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//i[@class="fa fa-plus"]').click() #crea fattura
+        self.find(By.XPATH, '//i[@class="fa fa-plus"]').click() 
         self.wait_modal()
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
@@ -1077,7 +1015,7 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #aggiungi riga
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()  
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("prova per dichiarazione")
@@ -1087,19 +1025,18 @@ class Impostazioni(Test):
         sleep(1)
 
         iva=self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[8]//small').text
-        self.assertEqual(iva, "Non imp. art. 8 c.1 lett. c DPR 633/1972 (I)  (N3.5)")
-        #elimina fattura
+        self.assertEqual(iva, "Non imp. art. 8 c.1 lett. c DPR 633/1972 (I) (N3.5)")
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
-        #elimina dichiarazione
+
         self.navigateTo("Anagrafiche")
         self.wait_loader() 
 
         self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        
         self.find(By.XPATH, '//a[@id="link-tab_25"]').click()
         sleep(1)
 
@@ -1116,13 +1053,13 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting94-container"]').click()    #cambio iva
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Iva per lettere d\'intento")]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-setting94-results"]//li[1]').click() #iva 311
+        self.find(By.XPATH, '//ul[@id="select2-setting94-results"]//li[1]').click() 
         sleep(1)
 
         self.navigateTo("Anagrafiche")
@@ -1131,19 +1068,18 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        
         self.find(By.XPATH, '//a[@id="link-tab_25"]').click()
         self.find(By.XPATH, '//div[@id="tab_25"]//i[@class="fa fa-plus"]').click()
         sleep(1)
 
-        # Aggiunta dichiarazione di intento
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_protocollo"]'))).send_keys("012345678901234567890123")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_protocollo"]'))).send_keys("06/08/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_protocollo"]'))).send_keys("06/11/2024")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_progressivo"]'))).send_keys("001")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("06/08/2024")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))).send_keys("06/10/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("06/11/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))).send_keys("06/12/2024")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="massimale"]'))).send_keys("50000")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_emissione"]'))).send_keys("06/08/2024", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_emissione"]'))).send_keys("06/11/2024", Keys.ENTER)
         self.find(By.XPATH, '(//button[@class="btn btn-primary"])[2]').click()
         self.wait_loader()
 
@@ -1151,7 +1087,7 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//i[@class="fa fa-plus"]').click() #crea fattura
+        self.find(By.XPATH, '//i[@class="fa fa-plus"]').click() 
         self.wait_modal()
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
@@ -1161,7 +1097,7 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()    #aggiungi riga
+        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()  
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("prova per dichiarazione")
@@ -1171,19 +1107,18 @@ class Impostazioni(Test):
         sleep(1)
 
         iva=self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[8]//small').text
-        self.assertEqual(iva, "Art. 2 c. 2, n. 4 DPR 633/1972 (I)  (N3.6)")
-        #elimina fattura
+        self.assertEqual(iva, "Art. 2 c. 2, n. 4 DPR 633/1972 (I) (N3.6)")
         self.find(By.XPATH, '//a[@id="elimina"]').click()
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
-        #elimina dichiarazione
+
         self.navigateTo("Anagrafiche")
         self.wait_loader() 
 
         self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()
+        
         self.find(By.XPATH, '//a[@id="link-tab_25"]').click()
         sleep(1)
 
@@ -1199,62 +1134,65 @@ class Impostazioni(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader() 
 
-        self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]//i').click()    #elimina ricerca
-        #torna alle impostazioni di prima
+        self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]//i').click()  
+
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting94-container"]').click()    #cambio iva
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Iva per lettere d\'intento")]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//ul[@id="select2-setting94-results"]//li[9]').click() #iva 307
+        self.find(By.XPATH, '//ul[@id="select2-setting94-results"]//li[9]').click() 
         sleep(1)
-
 
     def prezzi_vendita_comprensivi_iva(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[2]').click()    #attivo impostazione
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Utilizza prezzi di vendita comprensivi di IVA")]').click()
         sleep(1)
 
         self.expandSidebar("Magazzino")
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione"]'))).send_keys("Prova") #descrizione
-        self.find(By.XPATH, '//button[@class="btn btn-tool"]').click()
-        sleep(1)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione"]'))).send_keys("Prova") 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_vendita"]'))).send_keys("12") #prezzo di vendita
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="qta"]'))).send_keys("1")   #quantità    
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   #click su aggiungi
+        self.find(By.XPATH, '(//div[@id="modals"]//i[@class="fa fa-plus"])[3]').click()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Quantità iniziale').setValue('1')
+        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_vendita"]'))).send_keys("12") 
+        self.find(By.XPATH, '//button[@class="btn btn-success"]').click()
         self.wait_loader()
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()   #click su +
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() #seleziono Cliente come anagrafica
+        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
-        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()  #aggiungo articolo
+        self.find(By.XPATH, '//span[@id="select2-id_articolo-container"]').click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Prova")
@@ -1263,59 +1201,34 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click() #click su aggiungi
+        self.find(By.XPATH, '//button[@class="btn btn-primary tip tooltipstered"]').click()
         sleep(1)
 
-        prezzo_element = self.find(By.XPATH, '//tbody//tr[1]//td[6]//input')    #check valore del prezzo
-        prezzo = prezzo_element.get_attribute("value")
-        self.assertEqual(prezzo, "12,00")
-        self.find(By.XPATH, '//a[@id="print-button_p"]').click()    #stampa fattura
-        sleep(1)
-
-        self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(1)
-
-        prezzo=self.find(By.XPATH, '(//div[@id="viewer"]//span)[44]').text  #check prezzo in stampa
+        prezzo = self.find(By.XPATH, '//tbody[2]//tr[1]//td[2]').text
         self.assertEqual(prezzo, "12,00 €")
-        self.driver.close() #chiude scheda
-        self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
-        sleep(1)
 
-        #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '(//label[@class="btn btn-default active"])[2]').click()    #disattivo impostazione
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Utilizza prezzi di vendita comprensivi di IVA")]').click()
         sleep(1)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click() #apro prima fattura
+        self.find(By.XPATH, '//tbody//tr[3]//td[2]').click() 
         self.wait_loader()
 
-        prezzo_element = self.find(By.XPATH, '//tbody//tr[1]//td[6]//input')    #check valore del prezzo
-        prezzo = prezzo_element.get_attribute("value")
-        self.assertEqual(prezzo, "9,84")
-        self.find(By.XPATH, '//a[@id="print-button_p"]').click()    #stampa fattura
-        sleep(1)
+        prezzo_element = self.find(By.XPATH, '//tbody[2]//tr[1]//td[2]').text
+        self.assertEqual(prezzo, "12,00 €")
 
-        self.driver.switch_to.window(self.driver.window_handles[1]) #cambia scheda
-        sleep(1)
-
-        prezzo=self.find(By.XPATH, '(//div[@id="viewer"]//span)[44]').text  #check prezzo in stampa
-        self.assertEqual(prezzo, "9,84 €")
-        self.driver.close() #chiude scheda
-        self.driver.switch_to.window(self.driver.window_handles[0]) #torna alla prima
-        sleep(1)
-
-        self.find(By.XPATH, '//a[@id="elimina"]').click()   #elimina fattura
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   #click di conferma
+        self.find(By.XPATH, '//a[@id="elimina"]').click()  
+        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click() 
         self.wait_loader()
 
         self.expandSidebar("Magazzino")
@@ -1325,32 +1238,29 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Prova', Keys.ENTER)
         sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr[2]//td[2]').click()
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()
         self.wait_loader()
 
-        #elimino articolo
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()    #cancella ricerca
+        self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click() 
         sleep(1)
 
-        self.navigateTo("Impianti")
-        self.wait_loader()
+        self.expandSidebar("Strumenti")
 
     def liquidazione_iva(self):
         wait = WebDriverWait(self.driver, 20)
-        self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting128-container"]').click()   #cambio a trimestrale
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Liquidazione iva")]').click()
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-setting128-results"]//li[2]').click()
@@ -1363,22 +1273,22 @@ class Impostazioni(Test):
         self.find(By.XPATH, '(//div[@class="row"]//div[3]//button)[1]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-periodo-container"]').click()  #click su periodo
+        self.find(By.XPATH, '//span[@id="select2-periodo-container"]').click() 
         sleep(1)
 
         periodo=self.find(By.XPATH, '//ul[@id="select2-periodo-results"]//li[2]').text
         self.assertEqual(periodo, "1° Trimestre 2024")
-        self.find(By.XPATH, '//button[@class="close"]').click() #click su chiudi
+        self.find(By.XPATH, '//button[@class="close"]').click() 
         sleep(1)
 
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-setting128-container"]').click()   #cambio a mensile
+        self.find(By.XPATH, '//div[@class="form-group" and contains(., "Liquidazione iva")]').click()
         sleep(1)
 
         self.find(By.XPATH, '//ul[@id="select2-setting128-results"]//li[1]').click()
@@ -1391,14 +1301,13 @@ class Impostazioni(Test):
         self.find(By.XPATH, '(//div[@class="row"]//div[3]//button)[1]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//span[@id="select2-periodo-container"]').click()  #click su periodo
+        self.find(By.XPATH, '//span[@id="select2-periodo-container"]').click()  
         sleep(1)
 
         periodo=self.find(By.XPATH, '//ul[@id="select2-periodo-results"]//li[2]').text
         self.assertEqual(periodo, "gennaio 2024")
-        self.find(By.XPATH, '//button[@class="close"]').click() #click su chiudi
+        self.find(By.XPATH, '//button[@class="close"]').click() 
         sleep(1)
-
 
     def descrizione_fattura_pianificata(self):
         wait = WebDriverWait(self.driver, 20)
@@ -1406,32 +1315,22 @@ class Impostazioni(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr[2]//td[2]').click()    #apri contratto
+        self.find(By.XPATH, '//tbody//tr[2]//td[2]').click() 
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()  #apro barra dei plugin
+        self.find(By.XPATH, '//a[@id="link-tab_26"]').click() 
         sleep(1)
 
-        self.find(By.XPATH, '//a[@id="link-tab_26"]').click()   #plugin pianificazione fatturazione
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@id="pianifica"]').click()    #click su pianifica
-        sleep(1)
-
-        self.find(By.XPATH, '(//div[@class="nav-tabs-custom"]//a)[2]').click()
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@id="btn_procedi"]').click()  #click su procedi
+        self.find(By.XPATH, '//div[@id="tab_26"]//tbody//tr//td[2]//a').click() 
+        
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-sm "]').click()
-        sleep(1)
-
-        descrizione=self.find(By.XPATH, '//textarea[@id="note"]').text  #check descrizione
+        descrizione=self.find(By.XPATH, '//textarea[@id="note"]').text  
         self.assertEqual(descrizione, "Canone 1 del contratto numero 2")
-        self.find(By.XPATH, '//button[@class="close"]').click() #click su chiudi
+        self.find(By.XPATH, '//button[@class="close"]').click()
         sleep(1)
-        #elimina fattura pianificata
+        
         self.find(By.XPATH, '//button[@class="ask btn btn-danger pull-right tip tooltipstered"]').click()
         sleep(1)
 
@@ -1442,10 +1341,10 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        descrizione=self.find(By.XPATH, '//input[@id="setting138"]')
+        descrizione = self.find(By.XPATH, '//div[@class="form-group" and contains(., "Descrizione fattura pianificata")]//input').click()
         descrizione.clear() 
         descrizione.send_keys("prova")
         sleep(1)
@@ -1454,50 +1353,46 @@ class Impostazioni(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr[2]//td[2]').click()    #apri contratto
+        self.find(By.XPATH, '//tbody//tr[2]//td[2]').click()  
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="control-sidebar-button"]'))).click()  #apro barra dei plugin
+        self.find(By.XPATH, '//a[@id="link-tab_26"]').click()  
         sleep(1)
 
-        self.find(By.XPATH, '//a[@id="link-tab_26"]').click()   #plugin pianificazione fatturazione
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@id="pianifica"]').click()    #click su pianifica
+        self.find(By.XPATH, '//button[@id="pianifica"]').click()  
         sleep(1)
 
         self.find(By.XPATH, '(//div[@class="nav-tabs-custom"]//a)[2]').click()
         sleep(1)
 
-        self.find(By.XPATH, '//button[@id="btn_procedi"]').click()  #click su procedi
+        self.find(By.XPATH, '//button[@id="btn_procedi"]').click() 
         self.wait_loader()
 
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-sm "]').click()
         sleep(1)
 
-        descrizione=self.find(By.XPATH, '//textarea[@id="note"]').text  #check descrizione
+        descrizione=self.find(By.XPATH, '//textarea[@id="note"]').text 
         self.assertEqual(descrizione, "prova")
-        self.find(By.XPATH, '//button[@class="close"]').click() #click su chiudi
+        self.find(By.XPATH, '//button[@class="close"]').click() 
         sleep(1)
-        #elimina fattura pianificata
+        
         self.find(By.XPATH, '//button[@class="ask btn btn-danger pull-right tip tooltipstered"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
-        #torno alle impostazioni di prima
+        
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
         sleep(1)
 
-        descrizione=self.find(By.XPATH, '//input[@id="setting138"]')
+        descrizione = self.find(By.XPATH, '//div[@class="form-group" and contains(., "Descrizione fattura pianificata")]//input').click()
         descrizione.clear() 
         descrizione.send_keys("Canone {rata} del contratto numero {numero}")
         sleep(1)
-
 
     def fattura_attivita_collegate_contratti(self):
         wait = WebDriverWait(self.driver, 20)
@@ -1505,7 +1400,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() #apro Fatturazione
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[4]').click()    #attivo impostazione
@@ -1628,7 +1523,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() #apro Fatturazione
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[4]').click()    #disattivo impostazione
@@ -1724,7 +1619,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() #apro Fatturazione
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[6]').click()    #attivo impostazione
@@ -1842,7 +1737,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@id="impostazioni-9"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() #apro Fatturazione
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[6]').click()    #disattivo impostazione

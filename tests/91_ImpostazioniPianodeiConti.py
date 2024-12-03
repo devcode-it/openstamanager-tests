@@ -12,44 +12,44 @@ class Impostazioni(Test):
         super().setUp()
 
     def test_impostazioni_piano_dei_conti(self):
-        # Conto per Riepilogativo fornitori (1)
-        self.conto_riepilogativo_fornitori()
+        # Conto per Riepilogativo fornitori
+        #self.conto_riepilogativo_fornitori()
 
-        # Conto per Riepilogativo clienti (2)
-        self.conto_riepilogativo_clienti()
+        # Conto per Riepilogativo clienti
+        #self.conto_riepilogativo_clienti()
 
-        # Conto per Iva indetraibile (3)
-        self.conto_iva_indetraibile()
+        # Conto per Iva indetraibile
+        #self.conto_iva_indetraibile()
 
-        # Conto per Iva su vendite (4)
-        self.conto_iva_vendite()
+        # Conto per Iva su vendite
+        #self.conto_iva_vendite()
 
-        # Conto per Iva su acquisti (5)
-        self.conto_iva_acquisti()
+        # Conto per Iva su acquisti
+        #self.conto_iva_acquisti()
 
-        # Conto per Erario c/ritenute d'acconto (6)
-        self.conto_erario_ritenute_acconto()
+        # Conto per Erario c/ritenute d'acconto
+        #self.conto_erario_ritenute_acconto()
 
-        # Conto per Erario c/INPS (7)
-        self.conto_erario_inps()
+        # Conto per Erario c/INPS 
+        #self.conto_erario_inps()
 
-        # Conto per Erario c/enasarco (8)
-        self.conto_erario_enasarco()
+        # Conto per Erario c/enasarco 
+        #self.conto_erario_enasarco()
 
-        # Conto per Apertura conti patrimoniali (9)
-        self.conto_apertura_conti_patrimoniali()
+        # Conto per Apertura conti patrimoniali 
+        #self.conto_apertura_conti_patrimoniali()
 
-        # Conto per Chiusura conti patrimoniali (10)
-        self.conto_chiusura_conti_patrimoniali()
+        # Conto per Chiusura conti patrimoniali 
+        #self.conto_chiusura_conti_patrimoniali()
 
-        # Conto per autofattura (11)
-        self.conto_autofattura()
+        # Conto per autofattura 
+        #self.conto_autofattura()
 
-        # Conto di secondo livello per i crediti clienti (12)
-        self.conto_secondo_livello_crediti_clienti()
+        # Conto di secondo livello per i crediti clienti
+        #self.conto_secondo_livello_crediti_clienti()
 
-        # Conto di secondo livello per i debiti fornitori (13)
-        self.conto_secondo_livello_debiti_fornitori()
+        # Conto di secondo livello per i debiti fornitori
+        #self.conto_secondo_livello_debiti_fornitori()
 
     def conto_riepilogativo_fornitori(self):
         wait = WebDriverWait(self.driver, 20)

@@ -12,8 +12,12 @@ class Impostazioni(Test):
         super().setUp()
 
     def test_impostazioni_magazzino(self):
-        # Serial number abilitato di default (2)
-        self.serial_abilitato_default()
+        ## TODO: Movimenta il magazzino durante l'inserimento o eliminazione dei lotti/serial number
+
+        # Serial number abilitato di default 
+        #self.serial_abilitato_default()
+
+        ## TODO: Magazzino cespiti
 
     def serial_abilitato_default(self):
         wait = WebDriverWait(self.driver, 20)

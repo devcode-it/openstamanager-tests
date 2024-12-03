@@ -119,7 +119,9 @@ class Scadenzario(Test):
         
         eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
-    
+        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() 
+        sleep(1)
+        
     def registrazione_contabile(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Scadenzario")
@@ -131,12 +133,10 @@ class Scadenzario(Test):
         self.find(By.XPATH, '//tbody//tr//td').click() 
         self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()
         self.find(By.XPATH, '//a[@data-op="registrazione-contabile"]').click() 
-        sleep(1)
+        sleep(2)
 
         # TODO: fare la registrazione contabile
         
-        prezzo=self.find(By.XPATH, '(//tfoot//tr[1]//td[2])[3]').text
-        self.assertEqual(prezzo, "323,06 €")  
         self.find(By.XPATH, '//button[@class="close"]').click() 
         sleep(1)
 

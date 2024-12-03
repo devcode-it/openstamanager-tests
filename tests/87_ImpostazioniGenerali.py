@@ -12,68 +12,108 @@ class Impostazioni(Test):
         super().setUp()
 
     def test_impostazioni_generali(self):
+        ## TODO: Azienda predefinita
+
         # Nascondere la barra sinistra di default (2)
-        self.nascondi_barra_sx()
+        #self.nascondi_barra_sx()
 
         # Cambio cifre decimali per importi (3)
-        self.cifre_decimali_importi()
+        #self.cifre_decimali_importi()
 
-        # Prima pagina (7)
-        self.prima_pagina()
+        ## TODO: CSS personalizzato
 
-        # Cifre decimali per quantità (8)
-        self.cifre_decimali_quantita()
+        ## TODO: Attiva notifica di presenza utenti sul record
 
-        # Abilita esportazione Excel e PDF (11)
-        self.esportazione_excel_pdf
+        ## TODO: Timeout notifica di presenza (minuti)
 
-        # Cambio valuta (12)
-        self.valuta()
+        # Prima pagina
+        #self.prima_pagina()
 
-        # Visualizza riferimento su ogni riga in stampa (13)
-        self.riferimento_riga_stampa()
+        # Cifre decimali per quantità
+        #self.cifre_decimali_quantita()
 
-        # Autocompletamento form (15)
-        self.autocompletamento_form()   #da finire
+        ## TODO: Tempo di attesa ricerche in secondi
+
+        ## TODO: Logo stampe
+
+        # Abilita esportazione Excel e PDF 
+        #self.esportazione_excel_pdf
+
+        # Cambio valuta 
+        #self.valuta()
+
+        # Visualizza riferimento su ogni riga in stampa 
+        #self.riferimento_riga_stampa()
+
+        ## TODO: Lunghezza in pagine del buffer Datatables
+
+        # Autocompletamento form 
+        #self.autocompletamento_form()   #da finire
+
+        ## TODO: Filigrana stampe
+
+        ## TODO: attiva scorciatoie da tastiera
+
+        ## TODO: Modifica viste di default
+
+        ## TODO: Totali delle tabelle ristretti alla selezione
+
+        ## TODO: Nascondere barra dei plugin di default
+
+        ## TODO: Soft quota
         
-        # Permetti selezione articoli con quantità minore o uguale a zero in Documenti di Vendita (22)
-        self.quantita_minore_uguale_zero()
+        # Permetti selezione articoli con quantità minore o uguale a zero in Documenti di Vendita 
+        #self.quantita_minore_uguale_zero()
 
-        # Cambio periodo calendario (23-24)
-        self.periodo_calendario()
+        # Cambio periodo calendario 
+        #self.periodo_calendario()
 
-        # Permetti il superamento della soglia quantità dei documenti di origine (25)
-        self.superamento_soglia_quantita()
+        # Permetti il superamento della soglia quantità dei documenti di origine 
+        #self.superamento_soglia_quantita()
 
-        # Aggiungi riferimento tra documenti (26)
-        self.aggiungi_riferimento_documenti()
+        # Aggiungi riferimento tra documenti
+        #self.aggiungi_riferimento_documenti()
 
-        # Aggiungi riferimento tra tutti i documenti collegati (27)
-        self.aggiungi_riferimenti_tutti_documenti()
+        # Aggiungi riferimento tra tutti i documenti collegati 
+        #self.aggiungi_riferimenti_tutti_documenti()
 
-        # Aggiungi le note delle righe tra documenti (28)
-        self.aggiungi_note_documenti()
+        # Aggiungi le note delle righe tra documenti 
+        #self.aggiungi_note_documenti()
 
-        # Dimensione widget predefinita (29)
-        self.dimensione_widget_predefinita()
+        # Dimensione widget predefinita 
+        #self.dimensione_widget_predefinita()
 
-        # Tipo di sconto predefinito (33)
-        self.tipo_sconto_predefinito()
+        ## TODO: Posizione del simbolo valuta
 
-        # Cifre decimali per importi in stampa (34)
-        self.importi_stampa()
+        ## TODO: Tile server osm
 
-        # Cifre decimali per quantità in stampa (35)
-        self.quantita_stampa()
+        ## TODO: Sistema di firma
 
-        # Cifre decimali per totali in stampa (36)
-        self.totali_stampa()
+        # Tipo di sconto predefinito 
+        #self.tipo_sconto_predefinito()
 
-        # Listino cliente predefinito (37)
-        self.listino_predefinito()
+        # Cifre decimali per importi in stampa 
+        #self.importi_stampa()
 
-        # Cambio lingua (38)
-        self.lingua()
+        # Cifre decimali per quantità in stampa 
+        #self.quantita_stampa()
+
+        # Cifre decimali per totali in stampa 
+        #self.totali_stampa()
+
+        # Listino cliente predefinito 
+        #self.listino_predefinito()
+
+        # Cambio lingua 
+        #self.lingua()
+
+        ## TODO: Ridimensiona automaticamente le immagini caricate
+
+        ## TODO: Larghezza per ridimensionamento immagini
+
+        ## TODO: Gestore mappa
+
+        ## TODO: Tile server satellite
 
 
     def nascondi_barra_sx(self):

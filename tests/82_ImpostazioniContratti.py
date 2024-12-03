@@ -21,6 +21,8 @@ class Impostazioni(Test):
         # Test Giorni di preavviso di default
         self.giorni_preavviso()
 
+        ## TODO: cambia automaticamente stato contratti fatturati
+
     def condizioni_generali_contratti(self):
         wait = WebDriverWait(self.driver, 20)
         self.expandSidebar("Strumenti")

@@ -64,6 +64,8 @@ class Impostazioni(Test):
 
         ## TODO: numero di minuti di avanzamento delle sessioni delle attività
 
+        ## TODO: cambia automaticamente stato attività fatturate
+
 
     def mostra_prezzi_tecnico(self):
         wait = WebDriverWait(self.driver, 20)      
