@@ -148,7 +148,7 @@ class OrdiniCliente(Test):
         self.wait_loader()
 
         self.find(By.XPATH, '//a[@id="link-tab_29"]').click()
-        budget=self.find(By.XPATH, '(//div[@id="tab_29"]//span)[2]').text
+        budget=self.find(By.XPATH, '//div[@id="tab_29"]//span[@class="text-success"]').text
 
         self.assertEqual(budget, "+264,80 €")
 
@@ -204,7 +204,7 @@ class OrdiniCliente(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        tipo=self.find(By.XPATH, '//tbody//tr[3]//td[4]').text
+        tipo=self.find(By.XPATH, '//tbody//tr[3]//td[5]').text
         self.assertEqual(tipo, "Fattura immediata di vendita") 
 
         self.find(By.XPATH, '//tbody//tr//td[4]').click()

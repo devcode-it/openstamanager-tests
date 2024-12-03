@@ -24,7 +24,7 @@ class Attivita(Test):
         self.duplica_attività()
 
         # Modifica intervento
-        self.modifica_attività("3")
+        self.modifica_attività("4")
 
         # Cancellazione intervento
         self.elimina_attività()
@@ -179,7 +179,7 @@ class Attivita(Test):
         sleep(1)
 
         modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[7]').text
-        self.assertEqual("Fatturato",modificato)
+        self.assertEqual("Completato",modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
         sleep(1)
 

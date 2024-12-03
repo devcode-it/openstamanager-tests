@@ -711,7 +711,7 @@ class FattureVendita(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
         self.wait_loader()
 
-        stato=self.find(By.XPATH, '//tbody//tr//td[10]').text
+        stato=self.find(By.XPATH, '//tbody//tr//td[11]').text
         self.assertEqual(stato, "Emessa")   
 
         self.find(By.XPATH, '//tbody//tr//td').click()  

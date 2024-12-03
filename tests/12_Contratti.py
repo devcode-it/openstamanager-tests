@@ -198,8 +198,8 @@ class Contratti(Test):
 
         self.find(By.XPATH, '//a[@id="link-tab_13"]').click()
 
-        budget=self.find(By.XPATH, '//div[@id="tab_13"]//span[1]').text
-        self.assertEqual(budget, "264,80 €")
+        budget=self.find(By.XPATH, '//div[@id="tab_13"]//span[@class="text-success"]').text
+        self.assertEqual(budget, "+264,80 €")
 
         self.navigateTo("Contratti")
         self.wait_loader()
@@ -260,7 +260,7 @@ class Contratti(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary btn-sm  "]').click()
         sleep(1)
 
-        self.find(By.XPATH, '(//button[@class="btn btn-primary"])[2]').click()
+        self.find(By.XPATH, '(//button[@class="btn btn-primary"])[3]').click()
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//a')))
@@ -402,7 +402,7 @@ class Contratti(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        tipo=self.find(By.XPATH, '//tbody//tr[1]//td[4]').text
+        tipo=self.find(By.XPATH, '//tbody//tr[1]//td[5]').text
         self.assertEqual(tipo, "Fattura immediata di vendita")
 
         self.find(By.XPATH, '//tbody//tr[2]//td[4]').click()    

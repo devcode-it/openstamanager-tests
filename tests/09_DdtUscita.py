@@ -219,7 +219,7 @@ class DdtUscita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        tipo=self.find(By.XPATH, '//tbody//tr[3]//td[5]').text  
+        tipo=self.find(By.XPATH, '//tbody//tr[3]//td[4]').text  
         self.assertEqual(tipo, "Cliente")
 
         self.find(By.XPATH, '//tbody//tr[3]//td[5]').click()
