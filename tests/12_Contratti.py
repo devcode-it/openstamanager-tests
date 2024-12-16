@@ -370,7 +370,7 @@ class Contratti(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
         self.wait_loader()
 
-        stato=self.find(By.XPATH, '//tbody//tr//td[5]').text
+        stato=self.find(By.XPATH, '//tbody//tr//td[6]').text
         self.assertEqual(stato,"In lavorazione") 
 
         self.find(By.XPATH, '//tbody//tr//td').click()

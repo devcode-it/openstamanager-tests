@@ -58,7 +58,7 @@ class Impostazioni(Test):
         self.driver.switch_to.window(self.driver.window_handles[1])
         sleep(1)
 
-        test=self.find(By.XPATH, '(//div[@class="page"])[2]//span[9]').text
+        test=self.find(By.XPATH, '(//div[@class="page"])[2]//span[26]').text
         self.assertEqual(test, "Prova")
         self.driver.close() 
         self.driver.switch_to.window(self.driver.window_handles[0])

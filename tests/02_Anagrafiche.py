@@ -756,7 +756,10 @@ class Anagrafiche(Test):
 
         # Aggiunta assicurazione crediti
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("01/01/2024")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))).send_keys("31/12/2024")
+        element = wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]')))
+        element.clear()
+        element.send_keys("31/12/2024")
+        
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="fido_assicurato"]'))).send_keys("50000", Keys.ENTER)
         self.wait_loader()
 
