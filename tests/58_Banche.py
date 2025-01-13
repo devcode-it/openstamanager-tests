@@ -199,7 +199,7 @@ class Banche(Test):
         sleep(1)
 
         widget=self.find(By.XPATH, '//div[@class="toast toast-success"]//div[3]').text 
-        self.assertEqual(widget, "Banca aggiornata per le Fatture 0001/2024 !")  
+        self.assertEqual(widget, "Banca aggiornata per le Fatture 0001/2025 !")  
 
         self.find(By.XPATH, '//tbody//tr//td').click() 
         self.find(By.XPATH, '//span[@class="select2-selection__clear"]').click() 

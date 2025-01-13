@@ -795,11 +795,11 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//input[@id="setting135"]').click()
         data_inizio=self.find(By.XPATH, '//input[@id="setting135"]') #cambio inizio periodo
         data_inizio.clear()
-        data_inizio.send_keys("01/01/2024", Keys.ENTER)
+        data_inizio.send_keys("01/01/2025", Keys.ENTER)
         self.find(By.XPATH, '//input[@id="setting135"]').click()
         data_fine=self.find(By.XPATH, '//input[@id="setting136"]') #cambio fine periodo
         data_fine.clear()
-        data_fine.send_keys("30/06/2024", Keys.ENTER)
+        data_fine.send_keys("30/06/2025", Keys.ENTER)
         sleep(1)
 
         self.find(By.XPATH, '//a[@class="nav-link bg-danger"]').click() #logout
@@ -814,7 +814,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         data=self.find(By.XPATH, '//a[@class="nav-link text-danger"]').text #controllo se la data è cambiata
-        self.assertEqual(data, "01/01/2024 - 30/06/2024")
+        self.assertEqual(data, "01/01/2025 - 30/06/2025")
         #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
@@ -823,10 +823,10 @@ class Impostazioni(Test):
 
         data_inizio=self.find(By.XPATH, '//input[@id="setting135"]') #cambio inizio periodo
         data_inizio.clear()
-        data_inizio.send_keys("01/01/2024", Keys.ENTER)
+        data_inizio.send_keys("01/01/2025", Keys.ENTER)
         data_fine=self.find(By.XPATH, '//input[@id="setting136"]') #cambio fine periodo
         data_fine.clear()
-        data_fine.send_keys("31/12/2024", Keys.ENTER)
+        data_fine.send_keys("31/12/2025", Keys.ENTER)
         self.find(By.XPATH, '//a[@class="nav-link bg-danger"]').click() #logout
         self.wait_loader()
 
@@ -929,8 +929,8 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys("Test")
         self.find(By.XPATH, '//span[@id="select2-idanagrafica-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2024")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2025")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2025")
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
         self.wait_loader()
         #aggiungi articolo

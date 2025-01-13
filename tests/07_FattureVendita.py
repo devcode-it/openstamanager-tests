@@ -567,7 +567,7 @@ class FattureVendita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH,  '//tbody//tr//td[2]'))).click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_concordata0"]'))).send_keys('08/08/2024')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_concordata0"]'))).send_keys('13/01/2025')
         sleep(1)
 
         self.find(By.XPATH, '//button[@id="save"]').click()
@@ -577,7 +577,7 @@ class FattureVendita(Test):
 
         element = self.find(By.XPATH, '//input[@id="data_concordata0"]')
         element.clear()
-        element.send_keys('08/09/2024')
+        element.send_keys('20/01/2025')
         sleep(1)
 
         self.find(By.XPATH, '//button[@id="save"]').click()
@@ -821,4 +821,4 @@ class FattureVendita(Test):
         sleep(1)
 
         test=self.find(By.XPATH, '//tbody//tr//td[2]').text
-        self.assertEqual(test, "0002/2024")
+        self.assertEqual(test, "0002/2025")

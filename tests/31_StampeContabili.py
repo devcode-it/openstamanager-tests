@@ -42,7 +42,7 @@ class StampeContabili(Test):
         sleep(1)
 
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[2]').text
-        self.assertEqual(stampa, "REGISTRO IVA VENDITE DAL 01/01/2024 AL 31/12/2024")
+        self.assertEqual(stampa, "REGISTRO IVA VENDITE DAL 01/01/2025 AL 31/12/2025")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
@@ -61,7 +61,7 @@ class StampeContabili(Test):
         sleep(1)
 
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[2]').text
-        self.assertEqual(stampa, "REGISTRO IVA ACQUISTI DAL 01/01/2024 AL 31/12/2024")
+        self.assertEqual(stampa, "REGISTRO IVA ACQUISTI DAL 01/01/2025 AL 31/12/2025")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
@@ -76,7 +76,7 @@ class StampeContabili(Test):
         sleep(1)
 
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[1]').text 
-        self.assertEqual(stampa, "PROSPETTO LIQUIDAZIONE IVA DAL 01/01/2024 AL 31/12/2024")
+        self.assertEqual(stampa, "PROSPETTO LIQUIDAZIONE IVA DAL 01/01/2025 AL 31/12/2025")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
@@ -129,7 +129,7 @@ class StampeContabili(Test):
         sleep(1)
 
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[9]').text 
-        self.assertEqual(stampa, "FATTURATO MENSILE DAL 01/01/2024 AL 31/12/2024")
+        self.assertEqual(stampa, "FATTURATO MENSILE DAL 01/01/2025 AL 31/12/2025")
         self.driver.close() 
         self.driver.switch_to.window(self.driver.window_handles[0]) 
 
@@ -141,7 +141,7 @@ class StampeContabili(Test):
         sleep(1)
 
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[9]').text 
-        self.assertEqual(stampa, "ACQUISTI MENSILI DAL 01/01/2024 AL 31/12/2024")
+        self.assertEqual(stampa, "ACQUISTI MENSILI DAL 01/01/2025 AL 31/12/2025")
         self.driver.close() 
         self.driver.switch_to.window(self.driver.window_handles[0])
 
@@ -166,6 +166,6 @@ class StampeContabili(Test):
         sleep(1)
 
         stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[6]').text  
-        self.assertEqual(stampa, "SCADENZE DAL 01/01/2024 AL 31/12/2024")
+        self.assertEqual(stampa, "SCADENZE DAL 01/01/2025 AL 31/12/2025")
         self.driver.close() 
         self.driver.switch_to.window(self.driver.window_handles[0]) 

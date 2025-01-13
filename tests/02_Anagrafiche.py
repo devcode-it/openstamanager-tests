@@ -644,12 +644,12 @@ class Anagrafiche(Test):
 
         # Aggiunta dichiarazione di intento
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_protocollo"]'))).send_keys("012345678901234567890123")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_protocollo"]'))).send_keys("08/07/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_protocollo"]'))).send_keys("01/01/2025")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_progressivo"]'))).send_keys("001")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("08/07/2024")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))).send_keys("08/09/2028")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("01/01/2025")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))).send_keys("31/12/2028")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="massimale"]'))).send_keys("50000")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_emissione"]'))).send_keys("08/07/2024", Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_emissione"]'))).send_keys("13/01/2025", Keys.ENTER)
         self.find(By.XPATH, '(//button[@class="btn btn-primary"])[2]').click()
         self.wait_loader()
 
@@ -755,10 +755,10 @@ class Anagrafiche(Test):
         self.wait_loader() 
 
         # Aggiunta assicurazione crediti
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("01/01/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("01/01/2025")
         element = wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]')))
         element.clear()
-        element.send_keys("31/12/2024")
+        element.send_keys("31/12/2025")
         
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="fido_assicurato"]'))).send_keys("50000", Keys.ENTER)
         self.wait_loader()
@@ -771,7 +771,7 @@ class Anagrafiche(Test):
         modal = self.wait_modal()
 
         # Verifica assicurazione crediti
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data"]'))).send_keys( "01/01/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data"]'))).send_keys( "01/01/2025")
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()

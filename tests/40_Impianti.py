@@ -227,12 +227,12 @@ class Impianti(Test):
         self.find(By.XPATH, '//div[@id="tab_31"]//button[@class="btn btn-tool"]').click()
         sleep(1)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_installazione_1"]'))).send_keys("01/01/2024")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_installazione_1"]'))).send_keys("01/01/2025")
         self.find(By.XPATH, '//button[@class="btn btn-success pull-right"]').click()
         self.wait_loader()
 
         data_installazione=self.find(By.XPATH, '//div[@id="tab_31"]//tr[1]//td[3]').text
-        self.assertEqual(data_installazione, "01/01/2024")
+        self.assertEqual(data_installazione, "01/01/2025")
         self.find(By.XPATH, '//div[@id="tab_31"]//button[@class="btn btn-tool"]').click()
         sleep(1)
 

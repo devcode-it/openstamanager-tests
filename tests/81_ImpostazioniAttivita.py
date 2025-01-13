@@ -808,11 +808,11 @@ class Impostazioni(Test):
 
         orario_inizio=self.find(By.XPATH, '//input[@id="orario_inizio"]')
         orario_inizio.clear()
-        orario_inizio.send_keys("31/12/2024 09:00")    
+        orario_inizio.send_keys("31/12/2025 09:00")    
 
         orario_fine=self.find(By.XPATH, '//input[@id="orario_fine"]')
         orario_fine.clear()
-        orario_fine.send_keys("31/12/2024 10:00")    
+        orario_fine.send_keys("31/12/2025 10:00")    
 
         self.find(By.XPATH, '(//div[@class="card-body"]//span[@class="select2-selection select2-selection--multiple"])[2]').click()
         sleep(1)
@@ -855,11 +855,11 @@ class Impostazioni(Test):
 
         orario_inizio=self.find(By.XPATH, '//input[@id="orario_inizio"]')
         orario_inizio.clear()
-        orario_inizio.send_keys("31/12/2024 09:00")    
+        orario_inizio.send_keys("31/12/2025 09:00")    
 
         orario_fine=self.find(By.XPATH, '//input[@id="orario_fine"]')
         orario_fine.clear()
-        orario_fine.send_keys("31/12/2024 10:00")    
+        orario_fine.send_keys("31/12/2025 10:00")    
         self.find(By.XPATH, '(//div[@class="card-body"]//span[@class="select2-selection select2-selection--multiple"])[2]').click() 
         sleep(1)
 

@@ -18,8 +18,8 @@ class Eventi(Test):
 
     def test_creazione_eventi(self):
         # Creazione evento *Required*
-        self.creazione_eventi("Evento di Prova da Modificare", "20/02/2024", "IT - Italia")
-        self.creazione_eventi("Evento di Prova da Eliminare", "20/02/2024", "IT - Italia")
+        self.creazione_eventi("Evento di Prova da Modificare", "20/02/2025", "IT - Italia")
+        self.creazione_eventi("Evento di Prova da Eliminare", "20/02/2025", "IT - Italia")
 
         # Modifica Evento
         self.modifica_evento("Evento di Prova")

@@ -15,7 +15,7 @@ class Viste(Test):
 
         self.navigateTo("Attività")
         self.wait_loader()
-        self.controllo_viste("1")
+        self.controllo_viste("2")
 
         self.expandSidebar("Vendite")
 
@@ -33,7 +33,7 @@ class Viste(Test):
 
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
-        self.controllo_viste("0001/2024") 
+        self.controllo_viste("0001/2025") 
 
         self.expandSidebar("Acquisti")
         self.navigateTo("Ordini fornitore")

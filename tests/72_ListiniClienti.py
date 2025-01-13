@@ -15,8 +15,8 @@ class Listini(Test):
 
     def test_creazione_listino_cliente(self):
         # Crea un nuovo listino cliente. *Required*
-        self.creazione_listino_cliente("Listino cliente di Prova da Modificare","01/12/2024", "01/01/2024")
-        self.creazione_listino_cliente("Listino cliente di Prova da Eliminare", "01/12/2024", "01/01/2024")
+        self.creazione_listino_cliente("Listino cliente di Prova da Modificare","01/12/2025", "01/01/2025")
+        self.creazione_listino_cliente("Listino cliente di Prova da Eliminare", "01/12/2025", "01/01/2025")
         
         # Modifica listino cliente
         self.modifica_listino_cliente("Listino cliente di Prova")
