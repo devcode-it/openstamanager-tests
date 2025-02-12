@@ -41,7 +41,7 @@ class StampeContabili(Test):
         self.driver.switch_to.window(self.driver.window_handles[1])
         sleep(1)
 
-        stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[2]').text
+        stampa=self.find(By.XPATH, '//div[@id="viewer"]//span[3]').text
         self.assertEqual(stampa, "REGISTRO IVA VENDITE DAL 01/01/2025 AL 31/12/2025")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
@@ -60,7 +60,7 @@ class StampeContabili(Test):
         self.driver.switch_to.window(self.driver.window_handles[1])
         sleep(1)
 
-        stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[2]').text
+        stampa=self.find(By.XPATH, '//div[@id="viewer"]//span[3]').text
         self.assertEqual(stampa, "REGISTRO IVA ACQUISTI DAL 01/01/2025 AL 31/12/2025")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
@@ -90,7 +90,7 @@ class StampeContabili(Test):
         self.driver.switch_to.window(self.driver.window_handles[1]) 
         sleep(1)
 
-        stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[1]').text
+        stampa=self.find(By.XPATH, '//div[@id="viewer"]//span').text
         self.assertEqual(stampa, "STAMPA BILANCIO")
         self.driver.close() 
         self.driver.switch_to.window(self.driver.window_handles[0]) 
@@ -104,7 +104,7 @@ class StampeContabili(Test):
         self.driver.switch_to.window(self.driver.window_handles[1]) 
         sleep(1)
 
-        stampa=self.find(By.XPATH, '(//div[@id="viewer"]//span)[1]').text
+        stampa=self.find(By.XPATH, '//div[@id="viewer"]//span').text
         self.assertEqual(stampa, "STAMPA MASTRINO")
         self.driver.close() 
         self.driver.switch_to.window(self.driver.window_handles[0]) 

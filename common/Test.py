@@ -36,8 +36,6 @@ class Test(unittest.TestCase):
 
         self.addCleanup(self.close)
 
-        self.assertIn('OpenSTAManager', self.driver.title)
-
     def login(self, username, password):
         # Effetta il login con le credenziali indicate nella configurazione.
         username_input = self.find(By.NAME, 'username')

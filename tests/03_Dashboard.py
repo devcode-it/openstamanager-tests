@@ -58,7 +58,7 @@ class Dashboard(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("1", Keys.ENTER)
         sleep(1)
         
-        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[11]').text
+        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[12]').text
         self.assertEqual("Stefano Bianchi",modificato)
 
         # Rimuovi elemento

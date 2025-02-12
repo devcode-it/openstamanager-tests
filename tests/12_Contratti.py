@@ -301,6 +301,9 @@ class Contratti(Test):
         self.find(By.XPATH, '(//div[@id="widget_11"]//div)[2]').click()
         sleep(1)
 
+        self.find(By.XPATH, '//a[@data-month="2"]').click()
+        sleep(1)
+
         self.find(By.XPATH, '(//button[@class="btn btn-default btn-sm"])[1]').click()
         sleep(1)
 

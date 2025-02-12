@@ -95,7 +95,7 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//button[@id="submit-button"]').click()
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr[17]//td[2]').click()
+        self.find(By.XPATH, '//tbody//tr[18]//td[2]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Lettura e scrittura')
         sleep(1)
 
@@ -1299,11 +1299,11 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")  
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr[3]//td[2]').click()  
+        self.find(By.XPATH, '//tbody//tr//td[2]').click()  
         self.wait_loader()
 
         descrizione=self.find(By.XPATH, '//tbody//tr//td[3]').text  
-        self.assertEqual(descrizione[8:13], "Test")
+        self.assertEqual(descrizione[8:20], "Test")
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()

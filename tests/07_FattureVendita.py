@@ -567,7 +567,7 @@ class FattureVendita(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH,  '//tbody//tr//td[2]'))).click()
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_concordata0"]'))).send_keys('13/01/2025')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_concordata0"]'))).send_keys('13/08/2025')
         sleep(1)
 
         self.find(By.XPATH, '//button[@id="save"]').click()
