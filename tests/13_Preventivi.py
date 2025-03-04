@@ -450,7 +450,7 @@ class Preventivi(Test):
 
         self.find(By.XPATH, '//a[@id="link-tab_12"]').click()
         budget=self.find(By.XPATH, '//span[@class="text-success"]').text
-        self.assertEqual(budget,"+264,80 €")     
+        self.assertEqual(budget,"+ 264,80 €")     
     def revisioni(self):
         wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Preventivi")
