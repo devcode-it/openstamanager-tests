@@ -150,7 +150,7 @@ class OrdiniCliente(Test):
         self.find(By.XPATH, '//a[@id="link-tab_29"]').click()
         budget=self.find(By.XPATH, '//div[@id="tab_29"]//span[@class="text-success"]').text
 
-        self.assertEqual(budget, "+264,80 €")
+        self.assertEqual(budget, "+ 264,80 €")
 
         self.navigateTo("Ordini cliente")
         self.wait_loader()
