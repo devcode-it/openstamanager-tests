@@ -212,7 +212,7 @@ class FattureAcquisto(Test):
 
         # Creazione autofattura
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary unblockable dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="btn dropdown-item bound clickable"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//span[@class="select2-selection select2-selection--single"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("TD17")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()

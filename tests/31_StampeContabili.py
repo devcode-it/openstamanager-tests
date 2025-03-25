@@ -42,7 +42,7 @@ class StampeContabili(Test):
         sleep(1)
 
         stampa=self.find(By.XPATH, '//div[@id="viewer"]//span[3]').text
-        self.assertEqual(stampa, "REGISTRO IVA VENDITE DAL 01/01/2025 AL 31/12/2025")
+        self.assertEqual(stampa, "REGISTRO IVA VENDITE DAL 01/01/2025 AL 31/12/2025 - STANDARD VENDITE")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
@@ -61,7 +61,7 @@ class StampeContabili(Test):
         sleep(1)
 
         stampa=self.find(By.XPATH, '//div[@id="viewer"]//span[3]').text
-        self.assertEqual(stampa, "REGISTRO IVA ACQUISTI DAL 01/01/2025 AL 31/12/2025")
+        self.assertEqual(stampa, "REGISTRO IVA ACQUISTI DAL 01/01/2025 AL 31/12/2025 - STANDARD ACQUISTI")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
@@ -146,7 +146,10 @@ class StampeContabili(Test):
         self.driver.switch_to.window(self.driver.window_handles[0])
 
         # Stampa libro giornale
-        self.find(By.XPATH, '(//a[@id="print-button"])[5]').click()
+        self.find(By.XPATH, '//button[@data-title="Libro giornale"]').click()
+        sleep(1)
+        
+        self.find(By.XPATH, '//button[@class="btn btn-primary btn-block"]').click()
         sleep(1)
         
         self.driver.switch_to.window(self.driver.window_handles[1]) 

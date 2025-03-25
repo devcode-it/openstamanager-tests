@@ -247,7 +247,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("Agente", Keys.ENTER)
         sleep(1)
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="provvigione"]'))).send_keys("1.00", Keys.ENTER)
-        self.wait_loader()
+        sleep(2)
         
         # TODO: Verifica provvigione -> Questa provvigione viene impostata all'aggiunta di questo articolo in un documento dove è impostato come Agente questo agente. Creare una fattura di vendita con agente Agente e aggiungere Articolo 001 alle righe. 
 
@@ -256,7 +256,7 @@ class Articoli(Test):
 
         # Modifica provvigione
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="provvigione"]'))).send_keys("2", Keys.ENTER)
-        self.wait_loader()
+        sleep(2)
 
         provvigione=self.find(By.XPATH, '//div[@id="tab_43"]//tbody//tr//td[3]').text
         self.assertEqual(provvigione, "2.00 €")
@@ -300,7 +300,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="giorni_consegna"]'))).send_keys("15")
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[3]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))).send_keys("15", Keys.ENTER)
-        self.wait_loader()
+        sleep(2)
 
         # Verifica listino fornitore
         self.expandSidebar("Acquisti")
@@ -359,7 +359,7 @@ class Articoli(Test):
         element = self.find(By.XPATH, '//input[@id="codice_fornitore"]')
         element.clear()
         element.send_keys("1", Keys.ENTER)
-        self.wait_loader()
+        sleep(2)
 
         codice=self.find(By.XPATH, '//div[@id="tab_32"]//tbody//tr//td[3]').text
         self.assertEqual(codice,"1")
@@ -464,8 +464,7 @@ class Articoli(Test):
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))).send_keys('5', Keys.ENTER)
-        self.wait_loader()
-        sleep(1)
+        sleep(2)
 
         # Verifica listino cliente
         self.expandSidebar("Vendite")
@@ -510,7 +509,7 @@ class Articoli(Test):
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))).send_keys(Keys.BACK_SPACE,'2', Keys.ENTER)
-        self.wait_loader()
+        sleep(2)
 
         prezzo=self.find(By.XPATH, '//div[@id="tab_27"]//tr[3]//td[4]').text
         self.assertEqual(prezzo[0:6], "2,00 €")
@@ -878,7 +877,7 @@ class Articoli(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="giorni_consegna"]'))).send_keys("15")
         self.find(By.XPATH, '//div[@class="modal-content"]//div[@class="btn-group checkbox-buttons"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))).send_keys("15", Keys.ENTER)
-        self.wait_loader()
+        sleep(2)
 
         self.navigateTo("Listini")
         self.wait_loader()

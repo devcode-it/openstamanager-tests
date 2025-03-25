@@ -367,13 +367,13 @@ class Contratti(Test):
 
         self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("In lavorazione")
-        sleep(1)
+        sleep(2)
 
         self.find(By.XPATH, '//ul[@id="select2-id_stato-results"]').click() 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
         self.wait_loader()
 
-        stato=self.find(By.XPATH, '//tbody//tr//td[6]').text
+        stato=self.find(By.XPATH, '//tbody//tr//td[5]').text
         self.assertEqual(stato,"In lavorazione") 
 
         self.find(By.XPATH, '//tbody//tr//td').click()

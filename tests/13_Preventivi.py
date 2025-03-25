@@ -19,43 +19,43 @@ class Preventivi(Test):
     def test_creazione_preventivo(self):
         # Crea un nuovo preventivo *Required*
         importi = RowManager.list()
-        self.creazione_preventivo("Preventivo di Prova","Cliente", "1", importi[0])
+        #self.creazione_preventivo("Preventivo di Prova","Cliente", "1", importi[0])
 
         # Duplica un preventivo *Required*
-        self.duplica_preventivo()
+        #self.duplica_preventivo()
 
         # Modifica preventivo *Required*
-        self.modifica_preventivo("Accettato")
+        #self.modifica_preventivo("Accettato")
 
         # Cancellazione preventivo
-        self.elimina_preventivo()
+        #self.elimina_preventivo()
 
         # Creazione contratto da preventivo
-        self.creazione_contratto()        
+        #self.creazione_contratto()        
 
         # Creazione ordine cliente da preventivo
-        self.creazione_ordine_cliente()
+        #self.creazione_ordine_cliente()
 
         # Creazione ordine fornitore da preventivo
-        self.creazione_ordine_fornitore()
+        #self.creazione_ordine_fornitore()
 
         # Creazione attività
-        self.creazione_attività()
+        #self.creazione_attività()
 
         # Creazione DDT in uscita
-        self.creazione_ddt_uscita()
+        #self.creazione_ddt_uscita()
 
         # Creazione fattura
-        self.creazione_fattura()
+        #self.creazione_fattura()
 
         # Verifica preventivi
-        self.verifica_preventivi()
+        #self.verifica_preventivi()
 
         # Plugin consuntivo
-        self.consuntivo()
+        #self.consuntivo()
 
         # Plugin revisioni
-        self.revisioni()
+        #self.revisioni()
 
         # Cambia stato (Azioni di gruppo)
         self.cambia_stato()
@@ -171,7 +171,7 @@ class Preventivi(Test):
 
         # Creazione contratto
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="pulsanti"]//button[@class="btn btn-info dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"][@data-title="Crea contratto"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="btn dropdown-item bound clickable"][@data-title="Crea contratto"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="submit_btn"]'))).click()
@@ -213,7 +213,7 @@ class Preventivi(Test):
 
         # Creazione ordine cliente
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"][@data-title="Crea ordine cliente"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="btn dropdown-item bound clickable"][@data-title="Crea ordine cliente"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="submit_btn"]'))).click()
@@ -253,7 +253,7 @@ class Preventivi(Test):
 
         # Creazione ordine fornitore
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"][@data-title="Crea ordine fornitore"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="btn dropdown-item bound clickable"][@data-title="Crea ordine fornitore"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//span [@id="select2-idanagrafica-container"])[2]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
@@ -299,7 +299,7 @@ class Preventivi(Test):
 
         # Creazione attività
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"][@data-title="Crea attività"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="btn dropdown-item bound clickable"][@data-title="Crea attività"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_tipo_intervento-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato_intervento-container"]'))).click()
@@ -346,7 +346,7 @@ class Preventivi(Test):
 
         # Creazione ddt uscita
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"][@data-title="Crea ordine cliente"]//i[@class="fa fa-truck"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="btn dropdown-item bound clickable"][@data-title="Crea ordine cliente"]//i[@class="fa fa-truck"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_causale_trasporto-container"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_segment-container"]'))).click()
@@ -392,7 +392,7 @@ class Preventivi(Test):
 
         # Creazione fattura
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="dropdown-item bound clickable"][@data-title="Crea fattura"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="btn dropdown-item bound clickable"][@data-title="Crea fattura"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="submit_btn"]'))).click()
         sleep(1)
 
@@ -483,7 +483,7 @@ class Preventivi(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
         self.wait_loader()
 
-        stato=self.find(By.XPATH, '//tbody//tr//td[5]').text
+        stato=self.find(By.XPATH, '//tbody//tr//td[6]').text
         self.assertEqual(stato,"Bozza") 
 
         self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 

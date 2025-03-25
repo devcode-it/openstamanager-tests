@@ -170,7 +170,7 @@ class Anagrafiche(Test):
 
         # Crea attività
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[1]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="btn dropdown-item bound clickable"])[1]'))).click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[8]'))).click()
@@ -217,7 +217,7 @@ class Anagrafiche(Test):
 
         # Crea preventivo
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[2]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="btn dropdown-item bound clickable"])[2]'))).click()
         modal = self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[4]'))).click()
@@ -270,7 +270,7 @@ class Anagrafiche(Test):
 
         # Crea contratto
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[3]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="btn dropdown-item bound clickable"])[3]'))).click()
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue("Contratto di prova anagrafica")
@@ -303,7 +303,7 @@ class Anagrafiche(Test):
            
         # Crea ordine
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[4]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="btn dropdown-item bound clickable"])[4]'))).click()
         self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_24-"]//button[@class="btn btn-primary"])'))).click()
@@ -352,7 +352,7 @@ class Anagrafiche(Test):
 
         # Crea DDT
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[5]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="btn dropdown-item bound clickable"])[5]'))).click()
         modal = self.wait_modal()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[3]'))).click()
@@ -397,7 +397,7 @@ class Anagrafiche(Test):
 
         # Crea fattura
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="dropdown-item bound clickable"])[6]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="btn dropdown-item bound clickable"])[6]'))).click()
         sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_14-"]//button[@class="btn btn-primary"])'))).click()
@@ -761,7 +761,7 @@ class Anagrafiche(Test):
         element.send_keys("31/12/2025")
         
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="fido_assicurato"]'))).send_keys("50000", Keys.ENTER)
-        self.wait_loader()
+        sleep(2)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
