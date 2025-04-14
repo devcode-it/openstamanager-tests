@@ -29,7 +29,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Contratti"]').click()
+        self.find(By.XPATH, '//div[@data-title="Contratti"]').click()
         sleep(1)
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Condizioni generali di fornitura contratti")]//iframe')
@@ -71,7 +71,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Contratti"]').click()
+        self.find(By.XPATH, '//div[@data-title="Contratti"]').click()
         sleep(1)
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Condizioni generali di fornitura contratti")]//iframe')
@@ -84,7 +84,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Contratti"]').click()
+        self.find(By.XPATH, '//div[@data-title="Contratti"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Crea contratto rinnovabile di default")]//div//label').click() 
@@ -110,7 +110,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Contratti"]').click()
+        self.find(By.XPATH, '//div[@data-title="Contratti"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Crea contratto rinnovabile di default")]//div//label').click() 
@@ -121,7 +121,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Contratti"]').click()
+        self.find(By.XPATH, '//div[@data-title="Contratti"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Giorni di preavviso di default")]//input').send_keys('3,00')
@@ -147,7 +147,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Contratti"]').click()
+        self.find(By.XPATH, '//div[@data-title="Contratti"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Giorni di preavviso di default")]//input').send_keys('2,00')

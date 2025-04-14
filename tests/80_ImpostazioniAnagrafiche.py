@@ -48,7 +48,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Anagrafiche"]').click()
+        self.find(By.XPATH, '//div[@data-title="Anagrafiche"]').click()
         sleep(1)
 
         formato = self.find(By.XPATH, '//div[@class="form-group" and contains(., "Formato codice anagrafica")]//input')
@@ -82,7 +82,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Anagrafiche"]').click()
+        self.find(By.XPATH, '//div[@data-title="Anagrafiche"]').click()
         sleep(1)
 
         formato = self.find(By.XPATH, '//div[@class="form-group" and contains(., "Formato codice anagrafica")]//input')

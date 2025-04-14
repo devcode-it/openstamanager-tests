@@ -110,7 +110,8 @@ class Test(unittest.TestCase):
         """
         self.wait(expected_conditions.all_of(
             expected_conditions.invisibility_of_element_located((By.ID, 'main_loading')),
-            expected_conditions.invisibility_of_element_located((By.ID, 'mini-loader'))
+            expected_conditions.invisibility_of_element_located((By.ID, 'mini-loader')),
+            expected_conditions.invisibility_of_element_located((By.ID, 'tiny-loader')),
         ))
 
     def wait_modal(self):

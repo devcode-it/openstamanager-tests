@@ -19,43 +19,43 @@ class Preventivi(Test):
     def test_creazione_preventivo(self):
         # Crea un nuovo preventivo *Required*
         importi = RowManager.list()
-        #self.creazione_preventivo("Preventivo di Prova","Cliente", "1", importi[0])
+        self.creazione_preventivo("Preventivo di Prova","Cliente", "1", importi[0])
 
         # Duplica un preventivo *Required*
-        #self.duplica_preventivo()
+        self.duplica_preventivo()
 
         # Modifica preventivo *Required*
-        #self.modifica_preventivo("Accettato")
+        self.modifica_preventivo("Accettato")
 
         # Cancellazione preventivo
-        #self.elimina_preventivo()
+        self.elimina_preventivo()
 
         # Creazione contratto da preventivo
-        #self.creazione_contratto()        
+        self.creazione_contratto()        
 
         # Creazione ordine cliente da preventivo
-        #self.creazione_ordine_cliente()
+        self.creazione_ordine_cliente()
 
         # Creazione ordine fornitore da preventivo
-        #self.creazione_ordine_fornitore()
+        self.creazione_ordine_fornitore()
 
         # Creazione attività
-        #self.creazione_attività()
+        self.creazione_attività()
 
         # Creazione DDT in uscita
-        #self.creazione_ddt_uscita()
+        self.creazione_ddt_uscita()
 
         # Creazione fattura
-        #self.creazione_fattura()
+        self.creazione_fattura()
 
         # Verifica preventivi
-        #self.verifica_preventivi()
+        self.verifica_preventivi()
 
         # Plugin consuntivo
-        #self.consuntivo()
+        self.consuntivo()
 
         # Plugin revisioni
-        #self.revisioni()
+        self.revisioni()
 
         # Cambia stato (Azioni di gruppo)
         self.cambia_stato()

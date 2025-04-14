@@ -195,7 +195,7 @@ class Impianti(Test):
         self.wait_loader()
 
         totale=self.find(By.XPATH, '//tbody//tr[3]//td[2]').text
-        self.assertEqual(totale, "0,00 €")
+        self.assertEqual(totale, "36,60 €")
         self.navigateTo("Impianti")
         self.wait_loader()
 

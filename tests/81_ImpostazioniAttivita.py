@@ -105,7 +105,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Mostra i prezzi al tecnico")]//div//label').click() 
@@ -167,7 +167,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//label[@class="btn btn-default active"]').click()
@@ -252,7 +252,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Stampa per anteprima e firma")]//span').click()
@@ -284,7 +284,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click() 
         sleep(1)
 
         elemento=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Stampa per anteprima e firma")]//span[@class="select2-selection__clear"]').click()
@@ -296,7 +296,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Permetti inserimento sessioni degli altri tecnici")]//div//label').click() 
@@ -343,7 +343,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Permetti inserimento sessioni degli altri tecnici")]//div//label').click() 
@@ -359,7 +359,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Giorni lavorativi")]//span//li [contains(., "Venerdì")]//span').click()
@@ -373,7 +373,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Giorni lavorativi")]//li[@class="select2-search select2-search--inline"]').click() 
@@ -452,7 +452,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
  
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
  
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico l\'aggiunta della sessione nell\'attività")]//div//label').click() 
@@ -507,7 +507,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
  
-        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click() 
         sleep(1)
  
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico l\'aggiunta della sessione nell\'attività")]//div//label').click() 
@@ -582,7 +582,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico la rimozione della sessione dall\'attività")]//div//label').click() 
@@ -657,7 +657,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico la rimozione della sessione dall\'attività")]//div//label').click() 
@@ -668,7 +668,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Stato dell\'attività dopo la firma ")]//div//span').click()
@@ -731,7 +731,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Stato dell\'attività dopo la firma ")]//div//span').click()
@@ -748,7 +748,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Espandi automaticamente la sezione")]//div//label').click() 
@@ -768,7 +768,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
         
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Espandi automaticamente la sezione")]//div//label').click() 
@@ -875,7 +875,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Alert occupazione tecnici")]//div//label').click() 
@@ -899,7 +899,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Alert occupazione tecnici")]//div//label').click() 
@@ -919,7 +919,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Verifica numero intervento")]//div//label').click() 
@@ -943,7 +943,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Verifica numero intervento")]//div//label').click() 
@@ -954,7 +954,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Formato ore in stampa")]//div//span').click()
@@ -1015,7 +1015,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Formato ore in stampa")]//div//span').click()
@@ -1094,7 +1094,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico l\'assegnazione all\'attività")]//div//label').click() 
@@ -1135,7 +1135,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
  
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
         
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico l\'assegnazione all\'attività")]//div//label').click() 
@@ -1188,7 +1188,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico la rimozione dell\'assegnazione dall\'attività")]//div//label').click() 
@@ -1229,7 +1229,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico la rimozione dell\'assegnazione dall\'attività")]//div//label').click() 
@@ -1240,7 +1240,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Descrizione personalizzata in fatturazione")]//textarea').send_keys('Test')
@@ -1299,7 +1299,7 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")  
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()  
+        self.find(By.XPATH, '//tbody//tr[3]//td[2]').click()  
         self.wait_loader()
 
         descrizione=self.find(By.XPATH, '//tbody//tr//td[3]').text  
@@ -1325,7 +1325,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Descrizione personalizzata in fatturazione")]//textarea').clear()
@@ -1336,7 +1336,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Stato predefinito dell\'attività da Dashboard")]//div//span').click()
@@ -1398,7 +1398,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Stato predefinito dell\'attività da Dashboard")]//div//span').click()
         sleep(1)
@@ -1414,7 +1414,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click()
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click()
         sleep(1)
 
         self.find(By.XPATH, '(//div[@class="form-group" and contains(., "Stato predefinito dell\'attività")]//div//span)[8]').click()
@@ -1468,7 +1468,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Attività"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Attività"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-setting171-container"]').click()  

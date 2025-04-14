@@ -94,7 +94,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Iva predefinita")]//div//span').click()
@@ -137,7 +137,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Iva predefinita")]//div//span').click()
@@ -154,7 +154,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Tipo di pagamento predefinito")]//div//span').click()
@@ -190,7 +190,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Tipo di pagamento predefinito")]//div//span').click()
@@ -207,7 +207,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ritenuta d\'acconto predefinita")]//div//span').click()
@@ -251,7 +251,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ritenuta d\'acconto predefinita")]//div//span[@class="select2-selection__clear"]').click()
@@ -262,7 +262,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Cassa previdenziale predefinita")]//div//span').click()
@@ -306,7 +306,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Cassa previdenziale predefinita")]//div//span[@class="select2-selection__clear"]').click()
@@ -356,7 +356,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click()
         sleep(1)
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Importo marca da bollo")]//input')
@@ -409,7 +409,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click()
         sleep(1)
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Importo marca da bollo")]//input')
@@ -461,7 +461,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click()
         sleep(1)
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Soglia minima per l\'applicazione della marca da bollo")]//input')
@@ -511,7 +511,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Soglia minima per l\'applicazione della marca da bollo")]//input')
@@ -525,7 +525,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito fatture di vendita")]').click() 
@@ -565,7 +565,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito fatture di vendita")]').click() 
@@ -579,7 +579,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito fatture di acquisto")]').click() 
@@ -625,7 +625,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito fatture di acquisto")]').click() 
@@ -660,7 +660,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         dicitura = self.find(By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]')
@@ -694,7 +694,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click()
         sleep(1)
 
         dicitura=self.find(By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]')
@@ -710,7 +710,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ritenuta previdenziale predefinita")]').click()
@@ -748,7 +748,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ritenuta previdenziale predefinita")]//span[@class="select2-selection__clear"]').click()
@@ -822,7 +822,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Descrizione addebito bollo")]//input')
@@ -871,7 +871,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Descrizione addebito bollo")]//input')
@@ -918,7 +918,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito per la marca da bollo")]').click()
@@ -966,7 +966,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito per la marca da bollo")]').click()
@@ -1053,7 +1053,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Iva per lettere d\'intento")]').click()
@@ -1140,7 +1140,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Iva per lettere d\'intento")]').click() 
@@ -1154,7 +1154,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Utilizza prezzi di vendita comprensivi di IVA")]').click()
@@ -1211,7 +1211,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Utilizza prezzi di vendita comprensivi di IVA")]').click()
@@ -1257,7 +1257,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click()
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Liquidazione iva")]').click()
@@ -1285,7 +1285,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Liquidazione iva")]').click()
@@ -1341,7 +1341,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         descrizione = self.find(By.XPATH, '//div[@class="form-group" and contains(., "Descrizione fattura pianificata")]//input').click()
@@ -1386,7 +1386,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() 
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() 
         sleep(1)
 
         descrizione = self.find(By.XPATH, '//div[@class="form-group" and contains(., "Descrizione fattura pianificata")]//input').click()
@@ -1400,7 +1400,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() #apro Fatturazione
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[4]').click()    #attivo impostazione
@@ -1523,7 +1523,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() #apro Fatturazione
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[4]').click()    #disattivo impostazione
@@ -1619,7 +1619,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() #apro Fatturazione
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[6]').click()    #attivo impostazione
@@ -1737,7 +1737,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Fatturazione"]').click() #apro Fatturazione
+        self.find(By.XPATH, '//div[@data-title="Fatturazione"]').click() #apro Fatturazione
         sleep(1)
 
         self.find(By.XPATH, '(//label[@class="btn btn-default active"])[6]').click()    #disattivo impostazione

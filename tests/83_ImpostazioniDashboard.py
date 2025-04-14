@@ -41,7 +41,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Dashboard"]').click()
+        self.find(By.XPATH, '//div[@data-title="Dashboard"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Visualizzare la domenica sul calendario")]//div//label').click() 
@@ -56,7 +56,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Dashboard"]').click()
+        self.find(By.XPATH, '//div[@data-title="Dashboard"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Visualizzare la domenica sul calendario")]//div//label').click() 
@@ -67,7 +67,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Dashboard"]').click()
+        self.find(By.XPATH, '//div[@data-title="Dashboard"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Vista dashboard")]//div//span').click()
@@ -88,7 +88,7 @@ class Impostazioni(Test):
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
-        self.find(By.XPATH, '//div[@title="Dashboard"]').click()
+        self.find(By.XPATH, '//div[@data-title="Dashboard"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Vista dashboard")]//div//span').click()
@@ -105,7 +105,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Dashboard"]').click()
+        self.find(By.XPATH, '//div[@data-title="Dashboard"]').click()
         sleep(1)
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ora inizio sul calendario")]//input')
@@ -123,7 +123,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Dashboard"]').click()
+        self.find(By.XPATH, '//div[@data-title="Dashboard"]').click()
         sleep(1)
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ora inizio sul calendario")]//input')
@@ -136,7 +136,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Dashboard"]').click()
+        self.find(By.XPATH, '//div[@data-title="Dashboard"]').click()
         sleep(1)
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ora fine sul calendario")]//input')
@@ -154,7 +154,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Dashboard"]').click()
+        self.find(By.XPATH, '//div[@data-title="Dashboard"]').click()
         sleep(1)
 
         element=self.find(By.XPATH, '//div[@class="form-group" and contains(., "Ora fine sul calendario")]//input')
@@ -168,7 +168,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Dashboard"]').click()
+        self.find(By.XPATH, '//div[@data-title="Dashboard"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Visualizza informazioni aggiuntive sul calendario")]//span').click() 
@@ -184,7 +184,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Dashboard"]').click()
+        self.find(By.XPATH, '//div[@data-title="Dashboard"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Visualizza informazioni aggiuntive sul calendario")]//span').click() 
@@ -196,7 +196,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Dashboard"]').click()
+        self.find(By.XPATH, '//div[@data-title="Dashboard"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Visualizzazione colori sessioni")]//div//span').click()
@@ -255,7 +255,7 @@ class Impostazioni(Test):
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@title="Dashboard"]').click()
+        self.find(By.XPATH, '//div[@data-title="Dashboard"]').click()
         sleep(1)
 
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Visualizzazione colori sessioni")]//div//span').click()
