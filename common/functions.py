@@ -14,6 +14,47 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.remote.webdriver import WebDriver, WebElement
 
+
+class TestHelperMixin:
+    """Mixin class that provides helper methods for Selenium tests.
+
+    This mixin wraps the helper functions to avoid passing driver and wait_driver
+    parameters repeatedly. It assumes the class has self.driver and self.wait_driver attributes.
+    """
+
+    def search_entity(self, name: str) -> None:
+        """Search for an entity by name."""
+        search_entity(self.driver, self.wait_driver, name)
+
+    def click_first_result(self) -> None:
+        """Click on the first result in the search results."""
+        click_first_result(self.driver, self.wait_driver)
+
+    def wait_for_filter_cleared(self) -> None:
+        """Wait for filters to be cleared."""
+        wait_for_filter_cleared(self.driver, self.wait_driver)
+
+    def clear_filters(self) -> None:
+        """Clear all filters."""
+        clear_filters(self.driver, self.wait_driver)
+
+    def wait_for_search_results(self) -> None:
+        """Wait for search results to load."""
+        wait_for_search_results(self.driver, self.wait_driver)
+
+    def wait_for_element_and_click(self, xpath: str) -> WebElement:
+        """Wait for an element to be clickable and click it."""
+        return wait_for_element_and_click(self.driver, self.wait_driver, xpath)
+
+    def wait_for_dropdown_and_select(self, dropdown_xpath: str, option_xpath: str = None, option_text: str = None) -> None:
+        """Wait for a dropdown to be clickable, click it, and select an option."""
+        wait_for_dropdown_and_select(self.driver, self.wait_driver, dropdown_xpath, option_xpath, option_text)
+
+    def wait_loader(self) -> None:
+        """Wait for all loaders to disappear."""
+        wait_loader(self.driver, self.wait_driver)
+
+
 def random_string(size: int = 32, chars: str = string.ascii_letters + string.digits) -> str:
     return ''.join(random.choice(chars) for _ in range(size))
 

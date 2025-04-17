@@ -14,7 +14,7 @@ from selenium.common.exceptions import (
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
-from .functions import get_config
+from .functions import get_config, TestHelperMixin
 from .Input import Input
 
 import collections.abc
@@ -31,7 +31,7 @@ logging.basicConfig(
     ]
 )
 
-class Test(unittest.TestCase):
+class Test(unittest.TestCase, TestHelperMixin):
     def __init__(self, methodName):
         super().__init__(methodName)
         config = get_config()
