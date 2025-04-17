@@ -142,9 +142,19 @@ def search_entity(driver: WebDriver, wait_driver: WebDriverWait, name: str) -> N
 
 
 def click_first_result(driver: WebDriver, wait_driver: WebDriverWait) -> None:
-    wait_driver.until(
-        EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))
-    ).click()
+    wait_loader(driver, wait_driver)
+
+    try:
+        wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))
+        ).click()
+        wait_loader(driver, wait_driver)
+    except Exception as e:
+        wait_loader(driver, wait_driver)
+        wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))
+        ).click()
+        wait_loader(driver, wait_driver)
 
 
 def wait_for_filter_cleared(driver: WebDriver, wait_driver: WebDriverWait) -> None:
@@ -155,16 +165,32 @@ def wait_for_filter_cleared(driver: WebDriver, wait_driver: WebDriverWait) -> No
 
 def clear_filters(driver: WebDriver, wait_driver: WebDriverWait) -> None:
     try:
+        wait_loader(driver, wait_driver)
+
         clear_buttons = driver.find_elements(By.XPATH, '//i[@class="deleteicon fa fa-times"]')
-        for button in clear_buttons:
-            button.click()
-            wait_for_filter_cleared(driver, wait_driver)
+
+        if not clear_buttons:
+            search_inputs = driver.find_elements(By.XPATH, '//th//input[not(@type="checkbox")]')
+            for input_field in search_inputs:
+                if input_field.get_attribute('value'):
+                    input_field.clear()
+                    input_field.send_keys(Keys.ENTER)
+                    wait_loader(driver, wait_driver)
+        else:
+            for button in clear_buttons:
+                try:
+                    button.click()
+                    wait_for_filter_cleared(driver, wait_driver)
+                    wait_loader(driver, wait_driver)
+                except:
+                    pass
+
+        wait_loader(driver, wait_driver)
     except Exception as e:
         print(f"Warning: Could not clear filters: {str(e)}")
 
 
 class AnyOf:
-    """Custom expected condition class that returns true when any of the conditions is true."""
     def __init__(self, *conditions):
         self.conditions = conditions
 
@@ -191,11 +217,23 @@ def wait_for_search_results(driver: WebDriver, wait_driver: WebDriverWait) -> No
 
 
 def wait_for_element_and_click(driver: WebDriver, wait_driver: WebDriverWait, xpath: str) -> WebElement:
-    element = wait_driver.until(
-        EC.element_to_be_clickable((By.XPATH, xpath))
-    )
-    element.click()
-    return element
+    wait_loader(driver, wait_driver)
+
+    try:
+        element = wait_driver.until(
+            EC.element_to_be_clickable((By.XPATH, xpath))
+        )
+        element.click()
+        wait_loader(driver, wait_driver)
+        return element
+    except Exception as e:
+        wait_loader(driver, wait_driver)
+        element = wait_driver.until(
+            EC.element_to_be_clickable((By.XPATH, xpath))
+        )
+        element.click()
+        wait_loader(driver, wait_driver)
+        return element
 
 
 def wait_for_dropdown_and_select(driver: WebDriver, wait_driver: WebDriverWait, dropdown_xpath: str, option_xpath: str = None, option_text: str = None) -> None:
@@ -215,7 +253,6 @@ def wait_for_dropdown_and_select(driver: WebDriver, wait_driver: WebDriverWait, 
 
 
 class AllOf:
-    """Custom expected condition class that returns true when all of the conditions are true."""
     def __init__(self, *conditions):
         self.conditions = conditions
 
