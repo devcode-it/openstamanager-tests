@@ -163,15 +163,31 @@ def clear_filters(driver: WebDriver, wait_driver: WebDriverWait) -> None:
         print(f"Warning: Could not clear filters: {str(e)}")
 
 
+class AnyOf:
+    """Custom expected condition class that returns true when any of the conditions is true."""
+    def __init__(self, *conditions):
+        self.conditions = conditions
+
+    def __call__(self, driver):
+        for condition in self.conditions:
+            try:
+                if condition(driver):
+                    return True
+            except:
+                pass
+        return False
+
 def wait_for_search_results(driver: WebDriver, wait_driver: WebDriverWait) -> None:
     wait_loader(driver, wait_driver)
 
     wait_driver.until(
-        EC.or_(
+        AnyOf(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]')),
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[@class="dataTables_empty"]'))
         )
     )
+
+    time.sleep(1)
 
 
 def wait_for_element_and_click(driver: WebDriver, wait_driver: WebDriverWait, xpath: str) -> WebElement:
@@ -198,9 +214,24 @@ def wait_for_dropdown_and_select(driver: WebDriver, wait_driver: WebDriverWait, 
     )
 
 
+class AllOf:
+    """Custom expected condition class that returns true when all of the conditions are true."""
+    def __init__(self, *conditions):
+        self.conditions = conditions
+
+    def __call__(self, driver):
+        results = []
+        for condition in self.conditions:
+            try:
+                result = condition(driver)
+                results.append(result)
+            except:
+                return False
+        return all(results)
+
 def wait_loader(driver: WebDriver, wait_driver: WebDriverWait) -> None:
     try:
-        wait_driver.until(EC.all_of(
+        wait_driver.until(AllOf(
             EC.invisibility_of_element_located((By.ID, 'main_loading')),
             EC.invisibility_of_element_located((By.ID, 'mini-loader')),
             EC.invisibility_of_element_located((By.ID, 'tiny-loader')),
