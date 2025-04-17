@@ -1,65 +1,168 @@
 from argparse import ArgumentParser
+from pathlib import Path
 import os
 import glob
 import string
 import random
 import json
-import re
+import time
+from typing import Dict, List, Optional, Callable, Union
 
-def random_string(size=32, chars=string.ascii_uppercase + string.ascii_lowercase + string.digits) -> str:
-    # Restituisce una stringa di caratteri causali.
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.remote.webdriver import WebDriver, WebElement
+
+def random_string(size: int = 32, chars: str = string.ascii_letters + string.digits) -> str:
     return ''.join(random.choice(chars) for _ in range(size))
 
-def get_cache_directory() -> str:
-    # Restituisce il percorso della cartella di cache degli scripts.
+def get_cache_directory() -> Path:
+    current_dir = Path(__file__).parent
+    cache_dir = current_dir.parent / 'cache'
+    cache_dir.mkdir(exist_ok=True)
+    return cache_dir
 
-    directory = __file__
-    directory = os.path.dirname(directory)
+def get_config() -> Dict:
+    config_file = get_cache_directory().parent / 'config.json'
 
-    cache_directory = os.path.join(os.path.dirname(directory), 'cache')
-    if not os.path.exists(cache_directory):
-        os.mkdir(cache_directory)
+    try:
+        if config_file.exists():
+            with config_file.open('r', encoding='utf-8') as f:
+                return json.load(f)
+    except json.JSONDecodeError:
+        print(f"Errore nel parsing del file {config_file}")
+    except Exception as e:
+        print(f"Errore nella lettura del file {config_file}: {e}")
 
-    return cache_directory
+    return {}
 
-def get_config() -> dict:
-    # Restituisce la configurazione prevista dal file config.json.
+def update_config(config: Dict) -> None:
+    config_file = get_cache_directory().parent / 'config.json'
 
-    directory = get_cache_directory()
-    directory = os.path.dirname(directory)
+    try:
+        with config_file.open('w+', encoding='utf-8') as f:
+            json.dump(config, f, indent=4, sort_keys=True, ensure_ascii=False)
+    except Exception as e:
+        print(f"Errore nell'aggiornamento del file {config_file}: {e}")
 
-    filename = directory + '/config.json'
+def get_args() -> ArgumentParser:
+    parser = ArgumentParser(description='Script di gestione test')
+    parser.add_argument(
+        "-a",
+        "--action",
+        dest="action",
+        help="Imposta l'azione da eseguire",
+        metavar="ACTION"
+    )
+    return parser.parse_args()
 
-    if os.path.exists(filename):
-        with open(filename, 'r') as json_file:
-            data = json.load(json_file)
+def list_files(path: str, include_hidden: bool = True) -> List[str]:
+    path = Path(path)
+    if not path.exists():
+        return []
 
-            return data
-    else:
-        return dict()
+    files = glob.glob(str(path / '**' / '*'), recursive=True)
 
-def update_config(config) -> None:
-    # Restituisce la configurazione prevista dal file config.json.
+    if include_hidden:
+        hidden_files = glob.glob(str(path / '**' / '.*'), recursive=True)
+        files.extend(hidden_files)
 
-    directory = get_cache_directory()
-    directory = os.path.dirname(directory)
+    return sorted(files)
 
-    filename = directory + '/config.json'
+def safe_path_join(*paths: str) -> str:
+    return os.path.normpath(os.path.join(*paths))
 
-    with open(filename, 'w+') as json_file:
-        json.dump(config, json_file, indent=4, sort_keys=True)
+def ensure_directory(path: str) -> None:
+    Path(path).mkdir(parents=True, exist_ok=True)
 
-def get_args() -> dict:
-    parser = ArgumentParser()
 
-    parser.add_argument("-a", "--action", dest="action", help="Imposta l'azione da eseguire", metavar="ACTION")
+def search_entity(driver: WebDriver, wait_driver: WebDriverWait, name: str) -> None:
+    try:
+        clear_buttons = driver.find_elements(By.XPATH, '//i[@class="deleteicon fa fa-times"]')
+        for button in clear_buttons:
+            try:
+                button.click()
+                wait_driver.until(
+                    EC.invisibility_of_element_located((By.XPATH, '//div[@class="select2-search select2-search--dropdown"]'))
+                )
+            except:
+                pass
+    except:
+        pass
 
-    args = parser.parse_args()
+    search_input = wait_driver.until(
+        EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
+    )
+    search_input.clear()
+    search_input.send_keys(name, Keys.ENTER)
 
-    return args
+    time.sleep(1)
 
-def list_files(path: str) -> list:
-    files = glob.glob(path + '/**/*', recursive=True)
-    hidden_files = glob.glob(path + '/**/.*', recursive=True)
 
-    return files + hidden_files
+def click_first_result(driver: WebDriver, wait_driver: WebDriverWait) -> None:
+    wait_driver.until(
+        EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))
+    ).click()
+
+
+def wait_for_filter_cleared(driver: WebDriver, wait_driver: WebDriverWait) -> None:
+    wait_driver.until(
+        EC.invisibility_of_element_located((By.XPATH, '//div[@class="select2-search select2-search--dropdown"]'))
+    )
+
+
+def clear_filters(driver: WebDriver, wait_driver: WebDriverWait) -> None:
+    try:
+        clear_buttons = driver.find_elements(By.XPATH, '//i[@class="deleteicon fa fa-times"]')
+        for button in clear_buttons:
+            button.click()
+            wait_for_filter_cleared(driver, wait_driver)
+    except Exception as e:
+        print(f"Warning: Could not clear filters: {str(e)}")
+
+
+def wait_for_search_results(driver: WebDriver, wait_driver: WebDriverWait) -> None:
+    wait_loader(driver, wait_driver)
+
+    wait_driver.until(
+        EC.or_(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]')),
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[@class="dataTables_empty"]'))
+        )
+    )
+
+
+def wait_for_element_and_click(driver: WebDriver, wait_driver: WebDriverWait, xpath: str) -> WebElement:
+    element = wait_driver.until(
+        EC.element_to_be_clickable((By.XPATH, xpath))
+    )
+    element.click()
+    return element
+
+
+def wait_for_dropdown_and_select(driver: WebDriver, wait_driver: WebDriverWait, dropdown_xpath: str, option_xpath: str = None, option_text: str = None) -> None:
+    wait_for_element_and_click(driver, wait_driver, dropdown_xpath)
+
+    if option_xpath:
+        wait_for_element_and_click(driver, wait_driver, option_xpath)
+    elif option_text:
+        option = wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, f'//li[contains(text(), "{option_text}")]'))
+        )
+        option.click()
+
+    wait_driver.until(
+        EC.invisibility_of_element_located((By.XPATH, '//div[@class="select2-search select2-search--dropdown"]'))
+    )
+
+
+def wait_loader(driver: WebDriver, wait_driver: WebDriverWait) -> None:
+    try:
+        wait_driver.until(EC.all_of(
+            EC.invisibility_of_element_located((By.ID, 'main_loading')),
+            EC.invisibility_of_element_located((By.ID, 'mini-loader')),
+            EC.invisibility_of_element_located((By.ID, 'tiny-loader')),
+        ))
+    except:
+        pass

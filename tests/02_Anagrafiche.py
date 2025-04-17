@@ -1,923 +1,970 @@
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from time import sleep
-from common.Test import Test, get_html
-
+import time
+from common.Test import Test
+from common.functions import (
+    search_entity, click_first_result, wait_for_filter_cleared,
+    clear_filters, wait_for_search_results, wait_for_element_and_click,
+    wait_for_dropdown_and_select, wait_loader
+)
 
 
 class Anagrafiche(Test):
     def setUp(self):
         super().setUp()
+        self.wait_driver = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
-        
 
     def test_creazione_anagrafica(self):
-        #Creazione anagrafiche *Required*
-        self.add_anagrafica('Cliente', 'Cliente')  
-        self.add_anagrafica('Tecnico', 'Tecnico') 
-        self.add_anagrafica('Fornitore', 'Fornitore')
-        self.add_anagrafica('Vettore', 'Vettore') 
-        self.add_anagrafica('Agente', 'Agente')
-        self.add_anagrafica('Anagrafica di Prova da Eliminare', 'Cliente')
+        try:
+            self.add_anagrafica('Cliente', 'Cliente')
+            self.add_anagrafica('Tecnico', 'Tecnico')
+            self.add_anagrafica('Fornitore', 'Fornitore')
+            self.add_anagrafica('Vettore', 'Vettore')
+            self.add_anagrafica('Agente', 'Agente')
+            self.add_anagrafica('Anagrafica di Prova da Eliminare', 'Cliente')
+            self.modifica_anagrafica('Privato')
+            self.elimina_anagrafica()
+            self.verifica_anagrafica()
+            self.crea_attivita()
+            self.crea_preventivo()
+            self.crea_contratto()
+            self.crea_ordine_cliente()
+            self.crea_DDT_uscita()
+            self.crea_fattura_vendita()
+            self.aggiunta_referente()
+            self.aggiunta_sede()
+            self.plugin_statistiche()
+            self.dichiarazione_di_intento()
+            self.assicurazione_crediti()
+            self.ricerca_coordinate()
+            self.elimina_selezionati()
+            self.cambia_relazione()
+        except Exception as e:
+            self.driver.save_screenshot(f"error_test_creazione_anagrafica.png")
+            raise e
 
-        # Modifica anagrafica
-        self.modifica_anagrafica('Privato')
-
-        # Cancellazione anagrafica
-        self.elimina_anagrafica()       
-      
-        # Verifica test
-        self.verifica_anagrafica()         
-
-        # Crea attività
-        self.crea_attivita()             
-
-        # Crea preventivo
-        self.crea_preventivo()         
-
-        # Crea contratto
-        self.crea_contratto()
-
-        # Crea ordine cliente
-        self.crea_ordine_cliente()       
-
-        # Crea DDT in uscita
-        self.crea_DDT_uscita()              
-
-        # Crea fattura di vendita
-        self.crea_fattura_vendita()
-
-        # Aggiunta referente
-        self.aggiunta_referente()
-
-        # Aggiunta sede
-        self.aggiunta_sede()
-
-        # Plugin statistiche
-        self.plugin_statistiche()
-
-        # Plugin dichiarazione d'intento
-        self.dichiarazione_di_intento()
-
-        # Plugin assicurazione crediti
-        self.assicurazione_crediti()
-
-        # Ricerca coordinate (Azioni di gruppo)
-        self.ricerca_coordinate()
-
-        # Elimina selezionati (Azioni di gruppo)
-        self.elimina_selezionati()
-
-        # Cambia relazione (Azioni di gruppo)
-        self.cambia_relazione()
-    
     def add_anagrafica(self, nome=str, tipo=str):
-        # Crea una nuova anagrafica del tipo indicato.
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
-        modal = self.wait_modal()
+        try:
+            wait_for_element_and_click(self.driver, self.wait_driver, '//i[@class="fa fa-plus"]')
 
-        self.input(modal, 'Denominazione').setValue(nome)
+            modal = self.wait_modal()
+            self.input(modal, 'Denominazione').setValue(nome)
+            select = self.input(modal, 'Tipo di anagrafica')
+            select.setByText(tipo)
 
-        select = self.input(modal, 'Tipo di anagrafica')
-        select.setByText(tipo)
+            modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+            wait_loader(self.driver, self.wait_driver)
+        except Exception as e:
+            self.driver.save_screenshot(f"error_add_anagrafica_{nome}.png")
+            raise Exception(f"Failed to add entity {nome}: {str(e)}")
 
-        # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
+    def modifica_anagrafica(self, tipologia:str):
+        try:
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-    def modifica_anagrafica(self, tipologia:str): 
-        wait = WebDriverWait(self.driver, 20)  
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+            self.wait_driver.until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="select2-tipo-container"]'))
+            ).click()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+            self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))
+            ).send_keys(tipologia, Keys.ENTER)
+            wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()    
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="select2-tipo-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys(tipologia, Keys.ENTER)
-        self.wait_loader()
+            self.input(None, 'Partita IVA').setValue("05024030287")
+            self.input(None, 'Codice fiscale').setValue("05024030287")
 
-        self.input(None, 'Partita IVA').setValue("05024030287")
-        self.input(None, 'Codice fiscale').setValue("05024030287")
-        self.driver.find_element(By.XPATH,'//input[@id="indirizzo"]').send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
-        self.input(None, 'C.A.P.').setValue("35042")
-        self.input(None, 'Città').setValue("Este")
-        self.find(By.XPATH, '//button[@id="save"]').click()
-        self.wait_loader()   
-        
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
+            address_field = self.wait_driver.until(
+                EC.presence_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))
+            )
+            address_field.clear()
+            address_field.send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            self.input(None, 'C.A.P.').setValue("35042")
+            self.input(None, 'Città').setValue("Este")
+
+            self.wait_driver.until(
+                EC.element_to_be_clickable((By.XPATH, '//button[@id="save"]'))
+            ).click()
+            wait_loader(self.driver, self.wait_driver)
+
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
+
+            clear_filters(self.driver, self.wait_driver)
+        except Exception as e:
+            self.driver.save_screenshot("error_modifica_anagrafica.png")
+            raise Exception(f"Failed to modify entity: {str(e)}")
 
     def elimina_anagrafica(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        try:
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
+            search_entity(self.driver, self.wait_driver, 'Anagrafica di Prova da Eliminare')
+            click_first_result(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys('Anagrafica di Prova da Eliminare', Keys.ENTER)
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader()
-             
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader()
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+            wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            clear_filters(self.driver, self.wait_driver)
+        except Exception as e:
+            self.driver.save_screenshot("error_elimina_anagrafica.png")
+            raise Exception(f"Failed to delete entity: {str(e)}")
 
     def verifica_anagrafica(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()  
+        try:
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
 
-        # Verifica elemento modificato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipologia"]/input'))).send_keys("Privato", Keys.ENTER)
-        sleep(1)
+            search_input = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipologia"]/input'))
+            )
+            search_input.clear()
+            search_input.send_keys("Privato", Keys.ENTER)
+            wait_for_search_results(self.driver, self.wait_driver)
 
-        modificato=self.driver.find_element(By.XPATH,'//tbody//tr//td[2]').text
-        self.assertEqual("Cliente",modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            entity_name = self.driver.find_element(By.XPATH,'//tbody//tr//td[2]').text
+            self.assertEqual("Cliente", entity_name)
 
-        # Verifica elemento eliminato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Anagrafica di Prova da Eliminare", Keys.ENTER)
-        sleep(1)
+            clear_filters(self.driver, self.wait_driver)
 
-        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr//td[1]').text
-        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            search_input = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
+            )
+            search_input.clear()
+            search_input.send_keys("Anagrafica di Prova da Eliminare", Keys.ENTER)
+            wait_for_search_results(self.driver, self.wait_driver)
+
+            no_results_message = self.driver.find_element(By.XPATH,'//tbody//tr//td[1]').text
+            self.assertEqual("La ricerca non ha portato alcun risultato.", no_results_message)
+
+            clear_filters(self.driver, self.wait_driver)
+        except Exception as e:
+            self.driver.save_screenshot("error_verifica_anagrafica.png")
+            raise Exception(f"Failed to verify entity: {str(e)}")
 
     def crea_attivita(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        try:
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()    
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-info dropdown-toggle"]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//a[@class="btn dropdown-item bound clickable"])[1]')
 
-        # Crea attività
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="btn dropdown-item bound clickable"])[1]'))).click()
-        sleep(1)
+            wait_for_dropdown_and_select(
+                self.driver, self.wait_driver,
+                '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[8]',
+                '(//li[@class="select2-results__option"])'
+            )
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[8]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
-        sleep(1)
+            description_field = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]'))
+            )
+            description_field.click()
+            description_field.send_keys("Test")
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]'))).click()  
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]'))).send_keys("Test")
-        self.find(By.XPATH, '//div[@class="col-md-12 text-right"]//button[@type="button"]').click()
-        sleep(1) 
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@class="col-md-12 text-right"]//button[@type="button"]')
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()   
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '//a[@id="link-tab_28"]')
+            activity_number = self.driver.find_element(By.XPATH,'//div[@id="tab_28"]//tbody//tr//td[2]').text
+            self.assertEqual("1", activity_number)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_28"]'))).click()
-        modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_28"]//tbody//tr//td[2]').text
-        self.assertEqual("1",modificato)
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_28"]//tbody//td[2]')
 
-        self.find(By.XPATH, '//div[@id="tab_28"]//tbody//td[2]').click()
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+            wait_loader(self.driver, self.wait_driver)
 
-        # Elimina attività creata
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader()
-  
-        self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            self.navigateTo("Anagrafiche")
+            clear_filters(self.driver, self.wait_driver)
+        except Exception as e:
+            self.driver.save_screenshot("error_crea_attivita.png")
+            raise Exception(f"Failed to create activity: {str(e)}")
 
     def crea_preventivo(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        try:
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()   
-        self.wait_loader()
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-info dropdown-toggle"]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//a[@class="btn dropdown-item bound clickable"])[2]')
+            modal = self.wait_modal()
 
-        # Crea preventivo
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="btn dropdown-item bound clickable"])[2]'))).click()
-        modal = self.wait_modal()
+            wait_for_dropdown_and_select(
+                self.driver, self.wait_driver,
+                '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[4]',
+                '(//li[@class="select2-results__option"])'
+            )
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[4]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[5]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
-        self.input(modal, 'Nome').setValue("Preventivo di prova anagrafica")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_13-"]//button[@class="btn btn-primary"])'))).click()
-        sleep(1)   
+            wait_for_dropdown_and_select(
+                self.driver, self.wait_driver,
+                '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[5]',
+                '(//li[@class="select2-results__option"])'
+            )
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+            self.input(modal, 'Nome').setValue("Preventivo di prova anagrafica")
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()   
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//div[@id="form_13-"]//button[@class="btn btn-primary"])')
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-tool"]'))).click()
-        sleep(1)
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-        modificato=self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[7]').text
-        self.assertEqual("Preventivo 1",modificato[0:12])
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//li//a)[5]'))).click()
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-tool"]')
 
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        sleep(1)
+            quote_text = self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[7]').text
+            self.assertEqual("Preventivo 1", quote_text[0:12])
 
-        # Elimina preventivo
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader()
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//div[@class="card-body"]//li//a)[5]')
 
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
-  
-        self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            self.wait_driver.until(lambda driver: len(driver.window_handles) > 1)
+            self.driver.switch_to.window(self.driver.window_handles[1])
+
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+            wait_loader(self.driver, self.wait_driver)
+
+            self.driver.close()
+            self.driver.switch_to.window(self.driver.window_handles[0])
+
+            self.navigateTo("Anagrafiche")
+            clear_filters(self.driver, self.wait_driver)
+        except Exception as e:
+            self.driver.save_screenshot("error_crea_preventivo.png")
+            raise Exception(f"Failed to create quote: {str(e)}")
 
     def crea_contratto(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        try:
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()  
-        sleep(1)  
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-info dropdown-toggle"]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//a[@class="btn dropdown-item bound clickable"])[3]')
+            modal = self.wait_modal()
 
-        # Crea contratto
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="btn dropdown-item bound clickable"])[3]'))).click()
-        modal = self.wait_modal()
+            self.input(modal, 'Nome').setValue("Contratto di prova anagrafica")
 
-        self.input(modal, 'Nome').setValue("Contratto di prova anagrafica")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[2]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_31-"]//button[@class="btn btn-primary"])'))).click()
-        sleep(1)
+            wait_for_dropdown_and_select(
+                self.driver, self.wait_driver,
+                '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[2]',
+                '(//li[@class="select2-results__option"])'
+            )
 
-        # Elimina contratto
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader()
- 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//div[@id="form_31-"]//button[@class="btn btn-primary"])')
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+            wait_loader(self.driver, self.wait_driver)
+
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
+            clear_filters(self.driver, self.wait_driver)
+        except Exception as e:
+            self.driver.save_screenshot("error_crea_contratto.png")
+            raise Exception(f"Failed to create contract: {str(e)}")
 
     def crea_ordine_cliente(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        try:
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader()
-           
-        # Crea ordine
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="btn dropdown-item bound clickable"])[4]'))).click()
-        self.wait_modal()
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-info dropdown-toggle"]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//a[@class="btn dropdown-item bound clickable"])[4]')
+            self.wait_modal()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_24-"]//button[@class="btn btn-primary"])'))).click()
-        self.wait_loader()
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//div[@id="form_24-"]//button[@class="btn btn-primary"])')
+            wait_loader(self.driver, self.wait_driver)
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()   
-        self.wait_loader()
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-tool"]')
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-tool"]'))).click()
-        sleep(1)
+            order_text = self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[7]').text
+            self.assertEqual("Ordine cliente 01", order_text[0:17])
 
-        modificato=self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[7]').text
-        self.assertEqual("Ordine cliente 01",modificato[0:17])
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//li//a)[5]'))).click()
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//div[@class="card-body"]//li//a)[5]')
 
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        sleep(1)
-        
-        # Elimina ordine
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader()
+            self.wait_driver.until(lambda driver: len(driver.window_handles) > 1)
+            self.driver.switch_to.window(self.driver.window_handles[1])
 
-        self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+            wait_loader(self.driver, self.wait_driver)
 
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
-        sleep(1)
+            self.navigateTo("Anagrafiche")
+            clear_filters(self.driver, self.wait_driver)
+
+            self.driver.close()
+            self.driver.switch_to.window(self.driver.window_handles[0])
+        except Exception as e:
+            self.driver.save_screenshot("error_crea_ordine_cliente.png")
+            raise Exception(f"Failed to create customer order: {str(e)}")
 
     def crea_DDT_uscita(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()  
+        try:
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader()   
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-info dropdown-toggle"]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//a[@class="btn dropdown-item bound clickable"])[5]')
+            modal = self.wait_modal()
 
-        # Crea DDT
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="btn dropdown-item bound clickable"])[5]'))).click()
-        modal = self.wait_modal()
+            wait_for_dropdown_and_select(
+                self.driver, self.wait_driver,
+                '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[3]',
+                '(//li[@class="select2-results__option"])'
+            )
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[3]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//li[@class="select2-results__option"])'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_26-"]//button[@class="btn btn-primary"])'))).click()
-        sleep(1)   
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//div[@id="form_26-"]//button[@class="btn btn-primary"])')
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()   
-        self.wait_loader()
+            wait_for_element_and_click(self.driver, self.wait_driver, '//a[@id="link-tab_17"]')
 
-        
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_17"]'))).click()
-        modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_17"]//tbody//td[2]').text
-        self.assertEqual("01",modificato)
-        sleep(1)
+            ddt_number = self.driver.find_element(By.XPATH,'//div[@id="tab_17"]//tbody//td[2]').text
+            self.assertEqual("01", ddt_number)
 
-        self.find(By.XPATH, '//div[@id="tab_17"]//tbody//td[2]').click()
-        self.wait_loader()
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_17"]//tbody//td[2]')
 
-        # Elimina DDT
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader()
- 
-        self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+            wait_loader(self.driver, self.wait_driver)
+
+            self.navigateTo("Anagrafiche")
+            clear_filters(self.driver, self.wait_driver)
+        except Exception as e:
+            self.driver.save_screenshot("error_crea_DDT_uscita.png")
+            raise Exception(f"Failed to create delivery note: {str(e)}")
 
     def crea_fattura_vendita(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
+        try:
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))).click()
-        self.wait_loader()
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-info dropdown-toggle"]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//a[@class="btn dropdown-item bound clickable"])[6]')
 
-        # Crea fattura
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-info dropdown-toggle"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//a[@class="btn dropdown-item bound clickable"])[6]'))).click()
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//div[@id="form_14-"]//button[@class="btn btn-primary"])')
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_14-"]//button[@class="btn btn-primary"])'))).click()
-        sleep(1) 
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-tool"]')
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()   
-        self.wait_loader()
+            invoice_text = self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[7]').text
+            self.assertEqual("Fattura immediata di vendita", invoice_text[0:28])
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-tool"]'))).click()
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//div[@class="card-body"]//li//a)[5]')
 
-        modificato=self.driver.find_element(By.XPATH,'(//div[@class="card-body"]//li)[7]').text
-        self.assertEqual("Fattura immediata di vendita",modificato[0:28])
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//li//a)[5]'))).click()
-        sleep(2)
+            self.wait_driver.until(lambda driver: len(driver.window_handles) > 1)
 
-        self.driver.close() 
-        self.driver.switch_to.window(self.driver.window_handles[0])
+            self.driver.close()
+            self.driver.switch_to.window(self.driver.window_handles[0])
 
-        # Elimina fattura
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader()
-  
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+            wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
+            clear_filters(self.driver, self.wait_driver)
+        except Exception as e:
+            self.driver.save_screenshot("error_crea_fattura_vendita.png")
+            raise Exception(f"Failed to create sales invoice: {str(e)}")
 
     def aggiunta_referente(self):
-        wait = WebDriverWait(self.driver, 20)   
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
- 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+        try:
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()    
-        self.wait_loader()
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-        # Aggiunta referente
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_3"]'))).click()
-        self.find(By.XPATH, '//h4//i[@class="fa fa-plus"]').click()
-        modal = self.wait_modal()
+            wait_for_element_and_click(self.driver, self.wait_driver, '//a[@id="link-tab_3"]')
 
-        self.input(modal,'Nominativo').setValue("Referente di prova")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]//i[@class="fa fa-plus"]'))).click()
-        modal = self.wait_modal()
+            wait_for_element_and_click(self.driver, self.wait_driver, '//h4//i[@class="fa fa-plus"]')
+            modal = self.wait_modal()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-content"]//div[@id="form_82-"]//input[@id="nome"]'))).send_keys("Segretario")
-        sleep(1)
+            self.input(modal,'Nominativo').setValue("Referente di prova")
 
-        self.find(By.XPATH, '(//button[@type="submit"])[4]').click()
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@class="modal-dialog modal-lg"]//i[@class="fa fa-plus"]')
+            modal = self.wait_modal()
 
-        self.find(By.XPATH, '(//button[@type="submit"])[3]').click()   
-        self.wait_loader()
+            job_title_input = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-content"]//div[@id="form_82-"]//input[@id="nome"]'))
+            )
+            job_title_input.send_keys("Segretario")
 
-        # Modifica referente
-        self.find(By.XPATH, '//div[@id="tab_3"]//tbody//tr//td[2]').click()
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//button[@type="submit"])[4]')
 
-        nome=self.find(By.XPATH, '(//input[@id="nome"])[2]')
-        nome.clear()
-        nome.send_keys("Prova")
-        self.find(By.XPATH, '//button[@class="btn btn-success pull-right"]').click()
-        self.wait_loader()
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//button[@type="submit"])[3]')
+            wait_loader(self.driver, self.wait_driver)
 
-        modifica=self.find(By.XPATH, '//div[@id="tab_3"]//tbody//tr//td[2]').text
-        self.assertEqual(modifica, "Prova")
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_3"]//tbody//tr//td[2]')
 
-        # Elimina referente
-        self.find(By.XPATH, '//div[@id="tab_3"]//tbody//tr//td[2]').click()
-        sleep(1)
-        
-        self.find(By.XPATH, '(//a[@class="btn btn-danger ask"])[2]').click()
-        sleep(1)
+            name_input = self.find(By.XPATH, '(//input[@id="nome"])[2]')
+            name_input.clear()
+            name_input.send_keys("Prova")
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-success pull-right"]')
+            wait_loader(self.driver, self.wait_driver)
 
-        eliminato=self.find(By.XPATH, '//div[@id="tab_3"]//tbody//tr').text
-        self.assertEqual(eliminato, "Nessun dato presente nella tabella")
+            contact_name = self.find(By.XPATH, '//div[@id="tab_3"]//tbody//tr//td[2]').text
+            self.assertEqual(contact_name, "Prova")
 
-        # Aggiunta referente
-        self.find(By.XPATH, '//h4//i[@class="fa fa-plus"]').click()
-        modal = self.wait_modal()
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_3"]//tbody//tr//td[2]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//a[@class="btn btn-danger ask"])[2]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+            wait_loader(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@id="nome"])[2]'))).send_keys("Referente di prova")
-        self.find(By.XPATH, '//span[@id="select2-idmansione-container"]').click()
-        sleep(1)
+            empty_message = self.find(By.XPATH, '//div[@id="tab_3"]//tbody//tr').text
+            self.assertEqual(empty_message, "Nessun dato presente nella tabella")
 
-        self.find(By.XPATH, '//ul[@id="select2-idmansione-results"]//li[1]').click()
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '//h4//i[@class="fa fa-plus"]')
+            modal = self.wait_modal()
 
-        self.find(By.XPATH, '(//button[@type="submit"])[3]').click()   
-        self.wait_loader()
+            contact_name_input = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '(//input[@id="nome"])[2]'))
+            )
+            contact_name_input.send_keys("Referente di prova")
 
-        # Verifica referente
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Mansione"]/input'))).send_keys("Segretario", Keys.ENTER)
-        sleep(1)
+            wait_for_dropdown_and_select(
+                self.driver, self.wait_driver,
+                '//span[@id="select2-idmansione-container"]',
+                '//ul[@id="select2-idmansione-results"]//li[1]'
+            )
 
-        modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_3"]//tbody//tr//td[3]').text
-        self.assertEqual("Segretario", modificato)
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//button[@type="submit"])[3]')
+            wait_loader(self.driver, self.wait_driver)
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
+            search_input = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Mansione"]/input'))
+            )
+            search_input.send_keys("Segretario", Keys.ENTER)
+            wait_for_search_results(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            job_title = self.driver.find_element(By.XPATH,'//div[@id="tab_3"]//tbody//tr//td[3]').text
+            self.assertEqual("Segretario", job_title)
+
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
+            clear_filters(self.driver, self.wait_driver)
+        except Exception as e:
+            self.driver.save_screenshot("error_aggiunta_referente.png")
+            raise Exception(f"Failed to add contact: {str(e)}")
 
     def aggiunta_sede(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
- 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+        try:
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
-        self.wait_loader()
-        
-        # Aggiunta sede
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_4"]'))).click()
-        sleep(1)
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//div[@id="tab_4"]//i[@class="fa fa-plus"]').click()
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '//a[@id="link-tab_4"]')
 
-        self.input(None, 'Nome sede').setValue("Filiale XY")
-        self.find(By.XPATH, '(//input[@id="cap"])[2]').send_keys("35042")
-        self.find(By.XPATH, '(//input[@id="citta"])[2]').click()
-        self.find(By.XPATH, '(//input[@id="citta"])[2]').send_keys("Padova")
-        sleep(1)
-        
-        self.find(By.XPATH, '(//span[@id="select2-id_nazione-container"])[2]').click()
-        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
-        self.find(By.XPATH, '(//button[@type="submit"])[3]').click()
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_4"]//i[@class="fa fa-plus"]')
 
-        # Modifica sede
-        self.find(By.XPATH, '//div[@id="tab_4"]//tbody/tr//td[2]').click()
-        sleep(1)
+            self.input(None, 'Nome sede').setValue("Filiale XY")
 
-        nome=self.find(By.XPATH, '//input[@id="nomesede"]')
-        nome.clear()
-        nome.send_keys("Prova")
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
-        self.wait_loader()
+            postal_code_input = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '(//input[@id="cap"])[2]'))
+            )
+            postal_code_input.send_keys("35042")
 
-        modificato=self.find(By.XPATH, '//div[@id="tab_4"]//tbody/tr//td[2]').text
-        self.assertEqual(modificato, "Prova")
+            city_input = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '(//input[@id="citta"])[2]'))
+            )
+            city_input.click()
+            city_input.send_keys("Padova")
 
-        # Elimina sede
-        self.find(By.XPATH, '//div[@id="tab_4"]//tbody/tr//td[2]').click()
-        sleep(1)
+            wait_for_dropdown_and_select(
+                self.driver, self.wait_driver,
+                '(//span[@id="select2-id_nazione-container"])[2]',
+                '//li[@class="select2-results__option select2-results__option--highlighted"]'
+            )
 
-        self.find(By.XPATH, '//button[@class="btn btn-danger "]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//button[@type="submit"])[3]')
 
-        eliminato=self.find(By.XPATH, '//div[@id="tab_4"]//tbody//tr').text
-        self.assertEqual(eliminato, "Nessun dato presente nella tabella")
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_4"]//tbody/tr//td[2]')
 
-        # Aggiunta sede
-        self.find(By.XPATH, '//div[@id="tab_4"]//i[@class="fa fa-plus"]').click()
-        sleep(1)
+            location_name_input = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//input[@id="nomesede"]'))
+            )
+            location_name_input.clear()
+            location_name_input.send_keys("Prova")
 
-        self.input(None, 'Nome sede').setValue("Filiale XY")
-        self.find(By.XPATH, '(//input[@id="cap"])[2]').send_keys("35042")
-        self.find(By.XPATH, '(//input[@id="citta"])[2]').click()
-        self.find(By.XPATH, '(//input[@id="citta"])[2]').send_keys("Padova")
-        sleep(1)
-        
-        self.find(By.XPATH, '(//span[@id="select2-id_nazione-container"])[2]').click()
-        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
-        self.find(By.XPATH, '(//button[@type="submit"])[3]').click()
-        sleep(1)
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-primary pull-right"]')
+            wait_loader(self.driver, self.wait_driver)
 
-        # Verifica sede
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//th[@id="th_Nome"]/input)[2]'))).send_keys("Filiale XY", Keys.ENTER)
-        sleep(1)
+            location_name = self.find(By.XPATH, '//div[@id="tab_4"]//tbody/tr//td[2]').text
+            self.assertEqual(location_name, "Prova")
 
-        modificato=self.driver.find_element(By.XPATH,'//div[@id="tab_4"]//tbody//td[2]').text
-        self.assertEqual("Filiale XY", modificato)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()  
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_4"]//tbody/tr//td[2]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-danger "]')
+            wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+            wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            empty_message = self.find(By.XPATH, '//div[@id="tab_4"]//tbody//tr').text
+            self.assertEqual(empty_message, "Nessun dato presente nella tabella")
+
+            wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_4"]//i[@class="fa fa-plus"]')
+
+            self.input(None, 'Nome sede').setValue("Filiale XY")
+
+            postal_code_input = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '(//input[@id="cap"])[2]'))
+            )
+            postal_code_input.send_keys("35042")
+
+            city_input = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '(//input[@id="citta"])[2]'))
+            )
+            city_input.click()
+            city_input.send_keys("Padova")
+
+            wait_for_dropdown_and_select(
+                self.driver, self.wait_driver,
+                '(//span[@id="select2-id_nazione-container"])[2]',
+                '//li[@class="select2-results__option select2-results__option--highlighted"]'
+            )
+
+            wait_for_element_and_click(self.driver, self.wait_driver, '(//button[@type="submit"])[3]')
+
+            search_input = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '(//th[@id="th_Nome"]/input)[2]'))
+            )
+            search_input.send_keys("Filiale XY", Keys.ENTER)
+            wait_for_search_results(self.driver, self.wait_driver)
+
+            location_name = self.driver.find_element(By.XPATH,'//div[@id="tab_4"]//tbody//td[2]').text
+            self.assertEqual("Filiale XY", location_name)
+
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
+            clear_filters(self.driver, self.wait_driver)
+        except Exception as e:
+            self.driver.save_screenshot("error_aggiunta_sede.png")
+            raise Exception(f"Failed to add location: {str(e)}")
 
     def plugin_statistiche(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
- 
-        # Verifica statistiche
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1) 
+        try:
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader() 
-        
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_7"]'))).click()
+            search_entity(self.driver, self.wait_driver, "Cliente")
+            click_first_result(self.driver, self.wait_driver)
 
-        preventivi=wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="info-box-text pull-left"]'))).text
-        self.assertEqual(preventivi, "Preventivi")
-        contratti=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[2]'))).text
-        self.assertEqual(contratti, "Contratti")
-        ordini_cliente=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[3]'))).text
-        self.assertEqual(ordini_cliente, "Ordini cliente")
-        attivita=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[4]'))).text
-        self.assertEqual(attivita, "Attività")
-        ddt_in_uscita=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[5]'))).text
-        self.assertEqual(ddt_in_uscita, "Ddt in uscita")
-        fatture=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[6]'))).text
-        self.assertEqual(fatture, "Fatture")
-        ore_lavorate=wait.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-text pull-left"])[7]'))).text
-        self.assertEqual(ore_lavorate, "Ore lavorate")
+            wait_for_element_and_click(self.driver, self.wait_driver, '//a[@id="link-tab_7"]')
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
-    
+            stats_labels = [
+                ("Preventivi", '//span[@class="info-box-text pull-left"]'),
+                ("Contratti", '(//span[@class="info-box-text pull-left"])[2]'),
+                ("Ordini cliente", '(//span[@class="info-box-text pull-left"])[3]'),
+                ("Attività", '(//span[@class="info-box-text pull-left"])[4]'),
+                ("Ddt in uscita", '(//span[@class="info-box-text pull-left"])[5]'),
+                ("Fatture", '(//span[@class="info-box-text pull-left"])[6]'),
+                ("Ore lavorate", '(//span[@class="info-box-text pull-left"])[7]')
+            ]
+
+            for expected_label, xpath in stats_labels:
+                actual_label = self.wait_driver.until(
+                    EC.visibility_of_element_located((By.XPATH, xpath))
+                ).text
+                self.assertEqual(actual_label, expected_label)
+
+            self.navigateTo("Anagrafiche")
+            wait_loader(self.driver, self.wait_driver)
+            clear_filters(self.driver, self.wait_driver)
+        except Exception as e:
+            self.driver.save_screenshot("error_plugin_statistiche.png")
+            raise Exception(f"Failed to verify statistics plugin: {str(e)}")
+
     def dichiarazione_di_intento(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
+        try:
+            self.navigateTo("Anagrafiche")
+            self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+            self.search_entity("Cliente")
+            self.click_first_result()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader() 
-   
-        self.find(By.XPATH, '//a[@id="link-tab_25"]').click()
-        self.find(By.XPATH, '//div[@id="tab_25"]//i[@class="fa fa-plus"]').click()
-        sleep(1)
+            self.wait_for_element_and_click('//a[@id="link-tab_25"]')
 
-        # Aggiunta dichiarazione di intento
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_protocollo"]'))).send_keys("012345678901234567890123")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_protocollo"]'))).send_keys("01/01/2025")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_progressivo"]'))).send_keys("001")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("01/01/2025")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))).send_keys("31/12/2028")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="massimale"]'))).send_keys("50000")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_emissione"]'))).send_keys("13/01/2025", Keys.ENTER)
-        self.find(By.XPATH, '(//button[@class="btn btn-primary"])[2]').click()
-        self.wait_loader()
+            self.wait_for_element_and_click('//div[@id="tab_25"]//i[@class="fa fa-plus"]')
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_25"]//tbody//tr//td[1]')))
-        self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+            form_fields = [
+                ('//input[@id="numero_protocollo"]', "012345678901234567890123"),
+                ('//input[@id="data_protocollo"]', "01/01/2025"),
+                ('//input[@id="numero_progressivo"]', "001"),
+                ('//input[@id="data_inizio"]', "01/01/2025"),
+                ('//input[@id="data_fine"]', "31/12/2028"),
+                ('//input[@id="massimale"]', "50000"),
+                ('//input[@id="data_emissione"]', "13/01/2025")
+            ]
 
-        self.find(By.XPATH, '//i[@class="fa fa-plus"]').click()
-        self.wait_modal()
+            for xpath, value in form_fields:
+                field = self.wait_driver.until(
+                    EC.visibility_of_element_located((By.XPATH, xpath))
+                )
+                field.send_keys(value)
 
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+            self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//input[@id="data_emissione"]'))
+            ).send_keys(Keys.ENTER)
 
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
-        self.wait_loader()
-        
-        # Verifica dichiarazione di intento
-        elemento = self.find(By.XPATH, '(//div[@class="alert alert-info"])[1]').text
-        self.assertEqual("La fattura è collegata ad una dichiarazione d'intento", elemento[0:53])
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()
-        sleep(1)
+            self.wait_for_element_and_click('(//button[@class="btn btn-primary"])[2]')
+            self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("prova per dichiarazione")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="qta"]'))).send_keys("100")
-        self.find(By.XPATH, '//span[@id="select2-um-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("pz", Keys.ENTER)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1")
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
-        sleep(1)
+            self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_25"]//tbody//tr//td[1]'))
+            )
 
-        self.find(By.XPATH, '//button[@id="save"]').click()
-        self.wait_loader()
+            self.expandSidebar("Vendite")
+            self.navigateTo("Fatture di vendita")
+            self.wait_loader()
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+            self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+            self.wait_modal()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader()
+            self.wait_for_dropdown_and_select(
+                '//span[@id="select2-idanagrafica_add-container"]',
+                option_text="Cliente"
+            )
 
-        self.find(By.XPATH, '//a[@id="link-tab_25"]').click()
-        sleep(1)
+            self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
+            self.wait_loader()
 
-        totale=self.find(By.XPATH, '//div[@id="tab_25"]//tbody//tr//td[5]').text
-        self.assertEqual(totale, "102.00")
+            declaration_message = self.find(By.XPATH, '(//div[@class="alert alert-info"])[1]').text
+            self.assertEqual("La fattura è collegata ad una dichiarazione d'intento", declaration_message[0:53])
 
-        # Modifica della dichiarazione
-        self.find(By.XPATH, '//div[@id="tab_25"]//tbody//tr//td[5]').click()
-        modal = self.wait_modal()
+            self.wait_for_element_and_click('//a[@class="btn btn-primary"]')
 
-        self.input(modal, 'Progressivo int.').setValue("01")
-        self.find(By.XPATH, '//div[@id="modals"]//button[@type="submit"]').click()
-        self.wait_loader()
+            description_field = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))
+            )
+            description_field.send_keys("prova per dichiarazione")
 
-        num_progressivo=self.find(By.XPATH, '//div[@id="tab_25"]//tbody//td[3]').text
-        self.assertEqual(num_progressivo, "01")
+            quantity_field = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//input[@id="qta"]'))
+            )
+            quantity_field.send_keys("100")
 
-        # Elimina dichiarazione
-        self.find(By.XPATH, '//div[@id="tab_25"]//tbody//td[3]').click()
-        sleep(1)
+            self.wait_for_dropdown_and_select(
+                '//span[@id="select2-um-container"]',
+                option_text="pz"
+            )
 
-        self.find(By.XPATH, '//a[@class="btn btn-danger ask "]').click()
-        sleep(1)
+            price_field = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))
+            )
+            price_field.send_keys("1")
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader()
+            self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
 
-        messaggio=self.find(By.XPATH, '//div[@id="tab_25"]//td[@class="dataTables_empty"]').text
-        self.assertEqual(messaggio, "Nessun dato presente nella tabella")
+            self.wait_for_element_and_click('//button[@id="save"]')
+            self.wait_loader()
 
-        # Eliminazione fattura creata per la dichiarazione
-        self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+            self.navigateTo("Anagrafiche")
+            self.wait_loader()
+            self.search_entity("Cliente")
+            self.click_first_result()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader()
+            self.wait_for_element_and_click('//a[@id="link-tab_25"]')
 
-        self.find(By.XPATH, '//a[@id="elimina"]').click()
-        sleep(1)
+            total_amount = self.find(By.XPATH, '//div[@id="tab_25"]//tbody//tr//td[5]').text
+            self.assertEqual(total_amount, "102.00")
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader()
-        
-        self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            self.wait_for_element_and_click('//div[@id="tab_25"]//tbody//tr//td[5]')
+            modal = self.wait_modal()
+
+            self.input(modal, 'Progressivo int.').setValue("01")
+
+            self.wait_for_element_and_click('//div[@id="modals"]//button[@type="submit"]')
+            self.wait_loader()
+
+            progressive = self.find(By.XPATH, '//div[@id="tab_25"]//tbody//td[3]').text
+            self.assertEqual(progressive, "01")
+
+            self.wait_for_element_and_click('//div[@id="tab_25"]//tbody//td[3]')
+            self.wait_for_element_and_click('//a[@class="btn btn-danger ask "]')
+            self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+            self.wait_loader()
+
+            empty_message = self.find(By.XPATH, '//div[@id="tab_25"]//td[@class="dataTables_empty"]').text
+            self.assertEqual(empty_message, "Nessun dato presente nella tabella")
+
+            self.expandSidebar("Vendite")
+            self.navigateTo("Fatture di vendita")
+            self.wait_loader()
+
+            self.wait_for_element_and_click('//tbody//tr//td[2]')
+            self.wait_loader()
+
+            self.wait_for_element_and_click('//a[@id="elimina"]')
+            self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+            self.wait_loader()
+
+            self.navigateTo("Anagrafiche")
+            self.clear_filters()
+        except Exception as e:
+            self.driver.save_screenshot("error_dichiarazione_di_intento.png")
+            raise Exception(f"Failed to manage declaration of intent: {str(e)}")
 
     def assicurazione_crediti(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
+        try:
+            self.navigateTo("Anagrafiche")
+            self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+            self.search_entity("Cliente")
+            self.click_first_result()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader() 
+            self.wait_for_element_and_click('//a[@id="link-tab_45"]')
 
-        self.find(By.XPATH, '//a[@id="link-tab_45"]').click()
-        self.find(By.XPATH,'//div[@id="tab_45"]//i[@class="fa fa-plus"]').click()
-        self.wait_loader() 
+            self.wait_for_element_and_click('//div[@id="tab_45"]//i[@class="fa fa-plus"]')
+            self.wait_loader()
 
-        # Aggiunta assicurazione crediti
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))).send_keys("01/01/2025")
-        element = wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]')))
-        element.clear()
-        element.send_keys("31/12/2025")
-        
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="fido_assicurato"]'))).send_keys("50000", Keys.ENTER)
-        sleep(2)
+            start_date_field = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))
+            )
+            start_date_field.send_keys("01/01/2025")
 
-        self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+            end_date_field = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))
+            )
+            end_date_field.clear()
+            end_date_field.send_keys("31/12/2025")
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
-        modal = self.wait_modal()
+            credit_limit_field = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//input[@id="fido_assicurato"]'))
+            )
+            credit_limit_field.send_keys("50000", Keys.ENTER)
 
-        # Verifica assicurazione crediti
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data"]'))).send_keys( "01/01/2025")
-        self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
-        self.wait_loader()
+            self.expandSidebar("Vendite")
+            self.navigateTo("Fatture di vendita")
+            self.wait_loader()
 
-        self.find(By.XPATH, '//a[@class="btn btn-primary"]').click()
-        sleep(1)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("prova")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("51000")
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
-        sleep(1)
+            self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+            modal = self.wait_modal()
 
-        self.find(By.XPATH, '//button[@id="save"]').click()
-        self.wait_loader()
+            date_field = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//input[@id="data"]'))
+            )
+            date_field.send_keys("01/01/2025")
 
-        elemento = self.find(By.XPATH, '//div[@class="alert alert-warning text-center"]').text
-        self.assertEqual("Attenzione!", elemento[0:11])
+            self.wait_for_dropdown_and_select(
+                '//span[@id="select2-idanagrafica_add-container"]',
+                option_text="Cliente"
+            )
 
-        self.find(By.XPATH, '//a[@id="elimina"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader()
+            self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
+            self.wait_loader()
 
-        # Modifica assicurazione crediti    
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+            self.wait_for_element_and_click('//a[@class="btn btn-primary"]')
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader()
+            description_field = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))
+            )
+            description_field.send_keys("prova")
 
-        self.find(By.XPATH, '//a[@id="link-tab_45"]').click()
-        self.find(By.XPATH, '//div[@id="tab_45"]//tbody//tr//td[2]').click()
-        sleep(1)
+            price_field = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))
+            )
+            price_field.send_keys("51000")
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="fido_assicurato"]'))).send_keys(Keys.BACK_SPACE, "49000")
-        self.find(By.XPATH, '//button[@class="btn btn-primary pull-right"]').click()
-        sleep(2)
+            self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
 
-        modifica=self.find(By.XPATH, '//div[@id="tab_45"]//tbody//tr//td[2]').text
-        self.assertEqual(modifica, "49000.00")
-        sleep(1)
+            self.wait_for_element_and_click('//button[@id="save"]')
+            self.wait_loader()
 
-        # Elimina assicurazione crediti
-        self.find(By.XPATH, '//div[@id="tab_45"]//tbody//tr//td[2]').click()
-        sleep(1)
+            warning_message = self.find(By.XPATH, '//div[@class="alert alert-warning text-center"]').text
+            self.assertEqual("Attenzione!", warning_message[0:11])
 
-        self.find(By.XPATH, '//div[@id="modals"]//a[@class="btn btn-danger ask"]').click()
-        sleep(1)
+            self.wait_for_element_and_click('//a[@id="elimina"]')
+            self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+            self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader()
+            self.navigateTo("Anagrafiche")
+            self.wait_loader()
+            self.search_entity("Cliente")
+            self.click_first_result()
 
-        self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            self.wait_for_element_and_click('//a[@id="link-tab_45"]')
 
-        self.find(By.XPATH, '//tbody//tr//td').click() 
+            self.wait_for_element_and_click('//div[@id="tab_45"]//tbody//tr//td[2]')
+
+            credit_limit_field = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//input[@id="fido_assicurato"]'))
+            )
+            credit_limit_field.send_keys(Keys.BACK_SPACE, "49000")
+
+            self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
+
+            modified_limit = self.find(By.XPATH, '//div[@id="tab_45"]//tbody//tr//td[2]').text
+            self.assertEqual(modified_limit, "49000.00")
+
+            self.wait_for_element_and_click('//div[@id="tab_45"]//tbody//tr//td[2]')
+            self.wait_for_element_and_click('//div[@id="modals"]//a[@class="btn btn-danger ask"]')
+            self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+            self.wait_loader()
+
+            self.navigateTo("Anagrafiche")
+            self.clear_filters()
+        except Exception as e:
+            self.driver.save_screenshot("error_assicurazione_crediti.png")
+            raise Exception(f"Failed to manage credit insurance: {str(e)}")
 
     def ricerca_coordinate(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
+        try:
+            self.navigateTo("Anagrafiche")
+            self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Admin spa", Keys.ENTER) 
-        sleep(1)
+            search_input = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
+            )
+            search_input.send_keys("Admin spa", Keys.ENTER)
+            self.wait_for_search_results()
 
-        self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()  
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="ricerca-coordinate"]'))).click()  
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  
-        self.wait_loader()
+            self.wait_for_element_and_click('//tbody//tr//td')
+            self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click() 
-        self.wait_loader()
+            self.wait_for_element_and_click('//a[@data-op="ricerca-coordinate"]')
 
-        self.find(By.XPATH, '//a[@onclick="modificaPosizione()"]').click()
-        sleep(1)
+            self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+            self.wait_loader()
 
-        self.find(By.XPATH, '//ul//li[2]//div').click()
-        latitudine=self.find(By.XPATH, '//input[@id="lat"]').text  
-        self.assertNotEqual(latitudine, "0")
-        longitudine=self.find(By.XPATH, '//input[@id="lng"]').text
-        self.assertNotEqual(longitudine, "0")   
-        self.find(By.XPATH, '//button[@class="close"]').click() 
-        self.wait_loader()
-        
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+            self.wait_for_element_and_click('//tbody//tr//td[2]')
+            self.wait_loader()
+
+            self.wait_for_element_and_click('//a[@onclick="modificaPosizione()"]')
+
+            self.wait_for_element_and_click('//ul//li[2]//div')
+
+            latitude = self.find(By.XPATH, '//input[@id="lat"]').text
+            self.assertNotEqual(latitude, "0")
+
+            longitude = self.find(By.XPATH, '//input[@id="lng"]').text
+            self.assertNotEqual(longitude, "0")
+
+            self.wait_for_element_and_click('//button[@class="close"]')
+            self.wait_loader()
+
+            self.navigateTo("Anagrafiche")
+            self.wait_loader()
+            self.clear_filters()
+        except Exception as e:
+            self.driver.save_screenshot("error_ricerca_coordinate.png")
+            raise Exception(f"Failed to search coordinates: {str(e)}")
 
     def elimina_selezionati(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
+        try:
+            self.navigateTo("Anagrafiche")
+            self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Vettore", Keys.ENTER)  
-        sleep(1)
+            search_input = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
+            )
+            search_input.send_keys("Vettore", Keys.ENTER)
+            self.wait_for_search_results()
 
-        self.find(By.XPATH, '//tbody//tr//td').click()
-        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="delete-bulk"]'))).click() 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
+            self.wait_for_element_and_click('//tbody//tr//td')
+            self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
 
-        scritta=self.find(By.XPATH, '//tbody//tr[1]').text  
-        self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() 
-        sleep(1)
+            self.wait_for_element_and_click('//a[@data-op="delete-bulk"]')
+
+            self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+            self.wait_loader()
+
+            no_results_message = self.find(By.XPATH, '//tbody//tr[1]').text
+            self.assertEqual(no_results_message, "La ricerca non ha portato alcun risultato.")
+
+            self.clear_filters()
+        except Exception as e:
+            self.driver.save_screenshot("error_elimina_selezionati.png")
+            raise Exception(f"Failed to delete selected entities: {str(e)}")
 
     def cambia_relazione(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
-        self.wait_loader() 
+        try:
+            self.navigateTo("Anagrafiche")
+            self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)  
-        sleep(1)
+            self.search_entity("Cliente")
 
-        self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()  
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="cambia-relazione"]'))).click()   
-        self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]').click() 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Attivo")
-        sleep(1)
+            self.wait_for_element_and_click('//tbody//tr//td')
+            self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
 
-        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
-        self.wait_loader()
+            self.wait_for_element_and_click('//a[@data-op="cambia-relazione"]')
 
-        relazione=self.find(By.XPATH, '//tbody//tr//td[7]').text 
-        self.assertEqual(relazione, "Attivo")
-        self.find(By.XPATH, '//tbody//tr//td[7]').click() 
-        self.wait_loader()
+            self.wait_for_dropdown_and_select(
+                '//span[@id="select2-idrelazione-container"]',
+                option_text="Attivo"
+            )
 
-        self.find(By.XPATH, '//span[@id="select2-idrelazione-container"]//span[@class="select2-selection__clear"]').click()
-        self.find(By.XPATH, '(//input[@class="select2-search__field"])[2]').send_keys("Da contattare",Keys.ENTER)
+            self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+            self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="save"]'))).click()
-        self.wait_loader()
+            relation = self.find(By.XPATH, '//tbody//tr//td[7]').text
+            self.assertEqual(relation, "Attivo")
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+            self.wait_for_element_and_click('//tbody//tr//td[7]')
+            self.wait_loader()
 
-        nuova_relazione=self.find(By.XPATH, '//tbody//tr//td[7]').text 
-        self.assertNotEqual(nuova_relazione, "Attivo")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click() 
-        
+            self.wait_for_element_and_click('//span[@id="select2-idrelazione-container"]//span[@class="select2-selection__clear"]')
 
+            search_field = self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))
+            )
+            search_field.send_keys("Da contattare", Keys.ENTER)
 
+            self.wait_for_element_and_click('//button[@id="save"]')
+            self.wait_loader()
 
+            self.navigateTo("Anagrafiche")
+            self.wait_loader()
+
+            new_relation = self.find(By.XPATH, '//tbody//tr//td[7]').text
+            self.assertNotEqual(new_relation, "Attivo")
+
+            self.clear_filters()
+        except Exception as e:
+            self.driver.save_screenshot("error_cambia_relazione.png")
+            raise Exception(f"Failed to change relation: {str(e)}")

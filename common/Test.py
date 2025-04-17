@@ -3,67 +3,110 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.remote.webdriver import WebElement
-from selenium.webdriver.support import expected_conditions
-from selenium.common.exceptions import NoAlertPresentException, UnexpectedAlertPresentException
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import (
+    NoAlertPresentException,
+    UnexpectedAlertPresentException,
+    TimeoutException,
+    NoSuchElementException,
+    StaleElementReferenceException
+)
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+
 from .functions import get_config
 from .Input import Input
-import collections
+
+import collections.abc
 import unittest
 import re
-from selenium.webdriver.firefox.options import Options
-from time import sleep
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler('test_execution.log')
+    ]
+)
 
 class Test(unittest.TestCase):
     def __init__(self, methodName):
         super().__init__(methodName)
-
         config = get_config()
         self.config = self.__flatten(config)
+        self.logger = logging.getLogger(self.__class__.__name__)
 
     def connect(self):
-        # Inizializza il browser indicato nella configurazione.
-        driver = None
-        options = Options()
-        options.headless = self.getConfig('headless')
-        if self.getConfig('browser') == 'firefox':
-            driver = webdriver.Firefox(options=options)
-        elif self.getConfig('browser') == 'chrome':
-            driver = webdriver.Chrome()
+        self.logger.info(f"Initializing {self.getConfig('browser')} browser")
 
-        self.driver = driver
-        self.driver.get(self.getConfig('server'))
-        self.driver.maximize_window()
+        try:
+            driver = None
+            browser_type = self.getConfig('browser').lower()
+            headless = self.getConfig('headless')
 
-        self.addCleanup(self.close)
+            if browser_type == 'firefox':
+                options = Options()
+                if headless:
+                    options.add_argument('--headless')
+                driver = webdriver.Firefox(options=options)
+            elif browser_type == 'chrome':
+                options = ChromeOptions()
+                if headless:
+                    options.add_argument('--headless')
+                driver = webdriver.Chrome(options=options)
+            else:
+                self.logger.error(f"Unsupported browser type: {browser_type}")
+                raise ValueError(f"Unsupported browser type: {browser_type}")
+
+            self.driver = driver
+            self.driver.get(self.getConfig('server'))
+            self.driver.maximize_window()
+
+            self.logger.info(f"Connected to {self.getConfig('server')}")
+            self.addCleanup(self.close)
+        except Exception as e:
+            self.logger.error(f"Failed to initialize browser: {str(e)}")
+            raise
 
     def login(self, username, password):
-        # Effetta il login con le credenziali indicate nella configurazione.
-        username_input = self.find(By.NAME, 'username')
-        username_input.send_keys(username)
+        self.logger.info(f"Logging in as {username}")
 
-        password_input = self.find(By.NAME, 'password')
-        password_input.send_keys(password)
+        try:
+            username_input = self.find(By.NAME, 'username')
+            username_input.clear()
+            username_input.send_keys(username)
 
-        self.find(By.XPATH, '//button[@type="submit"]').click()
-        self.wait_loader()
+            password_input = self.find(By.NAME, 'password')
+            password_input.clear()
+            password_input.send_keys(password)
 
+            self.find(By.XPATH, '//button[@type="submit"]').click()
+
+            self.wait_loader()
+            self.logger.info("Login successful")
+        except Exception as e:
+            self.logger.error(f"Login failed: {str(e)}")
+            raise
 
     def close(self):
-        # Chiude il test.
-        self.driver.quit()
-        None
+        if hasattr(self, 'driver'):
+            self.logger.info("Closing browser")
+            self.driver.quit()
 
     def setUp(self, login=True):
-        # Inizializza l'ambiente di test
         super().setUp()
+        self.logger.info("Setting up test environment")
 
         self.connect()
-        # self.test_config()
-        if login:
-            self.login(self.getConfig('login.username'),
-                       self.getConfig('login.password'))
 
-    # Source: https://stackoverflow.com/a/6027615
+        if login:
+            self.login(
+                self.getConfig('login.username'),
+                self.getConfig('login.password')
+            )
+
     def __flatten(self, d, parent_key='', sep='.'):
         items = []
         for k, v in d.items():
@@ -75,75 +118,110 @@ class Test(unittest.TestCase):
         return dict(items)
 
     def navigateTo(self, name):
-        # Naviga attraverso la sidebar principale per accedere al modulo di cui viene indicato il nome.
-        condition = expected_conditions.visibility_of_element_located((By.CLASS_NAME, 'sidebar'))
-        self.wait(condition)
+        self.logger.info(f"Navigating to module: {name}")
 
-        # URL pagina corrente
-        current_url = self.driver.current_url
+        try:
+            condition = EC.visibility_of_element_located((By.CLASS_NAME, 'sidebar'))
+            self.wait(condition)
 
-        xpath = f'//a[contains(., "{name}")]'
-        element = self.find(By.XPATH, xpath)
-        self.driver.execute_script("arguments[0].scrollIntoView();", element)
-        element.click()
-        self.wait_loader()
+            xpath = f'//a[contains(., "{name}")]'
+            element = self.find(By.XPATH, xpath)
+
+            self.driver.execute_script("arguments[0].scrollIntoView();", element)
+            element.click()
+
+            self.wait_loader()
+            self.logger.info(f"Successfully navigated to {name}")
+        except Exception as e:
+            self.logger.error(f"Failed to navigate to {name}: {str(e)}")
+            raise
 
     def expandSidebar(self, name: str):
-        xpath = ''.join(
-            ['//a[contains(., "', name, '")]//i[contains(@class, "fa-angle-left")]'])
-            
-        self.find(By.XPATH, xpath).click()
-        sleep(1)
+        self.logger.info(f"Expanding sidebar section: {name}")
+
+        try:
+            xpath = f'//a[contains(., "{name}")]//i[contains(@class, "fa-angle-left")]'
+            expand_icon = self.find(By.XPATH, xpath)
+
+            expand_icon.click()
+
+            # Wait for the menu to expand by checking for the class change
+            self.wait(EC.presence_of_element_located((By.XPATH, f'//a[contains(., "{name}")]/parent::li[contains(@class, "menu-open")]')), 2)
+            self.logger.info(f"Expanded sidebar section: {name}")
+        except NoSuchElementException:
+            self.logger.warning(f"Sidebar section '{name}' not found or already expanded")
+        except Exception as e:
+            self.logger.error(f"Failed to expand sidebar section '{name}': {str(e)}")
+            raise
 
     def find(self, by=By.ID, value=None):
-        # Ricerca una componente HTML nella pagina.
-        return self.driver.find_element(by, value)
+        try:
+            return self.driver.find_element(by, value)
+        except NoSuchElementException:
+            self.logger.error(f"Element not found: {by}={value}")
+            raise
 
     def find_elements(self, by=By.ID, value=None):
-        # Ricerca una serie di componenti HTML nella pagina.
         return self.driver.find_elements(by, value)
 
-
     def wait_loader(self):
-        """
-        Attende il completamento del caricamento della pagina, visibile attraverso il loader principale.
-        """
-        self.wait(expected_conditions.all_of(
-            expected_conditions.invisibility_of_element_located((By.ID, 'main_loading')),
-            expected_conditions.invisibility_of_element_located((By.ID, 'mini-loader')),
-            expected_conditions.invisibility_of_element_located((By.ID, 'tiny-loader')),
-        ))
+        self.logger.debug("Waiting for page to load")
+        try:
+            self.wait(EC.all_of(
+                EC.invisibility_of_element_located((By.ID, 'main_loading')),
+                EC.invisibility_of_element_located((By.ID, 'mini-loader')),
+                EC.invisibility_of_element_located((By.ID, 'tiny-loader')),
+            ))
+            self.logger.debug("Page loaded successfully")
+        except TimeoutException:
+            self.logger.warning("Timeout waiting for page to load")
 
     def wait_modal(self):
-        # Attende il caricamento del modal e ne restituisce un riferimento.
-        self.wait(expected_conditions.visibility_of_element_located(
-            (By.CLASS_NAME, 'modal-dialog')))
+        self.logger.debug("Waiting for modal dialog")
+        try:
+            self.wait(EC.visibility_of_element_located(
+                (By.CLASS_NAME, 'modal-dialog')))
 
-        return self.find_elements(By.CSS_SELECTOR, '.modal')[-1]
+            modal = self.find_elements(By.CSS_SELECTOR, '.modal')[-1]
+            self.logger.debug("Modal dialog appeared")
+            return modal
+        except TimeoutException:
+            self.logger.error("Timeout waiting for modal dialog")
+            raise
+        except IndexError:
+            self.logger.error("No modal found after waiting")
+            raise NoSuchElementException("No modal found after waiting")
 
     def wait(self, condition, timeout=20):
-        # Attende un evento specifico con timeout di 5 secondi o personalizzabile.
-        WebDriverWait(self.driver, timeout).until(condition)
+        try:
+            WebDriverWait(self.driver, timeout).until(condition)
+        except TimeoutException:
+            self.logger.warning(f"Timeout after {timeout}s waiting for condition")
+            raise
 
     def getConfig(self, name):
-        # Restituisce il contenuto dell'impostazione richiesta.
-        return self.config[name]
+        try:
+            return self.config[name]
+        except KeyError:
+            self.logger.error(f"Configuration setting not found: {name}")
+            raise KeyError(f"Configuration setting not found: {name}")
 
     def input(self, element=None, name=None, css_id=None):
-        # Ricerca un input HTML nella pagina.
-        if not element:
-            element = self.find(By.XPATH, '//body')
+        try:
+            if not element:
+                element = self.find(By.XPATH, '//body')
 
-        return Input.find(self.driver, element, name, css_id)
+            return Input.find(self.driver, element, name, css_id)
+        except Exception as e:
+            self.logger.warning(f"Failed to find input {name or css_id}: {str(e)}")
+            return None
 
 
 def get_html(element: WebElement):
-    # Restituisce il contenuto HTML di un WebElement.
     return element.get_attribute('innerHTML')
 
 
 def get_text(element: WebElement):
-    # Restituisce il testo di un WebElement.
     return re.sub('<[^<]+?>', '', get_html(element)).strip()
 
 

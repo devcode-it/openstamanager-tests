@@ -1,49 +1,34 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-
+from selenium.webdriver.support import expected_conditions as EC
 from common.Test import Test
-
 
 class Init(Test):
     def setUp(self):
-        # Inizializza l'ambiente di test
         super().setUp(False)
-
         self.connect()
 
     def test_config(self):
-        # Pulsante "Successivo"
-        self.wait(expected_conditions.visibility_of_element_located(
-            (By.XPATH, '// *[ @ id = "smartwizard"] / div[2] / div / button[2]')))
-        self.find(By.XPATH, '// *[ @ id = "smartwizard"] / div[2] / div / button[2]').click()
+        next_button_xpath = '//*[@id="smartwizard"]/div[2]/div/button[2]'
+        self.wait(EC.visibility_of_element_located((By.XPATH, next_button_xpath)))
+        self.find(By.XPATH, next_button_xpath).click()
 
-        # Accettazione della licenza
-        self.find(By.XPATH, '// *[ @ id = "agree"]').click()
+        self.find(By.XPATH, '//*[@id="agree"]').click()
+        self.find(By.XPATH, next_button_xpath).click()
 
-        # Pulsante "Successivo"
-        self.find(By.XPATH, '// *[ @ id = "smartwizard"] / div[2] / div / button[2]').click()
-
-        # Completamento dei campi per il nuovo elemento
         self.input(None, "Host del database").setValue(self.getConfig('database.host'))
         self.input(None, "Username dell'utente MySQL").setValue(self.getConfig('database.user'))
         self.input(None, "Password dell'utente MySQL").setValue(self.getConfig('database.pass'))
         self.input(None, "Nome del database").setValue(self.getConfig('database.name'))
 
-        # Salvataggio della configurazione
-        self.find(By.XPATH, '// *[ @ id = "install"]').click()
-        self.wait(expected_conditions.visibility_of_element_located(
-            (By.ID, 'contine_button')))
+        self.find(By.XPATH, '//*[@id="install"]').click()
+        self.wait(EC.visibility_of_element_located((By.ID, 'contine_button')))
 
-        # Avvio installazione database
-        self.find(By.XPATH, '// *[ @ id = "contine_button"]').click()
-        self.find(By.XPATH, '/ html / body / div[2] / div / div[10] / button[1]').click()
+        self.find(By.XPATH, '//*[@id="contine_button"]').click()
+        self.find(By.XPATH, '/html/body/div[2]/div/div[10]/button[1]').click()
 
-        # Attesa del pulsante "Continua"  (fine installazione)
-        self.wait(expected_conditions.visibility_of_element_located(
-            (By.XPATH, '//*[@id="result"]/a')), 300)
+        self.wait(EC.visibility_of_element_located((By.XPATH, '//*[@id="result"]/a')), 300)
         self.find(By.XPATH, '//*[@id="result"]/a').click()
 
-        # Inizializzazione di base
         self.input(None, 'Username').setValue(self.getConfig('login.username'))
         self.input(None, 'Password').setValue(self.getConfig('login.password'))
         self.input(None, 'Email').setValue(self.getConfig('login.username') + '@test.com')
