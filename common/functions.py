@@ -238,6 +238,7 @@ def wait_for_element_and_click(driver: WebDriver, wait_driver: WebDriverWait, xp
 
 def wait_for_dropdown_and_select(driver: WebDriver, wait_driver: WebDriverWait, dropdown_xpath: str, option_xpath: str = None, option_text: str = None) -> None:
     wait_for_element_and_click(driver, wait_driver, dropdown_xpath)
+    time.sleep(1)
 
     if option_xpath:
         wait_for_element_and_click(driver, wait_driver, option_xpath)
@@ -250,6 +251,7 @@ def wait_for_dropdown_and_select(driver: WebDriver, wait_driver: WebDriverWait, 
     wait_driver.until(
         EC.invisibility_of_element_located((By.XPATH, '//div[@class="select2-search select2-search--dropdown"]'))
     )
+    wait_loader(driver, wait_driver)
 
 
 class AllOf:

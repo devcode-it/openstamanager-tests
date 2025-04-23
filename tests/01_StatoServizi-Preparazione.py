@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from common.Test import Test
 
 import logging
+import time
 
 class StatoServizi(Test):
     def setUp(self):
