@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from common.Test import Test
 
 import logging
-import time
 
 class StatoServizi(Test):
     def setUp(self):
@@ -49,7 +47,7 @@ class StatoServizi(Test):
             EC.presence_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))
         )
         indirizzo.clear()
-        indirizzo.send_keys("Via Rovigo, 51")
+        self.send_keys_and_wait(indirizzo, "Via Rovigo, 51", wait_modal=False)
 
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()
@@ -74,8 +72,7 @@ class StatoServizi(Test):
         modal = self.wait_modal()
         self.input(modal, 'Denominazione').setValue(nome)
         self.input(modal, 'Tipo di anagrafica').setByText(tipo)
-        submit_button = modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]')
-        submit_button.click()
+        self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
         self.wait_loader()
 
     def _compila_anagrafica_estera(self, nome: str, piva: str, nazione: str, citta: str):
@@ -105,7 +102,7 @@ class StatoServizi(Test):
             EC.presence_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))
         )
         indirizzo.clear()
-        indirizzo.send_keys('Via controllo caratteri speciali: &"<>èéàòùì?\'\'`')
+        self.send_keys_and_wait(indirizzo, 'Via controllo caratteri speciali: &"<>èéàòùì?\'\'`', wait_modal=False)
 
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()
