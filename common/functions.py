@@ -54,6 +54,11 @@ class TestHelperMixin:
         """Wait for all loaders to disappear."""
         wait_loader(self.driver, self.wait_driver)
 
+    def send_keys_and_wait(self, element, text, wait_modal=True) -> None:
+        """Send keys to an element and wait for the page to load after pressing Enter."""
+        # Use the global function for consistency
+        return send_keys_and_wait(self.driver, self.wait_driver, element, text, wait_modal)
+
 
 def random_string(size: int = 32, chars: str = string.ascii_letters + string.digits) -> str:
     return ''.join(random.choice(chars) for _ in range(size))
@@ -277,3 +282,61 @@ def wait_loader(driver: WebDriver, wait_driver: WebDriverWait) -> None:
         ))
     except:
         pass
+
+
+def send_keys_and_wait(driver: WebDriver, wait_driver: WebDriverWait, element: WebElement, text: str, wait_for_modal: bool = True) -> Optional[WebElement]:
+    """Send keys to an element and wait for the page to load after pressing Enter.
+
+    Args:
+        driver: The WebDriver instance
+        wait_driver: The WebDriverWait instance
+        element: The element to send keys to
+        text: The text to send
+        wait_for_modal: Whether to wait for a modal to appear after sending keys
+
+    Returns:
+        The modal element if wait_for_modal is True and a modal appears, None otherwise
+    """
+    # Store the current page state to detect changes
+    old_html = driver.find_element(By.TAG_NAME, 'body').get_attribute('innerHTML')
+
+    # Send keys and press Enter
+    element.send_keys(text, Keys.ENTER)
+
+    # Wait for loaders to disappear
+    wait_loader(driver, wait_driver)
+
+    # Wait for page content to change (indicating the search results have loaded)
+    # Use a shorter timeout for this check
+    try:
+        WebDriverWait(driver, 1).until(lambda d: d.find_element(By.TAG_NAME, 'body').get_attribute('innerHTML') != old_html)
+    except:
+        pass
+
+    # Wait for search results to appear with a shorter timeout
+    try:
+        WebDriverWait(driver, 1).until(
+            AnyOf(
+                EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]')),
+                EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[@class="dataTables_empty"]'))
+            )
+        )
+    except:
+        pass
+
+    # Add a minimal delay to ensure everything is loaded
+    time.sleep(0.1)
+
+    # Wait for loaders again to ensure everything is fully loaded
+    wait_loader(driver, wait_driver)
+
+    # If we need to wait for a modal
+    if wait_for_modal:
+        try:
+            wait_driver.until(EC.visibility_of_element_located((By.CLASS_NAME, 'modal-dialog')))
+            modal = driver.find_elements(By.CSS_SELECTOR, '.modal')[-1]
+            return modal
+        except:
+            return None
+
+    return None
