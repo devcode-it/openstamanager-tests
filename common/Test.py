@@ -61,6 +61,7 @@ class Test(unittest.TestCase, TestHelperMixin):
                 raise ValueError(f"Unsupported browser type: {browser_type}")
 
             self.driver = driver
+            self.wait_driver = WebDriverWait(self.driver, 20)
             self.driver.get(self.getConfig('server'))
             self.driver.maximize_window()
 
