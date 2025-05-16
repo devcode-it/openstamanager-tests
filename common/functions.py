@@ -42,11 +42,11 @@ class TestHelperMixin:
         """Wait for search results to load."""
         wait_for_search_results(self.driver, self.wait_driver)
 
-    def wait_for_element_and_click(self, xpath: str) -> WebElement:
+    def wait_for_element_and_click(self, selector: str, by: By = By.XPATH) -> WebElement:
         """Wait for an element to be clickable and click it."""
-        return wait_for_element_and_click(self.driver, self.wait_driver, xpath)
+        return wait_for_element_and_click(self.driver, self.wait_driver, selector, by)
 
-    def wait_for_dropdown_and_select(self, dropdown_xpath: str, option_xpath: str = None, option_text: str = None) -> None:
+    def wait_for_dropdown_and_select(self, dropdown_xpath: str, option_xpath: str = None, option_text: str = None, by: By = By.XPATH) -> None:
         """Wait for a dropdown to be clickable, click it, and select an option."""
         wait_for_dropdown_and_select(self.driver, self.wait_driver, dropdown_xpath, option_xpath, option_text)
 
@@ -221,12 +221,12 @@ def wait_for_search_results(driver: WebDriver, wait_driver: WebDriverWait) -> No
     time.sleep(1)
 
 
-def wait_for_element_and_click(driver: WebDriver, wait_driver: WebDriverWait, xpath: str) -> WebElement:
+def wait_for_element_and_click(driver: WebDriver, wait_driver: WebDriverWait, selector: str, by: By = By.XPATH) -> WebElement:
     wait_loader(driver, wait_driver)
 
     try:
         element = wait_driver.until(
-            EC.element_to_be_clickable((By.XPATH, xpath))
+            EC.element_to_be_clickable((by, selector))
         )
         element.click()
         wait_loader(driver, wait_driver)
@@ -234,7 +234,7 @@ def wait_for_element_and_click(driver: WebDriver, wait_driver: WebDriverWait, xp
     except Exception as e:
         wait_loader(driver, wait_driver)
         element = wait_driver.until(
-            EC.element_to_be_clickable((By.XPATH, xpath))
+            EC.element_to_be_clickable((by, selector))
         )
         element.click()
         wait_loader(driver, wait_driver)
@@ -242,11 +242,11 @@ def wait_for_element_and_click(driver: WebDriver, wait_driver: WebDriverWait, xp
 
 
 def wait_for_dropdown_and_select(driver: WebDriver, wait_driver: WebDriverWait, dropdown_xpath: str, option_xpath: str = None, option_text: str = None) -> None:
-    wait_for_element_and_click(driver, wait_driver, dropdown_xpath)
+    wait_for_element_and_click(driver, wait_driver, dropdown_xpath, By.XPATH)
     time.sleep(1)
 
     if option_xpath:
-        wait_for_element_and_click(driver, wait_driver, option_xpath)
+        wait_for_element_and_click(driver, wait_driver, option_xpath, By.XPATH)
     elif option_text:
         option = wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, f'//li[contains(text(), "{option_text}")]'))
