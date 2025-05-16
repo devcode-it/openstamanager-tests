@@ -24,15 +24,16 @@ class Dashboard(Test):
         self.input(modal, 'Tipo').setByIndex("1")
         expected_text = "Int. 1 Cliente\nTecnici: Stefano Bianchi"
 
-        add_button = self.driver.find_element(By.XPATH,'//div[@class="card card-info collapsable "]//span[@class="input-group-text after no-padding"]//i[@class="fa fa-plus"]')
+        self.driver.find_element(By.XPATH,'//a[@id="tecnici-sessioni-tab"]').click()
+        add_button = self.driver.find_element(By.XPATH,'(//div[@id="tab_tecnici_sessioni"]//i[@class="fa fa-plus"])[2]')
         add_button.click()
-        time.sleep(1)
+        self.wait_loader()
 
         technician_modal = self.driver.find_element(By.XPATH,'//div[@class="modal-dialog modal-lg"]')
         self.input(technician_modal, 'Denominazione').setValue("Stefano Bianchi")
         submit_button = modal.find_element(By.XPATH, '//div[@class="col-md-12 text-right"]//button[@type="submit"]')
         submit_button.click()
-        time.sleep(1)
+        self.wait_loader()
 
         description_field = self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')
         description_field.click()
@@ -42,7 +43,7 @@ class Dashboard(Test):
 
         save_button = self.find(By.XPATH, '//div[@class="col-md-12 text-right"]//button[@type="button"]')
         save_button.click()
-        time.sleep(1)
+        self.wait_loader()
 
         self.navigateTo("Dashboard")
         self.wait_loader()
@@ -53,7 +54,7 @@ class Dashboard(Test):
 
         select_all_button = self.find(By.XPATH, '//div[@id="dashboard_tecnici"]//button[@class="btn btn-primary btn-sm seleziona_tutto"]')
         select_all_button.click()
-        time.sleep(1)
+        self.wait_loader()
 
         activity_text = self.find(By.XPATH, '//div[@class="fc-event-main"]').text
         self.assertEqual(activity_text, expected_text)
@@ -68,9 +69,9 @@ class Dashboard(Test):
             (By.XPATH, '//th[@id="th_Numero"]/input')
         ))
         search_input.send_keys("1", Keys.ENTER)
-        time.sleep(1)
+        self.wait_loader()
 
-        technician_name = self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[12]').text
+        technician_name = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[12]'))).text
         self.assertEqual("Stefano Bianchi", technician_name)
 
         self.navigateTo("Attività")
@@ -78,7 +79,7 @@ class Dashboard(Test):
 
         activity_row = self.find(By.XPATH, '//tbody//tr//td[2]')
         activity_row.click()
-        time.sleep(1)
+        self.wait_loader()
 
         delete_button = self.wait_driver.until(EC.visibility_of_element_located(
             (By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
