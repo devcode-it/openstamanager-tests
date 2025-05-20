@@ -2,7 +2,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import time
 from common.Test import Test
 
 class Anagrafiche(Test):
@@ -29,7 +28,7 @@ class Anagrafiche(Test):
         self.crea_fattura_vendita()
 
 
-    def add_anagrafica(self, nome=str, tipo=str):
+    def add_anagrafica(self, nome: str, tipo: str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
 
         modal = self.wait_modal()
@@ -37,21 +36,22 @@ class Anagrafiche(Test):
         select = self.input(modal, 'Tipo di anagrafica')
         select.setByText(tipo)
 
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        # Usa XPath relativo al modal per trovare il pulsante
+        modal.find_element(By.XPATH, './/div[@class="modal-footer"]//button[@type="submit"]').click()
         self.wait_loader()
-    def modifica_anagrafica(self, tipologia:str):
+
+    def modifica_anagrafica(self, tipologia: str):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
         self.search_entity("Cliente")
         self.click_first_result()
 
-        self.wait_driver.until(
-            EC.element_to_be_clickable((By.XPATH, '//*[@id="select2-tipo-container"]'))
-        ).click()
+        self.wait_for_element_and_click('//*[@id="select2-tipo-container"]')
 
-        self.wait_driver.until(
+        tipo_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))
-        ).send_keys(tipologia, Keys.ENTER)
+        )
+        self.send_keys_and_wait(tipo_field, tipologia, wait_modal=False)
         self.wait_loader()
 
         self.input(None, 'Partita IVA').setValue("05024030287")
@@ -61,14 +61,23 @@ class Anagrafiche(Test):
             EC.presence_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))
         )
         address_field.clear()
-        address_field.send_keys("Via controllo caratteri speciali: &\"<>èéàòùì?'`")
+        self.send_keys_and_wait(address_field, "Via controllo caratteri speciali: &\"<>èéàòùì?'`", wait_modal=False)
 
-        self.input(None, 'C.A.P.').setValue("35042")
-        self.input(None, 'Città').setValue("Este")
+        cap_field = self.wait_driver.until(
+            EC.element_to_be_clickable((By.XPATH, '//label[contains(., "C.A.P.")]/parent::div/parent::div//input'))
+        )
+        cap_field.clear()
+        cap_field.send_keys("35042")
 
-        self.wait_driver.until(
-            EC.element_to_be_clickable((By.XPATH, '//button[@id="save"]'))
-        ).click()
+        self.wait_loader()
+
+        city_field = self.wait_driver.until(
+            EC.element_to_be_clickable((By.XPATH, '//label[contains(., "Città")]/parent::div/parent::div//input'))
+        )
+        city_field.clear()
+        city_field.send_keys("Este")
+
+        self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()
 
         self.navigateTo("Anagrafiche")
@@ -104,7 +113,7 @@ class Anagrafiche(Test):
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipologia"]/input'))
         )
         search_input.clear()
-        search_input.send_keys("Privato", Keys.ENTER)
+        self.send_keys_and_wait(search_input, "Privato", wait_modal=False)
         self.wait_for_search_results()
 
         entity_name = self.wait_driver.until(
@@ -124,7 +133,7 @@ class Anagrafiche(Test):
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
         )
         search_input.clear()
-        search_input.send_keys("Anagrafica di Prova da Eliminare", Keys.ENTER)
+        self.send_keys_and_wait(search_input, "Anagrafica di Prova da Eliminare", wait_modal=False)
         self.wait_for_search_results()
 
         no_results_message = self.wait_driver.until(
@@ -153,7 +162,7 @@ class Anagrafiche(Test):
             EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]'))
         )
         description_field.click()
-        description_field.send_keys("Test")
+        self.send_keys_and_wait(description_field, "Test", wait_modal=False)
 
         self.wait_for_element_and_click('//div[@class="col-md-12 text-right"]//button[@type="button"]')
 
