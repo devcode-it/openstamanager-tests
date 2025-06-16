@@ -2,7 +2,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import time
 from common.Test import Test
 
 class AnagraficheBis(Test):
@@ -52,9 +51,9 @@ class AnagraficheBis(Test):
 
         name_input = self.find(By.XPATH, '(//input[@id="nome"])[2]')
         name_input.clear()
-        name_input.send_keys("Prova")
+        self.send_keys_and_wait(name_input, "Prova", wait_modal=False)
 
-        self.wait_for_element_and_click('//button[@class="btn btn-success pull-right"]')
+        self.wait_for_element_and_click('//button[@type="submit"]')
         self.wait_loader()
 
         contact_name = self.find(By.XPATH, '//div[@id="tab_3"]//tbody//tr//td[2]').text
@@ -74,7 +73,7 @@ class AnagraficheBis(Test):
         contact_name_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@id="nome"])[2]'))
         )
-        contact_name_input.send_keys("Referente di prova")
+        self.send_keys_and_wait(contact_name_input, "Referente di prova", wait_modal=False)
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-idmansione-container"]',
@@ -116,13 +115,13 @@ class AnagraficheBis(Test):
         postal_code_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@id="cap"])[2]'))
         )
-        postal_code_input.send_keys("35042")
+        self.send_keys_and_wait(postal_code_input, "35042", wait_modal=False)
 
         city_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@id="citta"])[2]'))
         )
         city_input.click()
-        city_input.send_keys("Padova")
+        self.send_keys_and_wait(city_input, "Padova", wait_modal=False)
 
         self.wait_for_dropdown_and_select(
             '(//span[@id="select2-id_nazione-container"])[2]',
@@ -137,12 +136,19 @@ class AnagraficheBis(Test):
             EC.visibility_of_element_located((By.XPATH, '//input[@id="nomesede"]'))
         )
         location_name_input.clear()
-        location_name_input.send_keys("Prova")
+        self.send_keys_and_wait(location_name_input, "Prova", wait_modal=False)
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
         self.wait_loader()
 
-        location_name = self.find(By.XPATH, '//div[@id="tab_4"]//tbody/tr//td[2]').text
+        # Wait for the table to be fully loaded
+        self.wait_loader()
+
+        # Wait explicitly for the table row to be visible
+        location_name_element = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_4"]//tbody/tr//td[2]'))
+        )
+        location_name = location_name_element.text
         self.assertEqual(location_name, "Prova")
 
         self.wait_for_element_and_click('//div[@id="tab_4"]//tbody/tr//td[2]')
@@ -161,13 +167,13 @@ class AnagraficheBis(Test):
         postal_code_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@id="cap"])[2]'))
         )
-        postal_code_input.send_keys("35042")
+        self.send_keys_and_wait(postal_code_input, "35042", wait_modal=False)
 
         city_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@id="citta"])[2]'))
         )
         city_input.click()
-        city_input.send_keys("Padova")
+        self.send_keys_and_wait(city_input, "Padova", wait_modal=False)
 
         self.wait_for_dropdown_and_select(
             '(//span[@id="select2-id_nazione-container"])[2]',
@@ -244,7 +250,7 @@ class AnagraficheBis(Test):
             field = self.wait_driver.until(
                 EC.visibility_of_element_located((By.XPATH, xpath))
             )
-            field.send_keys(value)
+            self.send_keys_and_wait(field, value, wait_modal=False)
 
         data_emissione = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="data_emissione"]'))
@@ -281,12 +287,12 @@ class AnagraficheBis(Test):
         description_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))
         )
-        description_field.send_keys("prova per dichiarazione")
+        self.send_keys_and_wait(description_field, "prova per dichiarazione", wait_modal=False)
 
         quantity_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="qta"]'))
         )
-        quantity_field.send_keys("100")
+        self.send_keys_and_wait(quantity_field, "100", wait_modal=False)
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-um-container"]',
@@ -296,7 +302,7 @@ class AnagraficheBis(Test):
         price_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))
         )
-        price_field.send_keys("1")
+        self.send_keys_and_wait(price_field, "1", wait_modal=False)
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
 
@@ -361,13 +367,13 @@ class AnagraficheBis(Test):
         start_date_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))
         )
-        start_date_field.send_keys("01/01/2025")
+        self.send_keys_and_wait(start_date_field, "01/01/2025", wait_modal=False)
 
         end_date_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))
         )
         end_date_field.clear()
-        end_date_field.send_keys("31/12/2025")
+        self.send_keys_and_wait(end_date_field, "31/12/2025", wait_modal=False)
 
         credit_limit_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="fido_assicurato"]'))
@@ -384,7 +390,7 @@ class AnagraficheBis(Test):
         date_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="data"]'))
         )
-        date_field.send_keys("01/01/2025")
+        self.send_keys_and_wait(date_field, "01/01/2025", wait_modal=False)
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-idanagrafica_add-container"]',
@@ -399,12 +405,12 @@ class AnagraficheBis(Test):
         description_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))
         )
-        description_field.send_keys("prova")
+        self.send_keys_and_wait(description_field, "prova", wait_modal=False)
 
         price_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))
         )
-        price_field.send_keys("51000")
+        self.send_keys_and_wait(price_field, "51000", wait_modal=False)
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
 
