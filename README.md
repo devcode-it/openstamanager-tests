@@ -24,6 +24,120 @@ L'avvio di tutti gli script può essere effettuato attraverso al seguente riga d
 python3 -m unittest discover tests -p '*.py'
 ```
 
+## Funzionamento
+
+I test simulano i comportamenti di un utente che usa il gestionale. Ad esempio la compilazione dei campi, la scrittura, i click, la verifica di risultati e tanto altro.
+
+### Scrittura
+
+Il nome del file di test deve avere il numero del file seguito dal trattino basso e dal nome del modulo, ad esempio:
+
+`02_Anagrafiche.py`
+
+Ogni test è dentro ad una classe che eredita da `Test` funzioni come `navigateTo`, `wait_loader`, `find`, ecc.
+
+Il metodo `setUp` viene eseguito prima di ogni test e serve per aprire il browser, entrare nel gestionale e fare il login.
+
+Ogni metodo dei test deve avere un nome che inizia con `test_` così da essere eseguito da pytest. Ad esempio:
+
+` def test_distinta_base(self): `
+
+Le verifiche vengono fatte tramite `assert`. Ad esempio, se dobbiamo cambiare lo stato di una fattura da *Bozza* a *Emessa*, potremo verificare questo cambiamento nella modalità seguente:
+
+```python
+stato = self.find((//tbody//tr[1]//td[7]//span)[2]).text
+self.assertEqual(stato, "Emessa")
+```
+
+### Ricerca tramite XPath
+
+XPath è un linguaggio usato per cercare elementi di una pagina HTML. Questo viene usato nei test per individuare gli elementi da cliccare, modificare, eliminare e altro.
+
+Sintassi base:
+
+- `//tag` → trova tutti gli elementi `<tag>` ovunque nella pagina
+- `//tag[@attr="val"]` → trova elementi `<tag>` con attributo `attr` uguale a `val`
+- `//div[@id="main"]` → trova un `<div>` con `id="main"`
+- `//ul//li[1]` → trova il primo `<li>` dentro ogni `<ul>`
+- `//span[contains(text(), 'ok')]` → trova `<span>` che contiene il testo “ok”
+- `[1]` → seleziona il primo elemento
+- `(xpath)[2]` → prende il secondo elemento dell’intero xpath (tra parentesi)
+
+### I tempi di attesa
+
+Quando si esegue un test, il codice è più veloce della pagina, quindi potresti cliccare su un bottone prima ancora che esso venga caricato.
+
+Per evitare questo problema, si dovrà aspettare che la pagina o un elemento sia pronto.
+
+I metodi principali sono:
+
+- `sleep(n)` ha un’attesa fissa, va bene solo per casi banali.
+- `self.wait_loader()` aspetta che sparisca il loader della pagina.
+- `wait.until(EC.visibility_of_element_located(...))` aspetta fino a 10 secondi che l’elemento diventi visibile; appena è pronto, continua senza aspettare inutilmente.
+- `modal = self.wait_modal()` aspetta che compaia un popup/modal dopo un click.
+
+### Esempio
+
+```python
+def modifica_attivita_tecnico(self):
+    wait = WebDriverWait(self.driver, 20)
+    self.navigateTo("Disponibilità tecnici")
+    self.wait_loader()
+
+    self.find(By.XPATH, '(//div[@class="fc-timeline-event-harness"]//div)[1]').click()
+    self.wait_loader()
+
+    element = self.find(By.XPATH, '//input[@id="codice"]')
+    element.clear()
+    element.send_keys("3")
+    self.find(By.XPATH, '//button[@id="save"]').click()
+    self.wait_loader()
+
+    self.navigateTo("Disponibilità tecnici")
+    self.wait_loader()
+
+    attivita=self.find(By.XPATH, '(//div[@class="fc-timeline-event-harness"]//div)[1]').text 
+    self.assertEqual(attivita, "Int. 3 Cliente")
+```
+
+### Spiegazione passo passo
+
+1. **Inizializza un'attesa esplicita**  
+   Crea un oggetto `WebDriverWait` per sincronizzare il test con il caricamento degli elementi.
+
+2. **Naviga al modulo "Disponibilità tecnici"**  
+   Usa `self.navigateTo("Disponibilità tecnici")` per aprire il modulo.
+
+3. **Aspetta che il loader sparisca**  
+   `self.wait_loader()` evita di procedere finché la pagina non è completamente caricata.
+
+4. **Clicca sul primo evento del calendario**  
+   Trova e clicca il primo elemento del calendario tramite XPath.
+
+5. **Aspetta nuovamente il caricamento**  
+   Attende che la pagina o il popup siano pronti.
+
+6. **Modifica il codice dell’attività**  
+   - Trova il campo input con id `codice`.  
+   - Cancella il contenuto attuale con `clear()`.  
+   - Inserisce il nuovo codice `"3"`.
+
+7. **Salva la modifica**  
+   Clicca il pulsante SALVA.
+
+8. **Aspetta il completamento del salvataggio**  
+   Attende che l’operazione sia terminata.
+
+9. **Ritorna al modulo "Disponibilità tecnici"**  
+   Ricarica la pagina per verificare la modifica.
+
+10. **Aspetta il caricamento della pagina**  
+    Attende che la pagina sia pronta.
+
+11. **Verifica il risultato**  
+    - Recupera il testo del primo evento nel calendario.  
+    - Controlla che corrisponda a `"Int. 3 Cliente"` con un `assertEqual`.
+
 ## Moduli
 
 Legenda:
