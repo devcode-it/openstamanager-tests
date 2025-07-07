@@ -23,6 +23,7 @@ class Impostazioni(Test):
 
         # Esclusioni default preventivi (3)
         #self.esclusioni_preventivi()
+        return True
 
     def condizioni_fornitura_preventivi(self):
         wait = WebDriverWait(self.driver, 20)

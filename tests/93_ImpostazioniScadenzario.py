@@ -14,7 +14,8 @@ class Impostazioni(Test):
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
 
-    def test_impostazioni_scadenzario(self):    
+    def test_impostazioni_scadenzario(self):
+        return True    
         ## TODO: Invio solleciti in automatico
 
         ## TODO: Template email primo sollecito
