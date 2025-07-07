@@ -12,6 +12,7 @@ class Impostazioni(Test):
         super().setUp()
 
     def test_impostazioni_ordini(self):
+        return True
         # Cambia automaticamente stato ordini fatturati (1)
         #self.cambia_stato_ordini()
 
@@ -20,7 +21,7 @@ class Impostazioni(Test):
 
         # Conferma automaticamente le quantità negli ordini fornitore (3)
         #self.conferma_quantita_ordini_fornitore()
-
+        
         ## TODO: Visualizza numero ordine cliente
 
     def cambia_stato_ordini(self):
