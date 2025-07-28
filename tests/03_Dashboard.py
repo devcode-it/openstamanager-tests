@@ -51,7 +51,7 @@ class Dashboard(Test):
         self.wait_for_element_and_click('//div[@id="dashboard_tecnici"]//button[@class="btn btn-primary btn-sm seleziona_tutto"]')
         self.wait_loader()
 
-        activity_text = self.find(By.XPATH, '//div[@class="fc-event-main"]').text
+        activity_text = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="fc-event-main"]'))).text
         self.assertEqual(activity_text, expected_text)
 
         self.verifica_attività()
