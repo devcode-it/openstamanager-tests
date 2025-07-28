@@ -85,7 +85,8 @@ class RowManager:
             '//span[@id="select2-id_articolo-container"]',
             option_text=article_code
         )
-
+        
+        self.wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait_for_element_and_click(self.tester.driver, self.wait, '//button[@onclick="salvaArticolo()"]')
 
     def fill(self, modal, data: dict):
