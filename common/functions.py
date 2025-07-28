@@ -59,6 +59,10 @@ class TestHelperMixin:
         # Use the global function for consistency
         return send_keys_and_wait(self.driver, self.wait_driver, element, text, wait_modal)
 
+    def send_keys_and_click(self, element, text, click_selector: str, by: By = By.XPATH) -> None:
+        """Send keys to an element and click on a specified element instead of pressing Enter."""
+        return send_keys_and_click(self.driver, self.wait_driver, element, text, click_selector, by)
+
 
 def random_string(size: int = 32, chars: str = string.ascii_letters + string.digits) -> str:
     return ''.join(random.choice(chars) for _ in range(size))
@@ -340,3 +344,27 @@ def send_keys_and_wait(driver: WebDriver, wait_driver: WebDriverWait, element: W
             return None
 
     return None
+
+
+def send_keys_and_click(driver: WebDriver, wait_driver: WebDriverWait, element: WebElement, text: str, click_selector: str, by: By = By.XPATH) -> None:
+    """Send keys to an element and click on a specified element instead of pressing Enter.
+
+    Args:
+        driver: The WebDriver instance
+        wait_driver: The WebDriverWait instance
+        element: The element to send keys to
+        text: The text to send
+        click_selector: The selector for the element to click
+        by: The locator strategy for the click element (default: By.XPATH)
+    """
+    # Send keys without pressing Enter
+    element.send_keys(text)
+
+    # Wait for loaders to disappear
+    wait_loader(driver, wait_driver)
+
+    # Click on the specified element
+    wait_for_element_and_click(driver, wait_driver, click_selector, by)
+
+    # Wait for loaders again to ensure everything is fully loaded
+    wait_loader(driver, wait_driver)
