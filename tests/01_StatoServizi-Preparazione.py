@@ -62,7 +62,7 @@ class StatoServizi(Test):
     def creazione_cliente_estero(self):
         self.logger.info("Creazione del cliente estero")
         self._crea_anagrafica("Cliente Estero", "Cliente")
-        self._compila_anagrafica_estera("Cliente Estero", "05024030288", "Germania", "Piacenza d'Adige")
+        self._compila_anagrafica_estera("Cliente Estero", "05024030288", "Germania", "Monaco")
         self.logger.info("Cliente estero creato con successo")
 
     def _crea_anagrafica(self, nome: str, tipo: str):
@@ -107,7 +107,6 @@ class StatoServizi(Test):
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()
 
-        self.clear_filters()
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
