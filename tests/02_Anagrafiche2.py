@@ -41,19 +41,17 @@ class AnagraficheBis(Test):
         job_title_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-content"]//div[@id="form_82-"]//input[@id="nome"]'))
         )
-        modal = self.send_keys_and_wait(job_title_input, "Segretario")
-
-        self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@class="btn btn-primary"]')
-        self.wait_loader()
+        self.send_keys_and_click(job_title_input, "Segretario", '//form[@id="add-form"]//button[@class="btn btn-primary"]')
+    
+        self.wait_for_element_and_click('//span[@id="select2-idmansione-container"]')
+        self.wait_for_element_and_click('//div[@class="modal-body"]//button[@class="btn btn-primary"]')
 
         self.wait_for_element_and_click('//div[@id="tab_3"]//tbody//tr//td[2]')
         self.wait_modal()
 
         name_input = self.find(By.XPATH, '(//input[@id="nome"])[2]')
         name_input.clear()
-        self.send_keys_and_wait(name_input, "Prova", wait_modal=False)
-
-        self.wait_for_element_and_click('//button[@type="submit"]')
+        self.send_keys_and_click(name_input, "Prova", '//div[@class="modal-footer"]//button[@type="submit"]')
         self.wait_loader()
 
         contact_name = self.find(By.XPATH, '//div[@id="tab_3"]//tbody//tr//td[2]').text
@@ -129,27 +127,19 @@ class AnagraficheBis(Test):
         )
 
         self.wait_for_element_and_click('(//button[@type="submit"])[3]')
+        self.wait_loader()
 
         self.wait_for_element_and_click('//div[@id="tab_4"]//tbody/tr//td[2]')
 
-        location_name_input = self.wait_driver.until(
+        name_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="nomesede"]'))
         )
-        location_name_input.clear()
-        self.send_keys_and_wait(location_name_input, "Prova", wait_modal=False)
-
-        self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
+        name_input.clear()
+        self.send_keys_and_click(name_input, "Prova", '//div[@class="modal-footer"]//button[@type="submit"]')
         self.wait_loader()
 
-        # Wait for the table to be fully loaded
-        self.wait_loader()
-
-        # Wait explicitly for the table row to be visible
-        location_name_element = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_4"]//tbody/tr//td[2]'))
-        )
-        location_name = location_name_element.text
-        self.assertEqual(location_name, "Prova")
+        name_input = self.find(By.XPATH, '//div[@id="tab_4"]//tbody/tr//td[2]').text
+        self.assertEqual(name_input, "Prova")
 
         self.wait_for_element_and_click('//div[@id="tab_4"]//tbody/tr//td[2]')
         self.wait_for_element_and_click('//button[@class="btn btn-danger "]')
