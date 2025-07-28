@@ -10,28 +10,22 @@ class StatoServizi(Test):
     def setUp(self):
         super().setUp()
         self.wait_driver = WebDriverWait(self.driver, 10)
-        self.logger = logging.getLogger(self.__class__.__name__)
 
     def test_stato_servizi(self):
-        self.logger.info("Avvio del test di preparazione dello stato dei servizi")
         self.attiva_moduli()
         self.compila_azienda()
         self.creazione_fornitore_estero()
         self.creazione_cliente_estero()
-        self.logger.info("Preparazione dello stato dei servizi completata con successo")
 
     def attiva_moduli(self):
-        self.logger.info("Attivazione dei moduli nascosti")
         self.expandSidebar("Strumenti")
         self.navigateTo("Stato dei servizi")
         for i in range(3):
             self.wait_for_element_and_click('//button[@onclick="abilitaSottoModuli(this)"]')
             self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
             self.wait_for_element_and_click('//div[@class="toast-message"]')
-        self.logger.info("Tutti i moduli sono stati attivati con successo")
 
     def compila_azienda(self):
-        self.logger.info("Compilazione delle informazioni aziendali")
         self.navigateTo("Anagrafiche")
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_loader()
@@ -51,19 +45,14 @@ class StatoServizi(Test):
 
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()
-        self.logger.info("Informazioni aziendali salvate con successo")
 
     def creazione_fornitore_estero(self):
-        self.logger.info("Creazione del fornitore estero")
         self._crea_anagrafica("Fornitore Estero", "Fornitore")
         self._compila_anagrafica_estera("Fornitore Estero", "05024030286", "Germania", "Berlino")
-        self.logger.info("Fornitore estero creato con successo")
 
     def creazione_cliente_estero(self):
-        self.logger.info("Creazione del cliente estero")
         self._crea_anagrafica("Cliente Estero", "Cliente")
         self._compila_anagrafica_estera("Cliente Estero", "05024030288", "Germania", "Monaco")
-        self.logger.info("Cliente estero creato con successo")
 
     def _crea_anagrafica(self, nome: str, tipo: str):
         self.navigateTo("Anagrafiche")
@@ -113,7 +102,5 @@ class StatoServizi(Test):
     def _compila_campi_azienda(self, campi: dict):
         for campo, valore in campi.items():
             input_field = self.input(None, campo)
-            if input_field:
-                input_field.setValue(valore)
-            else:
-                self.logger.warning(f"Campo '{campo}' non trovato")
+            input_field.setValue(valore)
+
