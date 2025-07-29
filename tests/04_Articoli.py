@@ -873,7 +873,6 @@ class Articoli(Test):
 
         self.driver.switch_to.window(self.driver.window_handles[1])
 
-
         prezzo = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[3]'))).text
         self.assertEqual(prezzo, "13,20 €")
 
