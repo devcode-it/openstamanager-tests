@@ -1,6 +1,5 @@
-from common.Test import Test, get_html
+from common.Test import Test
 from selenium.webdriver.common.keys import Keys
-from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -50,13 +49,12 @@ class Articoli(Test):
         self.input(modal, 'Descrizione').setValue(descrizione)
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
-
         self.wait(EC.visibility_of_element_located((By.XPATH, '//label[contains(text(), "Quantità iniziale")]/following-sibling::div/input')))
 
         self.input(modal, 'Quantità iniziale').setValue(qta)
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
-    def modifica_articolo(self, acquisto:str, coefficiente:str):
+    def modifica_articolo(self, acquisto: str, coefficiente: str):
         self.navigateTo("Articoli")
         self.wait_loader()
 
@@ -69,7 +67,6 @@ class Articoli(Test):
         self.input(None, 'Coefficiente').setValue(coefficiente)
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
-
         self.wait_for_element_and_click('//a[@id="back"]')
 
         verificaqta = self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[10]//div[1][1]').text
@@ -119,7 +116,6 @@ class Articoli(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('(//i[@class="fa fa-plus"])[2]')
-
         self.wait_for_element_and_click('//label[@for="abilita_serial"]')
         self.wait_for_element_and_click('//button[@id="save"]')
 
@@ -144,7 +140,6 @@ class Articoli(Test):
 
         self.navigateTo("Articoli")
         self.wait_loader()
-
         self.clear_filters()
 
     def provvigioni(self):
@@ -159,10 +154,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//a[@id="link-tab_43"]')
         self.wait_for_element_and_click('//div[@id="tab_43"]//i[@class="fa fa-plus"]')
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idagente-container"]',
-            option_text='Agente'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-idagente-container"]', option_text='Agente')
 
         provvigione_input = self.find(By.XPATH, '//input[@id="provvigione"]')
         self.send_keys_and_wait(provvigione_input, '1.00')
@@ -182,7 +174,6 @@ class Articoli(Test):
 
         self.navigateTo("Articoli")
         self.wait_loader()
-
         self.clear_filters()
 
     def listino_fornitori(self):
@@ -195,10 +186,7 @@ class Articoli(Test):
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_32"]')
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_fornitore_informazioni-container"]',
-            option_text='Fornitore'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_fornitore_informazioni-container"]', option_text='Fornitore')
 
         self.wait_for_element_and_click('//button[@class="btn btn-info"]')
         modal = self.wait_modal()
@@ -216,7 +204,6 @@ class Articoli(Test):
         prezzo_unitario = self.find(By.XPATH, '//input[@id="prezzo_unitario_fisso"]')
         self.send_keys_and_wait(prezzo_unitario, '15')
 
-        # Verifica listino fornitore
         self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
@@ -227,25 +214,14 @@ class Articoli(Test):
         numero_esterno = self.find(By.XPATH, '//input[@id="numero_esterno"]')
         numero_esterno.send_keys("78")
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idanagrafica_add-container"]',
-            option_text='Fornitore'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica_add-container"]', option_text='Fornitore')
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
-        self.wait_loader()
 
         self.driver.execute_script('window.scrollTo(0,0)')
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idpagamento-container"]',
-            option_text='Bancomat'
-        )
-
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_articolo-container"]',
-            option_text='Articolo 1'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-idpagamento-container"]', option_text='Bancomat')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_articolo-container"]', option_text='Articolo 1')
         self.wait_for_element_and_click('//button[@class="btn btn-primary tip tooltipstered"]')
 
         prezzo = self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[8]').text
@@ -259,17 +235,13 @@ class Articoli(Test):
         self.wait_loader()
 
         self.click_first_result()
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_fornitore-container"]',
-            option_text='Fornitore'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_fornitore-container"]', option_text='Fornitore')
 
         self.navigateTo("Articoli")
         self.wait_loader()
 
         self.click_first_result()
 
-        # Modifica listino fornitore
         self.wait_for_element_and_click('//a[@id="link-tab_32"]')
         self.wait_for_element_and_click('//a[@class="btn btn-secondary btn-warning"]')
         self.wait_modal()
@@ -281,7 +253,6 @@ class Articoli(Test):
         codice = self.find(By.XPATH, '//div[@id="tab_32"]//tbody//tr//td[3]').text
         self.assertEqual(codice, "1")
 
-        # Elimina listino fornitore
         self.wait_for_element_and_click('//a[@class="btn btn-secondary btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
@@ -290,7 +261,6 @@ class Articoli(Test):
 
         self.navigateTo("Articoli")
         self.wait_loader()
-
         self.clear_filters()
 
     def giacenze(self):
@@ -311,7 +281,6 @@ class Articoli(Test):
 
         self.navigateTo("Articoli")
         self.wait_loader()
-
         self.clear_filters()
 
     def statistiche(self):
@@ -332,7 +301,6 @@ class Articoli(Test):
 
         self.navigateTo("Articoli")
         self.wait_loader()
-
         self.clear_filters()
 
     def netto_clienti(self):
@@ -345,10 +313,7 @@ class Articoli(Test):
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_27"]')
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_cliente_informazioni-container"]',
-            option_text='Cliente'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_cliente_informazioni-container"]', option_text='Cliente')
 
         self.wait_for_element_and_click('//button[@class="btn btn-info btn-block"]')
         self.wait_for_element_and_click('(//label[@class="btn btn-default"])[3]')
@@ -356,7 +321,6 @@ class Articoli(Test):
         prezzo_unitario = self.find(By.XPATH, '//input[@id="prezzo_unitario_fisso"]')
         self.send_keys_and_wait(prezzo_unitario, '5')
 
-        # Verifica listino cliente
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
@@ -364,10 +328,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         self.wait_modal()
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idanagrafica_add-container"]',
-            option_text='Cliente'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica_add-container"]', option_text='Cliente')
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
         self.wait_for_element_and_click('//span[@id="select2-id_articolo-container"]')
@@ -389,7 +350,6 @@ class Articoli(Test):
 
         self.navigateTo("Articoli")
         self.wait_loader()
-
         self.clear_filters()
 
     def aggiorna_prezzo_acquisto(self):
@@ -446,10 +406,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="change_sale_price"]')
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-prezzo_partenza-container"]',
-            option_text='Prezzo di vendita'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-prezzo_partenza-container"]', option_text='Prezzo di vendita')
 
         percentuale_input = self.find(By.XPATH, '//input[@id="percentuale"]')
         percentuale_input.send_keys("20")
@@ -520,20 +477,9 @@ class Articoli(Test):
         nome_input = self.find(By.XPATH, '//input[@id="nome"]')
         nome_input.send_keys("Prova")
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_cliente-container"]',
-            option_text='Cliente'
-        )
-
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_segment-container"]',
-            option_text='Standard preventivi'
-        )
-
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_tipo-container"]',
-            option_text='Generico'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_cliente-container"]', option_text='Cliente')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_segment-container"]', option_text='Standard preventivi')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_tipo-container"]', option_text='Generico')
 
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
@@ -543,7 +489,6 @@ class Articoli(Test):
         self.expandSidebar("Magazzino")
         self.navigateTo("Articoli")
         self.wait_loader()
-
         self.clear_filters()
 
     def aggiorna_iva(self):
@@ -557,22 +502,16 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="change_vat"]')
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_iva-container"]',
-            option_text='Iva 10%'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_iva-container"]', option_text='Iva 10%')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
-        self.wait_loader()
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
-        self.wait_loader()
 
         iva = self.find(By.XPATH, '//span[@id="select2-idiva_vendita-container"]').text
         self.assertEqual(iva[2:20], "10 - Aliq. Iva 10%")
 
         self.navigateTo("Articoli")
         self.wait_loader()
-
         self.clear_filters()
 
     def aggiorna_unita_misura(self):
@@ -586,15 +525,10 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="change_unit"]')
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-um-container"]',
-            option_text='ore'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-um-container"]', option_text='ore')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
-        self.wait_loader()
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
-        self.wait_loader()
 
         self.wait_for_element_and_click('(//i[@class="fa fa-plus"])[2]')
 
@@ -603,7 +537,6 @@ class Articoli(Test):
 
         self.navigateTo("Articoli")
         self.wait_loader()
-
         self.clear_filters()
 
     def conto_predefinito_acquisto(self):
@@ -617,10 +550,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="change_purchase_account"]')
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-conto_acquisto-container"]',
-            option_text='Fabbricati'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-conto_acquisto-container"]', option_text='Fabbricati')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
         self.click_first_result()
@@ -630,7 +560,6 @@ class Articoli(Test):
 
         self.navigateTo("Articoli")
         self.wait_loader()
-
         self.clear_filters()
 
     def conto_predefinito_vendita(self):
@@ -644,10 +573,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="change_sale_account"]')
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-conto_vendita-container"]',
-            option_text='Automezzi'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-conto_vendita-container"]', option_text='Automezzi')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
         self.click_first_result()
@@ -657,7 +583,6 @@ class Articoli(Test):
 
         self.navigateTo("Articoli")
         self.wait_loader()
-
         self.clear_filters()
 
     def imposta_provvigione(self):
@@ -671,10 +596,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="set_commission"]')
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idagente-container"]',
-            option_text='Agente'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-idagente-container"]', option_text='Agente')
 
         provvigione_input = self.find(By.XPATH, '//input[@id="provvigione"]')
         provvigione_input.send_keys("10")
@@ -689,7 +611,6 @@ class Articoli(Test):
 
         self.navigateTo("Articoli")
         self.wait_loader()
-
         self.clear_filters()
 
     def aggiorna_prezzo_unitario(self):
@@ -702,10 +623,7 @@ class Articoli(Test):
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_32"]')
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_fornitore_informazioni-container"]',
-            option_text='Fornitore'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_fornitore_informazioni-container"]', option_text='Fornitore')
 
         self.wait_for_element_and_click('//button[@class="btn btn-info"]')
         modal = self.wait_modal()
@@ -751,18 +669,12 @@ class Articoli(Test):
         self.navigateTo("Listini")
         self.wait_loader()
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_segment_-container"]',
-            option_text='Fornitori'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_segment_-container"]', option_text='Fornitori')
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="copy_listino"]')
 
-        self.wait_for_dropdown_and_select(
-            '//span[@class="select2-selection select2-selection--multiple"]',
-            option_text='Estero'
-        )
+        self.wait_for_dropdown_and_select('//span[@class="select2-selection select2-selection--multiple"]', option_text='Estero')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -789,7 +701,6 @@ class Articoli(Test):
 
         self.navigateTo("Articoli")
         self.wait_loader()
-
         self.clear_filters()
 
     def imposta_prezzo_da_fattura(self):
@@ -803,25 +714,14 @@ class Articoli(Test):
         numero_esterno = self.find(By.XPATH, '//input[@id="numero_esterno"]')
         numero_esterno.send_keys("04")
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idanagrafica_add-container"]',
-            option_text='Fornitore'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica_add-container"]', option_text='Fornitore')
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
-        self.wait_loader()
 
         self.driver.execute_script('window.scrollTo(0,0)')
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idpagamento-container"]',
-            option_text='Assegno'
-        )
-
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_articolo-container"]',
-            option_text='Articolo 1'
-        )
+        self.wait_for_dropdown_and_select('//span[@id="select2-idpagamento-container"]', option_text='Assegno')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_articolo-container"]', option_text='Articolo 1')
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary tip tooltipstered"]')
         self.wait_for_element_and_click('//a[@class="btn btn-xs btn-warning"]')
