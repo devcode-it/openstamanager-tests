@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from common.Test import Test
 
-import logging
 
 class StatoServizi(Test):
-    def setUp(self):
-        super().setUp()
-        self.wait_driver = WebDriverWait(self.driver, 10)
-
     def test_stato_servizi(self):
         self.attiva_moduli()
         self.compila_azienda()
@@ -20,6 +14,7 @@ class StatoServizi(Test):
     def attiva_moduli(self):
         self.expandSidebar("Strumenti")
         self.navigateTo("Stato dei servizi")
+
         for i in range(3):
             self.wait_for_element_and_click('//button[@onclick="abilitaSottoModuli(this)"]')
             self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
@@ -29,6 +24,7 @@ class StatoServizi(Test):
         self.navigateTo("Anagrafiche")
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_loader()
+
         self._compila_campi_azienda({
             'Partita IVA': '05024030289',
             'Codice fiscale': '05024030289',
@@ -40,9 +36,7 @@ class StatoServizi(Test):
         indirizzo = self.wait_driver.until(
             EC.presence_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))
         )
-        indirizzo.clear()
         self.send_keys_and_wait(indirizzo, "Via Rovigo, 51", wait_modal=False)
-
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()
 
@@ -56,24 +50,19 @@ class StatoServizi(Test):
 
     def _crea_anagrafica(self, nome: str, tipo: str):
         self.navigateTo("Anagrafiche")
-
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+
         modal = self.wait_modal()
         self.input(modal, 'Denominazione').setValue(nome)
         self.input(modal, 'Tipo di anagrafica').setByText(tipo)
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
-        self.wait_loader()
 
     def _compila_anagrafica_estera(self, nome: str, piva: str, nazione: str, citta: str):
         self.navigateTo("Anagrafiche")
-
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]')))
-
         self.search_entity(nome)
-
         self.click_first_result()
         self.wait_loader()
-
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_nazione-container"]',
             option_text=nazione
@@ -90,17 +79,16 @@ class StatoServizi(Test):
         indirizzo = self.wait_driver.until(
             EC.presence_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))
         )
-        indirizzo.clear()
-        self.send_keys_and_wait(indirizzo, 'Via controllo caratteri speciali: &"<>èéàòùì?\'\'`', wait_modal=False)
+        self.send_keys_and_wait(
+            indirizzo,
+            'Via controllo caratteri speciali: &"<>èéàòùì?\'\'`',
+            wait_modal=False
+        )
 
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-
     def _compila_campi_azienda(self, campi: dict):
         for campo, valore in campi.items():
-            input_field = self.input(None, campo)
-            input_field.setValue(valore)
+            self.input(None, campo).setValue(valore)
 
