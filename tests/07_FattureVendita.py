@@ -54,7 +54,7 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//button[@class="btn btn-primary ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
-    def modifica_fattura_vendita(self, modifica=str):
+    def modifica_fattura_vendita(self, modifica = str):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
@@ -154,7 +154,7 @@ class FattureVendita(Test):
         modal = self.wait_modal()
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
-    def modifica_nota_credito(self, modifica=str):
+    def modifica_nota_credito(self, modifica = str):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
@@ -548,7 +548,6 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
         self.wait_for_element_and_click( '//i[@class="deleteicon fa fa-times"]')
-
 
     def genera_fatture_elettroniche(self):
         self.navigateTo("Fatture di vendita")

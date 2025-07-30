@@ -6,7 +6,7 @@ from common.Test import Test
 class AnagraficheBis(Test):
     def setUp(self):
         super().setUp()
-        self.wait_driver = WebDriverWait(self.driver, 20)
+        self.wait_driver = self.wait_driver
         self.navigateTo("Anagrafiche")
 
     def test_funzionalita_aggiuntive_anagrafica(self):
@@ -63,7 +63,7 @@ class AnagraficheBis(Test):
         contact_name_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@id="nome"])[2]'))
         )
-        self.send_keys_and_wait(contact_name_input, "Referente di prova", wait_modal=False)
+        self.send_keys_and_wait(contact_name_input, "Referente di prova", wait_modal = False)
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-idmansione-container"]',
@@ -74,7 +74,7 @@ class AnagraficheBis(Test):
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Mansione"]/input'))
         )
-        self.send_keys_and_wait(search_input, "Segretario", wait_modal=False)
+        self.send_keys_and_wait(search_input, "Segretario", wait_modal = False)
         self.wait_for_search_results()
 
         job_title = self.wait_driver.until(
@@ -101,13 +101,13 @@ class AnagraficheBis(Test):
         postal_code_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@id="cap"])[2]'))
         )
-        self.send_keys_and_wait(postal_code_input, "35042", wait_modal=False)
+        self.send_keys_and_wait(postal_code_input, "35042", wait_modal = False)
 
         city_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@id="citta"])[2]'))
         )
         city_input.click()
-        self.send_keys_and_wait(city_input, "Padova", wait_modal=False)
+        self.send_keys_and_wait(city_input, "Padova", wait_modal = False)
 
         self.wait_for_dropdown_and_select(
             '(//span[@id="select2-id_nazione-container"])[2]',
@@ -139,13 +139,13 @@ class AnagraficheBis(Test):
         postal_code_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@id="cap"])[2]'))
         )
-        self.send_keys_and_wait(postal_code_input, "35042", wait_modal=False)
+        self.send_keys_and_wait(postal_code_input, "35042", wait_modal = False)
 
         city_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@id="citta"])[2]'))
         )
         city_input.click()
-        self.send_keys_and_wait(city_input, "Padova", wait_modal=False)
+        self.send_keys_and_wait(city_input, "Padova", wait_modal = False)
 
         self.wait_for_dropdown_and_select(
             '(//span[@id="select2-id_nazione-container"])[2]',
@@ -156,7 +156,7 @@ class AnagraficheBis(Test):
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//th[@id="th_Nome"]/input)[2]'))
         )
-        self.send_keys_and_wait(search_input, "Filiale XY", wait_modal=False)
+        self.send_keys_and_wait(search_input, "Filiale XY", wait_modal = False)
 
         location_name = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_4"]//tbody//td[2]'))
@@ -219,12 +219,12 @@ class AnagraficheBis(Test):
             field = self.wait_driver.until(
                 EC.visibility_of_element_located((By.XPATH, xpath))
             )
-            self.send_keys_and_wait(field, value, wait_modal=False)
+            self.send_keys_and_wait(field, value, wait_modal = False)
 
         data_emissione = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="data_emissione"]'))
         )
-        self.send_keys_and_wait(data_emissione, "", wait_modal=False)
+        self.send_keys_and_wait(data_emissione, "", wait_modal = False)
 
         self.wait_for_element_and_click('(//button[@class="btn btn-primary"])[2]')
         self.wait_driver.until(
@@ -252,12 +252,12 @@ class AnagraficheBis(Test):
         description_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))
         )
-        self.send_keys_and_wait(description_field, "prova per dichiarazione", wait_modal=False)
+        self.send_keys_and_wait(description_field, "prova per dichiarazione", wait_modal = False)
 
         quantity_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="qta"]'))
         )
-        self.send_keys_and_wait(quantity_field, "100", wait_modal=False)
+        self.send_keys_and_wait(quantity_field, "100", wait_modal = False)
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-um-container"]',
@@ -267,7 +267,7 @@ class AnagraficheBis(Test):
         price_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))
         )
-        self.send_keys_and_wait(price_field, "1", wait_modal=False)
+        self.send_keys_and_wait(price_field, "1", wait_modal = False)
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
         self.wait_for_element_and_click('//button[@id="save"]')
@@ -286,7 +286,6 @@ class AnagraficheBis(Test):
         modal = self.wait_modal()
         self.input(modal, 'Progressivo int.').setValue("01")
         self.wait_for_element_and_click('//div[@id="modals"]//button[@type="submit"]')
-        self.wait_loader()
         
         progressive = self.find(By.XPATH, '//div[@id="tab_25"]//tbody//td[3]').text
         self.assertEqual(progressive, "01")
@@ -294,7 +293,6 @@ class AnagraficheBis(Test):
         self.wait_for_element_and_click('//div[@id="tab_25"]//tbody//td[3]')
         self.wait_for_element_and_click('//a[@class="btn btn-danger ask "]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
-        self.wait_loader()
 
         empty_message = self.find(By.XPATH, '//div[@id="tab_25"]//td[@class="dataTables_empty"]').text
         self.assertEqual(empty_message, "Nessun dato presente nella tabella")
@@ -323,13 +321,13 @@ class AnagraficheBis(Test):
         start_date_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))
         )
-        self.send_keys_and_wait(start_date_field, "01/01/2025", wait_modal=False)
+        self.send_keys_and_wait(start_date_field, "01/01/2025", wait_modal = False)
 
         end_date_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))
         )
         end_date_field.clear()
-        self.send_keys_and_wait(end_date_field, "31/12/2025", wait_modal=False)
+        self.send_keys_and_wait(end_date_field, "31/12/2025", wait_modal = False)
 
         credit_limit_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="fido_assicurato"]'))
@@ -346,7 +344,7 @@ class AnagraficheBis(Test):
         date_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="data"]'))
         )
-        self.send_keys_and_wait(date_field, "01/01/2025", wait_modal=False)
+        self.send_keys_and_wait(date_field, "01/01/2025", wait_modal = False)
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-idanagrafica_add-container"]',
@@ -359,12 +357,12 @@ class AnagraficheBis(Test):
         description_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))
         )
-        self.send_keys_and_wait(description_field, "prova", wait_modal=False)
+        self.send_keys_and_wait(description_field, "prova", wait_modal = False)
 
         price_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))
         )
-        self.send_keys_and_wait(price_field, "51000", wait_modal=False)
+        self.send_keys_and_wait(price_field, "51000", wait_modal = False)
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
         self.wait_for_element_and_click('//button[@id="save"]')
@@ -406,7 +404,7 @@ class AnagraficheBis(Test):
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
         )
-        self.send_keys_and_wait(search_input, "Admin spa", wait_modal=False)
+        self.send_keys_and_wait(search_input, "Admin spa", wait_modal = False)
         self.wait_for_search_results()
 
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -436,7 +434,7 @@ class AnagraficheBis(Test):
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
         )
-        self.send_keys_and_wait(search_input, "Vettore", wait_modal=False)
+        self.send_keys_and_wait(search_input, "Vettore", wait_modal = False)
         self.wait_for_search_results()
 
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -473,7 +471,7 @@ class AnagraficheBis(Test):
         search_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))
         )
-        self.send_keys_and_wait(search_field, "Da contattare", wait_modal=False)
+        self.send_keys_and_wait(search_field, "Da contattare", wait_modal = False)
         self.wait_for_element_and_click('//button[@id="save"]')
 
         self.navigateTo("Anagrafiche")

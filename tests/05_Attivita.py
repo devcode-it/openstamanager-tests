@@ -33,7 +33,6 @@ class Attivita(Test):
         iframe = self.wait_for_element_and_click('(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')
         iframe.send_keys('Test')
         self.wait_for_element_and_click('//div[@class="col-md-12 text-right"]//button[@type="button"]')
-        self.wait_loader()
 
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
@@ -51,7 +50,7 @@ class Attivita(Test):
     def modifica_attività(self, modifica: str):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal=False)
+        self.send_keys_and_wait(search_input, '1', wait_modal = False)
         self.click_first_result()
         self.input(None, 'Stato').setValue(modifica)
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
@@ -61,7 +60,7 @@ class Attivita(Test):
     def elimina_attività(self):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal=False)
+        self.send_keys_and_wait(search_input, '2', wait_modal = False)
         self.click_first_result()
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
@@ -71,7 +70,7 @@ class Attivita(Test):
     def controllo_righe(self):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal=False)
+        self.send_keys_and_wait(search_input, '1', wait_modal = False)
         self.click_first_result()
 
         imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]').text
@@ -100,13 +99,13 @@ class Attivita(Test):
     def verifica_attività(self):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal=False)
+        self.send_keys_and_wait(search_input, '1', wait_modal = False)
         modificato = self.find(By.XPATH, '//tbody//tr[1]//td[7]').text
         self.assertEqual('Completato', modificato)
         self.clear_filters()
 
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal=False)
+        self.send_keys_and_wait(search_input, '2', wait_modal = False)
         eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual('La ricerca non ha portato alcun risultato.', eliminato)
         self.clear_filters()
@@ -121,7 +120,7 @@ class Attivita(Test):
     def cambio_stato(self):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal=False)
+        self.send_keys_and_wait(search_input, '1', wait_modal = False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -143,7 +142,7 @@ class Attivita(Test):
     def duplica(self):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal=False)
+        self.send_keys_and_wait(search_input, '1', wait_modal = False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -159,7 +158,7 @@ class Attivita(Test):
         self.clear_filters()
 
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal=False)
+        self.send_keys_and_wait(search_input, '2', wait_modal = False)
         numero = self.find(By.XPATH, '//tbody//tr//td[2]').text
         self.assertEqual(numero, '2')
         self.clear_filters()
@@ -167,7 +166,7 @@ class Attivita(Test):
     def elimina_selezionati(self):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal=False)
+        self.send_keys_and_wait(search_input, '2', wait_modal = False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -202,7 +201,7 @@ class Attivita(Test):
     def fattura_attivita(self):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal=False)
+        self.send_keys_and_wait(search_input, '2', wait_modal = False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -231,7 +230,7 @@ class Attivita(Test):
     def stampa_riepilogo(self):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal=False)
+        self.send_keys_and_wait(search_input, '2', wait_modal = False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(

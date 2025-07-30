@@ -40,7 +40,7 @@ class FattureAcquisto(Test):
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
 
-    def modifica_fattura_acquisto(self, modifica=str):
+    def modifica_fattura_acquisto(self, modifica = str):
         self.navigateTo("Fatture di acquisto")
         self.click_first_result()
 

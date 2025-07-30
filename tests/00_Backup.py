@@ -7,7 +7,7 @@ import time
 class Backup(Test):
     def setUp(self):
         super().setUp()
-        self.wait_driver = WebDriverWait(self.driver, 20)
+        self.wait_driver = self.wait_driver
         self.expandSidebar("Strumenti")
 
     def test_creazione_backup(self):
@@ -16,5 +16,3 @@ class Backup(Test):
 
         self.wait_for_element_and_click('//a[@onclick="creaBackup(this)"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-
-        self.wait_loader()

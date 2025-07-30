@@ -3,7 +3,6 @@ from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
-
 class DdtUscita(Test):
     def setUp(self):
         super().setUp()
