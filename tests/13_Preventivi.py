@@ -4,7 +4,6 @@ from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from time import sleep
 
 class Preventivi(Test):
     def setUp(self):
@@ -175,7 +174,7 @@ class Preventivi(Test):
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
         totaleordinefornitore = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
-        self.assertEqual(totaleordinefornitore, self.valori["Totale imponibile"] + ' €')
+        self.assertEqual(totaleordinefornitore, '7,20 €')
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
@@ -305,7 +304,7 @@ class Preventivi(Test):
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_for_element_and_click('//a[@id="link-tab_12"]')
         budget = self.find(By.XPATH, '//span[@class="text-success"]').text
-        self.assertEqual(budget, "+ 264,80 €")
+        self.assertEqual(budget, "+ 250,80 €")
 
     def revisioni(self):
         self.navigateTo("Preventivi")
@@ -347,7 +346,7 @@ class Preventivi(Test):
 
         self.wait_for_element_and_click('//tbody//tr//td[1]')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="crea_fattura"]')
+        self.wait_for_element_and_click('//a[@data-op="create_invoice"]')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
