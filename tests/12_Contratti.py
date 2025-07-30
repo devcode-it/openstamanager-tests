@@ -180,11 +180,9 @@ class Contratti(Test):
         self.wait_for_element_and_click('//button[@class="btn btn-lg btn-success"]')
 
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//a')))
-        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="codice"]')))
-        
-        self.expandSidebar("Vendite")
 
     def pianificazione_fatturazione(self):
+        self.wait_loader()
         self.navigateTo("Contratti")
         self.wait_loader()
 
