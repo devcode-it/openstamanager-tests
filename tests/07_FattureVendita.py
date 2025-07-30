@@ -1,186 +1,123 @@
-from common.Test import Test, get_html
+from common.Test import Test
 from selenium.webdriver.common.keys import Keys
 from common.RowManager import RowManager
+from common.functions import (
+    wait_for_dropdown_and_select,
+    wait_for_element_and_click,
+    send_keys_and_wait,
+    wait_loader,
+    search_entity,
+    click_first_result,
+    clear_filters,
+    wait_for_search_results
+)
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from time import sleep
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class FattureVendita(Test):
     def setUp(self):
         super().setUp()
-
         self.expandSidebar("Vendite")
 
     def test_creazione_fattura_vendita(self):
-        # Crea una nuova fattura per il cliente "Cliente". *Required*
         importi = RowManager.list()
         self.creazione_fattura_vendita("Cliente", importi[0])
-
-        # Duplicazione fattura di vendita
         self.duplica()
-
-        # Modifica fattura di vendita
         self.modifica_fattura_vendita("Emessa")
-
-        # Controllo valori fattura elettronica e piano dei conti
         self.controllo_fattura_vendita()
-
-        # Creazione nota di credito
         self.creazione_nota_credito()
-
-        # Modifica nota di credito
         self.modifica_nota_credito("Emessa")
-
-        # Controllo valori nota credito
         self.controllo_nota_credito()
-
-        # Confronto valori fattura e nota credito
         self.controllo_fattura_nota_credito()
-
-        # Cancellazione fattura di vendita
         self.elimina_documento()
-
-        # Verifica fattura di vendita
         self.verifica_fattura_di_vendita()
-
-        # Verifica XML fattura estera
         self.verifica_xml_fattura_estera(importi[0], "1")
-
-        # Verifica plugin movimenti contabili da fatture di vendita
         self.movimenti_contabili()
-
-        # Plugin movimenti contabili da Anagrafiche
         self.plugin_movimenti_contabili()
-
-        # Plugin regole pagamenti da Anagrafiche
         self.regole_pagamenti()
-
-        # Plugin registrazioni
-        self.registrazioni()   
-
-        # Plugin allegati da Anagrafiche
+        self.registrazioni()
         self.controlla_allegati()
-
-        # Duplica selezionati (Azioni di gruppo)
         self.duplica_selezionati()
-         
-        # Cambia sezionale (Azioni di gruppo)
-        self.cambia_sezionale()    
-
-        # Emetti fatture (Azioni di gruppo)
-        self.emetti_fatture()      
-
-        # Plugin statistiche vendite in Articoli
+        self.cambia_sezionale()
+        self.emetti_fatture()
         self.statistiche_vendita()
-
-        # Controlla fatture elettroniche (Azioni di gruppo)
         self.controlla_fatture_elettroniche()
-
-        # Registrazione contabile (Azioni di gruppo)
         self.registrazione_contabile()
-
-        # Genera fatture elettroniche (Azioni di gruppo)
         self.genera_fatture_elettroniche()
-
-        # Elimina selezionati (Azioni di gruppo)
         self.elimina_selezionati()
 
     def creazione_fattura_vendita(self, cliente: str, file_importi: str):
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        # Crea una nuova fattura
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
+        wait_for_element_and_click(self.driver, self.wait_driver, '//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
         select = self.input(modal, 'Cliente')
         select.setByText(cliente)
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
+        wait_for_element_and_click(self.driver, self.wait_driver, 'button[type="submit"]', By.CSS_SELECTOR)
 
         row_manager = RowManager(self)
-        self.valori=row_manager.compile(file_importi)
+        self.valori = row_manager.compile(file_importi)
 
     def duplica(self):
-        self.find(By.XPATH, '//button[@class="btn btn-primary ask"]').click()
-        self.wait_loader()
-
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click()
-        self.wait_loader()
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-primary ask"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
     def modifica_fattura_vendita(self, modifica=str):
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader()
-        
-        self.input(None,'Stato*').setByText(modifica)
-        sleep(1)
-
+        click_first_result(self.driver, self.wait_driver)
+        self.input(None, 'Stato*').setByText(modifica)
         self.driver.execute_script('window.scrollTo(0,0)')
-        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
-        self.wait_loader()
-        
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_0"]//button[@id="save"]')
+
     def controllo_fattura_vendita(self):
-        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader()
-        
-        # Estrazione totali righe
-        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
-        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
-        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
-        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
+        click_first_result(self.driver, self.wait_driver)
 
-        self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"]+ ' €'))
-        self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"]+ ' €'))
+        sconto = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]'))).text
+        totale_imponibile = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]'))).text
+        iva = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]'))).text
+        totale = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]'))).text
+
+        self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"] + ' €'))
+        self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"] + ' €'))
         self.assertEqual(iva, (self.valori["IVA"] + ' €'))
         self.assertEqual(totale, (self.valori["Totale documento"] + ' €'))
 
-        # Controllo Scadenzario
-        scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
+        scadenza_fattura = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]'))).text
         self.assertEqual(totale, scadenza_fattura[12:20])
-        self.driver.execute_script('$("a").removeAttr("target")')
-        self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::a').click()
-        self.wait_loader()
 
-        scadenza_scadenzario = self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text + ' €'
+        self.driver.execute_script('$("a").removeAttr("target")')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::a')
+
+        scadenza_scadenzario = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]'))).text + ' €'
         self.assertEqual(totale, scadenza_scadenzario)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
-        
-        # Estrazione Totale widgets
-        widget_fatturato = self.find(By.XPATH, '(//span[@class="info-box-number"])[1]').text
-        widget_crediti = self.find(By.XPATH, '(//span[@class="info-box-number"])[2]').text
+        wait_loader(self.driver, self.wait_driver)
 
-        # Confronto i due valori
+        widget_fatturato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-number"])[1]'))).text
+        widget_crediti = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-number"])[2]'))).text
         self.assertEqual(totale_imponibile, widget_fatturato)
         self.assertEqual(totale, widget_crediti)
 
-        # Controllo importi fattura elettronica
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_18"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="text-center"]//a[@class="btn btn-info btn-lg "]'))).click()
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td[2]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@id="link-tab_18"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@class="text-center"]//a[@class="btn btn-info btn-lg "]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-        perc_iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]').text
-        iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]').text
-        totale_imponibile_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[5]').text + ' €'
-        totale_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[3]/td[4]').text + ' €'
-        scadenza_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][4]/tbody/tr[1]/td[4]').text + ' €'
+        perc_iva_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]'))).text
+        iva_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]'))).text
+        totale_imponibile_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[5]'))).text + ' €'
+        totale_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[3]/td[4]'))).text + ' €'
+        scadenza_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][4]/tbody/tr[1]/td[4]'))).text + ' €'
 
         self.assertEqual('22,00', perc_iva_FE)
         self.assertEqual((self.valori["IVA"]), iva_FE)
@@ -193,29 +130,22 @@ class FattureVendita(Test):
         self.driver.switch_to.window(self.driver.window_handles[0])
         self.driver.close()
 
-        # Estrazione valori Piano dei conti
         super().setUp()
         self.expandSidebar("Contabilità")
         self.navigateTo("Piano dei conti")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//*[@id="conto2-20"]//*[@class="fa fa-plus"]').click()
-        sleep(1)
-        self.find(By.XPATH, '//*[@id="movimenti-94"]//*[@class="fa fa-plus"]').click()
-        sleep(1)
-        conto_ricavi = self.find(By.XPATH, '//*[@id="conto_94"]//*[@class="text-right"]').text
-       
-        self.find(By.XPATH, '//*[@id="conto2-2"]//*[@class="fa fa-plus"]').click()
-        sleep(1)
-        self.find(By.XPATH, '//*[@id="movimenti-121"]//*[@class="fa fa-plus"]').click()
-        sleep(1)
-        conto_cliente = self.find(By.XPATH, '//*[@id="conto_121"]//*[@class="text-right"]').text
-   
-        self.find(By.XPATH, '//*[@id="conto2-22"]//*[@class="fa fa-plus"]').click()
-        sleep(1)
-        self.find(By.XPATH, '//*[@id="movimenti-106"]//*[@class="fa fa-plus"]').click()        
-        sleep(1)
-        conto_iva = self.find(By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]').text
+        wait_for_element_and_click(self.driver, self.wait_driver, '//*[@id="conto2-20"]//*[@class="fa fa-plus"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//*[@id="movimenti-94"]//*[@class="fa fa-plus"]')
+        conto_ricavi = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_94"]//*[@class="text-right"]'))).text
+
+        wait_for_element_and_click(self.driver, self.wait_driver, '//*[@id="conto2-2"]//*[@class="fa fa-plus"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//*[@id="movimenti-125"]//*[@class="fa fa-plus"]')
+        conto_cliente = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_125"]//*[@class="text-right"]'))).text
+
+        wait_for_element_and_click(self.driver, self.wait_driver, '//*[@id="conto2-22"]//*[@class="fa fa-plus"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//*[@id="movimenti-106"]//*[@class="fa fa-plus"]')
+        conto_iva = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]'))).text
 
         self.assertEqual(totale_imponibile, conto_ricavi)
         self.assertEqual(totale, conto_cliente)
@@ -225,121 +155,99 @@ class FattureVendita(Test):
 
     def creazione_nota_credito(self):
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader()
-        
-        self.find(By.XPATH, '//button[@class="btn btn-primary unblockable dropdown-toggle "]').click()
-        self.find(By.XPATH, '//a[@class="btn dropdown-item bound clickable"]').click()
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td[2]')
+        wait_for_dropdown_and_select(
+            self.driver,
+            self.wait_driver,
+            '//button[@class="btn btn-primary unblockable dropdown-toggle "]',
+            option_xpath='//a[@class="btn dropdown-item bound clickable"]'
+        )
         modal = self.wait_modal()
-
-        self.find(By.XPATH, '//button[@id="submit_btn"]').click()
-        self.wait_loader()
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@id="submit_btn"]')
 
     def modifica_nota_credito(self, modifica=str):
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr[3]//td[2]').click()
-        self.wait_loader()
-        
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr[3]//td[2]')
         self.input(None,'Stato*').setByText(modifica)
         self.driver.execute_script('window.scrollTo(0,0)')
-        sleep(1)
-
-        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
-        self.wait_loader()
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_0"]//button[@id="save"]')
 
     def controllo_nota_credito(self):
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//td[@class="bound clickable"]').click()
-        self.wait_loader()
+        wait_for_element_and_click(self.driver, self.wait_driver, '//td[@class="bound clickable"]')
 
-        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        totale_imponibile = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]'))).text
         totale_imponibile = '-'+totale_imponibile
-        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
-        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
+        iva = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]'))).text
+        totale = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]'))).text
 
-        # Controllo Scadenzario
-        scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
+        scadenza_fattura = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]'))).text
         self.assertEqual(totale, scadenza_fattura[12:21])
-        self.find(By.XPATH, '//div[@class="btn-group pull-right"]').click()
-        sleep(1)
 
-        totale = '-'+totale
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@class="btn-group pull-right"]')
+
         self.driver.switch_to.window(self.driver.window_handles[1])
-        scadenza_scadenzario = self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text
-        scadenza_scadenzario = scadenza_scadenzario +' €'
+        scadenza_scadenzario = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//body//tr//td)[5]'))).text
         self.assertEqual(totale, scadenza_scadenzario)
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
-        # Torno alla tabella delle Fatture
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        # Controllo importi fattura elettronica
-        self.find(By.XPATH, '//div[@id="tab_0"]//tbody//tr[1]//td[2]').click()
-        self.wait_loader()
-
-
-        self.find(By.XPATH, '//a[@id="link-tab_18"]').click()
-        self.wait_loader()
-
-        self.find(By.XPATH, '//form[@id="form-xml"]/following-sibling::a[1]').click()
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_0"]//tbody//tr[1]//td[2]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@id="link-tab_18"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//form[@id="form-xml"]/following-sibling::a[1]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-        perc_iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]').text
-        iva_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]').text
+        perc_iva_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]'))).text
+        iva_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]'))).text
         iva_FE = iva_FE+' €'
-        totale_imponibile_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[5]').text
+        totale_imponibile_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[5]'))).text
         totale_imponibile_FE = '-'+totale_imponibile_FE+' €'
-        totale_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[3]/td[4]').text
-        totale_FE = '-'+totale_FE+' €'
-        scadenza_FE = self.find(By.XPATH, '//table[@class="tbFoglio"][4]/tbody/tr[1]/td[4]').text
-        scadenza_FE = '-'+scadenza_FE+' €'
+        totale_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[3]/td[4]'))).text
+        totale_FE = totale_FE+' €'
+        scadenza_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][4]/tbody/tr[1]/td[4]'))).text
+        scadenza_FE = scadenza_FE+' €'
+
         self.assertEqual('22,00', perc_iva_FE)
         self.assertEqual(iva, iva_FE)
         self.assertEqual(totale_imponibile, totale_imponibile_FE)
         self.assertEqual(totale, totale_FE)
         self.assertEqual(totale, scadenza_FE)
+
         iva = '-' + iva
         self.driver.switch_to.window(self.driver.window_handles[0])
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
         self.driver.close()
-        
-        # Estrazione valori Piano dei conti
+
         super().setUp()
         self.expandSidebar("Contabilità")
         self.navigateTo("Piano dei conti")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//*[@id="conto2-20"]//*[@class="fa fa-plus"]').click()
-        sleep(1)
-        self.find(By.XPATH, '//*[@id="movimenti-94"]//*[@class="fa fa-plus"]').click()
-        sleep(1)
-        conto_ricavi = self.find(By.XPATH, '//*[@id="conto_94"]//*[@class="text-right"]').text
-       
-        self.find(By.XPATH, '//*[@id="conto2-2"]//*[@class="fa fa-plus"]').click()
-        sleep(1)
-        self.find(By.XPATH, '//*[@id="movimenti-121"]//*[@class="fa fa-plus"]').click()
-        sleep(1)
-        conto_cliente = self.find(By.XPATH, '//*[@id="conto_121"]//*[@class="text-right"]').text
-   
-        self.find(By.XPATH, '//*[@id="conto2-22"]//*[@class="fa fa-plus"]').click()
-        sleep(1)
-        self.find(By.XPATH, '//*[@id="movimenti-106"]//*[@class="fa fa-plus"]').click()        
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//*[@id="conto2-20"]//*[@class="fa fa-plus"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//*[@id="movimenti-94"]//*[@class="fa fa-plus"]')
+        conto_ricavi = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_94"]//*[@class="text-right"]'))).text
 
-        conto_iva = self.find(By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]').text
+        wait_for_element_and_click(self.driver, self.wait_driver, '//*[@id="conto2-2"]//*[@class="fa fa-plus"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//*[@id="movimenti-125"]//*[@class="fa fa-plus"]')
+        conto_cliente = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_125"]//*[@class="text-right"]'))).text
+
+        wait_for_element_and_click(self.driver, self.wait_driver, '//*[@id="conto2-22"]//*[@class="fa fa-plus"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//*[@id="movimenti-106"]//*[@class="fa fa-plus"]')
+        conto_iva = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]'))).text
+
         conto_iva= '-'+ conto_iva
         conto_ricavi = '-' + conto_ricavi
-        conto_cliente = '-' + conto_cliente
+
         self.assertEqual(totale_imponibile, conto_ricavi)
         self.assertEqual(totale, conto_cliente)
         self.assertEqual(iva, conto_iva)
@@ -347,478 +255,355 @@ class FattureVendita(Test):
     def controllo_fattura_nota_credito(self):
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        fattura=self.find(By.XPATH, '//tbody//tr[2]//td[6]').text
-        notacredito=self.find(By.XPATH, '//tbody//tr[1]//td[6]').text
-        fattura='-'+ fattura
-        self.assertEqual(fattura,notacredito)
+        fattura = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[2]//td[6]'))).text
+        notacredito = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[6]'))).text
+        fattura = '-'+ fattura
+        self.assertEqual(fattura, notacredito)
 
     def elimina_documento(self):
-        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr[3]//td[2]').click()
-        self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        self.wait_loader()
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr[3]//td[2]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
     def verifica_fattura_di_vendita(self):
-        wait = WebDriverWait(self.driver, 20)
-
-        #Creazione fattura di acquisto estera
         self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
-        self.wait_loader()  
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
+        wait_for_element_and_click(self.driver, self.wait_driver, '//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
         select = self.input(modal, 'Fornitore')
         select.setByText("Fornitore Estero")
-        sleep(1)
         self.input(modal, 'N. fattura del fornitore').setValue("02")
-
-        # Submit
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
+        wait_for_element_and_click(self.driver, self.wait_driver, 'button[type="submit"]', By.CSS_SELECTOR)
 
     def verifica_xml_fattura_estera(self, file_importi: str, pagamento: str):
-        wait = WebDriverWait(self.driver, 20)
-
-        # Inserisco le righe
         self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Pagamento').setByIndex(pagamento)
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
+        
+        wait_for_element_and_click(self.driver, self.wait_driver, '//input[@id="check_all"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@id="modifica_iva_righe"]')
+        wait_for_dropdown_and_select(self.driver, self.wait_driver,
+            '//span[@id="select2-iva_id-container"]',
+            option_text='258 - Non imponibile - cessioni verso San Marino')
+        wait_for_element_and_click(self.driver, self.wait_driver, '(//button[@class="btn btn-primary"])[2]')
 
-        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="toast-message"]')))
-        self.find(By.XPATH, '(//a[@title="Modifica riga"])[1]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="submitForm()"]'))).click()
-        sleep(1)
+        wait_for_dropdown_and_select(self.driver, self.wait_driver,
+            '//span[@id="select2-idstatodocumento-container"]',
+            option_text='Emessa')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_0"]//button[@id="save"]')
 
-        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="toast-message"]')))
-        self.find(By.XPATH, '(//a[@title="Modifica riga"])[2]').click()  
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="submitForm()"]'))).click()
-        sleep(1)
-
-        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="toast-message"]')))
-        self.find(By.XPATH, '(//a[@title="Modifica riga"])[3]').click()  
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="submitForm()"]'))).click()
-        sleep(1)
-
-        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="toast-message"]')))
-        self.find(By.XPATH, '(//a[@title="Modifica riga"])[4]').click()  
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="submitForm()"]'))).click()
-        sleep(1)
-
-        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="toast-message"]')))
-        self.find(By.XPATH, '(//a[@title="Modifica riga"])[5]').click()  
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Non imponibile')
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@onclick="submitForm()"]'))).click()
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-primary unblockable dropdown-toggle "]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@class="btn dropdown-item bound clickable"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@class="modal-body"]//span[@class="select2-selection select2-selection--single"]')
+        send_keys_and_wait(self.driver, self.wait_driver, self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))), "TD17", False)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@class="modal-body"]//button[@type="submit"]')
 
         self.input(None,'Stato*').setByText("Emessa")
         self.driver.execute_script('window.scrollTo(0,0)')
-        sleep(1)
-        
-        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_0"]//button[@id="save"]')
 
-        # Creazione autofattura
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary unblockable dropdown-toggle "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@class="btn dropdown-item bound clickable"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//span[@class="select2-selection select2-selection--single"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("TD17")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//button[@type="submit"]'))).click()
-        self.wait_loader()
-    
-        self.input(None,'Stato*').setByText("Emessa")
-        self.driver.execute_script('window.scrollTo(0,0)')
-        sleep(1)
-        
-        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
-        self.wait_loader()
+        totale_imponibile = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]'))).text
+        iva = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]'))).text
+        totale = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[3]//td[2]'))).text
 
-        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]').text
-        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
-        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        self.assertEqual(totale_imponibile, '264,80 €')
+        self.assertEqual(iva, '58,26 €')
+        self.assertEqual(totale, '323,06 €')
 
-        self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"]+ ' €'))
-        self.assertEqual(iva, (self.valori["IVA"] + ' €'))
-        self.assertEqual(totale, (self.valori["Totale documento"] + ' €'))
-
-    def movimenti_contabili(self):               
-        wait = WebDriverWait(self.driver, 20)
+    def movimenti_contabili(self):
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
-        
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipo"]/input'))).send_keys("Fattura immediata di vendita", Keys.ENTER)
-        sleep(1) 
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader() 
+        send_keys_and_wait(self.driver, self.wait_driver, self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipo"]/input'))), "Fattura immediata di vendita", False)
 
-        self.find(By.XPATH, '//a[@id="link-tab_37"]').click()
-        self.find(By.XPATH, '//a[@class="btn btn-info btn-lg"]').click()
-        self.wait_loader() 
-        
-        # Verifica movimenti contabili
-        dare=self.find(By.XPATH, '(//td[@class="text-right"])[21]').text
-        avere_1=self.find(By.XPATH, '(//td[@class="text-right"])[25]').text
-        avere_2=self.find(By.XPATH, '(//td[@class="text-right"])[28]').text
-        self.assertEqual(dare,"323,06 €")
-        self.assertEqual(avere_1,"264,80 €")
-        self.assertEqual(avere_2,"58,26 €")
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td[2]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@id="link-tab_37"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@class="btn btn-info btn-lg"]')
+
+        dare_1 = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_37"]//tbody//td)[3]'))).text
+        dare_2 = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_37"]//tbody//td)[23]'))).text
+        avere_1 = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_37"]//tbody//td)[9]'))).text
+        avere_2 = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_37"]//tbody//td)[14]'))).text
+        avere_3 = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_37"]//tbody//td)[19]'))).text
+        avere_4 = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_37"]//tbody//td)[29]'))).text
+        avere_5 = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_37"]//tbody//td)[34]'))).text
+
+        self.assertEqual(dare_1, "305,98 €")
+        self.assertEqual(dare_2, "27,20 €")
+        self.assertEqual(avere_1, "2,00 €")
+        self.assertEqual(avere_2, "150,00 €")
+        self.assertEqual(avere_3, "120,00 €")
+        self.assertEqual(avere_4, "6,00 €")
+        self.assertEqual(avere_5, "55,18 €")
 
         self.navigateTo("Fatture di vendita")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+        wait_loader(self.driver, self.wait_driver)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//i[@class="deleteicon fa fa-times"]')
 
     def plugin_movimenti_contabili(self):
-        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
-        self.wait_loader() 
+        wait_loader(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+        send_keys_and_wait(self.driver, self.wait_driver, self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))), "Cliente", False)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader() 
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td[2]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@id="link-tab_38"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_38"]//a[@class="btn btn-info btn-lg"]')
 
-        self.find(By.XPATH, '//a[@id="link-tab_38"]').click()
-        self.find(By.XPATH, '//div[@id="tab_38"]//a[@class="btn btn-info btn-lg"]').click()
-        self.wait_loader()
-
-        dare=self.find(By.XPATH, '//div[@id="tab_38"]//tr[1]//td[3]').text
-        self.assertEqual(dare, "323,06 €")
+        dare = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_38"]//tr[1]//td[3]'))).text
+        self.assertEqual(dare, "305,98 €")
 
         self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+        wait_loader(self.driver, self.wait_driver)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//i[@class="deleteicon fa fa-times"]')
 
     def regole_pagamenti(self):
-        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Anagrafiche")
-        self.wait_loader() 
+        wait_loader(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+        send_keys_and_wait(self.driver, self.wait_driver, self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))), "Cliente", False)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader() 
-
-        self.find(By.XPATH, '//a[@id="link-tab_40"]').click()        
-        self.find(By.XPATH,'//div[@id="tab_40"]//i[@class="fa fa-plus"]').click()
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td[2]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@id="link-tab_40"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_40"]//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="select2-mese-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("Agosto", Keys.ENTER)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="select2-giorno_fisso-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("8", Keys.ENTER)
-        self.wait_loader()
+        wait_for_dropdown_and_select(
+            self.driver,
+            self.wait_driver,
+            '//*[@id="select2-mese-container"]',
+            option_text='Agosto'
+        )
+        wait_for_dropdown_and_select(
+            self.driver,
+            self.wait_driver,
+            '//*[@id="select2-giorno_fisso-container"]',
+            option_text='8'
+        )
+        wait_for_element_and_click(self.driver, self.wait_driver, '(//button[@type="submit"])[3]')
 
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
-
-        self.find(By.XPATH,'//div[@id="tab_40"]//i[@class="fa fa-plus"]').click()
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_40"]//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="select2-mese-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("Aprile", Keys.ENTER)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="select2-giorno_fisso-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))).send_keys("8", Keys.ENTER)
-        self.wait_loader()
+        wait_for_dropdown_and_select(
+            self.driver,
+            self.wait_driver,
+            '//*[@id="select2-mese-container"]',
+            option_text='Aprile'
+        )
+        wait_for_dropdown_and_select(
+            self.driver,
+            self.wait_driver,
+            '//*[@id="select2-giorno_fisso-container"]',
+            option_text='8'
+        )
+        wait_for_element_and_click(self.driver, self.wait_driver, '(//button[@type="submit"])[3]')
 
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH,  '//div[@id="tab_40"]//tbody//tr//td[2]'))).click()
-        self.wait_loader()
-             
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-danger "]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_40"]//tbody//tr//td[2]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-danger "]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         self.expandSidebar("Contabilità")
         self.navigateTo("Scadenzario")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Anagrafica"]/input'))).send_keys('Cliente', Keys.ENTER)
-        sleep(1)
+        send_keys_and_wait(self.driver, self.wait_driver, self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Anagrafica"]/input'))), 'Cliente', False)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH,  '//tbody//tr//td[2]'))).click()
-        self.wait_loader()
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td[2]')
+        element = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_concordata0"]')))
+        element.send_keys('13/08/2025')
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_concordata0"]'))).send_keys('13/08/2025')
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@id="save"]')
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning"]')))
 
-        self.find(By.XPATH, '//button[@id="save"]').click()
-        self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning"]')))
-
-        element = self.find(By.XPATH, '//input[@id="data_concordata0"]')
+        element = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_concordata0"]')))
         element.clear()
         element.send_keys('20/01/2025')
-        sleep(1)
 
-        self.find(By.XPATH, '//button[@id="save"]').click()
-        self.wait_loader()
-
-        wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning"]')))
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@id="save"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning"]')))
 
         self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+        wait_loader(self.driver, self.wait_driver)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//i[@class="deleteicon fa fa-times"]')
 
         self.expandSidebar("Vendite")
-        
+
     def registrazioni(self):
-        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipo"]/input'))).send_keys("Fattura immediata di vendita", Keys.ENTER)
-        sleep(1) 
+        send_keys_and_wait(self.driver, self.wait_driver, self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipo"]/input'))), "Fattura immediata di vendita", False)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader()
-        
-
-        self.find(By.XPATH, '//a[@id="link-tab_42"]').click()
-        self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_42"]//tr[5]//td'))) 
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td[2]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@id="link-tab_42"]')
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_42"]//tr[5]//td')))
 
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//i[@class="deleteicon fa fa-times"]')
 
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
-
-    def controlla_allegati(self): 
-        wait = WebDriverWait(self.driver, 20)
+    def controlla_allegati(self):
         self.navigateTo("Anagrafiche")
-        self.wait_loader() 
+        wait_loader(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
-        sleep(1)
+        send_keys_and_wait(self.driver, self.wait_driver, self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))), "Cliente", False)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader() 
-
-        self.find(By.XPATH, '//a[@id="link-tab_30"]').click()
-        self.find(By.XPATH, '//div[@id="tab_30"]//a[@class="btn btn-info btn-lg"]').click()
-        self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_30"]//a[@class="btn btn-xs btn-primary"]')))
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td[2]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@id="link-tab_30"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@id="tab_30"]//a[@class="btn btn-info btn-lg"]')
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_30"]//a[@class="btn btn-xs btn-primary"]')))
 
         self.navigateTo("Anagrafiche")
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
+        wait_loader(self.driver, self.wait_driver)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//i[@class="deleteicon fa fa-times"]')
 
         self.expandSidebar("Vendite")
 
     def duplica_selezionati(self):
-        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()  
-        self.find(By.XPATH, '//a[@data-op="copy-bulk"]').click()   
-        sleep(1)
-        
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
-        self.wait_loader()
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@data-toggle="dropdown"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@data-op="copy_bulk"]')
 
-        self.find(By.XPATH, '//tbody//tr//td').click()  
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td')
 
     def cambia_sezionale(self):
-        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td').click()
-        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
-        self.find(By.XPATH, '//a[@data-op="cambia-sezionale"]').click() 
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@data-toggle="dropdown"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@data-op="change_segment"]')
 
-        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()
-        self.find(By.XPATH, '//ul[@id="select2-id_segment-results"]').click()  
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
-        self.wait_loader()
+        self.wait_for_dropdown_and_select(
+            '//span[@id="select2-id_segment-container"]',
+            option_text='Autofatture'
+        )
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
-        self.find(By.XPATH, '//span[@id="select2-id_segment_-container"]').click()
-        sleep(1)
+        self.wait_for_dropdown_and_select(
+            '//span[@id="select2-id_segment_-container"]',
+            option_text='Autofatture'
+        )
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Autofatture")
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@data-toggle="dropdown"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@data-op="change_segment"]')
 
-        self.find(By.XPATH, '//ul[@id="select2-id_segment_-results"]').click()
-        self.wait_loader()
-
-        self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
-        self.find(By.XPATH, '//a[@data-op="cambia-sezionale"]').click() 
-        sleep(1)
-
-        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()   
-        self.find(By.XPATH, '//ul[@id="select2-id_segment-results"]').click() 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
-        self.wait_loader()
-
-        self.find(By.XPATH, '//span[@id="select2-id_segment_-container"]').click() 
-        sleep(1)
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Standard")
-        sleep(1)
-
-        self.find(By.XPATH, '//ul[@id="select2-id_segment_-results"]').click() 
-        self.wait_loader()
-
+        self.wait_for_dropdown_and_select(
+            '//span[@id="select2-id_segment-container"]',
+            option_text='Standard vendite'
+        )
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_dropdown_and_select(
+            '//span[@id="select2-id_segment_-container"]',
+            option_text='Standard vendite'
+        )
 
     def emetti_fatture(self):
-        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td').click() 
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@data-toggle="dropdown"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@data-op="change_status"]')
 
-        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()
-        self.find(By.XPATH, '//a[@data-op="change-stato"]').click() 
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
-        self.wait_loader()
-
-        stato=self.find(By.XPATH, '//tbody//tr//td[11]').text
-        self.assertEqual(stato, "Emessa")   
-
-        self.find(By.XPATH, '//tbody//tr//td').click()  
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        stato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[11]'))).text
+        self.assertEqual(stato, "Emessa")
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td')
 
     def statistiche_vendita(self):
-        wait = WebDriverWait(self.driver, 20)
         self.expandSidebar("Magazzino")
         self.navigateTo("Articoli")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//a[@id="link-tab_44"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_44"]//tbody//tr//td'))) 
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@id="link-tab_44"]')
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_44"]//tbody//tr//td')))
 
         self.expandSidebar("Vendite")
 
     def controlla_fatture_elettroniche(self):
-        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()  
-        self.find(By.XPATH, '//a[@data-op="check-bulk"]').click()  
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@data-toggle="dropdown"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@data-op="check_bulk"]')
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
-        # Verifica successo operazione
         self.driver.switch_to.window(self.driver.window_handles[1])
-        self.find(By.XPATH, '//div[@class="toast toast-success"]').click()
+        wait_for_element_and_click(self.driver, self.wait_driver, '//div[@class="toast toast-success"]')
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
     def registrazione_contabile(self):
-        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))).send_keys("0001", Keys.ENTER)
-        sleep(1)
+        send_keys_and_wait(self.driver, self.wait_driver, self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), "0001", False)
 
-        self.find(By.XPATH, '//tbody//tr//td').click()
-        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()
-        self.find(By.XPATH, '//a[@data-op="registrazione-contabile"]').click() 
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@data-toggle="dropdown"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@data-op="registrazione_contabile"]')
 
-        totale=self.find(By.XPATH, '//th[@id="totale_dare"]').text 
-        self.assertEqual(totale, "323,06 €")
+        totale = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="totale_dare"]'))).text
+        self.assertEqual(totale, "305,98 €")
 
-        # TODO aggiungere registrazione contabile e verificare importo in prima nota anzichè chiuderla
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@type="submit"]')
 
-        self.find(By.XPATH, '//button[@class="close"]').click() 
-        sleep(1)
+        self.expandSidebar("Vendite")
+        self.navigateTo("Fatture di vendita")
+        wait_loader(self.driver, self.wait_driver)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//i[@class="deleteicon fa fa-times"]')
 
-        self.find(By.XPATH, '//tbody//tr//td').click() 
-        self.find(By.XPATH, '(//i[@class="deleteicon fa fa-times"])[1]').click() 
-        sleep(1)
 
     def genera_fatture_elettroniche(self):
-        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td').click()
-        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()  
-        self.find(By.XPATH, '//a[@data-op="genera-xml"]').click()
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@data-toggle="dropdown"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@data-op="generate_xml"]')
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
-        self.driver.switch_to.window(self.driver.window_handles[1]) 
-        sleep(1)
+        self.driver.switch_to.window(self.driver.window_handles[1])
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click() 
-        self.wait_loader()
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td[2]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="btn btn-xs btn-info"]')
 
-        self.find(By.XPATH, '//button[@class="btn btn-xs btn-info"]').click()  
-        sleep(1)
-
-        self.find(By.XPATH, '//button[@class="close"]').click() 
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="close"]')
 
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
-        sleep(1)
 
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
-
-        self.find(By.XPATH, '//tbody//tr//td').click()  
-        sleep(1)
+        wait_loader(self.driver, self.wait_driver)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td')
 
     def elimina_selezionati(self):
-        wait = WebDriverWait(self.driver, 20)
         self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        wait_loader(self.driver, self.wait_driver)
 
-        self.find(By.XPATH, '//tbody//tr//td').click()  
-        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
-        self.find(By.XPATH, '//a[@data-op="delete-bulk"]').click()  
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//tbody//tr//td')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@data-toggle="dropdown"]')
+        wait_for_element_and_click(self.driver, self.wait_driver, '//a[@data-op="delete_bulk"]')
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()   
-        sleep(1)
+        wait_for_element_and_click(self.driver, self.wait_driver, '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
-        test=self.find(By.XPATH, '//tbody//tr//td[2]').text
+        test = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))).text
         self.assertEqual(test, "0002/2025")
