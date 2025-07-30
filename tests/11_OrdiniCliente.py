@@ -20,9 +20,9 @@ class OrdiniCliente(Test):
         self.cambia_stato()
         self.fattura_ordini_clienti()
 
-
     def creazione_ordine_cliente(self, cliente: str, file_importi: str):
         self.navigateTo("Ordini cliente")
+        self.wait_loader()
 
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
@@ -30,7 +30,6 @@ class OrdiniCliente(Test):
         select = self.input(modal, 'Cliente')
         select.setByText(cliente)
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
 
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
@@ -127,27 +126,19 @@ class OrdiniCliente(Test):
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td').click()
+        self.wait_for_element_and_click('//tbody//tr//td')
+        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
+        self.wait_for_element_and_click('//a[@data-op="create_invoice"]')
 
-        self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click()
-        self.find(By.XPATH, '//a[@data-op="create_invoice"]').click()
-        sleep(1)
-
-        self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Cliente')
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()
-        self.wait_loader()
+        self.wait_for_dropdown_and_select('//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        tipo=self.find(By.XPATH, '//tbody//tr[3]//td[5]').text
+        tipo = self.find(By.XPATH, '//tbody//tr[3]//td[5]').text
         self.assertEqual(tipo, "Fattura immediata di vendita")
 
-        self.find(By.XPATH, '//tbody//tr//td[4]').click()
-        self.wait_loader()
-
-        self.find(By.XPATH, '//a[@id="elimina"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
+        self.wait_for_element_and_click('//tbody//tr//td[4]')
+        self.wait_for_element_and_click('//a[@id="elimina"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
