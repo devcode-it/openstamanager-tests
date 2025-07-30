@@ -246,6 +246,18 @@ def wait_for_element_and_click(driver: WebDriver, wait_driver: WebDriverWait, se
 
 
 def wait_for_dropdown_and_select(driver: WebDriver, wait_driver: WebDriverWait, dropdown_xpath: str, option_xpath: str = None, option_text: str = None) -> None:
+    # Check if the desired option is already selected
+    if option_text:
+        try:
+            dropdown_element = wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, dropdown_xpath))
+            )
+            current_text = dropdown_element.text.strip()
+            if option_text in current_text:
+                return
+        except:
+            pass
+
     wait_for_element_and_click(driver, wait_driver, dropdown_xpath, By.XPATH)
     time.sleep(1)
 
