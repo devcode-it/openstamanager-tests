@@ -1,12 +1,7 @@
 from common.Test import Test, get_html
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from time import sleep
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 
 class StatiContratti(Test):
     def setUp(self):
@@ -30,7 +25,7 @@ class StatiContratti(Test):
         # Verifica Stato dei contratti
         self.verifica_stato_contratti()
 
-    def creazione_stato_contratti(self, descrizione=str, icona=str, colore=str):
+    def creazione_stato_contratti(self, descrizione = str, icona = str, colore = str):
         self.navigateTo("Stati dei contratti")
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
@@ -41,16 +36,13 @@ class StatiContratti(Test):
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
 
-    def modifica_stato_contratti(self, modifica=str):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Stati dei contratti")
+    def modifica_stato_contratti(self, modifica = str):
+                self.navigateTo("Stati dei contratti")
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Stato dei Contratti di Prova da Modificare', Keys.ENTER)
-        sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        sleep(1)  
+        self.wait_for_element_and_click('//tbody//tr//td[2]')  
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.input(None,'Descrizione').setValue(modifica)
@@ -61,18 +53,14 @@ class StatiContratti(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
 
     def elimina_stato_contratti(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Stati dei contratti")
+                self.navigateTo("Stati dei contratti")
         self.wait_loader()    
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Stato dei Contratti di Prova da Eliminare', Keys.ENTER)
-        sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        sleep(1)
+        self.wait_for_element_and_click('//tbody//tr//td[2]')
 
         self.driver.execute_script('window.scrollTo(0,0)')
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
@@ -80,25 +68,20 @@ class StatiContratti(Test):
         self.wait_loader()     
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
         
     def verifica_stato_contratti(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Stati dei contratti")
+                self.navigateTo("Stati dei contratti")
         self.wait_loader()    
 
         # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Stato dei Contratti di Prova", Keys.ENTER)
-        sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
-        self.assertEqual("Stato dei Contratti di Prova",modificato)
+        modificato = self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
+        self.assertEqual("Stato dei Contratti di Prova", modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
 
         # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Stato dei Contratti di Prova da Eliminare", Keys.ENTER)
-        sleep(1)
         
-        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+        eliminato = self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)

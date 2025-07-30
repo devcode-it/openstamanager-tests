@@ -2,12 +2,7 @@ from common.Test import Test, get_html
 from common.RowManager import RowManager
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from time import sleep
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 
 class GiacenzeSedi(Test):
     def setUp(self):
@@ -15,8 +10,7 @@ class GiacenzeSedi(Test):
 
         
     def test_giacenze_sedi(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Statistiche")
+                self.navigateTo("Statistiche")
         self.wait_loader()
 
         periodi = self.find(By.XPATH, '(//h4[@class="card-title"])[1]').text

@@ -1,17 +1,12 @@
 from common.Test import Test, get_html
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from time import sleep
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class Listini(Test):
     def setUp(self):
         super().setUp()
         self.navigateTo("Magazzino")
-
 
     def test_creazione_listino_cliente(self):
         # Crea un nuovo listino cliente. *Required*
@@ -49,91 +44,70 @@ class Listini(Test):
         self.wait_loader()
 
     def modifica_listino_cliente(self, modifica:str):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Listini cliente")
+                self.navigateTo("Listini cliente")
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Listino cliente di Prova da Modificare', Keys.ENTER)
-        sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        self.wait_loader()  
+        self.wait_for_element_and_click('//tbody//tr//td[2]')  
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-selection select2-selection--single"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys("001")
-        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))).send_keys(Keys.ENTER)
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="btn-group btn-group-flex"]//button[@class="btn btn-primary"]'))).click()
-        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("10,00")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="sconto_percentuale"]'))).send_keys("10")
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//button[@class="btn btn-success"])[2]'))).click()
-        sleep(1)
 
         self.input(None,'Nome').setValue(modifica)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@id="save"]'))).click()
-        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="back"]'))).click()
-        sleep(1)
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
 
     def elimina_listino_cliente(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Listini cliente")
+                self.navigateTo("Listini cliente")
         self.wait_loader() 
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Listino cliente di Prova da Eliminare', Keys.ENTER)
-        sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        sleep(1)
+        self.wait_for_element_and_click('//tbody//tr//td[2]')
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
-        sleep(1)
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
 
     def verifica_listino_cliente(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Listini cliente")
+                self.navigateTo("Listini cliente")
         self.wait_loader()    
 
         # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Listino cliente di Prova", Keys.ENTER)
-        sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
-        self.assertEqual("Listino cliente di Prova",modificato)
+        modificato = self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
+        self.assertEqual("Listino cliente di Prova", modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
 
         # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Listino cliente di Prova da Eliminare", Keys.ENTER)
-        sleep(1)
 
-        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[1]').text
-        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+        eliminato = self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[1]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
 
         self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
 
     def aggiorna_listino_cliente(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Anagrafiche")
+                self.navigateTo("Anagrafiche")
         self.wait_loader() 
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)   
-        sleep(1)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
 
-        self.find(By.XPATH, '//tbody//tr//td').click() 
+        self.wait_for_element_and_click('//tbody//tr//td') 
         self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@data-op="aggiorna-listino"]'))).click()    
         self.find(By.XPATH, '//span[@id="select2-id_listino-container"]').click()
@@ -141,7 +115,7 @@ class Listini(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click()  
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()  
+        self.wait_for_element_and_click('//tbody//tr//td[2]')  
         self.wait_loader()
 
         self.find(By.XPATH, '(//span[@class="select2-selection__clear"])[4]').click()  
@@ -151,26 +125,21 @@ class Listini(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/i[@class="deleteicon fa fa-times"]').click() 
-        sleep(1)
+        self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/i[@class="deleteicon fa fa-times"]').click()
 
         self.navigateTo("Magazzino")
 
     def aggiungi_a_listino_cliente(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Articoli")
+                self.navigateTo("Articoli")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("001", Keys.ENTER) 
-        sleep(1)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("001", Keys.ENTER)
 
-        self.find(By.XPATH, '//tbody//tr//td').click() 
+        self.wait_for_element_and_click('//tbody//tr//td') 
         self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
-        self.find(By.XPATH, '//a[@data-op="add-listino"]').click() 
-        sleep(1)
+        self.find(By.XPATH, '//a[@data-op="add-listino"]').click()
 
-        self.find(By.XPATH, '//span[@id="select2-id_listino-container"]').click() 
-        sleep(1)
+        self.find(By.XPATH, '//span[@id="select2-id_listino-container"]').click()
 
         self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="sconto_percentuale"]'))).send_keys("10")   
@@ -180,11 +149,11 @@ class Listini(Test):
         self.navigateTo("Listini cliente")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click() 
+        self.wait_for_element_and_click('//tbody//tr//td[2]') 
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//tr[1]//td[8]'))) 
-        self.find(By.XPATH, '//tr[1]//td[9]//a[2]').click()
+        self.wait_for_element_and_click('//tr[1]//td[9]//a[2]')
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]').click() 
         self.wait_loader()
         

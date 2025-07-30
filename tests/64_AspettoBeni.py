@@ -1,12 +1,7 @@
 from common.Test import Test, get_html
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from time import sleep
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 
 class AspettoBeni(Test):
     def setUp(self):
@@ -14,7 +9,6 @@ class AspettoBeni(Test):
 
         self.expandSidebar("Strumenti")
         self.expandSidebar("Tabelle")
-
 
     def test_creazione_aspetto_beni(self):
         # Creazione aspetto beni    *Required*
@@ -30,7 +24,7 @@ class AspettoBeni(Test):
         # Verifica Aspetto Beni
         self.verifica_aspetto_beni()
 
-    def creazione_aspetto_beni(self, descrizione=str):
+    def creazione_aspetto_beni(self, descrizione = str):
         self.navigateTo("Aspetto beni")
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
@@ -39,16 +33,13 @@ class AspettoBeni(Test):
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         self.wait_loader()
 
-    def modifica_aspetto_beni(self, modifica=str):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Aspetto beni")
+    def modifica_aspetto_beni(self, modifica = str):
+                self.navigateTo("Aspetto beni")
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Aspetto Beni di Prova da Modificare', Keys.ENTER)
-        sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        sleep(1)  
+        self.wait_for_element_and_click('//tbody//tr//td[2]')  
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.input(None,'Descrizione').setValue(modifica)
@@ -59,18 +50,14 @@ class AspettoBeni(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
 
     def elimina_aspetto_beni(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Aspetto beni")
+                self.navigateTo("Aspetto beni")
         self.wait_loader()    
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Aspetto Beni di Prova da Eliminare', Keys.ENTER)
-        sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        sleep(1)
+        self.wait_for_element_and_click('//tbody//tr//td[2]')
 
         self.driver.execute_script('window.scrollTo(0,0)')
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
@@ -78,25 +65,20 @@ class AspettoBeni(Test):
         self.wait_loader()      
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
         
     def verifica_aspetto_beni(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Aspetto beni")
+                self.navigateTo("Aspetto beni")
         self.wait_loader()    
 
         # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Aspetto Beni di Prova", Keys.ENTER)
-        sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
-        self.assertEqual("Aspetto Beni di Prova",modificato)
+        modificato = self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
+        self.assertEqual("Aspetto Beni di Prova", modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
 
         # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Aspetto Beni di Prova da Eliminare", Keys.ENTER)
-        sleep(1)
         
-        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+        eliminato = self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)

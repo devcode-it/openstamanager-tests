@@ -1,10 +1,6 @@
 from common.Test import Test, get_html
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from time import sleep
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from common.RowManager import RowManager
 
@@ -18,13 +14,12 @@ class Impostazioni(Test):
         self.cambia_stato_ddt_fatturati(importi[0])
 
     def cambia_stato_ddt_fatturati(self, file_importi: str):
-        wait = WebDriverWait(self.driver, 20) 
+        wait = self.wait_driver 
         self.expandSidebar("Magazzino")
         self.navigateTo("Ddt in entrata")
         self.wait_loader()
 
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
-        sleep(1)
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Admin spa", Keys.ENTER)
@@ -33,10 +28,8 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click() 
         self.wait_loader()
 
-
         row_manager = RowManager(self)
-        self.valori=row_manager.compile(file_importi)
-        sleep(1)
+        self.valori = row_manager.compile(file_importi)
 
         self.find(By.XPATH, '//span[@id="select2-idstatoddt-container"]').click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Evaso", Keys.ENTER)
@@ -46,10 +39,9 @@ class Impostazioni(Test):
         self.navigateTo("Ddt in entrata")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td').click()   
+        self.wait_for_element_and_click('//tbody//tr//td')   
         self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
-        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click() 
-        sleep(1)
+        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click()
 
         self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()   
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
@@ -57,13 +49,11 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
         self.wait_loader()
 
-        stato=self.find(By.XPATH, '//tbody//tr//td[11]').text 
+        stato = self.find(By.XPATH, '//tbody//tr//td[11]').text 
         self.assertEqual(stato, "Fatturato")
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
-        self.wait_loader()
+        self.wait_for_element_and_click('//tbody//tr[1]//td[2]')
 
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
-        sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
@@ -72,7 +62,7 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click() 
+        self.wait_for_element_and_click('//tbody//tr//td[2]') 
         self.wait_loader()
     
         self.find(By.XPATH, '//a[@id="elimina"]').click()   
@@ -83,26 +73,22 @@ class Impostazioni(Test):
         self.navigateTo("Ddt in uscita")
         self.wait_loader()
 
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click() 
-        sleep(1)
+        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
 
         self.find(By.XPATH, '//span[@id="select2-idanagrafica_add-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Admin spa")
-        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
 
         self.find(By.XPATH, '//span[@id="select2-idcausalet-container"]').click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Conto lavorazione")
-        sleep(1)
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
         self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
         self.wait_loader()
 
         row_manager = RowManager(self)
-        self.valori=row_manager.compile(file_importi)
-        sleep(1)
+        self.valori = row_manager.compile(file_importi)
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.find(By.XPATH, '//span[@id="select2-idstatoddt-container"]').click() 
@@ -113,10 +99,9 @@ class Impostazioni(Test):
         self.navigateTo("Ddt in uscita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td').click()    
+        self.wait_for_element_and_click('//tbody//tr//td')    
         self.find(By.XPATH, '//button[@data-toggle="dropdown"]').click() 
-        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click()  
-        sleep(1)
+        self.find(By.XPATH, '//a[@data-op="crea_fattura"]').click()
 
         self.find(By.XPATH, '//span[@id="select2-raggruppamento-container"]').click()   
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
@@ -124,13 +109,11 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]').click() 
         self.wait_loader()
 
-        stato2=self.find(By.XPATH, '//tbody//tr//td[11]').text  
+        stato2 = self.find(By.XPATH, '//tbody//tr//td[11]').text  
         self.assertEqual(stato2, "Fatturato")
-        self.find(By.XPATH, '//tbody//tr[1]//td[2]').click()
-        self.wait_loader()
+        self.wait_for_element_and_click('//tbody//tr[1]//td[2]')
 
         self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
-        sleep(1)
 
         self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
         self.wait_loader()
@@ -139,7 +122,7 @@ class Impostazioni(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()  
+        self.wait_for_element_and_click('//tbody//tr//td[2]')  
         self.wait_loader()
     
         self.find(By.XPATH, '//a[@id="elimina"]').click()  

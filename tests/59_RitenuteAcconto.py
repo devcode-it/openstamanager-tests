@@ -1,12 +1,7 @@
 from common.Test import Test, get_html
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from time import sleep
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 
 class RitenuteAcconto(Test):
     def setUp(self):
@@ -30,7 +25,7 @@ class RitenuteAcconto(Test):
         # Verifica Ritenuta Acconto
         self.verifica_ritenuta_acconto() 
 
-    def creazione_ritenute_acconto(self, descrizione=str, percentuale=str, percentualeimp=str):
+    def creazione_ritenute_acconto(self, descrizione = str, percentuale = str, percentualeimp = str):
         self.navigateTo("Ritenute acconto")
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
         modal = self.wait_modal()
@@ -42,15 +37,12 @@ class RitenuteAcconto(Test):
         self.wait_loader()
     
     def modifica_ritenuta_acconto(self, modifica):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Ritenute acconto")
+                self.navigateTo("Ritenute acconto")
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Ritenuta Acconto di Prova da Modificare', Keys.ENTER)
-        sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        sleep(1)      
+        self.wait_for_element_and_click('//tbody//tr//td[2]')      
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.input(None,'Descrizione').setValue(modifica)
@@ -61,18 +53,14 @@ class RitenuteAcconto(Test):
         self.wait_loader()    
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
 
     def elimina_ritenuta_acconto(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Ritenute acconto")
+                self.navigateTo("Ritenute acconto")
         self.wait_loader()    
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys('Ritenuta Acconto di Prova da Eliminare', Keys.ENTER)
-        sleep(1)
 
-        self.find(By.XPATH, '//tbody//tr//td[2]').click()
-        sleep(1)
+        self.wait_for_element_and_click('//tbody//tr//td[2]')
 
         self.driver.execute_script('window.scrollTo(0,0)')
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
@@ -80,25 +68,20 @@ class RitenuteAcconto(Test):
         self.wait_loader()     
 
         self.find(By.XPATH, '//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
         
     def verifica_ritenuta_acconto(self):
-        wait = WebDriverWait(self.driver, 20)
-        self.navigateTo("Ritenute acconto")
+                self.navigateTo("Ritenute acconto")
         self.wait_loader()    
 
         # Verifica elemento modificato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Ritenuta Acconto di Prova", Keys.ENTER)
-        sleep(1)
 
-        modificato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
-        self.assertEqual("Ritenuta Acconto di Prova",modificato)
+        modificato = self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
+        self.assertEqual("Ritenuta Acconto di Prova", modificato)
         self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
-        sleep(1)
 
         # Verifica elemento eliminato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))).send_keys("Ritenuta Acconto di Prova da Eliminare", Keys.ENTER)
-        sleep(1)
         
-        eliminato=self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("La ricerca non ha portato alcun risultato.",eliminato)
+        eliminato = self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
