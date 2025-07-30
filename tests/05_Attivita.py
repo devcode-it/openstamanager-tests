@@ -1,6 +1,5 @@
 from common.Test import Test, get_html
 from common.RowManager import RowManager
-from common.functions import wait_for_dropdown_and_select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -43,9 +42,7 @@ class Attivita(Test):
         self.navigateTo('Attività')
         self.click_first_result()
         self.wait_for_element_and_click('//div[@id="pulsanti"]//button[1]')
-        wait_for_dropdown_and_select(
-            self.driver,
-            self.wait_driver,
+        self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_stato-container"]',
             option_xpath='//span[@class="select2-results"]//li[2]'
         )
@@ -127,16 +124,12 @@ class Attivita(Test):
         self.send_keys_and_wait(search_input, '1', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        wait_for_dropdown_and_select(
-            self.driver,
-            self.wait_driver,
+        self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="change_status"]'
         )
 
-        wait_for_dropdown_and_select(
-            self.driver,
-            self.wait_driver,
+        self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_stato-container"]',
             option_text='Da programmare'
         )
@@ -153,16 +146,12 @@ class Attivita(Test):
         self.send_keys_and_wait(search_input, '1', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        wait_for_dropdown_and_select(
-            self.driver,
-            self.wait_driver,
+        self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="copy_bulk"]'
         )
 
-        wait_for_dropdown_and_select(
-            self.driver,
-            self.wait_driver,
+        self.wait_for_dropdown_and_select(
             '//span[@id="select2-idstatointervento-container"]',
             option_text='Da programmare'
         )
@@ -181,9 +170,7 @@ class Attivita(Test):
         self.send_keys_and_wait(search_input, '2', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        wait_for_dropdown_and_select(
-            self.driver,
-            self.wait_driver,
+        self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="delete_bulk"]'
         )
@@ -199,9 +186,7 @@ class Attivita(Test):
 
         self.navigateTo('Attività')
         self.wait_for_element_and_click('//tbody//tr//td')
-        wait_for_dropdown_and_select(
-            self.driver,
-            self.wait_driver,
+        self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="firma-intervento"]'
         )
@@ -220,16 +205,12 @@ class Attivita(Test):
         self.send_keys_and_wait(search_input, '2', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        wait_for_dropdown_and_select(
-            self.driver,
-            self.wait_driver,
+        self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="create_invoice"]'
         )
 
-        wait_for_dropdown_and_select(
-            self.driver,
-            self.wait_driver,
+        self.wait_for_dropdown_and_select(
             '//span[@id="select2-raggruppamento-container"]',
             option_text='Cliente'
         )
@@ -253,14 +234,12 @@ class Attivita(Test):
         self.send_keys_and_wait(search_input, '2', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        wait_for_dropdown_and_select(
-            self.driver,
-            self.wait_driver,
+        self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="print_summary"]'
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
-        
+
         self.driver.switch_to.window(self.driver.window_handles[1])
         prezzo = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[40]'))).text
         self.assertEqual(prezzo, '0,00')
