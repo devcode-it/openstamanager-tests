@@ -1,30 +1,25 @@
-from common.Test import Test, get_html
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from common.Test import Test
+
 
 class SettoriMerceologici(Test):
     def setUp(self):
         super().setUp()
-
         self.expandSidebar("Anagrafiche")
-        self.navigateTo("Settori merceologici")
+        self.wait_loader()
 
     def test_creazione_settori_merceologici(self):
-        # Creazione settore merceologico      *Required*
         self.creazione_settori_merceologici("Settore Merceologico di Prova da Modificare")
-
-        # Modifica settore merceologico
         self.modifica_settori_merceologici("Settore Merceologico di Prova")
-
         self.creazione_settori_merceologici("Settore Merceologico di Prova da Eliminare")
-        # Cancellazione settore merceologico
         self.elimina_settore_merceologico()
-
-        # Verifica settore merceologico
         self.verifica_settore_merceologico()
 
     def creazione_settori_merceologici(self, descrizione=str):
+        self.navigateTo("Settori merceologici")
+        self.wait_loader()
+
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
@@ -35,43 +30,46 @@ class SettoriMerceologici(Test):
         self.navigateTo("Settori merceologici")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))), 'Settore Merceologico di Prova da Modificare', False)
+        search_input = self.find(By.XPATH, '//th[@id="th_descrizione"]/input')
+        self.send_keys_and_wait(search_input, 'Settore Merceologico di Prova da Modificare', False)
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_result()
 
         self.driver.execute_script('window.scrollTo(0,0)')
-        self.input(None,'Descrizione').setValue(modifica)
+        self.input(None, 'Descrizione').setValue(modifica)
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
         self.navigateTo("Settori merceologici")
         self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_descrizione"]/i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
     def elimina_settore_merceologico(self):
         self.navigateTo("Settori merceologici")
         self.wait_loader()
-
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))), 'Settore merceologico di Prova da Eliminare', False)
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        search_input = self.find(By.XPATH,'//th[@id="th_descrizione"]/input')
+        self.send_keys_and_wait(search_input, 'Settore Merceologico di Prova da Eliminare', wait_modal=False)
+        elemento = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))
+        )
+        elemento.click()
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
-
-        self.wait_for_element_and_click('//th[@id="th_descrizione"]/i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
     def verifica_settore_merceologico(self):
-        self.navigateTo("Settori merceologici")
-        self.wait_loader()
-
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))), "Settore Merceologico di Prova", False)
-
-        modificato = self.driver.find_element(By.XPATH, '//tbody//tr[1]//td[3]').text
+        search_input = self.find(By.XPATH,'//th[@id="th_descrizione"]/input')
+        self.send_keys_and_wait(search_input, "Settore Merceologico di Prova", wait_modal=False)
+        modificato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[3]'))
+        ).text
         self.assertEqual("Settore Merceologico di Prova", modificato)
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))), "Settore Merceologico di Prova da Eliminare", False)
-
-        eliminato = self.driver.find_element(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        search_input = self.wait_for_element_and_click('//th[@id="th_descrizione"]/input')
+        self.send_keys_and_wait(search_input, "Settore Merceologico di Prova da Eliminare", wait_modal=False)
+        eliminato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
+        ).text
         self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
