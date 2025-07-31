@@ -56,6 +56,7 @@ class StatoServizi(Test):
 
     def _crea_anagrafica(self, nome: str, tipo: str):
         self.navigateTo("Anagrafiche")
+        self.wait_loader()
 
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
@@ -66,11 +67,11 @@ class StatoServizi(Test):
 
     def _compila_anagrafica_estera(self, nome: str, piva: str, nazione: str, citta: str):
         self.navigateTo("Anagrafiche")
+        self.wait_loader()
 
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]')))
 
         self.search_entity(nome)
-
         self.click_first_result()
         self.wait_loader()
 
