@@ -55,17 +55,8 @@ class Anagrafiche(Test):
         address_field.clear()
         self.send_keys_and_wait(address_field, "Via controllo caratteri speciali: &\"<>èéàòùì?'`", wait_modal=False)
 
-        cap_field = self.wait_driver.until(
-            EC.element_to_be_clickable((By.XPATH, '//label[contains(., "C.A.P.")]/parent::div/parent::div//input'))
-        )
-        cap_field.clear()
-        cap_field.send_keys("35042")
-
-        city_field = self.wait_driver.until(
-            EC.element_to_be_clickable((By.XPATH, '//label[contains(., "Città")]/parent::div/parent::div//input'))
-        )
-        city_field.clear()
-        city_field.send_keys("Este")
+        self.input(None, 'C.A.P.').setValue("35042")
+        self.input(None, 'Città').setValue("Este")
 
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()
