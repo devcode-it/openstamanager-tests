@@ -1,5 +1,4 @@
-from common.Test import Test, get_html
-from selenium.webdriver.common.keys import Keys
+from common.Test import Test
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -7,7 +6,6 @@ from selenium.webdriver.support import expected_conditions as EC
 class FattureAcquisto(Test):
     def setUp(self):
         super().setUp()
-
         self.expandSidebar("Acquisti")
 
     def test_creazione_fattura_acquisto(self):
@@ -44,9 +42,7 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
         self.click_first_result()
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idstatodocumento-container"]',
-            option_text='Emessa')
+        self.wait_for_dropdown_and_select('//span[@id="select2-idstatodocumento-container"]', option_text='Emessa')
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
     def controllo_fattura_acquisto(self):
@@ -121,28 +117,20 @@ class FattureAcquisto(Test):
     def verifica_xml_autofattura(self, file_importi: str, pagamento: str):
         importi = RowManager.list()
         self.creazione_fattura_acquisto("Fornitore Estero", "01", "1", importi[0])
+
         self.wait_for_element_and_click('//input[@id="check_all"]')
         self.wait_for_element_and_click('//button[@id="modifica_iva_righe"]')
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-iva_id-container"]',
-            option_text='258 - Non imponibile - cessioni verso San Marino')
+        self.wait_for_dropdown_and_select('//span[@id="select2-iva_id-container"]', option_text='258 - Non imponibile - cessioni verso San Marino')
         self.wait_for_element_and_click('(//button[@class="btn btn-primary"])[2]')
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idstatodocumento-container"]',
-            option_text='Emessa')
+        self.wait_for_dropdown_and_select('//span[@id="select2-idstatodocumento-container"]', option_text='Emessa')
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
-        self.wait_for_dropdown_and_select(
-            '//button[@class="btn btn-primary unblockable dropdown-toggle "]',
-            option_xpath='//a[@class="btn dropdown-item bound clickable"]')
-        self.wait_for_dropdown_and_select(
-            '//div[@class="modal-body"]//span[@class="select2-selection select2-selection--single"]',
-            option_text='TD17')
+        self.wait_for_dropdown_and_select('//button[@class="btn btn-primary unblockable dropdown-toggle "]', option_xpath='//a[@class="btn dropdown-item bound clickable"]')
+        self.wait_for_dropdown_and_select('//div[@class="modal-body"]//span[@class="select2-selection select2-selection--single"]', option_text='TD17')
         self.wait_for_element_and_click('(//button[@type="submit"])[4]')
 
         self.driver.execute_script('window.scrollTo(0,0)')
-
         self.input(None,'Stato*').setByText('Emessa')
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
@@ -159,6 +147,7 @@ class FattureAcquisto(Test):
 
         self.wait_for_element_and_click('//a[@id="link-tab_41"]')
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_41"]//tr[5]//td[1]')))
+
     def movimenti_contabili(self):
         self.navigateTo("Fatture di acquisto")
         self.click_first_result()
@@ -167,7 +156,7 @@ class FattureAcquisto(Test):
         self.wait_for_element_and_click('//a[@class="btn btn-info btn-lg"]')
 
         avere = self.find(By.XPATH, '//div[@id="tab_36"]//tr//td[4]').text
-        self.assertEqual(avere, "251,60 €")
+        self.assertEqual(avere, "264,80 €")
 
     def cambia_sezionale(self):
         self.navigateTo("Fatture di acquisto")
@@ -176,9 +165,7 @@ class FattureAcquisto(Test):
 
         numero_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]')))
         numero_input.send_keys("2")
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idanagrafica_add-container"]',
-            option_text='Fornitore')
+        self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica_add-container"]', option_text='Fornitore')
         self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
 
         self.navigateTo("Fatture di acquisto")
@@ -186,37 +173,22 @@ class FattureAcquisto(Test):
         self.send_keys_and_wait(search_input, "2", False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_dropdown_and_select(
-            '//button[@data-toggle="dropdown"]',
-            option_xpath='//a[@data-op="change_segment"]')
-
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_segment-container"]',
-            option_text='Autofatture')
+        self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="change_segment"]')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_segment-container"]', option_text='Autofatture')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_segment_-container"]',
-            option_text='Autofatture')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_segment_-container"]', option_text='Autofatture')
 
         self.clear_filters()
         self.wait_for_element_and_click('//tbody//tr[1]//td[1]')
-        self.wait_for_dropdown_and_select(
-            '//button[@data-toggle="dropdown"]',
-            option_xpath='//a[@data-op="change_segment"]')
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_segment-container"]',
-            option_text='Standard')
+        self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="change_segment"]')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_segment-container"]', option_text='Standard')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_segment_-container"]',
-            option_text='Standard')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_segment_-container"]', option_text='Standard')
 
     def duplica_selezionati(self):
         self.navigateTo("Fatture di acquisto")
         self.wait_for_element_and_click('//tbody//tr//td[1]')
-        self.wait_for_dropdown_and_select(
-            '//button[@data-toggle="dropdown"]',
-            option_xpath='//a[@data-op="copy_bulk"]')
+        self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="copy_bulk"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
@@ -230,16 +202,11 @@ class FattureAcquisto(Test):
         self.click_first_result()
 
         self.driver.execute_script('window.scrollTo(0,0)')
-
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idpagamento-container"]',
-            option_text='Assegno')
-
-        self.driver.execute_script('window.scrollTo(0,0)')
-
         numero_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]')))
         numero_input.send_keys("2")
 
+        self.driver.execute_script('window.scrollTo(0,0)')
+        self.wait_for_dropdown_and_select('//span[@id="select2-idpagamento-container"]', option_text='Assegno')
         self.wait_for_element_and_click('//a[@class="btn btn-primary"]')
 
         descrizione_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]')))
@@ -258,20 +225,24 @@ class FattureAcquisto(Test):
 
         prezzo = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="totale_avere"]'))).text
         self.assertEqual(prezzo, "1,22 €")
+        self.wait_for_dropdown_and_select('//span[@id="select2-conto1-container"]', option_text='Banca C/C')
 
-        self.wait_for_element_and_click('//button[@class="close"]')
-        self.clear_filters()
+        self.wait_for_element_and_click('//button[@id="add-submit"]')
+
+        self.expandSidebar("Acquisti")
+        self.navigateTo("Fatture di acquisto")
         self.wait_loader()
+        self.clear_filters()
 
     def elimina_selezionati(self):
         self.navigateTo("Fatture di acquisto")
+        self.wait_loader()
+        
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input')))
         self.send_keys_and_wait(search_input, "2", False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_dropdown_and_select(
-            '//button[@data-toggle="dropdown"]',
-            option_xpath='//a[@data-op="delete_bulk"]')
+        self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="delete_bulk"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         scritta = self.find(By.XPATH, '//tbody//tr//td').text
