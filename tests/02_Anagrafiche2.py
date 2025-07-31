@@ -240,7 +240,7 @@ class AnagraficheBis(Test):
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-idanagrafica_add-container"]',
-            option_text="Cliente"
+            option_text="Cliente (Este)"
         )
         self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
 

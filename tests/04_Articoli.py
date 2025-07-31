@@ -34,7 +34,9 @@ class Articoli(Test):
         self.aggiorna_prezzo_unitario()
         self.copia_listini()
         self.imposta_prezzo_da_fattura()
-        self.stampa_etichette()
+
+        # barcode è ora su un plugin
+        #self.stampa_etichette()
         self.elimina_selezionati()
 
     def creazione_articolo(self, codice: str, descrizione: str, qta: str):

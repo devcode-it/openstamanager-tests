@@ -203,8 +203,8 @@ class Contratti(Test):
         self.wait_loader()
 
         self.wait_for_element_and_click('(//div[@id="widget_11"]//div)[2]')
-        self.wait_for_element_and_click('//a[@data-month="2"]')
-        self.wait_for_element_and_click('(//button[@class="btn btn-default btn-sm"])[1]')
+        self.wait_for_element_and_click('(//div[@class="month-button-wrapper mr-2 mb-2"])[2]')
+        self.wait_for_element_and_click('//button[@class="btn btn-success btn-sm"]')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-idtipodocumento-container"]', option_text='Fattura immediata di vendita')
         self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')

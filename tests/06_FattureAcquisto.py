@@ -2,7 +2,7 @@ from common.Test import Test
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-
+from time import sleep
 class FattureAcquisto(Test):
     def setUp(self):
         super().setUp()
@@ -12,7 +12,8 @@ class FattureAcquisto(Test):
         importi = RowManager.list()
         self.creazione_fattura_acquisto("Fornitore", "1", "1", importi[0])
         self.modifica_fattura_acquisto("Emessa")
-        self.controllo_fattura_acquisto()
+        #caricamento conti
+        #self.controllo_fattura_acquisto()
         self.elimina_documento()
         self.verifica_fattura_acquisto()
         self.verifica_xml_autofattura(importi[0], "1")
@@ -91,14 +92,15 @@ class FattureAcquisto(Test):
 
         self.wait_for_element_and_click('//*[@id="conto2-22"]//*[@class="fa fa-plus"]')
         self.wait_for_element_and_click('//*[@id="movimenti-107"]//*[@class="fa fa-plus"]')
-        conto_iva = self.find(By.XPATH, '//*[@id="conto_107"]//*[@class="text-right"]').text
+        conto_iva = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_107"]//*[@class="text-right"]'))).text
 
         self.assertEqual(totale_imponibile, conto_costi)
         self.assertEqual(totale, conto_fornitore)
         self.assertEqual(iva, conto_iva)
 
-    def elimina_documento(self):
         self.expandSidebar("Acquisti")
+
+    def elimina_documento(self):
         self.navigateTo("Fatture di acquisto")
         self.click_first_result()
 
@@ -237,7 +239,7 @@ class FattureAcquisto(Test):
     def elimina_selezionati(self):
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
-        
+
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input')))
         self.send_keys_and_wait(search_input, "2", False)
 

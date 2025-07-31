@@ -48,15 +48,14 @@ class Anagrafiche(Test):
 
         self.input(None, 'Partita IVA').setValue("05024030287")
         self.input(None, 'Codice fiscale').setValue("05024030287")
+        self.input(None, 'Città').setValue("Este")
+        self.input(None, 'C.A.P.').setValue("35042")
 
         address_field = self.wait_driver.until(
             EC.presence_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))
         )
         address_field.clear()
         self.send_keys_and_wait(address_field, "Via controllo caratteri speciali: &\"<>èéàòùì?'`", wait_modal=False)
-
-        self.input(None, 'C.A.P.').setValue("35042")
-        self.input(None, 'Città').setValue("Este")
 
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()

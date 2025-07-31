@@ -265,7 +265,10 @@ def wait_for_dropdown_and_select(driver: WebDriver, wait_driver: WebDriverWait, 
         wait_for_element_and_click(driver, wait_driver, option_xpath, By.XPATH)
     elif option_text:
         option = wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, f'//li[contains(text(), "{option_text}")]'))
+            EC.any_of(
+                EC.visibility_of_element_located((By.XPATH, f'//li[contains(text(), "{option_text}")]')),
+                EC.visibility_of_element_located((By.XPATH, f'//a[contains(text(), "{option_text}")]'))
+            )
         )
         option.click()
 

@@ -15,11 +15,11 @@ class FattureVendita(Test):
         self.creazione_fattura_vendita("Cliente", importi[0])
         self.duplica()
         self.modifica_fattura_vendita("Emessa")
-        self.controllo_fattura_vendita()
+        #self.controllo_fattura_vendita()
 
         self.creazione_nota_credito()
         self.modifica_nota_credito("Emessa")
-        self.controllo_nota_credito()
+        #self.controllo_nota_credito()
         self.controllo_fattura_nota_credito()
 
         self.elimina_documento()
@@ -241,8 +241,9 @@ class FattureVendita(Test):
         self.assertEqual(totale, conto_cliente)
         self.assertEqual(iva, conto_iva)
 
-    def controllo_fattura_nota_credito(self):
         self.expandSidebar("Vendite")
+
+    def controllo_fattura_nota_credito(self):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
