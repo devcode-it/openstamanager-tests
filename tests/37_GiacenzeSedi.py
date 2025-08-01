@@ -1,6 +1,5 @@
-from common.Test import Test, get_html
+from common.Test import Test
 from common.RowManager import RowManager
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -8,99 +7,85 @@ class GiacenzeSedi(Test):
     def setUp(self):
         super().setUp()
         self.expandSidebar("Magazzino")
-        
-    def test_giacenze_sedi(self):
-        # Aggiunta sede
-        self.aggiunta_sede()
 
-        # Creazione ddt in uscita
+    def test_giacenze_sedi(self):
+        self.aggiunta_sede()
         importi = RowManager.list()
         self.creazione_ddt_uscita("Admin spa", "Vendita", importi[0])
-
-        # Trasporto sedi
         self.trasporto()
-
-        # Verifica movimenti sede  
         self.verifica_movimenti()
 
     def aggiunta_sede(self):
-                self.navigateTo("Anagrafiche")
- 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Admin spa", Keys.ENTER)
+        self.navigateTo("Anagrafiche")
+        self.wait_loader()
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]') 
+        self.search_entity("Admin spa")
+        self.click_first_result()
 
-        #Aggiunta sede
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_4"]'))).click()
-
-        self.find(By.XPATH, '//div[@id="tab_4"]//i[@class="fa fa-plus"]').click()
+        self.wait_for_element_and_click('//a[@id="link-tab_4"]')
+        self.wait_for_element_and_click('//div[@id="tab_4"]//i[@class="fa fa-plus"]')
+        modal = self.wait_modal()
 
         self.input(None, 'Nome sede').setValue("Sede di Roma")
-        self.find(By.XPATH, '(//input[@id="cap"])[2]').send_keys("35042")
-        self.find(By.XPATH, '(//input[@id="citta"])[2]').click()
-        self.find(By.XPATH, '(//input[@id="citta"])[2]').send_keys("Roma")
 
-        self.find(By.XPATH, '(//span[@id="select2-id_nazione-container"])[2]').click()
-        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        cap_field = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//input[@id="cap"])[2]')))
+        cap_field.send_keys("35042")
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="form_2-4"]//i[@class="fa fa-plus"])[4]'))).click()
+        citta_field = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//input[@id="citta"])[2]')))
+        citta_field.click()
+        citta_field.send_keys("Roma")
 
-    def creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):  
+        self.wait_for_dropdown_and_select('(//span[@id="select2-id_nazione-container"])[2]', option_xpath='//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('(//div[@id="form_2-4"]//i[@class="fa fa-plus"])[4]')
+
+    def creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):
         self.expandSidebar("Magazzino")
         self.navigateTo("Ddt in uscita")
+        self.wait_loader()
 
-        # Crea un nuovo ddt al cliente indicato. 
-        # Apre la schermata di nuovo elemento
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
+        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
         select = self.input(modal, 'Destinatario')
         select.setByText(cliente)
-        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
 
         select = self.input(modal, 'Causale trasporto')
         select.setByText(causale)
 
-        # Submit
         modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        self.wait_loader()
 
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
 
-        self.find(By.XPATH, '//span[@id="select2-idsede_destinazione-container"]').click()
-        self.find(By.XPATH, '//input[@class="select2-search__field"]').send_keys("Roma")
+        self.wait_for_dropdown_and_select('//span[@id="select2-idsede_destinazione-container"]', option_text='Roma')
+        self.wait_for_dropdown_and_select('//span[@id="select2-idstatoddt-container"]', option_text='Evaso')
 
-        self.find(By.XPATH, '//input[@class="select2-search__field"]').send_keys(Keys.ENTER)
+        self.wait_for_element_and_click('//button[@id="save"]')
 
-        self.find(By.XPATH, '//span[@id="select2-idstatoddt-container"]').click()
-        self.find(By.XPATH, '//input[@class="select2-search__field"]').send_keys("Evaso", Keys.ENTER)    
-        self.find(By.XPATH, '//button[@id="save"]').click() 
-
-    def trasporto(self):  
+    def trasporto(self):
         self.navigateTo("Ddt in uscita")
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]') 
-
-        self.find(By.XPATH, '//button[@onclick="completaTrasporto()"]').click()
-        self.find(By.XPATH, '//span[@id="select2-id_segment-container"]').click()
-        self.find(By.XPATH, '//input[@class="select2-search__field"]').send_keys("Standard ddt in entrata")
-
-        self.find(By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]').click()
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]').click()
-
-    def verifica_movimenti(self):
-                self.navigateTo("Articoli")
         self.wait_loader()
 
-        # Verifica elemento modificato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))).send_keys("001", Keys.ENTER)
+        self.click_first_result()
+        self.wait_for_element_and_click('//button[@onclick="completaTrasporto()"]')
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
- 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//a[@id="link-tab_10"]'))).click()
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_segment-container"]', option_text='Standard ddt in entrata')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        scarico = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr//td[6]'))).text
-        carico = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[3]//td[6]'))).text
+    def verifica_movimenti(self):
+        self.navigateTo("Articoli")
+        self.wait_loader()
+
+        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input')))
+        self.send_keys_and_wait(search_input, "001", wait_modal=False)
+
+        self.click_first_result()
+        self.wait_for_element_and_click('//a[@id="link-tab_10"]')
+
+        scarico = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[2]//td[7]'))).text
+        carico = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[3]//td[7]'))).text
 
         self.assertEqual(scarico, "Sede di Roma")
         self.assertEqual(carico, "Sede legale")
