@@ -1,5 +1,4 @@
-from common.Test import Test, get_html
-from selenium.webdriver.common.keys import Keys
+from common.Test import Test
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -7,134 +6,110 @@ class StampeContabili(Test):
     def setUp(self):
         super().setUp()
         self.navigateTo("Contabilità")
- 
+
     def test_stampecontabili(self):
-        # Test stampe contabili
         self.apri_stampe_contabili()
 
     def apri_stampe_contabili(self):
         self.navigateTo("Stampe contabili")
         self.wait_loader()
 
-        # Stampa registro IVA vendite
-        self.find(By.XPATH, '//button[@data-title="Stampa registro IVA vendite"]').click()
-
-        self.find(By.XPATH, '//span[@id="select2-id_sezionale-container"]').click()
-
-        self.find(By.XPATH, '//ul[@id="select2-id_sezionale-results"]//li[1]').click()
-        self.find(By.XPATH, '//span[@id="select2-format-container"]').click()
-        self.find(By.XPATH, '//ul[@id="select2-format-results"]//li[1]').click()
-        self.find(By.XPATH, '//span[@id="select2-orientation-container"]').click()
-
-        self.find(By.XPATH, '//ul[@id="select2-orientation-results"]//li[1]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-block"]').click()
+        self.wait_for_element_and_click('//button[@data-title="Stampa registro IVA vendite"]')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_sezionale-container"]', '//ul[@id="select2-id_sezionale-results"]//li[1]')
+        self.wait_for_dropdown_and_select('//span[@id="select2-format-container"]', '//ul[@id="select2-format-results"]//li[1]')
+        self.wait_for_dropdown_and_select('//span[@id="select2-orientation-container"]', '//ul[@id="select2-orientation-results"]//li[1]')
+        self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-
-        stampa = self.find(By.XPATH, '//div[@id="viewer"]//span[3]').text
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="viewer"]//span[3]'))).text
         self.assertEqual(stampa, "REGISTRO IVA VENDITE DAL 01/01/2025 AL 31/12/2025 - STANDARD VENDITE")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
-        # Stampa registro IVA acquisti
-        self.find(By.XPATH, '//button[@data-title="Stampa registro IVA acquisti"]').click()
-        
-        self.find(By.XPATH, '//span[@id="select2-id_sezionale-container"]').click()
-
-        self.find(By.XPATH, '//ul[@id="select2-id_sezionale-results"]//li[1]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-block"]').click()
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//button[@data-title="Stampa registro IVA acquisti"]')))
+        self.wait_for_element_and_click('//button[@data-title="Stampa registro IVA acquisti"]')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_sezionale-container"]', '//ul[@id="select2-id_sezionale-results"]//li[1]')
+        self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-
-        stampa = self.find(By.XPATH, '//div[@id="viewer"]//span[3]').text
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="viewer"]//span[3]'))).text
         self.assertEqual(stampa, "REGISTRO IVA ACQUISTI DAL 01/01/2025 AL 31/12/2025 - STANDARD ACQUISTI")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
-        # Stampa liquidazione IVA
-        self.find(By.XPATH, '//button[@data-title="Stampa liquidazione IVA"]').click()
-        
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-block"]').click()
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//button[@data-title="Stampa liquidazione IVA"]')))
+        self.wait_for_element_and_click('//button[@data-title="Stampa liquidazione IVA"]')
+        self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-
-        stampa = self.find(By.XPATH, '(//div[@id="viewer"]//span)[1]').text 
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[1]'))).text
         self.assertEqual(stampa, "PROSPETTO LIQUIDAZIONE IVA DAL 01/01/2025 AL 31/12/2025")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
-        # Stampa Bilancio
-        self.find(By.XPATH, '//button[@data-title="Stampa Bilancio"]').click()
-        
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//button[@data-title="Stampa Bilancio"]')))
+        self.wait_for_element_and_click('//button[@data-title="Stampa Bilancio"]')
+        self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-
-        stampa = self.find(By.XPATH, '//div[@id="viewer"]//span').text
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="viewer"]//span'))).text
         self.assertEqual(stampa, "STAMPA BILANCIO")
-        self.driver.close() 
-        self.driver.switch_to.window(self.driver.window_handles[0]) 
-        self.find(By.XPATH, '//button[@class="close"]').click()
-        
-        # Stampa Situazione patrimoniale
-        self.find(By.XPATH, '(//a[@id="print-button"])[1]').click()
-        
+        self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.wait_for_element_and_click('//button[@class="close"]')
+
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//a[@id="print-button"])[1]')))
+        self.wait_for_element_and_click('(//a[@id="print-button"])[1]')
+
         self.driver.switch_to.window(self.driver.window_handles[1])
-
-        stampa = self.find(By.XPATH, '//div[@id="viewer"]//span').text
-        self.assertEqual(stampa, "STAMPA MASTRINO")
-        self.driver.close() 
-        self.driver.switch_to.window(self.driver.window_handles[0]) 
-
-        # Stampa Situazione economica
-        self.find(By.XPATH, '(//a[@id="print-button"])[2]').click()
-        
-        self.driver.switch_to.window(self.driver.window_handles[1])
-
-        stampa = self.find(By.XPATH, '(//div[@id="viewer"]//span)[1]').text 
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="viewer"]//span'))).text
         self.assertEqual(stampa, "STAMPA MASTRINO")
         self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0]) 
+        self.driver.switch_to.window(self.driver.window_handles[0])
 
-        # Stampa fatturato
-        self.find(By.XPATH, '(//a[@id="print-button"])[3]').click()
-        
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//a[@id="print-button"])[2]')))
+        self.wait_for_element_and_click('(//a[@id="print-button"])[2]')
+
         self.driver.switch_to.window(self.driver.window_handles[1])
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[1]'))).text
+        self.assertEqual(stampa, "STAMPA MASTRINO")
+        self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
 
-        stampa = self.find(By.XPATH, '(//div[@id="viewer"]//span)[9]').text 
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//a[@id="print-button"])[3]')))
+        self.wait_for_element_and_click('(//a[@id="print-button"])[3]')
+
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[9]'))).text
         self.assertEqual(stampa, "FATTURATO MENSILE DAL 01/01/2025 AL 31/12/2025")
-        self.driver.close() 
-        self.driver.switch_to.window(self.driver.window_handles[0]) 
+        self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
 
-        # Stampa acquisti
-        self.find(By.XPATH, '(//a[@id="print-button"])[4]').click()
-        
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//a[@id="print-button"])[4]')))
+        self.wait_for_element_and_click('(//a[@id="print-button"])[4]')
+
         self.driver.switch_to.window(self.driver.window_handles[1])
-
-        stampa = self.find(By.XPATH, '(//div[@id="viewer"]//span)[9]').text 
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[9]'))).text
         self.assertEqual(stampa, "ACQUISTI MENSILI DAL 01/01/2025 AL 31/12/2025")
-        self.driver.close() 
+        self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
-        # Stampa libro giornale
-        self.find(By.XPATH, '//button[@data-title="Libro giornale"]').click()
-        
-        self.find(By.XPATH, '//button[@class="btn btn-primary btn-block"]').click()
-        
-        self.driver.switch_to.window(self.driver.window_handles[1])
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//button[@data-title="Libro giornale"]')))
+        self.wait_for_element_and_click('//button[@data-title="Libro giornale"]')
+        self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
-        stampa = self.find(By.XPATH, '(//div[@id="viewer"]//span)[1]').text 
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[1]'))).text
         self.assertEqual(stampa, "STAMPA LIBRO GIORNALE")
-        self.driver.close() 
+        self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
-        # Stampa scadenziario
-        self.find(By.XPATH, '//button[@data-title="Stampa scadenzario"]').click()
-        
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()   
-        self.driver.switch_to.window(self.driver.window_handles[1])
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//button[@data-title="Stampa scadenzario"]')))
+        self.wait_for_element_and_click('//button[@data-title="Stampa scadenzario"]')
+        self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
 
-        stampa = self.find(By.XPATH, '(//div[@id="viewer"]//span)[6]').text  
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[6]'))).text
         self.assertEqual(stampa, "SCADENZE DAL 01/01/2025 AL 31/12/2025")
-        self.driver.close() 
-        self.driver.switch_to.window(self.driver.window_handles[0]) 
+        self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])

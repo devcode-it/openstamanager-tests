@@ -1,49 +1,49 @@
-from common.Test import Test, get_html
-from selenium.webdriver.common.keys import Keys
-from common.RowManager import RowManager
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from common.Test import Test
+
 
 class TecniciTariffe(Test):
     def setUp(self):
         super().setUp()
-
         self.expandSidebar("Attività")
-        
-    def test_tecnici_tariffe(self):
-        # Modifica Tariffe
-        self.modifica_tariffe("28.00")
+        self.wait_loader()
 
-        # Verifica Tariffe
+    def test_tecnici_tariffe(self):
+        self.modifica_tariffe("28.00")
         self.verifica_tariffe()
 
-    def modifica_tariffe(self, modifica):
-                self.navigateTo("Tecnici e tariffe")
-        self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Tecnico', Keys.ENTER)
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="input-group"]/input[@id="costo_ore1"]'))).send_keys(modifica)
-            
-        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
-        self.wait_loader()
-        
+    def search_tecnico(self, nome: str):
         self.navigateTo("Tecnici e tariffe")
         self.wait_loader()
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))
+        )
+        search_input.clear()
+        self.send_keys_and_wait(search_input, nome, wait_modal=False)
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
+    def modifica_tariffe(self, modifica: str):
+        self.search_tecnico('Tecnico')
+        self.click_first_result()
+
+        costo_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="input-group"]/input[@id="costo_ore1"]'))
+        )
+        costo_input.clear()
+        costo_input.send_keys(modifica)
+        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+
+        self.navigateTo("Tecnici e tariffe")
+        self.wait_loader()
+        self.clear_filters()
 
     def verifica_tariffe(self):
-                self.navigateTo("Tecnici e tariffe")
-        self.wait_loader()    
+        self.search_tecnico("Tecnico")
+        self.click_first_result()
 
-        # Verifica elemento modificato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Tecnico", Keys.ENTER)
-
-        self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').click()
-
-        self.find(By.XPATH, '//div[@class="input-group"]/input[@id="costo_ore1"][@value="28.000000"]').click()
-        modificato="28.000000"
-        self.assertEqual("28.000000", modificato)
+        costo_value = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="input-group"]/input[@id="costo_ore1"]'))
+        ).get_attribute('value')
+        self.assertEqual("28,00", costo_value)
+        self.clear_filters()
 

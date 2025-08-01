@@ -1,84 +1,66 @@
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from common.Test import Test, get_html
+from common.Test import Test
+
 
 class Liste(Test):
     def setUp(self):
         super().setUp()
-
         self.expandSidebar("Gestione email")
 
     def test_creazione_lista(self):
-        # Creazione lista   *Required* 
-        self.creazione_lista(nome= "Lista di Prova da Modificare")
-        self.creazione_lista(nome= "Lista di Prova da Eliminare")
-
-        # Modifica lista
+        self.creazione_lista(nome="Lista di Prova da Modificare")
+        self.creazione_lista(nome="Lista di Prova da Eliminare")
         self.modifica_lista("Lista di Prova")
-
-        # Cancellazione lista
         self.elimina_lista()
-
-        # Verifica lista
         self.verifica_lista()
 
-    def creazione_lista(self, nome = str):
+    def creazione_lista(self, nome=str):
         self.navigateTo("Liste")
-
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
+        self.wait_loader()
+        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
-
         self.input(modal, 'Nome').setValue(nome)
+        self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+    def modifica_lista(self, modifica: str):
+        self.navigateTo("Liste")
         self.wait_loader()
 
-    def modifica_lista(self, modifica:str):
-                self.navigateTo("Liste")
-        self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Lista di Prova da Modificare', Keys.ENTER)
-
+        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        self.send_keys_and_wait(search_input, 'Lista di Prova da Modificare', wait_modal=False)
         self.wait_for_element_and_click('//tbody//tr//td[2]')
-        
-        self.input(None,'Nome').setValue(modifica)
 
-        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
-        self.wait_loader()
+        self.input(None, 'Nome').setValue(modifica)
+        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
         self.navigateTo("Liste")
-        self.wait_loader()    
-
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
+        self.wait_loader()
+        self.clear_filters()
 
     def elimina_lista(self):
-                self.navigateTo("Liste")
-        self.wait_loader()    
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Lista di Prova da Eliminare', Keys.ENTER)
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.navigateTo("Liste")
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        
+        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        self.send_keys_and_wait(search_input, 'Lista di Prova da Eliminare', wait_modal=False)
+        self.wait_for_element_and_click('//tbody//tr//td[2]')
+
+        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.clear_filters()
+
     def verifica_lista(self):
-                self.navigateTo("Liste")
-        self.wait_loader()    
+        self.navigateTo("Liste")
+        self.wait_loader()
 
-        # Verifica elemento modificato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Lista di Prova", Keys.ENTER)
-
-        modificato = self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
+        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        self.send_keys_and_wait(search_input, "Lista di Prova", wait_modal=False)
+        modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
         self.assertEqual("Lista di Prova", modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        self.clear_filters()
 
-        # Verifica elemento eliminato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Lista di Prova da Eliminare", Keys.ENTER)
-        
-        eliminato = self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        self.send_keys_and_wait(search_input, "Lista di Prova da Eliminare", wait_modal=False)
+        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
         self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
