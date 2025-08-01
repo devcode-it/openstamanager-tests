@@ -29,7 +29,6 @@ class PrimaNota(Test):
         modal = self.wait_modal()
 
         self.input(modal, 'Causale').setValue(causale)
-        modal = self.wait_modal()
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-conto_add_0-container"]',
