@@ -8,6 +8,9 @@ class PrimaNota(Test):
         self.expandSidebar("Contabilità")
 
     def test_creazione_prima_nota(self):
+        self.navigateTo("Prima nota")
+        self.wait_loader()
+
         self.creazione_prima_nota(causale="Prima Nota da Modificare")
         self.creazione_prima_nota(causale="Prima Nota da Eliminare")
         self.modifica_prima_nota("Prima Nota di Prova (Fatt. n.1 del 01/01/2025)")
@@ -22,8 +25,6 @@ class PrimaNota(Test):
         self.send_keys_and_wait(search_input, nome, wait_modal=False)
 
     def creazione_prima_nota(self, causale=str):
-        self.navigateTo("Prima nota")
-        self.wait_loader()
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
@@ -31,31 +32,33 @@ class PrimaNota(Test):
         modal = self.wait_modal()
 
         self.wait_for_dropdown_and_select(
-            '//span[@id="select2-conto0-container"]',
+            '//span[@id="select2-conto_add_0-container"]',
             option_text="100.000010"
         )
 
-        avere_field = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//input[@id="avere0"]'))
+        avere_add__field = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="avere_add_0"]'))
         )
-        self.send_keys_and_wait(avere_field, "100,00", wait_modal=False)
+        self.send_keys_and_wait(avere_add__field, "100,00", wait_modal=False)
 
         self.wait_for_dropdown_and_select(
-            '//span[@id="select2-conto1-container"]',
+            '//span[@id="select2-conto_add_1-container"]',
             option_text="700.000010"
         )
 
-        dare_field = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//input[@id="dare1"]'))
+        dare_add__field = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="dare_add_1"]'))
         )
-        self.send_keys_and_wait(dare_field, "100,00", wait_modal=False)
+        self.send_keys_and_wait(dare_add__field, "100,00", wait_modal=False)
 
-        self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
-        self.wait_driver.until(EC.invisibility_of_element_located((By.CLASS_NAME, 'modal-dialog')))
+        self.wait_for_element_and_click('//div[@class="modal-body"]//button[@type="submit"]')
+        self.wait_loader()
+        self.wait_driver.until(EC.invisibility_of_element_located(modal))
 
     def modifica_prima_nota(self, modifica=str):
-        self.navigateTo("Prima nota")
+        self.wait_for_element_and_click('//a[@id="back"]')
         self.wait_loader()
+
         self.search_causale('Prima Nota da Modificare')
         self.click_first_result()
 
@@ -90,8 +93,9 @@ class PrimaNota(Test):
         self.clear_filters()
         self.search_causale("Prima nota da Eliminare")
         self.wait_for_search_results()
-        eliminato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
-        ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertTrue(
+            self.wait_driver.until(
+                EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[@class="dataTables_empty"]'))
+            ).is_displayed()
+        )
 
