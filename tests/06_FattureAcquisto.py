@@ -225,9 +225,9 @@ class FattureAcquisto(Test):
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="registrazione_contabile"]')
 
-        prezzo = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="totale_avere"]'))).text
+        prezzo = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="totale_avere_add"]'))).text
         self.assertEqual(prezzo, "1,22 €")
-        self.wait_for_dropdown_and_select('//span[@id="select2-conto1-container"]', option_text='Banca C/C')
+        self.wait_for_dropdown_and_select('//span[@id="select2-conto_add_1-container"]', option_text='Banca C/C')
 
         self.wait_for_element_and_click('//button[@id="add-submit"]')
 

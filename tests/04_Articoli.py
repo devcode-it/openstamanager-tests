@@ -257,7 +257,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//a[@class="btn btn-secondary btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
-        messaggio = self.find(By.XPATH, '(//div[@class="alert alert-info"])[4]').text
+        messaggio = self.find(By.XPATH, '//div[@id="tab_32"]//div[@class="alert alert-info"]').text
         self.assertEqual(messaggio, "Nessuna informazione disponibile...")
 
         self.navigateTo("Articoli")
