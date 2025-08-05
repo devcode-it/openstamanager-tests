@@ -540,7 +540,7 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="registrazione_contabile"]')
 
-        totale = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="totale_dare"]'))).text
+        totale = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="totale_dare_add"]'))).text
         self.assertEqual(totale, "305,98 €")
 
         self.wait_for_element_and_click('//button[@type="submit"]')

@@ -125,11 +125,30 @@ class Test(unittest.TestCase, TestHelperMixin):
             condition = EC.visibility_of_element_located((By.CLASS_NAME, 'sidebar'))
             self.wait(condition)
 
-            xpath = f'//a[contains(., "{name}")]'
-            element = self.find(By.XPATH, xpath)
+            # Find exact text match in <p> tags within <a> tags
+            xpaths = [
+                f'//a[p[text()="{name}"]]',
+                f'//a[p[normalize-space(text())="{name}"]]'
+            ]
 
-            self.driver.execute_script("arguments[0].scrollIntoView();", element)
-            element.click()
+            element = None
+            for xpath in xpaths:
+                try:
+                    elements = self.driver.find_elements(By.XPATH, xpath)
+                    if elements:
+                        element = elements[0]
+                        break
+                except:
+                    continue
+
+            if not element:
+                raise Exception(f"Navigation element '{name}' not found with any XPath pattern")
+
+            # Use JavaScript to scroll and click the element
+            self.driver.execute_script("""
+                arguments[0].scrollIntoView({behavior: 'instant', block: 'center'});
+                arguments[0].click();
+            """, element)
 
             self.wait_loader()
             self.logger.info(f"Successfully navigated to {name}")
