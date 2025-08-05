@@ -319,6 +319,9 @@ def send_keys_and_wait(driver: WebDriver, wait_driver: WebDriverWait, element: W
     # Store the current page state to detect changes
     old_html = driver.find_element(By.TAG_NAME, 'body').get_attribute('innerHTML')
 
+    # Clear existing content in the field before sending new text
+    element.clear()
+
     # Send keys and press Enter
     element.send_keys(text, Keys.ENTER)
 
