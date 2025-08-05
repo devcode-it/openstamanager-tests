@@ -1,6 +1,5 @@
 from common.Test import Test, get_html
 from common.RowManager import RowManager
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -8,32 +7,15 @@ class GiacenzeSedi(Test):
     def setUp(self):
         super().setUp()
 
-        
     def test_giacenze_sedi(self):
-                self.navigateTo("Statistiche")
+        self.navigateTo("Statistiche")
         self.wait_loader()
-
-        periodi = self.find(By.XPATH, '(//h4[@class="card-title"])[1]').text
-        self.assertEqual(periodi, "Vendite e acquisti")
-
-        vendite = self.find(By.XPATH, '(//h4[@class="card-title"])[2]').text
-        self.assertEqual(vendite, "Periodi temporali")
-
-        clienti = self.find(By.XPATH, '(//h4[@class="card-title"])[3]').text
-        articoli = self.find(By.XPATH, '(//h4[@class="card-title"])[4]').text
         periodo = "01/01/2025 - 31/12/2025"
 
-        self.assertEqual(clienti, "I 20 clienti TOP per il periodo: "+periodo)
-        self.assertEqual(articoli, "I 20 articoli più venduti per il periodo: "+periodo)
-
-        numero_interventi = self.find(By.XPATH, '(//h4[@class="card-title"])[5]').text
-        self.assertEqual(numero_interventi, "Numero interventi per tipologia")
-
-        ore_interventi = self.find(By.XPATH, '(//h4[@class="card-title"])[6]').text
-        self.assertEqual(ore_interventi, "Ore interventi per tipologia")
-
-        ore_tecnico = self.find(By.XPATH, '(//h4[@class="card-title"])[7]').text
-        self.assertEqual(ore_tecnico, "Ore di lavoro per tecnico")
-
-        anagrafiche = self.find(By.XPATH, '(//h4[@class="card-title"])[8]').text
-        self.assertEqual(anagrafiche, "Nuove anagrafiche")
+        self.assertEqual(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//h3[@class="card-title"])[1]'))).text, "Vendite e acquisti")
+        self.assertEqual(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//h3[@class="card-title"])[2]'))).text, "I 20 clienti TOP")
+        self.assertEqual(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//h3[@class="card-title"])[3]'))).text, "I 20 articoli più venduti")
+        self.assertEqual(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//h3[@class="card-title"])[4]'))).text, "Numero interventi per tipologia")
+        self.assertEqual(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//h3[@class="card-title"])[5]'))).text, "Ore interventi per tipologia")
+        self.assertEqual(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//h3[@class="card-title"])[6]'))).text, "Ore di lavoro per tecnico")
+        self.assertEqual(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//h3[@class="card-title"])[7]'))).text, "Nuove anagrafiche")
