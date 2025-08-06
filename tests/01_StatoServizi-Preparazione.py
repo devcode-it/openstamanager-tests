@@ -20,6 +20,8 @@ class StatoServizi(Test):
     def attiva_moduli(self):
         self.expandSidebar("Strumenti")
         self.navigateTo("Stato dei servizi")
+        self.wait_loader()
+        
         for i in range(3):
             self.wait_for_element_and_click('//button[@onclick="abilitaSottoModuli(this)"]')
             self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
@@ -27,8 +29,9 @@ class StatoServizi(Test):
 
     def compila_azienda(self):
         self.navigateTo("Anagrafiche")
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_loader()
+
+        self.wait_for_element_and_click('//tbody//tr//td[2]')
         self._compila_campi_azienda({
             'Partita IVA': '05024030289',
             'Codice fiscale': '05024030289',
@@ -56,7 +59,6 @@ class StatoServizi(Test):
 
     def _crea_anagrafica(self, nome: str, tipo: str):
         self.navigateTo("Anagrafiche")
-        self.wait_loader()
 
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
@@ -67,11 +69,11 @@ class StatoServizi(Test):
 
     def _compila_anagrafica_estera(self, nome: str, piva: str, nazione: str, citta: str):
         self.navigateTo("Anagrafiche")
-        self.wait_loader()
 
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]')))
 
         self.search_entity(nome)
+
         self.click_first_result()
         self.wait_loader()
 

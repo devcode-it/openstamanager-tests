@@ -52,9 +52,9 @@ class Categoriearticoli(Test):
         self.wait_loader()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
-        self.clear_filters()
-        self.send_keys_and_wait(search_input, 'Categoria articoli di Prova da Eliminare')
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.send_keys_and_wait(search_input, "Categoria articoli di Prova da Eliminare", wait_modal=False)
+        self.click_first_result()
+        self.wait_loader()
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
@@ -66,15 +66,20 @@ class Categoriearticoli(Test):
         self.wait_loader()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
-        self.send_keys_and_wait(search_input, 'Categoria articoli di Prova')
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).text
+        self.send_keys_and_wait(search_input, "Categoria articoli di Prova", wait_modal=False)
+        self.click_first_result()
+        self.wait_loader()
+
+        self.driver.execute_script('window.scrollTo(0,0)')
+        modificato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@name="nome"]'))
+        ).get_attribute('value')
         self.assertEqual('Categoria articoli di Prova', modificato)
 
         self.navigateTo("Categorie")
         self.wait_loader()
         self.clear_filters()
-        
+
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, 'Categoria articoli di Prova da Eliminare', wait_modal=False)
         eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text

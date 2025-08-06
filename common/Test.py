@@ -125,30 +125,34 @@ class Test(unittest.TestCase, TestHelperMixin):
             condition = EC.visibility_of_element_located((By.CLASS_NAME, 'sidebar'))
             self.wait(condition)
 
-            # Find exact text match in <p> tags within <a> tags
-            xpaths = [
+            xpath_expressions = [
                 f'//a[p[text()="{name}"]]',
                 f'//a[p[normalize-space(text())="{name}"]]'
             ]
 
-            element = None
-            for xpath in xpaths:
-                try:
-                    elements = self.driver.find_elements(By.XPATH, xpath)
-                    if elements:
-                        element = elements[0]
+            # Try to find and click the element, handling stale element references
+            max_retries = 3
+            for attempt in range(max_retries):
+                element = None
+                for xpath in xpath_expressions:
+                    try:
+                        element = self.find(By.XPATH, xpath)
                         break
-                except:
+                    except NoSuchElementException:
+                        continue
+
+                if element is None:
+                    raise NoSuchElementException(f"Could not find navigation element for: {name}")
+
+                try:
+                    self.driver.execute_script("arguments[0].scrollIntoView();", element)
+                    element.click()
+                    break
+                except StaleElementReferenceException:
+                    if attempt == max_retries - 1:
+                        raise
+                    self.logger.warning(f"Stale element reference on attempt {attempt + 1}, retrying...")
                     continue
-
-            if not element:
-                raise Exception(f"Navigation element '{name}' not found with any XPath pattern")
-
-            # Use JavaScript to scroll and click the element
-            self.driver.execute_script("""
-                arguments[0].scrollIntoView({behavior: 'instant', block: 'center'});
-                arguments[0].click();
-            """, element)
 
             self.wait_loader()
             self.logger.info(f"Successfully navigated to {name}")
