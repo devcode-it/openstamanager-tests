@@ -1,4 +1,4 @@
-from common.Test import Test, get_html
+from common.Test import Test
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -6,74 +6,49 @@ from selenium.webdriver.support import expected_conditions as EC
 class Impostazioni(Test):
     def setUp(self):
         super().setUp()
-
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
     def test_impostazioni_anagrafiche(self):
-        # Test impostazione Formato codice anagrafica
         self.cambio_formato_codice()
 
-        ## TODO: test geolocalizzazione automatica
-
     def cambio_formato_codice(self):
-        
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
+        self._crea_anagrafica_test("00000010")
+        self._elimina_anagrafica()
+        self._cambia_formato_codice("####")
+        self._crea_anagrafica_test("0010")
+        self._elimina_anagrafica()
+        self._cambia_formato_codice("########")
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ragione_sociale_add"]'))).send_keys('Test')
-        self.find(By.XPATH, '//span[@class="select2-selection select2-selection--multiple"]').click()
+    def _crea_anagrafica_test(self, codice_atteso):
+        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
 
-        self.find(By.XPATH, '//ul[@id="select2-idtipoanagrafica_add-results"]//li[5]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
-        self.wait_loader()
+        ragione_sociale_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ragione_sociale_add"]')))
+        ragione_sociale_input.send_keys('Test')
 
-        codice_element = self.find(By.XPATH, '//input[@id="codice"]')
+        self.wait_for_element_and_click('//span[@class="select2-selection select2-selection--multiple"]')
+        self.wait_for_element_and_click('//ul[@id="select2-idtipoanagrafica_add-results"]//li[5]')
+        self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
+
+        codice_element = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="codice"]')))
         codice = codice_element.get_attribute("value")
-        self.assertEqual(codice, "00000010")
-        
-        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
+        self.assertEqual(codice, codice_atteso)
 
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
+    def _elimina_anagrafica(self):
+        self.wait_for_element_and_click('//a[@class="btn btn-danger ask"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
-        self.expandSidebar("Strumenti") 
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
-
-        self.find(By.XPATH, '//div[@data-title="Anagrafiche"]').click()
-
-        formato = self.find(By.XPATH, '//div[@class="form-group" and contains(., "Formato codice anagrafica")]//input')
-        formato.clear()
-        formato.send_keys("####", Keys.ENTER) 
-
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ragione_sociale_add"]'))).send_keys('Test')
-        self.find(By.XPATH, '//span[@class="select2-selection select2-selection--multiple"]').click()
-
-        self.find(By.XPATH, '//ul[@id="select2-idtipoanagrafica_add-results"]//li[5]').click()
-        self.find(By.XPATH, '//button[@class="btn btn-primary"]').click()
-        self.wait_loader()
-
-        codice_element = self.find(By.XPATH, '//input[@id="codice"]') 
-        codice = codice_element.get_attribute("value")
-        self.assertEqual(codice, "0010")
-        self.find(By.XPATH, '//a[@class="btn btn-danger ask"]').click()
-
-        self.find(By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]').click()
-        self.wait_loader()
-
+    def _cambia_formato_codice(self, formato):
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
-        self.find(By.XPATH, '//div[@data-title="Anagrafiche"]').click()
+        self.wait_for_element_and_click('//div[@data-title="Anagrafiche"]')
 
-        formato = self.find(By.XPATH, '//div[@class="form-group" and contains(., "Formato codice anagrafica")]//input')
-        formato.clear()
-        formato.send_keys("########", Keys.ENTER)
+        formato_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Formato codice anagrafica")]//input')))
+        formato_input.clear()
+        formato_input.send_keys(formato, Keys.ENTER)
 
-    
+        self.navigateTo("Anagrafiche")
+        self.wait_loader()
+
