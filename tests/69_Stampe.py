@@ -15,7 +15,7 @@ class Stampe(Test):
         self.stampe()
 
     def stampe(self):
-                self.navigateTo("Stampe")
+        self.navigateTo("Stampe")
         self.wait_loader()
         
         self.wait_for_element_and_click('//tbody//tr//td[2]')

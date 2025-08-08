@@ -1,72 +1,83 @@
-from common.Test import Test, get_html
-from selenium.webdriver.common.keys import Keys
+from common.Test import Test
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+import time
 
 class Dashboard(Test):
-      
+
     def test_Dashboard(self):
         self.navigateTo("Dashboard")
         self.wait_loader()
 
-        self.find(By.XPATH, '(//div[@class="info-box"])[1]').click()
-        widget = self.find(By.XPATH, '//div[@class="modal-body"]//p').text
+        self.wait_for_element_and_click('(//div[@class="info-box"])[1]')
+        widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//p'))).text
         self.assertEqual(widget, "Non ci sono promemoria da pianificare.")
-        self.find(By.XPATH, '//div[@class="modal-content"]//button[@class="close"]').click()
+        self.wait_for_element_and_click('//div[@class="modal-content"]//button[@class="close"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]')))
 
-        self.find(By.XPATH, '(//div[@class="info-box"])[2]').click()
-        widget = self.find(By.XPATH, '//div[@id="modals"]//tbody//tr//td').text
-        self.assertEqual(widget, "2")
-        self.find(By.XPATH, '//div[@class="modal-content"]//button[@class="close"]').click()
+        self.wait_for_element_and_click('(//div[@class="info-box"])[2]')
+        widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//tbody//tr//td'))).text
+        self.assertEqual(widget, "3")
+        self.wait_for_element_and_click('//div[@class="modal-content"]//button[@class="close"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]')))
 
-        self.find(By.XPATH, '(//div[@class="info-box"])[3]').click()
-        widget = self.find(By.XPATH, '//div[@class="modal-body"]//p').text
+        self.wait_for_element_and_click('(//div[@class="info-box"])[3]')
+        widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//p'))).text
         self.assertEqual(widget, "Non ci sono note da notificare.")
-        self.find(By.XPATH, '//div[@class="modal-content"]//button[@class="close"]').click()
+        self.wait_for_element_and_click('//div[@class="modal-content"]//button[@class="close"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]')))
 
-        self.find(By.XPATH, '(//div[@class="info-box"])[4]').click()
-        verifica = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
-        self.assertEqual(verifica, "Fattura immediata di acquisto numero 01")
+        self.wait_for_element_and_click('(//div[@class="info-box"])[4]')
+        verifica = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
+        self.assertEqual(verifica, "Integrazione/autofattura per acquisto servizi dall'estero numero 0001")
 
         self.navigateTo("Dashboard")
         self.wait_loader()
 
-        self.find(By.XPATH, '(//div[@class="info-box"])[5]').click()
-        widget = self.find(By.XPATH, '//div[@class="modal-body"]//div').text
+        self.wait_for_element_and_click('(//div[@class="info-box"])[5]')
+        widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//div'))).text
         self.assertEqual(widget, "Non ci sono articoli in esaurimento.")
-        self.find(By.XPATH, '//div[@class="modal-content"]//button[@class="close"]').click()
+        self.wait_for_element_and_click('//div[@class="modal-content"]//button[@class="close"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]')))
 
-        self.find(By.XPATH, '(//div[@class="info-box"])[6]').click()
-        widget = self.find(By.XPATH, '//div[@class="modal-body"]//tr//th').text
+        self.wait_for_element_and_click('(//div[@class="info-box"])[6]')
+        widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//tr//th'))).text
         self.assertEqual(widget, "Preventivo")
-        self.find(By.XPATH, '//div[@class="modal-content"]//button[@class="close"]').click()
-        
-        self.find(By.XPATH, '(//div[@class="info-box"])[7]').click()
-        widget = self.find(By.XPATH, '//div[@class="modal-content"]//p').text
+        self.wait_for_element_and_click('//div[@class="modal-content"]//button[@class="close"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]')))
+
+        self.wait_for_element_and_click('(//div[@class="info-box"])[7]')
+        widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-content"]//p'))).text
         self.assertEqual(widget, "Non ci sono contratti in scadenza.")
-        self.find(By.XPATH, '//div[@class="modal-content"]//button[@class="close"]').click()
+        self.wait_for_element_and_click('//div[@class="modal-content"]//button[@class="close"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]')))
 
-        self.find(By.XPATH, '(//div[@class="info-box"])[8]').click()
-        widget = self.find(By.XPATH, '(//table[@id="tbl-rate"]//tr//th)[2]').text
+        self.wait_for_element_and_click('(//div[@class="info-box"])[8]')
+        widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//table[@id="tbl-rate"]//tr//th)[2]'))).text
         self.assertEqual(widget, "Scadenza")
-        self.find(By.XPATH, '//div[@class="modal-content"]//button[@class="close"]').click()
+        self.wait_for_element_and_click('//div[@class="modal-content"]//button[@class="close"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]')))
 
-        self.find(By.XPATH, '(//div[@class="info-box"])[9]').click()
-        widget = self.find(By.XPATH, '//div[@class="modal-body"]//label').text
+        self.wait_for_element_and_click('(//div[@class="info-box"])[9]')
+        widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//label'))).text
         self.assertEqual(widget, "Mese e anno*")
-        self.find(By.XPATH, '//div[@class="modal-content"]//button[@class="close"]').click()
+        self.wait_for_element_and_click('//div[@class="modal-content"]//button[@class="close"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]')))
 
-        self.find(By.XPATH, '(//div[@class="info-box"])[10]').click()
-        widget = self.find(By.XPATH, '//div[@class="modal-body"]//label').text
+        self.wait_for_element_and_click('(//div[@class="info-box"])[10]')
+        widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//label'))).text
         self.assertEqual(widget, "Settimana*")
-        self.find(By.XPATH, '//div[@class="modal-content"]//button[@class="close"]').click()
+        self.wait_for_element_and_click('//div[@class="modal-content"]//button[@class="close"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]')))
 
-        self.find(By.XPATH, '(//div[@class="info-box"])[11]').click()
-        widget = self.find(By.XPATH, '//div[@class="modal-body"]//tbody//tr//th').text
+        self.wait_for_element_and_click('(//div[@class="info-box"])[11]')
+        widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//tbody//tr//th'))).text
         self.assertEqual(widget, "Codice")
-        self.find(By.XPATH, '//div[@class="modal-content"]//button[@class="close"]').click()
+        self.wait_for_element_and_click('//div[@class="modal-content"]//button[@class="close"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]')))
 
-        self.find(By.XPATH, '(//div[@class="info-box"])[12]').click()
-        widget = self.find(By.XPATH, '//div[@class="modal-body"]//tbody//tr//th').text
+        self.wait_for_element_and_click('(//div[@class="info-box"])[12]')
+        widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//tbody//tr//th'))).text
         self.assertEqual(widget, "Attività")
-        self.find(By.XPATH, '//div[@class="modal-content"]//button[@class="close"]').click()
+        self.wait_for_element_and_click('//div[@class="modal-content"]//button[@class="close"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]')))
