@@ -1,97 +1,78 @@
-from common.Test import Test, get_html
-from selenium.webdriver.common.keys import Keys
-from common.RowManager import RowManager
+from common.Test import Test
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 class ModelliPrimaNota(Test):
     def setUp(self):
         super().setUp()
-
         self.expandSidebar("Strumenti")
         self.expandSidebar("Tabelle")
-        
 
     def test_creazione_modelli_prima_nota(self):
-        # Creazione modello prima nota      *Required*
         self.creazione_modelli_prima_nota(nome="Modello Prima Nota di Prova da Modificare", causale="Prova anticipo fattura num. {numero} del {data}")
         self.creazione_modelli_prima_nota(nome="Modello Prima Nota di Prova da Eliminare", causale="Prova anticipo fattura num. {numero} del {data}")
-
-        # Modifica Modello Prima Nota
         self.modifica_modello_prima_nota("Modello Prima Nota di Prova")
-        
-        # Cancellazione Modello Prima nota
         self.elimina_modello_prima_nota()
-        
-        # Verifica Modello Prima nota
         self.verifica_modello_prima_nota()
 
     def creazione_modelli_prima_nota(self, nome = str, causale = str):
-                self.navigateTo("Modelli prima nota")
+        self.navigateTo("Modelli prima nota")
         self.wait_loader()
 
-        self.driver.execute_script('window.scrollTo(0,0)')
-        self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
+        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue(nome)
         self.input(modal, 'Causale').setValue(causale)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-conto0-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-conto1-container"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+
+        self.wait_for_element_and_click('//span[@id="select2-conto0-container"]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
+
+        self.wait_for_element_and_click('//span[@id="select2-conto1-container"]')
+        self.wait_for_element_and_click('//input[@class="select2-search__field"]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
         self.wait_loader()
 
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
+        self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def modifica_modello_prima_nota(self, modifica = str):
-                self.navigateTo("Modelli prima nota")
-        self.wait_loader()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Modello Prima Nota di Prova da Modificare', Keys.ENTER)
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')  
-
-        self.driver.execute_script('window.scrollTo(0,0)')
-        self.input(None,'Nome').setValue(modifica)
-        self.find(By.XPATH, '//div[@id="tab_0"]//button[@id="save"]').click()
-        self.wait_loader()
-
         self.navigateTo("Modelli prima nota")
-        self.wait_loader()  
-
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-
-    def elimina_modello_prima_nota(self):
-                self.navigateTo("Modelli prima nota")
         self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys('Modello Prima Nota di Prova da Eliminare', Keys.ENTER)
-
+        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        self.send_keys_and_wait(search_input, 'Modello Prima Nota di Prova da Modificare', wait_modal=False)
         self.wait_for_element_and_click('//tbody//tr//td[2]')
 
-        self.driver.execute_script('window.scrollTo(0,0)')
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        self.input(None,'Nome').setValue(modifica)
+        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+
+        self.navigateTo("Modelli prima nota")
+        self.wait_loader()
+        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+
+    def elimina_modello_prima_nota(self):
+        self.navigateTo("Modelli prima nota")
         self.wait_loader()
 
-        self.find(By.XPATH, '//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]').click()
-        
+        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        self.send_keys_and_wait(search_input, 'Modello Prima Nota di Prova da Eliminare', wait_modal=False)
+        self.wait_for_element_and_click('//tbody//tr//td[2]')
+
+        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+
     def verifica_modello_prima_nota(self):
-                self.navigateTo("Modelli prima nota")
-        self.wait_loader()    
+        self.navigateTo("Modelli prima nota")
+        self.wait_loader()
 
-        # Verifica elemento modificato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Modello Prima Nota di Prova", Keys.ENTER)
-
-        modificato = self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[2]').text
+        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        self.send_keys_and_wait(search_input, "Modello Prima Nota di Prova", wait_modal=False)
+        modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
         self.assertEqual("Modello Prima Nota di Prova", modificato)
-        self.find(By.XPATH, '//i[@class="deleteicon fa fa-times"]').click()
+        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
-        # Verifica elemento eliminato
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))).send_keys("Modello Prima Nota di Prova da Eliminare", Keys.ENTER)
-        
-        eliminato = self.driver.find_element(By.XPATH,'//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        self.send_keys_and_wait(search_input, "Modello Prima Nota di Prova da Eliminare", wait_modal=False)
+        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
         self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
