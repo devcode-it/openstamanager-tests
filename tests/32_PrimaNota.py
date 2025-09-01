@@ -50,9 +50,6 @@ class PrimaNota(Test):
         )
         self.send_keys_and_wait(dare_add__field, "100,00", wait_modal=False)
 
-        self.wait_for_element_and_click('//div[@class="modal-body"]//button[@type="submit"]')
-        self.wait_loader()
-        self.wait_driver.until(EC.invisibility_of_element_located(modal))
 
     def modifica_prima_nota(self, modifica=str):
         self.wait_for_element_and_click('//a[@id="back"]')

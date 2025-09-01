@@ -8,6 +8,6 @@ class Listini(Test):
 
         
     def test_listini(self):
-        self.navigateTo("Magazzino")
+        self.expandSidebar("Magazzino")
         self.navigateTo("Listini")
 

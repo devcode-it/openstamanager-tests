@@ -228,21 +228,24 @@ def wait_for_search_results(driver: WebDriver, wait_driver: WebDriverWait) -> No
 def wait_for_element_and_click(driver: WebDriver, wait_driver: WebDriverWait, selector: str, by: By = By.XPATH) -> WebElement:
     wait_loader(driver, wait_driver)
 
-    try:
-        element = wait_driver.until(
-            EC.element_to_be_clickable((by, selector))
-        )
-        element.click()
-        wait_loader(driver, wait_driver)
-        return element
-    except Exception as e:
-        wait_loader(driver, wait_driver)
-        element = wait_driver.until(
-            EC.element_to_be_clickable((by, selector))
-        )
-        element.click()
-        wait_loader(driver, wait_driver)
-        return element
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            wait_driver.until(EC.visibility_of_element_located((by, selector)))
+            element = wait_driver.until(EC.element_to_be_clickable((by, selector)))
+            try:
+                driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element)
+                time.sleep(0.5)
+            except:
+                pass
+            element.click()
+            wait_loader(driver, wait_driver)
+            return element
+        except Exception as e:
+            if attempt == max_retries - 1:
+                raise
+            wait_loader(driver, wait_driver)
+            time.sleep(1)
 
 
 def wait_for_dropdown_and_select(driver: WebDriver, wait_driver: WebDriverWait, dropdown_xpath: str, option_xpath: str = None, option_text: str = None) -> None:

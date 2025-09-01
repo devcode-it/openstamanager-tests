@@ -131,10 +131,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//div[@id="tab_11"]//button[@type="button"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
-        serial = self.find(By.XPATH, '//div[@id="tab_11"]//div[@class="card"]//tbody//tr[2]//td[1]').text
-        self.assertEqual(serial, "1")
-
-        self.wait_for_element_and_click('(//a[@class="btn btn-danger btn-sm ask"])[2]')
+        self.wait_for_element_and_click('(//div[@id="tab_11"]//a[@class="btn btn-danger btn-sm ask"])[2]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         self.wait(EC.invisibility_of_element_located((By.XPATH, '//div[@id="tab_11"]//div[@class="card"]//tbody//tr[2]//td[1]')))

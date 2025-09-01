@@ -126,6 +126,8 @@ class Test(unittest.TestCase, TestHelperMixin):
             self.wait(condition)
 
             xpath_expressions = [
+                f'//a[p/span[@class="menu-text" and text()="{name}"]]',
+                f'//a[p/span[@class="menu-text" and normalize-space(text())="{name}"]]',
                 f'//a[p[text()="{name}"]]',
                 f'//a[p[normalize-space(text())="{name}"]]'
             ]

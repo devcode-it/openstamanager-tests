@@ -175,9 +175,16 @@ class Contratti(Test):
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_segment-container"]', option_text='Standard attività')
         self.wait_for_element_and_click('//div[@class="modal-content"]//button[@class="btn btn-primary"]')
+        self.wait_loader()
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-sm  "]')
-        self.wait_for_element_and_click('//button[@class="btn btn-lg btn-success"]')
+        description_field = self.wait_for_element_and_click('(//iframe[@class="cke_wysiwyg_frame cke_reset"])[3]')
+        description_field = self.wait_driver.until(EC.visibility_of_element_located(
+            (By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[3]')
+        ))
+        self.send_keys_and_wait(description_field, "Test")
+
+        self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@class="btn btn-success"]')
 
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//a')))
 
