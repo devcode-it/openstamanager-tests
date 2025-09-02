@@ -15,7 +15,7 @@ class Viste(Test, TestHelperMixin):
 
         self.navigateTo("Attività")
         self.wait_loader()
-        self.controllo_viste("3")
+        self.controllo_viste("2")
 
         self.expandSidebar("Vendite")
 

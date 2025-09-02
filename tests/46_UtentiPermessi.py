@@ -7,7 +7,7 @@ class UtentiPermessi(Test):
     def setUp(self):
         super().setUp()
         self.expandSidebar('Strumenti')
-        self.navigateTo('Gestione accessi')
+        self.expandSidebar('Gestione accessi')
         self.wait_loader()
 
     def test_creazione_utenti_permessi(self):

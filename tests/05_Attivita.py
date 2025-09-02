@@ -12,7 +12,7 @@ class Attivita(Test):
         importi = RowManager.list()
         self.attivita('Cliente', '1', '2', importi[0])
         self.duplica_attività()
-        self.modifica_attività('4')
+        self.modifica_attività('Completato')
         self.elimina_attività()
         self.controllo_righe()
         self.verifica_attività()
@@ -52,7 +52,12 @@ class Attivita(Test):
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, '1', wait_modal = False)
         self.click_first_result()
-        self.input(None, 'Stato').setValue(modifica)
+
+        self.wait_for_dropdown_and_select(
+            '//span[@id="select2-idstatointervento-container"]',
+            option_text=modifica
+        )
+
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
         self.navigateTo('Attività')
         self.clear_filters()

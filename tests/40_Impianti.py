@@ -112,16 +112,15 @@ class Impianti(Test):
         self.wait_loader()
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_impianto_add-container"]', '//li[@class="select2-results__option select2-results__option--highlighted"]')
-        self.wait_for_element_and_click('//button[@class="btn btn-default tip tooltipstered"]')
+        self.wait_for_element_and_click('(//button[@class="btn btn-primary tip tooltipstered"])[2]')
 
-        matricola = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_2"]//tbody//tr//td[2]'))).text
+        matricola = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_2"]//tbody//tr//td'))).text
         self.assertEqual(matricola, "01")
 
-        self.wait_for_element_and_click('//button[@class="btn btn-sm btn-danger "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
+        self.wait_for_element_and_click('//button[@class="btn btn-sm btn-outline-danger "]')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_impianto_add-container"]', '//li[@class="select2-results__option select2-results__option--highlighted"]')
-        self.wait_for_element_and_click('//button[@class="btn btn-default tip tooltipstered"]')
+        self.wait_for_element_and_click('(//button[@class="btn btn-primary tip tooltipstered"])[2]')
 
         self.navigateTo("Attività")
         self.clear_filters()

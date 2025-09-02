@@ -21,9 +21,9 @@ class Pagamenti(Test):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
+        self.wait_for_dropdown_and_select('//span[@id="select2-codice_modalita_pagamento_fe_add-container"]', option_text=codice)
         self.input(modal, 'Descrizione').setValue(descrizione)
-        self.wait_for_dropdown_and_select('//span[@id="select2-codice_modalita_pagamento_fe-container"]', option_text=codice)
-        self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
+        self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@type="submit"]')
 
     def modifica_pagamento(self, modifica = str):
         self.navigateTo("Pagamenti")
