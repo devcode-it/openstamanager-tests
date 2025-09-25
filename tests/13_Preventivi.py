@@ -330,6 +330,8 @@ class Preventivi(Test):
         stato = self.find(By.XPATH, '//tbody//tr//td[6]').text
         self.assertEqual(stato, "Bozza")
 
+        self.wait_for_element_and_click('//tbody//tr//td')
+
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="change_status"]')
 
@@ -341,8 +343,6 @@ class Preventivi(Test):
     def fattura_preventivi(self):
         self.navigateTo("Preventivi")
         self.wait_loader()
-
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), "1", False)
 
         self.wait_for_element_and_click('//tbody//tr//td[1]')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
