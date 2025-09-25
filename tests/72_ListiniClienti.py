@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class Listini(Test):
     def setUp(self):
         super().setUp()
-        self.navigateTo("Magazzino")
+        self.expandSidebar("Magazzino")
 
     def test_creazione_listino_cliente(self):
         self.navigateTo("Listini cliente")
@@ -103,7 +103,7 @@ class Listini(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Ragione-sociale"]/i[@class="deleteicon fa fa-times"]')
-        self.navigateTo("Magazzino")
+        self.expandSidebar("Magazzino")
 
     def aggiungi_a_listino_cliente(self):
         self.navigateTo("Articoli")
