@@ -162,6 +162,7 @@ class FattureVendita(Test):
         self.wait_loader()
 
         self.wait_for_element_and_click('//tbody//tr[3]//td[2]')
+
         self.input(None,'Stato*').setByText(modifica)
         self.driver.execute_script('window.scrollTo(0,0)')
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
@@ -508,11 +509,11 @@ class FattureVendita(Test):
 
     def statistiche_vendita(self):
         self.expandSidebar("Magazzino")
-        self.navigateTo("Articoli")
+        self.expandSidebar("Articoli")
+        self.navigateTo("Statistiche vendita")
         self.wait_loader()
 
-        self.wait_for_element_and_click('//a[@id="link-tab_44"]')
-        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_44"]//tbody//tr//td')))
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td')))
         self.expandSidebar("Vendite")
 
     def controlla_fatture_elettroniche(self):

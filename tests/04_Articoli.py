@@ -218,7 +218,6 @@ class Articoli(Test):
 
         self.driver.execute_script('window.scrollTo(0,0)')
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-idpagamento-container"]', option_text='Bancomat')
         self.wait_for_dropdown_and_select('//span[@id="select2-id_articolo-container"]', option_text='Articolo 1')
         self.wait_for_element_and_click('//button[@class="btn btn-primary tip tooltipstered"]')
 
@@ -718,7 +717,6 @@ class Articoli(Test):
 
         self.driver.execute_script('window.scrollTo(0,0)')
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-idpagamento-container"]', option_text='Assegno')
         self.wait_for_dropdown_and_select('//span[@id="select2-id_articolo-container"]', option_text='Articolo 1')
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary tip tooltipstered"]')

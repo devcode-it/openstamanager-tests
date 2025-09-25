@@ -207,8 +207,6 @@ class FattureAcquisto(Test):
         numero_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]')))
         numero_input.send_keys("2")
 
-        self.driver.execute_script('window.scrollTo(0,0)')
-        self.wait_for_dropdown_and_select('//span[@id="select2-idpagamento-container"]', option_text='Assegno')
         self.wait_for_element_and_click('//a[@class="btn btn-primary"]')
 
         descrizione_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]')))

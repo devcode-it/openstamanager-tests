@@ -24,7 +24,7 @@ class RowManager:
         wait_for_dropdown_and_select(
             self.tester.driver,
             self.wait,
-            '//button[@class="btn btn-primary dropdown-toggle"]',
+            '//button[@class="btn btn-primary dropdown-toggle" and contains(., "Altro")]',
             option_xpath='//a[@data-title="Aggiungi sconto/maggiorazione"]'
         )
         modal = self.tester.wait_modal()
@@ -85,7 +85,7 @@ class RowManager:
             '//span[@id="select2-id_articolo-container"]',
             option_text=article_code
         )
-        
+
         self.wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
         wait_for_element_and_click(self.tester.driver, self.wait, '//button[@onclick="salvaArticolo()"]')
 
