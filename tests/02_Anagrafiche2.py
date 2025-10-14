@@ -18,7 +18,6 @@ class AnagraficheBis(Test):
         #self.ricerca_coordinate()
         self.elimina_selezionati()
         self.cambia_relazione()
-        self.logger.info("Test di funzionalità aggiuntive anagrafica completato con successo")
 
     def aggiunta_referente(self):
         self.navigateTo("Anagrafiche")
