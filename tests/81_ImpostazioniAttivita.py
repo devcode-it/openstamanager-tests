@@ -194,7 +194,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
     def stampa_anteprima_firma(self):
-                self.navigateTo("Attività")
+        self.navigateTo("Attività")
         self.wait_loader()
 
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
@@ -299,7 +299,7 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Permetti inserimento sessioni degli altri tecnici")]//div//label').click()
 
     def giorni_lavorativi(self):
-                self.navigateTo("Dashboard")
+        self.navigateTo("Dashboard")
         self.wait_loader() 
 
         wait.until(EC.invisibility_of_element_located((By.XPATH, '(//div[@class="fc-event fc-event-start fc-event-future fc-bg-event"])[3]'))) 
@@ -434,7 +434,7 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico l\'aggiunta della sessione nell\'attività")]//div//label').click()
 
     def notifica_tecnico_rimozione_sessione(self):
-                self.navigateTo("Attività")
+        self.navigateTo("Attività")
         self.wait_loader()
  
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
@@ -873,7 +873,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
     def notifica_tecnico_assegnazione(self):
-                self.navigateTo("Attività")
+        self.navigateTo("Attività")
         self.wait_loader()
  
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
@@ -947,7 +947,7 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico l\'assegnazione all\'attività")]//div//label').click()
 
     def notifica_tecnico_rimozione_assegnazione(self):
-                self.navigateTo("Attività")
+        self.navigateTo("Attività")
         self.wait_loader()
  
         self.find(By.XPATH,'//i[@class="fa fa-plus"]').click()
@@ -1025,7 +1025,7 @@ class Impostazioni(Test):
         self.find(By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico la rimozione dell\'assegnazione dall\'attività")]//div//label').click()
 
     def descrizione_attivita(self):
-                self.navigateTo("Impostazioni")
+        self.navigateTo("Impostazioni")
         self.wait_loader()
 
         self.find(By.XPATH, '//div[@data-title="Attività"]').click()
