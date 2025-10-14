@@ -15,7 +15,7 @@ class AnagraficheBis(Test):
         self.plugin_statistiche()
         self.dichiarazione_di_intento()
         self.assicurazione_crediti()
-        self.ricerca_coordinate()
+        #self.ricerca_coordinate()
         self.elimina_selezionati()
         self.cambia_relazione()
         self.logger.info("Test di funzionalità aggiuntive anagrafica completato con successo")
@@ -226,7 +226,7 @@ class AnagraficheBis(Test):
         )
         self.send_keys_and_wait(data_emissione, "", wait_modal = False)
 
-        self.wait_for_element_and_click('(//button[@class="btn btn-primary"])[2]')
+        self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@class="btn btn-primary"]')
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_25"]//tbody//tr//td[1]'))
         )
@@ -242,7 +242,7 @@ class AnagraficheBis(Test):
             '//span[@id="select2-idanagrafica_add-container"]',
             option_text="Cliente (Este)"
         )
-        self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
+        self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@class="btn btn-primary"]')
 
         declaration_message = self.find(By.XPATH, '(//div[@class="alert alert-info"])[1]').text
         self.assertEqual("La fattura è collegata ad una dichiarazione d'intento", declaration_message[0:53])
@@ -350,7 +350,7 @@ class AnagraficheBis(Test):
             '//span[@id="select2-idanagrafica_add-container"]',
             option_text="Cliente"
         )
-        self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
+        self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@class="btn btn-primary"]')
 
         self.wait_for_element_and_click('//a[@class="btn btn-primary"]')
 

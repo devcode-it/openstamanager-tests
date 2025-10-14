@@ -214,9 +214,7 @@ class Articoli(Test):
 
         self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica_add-container"]', option_text='Fornitore')
 
-        self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
-
-        self.driver.execute_script('window.scrollTo(0,0)')
+        self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@class="btn btn-primary"]')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_articolo-container"]', option_text='Articolo 1')
         self.wait_for_element_and_click('//button[@class="btn btn-primary tip tooltipstered"]')
@@ -327,7 +325,7 @@ class Articoli(Test):
 
         self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica_add-container"]', option_text='Cliente')
 
-        self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
+        self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@class="btn btn-primary"]')
         self.wait_for_element_and_click('//span[@id="select2-id_articolo-container"]')
         self.wait_for_element_and_click('//ul[@class="select2-results__options select2-results__options--nested"]//li[1]')
         self.wait_for_element_and_click('//button[@class="btn btn-primary tip tooltipstered"]')
@@ -713,9 +711,7 @@ class Articoli(Test):
 
         self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica_add-container"]', option_text='Fornitore')
 
-        self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
-
-        self.driver.execute_script('window.scrollTo(0,0)')
+        self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@class="btn btn-primary"]')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_articolo-container"]', option_text='Articolo 1')
 
