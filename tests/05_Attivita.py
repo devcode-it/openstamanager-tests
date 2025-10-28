@@ -245,7 +245,7 @@ class Attivita(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-        prezzo = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[40]'))).text
+        prezzo = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[39]'))).text
         self.assertEqual(prezzo, '0,00')
 
         self.driver.close()

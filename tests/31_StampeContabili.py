@@ -72,7 +72,7 @@ class StampeContabili(Test):
         self.wait_for_element_and_click('(//button[@class="btn btn-primary btn-block"])[3]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[10]'))).text
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[9]'))).text
         self.assertEqual(stampa, "FATTURATO MENSILE DAL 01/01/2025 AL 31/12/2025")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
@@ -80,7 +80,7 @@ class StampeContabili(Test):
         self.wait_for_element_and_click('(//button[@class="btn btn-primary btn-block"])[4]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[10]'))).text
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[9]'))).text
         self.assertEqual(stampa, "ACQUISTI MENSILI DAL 01/01/2025 AL 31/12/2025")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
