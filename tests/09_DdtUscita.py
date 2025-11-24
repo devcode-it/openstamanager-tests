@@ -100,7 +100,7 @@ class DdtUscita(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click( '//a[@id="link-tab_17"]')
-        self.wait_for_element_and_click( '//tbody//tr[10]//td[2]')
+        self.wait_for_element_and_click( '//tbody//tr[5]//td[2]')
 
     def cambia_stato(self):
         self.navigateTo("Ddt in uscita")

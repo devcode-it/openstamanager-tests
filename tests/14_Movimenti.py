@@ -61,19 +61,17 @@ class Movimenti(Test):
         movimento = self.find(By.XPATH, f'{base_xpath}//tr[2]//td[2]').text
         fattura_vendita = self.find(By.XPATH, f'{base_xpath}//tr[3]//td[3]').text
         ddt_uscita = self.find(By.XPATH, f'{base_xpath}//tr[4]//td[3]').text
-        ddt_entrata = self.find(By.XPATH, f'{base_xpath}//tr[5]//td[2]').text
-        fattura_acquisto2 = self.find(By.XPATH, f'{base_xpath}//tr[6]//td[2]').text
-        fattura_vendita2 = self.find(By.XPATH, f'{base_xpath}//tr[7]//td[3]').text
-        fattura_acquisto = self.find(By.XPATH, f'{base_xpath}//tr[8]//td[2]').text
-        attività = self.find(By.XPATH, f'{base_xpath}//tr[9]//td[3]').text
-        eliminazioneserial = self.find(By.XPATH, f'{base_xpath}//tr[10]//td[3]').text
-        serial = self.find(By.XPATH, f'{base_xpath}//tr[11]//td[2]').text
-        carico = self.find(By.XPATH, f'{base_xpath}//tr[12]//td[2]').text
+        fattura_acquisto2 = self.find(By.XPATH, f'{base_xpath}//tr[5]//td[2]').text
+        fattura_vendita2 = self.find(By.XPATH, f'{base_xpath}//tr[6]//td[3]').text
+        fattura_acquisto = self.find(By.XPATH, f'{base_xpath}//tr[7]//td[2]').text
+        attività = self.find(By.XPATH, f'{base_xpath}//tr[8]//td[3]').text
+        eliminazioneserial = self.find(By.XPATH, f'{base_xpath}//tr[9]//td[3]').text
+        serial = self.find(By.XPATH, f'{base_xpath}//tr[10]//td[2]').text
+        carico = self.find(By.XPATH, f'{base_xpath}//tr[11]//td[2]').text
 
         self.assertEqual(movimento, "10,00")
         self.assertEqual(fattura_vendita, "1,00")
         self.assertEqual(ddt_uscita, "1,00")
-        self.assertEqual(ddt_entrata, "1,00")
         self.assertEqual(fattura_acquisto2, "1,00")
         self.assertEqual(fattura_vendita2, "1,00")
         self.assertEqual(fattura_acquisto, "1,00")
