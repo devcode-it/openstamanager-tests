@@ -95,7 +95,7 @@ class Banche(Test):
         self.wait_loader()
 
         numero_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input')))
-        self.send_keys_and_wait(numero_input, "3", wait_modal=False)
+        self.send_keys_and_wait(numero_input, "2", wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')

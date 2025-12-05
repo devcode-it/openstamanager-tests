@@ -44,7 +44,7 @@ class AccountEmail(Test):
         self.send_keys_and_wait(search_input, 'Account Email da Impostazioni', wait_modal=False)
         self.wait_for_element_and_click('//tbody//tr//td[2]')
 
-        self.input(None, 'Email mittente').setValue(emailmittente)
+        self.input(None, 'Username SMTP').setValue(emailmittente)
         self.input(None, 'Server SMTP').setValue(server)
         self.input(None, 'Porta SMTP').setValue(porta)
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')

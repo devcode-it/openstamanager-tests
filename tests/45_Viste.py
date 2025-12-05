@@ -15,7 +15,7 @@ class Viste(Test, TestHelperMixin):
 
         self.navigateTo("Attività")
         self.wait_loader()
-        self.controllo_viste("3")
+        self.controllo_viste("2")
 
         self.expandSidebar("Vendite")
 
@@ -42,7 +42,7 @@ class Viste(Test, TestHelperMixin):
 
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
-        self.controllo_viste("3")
+        self.controllo_viste("02")
 
         self.expandSidebar("Contabilità")
         self.navigateTo("Scadenzario")
@@ -64,7 +64,7 @@ class Viste(Test, TestHelperMixin):
 
         self.navigateTo("Ddt in entrata")
         self.wait_loader()
-        self.controllo_viste("2")
+        self.controllo_viste("1")
 
     def controllo_viste(self, test: str):
         self.wait_for_search_results()

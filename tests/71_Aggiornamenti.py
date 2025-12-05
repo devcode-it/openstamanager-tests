@@ -12,16 +12,8 @@ class Aggiornamenti(Test):
         self.navigateTo("Aggiornamenti")
         self.wait_loader()
 
-        self.wait_for_element_and_click('//button[@onclick="checksum(this)"]')
-        self.wait_for_element_and_click('//button[@class="close"]')
-        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal fade large-modal show"]')))
-
         self.wait_for_element_and_click('//button[@onclick="controlli(this)"]')
         self.wait_for_element_and_click('//button[@onclick="avviaControlli(this);"]')
-        self.wait_for_element_and_click('//button[@class="close"]')
-        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal fade large-modal show"]')))
-
-        self.wait_for_element_and_click('//button[@onclick="database(this)"]')
         self.wait_for_element_and_click('//button[@class="close"]')
         self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal fade large-modal show"]')))
 
