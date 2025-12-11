@@ -3,7 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from common.Test import Test
 
-class AnagraficheBis(Test):
+class Anagrafiche(Test):
     def setUp(self):
         super().setUp()
         self.wait_driver = self.wait_driver

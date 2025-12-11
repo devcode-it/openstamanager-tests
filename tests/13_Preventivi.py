@@ -16,6 +16,7 @@ class Preventivi(Test):
         self.duplica_preventivo()
         self.modifica_preventivo("Accettato")
         self.elimina_preventivo()
+
         self.creazione_contratto()
         self.creazione_ordine_cliente()
         self.creazione_ordine_fornitore()
@@ -23,10 +24,6 @@ class Preventivi(Test):
         self.creazione_ddt_uscita()
         self.creazione_fattura()
         self.verifica_preventivi()
-        self.consuntivo()
-        self.revisioni()
-        self.cambia_stato()
-        self.fattura_preventivi()
 
     def creazione_preventivo(self, nome:str, cliente:str, idtipo: str, file_importi: str):
         self.navigateTo("Preventivi")
@@ -297,61 +294,3 @@ class Preventivi(Test):
         self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
-    def consuntivo(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        self.wait_for_element_and_click('//a[@id="link-tab_12"]')
-        budget = self.find(By.XPATH, '//span[@class="text-success"]').text
-        self.assertEqual(budget, "+ 250,80 €")
-
-    def revisioni(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
-
-        self.wait_for_element_and_click('//tbody//tr//td[3]')
-        self.wait_for_element_and_click('//a[@id="link-tab_20"]')
-        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_20"]//td[@class="text-center"][1]')))
-
-    def cambia_stato(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
-
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), "1", False)
-
-        self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="change_status"]')
-
-        self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='Bozza')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
-
-        stato = self.find(By.XPATH, '//tbody//tr//td[6]').text
-        self.assertEqual(stato, "Bozza")
-
-        self.wait_for_element_and_click('//tbody//tr//td')
-
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="change_status"]')
-
-        self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='Accettato')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
-
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
-
-    def fattura_preventivi(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
-
-        self.wait_for_element_and_click('//tbody//tr//td[1]')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="create_invoice"]')
-
-        self.wait_for_dropdown_and_select('//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-
-        self.wait_for_dropdown_and_select('//span[@id="select2-idstato-container"]', option_text='In lavorazione')
-        self.wait_for_element_and_click('//button[@id="save"]')

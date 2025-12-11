@@ -3,7 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from common.Test import Test
 
-class AnagraficheBis(Test):
+class Anagrafiche(Test):
     def setUp(self):
         super().setUp()
         self.wait_driver = self.wait_driver
@@ -172,7 +172,7 @@ class AnagraficheBis(Test):
         self.wait_loader()
         self.clear_filters()
 
-   def plugin_movimenti_contabili(self):
+    def plugin_movimenti_contabili(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
