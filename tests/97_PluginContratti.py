@@ -15,9 +15,6 @@ class Contratti(Test):
         self.rinnovi()
         self.pianificazione_attivita()
         self.consuntivo()
-        ##TODO: mandati SEPA
-        #self.mandati_sepa()
-
 
     def consuntivo(self):
         self.expandSidebar("Vendite")

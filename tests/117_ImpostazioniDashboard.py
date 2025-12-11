@@ -31,7 +31,7 @@ class Impostazioni(Test):
         ## TODO: tempo predefinito di snap attività sul calendario
 
     def visualizzare_domenica_calendario(self):
-                self.expandSidebar("Strumenti")
+        self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
