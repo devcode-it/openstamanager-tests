@@ -18,6 +18,7 @@ class Anagrafiche(Test):
         self.modifica_anagrafica('Privato')
         self.elimina_anagrafica()
         self.verifica_anagrafica()
+        
         self.crea_attivita()
         self.crea_preventivo()
         self.crea_contratto()

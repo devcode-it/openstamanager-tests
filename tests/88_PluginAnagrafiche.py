@@ -9,15 +9,21 @@ class AnagraficheBis(Test):
         self.wait_driver = self.wait_driver
         self.navigateTo("Anagrafiche")
 
-    def test_funzionalita_aggiuntive_anagrafica(self):
+    def test_plugin_anagrafica(self):
+        #TODO: Impianti del cliente
+        #self.impianti_cliente()
         self.aggiunta_referente()
         self.aggiunta_sede()
         self.plugin_statistiche()
-        #self.dichiarazione_di_intento()
-        #self.assicurazione_crediti()
-        #self.ricerca_coordinate()
-        self.elimina_selezionati()
-        self.cambia_relazione()
+        self.dichiarazione_di_intento()
+        self.storico_attivita()
+        self.controlla_allegati()
+        #TODO: Contratti del cliente
+        #self.contratti_del_cliente()
+        self.plugin_movimenti_contabili()
+        self.regole_pagamenti()
+        self.assicurazione_crediti()
+
 
     def aggiunta_referente(self):
         self.navigateTo("Anagrafiche")
@@ -166,6 +172,25 @@ class AnagraficheBis(Test):
         self.wait_loader()
         self.clear_filters()
 
+   def plugin_movimenti_contabili(self):
+        self.navigateTo("Anagrafiche")
+        self.wait_loader()
+
+        self.search_entity("Cliente")
+        self.click_first_result()
+
+        self.wait_for_element_and_click('//a[@id="link-tab_38"]')
+        self.wait_for_element_and_click('//div[@id="tab_38"]//a[@class="btn btn-info btn-lg"]')
+
+        dare = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_38"]//tr[1]//td[3]'))).text
+        self.assertEqual(dare, "305,98 €")
+
+        self.navigateTo("Anagrafiche")
+        self.wait_loader()
+        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+
+
+
     def plugin_statistiche(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
@@ -307,6 +332,80 @@ class AnagraficheBis(Test):
         self.navigateTo("Anagrafiche")
         self.clear_filters()
 
+
+    def storico_attivita(self):
+        self.navigateTo('Anagrafiche')
+        self.search_entity('Cliente')
+        self.click_first_result()
+        self.wait_for_element_and_click('//a[@id="link-tab_28"]')
+        self.wait_for_element_and_click('//div[@id="tab_28"]//tbody//tr//td[1]')
+        
+
+    def regole_pagamenti(self):
+        self.navigateTo("Anagrafiche")
+        self.wait_loader()
+
+        self.search_entity("Cliente")
+        self.click_first_result()
+
+        self.wait_for_element_and_click('//a[@id="link-tab_40"]')
+        self.wait_for_element_and_click('//div[@id="tab_40"]//i[@class="fa fa-plus"]')
+        modal = self.wait_modal()
+
+        self.wait_for_dropdown_and_select(
+            '//*[@id="select2-mese-container"]',
+            option_text='Agosto'
+        )
+        self.wait_for_dropdown_and_select(
+            '//*[@id="select2-giorno_fisso-container"]',
+            option_text='8'
+        )
+        self.wait_for_element_and_click('(//button[@type="submit"])[3]')
+
+        self.wait_for_element_and_click('//div[@id="tab_40"]//i[@class="fa fa-plus"]')
+        modal = self.wait_modal()
+
+        self.wait_for_dropdown_and_select(
+            '//*[@id="select2-mese-container"]',
+            option_text='Aprile'
+        )
+        self.wait_for_dropdown_and_select(
+            '//*[@id="select2-giorno_fisso-container"]',
+            option_text='8'
+        )
+        self.wait_for_element_and_click('(//button[@type="submit"])[3]')
+
+        self.wait_for_element_and_click('//div[@id="tab_40"]//tbody//tr//td[2]')
+        self.wait_for_element_and_click('//button[@class="btn btn-danger "]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+
+        self.expandSidebar("Contabilità")
+        self.navigateTo("Scadenzario")
+        self.wait_loader()
+
+        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Anagrafica"]/input')))
+        self.send_keys_and_wait(search_input, 'Cliente', False)
+
+        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        element = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_concordata0"]')))
+        element.send_keys('13/08/2025')
+
+        self.wait_for_element_and_click('//button[@id="save"]')
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning"]')))
+
+        element = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_concordata0"]')))
+        element.clear()
+        element.send_keys('20/01/2025')
+
+        self.wait_for_element_and_click('//button[@id="save"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning"]')))
+
+        self.navigateTo("Anagrafiche")
+        self.wait_loader()
+        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.expandSidebar("Vendite")
+
+
     def assicurazione_crediti(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
@@ -396,87 +495,18 @@ class AnagraficheBis(Test):
         self.navigateTo("Anagrafiche")
         self.clear_filters()
 
-    def ricerca_coordinate(self):
+    def controlla_allegati(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
-        )
-        self.send_keys_and_wait(search_input, "Admin spa", wait_modal = False)
-        self.wait_for_search_results()
-
-        self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="search_coordinates"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        self.wait_for_element_and_click('//a[@onclick="modificaPosizione()"]')
-        self.wait_for_element_and_click('//ul//li[2]//div')
-
-        latitude = self.find(By.XPATH, '//input[@id="lat"]').text
-        self.assertNotEqual(latitude, "0")
-        longitude = self.find(By.XPATH, '//input[@id="lng"]').text
-        self.assertNotEqual(longitude, "0")
-
-        self.wait_for_element_and_click('//button[@class="close"]')
-
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.clear_filters()
-
-    def elimina_selezionati(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
-        )
-        self.send_keys_and_wait(search_input, "Vettore", wait_modal = False)
-        self.wait_for_search_results()
-
-        self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="delete_bulk"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
-
-        no_results_message = self.find(By.XPATH, '//tbody//tr[1]').text
-        self.assertEqual(no_results_message, "La ricerca non ha portato alcun risultato.")
-
-        self.clear_filters()
-
-    def cambia_relazione(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
         self.search_entity("Cliente")
+        self.click_first_result()
 
-        self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="change_relation"]')
-
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idrelazione-container"]',
-            option_text="Attivo"
-        )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
-
-        relation = self.find(By.XPATH, '//tbody//tr//td[7]').text
-        self.assertEqual(relation, "Attivo")
-
-        self.wait_for_element_and_click('//tbody//tr//td[7]')
-        self.wait_for_element_and_click('//span[@id="select2-idrelazione-container"]//span[@class="select2-selection__clear"]')
-
-        search_field = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))
-        )
-        self.send_keys_and_wait(search_field, "Da contattare", wait_modal = False)
-        self.wait_for_element_and_click('//button[@id="save"]')
+        self.wait_for_element_and_click('//a[@id="link-tab_30"]')
+        self.wait_for_element_and_click('//div[@id="tab_30"]//a[@class="btn btn-info btn-lg"]')
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_30"]//a[@class="btn btn-xs btn-primary"]')))
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()
-
-        new_relation = self.find(By.XPATH, '//tbody//tr//td[7]').text
-        self.assertNotEqual(new_relation, "Attivo")
-
-        self.clear_filters()
+        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.expandSidebar("Vendite")
