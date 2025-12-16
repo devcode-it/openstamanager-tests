@@ -30,8 +30,10 @@ class SettoriMerceologici(Test):
         self.navigateTo("Settori merceologici")
         self.wait_loader()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_descrizione"]/input')
-        self.send_keys_and_wait(search_input, 'Settore Merceologico di Prova da Modificare', False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))
+        )
+        self.send_keys_and_wait(search_input, 'Settore Merceologico di Prova da Modificare', wait_modal=False)
 
         self.click_first_result()
 
@@ -46,7 +48,9 @@ class SettoriMerceologici(Test):
     def elimina_settore_merceologico(self):
         self.navigateTo("Settori merceologici")
         self.wait_loader()
-        search_input = self.find(By.XPATH,'//th[@id="th_descrizione"]/input')
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))
+        )
         self.send_keys_and_wait(search_input, 'Settore Merceologico di Prova da Eliminare', wait_modal=False)
         elemento = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))
@@ -59,7 +63,9 @@ class SettoriMerceologici(Test):
         self.clear_filters()
 
     def verifica_settore_merceologico(self):
-        search_input = self.find(By.XPATH,'//th[@id="th_descrizione"]/input')
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))
+        )
         self.send_keys_and_wait(search_input, "Settore Merceologico di Prova", wait_modal=False)
         modificato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[3]'))

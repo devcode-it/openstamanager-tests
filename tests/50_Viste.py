@@ -33,7 +33,7 @@ class Viste(Test, TestHelperMixin):
 
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
-        self.controllo_viste("0001/2025")
+        self.controllo_viste("0002/2025")
 
         self.expandSidebar("Acquisti")
         self.navigateTo("Ordini fornitore")
@@ -64,7 +64,7 @@ class Viste(Test, TestHelperMixin):
 
         self.navigateTo("Ddt in entrata")
         self.wait_loader()
-        self.controllo_viste("1")
+        self.controllo_viste("2")
 
     def controllo_viste(self, test: str):
         self.wait_for_search_results()

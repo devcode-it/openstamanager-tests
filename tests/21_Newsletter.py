@@ -31,8 +31,10 @@ class Newsletter(Test):
         self.navigateTo("Newsletter")
         self.wait_loader()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, 'Newsletter di Prova da Modificare', False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))
+        )
+        self.send_keys_and_wait(search_input, 'Newsletter di Prova da Modificare', wait_modal=False)
         self.click_first_result()
 
         self.input(None, 'Nome').setValue(modifica)
@@ -43,8 +45,10 @@ class Newsletter(Test):
         self.clear_filters()
 
     def elimina_newsletter(self):
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, 'Newsletter di Prova da Eliminare', False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))
+        )
+        self.send_keys_and_wait(search_input, 'Newsletter di Prova da Eliminare', wait_modal=False)
         self.click_first_result()
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
@@ -52,16 +56,20 @@ class Newsletter(Test):
         self.clear_filters()
 
     def verifica_newsletter(self):
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, "Newsletter di Prova", False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))
+        )
+        self.send_keys_and_wait(search_input, "Newsletter di Prova", wait_modal=False)
         modificato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))
         ).text
         self.assertEqual("Newsletter di Prova", modificato)
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, "Newsletter di Prova da Eliminare", False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))
+        )
+        self.send_keys_and_wait(search_input, "Newsletter di Prova da Eliminare", wait_modal=False)
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text

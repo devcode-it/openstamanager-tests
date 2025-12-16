@@ -31,7 +31,7 @@ class Zone(Test):
         self.wait_loader()
 
         search_input = self.wait_for_element_and_click('//th[@id="th_Descrizione"]/input')
-        self.send_keys_and_wait(search_input, 'Zona di Prova da Modificare', False)
+        self.send_keys_and_wait(search_input, 'Zona di Prova da Modificare', wait_modal=False)
         self.wait_for_element_and_click('//tbody//tr//td[2]')
 
         self.input(None, 'Descrizione').setValue(modifica)
@@ -43,7 +43,7 @@ class Zone(Test):
 
     def elimina_zone(self):
         search_input = self.wait_for_element_and_click('//th[@id="th_Descrizione"]/input')
-        self.send_keys_and_wait(search_input, 'Zona di Prova da Eliminare', False)
+        self.send_keys_and_wait(search_input, 'Zona di Prova da Eliminare', wait_modal=False)
         self.wait_for_element_and_click('//tbody//tr//td[2]')
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')

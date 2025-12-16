@@ -8,6 +8,8 @@ class Attivita_Dashboard(Test):
         super().setUp()
 
     def test_attivita_dashboard(self):
+        self.attivita('Cliente', '1', '2')
+
         self.navigateTo("Dashboard")
         self.wait_loader()
 
@@ -38,3 +40,13 @@ class Attivita_Dashboard(Test):
         trova_element = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="fc-event-main"]')))
         trova = trova_element.text
         self.assertEqual(trova, att)
+
+    def attivita(self, cliente: str, tipo: str, stato: str):
+        self.navigateTo('Attività')
+        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        modal = self.wait_modal()
+        self.input(modal, 'Cliente').setByText(cliente)
+        self.input(modal, 'Tipo').setByIndex(tipo)
+        iframe = self.wait_for_element_and_click('(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')
+        iframe.send_keys('Test')
+        self.wait_for_element_and_click('//div[@class="col-md-12 text-right"]//button[@type="button"]')

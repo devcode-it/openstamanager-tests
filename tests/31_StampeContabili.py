@@ -57,7 +57,7 @@ class StampeContabili(Test):
 
         self.driver.switch_to.window(self.driver.window_handles[1])
         stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="viewer"]//span'))).text
-        self.assertEqual(stampa, "STAMPA MASTRINO")
+        self.assertEqual(stampa, "STAMPA BILANCIO")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
@@ -65,7 +65,7 @@ class StampeContabili(Test):
 
         self.driver.switch_to.window(self.driver.window_handles[1])
         stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[1]'))).text
-        self.assertEqual(stampa, "STAMPA MASTRINO")
+        self.assertEqual(stampa, "STAMPA BILANCIO")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
