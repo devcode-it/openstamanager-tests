@@ -1,5 +1,4 @@
 from common.Test import Test, get_html
-from selenium.webdriver.common.keys import Keys
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -35,7 +34,7 @@ class OrdiniCliente(Test):
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), '01', False)
+        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), '01', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.driver.execute_script('window.scrollTo(0,0)')
@@ -43,10 +42,18 @@ class OrdiniCliente(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-idstatoordine-container"]', option_text='Accettato')
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
-        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
-        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
-        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
-        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
+        sconto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]'))
+        ).text
+        totale_imponibile = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]'))
+        ).text
+        iva = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]'))
+        ).text
+        totale = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]'))
+        ).text
 
         self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"] + ' €'))
         self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"] + ' €'))
@@ -61,7 +68,7 @@ class OrdiniCliente(Test):
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), '2', False)
+        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), '2', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
@@ -73,14 +80,18 @@ class OrdiniCliente(Test):
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_icon_title_Stato"]/input'))), "Accettato", False)
+        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_icon_title_Stato"]/input'))), "Accettato", wait_modal=False)
 
-        modificato = self.driver.find_element(By.XPATH, '//tbody//tr//td[7]').text
+        modificato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))
+        ).text
         self.assertEqual("Accettato", modificato)
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), "2", False)
+        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), "2", wait_modal=False)
 
-        eliminato = self.driver.find_element(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        eliminato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
+        ).text
         self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
         self.wait_for_element_and_click('//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')

@@ -63,6 +63,10 @@ class TestHelperMixin:
         """Send keys to an element and click on a specified element instead of pressing Enter."""
         return send_keys_and_click(self.driver, self.wait_driver, element, text, click_selector, by)
 
+    def wait_for_expanded_element(self, selector: str, by: By = By.XPATH) -> WebElement:
+        """Wait for an element to be fully expanded and visible after an animation."""
+        return wait_for_expanded_element(self.driver, self.wait_driver, selector, by)
+
 
 def random_string(size: int = 32, chars: str = string.ascii_letters + string.digits) -> str:
     return ''.join(random.choice(chars) for _ in range(size))
@@ -383,3 +387,27 @@ def send_keys_and_click(driver: WebDriver, wait_driver: WebDriverWait, element: 
 
     # Wait for loaders again to ensure everything is fully loaded
     wait_loader(driver, wait_driver)
+
+
+def wait_for_expanded_element(driver: WebDriver, wait_driver: WebDriverWait, selector: str, by: By = By.XPATH) -> WebElement:
+    """Wait for an element to be fully expanded and visible after an animation.
+
+    This function waits for an element to be:
+    1. Displayed (visible in the DOM)
+    2. Have a height greater than 0 (fully expanded after CSS animation)
+
+    Args:
+        driver: The WebDriver instance
+        wait_driver: The WebDriverWait instance
+        selector: The selector for the element to wait for
+        by: The locator strategy (default: By.XPATH)
+
+    Returns:
+        The fully expanded and visible element
+    """
+    return wait_driver.until(
+        lambda d: d.find_element(by, selector)
+        if d.find_element(by, selector).is_displayed()
+        and d.find_element(by, selector).size['height'] > 0
+        else False
+    )

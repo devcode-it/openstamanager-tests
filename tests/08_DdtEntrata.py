@@ -42,15 +42,23 @@ class DdtEntrata(Test):
     def modifica_ddt(self, modifica):
         self.navigateTo("Ddt in entrata")
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait(search_input, '1', False)
+        self.send_keys_and_wait(search_input, '1', wait_modal=False)
         self.click_first_result()
 
         self.wait_for_dropdown_and_select('//span[@id="select2-idstatoddt-container"]', option_text='Evaso')
 
-        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
-        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
-        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
-        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
+        sconto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]'))
+        ).text
+        totale_imponibile = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]'))
+        ).text
+        iva = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]'))
+        ).text
+        totale = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]'))
+        ).text
 
         self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"] + ' €'))
         self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"] + ' €'))
@@ -64,7 +72,7 @@ class DdtEntrata(Test):
     def elimina_ddt(self):
         self.navigateTo("Ddt in entrata")
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait(search_input, '2', False)
+        self.send_keys_and_wait(search_input, '2', wait_modal=False)
         self.click_first_result()
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
@@ -74,13 +82,17 @@ class DdtEntrata(Test):
     def verifica_ddt(self):
         self.navigateTo("Ddt in entrata")
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait(search_input, "1", False)
-        modificato = self.driver.find_element(By.XPATH, '//tbody//tr[1]//td[11]').text
+        self.send_keys_and_wait(search_input, "1", wait_modal=False)
+        modificato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[11]'))
+        ).text
         self.assertEqual("Evaso", modificato)
         self.clear_filters()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait(search_input, "2", False)
-        eliminato = self.driver.find_element(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.send_keys_and_wait(search_input, "2", wait_modal=False)
+        eliminato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
+        ).text
         self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
         self.clear_filters()

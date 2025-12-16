@@ -2,7 +2,7 @@ from common.Test import Test
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from time import sleep
+
 class FattureAcquisto(Test):
     def setUp(self):
         super().setUp()
@@ -44,29 +44,45 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
         self.click_first_result()
 
-        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
-        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
-        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
-        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
+        sconto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]'))
+        ).text
+        totale_imponibile = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]'))
+        ).text
+        iva = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]'))
+        ).text
+        totale = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]'))
+        ).text
 
         self.assertEqual(sconto, self.valori["Sconto/maggiorazione"] + ' €')
         self.assertEqual(totale_imponibile, self.valori["Totale imponibile"] + ' €')
         self.assertEqual(iva, self.valori["IVA"] + ' €')
         self.assertEqual(totale, self.valori["Totale documento"] + ' €')
 
-        scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
+        scadenza_fattura = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]'))
+        ).text
         self.assertEqual(totale, scadenza_fattura[12:21])
         self.driver.execute_script('$("a").removeAttr("target")')
         self.wait_for_element_and_click('//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::a')
 
         totale = '-' + totale
-        scadenza_scadenzario = (self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text + ' €')
+        scadenza_scadenzario = (self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]'))
+        ).text + ' €')
         self.assertEqual(totale, scadenza_scadenzario)
 
         self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
-        widget_fatturato = self.find(By.XPATH, '(//span[@class="info-box-number"])[1]').text
-        widget_crediti = self.find(By.XPATH, '(//span[@class="info-box-number"])[2]').text
+        widget_fatturato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-number"])[1]'))
+        ).text
+        widget_crediti = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-number"])[2]'))
+        ).text
         widget_crediti = '-' + widget_crediti
 
         self.assertEqual(totale_imponibile, widget_fatturato)
@@ -76,17 +92,29 @@ class FattureAcquisto(Test):
         self.navigateTo("Piano dei conti")
 
         self.wait_for_element_and_click('//*[@id="conto2-14"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto2-14"]')
         self.wait_for_element_and_click('//*[@id="movimenti-55"]//*[@class="fa fa-plus"]')
-        conto_costi = self.find(By.XPATH, '//*[@id="conto_55"]//*[@class="text-right"]').text
+        self.wait_for_expanded_element('//*[@id="conto_55"]')
+        conto_costi = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_55"]//*[@class="text-right"]'))
+        ).text
 
         self.wait_for_element_and_click('//*[@id="conto2-8"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto2-8"]')
         self.wait_for_element_and_click('//*[@id="movimenti-126"]//*[@class="fa fa-plus"]')
-        conto_fornitore = self.find(By.XPATH, '//*[@id="conto_126"]//*[@class="text-right"]').text
+        self.wait_for_expanded_element('//*[@id="conto_126"]')
+        conto_fornitore = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_126"]//*[@class="text-right"]'))
+        ).text
         conto_fornitore = '-' + conto_fornitore
 
         self.wait_for_element_and_click('//*[@id="conto2-22"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto2-22"]')
         self.wait_for_element_and_click('//*[@id="movimenti-107"]//*[@class="fa fa-plus"]')
-        conto_iva = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_107"]//*[@class="text-right"]'))).text
+        self.wait_for_expanded_element('//*[@id="conto_107"]')
+        conto_iva = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_107"]//*[@class="text-right"]'))
+        ).text
 
         self.assertEqual(totale_imponibile, conto_costi)
         self.assertEqual(totale, conto_fornitore)

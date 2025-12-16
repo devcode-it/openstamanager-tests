@@ -113,15 +113,21 @@ class FattureVendita(Test):
         self.wait_loader()
 
         self.wait_for_element_and_click('//*[@id="conto2-20"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto2-20"]')
         self.wait_for_element_and_click('//*[@id="movimenti-94"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto_94"]')
         conto_ricavi = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_94"]//*[@class="text-right"]'))).text
 
         self.wait_for_element_and_click('//*[@id="conto2-2"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto2-2"]')
         self.wait_for_element_and_click('//*[@id="movimenti-125"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto_125"]')
         conto_cliente = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_125"]//*[@class="text-right"]'))).text
 
         self.wait_for_element_and_click('//*[@id="conto2-22"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto2-22"]')
         self.wait_for_element_and_click('//*[@id="movimenti-106"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto_106"]')
         conto_iva = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]'))).text
 
         self.assertEqual(totale_imponibile, conto_ricavi)
@@ -208,15 +214,21 @@ class FattureVendita(Test):
         self.wait_loader()
 
         self.wait_for_element_and_click('//*[@id="conto2-20"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto2-20"]')
         self.wait_for_element_and_click('//*[@id="movimenti-94"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto_94"]')
         conto_ricavi = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_94"]//*[@class="text-right"]'))).text
 
         self.wait_for_element_and_click('//*[@id="conto2-2"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto2-2"]')
         self.wait_for_element_and_click('//*[@id="movimenti-125"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto_125"]')
         conto_cliente = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_125"]//*[@class="text-right"]'))).text
 
         self.wait_for_element_and_click('//*[@id="conto2-22"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto2-22"]')
         self.wait_for_element_and_click('//*[@id="movimenti-106"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto_106"]')
         conto_iva = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]'))).text
 
         conto_iva= '-'+ conto_iva
@@ -259,7 +271,9 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def verifica_xml_fattura_estera(self, file_importi: str, pagamento: str):
-        self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Pagamento').setByIndex(pagamento)
+        self.input(self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]'))
+        ), 'Pagamento').setByIndex(pagamento)
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
 
@@ -278,7 +292,7 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//button[@class="btn btn-primary unblockable dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"]')
         self.wait_for_element_and_click('//div[@class="modal-body"]//span[@class="select2-selection select2-selection--single"]')
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))), "TD17", False)
+        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))), "TD17", wait_modal=False)
         self.wait_for_element_and_click('//div[@class="modal-body"]//button[@type="submit"]')
 
         self.input(None,'Stato*').setByText("Emessa")

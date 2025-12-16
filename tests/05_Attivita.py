@@ -1,6 +1,5 @@
 from common.Test import Test, get_html
 from common.RowManager import RowManager
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -16,7 +15,6 @@ class Attivita(Test):
         self.elimina_attività()
         self.controllo_righe()
         self.verifica_attività()
-        
 
     def attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
         self.navigateTo('Attività')
@@ -43,8 +41,10 @@ class Attivita(Test):
 
     def modifica_attività(self, modifica: str):
         self.navigateTo('Attività')
-        search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal = False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))
+        )
+        self.send_keys_and_wait(search_input, '1', wait_modal=False)
         self.click_first_result()
 
         self.wait_for_dropdown_and_select(
@@ -58,8 +58,10 @@ class Attivita(Test):
 
     def elimina_attività(self):
         self.navigateTo('Attività')
-        search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal = False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))
+        )
+        self.send_keys_and_wait(search_input, '2', wait_modal=False)
         self.click_first_result()
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
@@ -68,23 +70,41 @@ class Attivita(Test):
 
     def controllo_righe(self):
         self.navigateTo('Attività')
-        search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal = False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))
+        )
+        self.send_keys_and_wait(search_input, '1', wait_modal=False)
         self.click_first_result()
 
-        imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]').text
-        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
-        totale = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        imponibile = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]'))
+        ).text
+        sconto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]'))
+        ).text
+        totale = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]'))
+        ).text
 
         self.assertEqual(imponibile, (self.valori['Imponibile'] + ' €'))
         self.assertEqual(sconto, (self.valori['Sconto/maggiorazione'] + ' €'))
         self.assertEqual(totale, (self.valori['Totale imponibile'] + ' €'))
 
-        imponibilefinale = self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[1]//td[2]').text
-        scontofinale = self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[2]//td[2]').text
-        totaleimpfinale = self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[3]//td[2]').text
-        IVA = self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[4]//td[2]').text
-        totalefinale = self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[5]//td[2]').text
+        imponibilefinale = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="costi"]//tbody[2]//tr[1]//td[2]'))
+        ).text
+        scontofinale = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="costi"]//tbody[2]//tr[2]//td[2]'))
+        ).text
+        totaleimpfinale = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="costi"]//tbody[2]//tr[3]//td[2]'))
+        ).text
+        IVA = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="costi"]//tbody[2]//tr[4]//td[2]'))
+        ).text
+        totalefinale = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="costi"]//tbody[2]//tr[5]//td[2]'))
+        ).text
 
         self.assertEqual(imponibilefinale, imponibile)
         self.assertEqual(scontofinale, sconto)
@@ -97,15 +117,23 @@ class Attivita(Test):
 
     def verifica_attività(self):
         self.navigateTo('Attività')
-        search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal = False)
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[7]').text
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))
+        )
+        self.send_keys_and_wait(search_input, '1', wait_modal=False)
+        modificato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[7]'))
+        ).text
         self.assertEqual('Completato', modificato)
         self.clear_filters()
 
-        search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal = False)
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))
+        )
+        self.send_keys_and_wait(search_input, '2', wait_modal=False)
+        eliminato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
+        ).text
         self.assertEqual('La ricerca non ha portato alcun risultato.', eliminato)
         self.clear_filters()
 

@@ -12,7 +12,9 @@ class Dashboard(Test):
         self.wait_loader()
 
         actions = webdriver.common.action_chains.ActionChains(self.driver)
-        calendar = self.driver.find_element(By.XPATH, '//div[@id="calendar"]')
+        calendar = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="calendar"]'))
+        )
         actions.move_to_element(calendar).move_by_offset(300, 100).click().perform()
         modal = self.wait_modal()
 
