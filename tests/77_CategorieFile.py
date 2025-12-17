@@ -32,12 +32,11 @@ class Categorie(Test):
         self.navigateTo("Categorie file")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input')))
+        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, 'Categoria di Prova da Modificare', wait_modal=False)
         self.wait_for_element_and_click('//tbody//tr//td[2]')
 
-        self.driver.execute_script('window.scrollTo(0,0)')
-        self.input(None, 'descrizione').setValue(modifica)
+        self.input(None, 'Descrizione').setValue(modifica)
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
         self.navigateTo("Categorie file")
@@ -48,12 +47,11 @@ class Categorie(Test):
         self.navigateTo("Categorie file")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input')))
+        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, "Categoria di Prova da Eliminare", wait_modal=False)
         self.click_first_result()
         self.wait_loader()
 
-        self.driver.execute_script('window.scrollTo(0,0)')
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
         self.clear_filters()
@@ -62,14 +60,13 @@ class Categorie(Test):
         self.navigateTo("Categorie file")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input')))
+        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, "Categoria di Prova", wait_modal=False)
         self.click_first_result()
         self.wait_loader()
 
-        self.driver.execute_script('window.scrollTo(0,0)')
         modificato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//input[@name="name_add"]'))
+            EC.visibility_of_element_located((By.XPATH, '//input[@name="name"]'))
         ).get_attribute('value')
         self.assertEqual('Categoria di Prova', modificato)
 
@@ -77,7 +74,7 @@ class Categorie(Test):
         self.wait_loader()
         self.clear_filters()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input')))
+        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, 'Categoria di Prova da Eliminare', wait_modal=False)
         eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
         self.assertEqual('La ricerca non ha portato alcun risultato.', eliminato)
