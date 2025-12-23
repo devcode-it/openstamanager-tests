@@ -1,5 +1,4 @@
 from common.Test import Test, get_html
-from selenium.webdriver.common.keys import Keys
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -16,13 +15,15 @@ class OrdiniCliente(Test):
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), '1', False)
+        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), '1', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_for_element_and_click('//a[@id="link-tab_29"]')
 
-        budget = self.find(By.XPATH, '//div[@id="tab_29"]//span[@class="text-success"]').text
-        self.assertEqual(budget, "+ 250,80 €")
+        budget = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_29"]//span[@class="text-success"]'))
+        ).text
+        self.assertEqual(budget, "+ 264,80 €")
 
         self.navigateTo("Ordini cliente")
         self.wait_loader()

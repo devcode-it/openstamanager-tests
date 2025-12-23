@@ -85,7 +85,7 @@ class GiacenzeSedi(Test):
         self.wait_for_element_and_click('//a[@id="link-tab_10"]')
 
         scarico = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[2]//td[7]'))).text
-        carico = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[3]//td[7]'))).text
+        carico = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[7]//td[7]'))).text
 
-        self.assertEqual(scarico, "Sede di Roma")
-        self.assertEqual(carico, "Sede legale")
+        self.assertEqual(scarico, "Sede legale")
+        self.assertEqual(carico, "Sede di Roma")

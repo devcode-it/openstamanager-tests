@@ -182,11 +182,11 @@ Legenda:
 |30| Tecnici tariffe |-|:heavy_check_mark:|-|-|:heavy_check_mark:|-|
 |31| Stampe contabili | -|-|-|-|:heavy_check_mark:|-|
 |32| Prima nota |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
-|33| Piano dei conti |:x:|:x:|:x:|:x:|:x:|:x:|
+|33| Piano dei conti |-|-|-|-|-|:x:|
 |34| Scadenzario |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
-|35| Ammortamenti / Cespiti |:x:|:x:|:x:|:x:|:x:|:x:|
+|35| Ammortamenti / Cespiti |-|-|-|-|-|:x:|
 |36| Piani sconto maggiorazione |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
-|37| Listini |:x:|:x:|:x:|:x:|:x:|:x:|
+|37| Listini |-|-|-|-|-|:x:|
 |38| Listini clienti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|+ aggiorna listino e aggiungi a listino|
 |39| Giacenze sedi|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|:heavy_check_mark:|+spostamento tra sedi|
 |40| Attributi combinazioni |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
@@ -195,13 +195,13 @@ Legenda:
 |43| Impianti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |44| Statistiche |-|-|-|-|:heavy_check_mark:|-|
 |45| Mappa |-|-|-|-|:heavy_check_mark:|-|
-|46| Accesso con Token/OTP |:x:|:x:|:x:|:x:|:x:|:x:|
+|46| Accesso con Token/OTP |-|-|-|-|-|:x:|
 |47| Utenti permessi |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
-|48| Accesso con OAuth |:x:|:x:|:x:|:x:|:x:|:x:|
+|48| Accesso con OAuth |-|-|-|-|-|:x:|
 |49| Checklists |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |50| Viste |-|-|-|-|:heavy_check_mark:|-|
 |51| Tipi scadenze |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
-|52| Categorie contratti |:x:|:x:|:x:|:x:|:x:|:x:|
+|52| Categorie contratti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |53| Stati fatture |-|:heavy_check_mark:|-|-|:heavy_check_mark:|-|
 |54| Stati degli ordini |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |55| Eventi |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
@@ -224,12 +224,12 @@ Legenda:
 |72| Casse previdenziali |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |73| Tags |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:| -|:heavy_check_mark:|-|
 |74| Marche |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
-|75| Stati dei DDT |:x:|:x:|:x:|:x:|:x:|:x:|
-|76| Descrizioni predefinite |:x:|:x:|:x:|:x:|:x:|:x:|
-|77| Categorie file |:x:|:x:|:x:|:x:|:x:|:x:|
+|75| Stati dei DDT |:heavy_check_mark:|-|-|-|-|:x:|
+|76| Descrizioni predefinite |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
+|77| Categorie file |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |78| Mansioni referenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |79| Segmenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
-|80| Import |:x:|:x:|:x:|:x:|:x:|:x:|
+|80| Import |-|-|-|-|:heavy_check_mark:|:x:|
 |81| Campi personalizzati |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
 |83| Stampe |-|-|-|-|:heavy_check_mark:|-|
 |84| Adattatori di archiviazione |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|:heavy_check_mark:|-|
@@ -252,7 +252,7 @@ Legenda:
 |88| Anagrafiche | Referenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
 |88| Anagrafiche | Sedi aggiuntive |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
 |88| Anagrafiche | Statistiche |-|-|-|:heavy_check_mark:|-|
-|88| Anagrafiche | Ddt del cliente |-|-|-|:x:|:x:|
+|88| Anagrafiche | Ddt del cliente |-|-|-|-|-|
 |88| Anagrafiche | Dichiarazione d'intento |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:| Fattura di vendita |
 |88| Anagrafiche | Storico attività |-|-|-|:heavy_check_mark:|-|
 |88| Anagrafiche | Allegati |-|-|-|:heavy_check_mark:|-|
@@ -301,57 +301,57 @@ Legenda:
 |--| ------- | ---------------- |:--:|
 |99| Anagrafiche | Cambia relazione |:heavy_check_mark:|
 |99| Anagrafiche | Elimina |:heavy_check_mark:|
-|99| Anagrafiche | Esporta |:x:|
-|99| Anagrafiche | Imposta listino |:x:|
+|99| Anagrafiche | Esporta |-|
+|99| Anagrafiche | Imposta listino |-|
 |99| Anagrafiche | Ricerca coordinate |:heavy_check_mark:|
 |100| Liste | Aggiorna liste |:x:|
 |101| Attività | Cambia stato |:heavy_check_mark:|
 |101| Attività | Duplica |:heavy_check_mark:|
 |101| Attività | Elimina |:heavy_check_mark:|
-|101| Attività | Esporta stampe |:x:|
+|101| Attività | Esporta stampe |-|
 |101| Attività | Fattura attività |:heavy_check_mark:|
 |101| Attività | Firma interventi  |:heavy_check_mark:|
-|101| Attività | Invia mail |:x:|
+|101| Attività | Invia mail |-|
 |101| Attività | Stampa riepilogo |:heavy_check_mark:|
 |102| Contratti | Cambia stato |:heavy_check_mark:|
-|102| Contratti | Cambia metodo di pagamento |:x:|
+|102| Contratti | Cambia metodo di pagamento |-|
 |102| Contratti | Fattura contratti |:heavy_check_mark:|
 |102| Contratti | Rinnova contratti |:heavy_check_mark:|
 |103| Preventivi | Cambia stato |:heavy_check_mark:|
 |103| Preventivi | Fattura preventivi |:heavy_check_mark:|
 |104| Ordini cliente | Cambia stato |:heavy_check_mark:|
 |104| Ordini cliente | Fattura ordini cliente |:heavy_check_mark:|
-|105| Fatture di vendita | Aggiorna banca |:x:|
+|105| Fatture di vendita | Aggiorna banca |-|
 |105| Fatture di vendita | Cambia sezionale |:heavy_check_mark:|
 |105| Fatture di vendita | Controlla fatture elettroniche |:heavy_check_mark:|
 |105| Fatture di vendita | Duplica |:heavy_check_mark:|
 |105| Fatture di vendita | Elimina |:heavy_check_mark:|
 |105| Fatture di vendita | Emetti fatture |:heavy_check_mark:|
-|105| Fatture di vendita | Esporta |:x:|
-|105| Fatture di vendita | Esporta stampe |:x:|
-|105| Fatture di vendita | Esporta stampe FE |:x:|
-|105| Fatture di vendita | Esporta ricevute |:x:|
-|105| Fatture di vendita | Esporta XML |:x:|
+|105| Fatture di vendita | Esporta |-|
+|105| Fatture di vendita | Esporta stampe |-|
+|105| Fatture di vendita | Esporta stampe FE |-|
+|105| Fatture di vendita | Esporta ricevute |-|
+|105| Fatture di vendita | Esporta XML |-|
 |105| Fatture di vendita | Genera fatture elettroniche |:heavy_check_mark:|
-|105| Fatture di vendita | Invia fatture |:x:|
+|105| Fatture di vendita | Invia fatture |-|
 |105| Fatture di vendita | Registrazione contabile |:heavy_check_mark:|
 |106| Ordini fornitore | Cambia stato |:heavy_check_mark:|
-|107| Fatture di acquisto | Aggiorna banca |:x:|
+|107| Fatture di acquisto | Aggiorna banca |-|
 |107| Fatture di acquisto | Cambia sezionale |:heavy_check_mark:|
 |107| Fatture di acquisto | Duplica |:heavy_check_mark:|
 |107| Fatture di acquisto | Elimina |:heavy_check_mark:|
-|107| Fatture di acquisto | Esporta |:x:|
-|107| Fatture di acquisto | Esporta stampe FE |:x:|
-|107| Fatture di acquisto | Esporta ricevute |:x:|
-|107| Fatture di acquisto | Esporta XML |:x:|
-|107| Fatture di acquisto | Invia fatture |:x:|
+|107| Fatture di acquisto | Esporta |-|
+|107| Fatture di acquisto | Esporta stampe FE |-|
+|107| Fatture di acquisto | Esporta ricevute |-|
+|107| Fatture di acquisto | Esporta XML |-|
+|107| Fatture di acquisto | Invia fatture |-|
 |107| Fatture di acquisto | Registrazione contabile |:heavy_check_mark:|
-|108| Scadenzario | Aggiorna banca |:x:|
-|108| Scadenzario | Info distinta |:x:|
-|108| Scadenzario | Invia mail sollecito |:x:|
-|108| Scadenzario | Registrazione contabile |:x:|
+|108| Scadenzario | Aggiorna banca |-|
+|108| Scadenzario | Info distinta |-|
+|108| Scadenzario | Invia mail sollecito |-|
+|108| Scadenzario | Registrazione contabile |-|
 |109| Articoli | Aggiorna aliquota iva |:heavy_check_mark:|
-|109| Articoli | Aggiorna categoria e sottocategoria |:x:|
+|109| Articoli | Aggiorna categoria e sottocategoria |-|
 |109| Articoli | Aggiorna coefficiente di vendita |:heavy_check_mark:|
 |109| Articoli | Aggiorna conto predefinito di acquisto |:heavy_check_mark:|
 |109| Articoli | Aggiorna conto predefinito di vendita |:heavy_check_mark:|
@@ -359,12 +359,12 @@ Legenda:
 |109| Articoli | Aggiorna prezzo di vendita |:heavy_check_mark:|
 |109| Articoli | Aggiorna quantità |:heavy_check_mark:|
 |109| Articoli | Aggiorna unità di misura |:heavy_check_mark:|
-|109| Articoli | Aggiungi a listino cliente |:x:|
-|109| Articoli | Attiva/Disattiva articoli |:x:|
+|109| Articoli | Aggiungi a listino cliente |-|
+|109| Articoli | Attiva/Disattiva articoli |-|
 |109| Articoli | Elimina |:heavy_check_mark:|
-|109| Articoli | Esporta |:x:|
+|109| Articoli | Esporta |-|
 |109| Articoli | Crea preventivo |:heavy_check_mark:|
-|109| Articoli | Genera barcode |:x:|
+|109| Articoli | Genera barcode |-|
 |109| Articoli | Imposta prezzo di acquisto da fattura |:heavy_check_mark:|
 |109| Articoli | Imposta una provvigione |:heavy_check_mark:|
 |109| Articoli | Stampa barcode |:heavy_check_mark:|
@@ -376,8 +376,8 @@ Legenda:
 |112| Ddt in entrata | Cambia stato |:heavy_check_mark:|
 |112| Ddt in entrata | Elimina |:heavy_check_mark:|
 |112| Ddt in entrata | Fattura ddt in entrata |:heavy_check_mark:|
-|113| Impianti | Aggiorna cliente |:x:|
-|113| Impianti | Elimina |:x:|
+|113| Impianti | Aggiorna cliente |-|
+|113| Impianti | Elimina |-|
 |113| Impianti | Esporta |:x:|
 
 ## Impostazioni

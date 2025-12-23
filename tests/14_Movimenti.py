@@ -34,7 +34,7 @@ class Movimenti(Test):
         search_field = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_field, 'Movimento di Prova da Eliminare', wait_modal=False)
         self.wait_for_element_and_click('//tbody//tr//td[2]')
-        self.wait_for_element_and_click('//a[@class="btn btn-danger btn-xs ask"]/i[@class="fa fa-trash"]')
+        self.wait_for_element_and_click('(//a[@class="btn btn-danger btn-xs ask"]//i[@class="fa fa-trash"])[3]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         self.navigateTo("Movimenti")
@@ -60,23 +60,22 @@ class Movimenti(Test):
         self.wait_for_element_and_click('//a[@id="link-tab_10"]')
 
         base_xpath = '//div[@id="tab_10"]//div[@class="card"]//div[@class="card-body"]//tbody'
-        movimento = self.find(By.XPATH, f'{base_xpath}//tr[2]//td[2]').text
-        ddt_uscita = self.find(By.XPATH, f'{base_xpath}//tr[3]//td[3]').text
-        ddt_entrata = self.find(By.XPATH, f'{base_xpath}//tr[4]//td[2]').text
-        fattura_acquisto2 = self.find(By.XPATH, f'{base_xpath}//tr[5]//td[2]').text
-        nota_credito = self.find(By.XPATH, f'{base_xpath}//tr[6]//td[2]').text
-        fattura_vendita = self.find(By.XPATH, f'{base_xpath}//tr[7]//td[3]').text
-        fattura_acquisto = self.find(By.XPATH, f'{base_xpath}//tr[8]//td[2]').text
-        attività = self.find(By.XPATH, f'{base_xpath}//tr[9]//td[3]').text
-        carico = self.find(By.XPATH, f'{base_xpath}//tr[10]//td[2]').text
+        attività = self.find(By.XPATH, f'{base_xpath}//tr[2]//td[3]').text
+        fattura_acquisto = self.find(By.XPATH, f'{base_xpath}//tr[3]//td[2]').text
+        fattura_vendita = self.find(By.XPATH, f'{base_xpath}//tr[4]//td[3]').text
+        nota_credito = self.find(By.XPATH, f'{base_xpath}//tr[5]//td[2]').text
+        fattura_acquisto2 = self.find(By.XPATH, f'{base_xpath}//tr[6]//td[2]').text
+        carico = self.find(By.XPATH, f'{base_xpath}//tr[7]//td[2]').text
+        ddt_entrata = self.find(By.XPATH, f'{base_xpath}//tr[8]//td[2]').text
+        ddt_uscita = self.find(By.XPATH, f'{base_xpath}//tr[9]//td[3]').text
+        movimento = self.find(By.XPATH, f'{base_xpath}//tr[10]//td[2]').text
 
-        self.assertEqual(movimento, "10,00")
-        self.assertEqual(ddt_uscita, "1,00")
-        self.assertEqual(ddt_entrata, "1,00")
-        self.assertEqual(nota_credito, "1,00")
-        self.assertEqual(fattura_vendita, "1,00")
-        self.assertEqual(fattura_acquisto2, "1,00")
-        self.assertEqual(fattura_vendita, "1,00")
-        self.assertEqual(fattura_acquisto, "1,00")
         self.assertEqual(attività, "1,00")
+        self.assertEqual(fattura_acquisto, "1,00")
+        self.assertEqual(fattura_vendita, "1,00")
+        self.assertEqual(nota_credito, "1,00")
+        self.assertEqual(fattura_acquisto2, "1,00")
         self.assertEqual(carico, "2,00")
+        self.assertEqual(ddt_entrata, "1,00")
+        self.assertEqual(ddt_uscita, "1,00")
+        self.assertEqual(movimento, "10,00")

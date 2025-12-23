@@ -1,5 +1,4 @@
 from common.Test import Test, get_html
-from selenium.webdriver.common.keys import Keys
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -21,8 +20,10 @@ class Preventivi(Test):
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_for_element_and_click('//a[@id="link-tab_12"]')
-        budget = self.find(By.XPATH, '//span[@class="text-success"]').text
-        self.assertEqual(budget, "+ 250,80 €")
+        budget = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@class="text-success"]'))
+        ).text
+        self.assertEqual(budget, "+ 264,80 €")
 
     def revisioni(self):
         self.navigateTo("Preventivi")

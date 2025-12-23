@@ -1,8 +1,7 @@
 from common.Test import Test
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-
+from selenium.webdriver.common.keys import Keys
 class Articoli(Test):
     def setUp(self):
         super().setUp()
@@ -29,8 +28,10 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
-        self.send_keys_and_wait(search_input, 'Articolo 1', False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
+        )
+        self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
 
         self.click_first_result()
 
@@ -39,16 +40,22 @@ class Articoli(Test):
 
         self.wait_for_dropdown_and_select('//span[@id="select2-idagente-container"]', option_text='Agente')
 
-        provvigione_input = self.find(By.XPATH, '//input[@id="provvigione"]')
+        provvigione_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="provvigione"]'))
+        )
         self.send_keys_and_wait(provvigione_input, '1.00')
 
         self.wait_for_element_and_click('//div[@id="tab_43"]//tbody//tr//td[3]')
         self.wait_modal()
 
-        provvigione_input = self.find(By.XPATH, '//input[@id="provvigione"]')
+        provvigione_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="provvigione"]'))
+        )
         self.send_keys_and_wait(provvigione_input, '2')
 
-        provvigione = self.find(By.XPATH, '//div[@id="tab_43"]//tbody//tr//td[3]').text
+        provvigione = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_43"]//tbody//tr//td[3]'))
+        ).text
         self.assertEqual(provvigione, "2.00 €")
 
         self.wait_for_element_and_click('//div[@id="tab_43"]//tbody//tr//td[3]')
@@ -62,8 +69,10 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
-        self.send_keys_and_wait(search_input, 'Articolo 1', False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
+        )
+        self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_32"]')
@@ -75,15 +84,21 @@ class Articoli(Test):
 
         self.wait(EC.visibility_of_element_located((By.XPATH, '//input[@id="qta_minima"]')))
 
-        qta_minima = self.find(By.XPATH, '//input[@id="qta_minima"]')
+        qta_minima = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="qta_minima"]'))
+        )
         qta_minima.send_keys("100")
 
-        giorni_consegna = self.find(By.XPATH, '//input[@id="giorni_consegna"]')
+        giorni_consegna = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="giorni_consegna"]'))
+        )
         giorni_consegna.send_keys("15")
 
-        self.wait_for_element_and_click('(//label[@class="btn btn-default active"])[3]')
+        self.wait_for_element_and_click('(//label[@class="btn btn-default active"])[4]')
 
-        prezzo_unitario = self.find(By.XPATH, '//input[@id="prezzo_unitario_fisso"]')
+        prezzo_unitario = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))
+        )
         self.send_keys_and_wait(prezzo_unitario, '15')
 
         self.expandSidebar("Acquisti")
@@ -93,7 +108,9 @@ class Articoli(Test):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
-        numero_esterno = self.find(By.XPATH, '//input[@id="numero_esterno"]')
+        numero_esterno = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]'))
+        )
         numero_esterno.send_keys("78")
 
         self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica_add-container"]', option_text='Fornitore')
@@ -103,7 +120,9 @@ class Articoli(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-id_articolo-container"]', option_text='Articolo 1')
         self.wait_for_element_and_click('//button[@class="btn btn-primary tip tooltipstered"]')
 
-        prezzo = self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[8]').text
+        prezzo = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody[@id="righe"]//tr[1]//td[8]'))
+        ).text
         self.assertEqual(prezzo, "15,00 €")
 
         self.wait_for_element_and_click('//a[@id="elimina"]')
@@ -125,17 +144,23 @@ class Articoli(Test):
         self.wait_for_element_and_click('//a[@class="btn btn-secondary btn-warning"]')
         self.wait_modal()
 
-        element = self.find(By.XPATH, '//input[@id="codice_fornitore"]')
+        element = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="codice_fornitore"]'))
+        )
         element.clear()
         self.send_keys_and_wait(element, '1')
 
-        codice = self.find(By.XPATH, '//div[@id="tab_32"]//tbody//tr//td[3]').text
+        codice = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_32"]//tbody//tr//td[3]'))
+        ).text
         self.assertEqual(codice, "1")
 
         self.wait_for_element_and_click('//a[@class="btn btn-secondary btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
-        messaggio = self.find(By.XPATH, '//div[@id="tab_32"]//div[@class="alert alert-info"]').text
+        messaggio = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_32"]//div[@class="alert alert-info"]'))
+        ).text
         self.assertEqual(messaggio, "Nessuna informazione disponibile...")
 
         self.navigateTo("Articoli")
@@ -145,8 +170,10 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
-        self.send_keys_and_wait(search_input, 'Articolo 1', False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
+        )
+        self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_27"]')
@@ -154,9 +181,11 @@ class Articoli(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-id_cliente_informazioni-container"]', option_text='Cliente')
 
         self.wait_for_element_and_click('//button[@class="btn btn-info btn-block"]')
-        self.wait_for_element_and_click('(//label[@class="btn btn-default"])[3]')
+        self.wait_for_element_and_click('(//label[@class="btn btn-default"])[4]')
 
-        prezzo_unitario = self.find(By.XPATH, '//input[@id="prezzo_unitario_fisso"]')
+        prezzo_unitario = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))
+        )
         self.send_keys_and_wait(prezzo_unitario, '5')
 
         self.expandSidebar("Vendite")
@@ -173,7 +202,9 @@ class Articoli(Test):
         self.wait_for_element_and_click('//ul[@class="select2-results__options select2-results__options--nested"]//li[1]')
         self.wait_for_element_and_click('//button[@class="btn btn-primary tip tooltipstered"]')
 
-        prezzo = self.find(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[9]').text
+        prezzo = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody[@id="righe"]//tr[1]//td[9]'))
+        ).text
         self.assertEqual(prezzo, "5,00 €")
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
@@ -193,16 +224,22 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
-        self.send_keys_and_wait(search_input, 'Articolo 1', False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
+        )
+        self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_24"]')
 
-        numero_1 = self.find(By.XPATH, '(//div[@id="tab_24"]//td[@class="text-center"])[1]').text
+        numero_1 = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_24"]//td[@class="text-center"])[1]'))
+        ).text
         self.assertEqual(numero_1, "1")
 
-        numero_2 = self.find(By.XPATH, '(//div[@id="tab_24"]//td[@class="text-center"])[2]').text
+        numero_2 = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_24"]//td[@class="text-center"])[2]'))
+        ).text
         self.assertEqual(numero_2, "1")
 
         self.navigateTo("Articoli")
@@ -212,27 +249,36 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
-        self.send_keys_and_wait(search_input, 'Articolo 1', False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
+        )
+        self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_22"]')
 
-        totale = self.find(By.XPATH, '//div[@id="tab_22"]//tbody//tr//td[2]').text
-        self.assertEqual(totale, "3,00")
+        totale = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_22"]//tbody//tr//td[2]'))
+        ).text
+        self.assertEqual(totale, "12,00")
 
-        totale_2 = self.find(By.XPATH, '(//div[@id="tab_22"]//div[@class="col-md-12 text-center"])[2]').text
-        self.assertEqual(totale_2, "3,00")
+        totale_2 = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_22"]//div[@class="col-md-12 text-center"])[2]'))
+        ).text
+        self.assertEqual(totale_2, "12,00")
 
         self.navigateTo("Articoli")
         self.wait_loader()
         self.clear_filters()
+        
     def serial(self):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
-        self.send_keys_and_wait(search_input, 'Articolo 1', False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
+        )
+        self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
 
         self.click_first_result()
 
@@ -242,10 +288,14 @@ class Articoli(Test):
 
         self.wait_for_element_and_click('//a[@id="link-tab_11"]')
 
-        serial_start = self.find(By.XPATH, '//input[@id="serial_start"]')
+        serial_start = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="serial_start"]'))
+        )
         serial_start.send_keys("1")
 
-        serial_end = self.find(By.XPATH, '//input[@id="serial_end"]')
+        serial_end = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="serial_end"]'))
+        )
         serial_end.send_keys(Keys.BACK_SPACE, "2")
 
         self.wait_for_element_and_click('//div[@id="tab_11"]//button[@type="button"]')

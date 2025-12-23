@@ -2,7 +2,6 @@ from common.Test import Test
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from time import sleep
 
 class FattureAcquisto(Test):
     def setUp(self):
@@ -22,11 +21,12 @@ class FattureAcquisto(Test):
         self.wait_for_element_and_click('//a[@id="link-tab_36"]')
         self.wait_for_element_and_click('//a[@class="btn btn-info btn-lg"]')
 
-        avere = self.find(By.XPATH, '//div[@id="tab_36"]//tr//td[4]').text
+        avere = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_36"]//tr//td[4]'))
+        ).text
         self.assertEqual(avere, "264,80 €")
 
     def registrazioni(self):
-        self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
         self.click_first_result()
 
