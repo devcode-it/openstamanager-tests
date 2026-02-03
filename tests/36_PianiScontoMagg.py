@@ -15,6 +15,7 @@ class PianiScontoMagg(Test):
         self.elimina_piano_sconto()
         self.verifica_piano_sconto()
         self.plugin_sconto_maggiorazione()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_piano_sconto_magg(self, nome: str, sconto: str):
         self.navigateTo("Piani di sconto/magg.")
@@ -66,7 +67,7 @@ class PianiScontoMagg(Test):
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Piano di sconto di Prova da Eliminare", wait_modal=False)
         eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
 
     def plugin_sconto_maggiorazione(self):
         self.navigateTo("Articoli")

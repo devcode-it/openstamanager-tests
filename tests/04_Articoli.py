@@ -14,6 +14,7 @@ class Articoli(Test):
         self.modifica_articolo("20", "1")
         self.elimina_articolo()
         self.verifica_articolo()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_articolo(self, codice: str, descrizione: str, qta: str):
         self.navigateTo("Articoli")
@@ -94,5 +95,5 @@ class Articoli(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[1]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.clear_filters()

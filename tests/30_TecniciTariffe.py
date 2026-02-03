@@ -12,6 +12,7 @@ class TecniciTariffe(Test):
     def test_tecnici_tariffe(self):
         self.modifica_tariffe("28.00")
         self.verifica_tariffe()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def search_tecnico(self, nome: str):
         self.navigateTo("Tecnici e tariffe")

@@ -16,3 +16,4 @@ class Backup(Test):
 
         self.wait_for_element_and_click('//a[@onclick="creaBackup(this)"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

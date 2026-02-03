@@ -14,6 +14,7 @@ class Newsletter(Test):
         self.modifica_newsletter("Newsletter di Prova")
         self.elimina_newsletter()
         self.verifica_newsletter()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def add_newsletter(self, nome: str, modulo: str):
         self.navigateTo("Newsletter")
@@ -73,4 +74,4 @@ class Newsletter(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)

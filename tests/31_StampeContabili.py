@@ -10,6 +10,7 @@ class StampeContabili(Test):
         self.wait_loader()
     def test_stampecontabili(self):
         self.apri_stampe_contabili()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def apri_stampe_contabili(self):
         self.wait_for_element_and_click('//button[@data-title="Stampa registro IVA vendite"]')

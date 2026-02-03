@@ -14,6 +14,7 @@ class AttributiCombinazioni(Test):
         self.modifica_attributi("Taglie")
         self.elimina_attributi()
         self.verifica_attributi()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_attributi(self, titolo=str):
         self.navigateTo("Attributi Combinazioni")
@@ -85,4 +86,4 @@ class AttributiCombinazioni(Test):
         self.send_keys_and_wait(search_input, "Attributo di Prova da Eliminare", wait_modal=False)
 
         eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)

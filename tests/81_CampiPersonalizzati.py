@@ -88,5 +88,5 @@ class Campi_personalizzati(Test, TestHelperMixin):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
 

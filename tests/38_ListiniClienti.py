@@ -18,6 +18,7 @@ class Listini(Test):
         self.verifica_listino_cliente()
         self.aggiorna_listino_cliente()
         self.aggiungi_a_listino_cliente()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_listino_cliente(self, nome:str, dataatt: str, datascad: str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
@@ -76,7 +77,7 @@ class Listini(Test):
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Listino cliente di Prova da Eliminare", wait_modal=False)
         eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[1]'))).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
     def aggiorna_listino_cliente(self):

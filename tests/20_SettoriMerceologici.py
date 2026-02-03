@@ -15,6 +15,7 @@ class SettoriMerceologici(Test):
         self.creazione_settori_merceologici("Settore Merceologico di Prova da Eliminare")
         self.elimina_settore_merceologico()
         self.verifica_settore_merceologico()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_settori_merceologici(self, descrizione=str):
         self.navigateTo("Settori merceologici")
@@ -78,4 +79,4 @@ class SettoriMerceologici(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)

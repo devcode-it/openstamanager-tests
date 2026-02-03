@@ -14,6 +14,7 @@ class TemplateEmail(Test):
         self.modifica_template("Template di Prova")
         self.elimina_template()
         self.verifica_template_email()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def add_template_email(self, nome: str, modulo: str, account: str):
         self.navigateTo("Template email")
@@ -70,4 +71,4 @@ class TemplateEmail(Test):
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Template di Prova da Eliminare", wait_modal=False)
         eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)

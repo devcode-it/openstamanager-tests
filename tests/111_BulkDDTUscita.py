@@ -18,7 +18,7 @@ class DdtUscita(Test):
         self.wait_loader()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait( search_input, "01", False)
+        self.send_keys_and_wait( search_input, "01", wait_modal=False)
 
         self.wait_for_element_and_click( '//tbody//tr//td')
         self.wait_for_element_and_click( '//button[@data-toggle="dropdown"]')
@@ -27,7 +27,9 @@ class DdtUscita(Test):
         self.wait_for_dropdown_and_select( '//span[@id="select2-id_stato-container"]', option_text='Evaso')
         self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
-        stato = self.find(By.XPATH, '(//tr[1]//td[11]//span)[2]').text
+        stato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '(//tr[1]//td[11]//span)[2]'))
+        ).text
         self.assertEqual(stato, "Evaso")
         self.wait_for_element_and_click( '//i[@class="deleteicon fa fa-times"]')
 
@@ -36,7 +38,7 @@ class DdtUscita(Test):
         self.wait_loader()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait( search_input, "01", False)
+        self.send_keys_and_wait( search_input, "01", wait_modal=False)
 
         self.wait_for_element_and_click( '//tbody//tr//td')
         self.wait_for_element_and_click( '//button[@data-toggle="dropdown"]')
@@ -49,7 +51,9 @@ class DdtUscita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        tipo = self.find(By.XPATH, '//tbody//tr[3]//td[4]').text
+        tipo = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[3]//td[4]'))
+        ).text
         self.assertEqual(tipo, "Cliente")
 
         self.wait_for_element_and_click( '//tbody//tr[3]//td[5]')
@@ -73,8 +77,10 @@ class DdtUscita(Test):
         self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait( search_input, '2', False)
+        self.send_keys_and_wait( search_input, '2', wait_modal=False)
 
-        scritta = self.find(By.XPATH, '//tbody//tr').text
-        self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
+        scritta = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr'))
+        ).text
+        self.assertEqual(scritta, "Nessun dato presente nella tabella")
         self.wait_for_element_and_click( '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')

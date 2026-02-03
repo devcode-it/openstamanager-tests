@@ -16,6 +16,7 @@ class FattureAcquisto(Test):
         self.elimina_documento()
         self.verifica_fattura_acquisto()
         self.verifica_xml_autofattura(importi[0], "1")
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
 
     def creazione_fattura_acquisto(self, fornitore: str, numero: str, pagamento: str, file_importi: str):

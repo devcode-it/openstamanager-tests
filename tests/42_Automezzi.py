@@ -13,6 +13,7 @@ class Automezzi(Test):
         self.modifica_automezzo("Automezzo di Prova")
         self.elimina_automezzo()
         self.verifica_automezzo()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_automezzo(self, descrizione: str, targa: str):
         self.navigateTo("Automezzi")
@@ -65,4 +66,4 @@ class Automezzi(Test):
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Automezzo di Prova da Eliminare", wait_modal=False)
         eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)

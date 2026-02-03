@@ -14,6 +14,7 @@ class Liste(Test):
         self.modifica_lista("Lista di Prova")
         self.elimina_lista()
         self.verifica_lista()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_lista(self, nome=str):
         self.navigateTo("Liste")
@@ -63,4 +64,4 @@ class Liste(Test):
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Lista di Prova da Eliminare", wait_modal=False)
         eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)

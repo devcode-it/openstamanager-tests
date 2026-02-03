@@ -15,6 +15,7 @@ class OrdiniCliente(Test):
         self.modifica_ordine_cliente()
         self.elimina_ordine_cliente()
         self.verifica_ordine_cliente()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_ordine_cliente(self, cliente: str, file_importi: str):
         self.navigateTo("Ordini cliente")
@@ -93,5 +94,5 @@ class OrdiniCliente(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.wait_for_element_and_click('//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')

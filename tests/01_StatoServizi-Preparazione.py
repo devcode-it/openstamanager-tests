@@ -16,6 +16,7 @@ class StatoServizi(Test):
         self.compila_azienda()
         self.creazione_fornitore_estero()
         self.creazione_cliente_estero()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def attiva_moduli(self):
         self.expandSidebar("Strumenti")

@@ -23,6 +23,7 @@ class Preventivi(Test):
         self.creazione_ddt_uscita()
         self.creazione_fattura()
         self.verifica_preventivi()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_preventivo(self, nome:str, cliente:str, idtipo: str, file_importi: str):
         self.navigateTo("Preventivi")
@@ -135,7 +136,7 @@ class Preventivi(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.navigateTo("Preventivi")
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
@@ -170,7 +171,7 @@ class Preventivi(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.navigateTo("Preventivi")
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
@@ -204,7 +205,7 @@ class Preventivi(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.expandSidebar("Vendite")
         self.navigateTo("Preventivi")
         self.wait_loader()
@@ -244,7 +245,7 @@ class Preventivi(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.expandSidebar("Vendite")
         self.navigateTo("Preventivi")
         self.wait_loader()
@@ -282,7 +283,7 @@ class Preventivi(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.expandSidebar("Vendite")
         self.navigateTo("Preventivi")
         self.wait_loader()
@@ -316,7 +317,7 @@ class Preventivi(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.navigateTo("Preventivi")
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
@@ -338,6 +339,6 @@ class Preventivi(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 

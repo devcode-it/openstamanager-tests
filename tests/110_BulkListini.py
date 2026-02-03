@@ -1,5 +1,4 @@
 from common.Test import Test
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -17,8 +16,10 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Codice"]/input')
-        self.send_keys_and_wait(search_input, '08', False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
+        )
+        self.send_keys_and_wait(search_input, '08', wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_32"]')
@@ -28,15 +29,21 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@class="btn btn-info"]')
         modal = self.wait_modal()
 
-        qta_minima = self.find(By.XPATH, '//input[@id="qta_minima"]')
+        qta_minima = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="qta_minima"]'))
+        )
         qta_minima.send_keys("100")
 
-        giorni_consegna = self.find(By.XPATH, '//input[@id="giorni_consegna"]')
+        giorni_consegna = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="giorni_consegna"]'))
+        )
         giorni_consegna.send_keys("15")
 
         self.wait_for_element_and_click('//div[@class="modal-content"]//div[@class="btn-group checkbox-buttons"]')
 
-        prezzo_unitario = self.find(By.XPATH, '//input[@id="prezzo_unitario_fisso"]')
+        prezzo_unitario = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))
+        )
         self.send_keys_and_wait(prezzo_unitario, '15')
 
         self.navigateTo("Listini")
@@ -46,12 +53,16 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="change_prezzo"]')
 
-        percentuale_input = self.find(By.XPATH, '//input[@id="percentuale"]')
+        percentuale_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="percentuale"]'))
+        )
         percentuale_input.send_keys("20")
 
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
-        prezzo = self.find(By.XPATH, '//tbody//tr[2]//td[8]').text
+        prezzo = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[2]//td[8]'))
+        ).text
         self.assertEqual(prezzo, "15,00")
 
         self.navigateTo("Listini")
@@ -79,17 +90,23 @@ class Articoli(Test):
 
         self.wait_for_element_and_click('//tbody//tr//td')
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/input')
-        self.send_keys_and_wait(search_input, 'Fornitore Estero', False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
+        )
+        self.send_keys_and_wait(search_input, 'Fornitore Estero', wait_modal=False)
 
-        articolo = self.find(By.XPATH, '//tbody//tr//td[2]').text
+        articolo = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))
+        ).text
         self.assertEqual(articolo, "08 - Prova")
 
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Codice"]/input')
-        self.send_keys_and_wait(search_input, '08', False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
+        )
+        self.send_keys_and_wait(search_input, '08', wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_32"]')

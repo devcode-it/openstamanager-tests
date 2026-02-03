@@ -15,6 +15,7 @@ class Attivita(Test):
         self.elimina_attività()
         self.controllo_righe()
         self.verifica_attività()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
         self.navigateTo('Attività')
@@ -134,7 +135,7 @@ class Attivita(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual('La ricerca non ha portato alcun risultato.', eliminato)
+        self.assertEqual('Nessun dato presente nella tabella', eliminato)
         self.clear_filters()
 
     

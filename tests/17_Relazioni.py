@@ -14,6 +14,7 @@ class Relazioni(Test):
         self.modifica_relazioni("Relazione di Prova")
         self.elimina_relazioni()
         self.verifica_relazione()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_relazioni(self, descrizione=str, colore=str):
         self.navigateTo("Relazioni")
@@ -72,4 +73,4 @@ class Relazioni(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[1]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)

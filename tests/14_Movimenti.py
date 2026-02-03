@@ -18,6 +18,7 @@ class Movimenti(Test):
         self.elimina_movimento()
         self.verifica_movimento()
         self.verifica_movimenti_documenti()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_movimento(self, qta: str, articolo: str, descrizione: str):
         modal = self.wait_modal()
@@ -49,7 +50,7 @@ class Movimenti(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
 
     def verifica_movimenti_documenti(self):
         self.navigateTo("Articoli")

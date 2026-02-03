@@ -22,6 +22,7 @@ class Combinazioni(Test):
         self.elimina_combinazioni()
         self.verifica_combinazioni()
         self.varianti_articoli()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_combinazioni(self, codice: str, nome: str, attributi: str):
         self.navigateTo("Combinazioni")
@@ -93,7 +94,7 @@ class Combinazioni(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
 
     def varianti_articoli(self):
         self.navigateTo("Articoli")

@@ -11,3 +11,4 @@ class PrimaNota(Test):
         self.navigateTo("Piano dei conti")
         self.wait_loader()
         ##TODO: test piano dei conti
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

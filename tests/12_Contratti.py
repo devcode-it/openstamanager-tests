@@ -17,6 +17,7 @@ class Contratti(Test):
         self.elimina_contratto()
         self.verifica_contratto()
         self.contratti_del_cliente()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
 
     def creazione_contratto(self, nome:str, cliente: str, file_importi: str):
@@ -115,7 +116,7 @@ class Contratti(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
     def contratti_del_cliente(self):

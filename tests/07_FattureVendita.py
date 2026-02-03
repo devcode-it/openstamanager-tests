@@ -23,6 +23,7 @@ class FattureVendita(Test):
         self.elimina_documento()
         self.verifica_fattura_di_vendita()
         self.verifica_xml_fattura_estera(importi[0], "1")
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
 
     def creazione_fattura_vendita(self, cliente: str, file_importi: str):
@@ -102,10 +103,13 @@ class FattureVendita(Test):
         self.assertEqual((self.valori["Totale documento"] + ' €'), totale_FE)
         self.assertEqual((self.valori["Totale documento"] + ' €'), scadenza_FE)
 
-        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.driver.switch_to.window(self.driver.window_handles[1])
         self.driver.close()
+
         self.driver.switch_to.window(self.driver.window_handles[0])
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
         self.driver.close()
+
 
         super().setUp()
         self.expandSidebar("Contabilità")
@@ -203,9 +207,11 @@ class FattureVendita(Test):
         self.assertEqual(totale, scadenza_FE)
 
         iva = '-' + iva
-        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.driver.switch_to.window(self.driver.window_handles[1])
         self.driver.close()
+
         self.driver.switch_to.window(self.driver.window_handles[0])
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
         self.driver.close()
 
         super().setUp()

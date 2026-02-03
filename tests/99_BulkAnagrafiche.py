@@ -1,5 +1,4 @@
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from common.Test import Test
 
@@ -33,7 +32,9 @@ class Anagrafiche(Test):
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
-        relation = self.find(By.XPATH, '//tbody//tr//td[7]').text
+        relation = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))
+        ).text
         self.assertEqual(relation, "Attivo")
 
         self.wait_for_element_and_click('//tbody//tr//td[7]')
@@ -42,13 +43,15 @@ class Anagrafiche(Test):
         search_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))
         )
-        self.send_keys_and_wait(search_field, "Da contattare", wait_modal = False)
+        self.send_keys_and_wait(search_field, "Da contattare", wait_modal=False)
         self.wait_for_element_and_click('//button[@id="save"]')
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        new_relation = self.find(By.XPATH, '//tbody//tr//td[7]').text
+        new_relation = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))
+        ).text
         self.assertNotEqual(new_relation, "Attivo")
 
         self.clear_filters()
@@ -60,7 +63,7 @@ class Anagrafiche(Test):
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
         )
-        self.send_keys_and_wait(search_input, "Vettore", wait_modal = False)
+        self.send_keys_and_wait(search_input, "Vettore", wait_modal=False)
         self.wait_for_search_results()
 
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -68,8 +71,10 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//a[@data-op="delete_bulk"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
-        no_results_message = self.find(By.XPATH, '//tbody//tr[1]').text
-        self.assertEqual(no_results_message, "La ricerca non ha portato alcun risultato.")
+        no_results_message = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]'))
+        ).text
+        self.assertEqual(no_results_message, "Nessun dato presente nella tabella")
 
         self.clear_filters()
 
@@ -81,7 +86,7 @@ class Anagrafiche(Test):
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
         )
-        self.send_keys_and_wait(search_input, "Admin spa", wait_modal = False)
+        self.send_keys_and_wait(search_input, "Admin spa", wait_modal=False)
         self.wait_for_search_results()
 
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -93,9 +98,13 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//a[@onclick="modificaPosizione()"]')
         self.wait_for_element_and_click('//ul//li[2]//div')
 
-        latitude = self.find(By.XPATH, '//input[@id="lat"]').text
+        latitude = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="lat"]'))
+        ).text
         self.assertNotEqual(latitude, "0")
-        longitude = self.find(By.XPATH, '//input[@id="lng"]').text
+        longitude = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="lng"]'))
+        ).text
         self.assertNotEqual(longitude, "0")
 
         self.wait_for_element_and_click('//button[@class="close"]')

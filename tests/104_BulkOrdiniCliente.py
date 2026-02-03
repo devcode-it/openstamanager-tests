@@ -1,5 +1,4 @@
 from common.Test import Test, get_html
-from selenium.webdriver.common.keys import Keys
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -17,7 +16,7 @@ class OrdiniCliente(Test):
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), '01', False)
+        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), '01', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -26,7 +25,9 @@ class OrdiniCliente(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='Accettato')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
-        stato = self.find(By.XPATH, '(//tbody//tr[1]//td[7]//span)[2]').text
+        stato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '(//tbody//tr[1]//td[7]//span)[2]'))
+        ).text
         self.assertEqual(stato, "Accettato")
 
         self.wait_for_element_and_click('//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')
@@ -45,7 +46,9 @@ class OrdiniCliente(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        tipo = self.find(By.XPATH, '//tbody//tr[3]//td[5]').text
+        tipo = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[3]//td[5]'))
+        ).text
         self.assertEqual(tipo, "Fattura immediata di vendita")
 
         self.wait_for_element_and_click('//tbody//tr//td[4]')

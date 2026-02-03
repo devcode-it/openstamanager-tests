@@ -2,7 +2,6 @@ from common.Test import Test
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from time import sleep
 class FattureAcquisto(Test):
     def setUp(self):
         super().setUp()
@@ -40,7 +39,7 @@ class FattureAcquisto(Test):
 
         self.navigateTo("Fatture di acquisto")
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait(search_input, "2", False)
+        self.send_keys_and_wait(search_input, "2", wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="change_segment"]')
@@ -70,20 +69,22 @@ class FattureAcquisto(Test):
         self.wait_loader()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input')))
-        self.send_keys_and_wait(search_input, "2", False)
+        self.send_keys_and_wait(search_input, "2", wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="delete_bulk"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
-        scritta = self.find(By.XPATH, '//tbody//tr//td').text
-        self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
+        scritta = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td'))
+        ).text
+        self.assertEqual(scritta, "Nessun dato presente nella tabella")
         self.clear_filters()
 
     def registrazione_contabile(self):
         self.navigateTo("Fatture di acquisto")
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait(search_input, "2", False)
+        self.send_keys_and_wait(search_input, "2", wait_modal=False)
         self.click_first_result()
 
         self.driver.execute_script('window.scrollTo(0,0)')

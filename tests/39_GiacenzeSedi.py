@@ -14,6 +14,7 @@ class GiacenzeSedi(Test):
         self.creazione_ddt_uscita("Admin spa", "Vendita", importi[0])
         self.trasporto()
         self.verifica_movimenti()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def aggiunta_sede(self):
         self.navigateTo("Anagrafiche")

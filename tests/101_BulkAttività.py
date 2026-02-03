@@ -1,6 +1,5 @@
 from common.Test import Test, get_html
 from common.RowManager import RowManager
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -21,7 +20,7 @@ class Attivita(Test):
     def cambio_stato(self):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal = False)
+        self.send_keys_and_wait(search_input, '1', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -35,7 +34,9 @@ class Attivita(Test):
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
-        stato = self.find(By.XPATH, '//tbody//tr//td[7]').text
+        stato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))
+        ).text
         self.assertEqual(stato, 'Da programmare')
         self.wait_for_element_and_click('//tbody//tr//td')
         self.clear_filters()
@@ -43,7 +44,7 @@ class Attivita(Test):
     def duplica(self):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal = False)
+        self.send_keys_and_wait(search_input, '1', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -59,15 +60,17 @@ class Attivita(Test):
         self.clear_filters()
 
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal = False)
-        numero = self.find(By.XPATH, '//tbody//tr//td[2]').text
+        self.send_keys_and_wait(search_input, '2', wait_modal=False)
+        numero = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))
+        ).text
         self.assertEqual(numero, '2')
         self.clear_filters()
 
     def elimina_selezionati(self):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal = False)
+        self.send_keys_and_wait(search_input, '2', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -76,14 +79,16 @@ class Attivita(Test):
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
-        scritta = self.find(By.XPATH, '//tbody//tr//td').text
-        self.assertEqual(scritta, 'La ricerca non ha portato alcun risultato.')
+        scritta = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td'))
+        ).text
+        self.assertEqual(scritta, 'Nessun dato presente nella tabella')
         self.clear_filters()
 
     def fattura_attivita(self):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal = False)
+        self.send_keys_and_wait(search_input, '2', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -97,7 +102,9 @@ class Attivita(Test):
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
-        stato = self.find(By.XPATH, '//tbody//tr//td[7]').text
+        stato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))
+        ).text
         self.assertEqual(stato, 'Fatturato')
 
         self.expandSidebar('Vendite')
@@ -131,7 +138,7 @@ class Attivita(Test):
     def stampa_riepilogo(self):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal = False)
+        self.send_keys_and_wait(search_input, '2', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(

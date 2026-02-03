@@ -18,6 +18,7 @@ class Impianti(Test):
         self.plugin_interventi_svolti()
         self.componenti()
         self.elimina_selezionati()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def add_impianto(self, matricola: str, nome: str, cliente: str):
         self.navigateTo("Impianti")
@@ -74,7 +75,7 @@ class Impianti(Test):
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Impianto di Prova da Eliminare", wait_modal=False)
         eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
 
         self.navigateTo("Impianti")
         self.clear_filters()
@@ -204,5 +205,5 @@ class Impianti(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         scritta = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr'))).text
-        self.assertEqual(scritta, "La ricerca non ha portato alcun risultato.")
+        self.assertEqual(scritta, "Nessun dato presente nella tabella")
         self.clear_filters()

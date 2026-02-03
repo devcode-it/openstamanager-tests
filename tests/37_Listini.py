@@ -10,3 +10,4 @@ class Listini(Test):
         self.expandSidebar("Magazzino")
         self.navigateTo("Listini")
         ##TODO: test listini
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

@@ -15,6 +15,7 @@ class Provenienze_clienti(Test):
         self.modifica_provenienze_clienti("Provenienza Clienti di Prova")
         self.elimina_provenienze_clienti()
         self.verifica_provenienze_clienti()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_provenienze_clienti(self, descrizione=str, colore=str):
         self.navigateTo("Provenienze clienti")
@@ -67,4 +68,4 @@ class Provenienze_clienti(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)

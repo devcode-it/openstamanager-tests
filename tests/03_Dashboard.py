@@ -45,6 +45,7 @@ class Dashboard(Test):
         self.assertEqual(activity_text, expected_text)
 
         self.verifica_attività()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def verifica_attività(self):
         self.navigateTo("Attività")

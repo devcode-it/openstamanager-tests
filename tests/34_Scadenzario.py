@@ -21,6 +21,7 @@ class Scadenzario(Test):
         self.verifica_scadenza()
         self.registrazione_contabile()
         self.info_distinta()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_scadenzario(self, nome: str, tipo: str, importo: str, descrizione: str):
         self.navigateTo("Scadenzario")
@@ -80,7 +81,7 @@ class Scadenzario(Test):
 
         self.search_scadenza("Scadenza da Eliminare")
         eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.clear_filters()
 
     def registrazione_contabile(self):

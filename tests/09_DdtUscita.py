@@ -16,6 +16,7 @@ class DdtUscita(Test):
         self.elimina_ddt()
         self.verifica_ddt()
         self.ddt_del_cliente()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
 
     def creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):
@@ -97,7 +98,7 @@ class DdtUscita(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.wait_for_element_and_click( '//i[@class="deleteicon fa fa-times"]')
 
     def ddt_del_cliente(self):

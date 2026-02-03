@@ -40,6 +40,7 @@ class Attivita_Dashboard(Test):
         trova_element = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="fc-event-main"]')))
         trova = trova_element.text
         self.assertEqual(trova, att)
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def attivita(self, cliente: str, tipo: str, stato: str):
         self.navigateTo('Attività')

@@ -14,6 +14,7 @@ class Zone(Test):
         self.modifica_zone("Zona di Prova")
         self.elimina_zone()
         self.verifica_zone()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_zone(self, codice=str, descrizione=str):
         self.navigateTo("Zone")
@@ -65,4 +66,4 @@ class Zone(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)

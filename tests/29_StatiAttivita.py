@@ -15,6 +15,7 @@ class StatiAttivita(Test):
         self.modifica_stato_attivita("Stato di Attività di Prova")
         self.elimina_stato_attivita()
         self.verifica_stato_attivita()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_stati_attivita(self, codice: str, descrizione: str, colore: str):
         self.navigateTo("Stati di attività")
@@ -67,5 +68,5 @@ class StatiAttivita(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.clear_filters()

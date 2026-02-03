@@ -19,6 +19,7 @@ class TipiAttivita(Test):
         self.modifica_tipi_attività("Tipo di Attività di Prova")
         self.elimina_tipi_attività()
         self.verifica_tipi_attività()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_tipi_attività(self, codice: str, descrizione: str, tempostandard: str, addebitoorario: str, addebitokm: str, addebitodirittoch: str, costoorario: str, costokm: str, costodirittoch: str):
         self.navigateTo("Tipi di attività")
@@ -75,5 +76,5 @@ class TipiAttivita(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.clear_filters()

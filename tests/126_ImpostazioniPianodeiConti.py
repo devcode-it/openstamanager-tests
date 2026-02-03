@@ -1,5 +1,4 @@
 from common.Test import Test, get_html
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -53,112 +52,160 @@ class Impostazioni(Test):
         self.navigateTo("Piano dei conti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@id="conto2-8"]').click() #apro sezione "240 Debiti fornitori e debiti diversi"
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-8"]'))
+        ).click() #apro sezione "240 Debiti fornitori e debiti diversi"
 
-        conto = self.find(By.XPATH, '//span[@id="movimenti-34"]').text    #controllo presenza del conto
+        conto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="movimenti-34"]'))
+        ).text    #controllo presenza del conto
         self.assertEqual(conto, " 240.000010 Riepilogativo fornitori")
 
     def conto_riepilogativo_clienti(self):
                 self.navigateTo("Piano dei conti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@id="conto2-2"]').click() #apro sezione "110 Crediti clienti e crediti diversi "
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-2"]'))
+        ).click() #apro sezione "110 Crediti clienti e crediti diversi "
 
-        conto = self.find(By.XPATH, '//span[@id="movimenti-6"]').text    #controllo presenza del conto
+        conto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="movimenti-6"]'))
+        ).text    #controllo presenza del conto
         self.assertEqual(conto, " 110.000010 Riepilogativo clienti")
 
     def conto_iva_indetraibile(self):
                 self.navigateTo("Piano dei conti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@id="conto2-22"]').click() #apro sezione "900 Conti transitori "
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-22"]'))
+        ).click() #apro sezione "900 Conti transitori "
 
-        conto = self.find(By.XPATH, '//span[@id="movimenti-108"]').text    #controllo presenza del conto
+        conto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="movimenti-108"]'))
+        ).text    #controllo presenza del conto
         self.assertEqual(conto, " 900.000030 Iva indetraibile")
 
     def conto_iva_vendite(self):
                 self.navigateTo("Piano dei conti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@id="conto2-22"]').click() #apro sezione "900 Conti transitori "
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-22"]'))
+        ).click() #apro sezione "900 Conti transitori "
 
-        conto = self.find(By.XPATH, '//span[@id="movimenti-106"]').text    #controllo presenza del conto
+        conto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="movimenti-106"]'))
+        ).text    #controllo presenza del conto
         self.assertEqual(conto, " 900.000010 Iva su vendite")
 
     def conto_iva_acquisti(self):
                 self.navigateTo("Piano dei conti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@id="conto2-22"]').click() #apro sezione "900 Conti transitori "
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-22"]'))
+        ).click() #apro sezione "900 Conti transitori "
 
-        conto = self.find(By.XPATH, '//span[@id="movimenti-107"]').text    #controllo presenza del conto
+        conto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="movimenti-107"]'))
+        ).text    #controllo presenza del conto
         self.assertEqual(conto, " 900.000020 Iva su acquisti")
 
     def conto_erario_ritenute_acconto(self):
                 self.navigateTo("Piano dei conti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@id="conto2-5"]').click() #apro sezione "200 Erario iva, INPS, IRPEF, INAIL, ecc "
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-5"]'))
+        ).click() #apro sezione "200 Erario iva, INPS, IRPEF, INAIL, ecc "
 
-        conto = self.find(By.XPATH, '//span[@id="movimenti-23"]').text    #controllo presenza del conto
+        conto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="movimenti-23"]'))
+        ).text    #controllo presenza del conto
         self.assertEqual(conto, " 200.000060 Erario c/ritenute d'acconto")
 
     def conto_erario_inps(self):
                 self.navigateTo("Piano dei conti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@id="conto2-5"]').click() #apro sezione "200 Erario iva, INPS, IRPEF, INAIL, ecc "
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-5"]'))
+        ).click() #apro sezione "200 Erario iva, INPS, IRPEF, INAIL, ecc "
 
-        conto = self.find(By.XPATH, '//span[@id="movimenti-19"]').text    #controllo presenza del conto
+        conto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="movimenti-19"]'))
+        ).text    #controllo presenza del conto
         self.assertEqual(conto, " 200.000010 Erario c/INPS")
 
     def conto_erario_enasarco(self):
                 self.navigateTo("Piano dei conti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@id="conto2-5"]').click() #apro sezione "200 Erario iva, INPS, IRPEF, INAIL, ecc "
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-5"]'))
+        ).click() #apro sezione "200 Erario iva, INPS, IRPEF, INAIL, ecc "
 
-        conto = self.find(By.XPATH, '//span[@id="movimenti-24"]').text    #controllo presenza del conto
+        conto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="movimenti-24"]'))
+        ).text    #controllo presenza del conto
         self.assertEqual(conto, " 200.000070 Erario c/enasarco")
 
     def conto_apertura_conti_patrimoniali(self):
                 self.navigateTo("Piano dei conti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@id="conto2-21"]').click() #apro sezione "810 Perdite e profitti "
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-21"]'))
+        ).click() #apro sezione "810 Perdite e profitti "
 
-        conto = self.find(By.XPATH, '//span[@id="movimenti-104"]').text    #controllo presenza del conto
+        conto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="movimenti-104"]'))
+        ).text    #controllo presenza del conto
         self.assertEqual(conto, " 810.000010 Apertura conti patrimoniali")
 
     def conto_chiusura_conti_patrimoniali(self):
                 self.navigateTo("Piano dei conti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@id="conto2-21"]').click() #apro sezione "810 Perdite e profitti "
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-21"]'))
+        ).click() #apro sezione "810 Perdite e profitti "
 
-        conto = self.find(By.XPATH, '//span[@id="movimenti-105"]').text    #controllo presenza del conto
+        conto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="movimenti-105"]'))
+        ).text    #controllo presenza del conto
         self.assertEqual(conto, " 810.000900 Chiusura conti patrimoniali")
 
     def conto_autofattura(self):
                 self.navigateTo("Piano dei conti")
         self.wait_loader()
 
-        self.find(By.XPATH, '//button[@id="conto2-23"]').click() #apro sezione "910 Conti compensativi"
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-23"]'))
+        ).click() #apro sezione "910 Conti compensativi"
 
-        conto = self.find(By.XPATH, '//span[@id="movimenti-115"]').text    #controllo presenza del conto
+        conto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="movimenti-115"]'))
+        ).text    #controllo presenza del conto
         self.assertEqual(conto, " 910.000010 Compensazione per autofattura")
 
     def conto_secondo_livello_crediti_clienti(self):
                 self.navigateTo("Piano dei conti")
         self.wait_loader()
 
-        sezionale = self.find(By.XPATH, '//span[@id="conto2-2"]//b').text    #controllo presenza del sezionale
+        sezionale = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="conto2-2"]//b'))
+        ).text    #controllo presenza del sezionale
         self.assertEqual(sezionale, "110 Crediti clienti e crediti diversi")
 
     def conto_secondo_livello_debiti_fornitori(self):
                 self.navigateTo("Piano dei conti")
         self.wait_loader()
 
-        sezionale = self.find(By.XPATH, '//span[@id="conto2-8"]//b').text    #controllo presenza del sezionale
+        sezionale = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="conto2-8"]//b'))
+        ).text    #controllo presenza del sezionale
         self.assertEqual(sezionale, "240 Debiti fornitori e debiti diversi")
 

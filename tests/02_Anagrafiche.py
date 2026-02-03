@@ -25,6 +25,7 @@ class Anagrafiche(Test):
         self.crea_ordine_cliente()
         self.crea_DDT_uscita()
         self.crea_fattura_vendita()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def add_anagrafica(self, nome: str, tipo: str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
@@ -105,7 +106,7 @@ class Anagrafiche(Test):
         no_results_message = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[1]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", no_results_message)
+        self.assertEqual("Nessun dato presente nella tabella", no_results_message)
         self.clear_filters()
 
     def crea_attivita(self):

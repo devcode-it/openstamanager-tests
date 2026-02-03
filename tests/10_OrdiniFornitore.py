@@ -15,6 +15,7 @@ class OrdiniFornitore(Test):
         self.modifica_ordine_fornitore("Modifica di Prova")
         self.elimina_ordine_fornitore()
         self.verifica_ordine_fornitore()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
 
     def creazione_ordine_fornitore(self, fornitore: str, file_importi: str):
@@ -94,6 +95,6 @@ class OrdiniFornitore(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.wait_for_element_and_click('//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')
 

@@ -1,5 +1,4 @@
 from common.Test import Test, get_html
-from selenium.webdriver.common.keys import Keys
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -22,7 +21,7 @@ class Contratti(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), "2", False)
+        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), "2", wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -31,7 +30,9 @@ class Contratti(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='In lavorazione')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
-        stato = self.find(By.XPATH, '//tbody//tr//td[5]').text
+        stato = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[5]'))
+        ).text
         self.assertEqual(stato, "In lavorazione")
 
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -41,7 +42,7 @@ class Contratti(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), "2", False)
+        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), "2", wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -53,7 +54,9 @@ class Contratti(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        tipo = self.find(By.XPATH, '//tbody//tr[1]//td[5]').text
+        tipo = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[5]'))
+        ).text
         self.assertEqual(tipo, "Fattura immediata di vendita")
 
         self.wait_for_element_and_click('//tbody//tr[2]//td[4]')
@@ -68,7 +71,7 @@ class Contratti(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), "1", False)
+        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), "1", wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
 
@@ -87,7 +90,7 @@ class Contratti(Test):
 
         self.wait_for_element_and_click('(//i[@class="deleteicon fa fa-times"])[1]')
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), "3", False)
+        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), "3", wait_modal=False)
 
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]')))
         self.wait_for_element_and_click('//tbody//tr//td[2]')

@@ -16,6 +16,7 @@ class PrimaNota(Test):
         self.modifica_prima_nota("Prima Nota di Prova (Fatt. n.1 del 01/01/2025)")
         self.elimina_prima_nota()
         self.verifica_prima_nota()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def search_causale(self, nome: str):
         search_input = self.wait_driver.until(

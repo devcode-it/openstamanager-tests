@@ -1,5 +1,4 @@
 from common.Test import Test, get_html
-from selenium.webdriver.common.keys import Keys
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -11,23 +10,25 @@ class Contratti(Test):
         self.expandSidebar("Vendite")
 
     def test_plugin_contratto(self):
-        self.pianificazione_fatturazione()
-        self.rinnovi()
+        self.consuntivo()   
         self.pianificazione_attivita()
-        self.consuntivo()
+        self.rinnovi()
+        self.pianificazione_fatturazione()
+
 
     def consuntivo(self):
-        self.expandSidebar("Vendite")
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))), "Contratto di Prova", False)
+        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))), "Contratto di Prova", wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr/td[2]')
         self.wait_for_element_and_click('//a[@id="link-tab_13"]')
 
-        budget = self.find(By.XPATH, '//div[@id="tab_13"]//span[@class="text-success"]').text
-        self.assertEqual(budget, "+ 250,80 €")
+        budget = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_13"]//span[@class="text-success"]'))
+        ).text
+        self.assertEqual(budget, "+ 264,80 €")
 
         self.navigateTo("Contratti")
         self.wait_loader()
@@ -78,18 +79,26 @@ class Contratti(Test):
         description_field = self.wait_driver.until(EC.visibility_of_element_located(
             (By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[3]')
         ))
-        self.send_keys_and_wait(description_field, "Test")
 
+        self.wait_for_element_and_click('(//label[@class="btn btn-default active"])[2]')
         self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@class="btn btn-success"]')
 
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//a')))
 
-    def pianificazione_fatturazione(self):
-        self.wait_loader()
+    def rinnovi(self):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))), "Manutenzione", False)
+        self.wait_for_element_and_click('//tbody//tr//td[2]')
+
+        self.wait_for_element_and_click('(//label[@for="rinnovabile"])[2]')
+        self.wait_for_element_and_click('//button[@id="save"]')
+
+    def pianificazione_fatturazione(self):
+        self.navigateTo("Contratti")
+        self.wait_loader()
+
+        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))), "Manutenzione", wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_for_element_and_click('//a[@id="link-tab_26"]')
@@ -124,13 +133,3 @@ class Contratti(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
-
-    def rinnovi(self):
-        self.navigateTo("Contratti")
-        self.wait_loader()
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-
-        self.wait_for_element_and_click('(//label[@for="rinnovabile"])[2]')
-        self.wait_for_element_and_click('//button[@id="save"]')
-

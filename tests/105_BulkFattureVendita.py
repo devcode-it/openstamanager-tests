@@ -144,7 +144,7 @@ class FattureVendita(Test):
         self.wait_loader()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait(search_input, "0001", False)
+        self.send_keys_and_wait(search_input, "0001", wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')

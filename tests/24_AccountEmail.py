@@ -22,6 +22,7 @@ class AccountEmail(Test):
         self.elimina_account_email()
         self.verifica_account_email()
         self.invia_mail()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_account_email(self, nomeaccount=str, nomevisualizzato=str, emailmittente=str):
         self.navigateTo("Account email")
@@ -90,7 +91,7 @@ class AccountEmail(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
 
         self.clear_filters()
 

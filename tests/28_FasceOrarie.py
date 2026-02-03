@@ -15,6 +15,7 @@ class FasceOrarie(Test):
         self.modifica_fasce_orarie("Fascia Oraria di Prova")
         self.elimina_fasce_orarie()
         self.verifica_fasce_orarie()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_fasce_orarie(self, nome: str, inizio: str, fine: str):
         self.navigateTo("Fasce orarie")
@@ -65,5 +66,5 @@ class FasceOrarie(Test):
         eliminato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual("La ricerca non ha portato alcun risultato.", eliminato)
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.clear_filters()
