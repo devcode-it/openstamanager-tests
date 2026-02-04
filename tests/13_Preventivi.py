@@ -263,7 +263,7 @@ class Preventivi(Test):
         ).text
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle "]')
-        self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"][@data-title="Crea ordine cliente"]//i[@class="fa fa-truck"]')
+        self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"][@data-title="Crea DDT in uscita"]')
         self.wait_for_element_and_click('//span[@id="select2-id_causale_trasporto-container"]')
         self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//span[@id="select2-id_segment-container"]')
