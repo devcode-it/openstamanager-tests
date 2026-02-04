@@ -9,8 +9,8 @@ class Eventi(Test):
         self.expandSidebar("Tabelle")
 
     def test_creazione_eventi(self):
-        self.creazione_eventi("Evento di Prova da Modificare", "20/02/2025", "IT - Italia")
-        self.creazione_eventi("Evento di Prova da Eliminare", "20/02/2025", "IT - Italia")
+        self.creazione_eventi("Evento di Prova da Modificare", "20/02/2026", "IT - Italia")
+        self.creazione_eventi("Evento di Prova da Eliminare", "20/02/2026", "IT - Italia")
         self.modifica_evento("Evento di Prova")
         self.elimina_evento()
         self.verifica_evento()

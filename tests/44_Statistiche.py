@@ -10,7 +10,7 @@ class GiacenzeSedi(Test):
     def test_giacenze_sedi(self):
         self.navigateTo("Statistiche")
         self.wait_loader()
-        periodo = "01/01/2025 - 31/12/2025"
+        periodo = "01/01/2026 - 31/12/2026"
 
         self.assertEqual(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//h3[@class="card-title"])[1]'))).text, "Vendite e acquisti")
         self.assertEqual(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//h3[@class="card-title"])[2]'))).text, "I 20 clienti TOP")

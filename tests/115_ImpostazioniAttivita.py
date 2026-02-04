@@ -1002,13 +1002,13 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//input[@id="orario_inizio"]'))
         )
         orario_inizio.clear()
-        orario_inizio.send_keys("31/12/2025 09:00")    
+        orario_inizio.send_keys("31/12/2026 09:00")    
 
         orario_fine = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="orario_fine"]'))
         )
         orario_fine.clear()
-        orario_fine.send_keys("31/12/2025 10:00")    
+        orario_fine.send_keys("31/12/2026 10:00")    
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//span[@class="select2-selection select2-selection--multiple"])[2]'))
@@ -1064,13 +1064,13 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//input[@id="orario_inizio"]'))
         )
         orario_inizio.clear()
-        orario_inizio.send_keys("31/12/2025 09:00")    
+        orario_inizio.send_keys("31/12/2026 09:00")    
 
         orario_fine = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="orario_fine"]'))
         )
         orario_fine.clear()
-        orario_fine.send_keys("31/12/2025 10:00")    
+        orario_fine.send_keys("31/12/2026 10:00")    
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//span[@class="select2-selection select2-selection--multiple"])[2]'))
         ).click()

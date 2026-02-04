@@ -229,12 +229,12 @@ class Anagrafiche(Test):
 
         form_fields = [
             ('//input[@id="numero_protocollo"]', "012345678901234567890123"),
-            ('//input[@id="data_protocollo"]', "01/01/2025"),
+            ('//input[@id="data_protocollo"]', "01/01/2026"),
             ('//input[@id="numero_progressivo"]', "001"),
-            ('//input[@id="data_inizio"]', "01/01/2025"),
+            ('//input[@id="data_inizio"]', "01/01/2026"),
             ('//input[@id="data_fine"]', "31/12/2028"),
             ('//input[@id="massimale"]', "50000"),
-            ('//input[@id="data_emissione"]', "13/01/2025")
+            ('//input[@id="data_emissione"]', "13/01/2026")
         ]
 
         for xpath, value in form_fields:
@@ -430,14 +430,14 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         element = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_concordata0"]')))
-        element.send_keys('13/08/2025')
+        element.send_keys('13/08/2026')
 
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning"]')))
 
         element = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_concordata0"]')))
         element.clear()
-        element.send_keys('20/01/2025')
+        element.send_keys('20/01/2026')
 
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning"]')))
@@ -460,13 +460,13 @@ class Anagrafiche(Test):
         start_date_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="data_inizio"]'))
         )
-        self.send_keys_and_wait(start_date_field, "01/01/2025", wait_modal=False)
+        self.send_keys_and_wait(start_date_field, "01/01/2026", wait_modal=False)
 
         end_date_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="data_fine"]'))
         )
         end_date_field.clear()
-        self.send_keys_and_wait(end_date_field, "31/12/2025", wait_modal=False)
+        self.send_keys_and_wait(end_date_field, "31/12/2026", wait_modal=False)
 
         credit_limit_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="fido_assicurato"]'))
@@ -483,7 +483,7 @@ class Anagrafiche(Test):
         date_field = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="data"]'))
         )
-        self.send_keys_and_wait(date_field, "01/01/2025", wait_modal=False)
+        self.send_keys_and_wait(date_field, "01/01/2026", wait_modal=False)
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-idanagrafica_add-container"]',

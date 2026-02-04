@@ -102,7 +102,7 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         test = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))).text
-        self.assertEqual(test, "0002/2025")
+        self.assertEqual(test, "0002/2026")
 
     def emetti_fatture(self):
         self.navigateTo("Fatture di vendita")

@@ -995,7 +995,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//input[@id="setting135"]'))
         ) #cambio inizio periodo
         data_inizio.clear()
-        data_inizio.send_keys("01/01/2025", Keys.ENTER)
+        data_inizio.send_keys("01/01/2026", Keys.ENTER)
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="setting135"]'))
         ).click()
@@ -1003,7 +1003,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//input[@id="setting136"]'))
         ) #cambio fine periodo
         data_fine.clear()
-        data_fine.send_keys("30/06/2025", Keys.ENTER)
+        data_fine.send_keys("30/06/2026", Keys.ENTER)
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@class="nav-link bg-danger"]'))
@@ -1021,7 +1021,7 @@ class Impostazioni(Test):
         data = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@class="nav-link text-danger"]'))
         ).text #controllo se la data è cambiata
-        self.assertEqual(data, "01/01/2025 - 30/06/2025")
+        self.assertEqual(data, "01/01/2026 - 30/06/2026")
         #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
@@ -1033,12 +1033,12 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//input[@id="setting135"]'))
         ) #cambio inizio periodo
         data_inizio.clear()
-        data_inizio.send_keys("01/01/2025", Keys.ENTER)
+        data_inizio.send_keys("01/01/2026", Keys.ENTER)
         data_fine = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="setting136"]'))
         ) #cambio fine periodo
         data_fine.clear()
-        data_fine.send_keys("31/12/2025", Keys.ENTER)
+        data_fine.send_keys("31/12/2026", Keys.ENTER)
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@class="nav-link bg-danger"]'))
         ).click() #logout
@@ -1181,8 +1181,8 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idanagrafica-container"]'))
         ).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2025")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2025")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2026")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2026")
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
         ).click()

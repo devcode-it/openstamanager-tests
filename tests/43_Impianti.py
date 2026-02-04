@@ -161,11 +161,11 @@ class Impianti(Test):
 
         self.wait_for_element_and_click('//div[@id="tab_31"]//button[@class="btn btn-tool"]')
         data_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_installazione_1"]')))
-        self.send_keys_and_wait(data_input, "01/01/2025", wait_modal=False)
+        self.send_keys_and_wait(data_input, "01/01/2026", wait_modal=False)
         self.wait_for_element_and_click('//button[@class="btn btn-success pull-right"]')
 
         data_installazione = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_31"]//tr[1]//td[3]'))).text
-        self.assertEqual(data_installazione, "01/01/2025")
+        self.assertEqual(data_installazione, "01/01/2026")
 
         self.wait_for_element_and_click('//div[@id="tab_31"]//button[@class="btn btn-tool"]')
         self.wait_for_element_and_click('//button[@class="btn btn-warning pull-right"]')

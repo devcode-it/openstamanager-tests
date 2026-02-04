@@ -46,8 +46,8 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idanagrafica-container"]'))
         ).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2025")
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2025")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2026")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2026")
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
         ).click()

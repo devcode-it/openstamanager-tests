@@ -18,13 +18,9 @@ class Attivita_Dashboard(Test):
         actions.drag_and_drop_by_offset(attivita, -1000, 0).perform()
         modal = self.wait_modal()
 
-        description_field = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')))
-        description_field.click()
-        self.send_keys_and_wait(description_field, "Test", wait_modal=False)
-
         self.wait_for_element_and_click('//a[@id="tecnici-sessioni-tab"]')
         self.wait_for_dropdown_and_select(
-            '(//span[@class="select2-selection select2-selection--multiple"])[4]',
+            '//span[@id="select2-idtecnico-container"]',
             option_text='Stefano Bianchi'
         )
 

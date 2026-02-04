@@ -10,8 +10,8 @@ class Segmenti(Test):
     def test_creazione_segmenti(self):
         self.navigateTo("Segmenti")
 
-        self.creazione_segmenti("Segmento di Prova da Modificare", "1234/2025", "Articoli")
-        self.creazione_segmenti("Segmento di Prova da Eliminare", "1234/2025", "Articoli")
+        self.creazione_segmenti("Segmento di Prova da Modificare", "1234/2026", "Articoli")
+        self.creazione_segmenti("Segmento di Prova da Eliminare", "1234/2026", "Articoli")
         self.modifica_segmento("Segmento di Prova")
         self.elimina_segmento()
         self.verifica_segmento()

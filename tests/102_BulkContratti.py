@@ -75,8 +75,8 @@ class Contratti(Test):
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
 
-        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2025")
-        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2025")
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2026")
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2026")
         self.wait_for_dropdown_and_select('//span[@id="select2-idstato-container"]', option_text='Accettato')
         self.wait_for_element_and_click('//button[@id="save"]')
 

@@ -11,8 +11,8 @@ class Listini(Test):
         self.navigateTo("Listini cliente")
         self.wait_loader()
 
-        self.creazione_listino_cliente("Listino cliente di Prova da Modificare","01/12/2025", "01/01/2025")
-        self.creazione_listino_cliente("Listino cliente di Prova da Eliminare", "01/12/2025", "01/01/2025")
+        self.creazione_listino_cliente("Listino cliente di Prova da Modificare","01/12/2026", "01/01/2026")
+        self.creazione_listino_cliente("Listino cliente di Prova da Eliminare", "01/12/2026", "01/01/2026")
         self.modifica_listino_cliente("Listino cliente di Prova")
         self.elimina_listino_cliente()
         self.verifica_listino_cliente()

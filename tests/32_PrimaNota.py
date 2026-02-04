@@ -13,7 +13,7 @@ class PrimaNota(Test):
 
         self.creazione_prima_nota(causale="Prima Nota da Modificare")
         self.creazione_prima_nota(causale="Prima Nota da Eliminare")
-        self.modifica_prima_nota("Prima Nota di Prova (Fatt. n.1 del 01/01/2025)")
+        self.modifica_prima_nota("Prima Nota di Prova (Fatt. n.1 del 01/01/2026)")
         self.elimina_prima_nota()
         self.verifica_prima_nota()
         self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
@@ -80,12 +80,12 @@ class PrimaNota(Test):
         self.navigateTo("Prima nota")
         self.wait_loader()
 
-        self.search_causale("Prima Nota di Prova (Fatt. n.1 del 01/01/2025)")
+        self.search_causale("Prima Nota di Prova (Fatt. n.1 del 01/01/2026)")
         self.wait_for_search_results()
         modificato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[4]'))
         ).text
-        self.assertEqual("Prima Nota di Prova (Fatt. n.1 del 01/01/2025)", modificato)
+        self.assertEqual("Prima Nota di Prova (Fatt. n.1 del 01/01/2026)", modificato)
 
         self.clear_filters()
         self.search_causale("Prima nota da Eliminare")

@@ -43,8 +43,8 @@ class Contratti(Test):
 
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys("Manutenzione")
         self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica-container"]', option_text='Cliente')
-        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2025")
-        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2025")
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2026")
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2026")
         self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
 
         self.wait_for_element_and_click('//a[@class="btn btn-primary"]')
@@ -128,7 +128,7 @@ class Contratti(Test):
         self.wait_for_element_and_click('//a[@id="link-tab_26"]')
 
         link = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_26"]//tbody//tr//td[2]'))).text
-        self.assertEqual(link, "Fattura num. del 01/01/2025 ( Bozza)")
+        self.assertEqual(link, "Fattura num. del 01/01/2026 ( Bozza)")
 
         self.navigateTo("Contratti")
         self.wait_loader()
