@@ -14,7 +14,8 @@ class TipiSpedizione(Test):
         self.modifica_tipi_spedizione("Tipo di Spedizione di Prova")
         self.elimina_tipi_spedizione()
         self.verifica_tipi_spedizione()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_tipi_spedizione(self, descrizione = str):
         self.navigateTo("Tipi di spedizione")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

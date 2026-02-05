@@ -10,7 +10,8 @@ class GestioneTask (Test):
     def test_creazione_task(self):
         self.modifica_task("Backup")
         self.verifica_task()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def modifica_task(self, modifica = str):
         self.navigateTo("Gestione task")
         self.wait_loader()

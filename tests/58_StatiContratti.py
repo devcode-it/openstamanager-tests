@@ -14,7 +14,8 @@ class StatiContratti(Test):
         self.modifica_stato_contratti("Stato dei Contratti di Prova")
         self.elimina_stato_contratti()
         self.verifica_stato_contratti()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_stato_contratti(self, descrizione = str, icona = str, colore = str):
         self.navigateTo("Stati dei contratti")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

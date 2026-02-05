@@ -11,3 +11,4 @@ class Impianti(Test):
     def test_plugin_impianti(self):
         #TODO: Componenti
         self.componenti()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

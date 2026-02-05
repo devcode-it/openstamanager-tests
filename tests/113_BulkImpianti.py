@@ -15,3 +15,4 @@ class Impianti(Test):
         #self.elimina_selezionati()
         #TODO: esporta
         self.esporta_selezionati()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

@@ -14,7 +14,8 @@ class Checklists(Test):
         self.modifica_checklist("Checklist di Prova")
         self.elimina_checklist()
         self.verifica_checklist()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def checklists(self, nome = str, modulo= str, plugin = str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()

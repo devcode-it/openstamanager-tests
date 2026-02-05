@@ -17,3 +17,4 @@ class Aggiornamenti(Test):
         self.wait_for_element_and_click('//button[@class="close"]')
         self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal fade large-modal show"]')))
 
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

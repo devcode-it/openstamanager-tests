@@ -15,7 +15,8 @@ class UtentiPermessi(Test):
         self.modifica_utenti_permessi('Test', 'Admin spa', '1qa2ws3ed!', 'Lettura e scrittura')
         self.elimina_utenti_permessi()
         self.verifica_utenti_permessi()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_utenti_permessi(self, nome):
         self.navigateTo('Utenti e permessi')
         self.wait_loader()

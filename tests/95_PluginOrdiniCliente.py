@@ -10,7 +10,7 @@ class OrdiniCliente(Test):
 
     def test_plugin_ordine_cliente(self):
         self.consuntivi()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
     def consuntivi(self):
         self.navigateTo("Ordini cliente")
         self.wait_loader()

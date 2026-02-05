@@ -14,7 +14,8 @@ class ModelliPrimaNota(Test):
         self.modifica_modello_prima_nota("Modello Prima Nota di Prova")
         self.elimina_modello_prima_nota()
         self.verifica_modello_prima_nota()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_modelli_prima_nota(self, nome = str, causale = str):
         self.navigateTo("Modelli prima nota")
         self.wait_loader()

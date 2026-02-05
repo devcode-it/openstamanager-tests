@@ -15,7 +15,8 @@ class MarcheImpianti(Test):
         self.modifica_marche("Marca di Prova")
         self.elimina_marche()
         self.verifica_marche()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_marche(self, nome = str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()

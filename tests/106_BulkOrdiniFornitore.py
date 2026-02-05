@@ -10,9 +10,8 @@ class OrdiniFornitore(Test):
 
     def test_bulk_ordine_fornitore(self):
         self.cambia_stato()
-
-
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def cambia_stato(self):
         self.navigateTo("Ordini fornitore")
         self.wait_loader()

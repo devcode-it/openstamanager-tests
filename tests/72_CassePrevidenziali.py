@@ -14,7 +14,8 @@ class CassePrevidenziali(Test):
         self.modifica_casse_previdenziali("Cassa Previdenziale di Prova")
         self.elimina_casse_previdenziali()
         self.verifica_casse_previdenziali()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_casse_previdenziali(self, descrizione = str, percentuale = str, indetraibile = str):
         self.navigateTo("Casse previdenziali")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

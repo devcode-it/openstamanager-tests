@@ -14,7 +14,8 @@ class TipiScadenze(Test):
         self.modifica_categorie_contratti("Categoria di Contratto di Prova")
         self.elimina_categorie_contratti()
         self.verifica_categorie_contratti()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_categorie_contratti(self, descrizione= str):
         self.navigateTo("Categorie contratti")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

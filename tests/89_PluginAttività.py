@@ -13,3 +13,5 @@ class Attivita(Test):
         #TODO: Impianti
         #self.impianti()
         self.test()
+
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

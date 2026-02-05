@@ -15,7 +15,8 @@ class Segmenti(Test):
         self.modifica_segmento("Segmento di Prova")
         self.elimina_segmento()
         self.verifica_segmento()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_segmenti(self, nome = str, maschera = str, modulo = str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()

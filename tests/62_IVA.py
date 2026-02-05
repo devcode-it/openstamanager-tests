@@ -14,7 +14,8 @@ class IVA(Test):
         self.modifica_iva("IVA di Prova")
         self.elimina_iva()
         self.verifica_iva()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_iva(self, descrizione = str, percentuale = str, indetraibile = str, esigibilita = str):
         self.navigateTo("IVA")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

@@ -17,7 +17,8 @@ class Banche(Test):
         self.aggiorna_banca_fatture_acquisto()
         self.aggiorna_banca_scadenzario()
         self.aggiorna_banca_fatture_vendita()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_banca(self, anagrafica: str, nome: str, iban: str, bic: str):
         self.navigateTo("Banche")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

@@ -23,7 +23,7 @@ class Anagrafiche(Test):
         self.plugin_movimenti_contabili()
         self.regole_pagamenti()
         self.assicurazione_crediti()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def aggiunta_referente(self):
         self.navigateTo("Anagrafiche")

@@ -16,7 +16,8 @@ class Attivita(Test):
         self.fattura_attivita()
         self.firma_interventi()
         self.stampa_riepilogo()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def cambio_stato(self):
         self.navigateTo('Attività')
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')

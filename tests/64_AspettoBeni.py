@@ -14,7 +14,8 @@ class AspettoBeni(Test):
         self.modifica_aspetto_beni("Aspetto Beni di Prova")
         self.elimina_aspetto_beni()
         self.verifica_aspetto_beni()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_aspetto_beni(self, descrizione = str):
         self.navigateTo("Aspetto beni")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

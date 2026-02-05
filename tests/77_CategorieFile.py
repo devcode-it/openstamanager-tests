@@ -17,7 +17,8 @@ class Categorie(Test):
         self.modifica_categorie("Categoria di Prova")
         self.elimina_categorie()
         self.verifica_categorie()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_categorie(self, descrizione: str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()

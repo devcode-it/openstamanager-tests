@@ -18,7 +18,8 @@ class FattureVendita(Test):
         self.registrazioni()
         #TODO: Importazione FE
         #self.importazione_fe()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def movimenti_contabili(self):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()

@@ -16,7 +16,8 @@ class RitenuteAcconto(Test):
         self.modifica_ritenuta_acconto("Ritenuta Acconto di Prova")
         self.elimina_ritenuta_acconto()
         self.verifica_ritenuta_acconto()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_ritenute_acconto(self, descrizione = str, percentuale = str, percentualeimp = str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()

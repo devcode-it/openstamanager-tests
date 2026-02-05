@@ -14,7 +14,8 @@ class Eventi(Test):
         self.modifica_evento("Evento di Prova")
         self.elimina_evento()
         self.verifica_evento()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_eventi(self, nome = str, data = str, nazione = str):
         self.navigateTo("Eventi")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

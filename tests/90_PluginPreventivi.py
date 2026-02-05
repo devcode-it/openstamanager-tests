@@ -12,7 +12,7 @@ class Preventivi(Test):
     def test_plugin_preventivo(self):
         self.consuntivo()
         self.revisioni()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def consuntivo(self):
         self.navigateTo("Preventivi")

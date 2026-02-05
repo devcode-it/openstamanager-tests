@@ -11,3 +11,4 @@ class Scadenzario(Test):
     def test_plugin_scadenzario(self):
         #TODO: presentazioni bancarie
         self.presentazioni_bancarie()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

@@ -29,5 +29,6 @@ class Import_(Test):
 
         self.wait_for_element_and_click('//button[@type="submit"]')
         self.wait_loader()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
         ##TODO: finire test importazione

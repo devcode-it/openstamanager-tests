@@ -16,7 +16,8 @@ class Pagamenti(Test):
         self.modifica_pagamento("Pagamento di Prova")
         self.elimina_pagamento()
         self.verifica_pagamento()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_pagamenti(self, descrizione= str, codice = str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()

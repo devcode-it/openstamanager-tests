@@ -16,7 +16,8 @@ class Anagrafiche(Test):
         #TODO: Imposta listino
         #self.imposta_listino()
         self.ricerca_coordinate()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def cambia_relazione(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()

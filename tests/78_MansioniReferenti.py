@@ -15,7 +15,8 @@ class MansioniReferenti(Test):
         self.modifica_mansione_referente("Mansione Referente di Prova")
         self.elimina_mansione_referente()
         self.verifica_mansione_referente()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_mansioni_referenti(self, mansione= str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()

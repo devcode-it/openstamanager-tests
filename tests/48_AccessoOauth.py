@@ -12,3 +12,4 @@ class PrimaNota(Test):
         self.navigateTo("Accesso con OAuth")
         self.wait_loader()
         ##TODO: test accesso con oauth
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

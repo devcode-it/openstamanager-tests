@@ -14,7 +14,8 @@ class StatiOrdini(Test):
         self.modifica_stato_ordini("Stato degli Ordini di Prova")
         self.elimina_stato_ordini()
         self.verifica_stato_ordini()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_stato_ordini(self, descrizione = str, icona = str, colore = str):
         self.navigateTo("Stati degli ordini")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

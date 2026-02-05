@@ -16,7 +16,8 @@ class Causali(Test):
         self.modifica_causale("Causale di Prova")
         self.elimina_causale()
         self.verifica_causale()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_causali(self, descrizione= str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()

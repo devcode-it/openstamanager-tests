@@ -81,3 +81,4 @@ class Dashboard(Test):
         self.assertEqual(widget, "Attività")
         self.wait_for_element_and_click('//div[@class="modal-content"]//button[@class="close"]')
         self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]')))
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

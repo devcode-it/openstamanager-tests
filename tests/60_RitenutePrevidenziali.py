@@ -14,7 +14,8 @@ class RitenutePrevidenziali(Test):
         self.modifica_ritenute_previdenziali("Ritenuta Previdenziale di Prova")
         self.elimina_ritenute_previdenziali()
         self.verifica_ritenuta_previdenziale()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_ritenute_previdenziali(self, descrizione = str, percentuale = str, percentualeimp = str):
         self.navigateTo("Ritenute previdenziali")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

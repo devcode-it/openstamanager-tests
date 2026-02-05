@@ -14,7 +14,7 @@ class Contratti(Test):
         self.pianificazione_attivita()
         self.rinnovi()
         self.pianificazione_fatturazione()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def consuntivo(self):
         self.navigateTo("Contratti")

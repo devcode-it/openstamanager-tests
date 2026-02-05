@@ -10,7 +10,8 @@ class StatiDDT(Test):
 
     def test_creazione_stati_DDT(self):
         self.creazione_stato_DDT("Stato dei DDT di Prova", "fa fa-check text-success", "#9d2929" )
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
 
     def creazione_stato_DDT(self, descrizione = str, icona = str, colore = str):
         self.navigateTo("Stati dei DDT")

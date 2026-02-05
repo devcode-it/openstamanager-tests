@@ -32,7 +32,7 @@ class Articoli(Test):
         self.imposta_prezzo_da_fattura()
         self.imposta_provvigione()
         self.stampa_etichette()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def aggiorna_iva(self):
         self.navigateTo("Articoli")

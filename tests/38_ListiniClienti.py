@@ -41,7 +41,7 @@ class Listini(Test):
 
         self.wait_for_element_and_click('//button[@class="btn btn-success btn-block"]')
 
-        prezzo_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]')))
+        prezzo_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]')))
         prezzo_input.send_keys("10,00")
         sconto_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="sconto_percentuale"]')))
         sconto_input.send_keys("10")
@@ -131,5 +131,3 @@ class Listini(Test):
         self.wait_loader()
 
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tr[1]//td[8]')))
-        self.wait_for_element_and_click('//tr[1]//td[9]//a[2]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')

@@ -11,3 +11,4 @@ class Liste(Test):
     def test_bulk_liste(self):
         #TODO: aggiorna liste
         self.aggiorna_liste()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

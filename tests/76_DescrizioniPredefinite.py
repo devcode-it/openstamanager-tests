@@ -14,7 +14,8 @@ class DescrizioniPredefinite(Test):
         self.modifica_descrizione_predefinita("Descrizione Predefinita di Prova")
         self.elimina_descrizione_predefinita()
         self.verifica_descrizione_predefinita()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_descrizione_predefinita(self, nome = str, moduli = str, descrizione = str):
         self.navigateTo("Descrizioni predefinite")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

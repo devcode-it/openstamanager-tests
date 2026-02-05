@@ -11,7 +11,8 @@ class Articoli(Test):
     def test_bulk_listini(self):
         self.aggiorna_prezzo_unitario()
         self.copia_listini()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def aggiorna_prezzo_unitario(self):
         self.navigateTo("Articoli")
         self.wait_loader()

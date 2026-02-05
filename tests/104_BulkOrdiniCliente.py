@@ -11,7 +11,8 @@ class OrdiniCliente(Test):
     def test_bulk_ordine_cliente(self):
         self.cambia_stato()
         self.fattura_ordini_clienti()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def cambia_stato(self):
         self.navigateTo("Ordini cliente")
         self.wait_loader()

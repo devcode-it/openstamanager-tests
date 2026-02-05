@@ -23,7 +23,8 @@ class Articoli(Test):
         self.serial()
         #TODO: movimenti
         #self.movimenti()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def provvigioni(self):
         self.navigateTo("Articoli")
         self.wait_loader()

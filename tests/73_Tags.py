@@ -17,7 +17,8 @@ class Tags(Test):
         self.modifica_tags("Tags di Prova")
         self.elimina_tags()
         self.verifica_tags()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_tags(self, descrizione: str):
         self.navigateTo("Tags")
         self.wait_loader()

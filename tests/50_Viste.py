@@ -65,7 +65,8 @@ class Viste(Test, TestHelperMixin):
         self.navigateTo("Ddt in entrata")
         self.wait_loader()
         self.controllo_viste("2")
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def controllo_viste(self, test: str):
         self.wait_for_search_results()
         verifica = self.wait_driver.until(

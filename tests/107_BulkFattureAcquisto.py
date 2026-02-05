@@ -24,8 +24,7 @@ class FattureAcquisto(Test):
         #TODO: Invia fatture
         #self.invia_fatture()
         self.registrazione_contabile()
-
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def cambia_sezionale(self):
         self.navigateTo("Fatture di acquisto")

@@ -13,3 +13,4 @@ class Banche(Test):
     def test_plugin_banche(self):
         #TODO: Mandati SEPA
         self.mandati_sepa()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

@@ -11,7 +11,8 @@ class StatiFatture(Test):
     def test_creazione_stati_fatture(self):
         self.modifica_stati_fatture("fa fa-file-text text-muted")
         self.verifica_stati_fatture()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def modifica_stati_fatture(self, modifica = str):
         self.navigateTo("Stati fatture")
         self.wait_loader()

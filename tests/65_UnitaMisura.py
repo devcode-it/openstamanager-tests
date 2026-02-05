@@ -14,7 +14,8 @@ class UnitaMisura(Test):
         self.modifica_unita_misura("UdMdP")
         self.elimina_unita_misura()
         self.verifica_unita_misura()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_unita_misura(self, valore= str):
         self.navigateTo("Unità di misura")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

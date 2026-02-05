@@ -21,3 +21,4 @@ class GiacenzeSedi(Test):
         self.assertEqual(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//h3[@class="card-title"])[7]'))).text, "Ore interventi per tipologia")
         self.assertEqual(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//h3[@class="card-title"])[8]'))).text, "Ore di lavoro per tecnico")
         self.assertEqual(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//h3[@class="card-title"])[9]'))).text, "Nuove anagrafiche")
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

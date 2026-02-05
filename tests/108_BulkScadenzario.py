@@ -16,3 +16,4 @@ class Scadenzario(Test):
         #self.invia_mail_sollecito()
         #TODO: registrazione contabile
         self.registrazione_contabile()
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

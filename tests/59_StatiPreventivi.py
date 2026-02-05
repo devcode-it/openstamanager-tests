@@ -14,7 +14,8 @@ class StatiPreventivi(Test):
         self.modifica_stati_preventivi("Stato Preventivi di Prova")
         self.elimina_stati_preventivi()
         self.verifica_stati_preventivi()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_stati_preventivi(self, descrizione = str, icona = str):
         self.navigateTo("Stati dei preventivi")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

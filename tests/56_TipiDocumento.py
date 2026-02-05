@@ -14,7 +14,8 @@ class TipiDocumento(Test):
         self.modifica_documento("Tipo di Documento di Prova")
         self.elimina_documento()
         self.verifica_tipo_documento()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_tipi_documento(self, descrizione = str, direzione = str, codice = str):
         self.navigateTo("Tipi documento")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

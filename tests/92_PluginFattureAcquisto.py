@@ -13,7 +13,8 @@ class FattureAcquisto(Test):
         #TODO: fatturazione elettronica
         #self.fatturazione_elettronica()
         self.registrazioni()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def movimenti_contabili(self):
         self.navigateTo("Fatture di acquisto")
         self.click_first_result()

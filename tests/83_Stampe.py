@@ -18,5 +18,5 @@ class Stampe(Test):
         self.wait_loader()
         
         self.wait_for_element_and_click('//tbody//tr//td[2]')
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
         ##TODO: finire test stampa

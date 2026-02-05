@@ -15,7 +15,7 @@ class Contratti(Test):
         #self.cambia_metodo_pagamento()
         self.fattura_contratti()
         self.rinnova_contratti()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
     
     def cambia_stato(self):
         self.navigateTo("Contratti")

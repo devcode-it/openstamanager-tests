@@ -12,7 +12,7 @@ class Preventivi(Test):
     def test_bulk_preventivo(self):
         self.cambia_stato()
         self.fattura_preventivi()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def cambia_stato(self):
         self.navigateTo("Preventivi")

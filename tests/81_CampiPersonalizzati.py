@@ -18,7 +18,8 @@ class Campi_personalizzati(Test, TestHelperMixin):
         self.modifica_campi_personalizzati(modifica="Campo personalizzato di Prova")
         self.elimina_campi_personalizzati()
         self.verifica_campi_personalizzati()
-
+        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        
     def creazione_campi_personalizzati(self, nome: str, contenuto: str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
