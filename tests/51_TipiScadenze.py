@@ -9,14 +9,14 @@ class TipiScadenze(Test):
         self.expandSidebar("Tabelle")
 
     def test_creazione_tipi_scadenze(self):
-        self.creazione_tipi_scadenze(nome= "Tipo di Scadenza di Prova da Modificare",descrizione= "Descrizione tipo di Scadenza da Modificare")
-        self.creazione_tipi_scadenze(nome= "Tipo di Scadenza di Prova da Eliminare",descrizione= "Descrizione tipo di Scadenza da Eliminare")
+        self.creazione_tipi_scadenze(nome= "Tipo di Scadenza di Prova da Modificare")
+        self.creazione_tipi_scadenze(nome= "Tipo di Scadenza di Prova da Eliminare")
         self.modifica_tipi_scadenze("Tipo di Scadenza di Prova")
         self.elimina_tipi_scadenze()
         self.verifica_tipi_scadenze()
         self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
         
-    def creazione_tipi_scadenze(self, nome = str, descrizione = str):
+    def creazione_tipi_scadenze(self, nome = str):
         self.navigateTo("Tipi scadenze")
         self.wait_loader()
 
@@ -24,7 +24,6 @@ class TipiScadenze(Test):
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue(nome)
-        self.input(modal, 'Descrizione').setValue(descrizione)
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def modifica_tipi_scadenze(self, modifica = str):

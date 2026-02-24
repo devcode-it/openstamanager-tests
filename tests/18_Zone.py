@@ -9,21 +9,21 @@ class Zone(Test):
         self.wait_loader()
 
     def test_creazione_zone(self):
-        self.creazione_zone(codice="0001", descrizione="Zona di Prova da Modificare")
-        self.creazione_zone(codice="0002", descrizione="Zona di Prova da Eliminare")
+        self.creazione_zone(nome="0001", descrizione="Zona di Prova da Modificare")
+        self.creazione_zone(nome="0002", descrizione="Zona di Prova da Eliminare")
         self.modifica_zone("Zona di Prova")
         self.elimina_zone()
         self.verifica_zone()
         self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
-    def creazione_zone(self, codice=str, descrizione=str):
+    def creazione_zone(self, nome=str, descrizione=str):
         self.navigateTo("Zone")
         self.wait_loader()
 
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
-        self.input(modal, 'Codice').setValue(codice)
+        self.input(modal, 'Nome').setValue(nome)
         self.input(modal, 'Descrizione').setValue(descrizione)
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 

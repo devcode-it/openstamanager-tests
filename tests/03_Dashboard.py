@@ -20,7 +20,7 @@ class Dashboard(Test):
 
         self.input(modal, 'Cliente').setByText("Cliente")
         self.input(modal, 'Tipo').setByIndex("1")
-        expected_text = "Int. 1 Cliente\nTecnici: Stefano Bianchi"
+        expected_text = "Int. 1 Cliente\nStefano Bianchi"
 
         self.wait_for_element_and_click('//a[@id="tecnici-sessioni-tab"]')
         self.wait_for_element_and_click('(//div[@id="tab_tecnici_sessioni"]//i[@class="fa fa-plus"])[2]')

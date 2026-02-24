@@ -21,7 +21,7 @@ class StampeContabili(Test):
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="viewer"]//span[3]'))).text
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="viewer"]//span[7]'))).text
         self.assertEqual(stampa, "REGISTRO IVA VENDITE DAL 01/01/2026 AL 31/12/2026 - STANDARD VENDITE")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
@@ -31,7 +31,7 @@ class StampeContabili(Test):
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="viewer"]//span[3]'))).text
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="viewer"]//span[7]'))).text
         self.assertEqual(stampa, "REGISTRO IVA ACQUISTI DAL 01/01/2026 AL 31/12/2026 - STANDARD ACQUISTI")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
@@ -40,7 +40,7 @@ class StampeContabili(Test):
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[1]'))).text
+        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[6]'))).text
         self.assertEqual(stampa, "PROSPETTO LIQUIDAZIONE IVA DAL 01/01/2026 AL 31/12/2026")
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
