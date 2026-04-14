@@ -35,7 +35,7 @@ class FattureVendita(Test):
 
         select = self.input(modal, 'Cliente')
         select.setByText(cliente)
-        self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
+        self.wait_for_element_and_click('//button[@type="submit"]')
 
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
@@ -58,31 +58,31 @@ class FattureVendita(Test):
         self.wait_loader()
         self.click_first_result()
 
-        sconto = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]'))).text
-        totale_imponibile = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]'))).text
-        iva = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]'))).text
-        totale = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]'))).text
+        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
+        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
+        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
 
         self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"] + ' €'))
         self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"] + ' €'))
         self.assertEqual(iva, (self.valori["IVA"] + ' €'))
         self.assertEqual(totale, (self.valori["Totale documento"] + ' €'))
 
-        scadenza_fattura = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]'))).text
+        scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
         self.assertEqual(totale, scadenza_fattura[12:20])
 
         self.driver.execute_script('$("a").removeAttr("target")')
         self.wait_for_element_and_click('//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::a')
 
-        scadenza_scadenzario = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]'))).text + ' €'
+        scadenza_scadenzario = self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text + ' €'
         self.assertEqual(totale, scadenza_scadenzario)
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        widget_fatturato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-number"])[1]'))).text
-        widget_crediti = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//span[@class="info-box-number"])[2]'))).text
+        widget_fatturato = self.find(By.XPATH, '(//span[@class="info-box-number"])[1]').text
+        widget_crediti = self.find(By.XPATH, '(//span[@class="info-box-number"])[2]').text
         self.assertEqual(totale_imponibile, widget_fatturato)
         self.assertEqual(totale, widget_crediti)
 
@@ -91,11 +91,11 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//div[@class="text-center"]//a[@class="btn btn-info btn-lg "]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-        perc_iva_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]'))).text
-        iva_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]'))).text
-        totale_imponibile_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[5]'))).text + ' €'
-        totale_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[3]/td[4]'))).text + ' €'
-        scadenza_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][4]/tbody/tr[1]/td[4]'))).text + ' €'
+        perc_iva_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//table[@class="tbFoglio"])[3]/tbody/tr[1]/td[2]'))).text
+        iva_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//table[@class="tbFoglio"])[3]/tbody/tr[1]/td[6]'))).text
+        totale_imponibile_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//table[@class="tbFoglio"])[3]/tbody/tr[1]/td[5]'))).text + ' €'
+        totale_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//table[@class="tbFoglio"])[3]/tbody/tr[3]/td[4]'))).text + ' €'
+        scadenza_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//table[@class="tbFoglio"])[4]/tbody/tr[1]/td[4]'))).text + ' €'
 
         self.assertEqual('22,00', perc_iva_FE)
         self.assertEqual((self.valori["IVA"]), iva_FE)
@@ -120,19 +120,19 @@ class FattureVendita(Test):
         self.wait_for_expanded_element('//*[@id="conto2-20"]')
         self.wait_for_element_and_click('//*[@id="movimenti-94"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto_94"]')
-        conto_ricavi = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_94"]//*[@class="text-right"]'))).text
+        conto_ricavi = self.find(By.XPATH, '//*[@id="conto_94"]//*[@class="text-right"]').text
 
         self.wait_for_element_and_click('//*[@id="conto2-2"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto2-2"]')
         self.wait_for_element_and_click('//*[@id="movimenti-125"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto_125"]')
-        conto_cliente = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_125"]//*[@class="text-right"]'))).text
+        conto_cliente = self.find(By.XPATH, '//*[@id="conto_125"]//*[@class="text-right"]').text
 
         self.wait_for_element_and_click('//*[@id="conto2-22"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto2-22"]')
         self.wait_for_element_and_click('//*[@id="movimenti-106"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto_106"]')
-        conto_iva = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]'))).text
+        conto_iva = self.find(By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]').text
 
         self.assertEqual(totale_imponibile, conto_ricavi)
         self.assertEqual(totale, conto_cliente)
@@ -166,12 +166,12 @@ class FattureVendita(Test):
         self.wait_loader()
         self.wait_for_element_and_click('//td[@class="bound clickable"]')
 
-        totale_imponibile = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]'))).text
+        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
         totale_imponibile = '-'+totale_imponibile
-        iva = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]'))).text
-        totale = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]'))).text
+        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
+        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
 
-        scadenza_fattura = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]'))).text
+        scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
         self.assertEqual(totale, scadenza_fattura[12:21])
 
         self.wait_for_element_and_click('//div[@class="btn-group pull-right"]')
@@ -190,14 +190,14 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//form[@id="form-xml"]/following-sibling::a[1]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-        perc_iva_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[2]'))).text
-        iva_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[6]'))).text
+        perc_iva_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//table[@class="tbFoglio"])[3]/tbody/tr[1]/td[2]'))).text
+        iva_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//table[@class="tbFoglio"])[3]/tbody/tr[1]/td[6]'))).text
         iva_FE = iva_FE+' €'
-        totale_imponibile_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[1]/td[5]'))).text
+        totale_imponibile_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//table[@class="tbFoglio"])[3]/tbody/tr[1]/td[5]'))).text
         totale_imponibile_FE = '-'+totale_imponibile_FE+' €'
-        totale_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][3]/tbody/tr[3]/td[4]'))).text
+        totale_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//table[@class="tbFoglio"])[3]/tbody/tr[3]/td[4]'))).text
         totale_FE = totale_FE+' €'
-        scadenza_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//table[@class="tbFoglio"][4]/tbody/tr[1]/td[4]'))).text
+        scadenza_FE = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//table[@class="tbFoglio"])[4]/tbody/tr[1]/td[4]'))).text
         scadenza_FE = scadenza_FE+' €'
 
         self.assertEqual('22,00', perc_iva_FE)
@@ -223,19 +223,19 @@ class FattureVendita(Test):
         self.wait_for_expanded_element('//*[@id="conto2-20"]')
         self.wait_for_element_and_click('//*[@id="movimenti-94"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto_94"]')
-        conto_ricavi = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_94"]//*[@class="text-right"]'))).text
+        conto_ricavi = self.find(By.XPATH, '//*[@id="conto_94"]//*[@class="text-right"]').text
 
         self.wait_for_element_and_click('//*[@id="conto2-2"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto2-2"]')
         self.wait_for_element_and_click('//*[@id="movimenti-125"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto_125"]')
-        conto_cliente = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_125"]//*[@class="text-right"]'))).text
+        conto_cliente = self.find(By.XPATH, '//*[@id="conto_125"]//*[@class="text-right"]').text
 
         self.wait_for_element_and_click('//*[@id="conto2-22"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto2-22"]')
         self.wait_for_element_and_click('//*[@id="movimenti-106"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto_106"]')
-        conto_iva = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]'))).text
+        conto_iva = self.find(By.XPATH, '//*[@id="conto_106"]//*[@class="text-right"]').text
 
         conto_iva= '-'+ conto_iva
         conto_ricavi = '-' + conto_ricavi
@@ -250,8 +250,8 @@ class FattureVendita(Test):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
-        fattura = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[2]//td[6]'))).text
-        notacredito = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[6]'))).text
+        fattura = self.find(By.XPATH, '//tbody//tr[2]//td[6]').text
+        notacredito = self.find(By.XPATH, '//tbody//tr[1]//td[6]').text
         fattura = '-'+ fattura
         self.assertEqual(fattura, notacredito)
 
@@ -274,12 +274,10 @@ class FattureVendita(Test):
         select = self.input(modal, 'Fornitore')
         select.setByText("Fornitore Estero")
         self.input(modal, 'N. fattura del fornitore').setValue("02")
-        self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
+        self.wait_for_element_and_click('//button[@type="submit"]')
 
     def verifica_xml_fattura_estera(self, file_importi: str, pagamento: str):
-        self.input(self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]'))
-        ), 'Pagamento').setByIndex(pagamento)
+        self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Pagamento').setByIndex(pagamento)
         row_manager = RowManager(self)
         row_manager.compile(file_importi)
 
@@ -298,19 +296,17 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//button[@class="btn btn-primary unblockable dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"]')
         self.wait_for_element_and_click('//div[@class="modal-body"]//span[@class="select2-selection select2-selection--single"]')
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'))), "TD17", wait_modal=False)
+        self.send_keys_and_wait(self.find(By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input[@type="search"]'), "TD17", wait_modal=False)
         self.wait_for_element_and_click('//div[@class="modal-body"]//button[@type="submit"]')
 
         self.input(None,'Stato*').setByText("Emessa")
         self.driver.execute_script('window.scrollTo(0,0)')
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
-        totale_imponibile = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]'))).text
-        iva = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]'))).text
-        totale = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[3]//td[2]'))).text
+        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]').text
+        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
+        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
 
         self.assertEqual(totale_imponibile, '264,80 €')
         self.assertEqual(iva, '58,26 €')
         self.assertEqual(totale, '323,06 €')
-
-    

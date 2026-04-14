@@ -1,7 +1,6 @@
-from common.Test import Test, get_html
+from common.Test import Test
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 class DdtEntrata(Test):
     def setUp(self):
@@ -27,7 +26,7 @@ class DdtEntrata(Test):
         select.setByText(fornitore)
         select = self.input(modal, 'Causale trasporto')
         select.setByIndex(causale)
-        self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
+        self.wait_for_element_and_click('//button[@type="submit"]')
 
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
@@ -42,24 +41,16 @@ class DdtEntrata(Test):
 
     def modifica_ddt(self, modifica):
         self.navigateTo("Ddt in entrata")
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, '1', wait_modal=False)
         self.click_first_result()
 
         self.wait_for_dropdown_and_select('//span[@id="select2-idstatoddt-container"]', option_text='Evaso')
 
-        sconto = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]'))
-        ).text
-        totale_imponibile = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]'))
-        ).text
-        iva = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]'))
-        ).text
-        totale = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]'))
-        ).text
+        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
+        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
+        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
 
         self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"] + ' €'))
         self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"] + ' €'))
@@ -72,7 +63,7 @@ class DdtEntrata(Test):
 
     def elimina_ddt(self):
         self.navigateTo("Ddt in entrata")
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, '2', wait_modal=False)
         self.click_first_result()
 
@@ -82,18 +73,14 @@ class DdtEntrata(Test):
 
     def verifica_ddt(self):
         self.navigateTo("Ddt in entrata")
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, "1", wait_modal=False)
-        modificato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[11]'))
-        ).text
+        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[11]').text
         self.assertEqual("Evaso", modificato)
         self.clear_filters()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, "2", wait_modal=False)
-        eliminato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
-        ).text
+        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.clear_filters()

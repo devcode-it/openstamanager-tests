@@ -1,6 +1,5 @@
 from common.Test import Test
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 class Articoli(Test):
     def setUp(self):
@@ -27,18 +26,16 @@ class Articoli(Test):
         self.input(modal, 'Descrizione').setValue(descrizione)
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
-        self.wait(EC.visibility_of_element_located((By.XPATH, '//label[contains(text(), "Quantità iniziale")]/following-sibling::div/input')))
+        self.find(By.XPATH, '//label[contains(text(), "Quantità iniziale")]/following-sibling::div/input')
 
         self.input(modal, 'Quantità iniziale').setValue(qta)
-        self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
+        self.wait_for_element_and_click('//button[@type="submit"]')
 
     def modifica_articolo(self, acquisto: str, coefficiente: str):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
-        )
+        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
         self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
 
         self.click_first_result()
@@ -49,9 +46,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
         self.wait_for_element_and_click('//a[@id="back"]')
 
-        verificaqta = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//tbody//td[10]//div[1][1]'))
-        ).text
+        verificaqta = self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[10]//div[1][1]').text
         self.assertEqual(verificaqta, "2,00")
 
         self.clear_filters()
@@ -60,9 +55,7 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
-        )
+        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
         self.send_keys_and_wait(search_input, 'Articolo di Prova da Eliminare', wait_modal=False)
 
         self.click_first_result()
@@ -76,24 +69,16 @@ class Articoli(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
-        )
+        search_input = self.find(By.XPATH, '//th[@id="th_Codice"]/input')
         self.send_keys_and_wait(search_input, '001', wait_modal=False)
 
-        modificato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[9]'))
-        ).text
+        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[9]').text
         self.assertEqual("20,00", modificato)
         self.clear_filters()
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
-        )
+        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
         self.send_keys_and_wait(search_input, 'Articolo di prova da Eliminare', wait_modal=False)
 
-        eliminato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[1]'))
-        ).text
+        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[1]').text
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.clear_filters()

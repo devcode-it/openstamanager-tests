@@ -1,16 +1,7 @@
-#!/usr/bin/env python3
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
 from common.Test import Test
-
-import logging
+from selenium.webdriver.common.by import By
 
 class StatoServizi(Test):
-    def setUp(self):
-        super().setUp()
-        self.wait_driver = WebDriverWait(self.driver, 10)
-
     def test_stato_servizi(self):
         self.attiva_moduli()
         self.compila_azienda()
@@ -41,9 +32,7 @@ class StatoServizi(Test):
             'Città': 'Este'
         })
 
-        indirizzo = self.wait_driver.until(
-            EC.presence_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))
-        )
+        indirizzo = self.find(By.XPATH, '//input[@id="indirizzo"]')
         indirizzo.clear()
         self.send_keys_and_wait(indirizzo, "Via Rovigo, 51", wait_modal=False)
 
@@ -65,13 +54,13 @@ class StatoServizi(Test):
         modal = self.wait_modal()
         self.input(modal, 'Denominazione').setValue(nome)
         self.input(modal, 'Tipo di anagrafica').setByText(tipo)
-        self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
+        self.wait_for_element_and_click('//button[@type="submit"]')
         self.wait_loader()
 
     def _compila_anagrafica_estera(self, nome: str, piva: str, nazione: str, citta: str):
         self.navigateTo("Anagrafiche")
 
-        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]')))
+        self.wait_for_element_and_click('//th[@id="th_Ragione-sociale"]')
 
         self.search_entity(nome)
 
@@ -91,9 +80,7 @@ class StatoServizi(Test):
             'Città': citta
         })
 
-        indirizzo = self.wait_driver.until(
-            EC.presence_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))
-        )
+        indirizzo = self.find(By.XPATH, '//input[@id="indirizzo"]')
         indirizzo.clear()
         self.send_keys_and_wait(indirizzo, 'Via controllo caratteri speciali: &"<>èéàòùì?\'\'`', wait_modal=False)
 

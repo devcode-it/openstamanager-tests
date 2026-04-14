@@ -1,7 +1,6 @@
 from common.Test import Test
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 class Dashboard(Test):
     def setUp(self):
@@ -11,10 +10,8 @@ class Dashboard(Test):
         self.navigateTo("Dashboard")
         self.wait_loader()
 
-        actions = webdriver.common.action_chains.ActionChains(self.driver)
-        calendar = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="calendar"]'))
-        )
+        actions = ActionChains(self.driver)
+        calendar = self.find(By.XPATH, '//div[@id="calendar"]')
         actions.move_to_element(calendar).move_by_offset(300, 100).click().perform()
         modal = self.wait_modal()
 
@@ -26,10 +23,10 @@ class Dashboard(Test):
         self.wait_for_element_and_click('(//div[@id="tab_tecnici_sessioni"]//i[@class="fa fa-plus"])[2]')
         modal = self.wait_modal()
 
-        tecnico = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ragione_sociale_add"]')))
+        tecnico = self.find(By.XPATH, '//input[@id="ragione_sociale_add"]')
         self.send_keys_and_wait(tecnico, "Stefano Bianchi")
 
-        description_field = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')))
+        description_field = self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')
         description_field.click()
         self.send_keys_and_wait(description_field, "Test", wait_modal=False)
 
@@ -41,7 +38,7 @@ class Dashboard(Test):
         self.wait_for_element_and_click('//div[@class="tab-content"]//div[@class="row"]//div[@id="dashboard_tecnici"]//button[@type="button"]')
         self.wait_for_element_and_click('//div[@id="dashboard_tecnici"]//button[@class="btn btn-primary btn-sm seleziona_tutto"]')
 
-        activity_text = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="fc-event-main"]'))).text
+        activity_text = self.find(By.XPATH, '//div[@class="fc-event-main"]').text
         self.assertEqual(activity_text, expected_text)
 
         self.verifica_attività()
@@ -51,10 +48,10 @@ class Dashboard(Test):
         self.navigateTo("Attività")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, "1", wait_modal=False)
 
-        technician_name = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[12]'))).text
+        technician_name = self.find(By.XPATH, '//tbody//tr[1]//td[12]').text
         self.assertEqual("Stefano Bianchi", technician_name)
 
         self.navigateTo("Attività")
@@ -67,5 +64,5 @@ class Dashboard(Test):
         self.navigateTo("Attività")
         self.wait_loader()
 
-        empty_message = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
+        empty_message = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella", empty_message)

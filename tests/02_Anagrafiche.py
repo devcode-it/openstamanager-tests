@@ -1,6 +1,6 @@
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
 from common.Test import Test
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class Anagrafiche(Test):
@@ -54,7 +54,7 @@ class Anagrafiche(Test):
         self.input(None, 'C.A.P.').setValue("35042")
 
         address_field = self.wait_driver.until(
-            EC.presence_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))
         )
         address_field.clear()
         self.send_keys_and_wait(address_field, "Via controllo caratteri speciali: &\"<>èéàòùì?'`", wait_modal=False)
@@ -87,9 +87,7 @@ class Anagrafiche(Test):
         self.send_keys_and_wait(search_input, "Privato", wait_modal=False)
         self.wait_for_search_results()
 
-        entity_name = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))
-        ).text
+        entity_name = self.find(By.XPATH, '//tbody//tr//td[2]').text
         self.assertEqual("Cliente", entity_name)
 
         self.navigateTo("Anagrafiche")
@@ -103,9 +101,7 @@ class Anagrafiche(Test):
         self.send_keys_and_wait(search_input, "Anagrafica di Prova da Eliminare", wait_modal=False)
         self.wait_for_search_results()
 
-        no_results_message = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[1]'))
-        ).text
+        no_results_message = self.find(By.XPATH, '//tbody//tr//td[1]').text
         self.assertEqual("Nessun dato presente nella tabella", no_results_message)
         self.clear_filters()
 
@@ -137,9 +133,7 @@ class Anagrafiche(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//a[@id="link-tab_28"]')
-        activity_number = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_28"]//tbody//tr//td[2]'))
-        ).text
+        activity_number = self.find(By.XPATH, '//div[@id="tab_28"]//tbody//tr//td[2]').text
         self.assertEqual("1", activity_number)
 
         self.wait_for_element_and_click('//div[@id="tab_28"]//tbody//td[2]')
@@ -177,9 +171,7 @@ class Anagrafiche(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
-        quote_text = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//li)[7]'))
-        ).text
+        quote_text = self.find(By.XPATH, '(//div[@class="card-body"]//li)[7]').text
         self.assertEqual("Preventivo 1", quote_text[0:12])
 
         self.wait_for_element_and_click('(//div[@class="card-body"]//li//a)[5]')
@@ -236,9 +228,7 @@ class Anagrafiche(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
-        order_text = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//li)[7]'))
-        ).text
+        order_text = self.find(By.XPATH, '(//div[@class="card-body"]//li)[7]').text
         self.assertEqual("Ordine cliente 01", order_text[0:17])
 
         self.wait_for_element_and_click('(//div[@class="card-body"]//li//a)[5]')
@@ -277,9 +267,7 @@ class Anagrafiche(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//a[@id="link-tab_17"]')
-        ddt_number = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_17"]//tbody//td[2]'))
-        ).text
+        ddt_number = self.find(By.XPATH, '//div[@id="tab_17"]//tbody//td[2]').text
         self.assertEqual("01", ddt_number)
 
         self.wait_for_element_and_click('//div[@id="tab_17"]//tbody//td[2]')
@@ -305,9 +293,7 @@ class Anagrafiche(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
-        invoice_text = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '(//div[@class="card-body"]//li)[7]'))
-        ).text
+        invoice_text = self.find(By.XPATH, '(//div[@class="card-body"]//li)[7]').text
         self.assertEqual("Fattura immediata di vendita", invoice_text[0:28])
 
         self.wait_for_element_and_click('(//div[@class="card-body"]//li//a)[5]')
