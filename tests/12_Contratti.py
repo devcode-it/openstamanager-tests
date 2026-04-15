@@ -1,8 +1,6 @@
-from common.Test import Test, get_html
+from common.Test import Test
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 
 class Contratti(Test):
     def setUp(self):
@@ -30,7 +28,7 @@ class Contratti(Test):
         self.input(modal, 'Nome').setValue(nome)
         select = self.input(modal, 'Cliente')
         select.setByText(cliente)
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        modal.find_element(By.XPATH, './/button[@type="submit"]').click()
 
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
@@ -43,9 +41,7 @@ class Contratti(Test):
         self.wait_for_element_and_click('//div[@id="pulsanti"]//button[@class="btn btn-primary ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
-        element = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))
-        )
+        element = self.find(By.XPATH, '//input[@id="nome"]')
         element.clear()
         element.send_keys("Contratto di Prova da Eliminare")
         self.wait_for_element_and_click('//button[@id="save"]')
@@ -54,29 +50,19 @@ class Contratti(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))), '=Contratto di Prova da Modificare', wait_modal=False)
+        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), '=Contratto di Prova da Modificare', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
 
-        element = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))
-        )
+        element = self.find(By.XPATH, '//input[@id="nome"]')
         element.clear()
         element.send_keys(modifica)
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
-        sconto = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]'))
-        ).text
-        totale_imponibile = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]'))
-        ).text
-        iva = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]'))
-        ).text
-        totale = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]'))
-        ).text
+        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
+        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
+        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
 
         self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"] + ' €'))
         self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"] + ' €'))
@@ -91,7 +77,7 @@ class Contratti(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))), 'Contratto di Prova da Eliminare', wait_modal=False)
+        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), 'Contratto di Prova da Eliminare', wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
@@ -103,19 +89,15 @@ class Contratti(Test):
         self.navigateTo("Contratti")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))), "Contratto di Prova", wait_modal=False)
+        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), "Contratto di Prova", wait_modal=False)
 
-        modificato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[3]'))
-        ).text
+        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[3]').text
         self.assertEqual("Contratto di Prova", modificato)
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))), "Contratto di Prova da Eliminare", wait_modal=False)
+        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), "Contratto di Prova da Eliminare", wait_modal=False)
 
-        eliminato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
-        ).text
+        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
@@ -123,9 +105,9 @@ class Contratti(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))), "Cliente", wait_modal=False)
+        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/input'), "Cliente", wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_for_element_and_click('//a[@id="link-tab_35"]')
 
-        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_35"]//tbody//tr/td[2]')))
+        self.find(By.XPATH, '//div[@id="tab_35"]//tbody//tr/td[2]')
