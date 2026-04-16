@@ -8,28 +8,28 @@ class Attivita(Test):
 
     def test_attivita(self):
         importi = RowManager.list()
-        self.attivita('Cliente', '1', '2', importi[0])
-        self.duplica_attività()
-        self.modifica_attività('Completato')
-        self.elimina_attività()
-        self.controllo_righe()
-        self.verifica_attività()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._attivita('Cliente', '1', '2', importi[0])
+        self._duplica_attività()
+        self._modifica_attività('Completato')
+        self._elimina_attività()
+        self._controllo_righe()
+        self._verifica_attività()
 
-    def attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
+    def _attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
         self.navigateTo('Attività')
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
         self.input(modal, 'Cliente').setByText(cliente)
         self.input(modal, 'Tipo').setByIndex(tipo)
-        iframe = self.wait_for_element_and_click('(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')
-        iframe.send_keys('Test')
+        description_field = self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')
+        description_field.click()
+        self.send_keys_and_wait(description_field, 'Test', wait_modal=False)
         self.wait_for_element_and_click('//div[@class="col-md-12 text-right"]//button[@type="button"]')
 
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
 
-    def duplica_attività(self):
+    def _duplica_attività(self):
         self.navigateTo('Attività')
         self.click_first_result()
         self.wait_for_element_and_click('//div[@id="pulsanti"]//button[1]')
@@ -39,7 +39,7 @@ class Attivita(Test):
         )
         self.wait_for_element_and_click('//div[@class="modal-content"]//button[@type="submit"]')
 
-    def modifica_attività(self, modifica: str):
+    def _modifica_attività(self, modifica: str):
         self.navigateTo('Attività')
         search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, '1', wait_modal=False)
@@ -54,7 +54,7 @@ class Attivita(Test):
         self.navigateTo('Attività')
         self.clear_filters()
 
-    def elimina_attività(self):
+    def _elimina_attività(self):
         self.navigateTo('Attività')
         search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, '2', wait_modal=False)
@@ -64,7 +64,7 @@ class Attivita(Test):
         self.navigateTo('Attività')
         self.clear_filters()
 
-    def controllo_righe(self):
+    def _controllo_righe(self):
         self.navigateTo('Attività')
         search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, '1', wait_modal=False)
@@ -93,7 +93,7 @@ class Attivita(Test):
         self.navigateTo('Attività')
         self.clear_filters()
 
-    def verifica_attività(self):
+    def _verifica_attività(self):
         self.navigateTo('Attività')
         search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, '1', wait_modal=False)
@@ -106,5 +106,3 @@ class Attivita(Test):
         eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual('Nessun dato presente nella tabella', eliminato)
         self.clear_filters()
-
-    

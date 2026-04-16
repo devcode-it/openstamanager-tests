@@ -12,21 +12,20 @@ class FattureVendita(Test):
     def test_creazione_fattura_vendita(self):
         importi = RowManager.list()
 
-        self.creazione_fattura_vendita("Cliente", importi[0])
-        self.duplica()
-        self.modifica_fattura_vendita("Emessa")
-        self.controllo_fattura_vendita()
-        self.creazione_nota_credito()
-        self.modifica_nota_credito("Emessa")
-        self.controllo_nota_credito()
-        self.controllo_fattura_nota_credito()
-        self.elimina_documento()
-        self.verifica_fattura_di_vendita()
-        self.verifica_xml_fattura_estera(importi[0], "1")
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._creazione_fattura_vendita("Cliente", importi[0])
+        self._duplica()
+        self._modifica_fattura_vendita("Emessa")
+        self._controllo_fattura_vendita()
+        self._creazione_nota_credito()
+        self._modifica_nota_credito("Emessa")
+        self._controllo_nota_credito()
+        self._controllo_fattura_nota_credito()
+        self._elimina_documento()
+        self._verifica_fattura_di_vendita()
+        self._verifica_xml_fattura_estera(importi[0], "1")
 
 
-    def creazione_fattura_vendita(self, cliente: str, file_importi: str):
+    def _creazione_fattura_vendita(self, cliente: str, file_importi: str):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
@@ -40,11 +39,11 @@ class FattureVendita(Test):
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
 
-    def duplica(self):
+    def _duplica(self):
         self.wait_for_element_and_click('//button[@class="btn btn-primary ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
-    def modifica_fattura_vendita(self, modifica = str):
+    def _modifica_fattura_vendita(self, modifica = str):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
@@ -53,7 +52,7 @@ class FattureVendita(Test):
         self.driver.execute_script('window.scrollTo(0,0)')
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
-    def controllo_fattura_vendita(self):
+    def _controllo_fattura_vendita(self):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
         self.click_first_result()
@@ -107,7 +106,6 @@ class FattureVendita(Test):
         self.driver.close()
 
         self.driver.switch_to.window(self.driver.window_handles[0])
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
         self.driver.close()
 
 
@@ -139,7 +137,7 @@ class FattureVendita(Test):
         self.assertEqual(iva, conto_iva)
         self.expandSidebar("Vendite")
 
-    def creazione_nota_credito(self):
+    def _creazione_nota_credito(self):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
@@ -151,7 +149,7 @@ class FattureVendita(Test):
         modal = self.wait_modal()
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
-    def modifica_nota_credito(self, modifica = str):
+    def _modifica_nota_credito(self, modifica = str):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
@@ -161,7 +159,7 @@ class FattureVendita(Test):
         self.driver.execute_script('window.scrollTo(0,0)')
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
-    def controllo_nota_credito(self):
+    def _controllo_nota_credito(self):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
         self.wait_for_element_and_click('//td[@class="bound clickable"]')
@@ -211,7 +209,6 @@ class FattureVendita(Test):
         self.driver.close()
 
         self.driver.switch_to.window(self.driver.window_handles[0])
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
         self.driver.close()
 
         super().setUp()
@@ -246,7 +243,7 @@ class FattureVendita(Test):
 
         self.expandSidebar("Vendite")
 
-    def controllo_fattura_nota_credito(self):
+    def _controllo_fattura_nota_credito(self):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
@@ -255,7 +252,7 @@ class FattureVendita(Test):
         fattura = '-'+ fattura
         self.assertEqual(fattura, notacredito)
 
-    def elimina_documento(self):
+    def _elimina_documento(self):
         self.navigateTo("Fatture di vendita")
         self.wait_loader()
 
@@ -263,7 +260,7 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
-    def verifica_fattura_di_vendita(self):
+    def _verifica_fattura_di_vendita(self):
         self.expandSidebar("Acquisti")
         self.navigateTo("Fatture di acquisto")
         self.wait_loader()
@@ -276,7 +273,7 @@ class FattureVendita(Test):
         self.input(modal, 'N. fattura del fornitore').setValue("02")
         self.wait_for_element_and_click('//button[@type="submit"]')
 
-    def verifica_xml_fattura_estera(self, file_importi: str, pagamento: str):
+    def _verifica_xml_fattura_estera(self, file_importi: str, pagamento: str):
         self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Pagamento').setByIndex(pagamento)
         row_manager = RowManager(self)
         row_manager.compile(file_importi)

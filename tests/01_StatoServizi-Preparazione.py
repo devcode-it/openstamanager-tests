@@ -3,13 +3,12 @@ from selenium.webdriver.common.by import By
 
 class StatoServizi(Test):
     def test_stato_servizi(self):
-        self.attiva_moduli()
-        self.compila_azienda()
-        self.creazione_fornitore_estero()
-        self.creazione_cliente_estero()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._attiva_moduli()
+        self._compila_azienda()
+        self._creazione_fornitore_estero()
+        self._creazione_cliente_estero()
 
-    def attiva_moduli(self):
+    def _attiva_moduli(self):
         self.expandSidebar("Strumenti")
         self.navigateTo("Stato dei servizi")
         self.wait_loader()
@@ -19,7 +18,7 @@ class StatoServizi(Test):
             self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
             self.wait_for_element_and_click('//div[@class="toast-message"]')
 
-    def compila_azienda(self):
+    def _compila_azienda(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
@@ -39,11 +38,11 @@ class StatoServizi(Test):
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()
 
-    def creazione_fornitore_estero(self):
+    def _creazione_fornitore_estero(self):
         self._crea_anagrafica("Fornitore Estero", "Fornitore")
         self._compila_anagrafica_estera("Fornitore Estero", "05024030286", "Germania", "Berlino")
 
-    def creazione_cliente_estero(self):
+    def _creazione_cliente_estero(self):
         self._crea_anagrafica("Cliente Estero", "Cliente")
         self._compila_anagrafica_estera("Cliente Estero", "05024030288", "Germania", "Monaco")
 
@@ -59,8 +58,6 @@ class StatoServizi(Test):
 
     def _compila_anagrafica_estera(self, nome: str, piva: str, nazione: str, citta: str):
         self.navigateTo("Anagrafiche")
-
-        self.wait_for_element_and_click('//th[@id="th_Ragione-sociale"]')
 
         self.search_entity(nome)
 
@@ -94,4 +91,3 @@ class StatoServizi(Test):
         for campo, valore in campi.items():
             input_field = self.input(None, campo)
             input_field.setValue(valore)
-

@@ -9,25 +9,24 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
 
     def test_creazione_anagrafica(self):
-        self.add_anagrafica('Cliente', 'Cliente')
-        self.add_anagrafica('Tecnico', 'Tecnico')
-        self.add_anagrafica('Fornitore', 'Fornitore')
-        self.add_anagrafica('Vettore', 'Vettore')
-        self.add_anagrafica('Agente', 'Agente')
-        self.add_anagrafica('Anagrafica di Prova da Eliminare', 'Cliente')
-        self.modifica_anagrafica('Privato')
-        self.elimina_anagrafica()
-        self.verifica_anagrafica()
+        self._add_anagrafica('Cliente', 'Cliente')
+        self._add_anagrafica('Tecnico', 'Tecnico')
+        self._add_anagrafica('Fornitore', 'Fornitore')
+        self._add_anagrafica('Vettore', 'Vettore')
+        self._add_anagrafica('Agente', 'Agente')
+        self._add_anagrafica('Anagrafica di Prova da Eliminare', 'Cliente')
+        self._modifica_anagrafica('Privato')
+        self._elimina_anagrafica()
+        self._verifica_anagrafica()
         
-        self.crea_attivita()
-        self.crea_preventivo()
-        self.crea_contratto()
-        self.crea_ordine_cliente()
-        self.crea_DDT_uscita()
-        self.crea_fattura_vendita()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._crea_attivita()
+        self._crea_preventivo()
+        self._crea_contratto()
+        self._crea_ordine_cliente()
+        self._crea_DDT_uscita()
+        self._crea_fattura_vendita()
 
-    def add_anagrafica(self, nome: str, tipo: str):
+    def _add_anagrafica(self, nome: str, tipo: str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
         self.input(modal, 'Denominazione').setValue(nome)
@@ -35,7 +34,7 @@ class Anagrafiche(Test):
         modal.find_element(By.XPATH, './/div[@class="modal-footer"]//button[@type="submit"]').click()
         self.wait_loader()
 
-    def modifica_anagrafica(self, tipologia: str):
+    def _modifica_anagrafica(self, tipologia: str):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
         self.search_entity("Cliente")
@@ -53,9 +52,7 @@ class Anagrafiche(Test):
         self.input(None, 'Città').setValue("Este")
         self.input(None, 'C.A.P.').setValue("35042")
 
-        address_field = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//input[@id="indirizzo"]'))
-        )
+        address_field = self.find(By.XPATH, '//input[@id="indirizzo"]')
         address_field.clear()
         self.send_keys_and_wait(address_field, "Via controllo caratteri speciali: &\"<>èéàòùì?'`", wait_modal=False)
 
@@ -65,7 +62,7 @@ class Anagrafiche(Test):
         self.wait_loader()
         self.clear_filters()
 
-    def elimina_anagrafica(self):
+    def _elimina_anagrafica(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
         self.search_entity('Anagrafica di Prova da Eliminare')
@@ -75,14 +72,12 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
         self.clear_filters()
 
-    def verifica_anagrafica(self):
+    def _verifica_anagrafica(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
         self.clear_filters()
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipologia"]/input'))
-        )
+        search_input = self.find(By.XPATH, '//th[@id="th_Tipologia"]/input')
         search_input.clear()
         self.send_keys_and_wait(search_input, "Privato", wait_modal=False)
         self.wait_for_search_results()
@@ -94,9 +89,7 @@ class Anagrafiche(Test):
         self.wait_loader()
         self.clear_filters()
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
-        )
+        search_input = self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/input')
         search_input.clear()
         self.send_keys_and_wait(search_input, "Anagrafica di Prova da Eliminare", wait_modal=False)
         self.wait_for_search_results()
@@ -105,7 +98,7 @@ class Anagrafiche(Test):
         self.assertEqual("Nessun dato presente nella tabella", no_results_message)
         self.clear_filters()
 
-    def crea_attivita(self):
+    def _crea_attivita(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
         self.search_entity("Cliente")
@@ -119,9 +112,7 @@ class Anagrafiche(Test):
             '(//li[@class="select2-results__option"])'
         )
 
-        description_field = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]'))
-        )
+        description_field = self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]')
         description_field.click()
         self.send_keys_and_wait(description_field, "Test", wait_modal=False)
 
@@ -143,7 +134,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.clear_filters()
 
-    def crea_preventivo(self):
+    def _crea_preventivo(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
         self.search_entity("Cliente")
@@ -187,7 +178,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.clear_filters()
 
-    def crea_contratto(self):
+    def _crea_contratto(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
         self.search_entity("Cliente")
@@ -210,7 +201,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.clear_filters()
 
-    def crea_ordine_cliente(self):
+    def _crea_ordine_cliente(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
         self.search_entity("Cliente")
@@ -244,7 +235,7 @@ class Anagrafiche(Test):
         self.wait_loader()
         self.clear_filters()
 
-    def crea_DDT_uscita(self):
+    def _crea_DDT_uscita(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
         self.search_entity("Cliente")
@@ -277,7 +268,7 @@ class Anagrafiche(Test):
         self.navigateTo("Anagrafiche")
         self.clear_filters()
 
-    def crea_fattura_vendita(self):
+    def _crea_fattura_vendita(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
         self.search_entity("Cliente")

@@ -7,6 +7,10 @@ class Dashboard(Test):
         super().setUp()
 
     def test_Dashboard(self):
+        self._create_activity()
+        self._verify_activity()
+
+    def _create_activity(self):
         self.navigateTo("Dashboard")
         self.wait_loader()
 
@@ -41,10 +45,10 @@ class Dashboard(Test):
         activity_text = self.find(By.XPATH, '//div[@class="fc-event-main"]').text
         self.assertEqual(activity_text, expected_text)
 
-        self.verifica_attività()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+    def _verify_activity(self):
+        self._verifica_attività()
 
-    def verifica_attività(self):
+    def _verifica_attività(self):
         self.navigateTo("Attività")
         self.wait_loader()
 

@@ -9,16 +9,15 @@ class FattureAcquisto(Test):
 
     def test_creazione_fattura_acquisto(self):
         importi = RowManager.list()
-        self.creazione_fattura_acquisto("Fornitore", "1", "1", importi[0])
-        self.modifica_fattura_acquisto("Emessa")
-        self.controllo_fattura_acquisto()
-        self.elimina_documento()
-        self.verifica_fattura_acquisto()
-        self.verifica_xml_autofattura(importi[0], "1")
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._creazione_fattura_acquisto("Fornitore", "1", "1", importi[0])
+        self._modifica_fattura_acquisto("Emessa")
+        self._controllo_fattura_acquisto()
+        self._elimina_documento()
+        self._verifica_fattura_acquisto()
+        self._verifica_xml_autofattura(importi[0], "1")
 
 
-    def creazione_fattura_acquisto(self, fornitore: str, numero: str, pagamento: str, file_importi: str):
+    def _creazione_fattura_acquisto(self, fornitore: str, numero: str, pagamento: str, file_importi: str):
         self.navigateTo("Fatture di acquisto")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
@@ -33,14 +32,14 @@ class FattureAcquisto(Test):
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
 
-    def modifica_fattura_acquisto(self, modifica = str):
+    def _modifica_fattura_acquisto(self, modifica = str):
         self.navigateTo("Fatture di acquisto")
         self.click_first_result()
 
         self.wait_for_dropdown_and_select('//span[@id="select2-idstatodocumento-container"]', option_text='Emessa')
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
-    def controllo_fattura_acquisto(self):
+    def _controllo_fattura_acquisto(self):
         self.navigateTo("Fatture di acquisto")
         self.click_first_result()
 
@@ -100,14 +99,14 @@ class FattureAcquisto(Test):
 
         self.expandSidebar("Acquisti")
 
-    def elimina_documento(self):
+    def _elimina_documento(self):
         self.navigateTo("Fatture di acquisto")
         self.click_first_result()
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
-    def verifica_fattura_acquisto(self):
+    def _verifica_fattura_acquisto(self):
         self.navigateTo("Fatture di acquisto")
         search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, "1", False)
@@ -116,9 +115,9 @@ class FattureAcquisto(Test):
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.clear_filters()
 
-    def verifica_xml_autofattura(self, file_importi: str, pagamento: str):
+    def _verifica_xml_autofattura(self, file_importi: str, pagamento: str):
         importi = RowManager.list()
-        self.creazione_fattura_acquisto("Fornitore Estero", "01", "1", importi[0])
+        self._creazione_fattura_acquisto("Fornitore Estero", "01", "1", importi[0])
 
         self.wait_for_element_and_click('//input[@id="check_all"]')
         self.wait_for_element_and_click('//button[@id="modifica_iva_righe"]')

@@ -9,16 +9,15 @@ class DdtUscita(Test):
 
     def test_creazione_ddt_uscita(self):
         importi = RowManager.list()
-        self.creazione_ddt_uscita("Cliente", "2", importi[0])
-        self.duplica_ddt_uscita()
-        self.modifica_ddt("Evaso")
-        self.elimina_ddt()
-        self.verifica_ddt()
-        self.ddt_del_cliente()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._creazione_ddt_uscita("Cliente", "2", importi[0])
+        self._duplica_ddt_uscita()
+        self._modifica_ddt("Evaso")
+        self._elimina_ddt()
+        self._verifica_ddt()
+        self._ddt_del_cliente()
 
 
-    def creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):
+    def _creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):
         self.navigateTo("Ddt in uscita")
         self.wait_for_element_and_click( '//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
@@ -32,14 +31,14 @@ class DdtUscita(Test):
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
 
-    def duplica_ddt_uscita(self):
+    def _duplica_ddt_uscita(self):
         self.navigateTo("Ddt in uscita")
         self.click_first_result()
 
         self.wait_for_element_and_click( '//button[@class="btn btn-primary ask"]')
         self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
-    def modifica_ddt(self, modifica):
+    def _modifica_ddt(self, modifica):
         self.navigateTo("Ddt in uscita")
         search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, '01', wait_modal=False)
@@ -62,7 +61,7 @@ class DdtUscita(Test):
         self.navigateTo("Ddt in uscita")
         self.clear_filters()
 
-    def elimina_ddt(self):
+    def _elimina_ddt(self):
         self.navigateTo("Ddt in uscita")
         search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, '02', wait_modal=False)
@@ -72,7 +71,7 @@ class DdtUscita(Test):
         self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
         self.clear_filters()
 
-    def verifica_ddt(self):
+    def _verifica_ddt(self):
         self.navigateTo("Ddt in uscita")
         search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, "01", wait_modal=False)
@@ -88,7 +87,7 @@ class DdtUscita(Test):
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
-    def ddt_del_cliente(self):
+    def _ddt_del_cliente(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 

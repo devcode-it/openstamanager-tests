@@ -8,14 +8,13 @@ class Articoli(Test):
         self.wait_loader()
 
     def test_creazione_articolo(self):
-        self.creazione_articolo("001", "Articolo 1", "2")
-        self.creazione_articolo("002", "Articolo di Prova da Eliminare", "2")
-        self.modifica_articolo("20", "1")
-        self.elimina_articolo()
-        self.verifica_articolo()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._creazione_articolo("001", "Articolo 1", "2")
+        self._creazione_articolo("002", "Articolo di Prova da Eliminare", "2")
+        self._modifica_articolo("20", "1")
+        self._elimina_articolo()
+        self._verifica_articolo()
 
-    def creazione_articolo(self, codice: str, descrizione: str, qta: str):
+    def _creazione_articolo(self, codice: str, descrizione: str, qta: str):
         self.navigateTo("Articoli")
         self.wait_loader()
 
@@ -31,7 +30,7 @@ class Articoli(Test):
         self.input(modal, 'Quantità iniziale').setValue(qta)
         self.wait_for_element_and_click('//button[@type="submit"]')
 
-    def modifica_articolo(self, acquisto: str, coefficiente: str):
+    def _modifica_articolo(self, acquisto: str, coefficiente: str):
         self.navigateTo("Articoli")
         self.wait_loader()
 
@@ -51,7 +50,7 @@ class Articoli(Test):
 
         self.clear_filters()
 
-    def elimina_articolo(self):
+    def _elimina_articolo(self):
         self.navigateTo("Articoli")
         self.wait_loader()
 
@@ -65,7 +64,7 @@ class Articoli(Test):
 
         self.clear_filters()
 
-    def verifica_articolo(self):
+    def _verifica_articolo(self):
         self.navigateTo("Articoli")
         self.wait_loader()
 
