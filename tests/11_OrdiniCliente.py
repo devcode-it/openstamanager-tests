@@ -9,14 +9,13 @@ class OrdiniCliente(Test):
 
     def test_creazione_ordine_cliente(self):
         importi = RowManager.list()
-        self.creazione_ordine_cliente("Cliente", importi[0])
-        self.creazione_ordine_cliente("Cliente", importi[0])
-        self.modifica_ordine_cliente()
-        self.elimina_ordine_cliente()
-        self.verifica_ordine_cliente()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._creazione_ordine_cliente("Cliente", importi[0])
+        self._creazione_ordine_cliente("Cliente", importi[0])
+        self._modifica_ordine_cliente()
+        self._elimina_ordine_cliente()
+        self._verifica_ordine_cliente()
 
-    def creazione_ordine_cliente(self, cliente: str, file_importi: str):
+    def _creazione_ordine_cliente(self, cliente: str, file_importi: str):
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
@@ -30,7 +29,7 @@ class OrdiniCliente(Test):
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
 
-    def modifica_ordine_cliente(self):
+    def _modifica_ordine_cliente(self):
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
@@ -56,7 +55,7 @@ class OrdiniCliente(Test):
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')
 
-    def elimina_ordine_cliente(self):
+    def _elimina_ordine_cliente(self):
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 
@@ -68,7 +67,7 @@ class OrdiniCliente(Test):
 
         self.wait_for_element_and_click('//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')
 
-    def verifica_ordine_cliente(self):
+    def _verifica_ordine_cliente(self):
         self.navigateTo("Ordini cliente")
         self.wait_loader()
 

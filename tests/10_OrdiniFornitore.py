@@ -9,15 +9,14 @@ class OrdiniFornitore(Test):
 
     def test_creazione_ordine_fornitore(self):
         importi = RowManager.list()
-        self.creazione_ordine_fornitore("Fornitore", importi[0])
-        self.creazione_ordine_fornitore("Fornitore", importi[0])
-        self.modifica_ordine_fornitore("Modifica di Prova")
-        self.elimina_ordine_fornitore()
-        self.verifica_ordine_fornitore()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._creazione_ordine_fornitore("Fornitore", importi[0])
+        self._creazione_ordine_fornitore("Fornitore", importi[0])
+        self._modifica_ordine_fornitore("Modifica di Prova")
+        self._elimina_ordine_fornitore()
+        self._verifica_ordine_fornitore()
 
 
-    def creazione_ordine_fornitore(self, fornitore: str, file_importi: str):
+    def _creazione_ordine_fornitore(self, fornitore: str, file_importi: str):
         self.navigateTo("Ordini fornitore")
 
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
@@ -31,7 +30,7 @@ class OrdiniFornitore(Test):
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
 
-    def modifica_ordine_fornitore(self, modifica):
+    def _modifica_ordine_fornitore(self, modifica):
         self.navigateTo("Ordini fornitore")
         self.wait_loader()
 
@@ -57,7 +56,7 @@ class OrdiniFornitore(Test):
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')
 
-    def elimina_ordine_fornitore(self):
+    def _elimina_ordine_fornitore(self):
         self.navigateTo("Ordini fornitore")
         self.wait_loader()
 
@@ -69,7 +68,7 @@ class OrdiniFornitore(Test):
 
         self.wait_for_element_and_click('//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')
 
-    def verifica_ordine_fornitore(self):
+    def _verifica_ordine_fornitore(self):
         self.navigateTo("Ordini fornitore")
         self.wait_loader()
 
@@ -84,4 +83,3 @@ class OrdiniFornitore(Test):
         eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.wait_for_element_and_click('//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')
-

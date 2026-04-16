@@ -10,14 +10,13 @@ class SettoriMerceologici(Test):
         self.wait_loader()
 
     def test_creazione_settori_merceologici(self):
-        self.creazione_settori_merceologici("Settore Merceologico di Prova da Modificare")
-        self.modifica_settori_merceologici("Settore Merceologico di Prova")
-        self.creazione_settori_merceologici("Settore Merceologico di Prova da Eliminare")
-        self.elimina_settore_merceologico()
-        self.verifica_settore_merceologico()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._creazione_settori_merceologici("Settore Merceologico di Prova da Modificare")
+        self._modifica_settori_merceologici("Settore Merceologico di Prova")
+        self._creazione_settori_merceologici("Settore Merceologico di Prova da Eliminare")
+        self._elimina_settore_merceologico()
+        self._verifica_settore_merceologico()
 
-    def creazione_settori_merceologici(self, descrizione=str):
+    def _creazione_settori_merceologici(self, descrizione):
         self.navigateTo("Settori merceologici")
         self.wait_loader()
 
@@ -27,13 +26,11 @@ class SettoriMerceologici(Test):
         self.input(modal, 'Descrizione').setValue(descrizione)
         self.wait_for_element_and_click('//button[@class="btn btn-primary"][@type="submit"]')
 
-    def modifica_settori_merceologici(self, modifica=str):
+    def _modifica_settori_merceologici(self, modifica):
         self.navigateTo("Settori merceologici")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))
-        )
+        search_input = self.find(By.XPATH, '//th[@id="th_descrizione"]/input')
         self.send_keys_and_wait(search_input, 'Settore Merceologico di Prova da Modificare', wait_modal=False)
 
         self.click_first_result()
@@ -46,16 +43,12 @@ class SettoriMerceologici(Test):
         self.wait_loader()
         self.clear_filters()
 
-    def elimina_settore_merceologico(self):
+    def _elimina_settore_merceologico(self):
         self.navigateTo("Settori merceologici")
         self.wait_loader()
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))
-        )
+        search_input = self.find(By.XPATH, '//th[@id="th_descrizione"]/input')
         self.send_keys_and_wait(search_input, 'Settore Merceologico di Prova da Eliminare', wait_modal=False)
-        elemento = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))
-        )
+        elemento = self.find(By.XPATH, '//tbody//tr//td[2]')
         elemento.click()
 
         self.driver.execute_script('window.scrollTo(0,0)')
@@ -63,20 +56,14 @@ class SettoriMerceologici(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
         self.clear_filters()
 
-    def verifica_settore_merceologico(self):
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_descrizione"]/input'))
-        )
+    def _verifica_settore_merceologico(self):
+        search_input = self.find(By.XPATH, '//th[@id="th_descrizione"]/input')
         self.send_keys_and_wait(search_input, "Settore Merceologico di Prova", wait_modal=False)
-        modificato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[3]'))
-        ).text
+        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[3]').text
         self.assertEqual("Settore Merceologico di Prova", modificato)
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
         search_input = self.wait_for_element_and_click('//th[@id="th_descrizione"]/input')
         self.send_keys_and_wait(search_input, "Settore Merceologico di Prova da Eliminare", wait_modal=False)
-        eliminato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
-        ).text
+        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella", eliminato)

@@ -9,21 +9,20 @@ class Preventivi(Test):
 
     def test_creazione_preventivo(self):
         importi = RowManager.list()
-        self.creazione_preventivo("Preventivo di Prova","Cliente", "1", importi[0])
-        self.duplica_preventivo()
-        self.modifica_preventivo("Accettato")
-        self.elimina_preventivo()
+        self._creazione_preventivo("Preventivo di Prova","Cliente", "1", importi[0])
+        self._duplica_preventivo()
+        self._modifica_preventivo("Accettato")
+        self._elimina_preventivo()
 
-        self.creazione_contratto()
-        self.creazione_ordine_cliente()
-        self.creazione_ordine_fornitore()
-        self.creazione_attività()
-        self.creazione_ddt_uscita()
-        self.creazione_fattura()
-        self.verifica_preventivi()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._creazione_contratto()
+        self._creazione_ordine_cliente()
+        self._creazione_ordine_fornitore()
+        self._creazione_attività()
+        self._creazione_ddt_uscita()
+        self._creazione_fattura()
+        self._verifica_preventivi()
 
-    def creazione_preventivo(self, nome:str, cliente:str, idtipo: str, file_importi: str):
+    def _creazione_preventivo(self, nome:str, cliente:str, idtipo: str, file_importi: str):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
@@ -40,7 +39,7 @@ class Preventivi(Test):
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
 
-    def duplica_preventivo(self):
+    def _duplica_preventivo(self):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
@@ -54,7 +53,7 @@ class Preventivi(Test):
 
         self.wait_for_element_and_click('//button[@class="btn btn-success"]')
 
-    def modifica_preventivo(self, stato:str):
+    def _modifica_preventivo(self, stato:str):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
@@ -80,7 +79,7 @@ class Preventivi(Test):
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
-    def elimina_preventivo(self):
+    def _elimina_preventivo(self):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
@@ -94,7 +93,7 @@ class Preventivi(Test):
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
-    def creazione_contratto(self):
+    def _creazione_contratto(self):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
@@ -123,7 +122,7 @@ class Preventivi(Test):
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
-    def creazione_ordine_cliente(self):
+    def _creazione_ordine_cliente(self):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
@@ -152,7 +151,7 @@ class Preventivi(Test):
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
-    def creazione_ordine_fornitore(self):
+    def _creazione_ordine_fornitore(self):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
@@ -183,7 +182,7 @@ class Preventivi(Test):
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
-    def creazione_attività(self):
+    def _creazione_attività(self):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
@@ -217,7 +216,7 @@ class Preventivi(Test):
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
-    def creazione_ddt_uscita(self):
+    def _creazione_ddt_uscita(self):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
@@ -249,7 +248,7 @@ class Preventivi(Test):
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
-    def creazione_fattura(self):
+    def _creazione_fattura(self):
         self.navigateTo("Preventivi")
         self.wait_loader()
 
@@ -276,7 +275,7 @@ class Preventivi(Test):
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
-    def verifica_preventivi(self):
+    def _verifica_preventivi(self):
         self.navigateTo("Preventivi")
         self.wait_loader()
 

@@ -13,14 +13,13 @@ class Movimenti(Test):
 
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
 
-        self.creazione_movimento("10", "Articolo 1", "Movimento di Prova")
-        self.creazione_movimento("5", "Articolo 1", "Movimento di Prova da Eliminare")
-        self.elimina_movimento()
-        self.verifica_movimento()
-        self.verifica_movimenti_documenti()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._creazione_movimento("10", "Articolo 1", "Movimento di Prova")
+        self._creazione_movimento("5", "Articolo 1", "Movimento di Prova da Eliminare")
+        self._elimina_movimento()
+        self._verifica_movimento()
+        self._verifica_movimenti_documenti()
 
-    def creazione_movimento(self, qta: str, articolo: str, descrizione: str):
+    def _creazione_movimento(self, qta: str, articolo: str, descrizione: str):
         modal = self.wait_modal()
         self.wait_for_dropdown_and_select('//span[@id="select2-idarticolo-container"]', option_text=articolo)
         self.input(modal, 'Quantità').setValue(qta)
@@ -30,7 +29,7 @@ class Movimenti(Test):
         self.wait_for_element_and_click('//div[@class="modal-body"]//button[@type="button"]')
 
 
-    def elimina_movimento(self):
+    def _elimina_movimento(self):
         self.wait_for_element_and_click('//button[@class="close"]')
         search_field = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
         self.send_keys_and_wait(search_field, 'Movimento di Prova da Eliminare', wait_modal=False)
@@ -42,7 +41,7 @@ class Movimenti(Test):
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]')
 
-    def verifica_movimento(self):
+    def _verifica_movimento(self):
         self.navigateTo("Movimenti")
         self.wait_loader()
         search_field = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
@@ -52,7 +51,7 @@ class Movimenti(Test):
         ).text
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
 
-    def verifica_movimenti_documenti(self):
+    def _verifica_movimenti_documenti(self):
         self.navigateTo("Articoli")
         self.wait_loader()
         search_field = self.find(By.XPATH, '//th[@id="th_Codice"]/input')

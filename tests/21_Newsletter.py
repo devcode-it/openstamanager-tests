@@ -9,14 +9,13 @@ class Newsletter(Test):
 
     def test_creazione_newsletter(self):
         self.expandSidebar("Gestione email")
-        self.add_newsletter('Newsletter di Prova da Modificare', "Contratto")
-        self.add_newsletter('Newsletter di Prova da Eliminare', "Ddt")
-        self.modifica_newsletter("Newsletter di Prova")
-        self.elimina_newsletter()
-        self.verifica_newsletter()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._add_newsletter('Newsletter di Prova da Modificare', "Contratto")
+        self._add_newsletter('Newsletter di Prova da Eliminare', "Ddt")
+        self._modifica_newsletter("Newsletter di Prova")
+        self._elimina_newsletter()
+        self._verifica_newsletter()
 
-    def add_newsletter(self, nome: str, modulo: str):
+    def _add_newsletter(self, nome: str, modulo: str):
         self.navigateTo("Newsletter")
         self.wait_loader()
 
@@ -28,13 +27,11 @@ class Newsletter(Test):
         self.input(modal, 'Nome').setValue(nome)
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
-    def modifica_newsletter(self, modifica: str):
+    def _modifica_newsletter(self, modifica: str):
         self.navigateTo("Newsletter")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))
-        )
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
         self.send_keys_and_wait(search_input, 'Newsletter di Prova da Modificare', wait_modal=False)
         self.click_first_result()
 
@@ -45,10 +42,8 @@ class Newsletter(Test):
         self.wait_loader()
         self.clear_filters()
 
-    def elimina_newsletter(self):
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))
-        )
+    def _elimina_newsletter(self):
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
         self.send_keys_and_wait(search_input, 'Newsletter di Prova da Eliminare', wait_modal=False)
         self.click_first_result()
 
@@ -56,22 +51,14 @@ class Newsletter(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
         self.clear_filters()
 
-    def verifica_newsletter(self):
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))
-        )
+    def _verifica_newsletter(self):
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
         self.send_keys_and_wait(search_input, "Newsletter di Prova", wait_modal=False)
-        modificato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))
-        ).text
+        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
         self.assertEqual("Newsletter di Prova", modificato)
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))
-        )
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
         self.send_keys_and_wait(search_input, "Newsletter di Prova da Eliminare", wait_modal=False)
-        eliminato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))
-        ).text
+        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella", eliminato)

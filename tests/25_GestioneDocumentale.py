@@ -8,14 +8,13 @@ class GestioneDocumentale(Test):
         super().setUp()
 
     def test_creazione_gestione_documentale(self):
-        self.add_documento_di_prova('Documento di Prova da Modificare', 'Documenti società')
-        self.add_documento_di_prova('Documento di Prova da Eliminare', 'Documenti società')
-        self.modifica_documento("Documento di prova")
-        self.elimina_documento()
-        self.verifica_documento()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._add_documento_di_prova('Documento di Prova da Modificare', 'Documenti società')
+        self._add_documento_di_prova('Documento di Prova da Eliminare', 'Documenti società')
+        self._modifica_documento("Documento di prova")
+        self._elimina_documento()
+        self._verifica_documento()
 
-    def add_documento_di_prova(self, nome: str, categoria: str):
+    def _add_documento_di_prova(self, nome: str, categoria: str):
         self.navigateTo("Gestione documentale")
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
@@ -24,7 +23,7 @@ class GestioneDocumentale(Test):
         self.input(modal, 'Categoria').setByText(categoria)
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
-    def modifica_documento(self, modifica: str):
+    def _modifica_documento(self, modifica: str):
         self.navigateTo("Gestione documentale")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
@@ -37,7 +36,7 @@ class GestioneDocumentale(Test):
         self.navigateTo("Gestione documentale")
         self.clear_filters()
 
-    def elimina_documento(self):
+    def _elimina_documento(self):
         self.navigateTo("Gestione documentale")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
@@ -48,7 +47,7 @@ class GestioneDocumentale(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
-    def verifica_documento(self):
+    def _verifica_documento(self):
         self.navigateTo("Gestione documentale")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))

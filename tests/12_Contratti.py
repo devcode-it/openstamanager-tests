@@ -9,16 +9,15 @@ class Contratti(Test):
 
     def test_creazione_contratto(self):
         importi = RowManager.list()
-        self.creazione_contratto("Contratto di Prova da Modificare", "Cliente", importi[0])
-        self.duplica_contratto()
-        self.modifica_contratto("Contratto di Prova")
-        self.elimina_contratto()
-        self.verifica_contratto()
-        self.contratti_del_cliente()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self._creazione_contratto("Contratto di Prova da Modificare", "Cliente", importi[0])
+        self._duplica_contratto()
+        self._modifica_contratto("Contratto di Prova")
+        self._elimina_contratto()
+        self._verifica_contratto()
+        self._contratti_del_cliente()
 
 
-    def creazione_contratto(self, nome:str, cliente: str, file_importi: str):
+    def _creazione_contratto(self, nome:str, cliente: str, file_importi: str):
         self.navigateTo("Contratti")
         self.wait_loader()
 
@@ -33,7 +32,7 @@ class Contratti(Test):
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
 
-    def duplica_contratto(self):
+    def _duplica_contratto(self):
         self.navigateTo("Contratti")
         self.wait_loader()
 
@@ -46,7 +45,7 @@ class Contratti(Test):
         element.send_keys("Contratto di Prova da Eliminare")
         self.wait_for_element_and_click('//button[@id="save"]')
 
-    def modifica_contratto(self, modifica=str):
+    def _modifica_contratto(self, modifica=str):
         self.navigateTo("Contratti")
         self.wait_loader()
 
@@ -73,7 +72,7 @@ class Contratti(Test):
         self.wait_loader()
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
-    def elimina_contratto(self):
+    def _elimina_contratto(self):
         self.navigateTo("Contratti")
         self.wait_loader()
 
@@ -85,7 +84,7 @@ class Contratti(Test):
 
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
-    def verifica_contratto(self):
+    def _verifica_contratto(self):
         self.navigateTo("Contratti")
         self.wait_loader()
 
@@ -101,7 +100,7 @@ class Contratti(Test):
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
-    def contratti_del_cliente(self):
+    def _contratti_del_cliente(self):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
