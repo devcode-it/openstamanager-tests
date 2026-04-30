@@ -18,7 +18,6 @@ class Impianti(Test):
         self.plugin_interventi_svolti()
         self.componenti()
         self.elimina_selezionati()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def add_impianto(self, matricola: str, nome: str, cliente: str):
         self.navigateTo("Impianti")
@@ -35,7 +34,8 @@ class Impianti(Test):
         self.navigateTo("Impianti")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, 'Impianto di Prova da Modificare', wait_modal=False)
         self.wait_for_search_results()
 
@@ -51,7 +51,8 @@ class Impianti(Test):
         self.navigateTo("Impianti")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, 'Impianto di Prova da Eliminare', wait_modal=False)
         self.wait_for_search_results()
 
@@ -64,17 +65,20 @@ class Impianti(Test):
         self.navigateTo("Impianti")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Impianto di Prova", wait_modal=False)
         self.wait_for_search_results()
 
-        modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[3]'))).text
+        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[3]').text
         self.assertEqual("Impianto di Prova", modificato)
         self.clear_filters()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Impianto di Prova da Eliminare", wait_modal=False)
-        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
+        self.wait_for_search_results()
+        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
 
         self.navigateTo("Impianti")
@@ -84,13 +88,14 @@ class Impianti(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Cliente", wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_1"]')
 
-        impianto = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="text-right"]'))).text
+        impianto = self.find(By.XPATH, '//div[@class="text-right"]').text
         self.assertEqual(impianto, "01")
 
         self.navigateTo("Anagrafiche")
@@ -130,14 +135,15 @@ class Impianti(Test):
         self.navigateTo("Impianti")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Impianto di Prova", wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_8"]')
         self.wait_loader()
 
-        totale = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[3]//td[2]'))).text
+        totale = self.find(By.XPATH, '//tbody//tr[3]//td[2]').text
         self.assertEqual(totale, "0,00 €")
 
         self.navigateTo("Impianti")
@@ -148,7 +154,8 @@ class Impianti(Test):
         self.navigateTo("Impianti")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Impianto di Prova", wait_modal=False)
 
         self.click_first_result()
@@ -160,18 +167,18 @@ class Impianti(Test):
         self.wait_for_element_and_click('(//form//button[@class="btn btn-primary"])[2]')
 
         self.wait_for_element_and_click('//div[@id="tab_31"]//button[@class="btn btn-tool"]')
-        data_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_installazione_1"]')))
+        data_input = self.find(By.XPATH, '//input[@id="data_installazione_1"]')
         self.send_keys_and_wait(data_input, "01/01/2026", wait_modal=False)
         self.wait_for_element_and_click('//button[@class="btn btn-success pull-right"]')
 
-        data_installazione = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_31"]//tr[1]//td[3]'))).text
+        data_installazione = self.find(By.XPATH, '//div[@id="tab_31"]//tr[1]//td[3]').text
         self.assertEqual(data_installazione, "01/01/2026")
 
         self.wait_for_element_and_click('//div[@id="tab_31"]//button[@class="btn btn-tool"]')
         self.wait_for_element_and_click('//button[@class="btn btn-warning pull-right"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
-        sostituito = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_31"]//tr[1]//td[1])[1]'))).text
+        sostituito = self.find(By.XPATH, '(//div[@id="tab_31"]//tr[1]//td[1])[1]').text
         self.assertEqual(sostituito, "#2")
 
         self.navigateTo("Impianti")
@@ -185,10 +192,10 @@ class Impianti(Test):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
-        matricola_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="matricola"]')))
+        matricola_input = self.find(By.XPATH, '//input[@id="matricola"]')
         self.send_keys_and_wait(matricola_input, "02", wait_modal=False)
 
-        nome_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]')))
+        nome_input = self.find(By.XPATH, '//input[@id="nome"]')
         self.send_keys_and_wait(nome_input, "Prova", wait_modal=False)
 
         self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica_impianto-container"]', option_text="Cliente")
@@ -197,13 +204,14 @@ class Impianti(Test):
         self.navigateTo("Impianti")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Matricola"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Matricola"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "02", wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', '//a[@data-op="delete_bulk"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
-        scritta = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr'))).text
+        scritta = self.find(By.XPATH, '//tbody//tr').text
         self.assertEqual(scritta, "Nessun dato presente nella tabella")
         self.clear_filters()

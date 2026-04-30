@@ -1,6 +1,5 @@
 from common.Test import Test
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class AttributiCombinazioni(Test):
@@ -14,7 +13,6 @@ class AttributiCombinazioni(Test):
         self.modifica_attributi("Taglie")
         self.elimina_attributi()
         self.verifica_attributi()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_attributi(self, titolo=str):
         self.navigateTo("Attributi Combinazioni")
@@ -28,27 +26,27 @@ class AttributiCombinazioni(Test):
 
         self.wait_for_element_and_click('//button[@onclick="aggiungiValore(this)"]')
         modal = self.wait_modal()
-        nome_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]')))
+        nome_input = self.find(By.XPATH, '//input[@id="nome"]')
         self.send_keys_and_wait(nome_input, 'S')
 
         self.wait_for_element_and_click('//button[@onclick="aggiungiValore(this)"]')
         self.wait_modal()
-        nome_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]')))
+        nome_input = self.find(By.XPATH, '//input[@id="nome"]')
         self.send_keys_and_wait(nome_input, 'M')
 
         self.wait_for_element_and_click('//button[@onclick="aggiungiValore(this)"]')
         self.wait_modal()
-        nome_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]')))
+        nome_input = self.find(By.XPATH, '//input[@id="nome"]')
         self.send_keys_and_wait(nome_input, 'L')
 
     def modifica_attributi(self, modifica=str):
         self.navigateTo("Attributi Combinazioni")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, 'Attributo di Prova da Modificare', wait_modal=False)
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_result()
 
         self.input(None, 'Titolo').setValue(modifica)
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
@@ -61,10 +59,10 @@ class AttributiCombinazioni(Test):
         self.navigateTo("Attributi Combinazioni")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, 'Attributo di Prova da Eliminare', wait_modal=False)
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_result()
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
@@ -74,16 +72,18 @@ class AttributiCombinazioni(Test):
         self.navigateTo("Attributi Combinazioni")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Taglie", wait_modal=False)
-
-        modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
+        self.wait_for_search_results()
+        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
         self.assertEqual("Taglie", modificato)
 
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Attributo di Prova da Eliminare", wait_modal=False)
-
-        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
+        self.wait_for_search_results()
+        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella", eliminato)

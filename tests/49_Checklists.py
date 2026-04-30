@@ -14,7 +14,6 @@ class Checklists(Test):
         self.modifica_checklist("Checklist di Prova")
         self.elimina_checklist()
         self.verifica_checklist()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
         
     def checklists(self, nome = str, modulo= str, plugin = str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
@@ -28,19 +27,20 @@ class Checklists(Test):
         self.navigateTo("Checklists")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, 'Checklist di Prova da Modificare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_result()
 
         self.input(None,'Nome').setValue(modifica)
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
-        iframe = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')))
+        iframe = self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')
         iframe.click()
         iframe.send_keys("TestPadre")
         self.wait_for_element_and_click('(//button[@type="submit"])[2]')
 
-        iframe = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')))
+        iframe = self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')
         iframe.click()
         iframe.send_keys("TestFiglio")
         self.wait_for_element_and_click('(//span[@class="select2-selection select2-selection--single"])[3]')
@@ -67,13 +67,16 @@ class Checklists(Test):
         self.navigateTo("Checklists")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Checklist di Prova", wait_modal=False)
-        modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
+        self.wait_for_search_results()
+        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
         self.assertEqual("Checklist di Prova", modificato)
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Checklist di Prova da Eliminare", wait_modal=False)
 
         self.navigateTo("Attività")

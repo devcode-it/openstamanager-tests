@@ -15,4 +15,3 @@ class Mappa(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@id="mappa"]'))
         ).click()
 
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')

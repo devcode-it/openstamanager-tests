@@ -22,7 +22,6 @@ class Combinazioni(Test):
         self.elimina_combinazioni()
         self.verifica_combinazioni()
         self.varianti_articoli()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_combinazioni(self, codice: str, nome: str, attributi: str):
         self.navigateTo("Combinazioni")
