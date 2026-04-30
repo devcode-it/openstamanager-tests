@@ -14,7 +14,6 @@ class TipiScadenze(Test):
         self.modifica_tipi_scadenze("Tipo di Scadenza di Prova")
         self.elimina_tipi_scadenze()
         self.verifica_tipi_scadenze()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
         
     def creazione_tipi_scadenze(self, nome = str):
         self.navigateTo("Tipi scadenze")

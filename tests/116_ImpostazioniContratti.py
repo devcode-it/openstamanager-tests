@@ -17,9 +17,10 @@ class Impostazioni(Test):
         self.giorni_preavviso()
 
         ## TODO: cambia automaticamente stato contratti fatturati
+        ## TODO: raggruppamento fatturazione massiva contratti
 
     def condizioni_generali_contratti(self):
-                self.expandSidebar("Strumenti")
+        self.expandSidebar("Strumenti")
         self.navigateTo("Impostazioni")
         self.wait_loader()
 
@@ -29,7 +30,7 @@ class Impostazioni(Test):
 
         element = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Condizioni generali di fornitura contratti"))
-        )]//iframe')
+       )]//iframe')
         element.click()
         element.send_keys('Prova')
 

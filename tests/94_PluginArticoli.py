@@ -9,21 +9,20 @@ class Articoli(Test):
         self.wait_loader()
 
     def test_plugin_articolo(self):
-        #TODO: barcode
-        #self.barcode()
-        self.provvigioni()
-        #TODO: varianti articolo
-        #self.varianti_articolo()
-        #TODO: piani di sconto/maggiorazione
-        #self.piani_sconto_maggiorazione()
-        self.listino_fornitori()
-        self.netto_clienti()
-        self.statistiche()
-        self.giacenze()
-        self.serial()
         #TODO: movimenti
         #self.movimenti()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        self.serial()
+        self.giacenze()
+        self.statistiche()
+        self.netto_clienti()
+        self.listino_fornitori()
+        #TODO: piani di sconto/maggiorazione
+        #self.piani_sconto_maggiorazione()
+        #TODO: varianti articolo
+        #self.varianti_articolo()
+        self.provvigioni()
+        #TODO: barcode
+        #self.barcode()
         
     def provvigioni(self):
         self.navigateTo("Articoli")

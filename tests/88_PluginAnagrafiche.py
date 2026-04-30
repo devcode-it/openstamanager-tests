@@ -15,6 +15,7 @@ class Anagrafiche(Test):
         self.aggiunta_referente()
         self.aggiunta_sede()
         self.plugin_statistiche()
+        #TODO: Ddt del cliente
         self.dichiarazione_di_intento()
         self.storico_attivita()
         self.controlla_allegati()
@@ -23,7 +24,6 @@ class Anagrafiche(Test):
         self.plugin_movimenti_contabili()
         self.regole_pagamenti()
         self.assicurazione_crediti()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def aggiunta_referente(self):
         self.navigateTo("Anagrafiche")

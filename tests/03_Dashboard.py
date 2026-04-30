@@ -46,9 +46,6 @@ class Dashboard(Test):
         self.assertEqual(activity_text, expected_text)
 
     def _verify_activity(self):
-        self._verifica_attività()
-
-    def _verifica_attività(self):
         self.navigateTo("Attività")
         self.wait_loader()
 

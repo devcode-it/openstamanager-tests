@@ -11,6 +11,8 @@ class Impostazioni(Test):
         # Test Cambia automaticamente stato ddt fatturati
         importi = RowManager.list()
         self.cambia_stato_ddt_fatturati(importi[0])
+        ## TODO: raggruppamento fatturazione massiva ddt
+        ## TODO: raggruppa gli articoli con sttesso barcode nei ddt
 
     def cambia_stato_ddt_fatturati(self, file_importi: str):
         wait = self.wait_driver 

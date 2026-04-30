@@ -23,16 +23,18 @@ class Articoli(Test):
         #self.aggiungi_a_listino_cliente()
         #TODO: Attiva/Disattiva articoli
         #self.attiva_disattiva_articoli()
+        self.crea_preventivo()
         self.elimina_selezionati()
         #TODO: Esporta
         #self.esporta_selezionati()
-        self.crea_preventivo()
         #TODO: Genera barcode
         #self.genera_barcode()
         self.imposta_prezzo_da_fattura()
         self.imposta_provvigione()
+        #TODO: stampa etichette->stampa barcode
         self.stampa_etichette()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+        #TODO: duplica
+        #TODO: unisci articoli
 
     def aggiorna_iva(self):
         self.navigateTo("Articoli")

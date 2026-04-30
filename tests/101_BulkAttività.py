@@ -15,8 +15,8 @@ class Attivita(Test):
         #self.esporta_selezionati()
         self.fattura_attivita()
         self.firma_interventi()
+        #TODO: invia email
         self.stampa_riepilogo()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
         
     def cambio_stato(self):
         self.navigateTo('Attività')

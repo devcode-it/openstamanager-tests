@@ -301,26 +301,32 @@ Legenda:
 |--| ------- | ---------------- |:--:|
 |99| Anagrafiche | Cambia relazione |:heavy_check_mark:|
 |99| Anagrafiche | Elimina |:heavy_check_mark:|
-|99| Anagrafiche | Esporta |-|
-|99| Anagrafiche | Imposta listino |-|
+|99| Anagrafiche | Esporta |:x:|
+|99| Anagrafiche | Imposta listino |:x:|
 |99| Anagrafiche | Ricerca coordinate |:heavy_check_mark:|
+|99| Anagrafiche | Esporta email newsletter |:x:|
+|99| Anagrafiche | Crea lista |:x:|
 |100| Liste | Aggiorna liste |:x:|
 |101| Attività | Cambia stato |:heavy_check_mark:|
 |101| Attività | Duplica |:heavy_check_mark:|
 |101| Attività | Elimina |:heavy_check_mark:|
-|101| Attività | Esporta stampe |-|
+|101| Attività | Esporta stampe |:x:|
 |101| Attività | Fattura attività |:heavy_check_mark:|
 |101| Attività | Firma interventi  |:heavy_check_mark:|
-|101| Attività | Invia mail |-|
+|101| Attività | Invia mail |:x:|
 |101| Attività | Stampa riepilogo |:heavy_check_mark:|
 |102| Contratti | Cambia stato |:heavy_check_mark:|
-|102| Contratti | Cambia metodo di pagamento |-|
+|102| Contratti | Cambia metodo di pagamento |:x:|
 |102| Contratti | Fattura contratti |:heavy_check_mark:|
 |102| Contratti | Rinnova contratti |:heavy_check_mark:|
+|102| Contratti | Duplica contratti |:x:|
 |103| Preventivi | Cambia stato |:heavy_check_mark:|
 |103| Preventivi | Fattura preventivi |:heavy_check_mark:|
+|103| Preventivi | Duplica |:x:|
 |104| Ordini cliente | Cambia stato |:heavy_check_mark:|
 |104| Ordini cliente | Fattura ordini cliente |:heavy_check_mark:|
+|104| Ordini cliente | Duplica |:x:|
+|104| Ordini cliente | Invia mail |:x:|
 |105| Fatture di vendita | Aggiorna banca |-|
 |105| Fatture di vendita | Cambia sezionale |:heavy_check_mark:|
 |105| Fatture di vendita | Controlla fatture elettroniche |:heavy_check_mark:|
@@ -336,6 +342,8 @@ Legenda:
 |105| Fatture di vendita | Invia fatture |-|
 |105| Fatture di vendita | Registrazione contabile |:heavy_check_mark:|
 |106| Ordini fornitore | Cambia stato |:heavy_check_mark:|
+|106| Ordini fornitore | Duplica |:x:|
+|106| Ordini fornitore | Invia mail |:x:|
 |107| Fatture di acquisto | Aggiorna banca |-|
 |107| Fatture di acquisto | Cambia sezionale |:heavy_check_mark:|
 |107| Fatture di acquisto | Duplica |:heavy_check_mark:|
@@ -351,7 +359,7 @@ Legenda:
 |108| Scadenzario | Invia mail sollecito |-|
 |108| Scadenzario | Registrazione contabile |-|
 |109| Articoli | Aggiorna aliquota iva |:heavy_check_mark:|
-|109| Articoli | Aggiorna categoria e sottocategoria |-|
+|109| Articoli | Aggiorna categoria e sottocategoria |:x:|
 |109| Articoli | Aggiorna coefficiente di vendita |:heavy_check_mark:|
 |109| Articoli | Aggiorna conto predefinito di acquisto |:heavy_check_mark:|
 |109| Articoli | Aggiorna conto predefinito di vendita |:heavy_check_mark:|
@@ -359,15 +367,18 @@ Legenda:
 |109| Articoli | Aggiorna prezzo di vendita |:heavy_check_mark:|
 |109| Articoli | Aggiorna quantità |:heavy_check_mark:|
 |109| Articoli | Aggiorna unità di misura |:heavy_check_mark:|
-|109| Articoli | Aggiungi a listino cliente |-|
-|109| Articoli | Attiva/Disattiva articoli |-|
+|109| Articoli | Aggiungi a listino cliente |:x:|
+|109| Articoli | Attiva/Disattiva articoli |:x:|
 |109| Articoli | Elimina |:heavy_check_mark:|
-|109| Articoli | Esporta |-|
+|109| Articoli | Esporta |:x:|
 |109| Articoli | Crea preventivo |:heavy_check_mark:|
-|109| Articoli | Genera barcode |-|
+|109| Articoli | Genera barcode |:x:|
 |109| Articoli | Imposta prezzo di acquisto da fattura |:heavy_check_mark:|
 |109| Articoli | Imposta una provvigione |:heavy_check_mark:|
 |109| Articoli | Stampa barcode |:heavy_check_mark:|
+|109| Articoli | Stampa etichette |:heavy_check_mark:|
+|109| Articoli | Duplica |:x:|
+|109| Articoli | Unisci articoli |:x:|
 |110| Listini | Copia listini |:heavy_check_mark:|
 |110| Listini | Aggiorna prezzo unitario |:heavy_check_mark:|
 |111| Ddt in uscita | Cambia stato |:heavy_check_mark:|
@@ -376,9 +387,10 @@ Legenda:
 |112| Ddt in entrata | Cambia stato |:heavy_check_mark:|
 |112| Ddt in entrata | Elimina |:heavy_check_mark:|
 |112| Ddt in entrata | Fattura ddt in entrata |:heavy_check_mark:|
-|113| Impianti | Aggiorna cliente |-|
-|113| Impianti | Elimina |-|
+|113| Impianti | Aggiorna cliente |:x:|
+|113| Impianti | Elimina |:x:|
 |113| Impianti | Esporta |:x:|
+|113| Impianti | Duplica |:x:|
 
 ## Impostazioni
 
@@ -408,12 +420,17 @@ Legenda:
 |115| Attività | Numero di minuti di avanzamento delle sessioni delle attività |:x:|:x:|
 |115| Attività | Cambia automaticamente stato attività fatturate |:x:|:x:|
 |115| Attività | Raggruppamento fatturazione massiva attività |:x:|:x:|
+|115| Attività | Permetti inserimento di allegati in attività completate |:x:|:x:|
+|115| Attività | Limita conteggio ore ad oggi nell'intestazione |:x:|:x:|
+|115| Attività | Applica diritto di chiamata una volta al giorno |:x:|:x:|
 |116| Contratti | Condizioni generali di fornitura contratti |:heavy_check_mark:|Crea contratto|
 |116| Contratti | Crea contratto rinnovabile di default |:heavy_check_mark:|-|
 |116| Contratti | Giorni di preavviso di default |:heavy_check_mark:|-|
 |116| Contratti | Cambia automaticamente stato contratti fatturati |:x:|:x:| 
 |116| Contratti | Raggruppamento fatturazione massiva contratti |:x:|:x:|
 |117| Dashboard | Utilizzare i tooltip sul calendario |:x:|:x:|
+|117| Dashboard | Tempo predefinito di snap attività sul calendario |:x:|:x:|
+|117| Dashboard | Ritardo apertura tooltip dashboard |:x:|:x:|
 |117| Dashboard | Visualizzare la domenica sul calendario |:heavy_check_mark:|-|
 |117| Dashboard | Vista dashboard |:heavy_check_mark:|-|
 |117| Dashboard | Ora inizio sul calendario |:heavy_check_mark:|-|
@@ -422,8 +439,8 @@ Legenda:
 |117| Dashboard | Visualizzazione colori sessioni |:heavy_check_mark:|-|
 |117| Dashboard | Tempo predefinito di snap attività sul calendario | ||
 |118| Ddt| Cambia automaticamente stato ddt fatturati |:heavy_check_mark:|Crea ddt sia in entrata che in uscita|
-|118| Ddt| Raggruppamento fatturazione massiva ddt |:x:||
-|118| Ddt| Raggruppa gli articoli con stesso barcode nei DDT |:x:||
+|118| Ddt| Raggruppamento fatturazione massiva ddt |:x:|:x:|
+|118| Ddt| Raggruppa gli articoli con stesso barcode nei DDT |:x:|:x:|
 |119| Fatturazione | Iva predefinita |:heavy_check_mark:|Crea fattura|
 |119| Fatturazione | Tipo di pagamento predefinito |:heavy_check_mark:|Crea fattura|
 |119| Fatturazione | Ritenuta d'acconto predefinita |:heavy_check_mark:|Aggiungi riga|
@@ -516,17 +533,19 @@ Legenda:
 |121| Generali | Rendi casuale il nome dei file allegati | |||
 |121| Generali | Template email richiesta codice OTP | |||
 |121| Generali | Base URL | |||
-|122| Magazzino | Movimenta il magazzino durante l'inserimento o eliminazione dei lotti/serial number | |||
+|122| Magazzino | Movimenta il magazzino durante l'inserimento o eliminazione dei lotti/serial number |:x:|:x:|
 |122| Magazzino | Serial number abilitato di default |:heavy_check_mark:|Crea articolo||
-|122| Magazzino | Magazzino cespiti | |||
+|122| Magazzino | Magazzino cespiti |:x:|:x:|
+|122| Magazzino | Genera barcode automaticamente |:x:|:x:|
+|122| Magazzino | Unità di misura predefinita |:x:|:x:|
 |123| Mail | Numero di giorni mantenimento coda di invio | |||
 |123| Newsletter | Numero massimo di tentativi | ||
 |123| Newsletter | Numero email da inviare in contemporanea per account | ||
 |125| Ordini | Cambia automaticamente stato ordini fatturati |:heavy_check_mark:|Fattura ordine|
 |125| Ordini | Conferma automaticamente le quantità negli ordini cliente |:heavy_check_mark:|Crea ordine cliente|
 |125| Ordini | Conferma automaticamente le quantità negli ordini fornitore |:heavy_check_mark:|Crea ordine fornitore|
-|125| Ordini | Visualizza numero ordine cliente | ||
-|125| Ordini | Raggruppamento fatturazione massiva ordini | ||
+|125| Ordini | Visualizza numero ordine cliente |:x:|:x:|
+|125| Ordini | Raggruppamento fatturazione massiva ordini |:x:|:x:|
 |126| Piano dei conti | Conto per Riepilogativo fornitori |:heavy_check_mark:|Piano dei conti|
 |126| Piano dei conti | Conto per Riepilogativo clienti |:heavy_check_mark:|Piano dei conti|
 |126| Piano dei conti | Conto per Iva indetraibile |:heavy_check_mark:|Piano dei conti|
@@ -540,20 +559,30 @@ Legenda:
 |126| Piano dei conti | Conto per autofattura |:heavy_check_mark:|Piano dei conti|
 |126| Piano dei conti | Conto di secondo livello per i crediti clienti |:heavy_check_mark:|Piano dei conti|
 |126| Piano dei conti | Conto di secondo livello per i debiti fornitori |:heavy_check_mark:|Piano dei conti|
+|126| Piano dei conti | Conto per IVA transitoria |:x:|:x:|
+|126| Piano dei conti | Conto predefinito per i cespiti |:x:|:x:|
+|126| Piano dei conti | Conto predefinito per gli ammortamenti |:x:|:x:|
+|126| Piano dei conti | Conto per Erario IVA |:x:|:x:|
+|126| Piano dei conti | Conto per IVA su acquisti extra UE |:x:|:x:|
+|126| Piano dei conti | Conto per IVA su vendite extra UE |:x:|:x:|
+|126| Piano dei conti | Conto per IVA su acquisti intra UE |:x:|:x:|
+|126| Piano dei conti | Conto per IVA su vendite intra UE |:x:|:x:|
+|126| Piano dei conti | Conto per IVA su acquisti reverse charge |:x:|:x:|
+|126| Piano dei conti | Conto per IVA su vendite reverse charge |:x:|:x:|
 |127| Preventivi | Condizioni generali di fornitura preventivi |:heavy_check_mark:|Stampa preventivo|
 |127| Preventivi | Conferma automaticamente le quantità nei preventivi |:heavy_check_mark:|Aggiungi articolo|
 |127| Preventivi | Esclusioni default preventivi |:heavy_check_mark:|Crea preventivo|
-|127| Preventivi | Raggruppamento fatturazione massiva preventivi |:x:||
-|128| Scadenzario | Invio solleciti in automatico | ||
-|128| Scadenzario | Template email primo sollecito | ||
-|128| Scadenzario | Ritardo in giorni della scadenza della fattura per invio sollecito pagamento | ||
-|128| Scadenzario | Ritardo in giorni dall'ultima email per invio sollecito pagamento | ||
-|128| Scadenzario | Template email secondo sollecito | ||
-|128| Scadenzario | Template email terzo sollecito | ||
-|128| Scadenzario | Template email mancato pagamento dopo i solleciti | ||
-|128| Scadenzario | Indirizzo email mancato pagamento dopo i solleciti | ||
-|128| Scadenzario | Template email promemoria scadenza | ||
-|128| Scadenzario | Intervallo di giorni in anticipo per invio promemoria scadenza | ||
+|127| Preventivi | Raggruppamento fatturazione massiva preventivi |:x:|:x:|
+|128| Scadenzario | Invio solleciti in automatico |:x:|:x:|
+|128| Scadenzario | Template email primo sollecito |:x:|:x:|
+|128| Scadenzario | Ritardo in giorni della scadenza della fattura per invio sollecito pagamento |:x:|:x:|
+|128| Scadenzario | Ritardo in giorni dall'ultima email per invio sollecito pagamento |:x:|:x:|
+|128| Scadenzario | Template email secondo sollecito |:x:|:x:|
+|128| Scadenzario | Template email terzo sollecito |:x:|:x:|
+|128| Scadenzario | Template email mancato pagamento dopo i solleciti |:x:|:x:|
+|128| Scadenzario | Indirizzo email mancato pagamento dopo i solleciti |:x:|:x:|
+|128| Scadenzario | Template email promemoria scadenza |:x:|:x:|
+|128| Scadenzario | Intervallo di giorni in anticipo per invio promemoria scadenza |:x:|:x:|
 |129| Tavoletta Wacom | Licenza Wacom SDK - Key|-|-|
 |129| Tavoletta Wacom | Sfondo firma tavoletta Wacom|-|-|
 |129| Tavoletta Wacom | Luminosità firma tavoletta Wacom|-|-|

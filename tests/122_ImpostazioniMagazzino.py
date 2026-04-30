@@ -14,6 +14,8 @@ class Impostazioni(Test):
         #self.serial_abilitato_default()
 
         ## TODO: Magazzino cespiti
+        ## TODO: genera barcode automaticamente
+        ## TODO: unità di misura predefinita
 
     def serial_abilitato_default(self):
                 self.expandSidebar("Magazzino")

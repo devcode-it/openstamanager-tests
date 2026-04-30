@@ -47,6 +47,18 @@ class Impostazioni(Test):
         # Conto di secondo livello per i debiti fornitori
         #self.conto_secondo_livello_debiti_fornitori()
 
+        ## TODO: conto per iva transitoria
+        ## TODO: conto predefinito per i cespiti
+        ## TODO: conto predefinito per gli ammortamenti
+        ## TODO: conto per erario iva
+        ## TODO: conto per iv asu acquisti extra UE
+        ## TODO: conto per iva su vendite extra ue
+        ## TODO: conto per iva su acquisti intra ue
+        ## TODO: conto per iva su vendite intra ue
+        ## TODO: conto per iva su acquisti reverse charge
+        ## TODO: conto per iva su vendite reverse charge
+        
+
     def conto_riepilogativo_fornitori(self):
                 self.expandSidebar("Contabilità")
         self.navigateTo("Piano dei conti")

@@ -14,7 +14,6 @@ class CausaliMovimenti(Test):
         self.modifica_causale_movimento("Causale Movimento di Prova")
         self.elimina_causale_movimento()
         self.verifica_causale_movimento()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
         
     def creazione_causali_movimenti(self, nome = str, descrizione = str, tipo = str):
         self.navigateTo("Causali movimenti")

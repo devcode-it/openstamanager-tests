@@ -18,6 +18,7 @@ class Impostazioni(Test):
         #self.conferma_quantita_ordini_fornitore()
         
         ## TODO: Visualizza numero ordine cliente
+        ## TODO: raggruppamento fatturazione massiva ordini
 
     def cambia_stato_ordini(self):
                 self.expandSidebar("Strumenti")

@@ -15,7 +15,6 @@ class Adattatori(Test):
         self.modifica_adattatore("Adattatore di Prova")
         self.elimina_adattatore()
         self.verifica_adattatore()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
         
     def creazione_adattatore(self, nome: str, tipo: str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')

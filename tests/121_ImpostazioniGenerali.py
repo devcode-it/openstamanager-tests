@@ -110,6 +110,14 @@ class Impostazioni(Test):
         ## TODO: Gestore mappa
 
         ## TODO: Tile server satellite
+        ## TODO: rendi casuale il nome dei file allegati
+        ## TODO: template email richiesta codice otp
+        ## TODO: base url
+        ## TODO: calcola provvigione agenti su
+        ## TODO: nascondere il valore totale dei record delle tabelle
+        ## TODO: abilita correttore ortografico
+        ## TODO: durata sessione 
+        ## TODO: condizioni GDPR
 
     def nascondi_barra_sx(self):
                 self.expandSidebar("Strumenti")
@@ -253,19 +261,6 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Dashboard")
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@class="nav-link bg-danger"]'))
-        ).click() #logout
-        self.wait_loader()
-
-        #login
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="form-control"]'))).send_keys(self.getConfig('login.username'))
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="password"]'))).send_keys(self.getConfig('login.password')) #password da mettere prima del test
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-danger btn-block btn-flat"]'))
-        ).click()
-        self.wait_loader()
 
     def cifre_decimali_quantita(self):
                 self.expandSidebar("Vendite")
@@ -3474,4 +3469,3 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
         self.navigateTo("Settings")
         self.wait_loader()
-

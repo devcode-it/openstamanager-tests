@@ -18,6 +18,8 @@ class Impostazioni(Test):
 
         # Esclusioni default preventivi (3)
         #self.esclusioni_preventivi()
+
+        ## TODO: raggruppamento fatturazioen massiva preventivi
         return True
 
     def condizioni_fornitura_preventivi(self):

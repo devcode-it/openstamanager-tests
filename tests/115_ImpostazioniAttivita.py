@@ -58,8 +58,11 @@ class Impostazioni(Test):
         self.stato_predefinito_attivita()
 
         ## TODO: numero di minuti di avanzamento delle sessioni delle attività
-
         ## TODO: cambia automaticamente stato attività fatturate
+        ## TODO: raggruppamento fatturazione massiva attività
+        ## TODO: permetti inserimento di allegati in attività completate
+        ## TODO: limita conteggio ore ad oggi nell'intestazione
+        ## TODO: applica diritto di chiamata una volta al giorno
 
     def mostra_prezzi_tecnico(self):
         wait = self.wait_driver      
@@ -107,9 +110,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Mostra i prezzi al tecnico"))
-        )]//div//label').click()
+        self.wait_driver.until(EC.visibility_of_element_located(By.XPATH, '//div[@class="form-group" and contains(., "Mostra i prezzi al tecnico")]//div//label')).click()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@class="nav-link bg-danger"]'))
@@ -180,7 +181,7 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="password"]'))).send_keys(self.getConfig('login.password'))
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-danger btn-block btn-flat"]'))
-        ).click() 
+        ).click()
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
@@ -303,9 +304,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Stampa per anteprima e firma"))
-        )]//span').click()
+        self.wait_driver.until(EC.visibility_of_element_located(By.XPATH, '//div[@class="form-group" and contains(., "Stampa per anteprima e firma")]//span')).click()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))
@@ -342,12 +341,11 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
         ).click()
 
-        elemento = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Stampa per anteprima e firma"))
-        )]//span[@class="select2-selection__clear"]').click()
+        elemento = self.wait_driver.until(EC.visibility_of_element_located(By.XPATH, '//div[@class="form-group" and contains(., "Stampa per anteprima e firma")]//span[@class="select2-selection__clear"]')).click()
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option"]'))
         ).click()
+        
 
     def inserimento_sessioni_tecnici(self):
         wait = self.wait_driver  
@@ -358,9 +356,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Permetti inserimento sessioni degli altri tecnici"))
-        )]//div//label').click()
+        self.wait_driver.until(EC.visibility_of_element_located(By.XPATH, '//div[@class="form-group" and contains(., "Permetti inserimento sessioni degli altri tecnici")]//div//label')).click()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@class="nav-link bg-danger"]'))

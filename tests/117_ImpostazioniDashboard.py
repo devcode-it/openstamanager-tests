@@ -28,6 +28,7 @@ class Impostazioni(Test):
         self.visualizza_colori_sessioni()
 
         ## TODO: tempo predefinito di snap attività sul calendario
+        ## TODO: ritardo apertura tooltip dashboard
 
     def visualizzare_domenica_calendario(self):
         self.expandSidebar("Strumenti")

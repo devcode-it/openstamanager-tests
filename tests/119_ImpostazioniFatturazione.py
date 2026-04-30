@@ -77,12 +77,11 @@ class Impostazioni(Test):
         #self.fattura_attivita_collegate_ordini()
 
         ## TODO: permetti fatturazione delle attività collegate a preventivi
-
         ## TODO: data inizio verifica contatore fatture di vendita
-
         ## TODO: raggruppa attività per tipologia in fattura
-
         ## TODO: metodo di importazione XML fatture di vendita
+        ## TODO: conto predefinito per le spese d'incasso
+        ## TODO: descrizione aggiuntiva personalizzata in fatturazione
 
     def iva_predefinita(self):
                 self.navigateTo("Impostazioni")
