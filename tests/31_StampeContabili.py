@@ -11,7 +11,15 @@ class StampeContabili(Test):
 
     def test_stampecontabili(self):
         self.apri_stampe_contabili()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
+
+    def _get_viewer_text(self, xpath: str) -> str:
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        self.wait_loader()
+        self.wait(EC.visibility_of_element_located((By.XPATH, xpath)))
+        text = self.find(By.XPATH, xpath).text
+        self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        return text
 
     def apri_stampe_contabili(self):
         self.wait_for_element_and_click('//button[@data-title="Stampa registro IVA vendite"]')
@@ -20,89 +28,60 @@ class StampeContabili(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-orientation-container"]', '//ul[@id="select2-orientation-results"]//li[1]')
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="viewer"]//span[7]'))).text
+        stampa = self._get_viewer_text('//div[@id="viewer"]//span[7]')
         self.assertEqual(stampa, "REGISTRO IVA VENDITE DAL 01/01/2026 AL 31/12/2026 - STANDARD VENDITE")
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
 
         self.wait_for_element_and_click('//button[@data-title="Stampa registro IVA acquisti"]')
         self.wait_for_dropdown_and_select('//span[@id="select2-id_sezionale-container"]', '//ul[@id="select2-id_sezionale-results"]//li[1]')
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="viewer"]//span[7]'))).text
+        stampa = self._get_viewer_text('//div[@id="viewer"]//span[7]')
         self.assertEqual(stampa, "REGISTRO IVA ACQUISTI DAL 01/01/2026 AL 31/12/2026 - STANDARD ACQUISTI")
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
 
         self.wait_for_element_and_click('//button[@data-title="Stampa liquidazione IVA"]')
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[6]'))).text
+        stampa = self._get_viewer_text('(//div[@id="viewer"]//span)[6]')
         self.assertEqual(stampa, "PROSPETTO LIQUIDAZIONE IVA DAL 01/01/2026 AL 31/12/2026")
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
 
         self.wait_for_element_and_click('//button[@data-title="Stampa Bilancio"]')
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="viewer"]//span'))).text
+        stampa = self._get_viewer_text('//div[@id="viewer"]//span')
         self.assertEqual(stampa, "STAMPA BILANCIO")
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
+
         self.wait_for_element_and_click('//button[@class="close"]')
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-block"]')
 
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="viewer"]//span'))).text
+        stampa = self._get_viewer_text('//div[@id="viewer"]//span')
         self.assertEqual(stampa, "STAMPA BILANCIO")
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
 
         self.wait_for_element_and_click('(//button[@class="btn btn-primary btn-block"])[2]')
 
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[1]'))).text
+        stampa = self._get_viewer_text('(//div[@id="viewer"]//span)[1]')
         self.assertEqual(stampa, "STAMPA BILANCIO")
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
 
         self.wait_for_element_and_click('(//button[@class="btn btn-primary btn-block"])[3]')
 
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[9]'))).text
+        stampa = self._get_viewer_text('(//div[@id="viewer"]//span)[9]')
         self.assertEqual(stampa, "FATTURATO MENSILE DAL 01/01/2026 AL 31/12/2026")
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
 
         self.wait_for_element_and_click('(//button[@class="btn btn-primary btn-block"])[4]')
 
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[9]'))).text
+        stampa = self._get_viewer_text('(//div[@id="viewer"]//span)[9]')
         self.assertEqual(stampa, "ACQUISTI MENSILI DAL 01/01/2026 AL 31/12/2026")
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
 
         self.wait_for_element_and_click('//button[@data-title="Libro giornale"]')
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[1]'))).text
+        stampa = self._get_viewer_text('(//div[@id="viewer"]//span)[1]')
         self.assertEqual(stampa, "STAMPA LIBRO GIORNALE")
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
 
         self.wait_for_element_and_click('//button[@data-title="Stampa scadenzario"]')
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        stampa = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[6]'))).text
+        stampa = self._get_viewer_text('(//div[@id="viewer"]//span)[6]')
         self.assertEqual(stampa, "SCADENZE DAL 01/01/2026 AL 31/12/2026")
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
 
         self.wait_for_element_and_click('//button[@class="close"]')

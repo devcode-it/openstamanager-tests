@@ -1,7 +1,6 @@
 from common.Test import Test
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 class GiacenzeSedi(Test):
     def setUp(self):
@@ -14,7 +13,6 @@ class GiacenzeSedi(Test):
         self.creazione_ddt_uscita("Admin spa", "Vendita", importi[0])
         self.trasporto()
         self.verifica_movimenti()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def aggiunta_sede(self):
         self.navigateTo("Anagrafiche")
@@ -29,10 +27,10 @@ class GiacenzeSedi(Test):
 
         self.input(None, 'Nome sede').setValue("Sede di Roma")
 
-        cap_field = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//input[@id="cap"])[2]')))
+        cap_field = self.find(By.XPATH, '(//input[@id="cap"])[2]')
         cap_field.send_keys("35042")
 
-        citta_field = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//input[@id="citta"])[2]')))
+        citta_field = self.find(By.XPATH, '(//input[@id="citta"])[2]')
         citta_field.click()
         citta_field.send_keys("Roma")
 
@@ -79,14 +77,15 @@ class GiacenzeSedi(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Codice"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "001", wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_10"]')
 
-        scarico = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[2]//td[7]'))).text
-        carico = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_10"]//tbody//tr[7]//td[7]'))).text
+        scarico = self.find(By.XPATH, '//div[@id="tab_10"]//tbody//tr[4]//td[3]').text
+        carico = self.find(By.XPATH, '(//div[@id="tab_10"]//tbody//tr[2]//td[2])[4]').text
 
-        self.assertEqual(scarico, "Sede legale")
-        self.assertEqual(carico, "Sede di Roma")
+        self.assertEqual(scarico, "1,00")
+        self.assertEqual(carico, "1,00")

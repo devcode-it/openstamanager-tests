@@ -1,6 +1,5 @@
 from common.Test import Test
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class PianiScontoMagg(Test):
@@ -15,7 +14,6 @@ class PianiScontoMagg(Test):
         self.elimina_piano_sconto()
         self.verifica_piano_sconto()
         self.plugin_sconto_maggiorazione()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_piano_sconto_magg(self, nome: str, sconto: str):
         self.navigateTo("Piani di sconto/magg.")
@@ -31,9 +29,10 @@ class PianiScontoMagg(Test):
         self.navigateTo("Piani di sconto/magg.")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, 'Piano di sconto di Prova da Modificare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_result()
 
         self.input(None, 'Nome').setValue(modifica)
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
@@ -46,9 +45,10 @@ class PianiScontoMagg(Test):
         self.navigateTo("Piani di sconto/magg.")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, 'Piano di sconto di Prova da Eliminare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_result()
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
@@ -58,27 +58,33 @@ class PianiScontoMagg(Test):
         self.navigateTo("Piani di sconto/magg.")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Piano di sconto di Prova", wait_modal=False)
-        modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
+        self.wait_for_search_results()
+        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
         self.assertEqual("Piano di sconto di Prova", modificato)
         self.clear_filters()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Piano di sconto di Prova da Eliminare", wait_modal=False)
-        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
+        self.wait_for_search_results()
+        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
 
     def plugin_sconto_maggiorazione(self):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
+        self.wait_for_search_results()
         self.wait_for_element_and_click('//tbody//td[2]//div[1]')
         self.wait_for_element_and_click('//a[@id="link-tab_33"]')
 
-        prezzo_nuovo = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_33"]//tr[3]//td[2])[2]'))).text
+        prezzo_nuovo = self.find(By.XPATH, '(//div[@id="tab_33"]//tr[3]//td[2])[2]').text
         self.assertEqual(prezzo_nuovo, "18,00 €")
 
         self.navigateTo("Articoli")

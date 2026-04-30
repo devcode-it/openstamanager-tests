@@ -1,6 +1,5 @@
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
 from common.Test import Test
+from selenium.webdriver.common.by import By
 
 
 class GestioneDocumentale(Test):
@@ -16,6 +15,8 @@ class GestioneDocumentale(Test):
 
     def _add_documento_di_prova(self, nome: str, categoria: str):
         self.navigateTo("Gestione documentale")
+        self.wait_loader()
+
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
@@ -25,10 +26,12 @@ class GestioneDocumentale(Test):
 
     def _modifica_documento(self, modifica: str):
         self.navigateTo("Gestione documentale")
+        self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, 'Documento di Prova da Modificare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_result()
 
         self.input(None, 'Nome').setValue(modifica)
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
@@ -38,10 +41,12 @@ class GestioneDocumentale(Test):
 
     def _elimina_documento(self):
         self.navigateTo("Gestione documentale")
+        self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, 'Documento di Prova da Eliminare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_result()
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
@@ -49,14 +54,19 @@ class GestioneDocumentale(Test):
 
     def _verifica_documento(self):
         self.navigateTo("Gestione documentale")
+        self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Documento di prova", wait_modal=False)
-        modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[3]'))).text
+        self.wait_for_search_results()
+        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[3]').text
         self.assertEqual("Documento di prova", modificato)
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Documento di prova da Eliminare", wait_modal=False)
-        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
+        self.wait_for_search_results()
+        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella", eliminato)

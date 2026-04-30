@@ -18,7 +18,6 @@ class Listini(Test):
         self.verifica_listino_cliente()
         self.aggiorna_listino_cliente()
         self.aggiungi_a_listino_cliente()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def creazione_listino_cliente(self, nome:str, dataatt: str, datascad: str):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
@@ -33,9 +32,10 @@ class Listini(Test):
         self.navigateTo("Listini cliente")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, 'Listino cliente di Prova da Modificare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_result()
 
         self.wait_for_dropdown_and_select('//span[@class="select2-selection select2-selection--single"]', option_text='001')
 
@@ -56,9 +56,10 @@ class Listini(Test):
         self.navigateTo("Listini cliente")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, 'Listino cliente di Prova da Eliminare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_result()
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
@@ -68,15 +69,19 @@ class Listini(Test):
         self.navigateTo("Listini cliente")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Listino cliente di Prova", wait_modal=False)
-        modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
+        self.wait_for_search_results()
+        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
         self.assertEqual("Listino cliente di Prova", modificato)
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Listino cliente di Prova da Eliminare", wait_modal=False)
-        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[1]'))).text
+        self.wait_for_search_results()
+        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[1]').text
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
@@ -84,7 +89,8 @@ class Listini(Test):
         self.navigateTo("Anagrafiche")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "Cliente", wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -110,7 +116,8 @@ class Listini(Test):
         self.navigateTo("Articoli")
         self.wait_loader()
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input')))
+        search_input = self.find(By.XPATH, '//th[@id="th_Codice"]/input')
+        search_input.clear()
         self.send_keys_and_wait(search_input, "001", wait_modal=False)
 
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -120,7 +127,7 @@ class Listini(Test):
         self.wait_for_element_and_click('//span[@id="select2-id_listino-container"]')
         self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
 
-        sconto_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="sconto_percentuale"]')))
+        sconto_input = self.find(By.XPATH, '//input[@id="sconto_percentuale"]')
         sconto_input.send_keys("10")
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
@@ -130,4 +137,4 @@ class Listini(Test):
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_loader()
 
-        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tr[1]//td[8]')))
+        self.find(By.XPATH, '//tr[1]//td[8]')

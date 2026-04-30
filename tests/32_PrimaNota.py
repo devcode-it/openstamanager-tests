@@ -16,12 +16,9 @@ class PrimaNota(Test):
         self.modifica_prima_nota("Prima Nota di Prova (Fatt. n.1 del 01/01/2026)")
         self.elimina_prima_nota()
         self.verifica_prima_nota()
-        self.wait_for_element_and_click('//i[@class="fa fa-power-off nav-icon"]')
 
     def search_causale(self, nome: str):
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Causale"]/input'))
-        )
+        search_input = self.find(By.XPATH, '//th[@id="th_Causale"]/input')
         search_input.clear()
         self.send_keys_and_wait(search_input, nome, wait_modal=False)
 
@@ -36,9 +33,7 @@ class PrimaNota(Test):
             option_text="100.000010"
         )
 
-        avere_add__field = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//input[@id="avere_add_0"]'))
-        )
+        avere_add__field = self.find(By.XPATH, '//input[@id="avere_add_0"]')
         self.send_keys_and_wait(avere_add__field, "100,00", wait_modal=False)
 
         self.wait_for_dropdown_and_select(
@@ -46,9 +41,7 @@ class PrimaNota(Test):
             option_text="700.000010"
         )
 
-        dare_add__field = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//input[@id="dare_add_1"]'))
-        )
+        dare_add__field = self.find(By.XPATH, '//input[@id="dare_add_1"]')
         self.send_keys_and_wait(dare_add__field, "100,00", wait_modal=False)
 
 
@@ -82,17 +75,13 @@ class PrimaNota(Test):
 
         self.search_causale("Prima Nota di Prova (Fatt. n.1 del 01/01/2026)")
         self.wait_for_search_results()
-        modificato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[4]'))
-        ).text
+        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[4]').text
         self.assertEqual("Prima Nota di Prova (Fatt. n.1 del 01/01/2026)", modificato)
 
         self.clear_filters()
         self.search_causale("Prima nota da Eliminare")
         self.wait_for_search_results()
         self.assertTrue(
-            self.wait_driver.until(
-                EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[@class="dataTables_empty"]'))
-            ).is_displayed()
+            self.find(By.XPATH, '//tbody//tr//td[@class="dataTables_empty"]').is_displayed()
         )
 
