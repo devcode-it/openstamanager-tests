@@ -58,7 +58,7 @@ class DdtUscita(Test):
 
         self.wait_for_element_and_click( '//tbody//tr[3]//td[5]')
         self.wait_for_element_and_click( '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.expandSidebar("Magazzino")
         self.navigateTo("Ddt in uscita")
@@ -74,7 +74,7 @@ class DdtUscita(Test):
         self.wait_for_element_and_click( '//tbody//tr//td')
         self.wait_for_element_and_click( '//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click( '//a[@data-op="delete_bulk"]')
-        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
         self.send_keys_and_wait( search_input, '2', wait_modal=False)

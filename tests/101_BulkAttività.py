@@ -78,7 +78,7 @@ class Attivita(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="delete_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         scritta = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td'))
@@ -112,7 +112,7 @@ class Attivita(Test):
         self.navigateTo('Fatture di vendita')
         self.click_first_result()
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.navigateTo('Attività')
         self.clear_filters()
@@ -157,4 +157,4 @@ class Attivita(Test):
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')

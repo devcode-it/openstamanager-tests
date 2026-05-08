@@ -32,7 +32,8 @@ class Attivita(Test):
     def _duplica_attività(self):
         self.navigateTo('Attività')
         self.click_first_result()
-        self.wait_for_element_and_click('//div[@id="pulsanti"]//button[1]')
+
+        self.wait_for_element_and_click('//button[@onclick="duplicaIntervento()"]')
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_stato-container"]',
             option_xpath='//span[@class="select2-results"]//li[2]'
@@ -60,7 +61,7 @@ class Attivita(Test):
         self.send_keys_and_wait(search_input, '2', wait_modal=False)
         self.click_first_result()
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.navigateTo('Attività')
         self.clear_filters()
 

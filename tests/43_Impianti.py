@@ -58,7 +58,7 @@ class Impianti(Test):
 
         self.click_first_result()
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.clear_filters()
 
     def verifica_impianto(self):
@@ -176,7 +176,7 @@ class Impianti(Test):
 
         self.wait_for_element_and_click('//div[@id="tab_31"]//button[@class="btn btn-tool"]')
         self.wait_for_element_and_click('//button[@class="btn btn-warning pull-right"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         sostituito = self.find(By.XPATH, '(//div[@id="tab_31"]//tr[1]//td[1])[1]').text
         self.assertEqual(sostituito, "#2")
@@ -210,7 +210,7 @@ class Impianti(Test):
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', '//a[@data-op="delete_bulk"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         scritta = self.find(By.XPATH, '//tbody//tr').text
         self.assertEqual(scritta, "Nessun dato presente nella tabella")

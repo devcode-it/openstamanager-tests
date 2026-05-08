@@ -68,7 +68,7 @@ class Impostazioni(Test):
         self.driver.switch_to.window(self.driver.window_handles[0])
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()  
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))).click()
         self.wait_loader()
 
         self.expandSidebar("Strumenti")

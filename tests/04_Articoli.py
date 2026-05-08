@@ -39,6 +39,8 @@ class Articoli(Test):
 
         self.click_first_result()
 
+        self.close_tour()
+
         self.input(None, 'Prezzo di acquisto').setValue(acquisto)
         self.input(None, 'Coefficiente').setValue(coefficiente)
 
@@ -60,7 +62,7 @@ class Articoli(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.clear_filters()
 

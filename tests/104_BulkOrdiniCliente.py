@@ -55,4 +55,4 @@ class OrdiniCliente(Test):
 
         self.wait_for_element_and_click('//tbody//tr//td[4]')
         self.wait_for_element_and_click('//a[@id="elimina"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')

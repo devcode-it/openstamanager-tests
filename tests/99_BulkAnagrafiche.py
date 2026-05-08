@@ -71,7 +71,7 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="delete_bulk"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         no_results_message = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]'))

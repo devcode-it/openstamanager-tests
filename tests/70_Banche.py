@@ -54,7 +54,7 @@ class Banche(Test):
         self.wait_for_element_and_click('//tbody//tr//td[2]')
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
     def verifica_banca(self):
@@ -151,5 +151,5 @@ class Banche(Test):
         self.wait_loader()
 
         self.wait_for_element_and_click('//a[@id="elimina"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 

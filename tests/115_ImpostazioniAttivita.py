@@ -168,7 +168,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader()
 
@@ -329,7 +329,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader()
 
@@ -539,7 +539,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader()
 
@@ -612,7 +612,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader()
 
@@ -685,7 +685,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
 
         self.wait_driver.until(
@@ -710,7 +710,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader()
 
@@ -781,7 +781,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
 
         self.wait_driver.until(
@@ -807,7 +807,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader()
 
@@ -898,7 +898,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader()
 
@@ -1106,7 +1106,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader()
 
@@ -1155,7 +1155,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader() 
 
@@ -1283,7 +1283,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader()
 
@@ -1387,7 +1387,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader()
 
@@ -1511,7 +1511,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader()
 
@@ -1624,7 +1624,7 @@ class Impostazioni(Test):
         self.assertEqual(descrizione[8:20], "Test")
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]'))).click() 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))).click()
         self.wait_loader()
 
         self.navigateTo("Attività")
@@ -1637,7 +1637,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader()
 
@@ -1726,7 +1726,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader() 
 
@@ -1807,7 +1807,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader() 
 

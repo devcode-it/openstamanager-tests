@@ -15,7 +15,7 @@ class StatoServizi(Test):
         
         for i in range(3):
             self.wait_for_element_and_click('//button[@onclick="abilitaSottoModuli(this)"]')
-            self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
+            self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
             self.wait_for_element_and_click('//div[@class="toast-message"]')
 
     def _compila_azienda(self):
@@ -23,6 +23,8 @@ class StatoServizi(Test):
         self.wait_loader()
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.close_tour()
+        
         self._compila_campi_azienda({
             'Partita IVA': '05024030289',
             'Codice fiscale': '05024030289',

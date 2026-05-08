@@ -41,7 +41,7 @@ class FattureVendita(Test):
 
     def _duplica(self):
         self.wait_for_element_and_click('//button[@class="btn btn-primary ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
     def _modifica_fattura_vendita(self, modifica = str):
         self.navigateTo("Fatture di vendita")
@@ -258,7 +258,7 @@ class FattureVendita(Test):
 
         self.wait_for_element_and_click('//tbody//tr[3]//td[2]')
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
     def _verifica_fattura_di_vendita(self):
         self.expandSidebar("Acquisti")

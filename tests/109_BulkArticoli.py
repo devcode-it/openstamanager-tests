@@ -293,7 +293,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="delete_bulk"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         risultato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td'))
@@ -326,7 +326,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
 
         self.wait_for_element_and_click('//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.expandSidebar("Magazzino")
         self.navigateTo("Articoli")
@@ -389,7 +389,7 @@ class Articoli(Test):
 
         self.click_first_result()
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.expandSidebar("Magazzino")
     def imposta_provvigione(self):

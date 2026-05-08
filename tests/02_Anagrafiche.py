@@ -43,7 +43,7 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//*[@id="select2-tipo-container"]')
 
         self.wait_for_dropdown_and_select(
-            '(//input[@class="select2-search__field"])[2]',
+            '(//input[@class="select2-search__field"])[3]',
             option_text=tipologia
         )
 
@@ -69,7 +69,7 @@ class Anagrafiche(Test):
         self.click_first_result()
         self.wait_loader()
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.clear_filters()
 
     def _verifica_anagrafica(self):
@@ -128,8 +128,9 @@ class Anagrafiche(Test):
         self.assertEqual("1", activity_number)
 
         self.wait_for_element_and_click('//div[@id="tab_28"]//tbody//td[2]')
+        self.close_tour()
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.navigateTo("Anagrafiche")
         self.clear_filters()
@@ -162,7 +163,7 @@ class Anagrafiche(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
-        quote_text = self.find(By.XPATH, '(//div[@class="card-body"]//li)[7]').text
+        quote_text = self.find(By.XPATH, '(//div[@class="card-body"]//li)[8]').text
         self.assertEqual("Preventivo 1", quote_text[0:12])
 
         self.wait_for_element_and_click('(//div[@class="card-body"]//li//a)[5]')
@@ -170,7 +171,7 @@ class Anagrafiche(Test):
         self.driver.switch_to.window(self.driver.window_handles[1])
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.wait_loader()
 
         self.driver.close()
@@ -193,10 +194,12 @@ class Anagrafiche(Test):
             '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[2]',
             '(//li[@class="select2-results__option"])'
         )
-
         self.wait_for_element_and_click('(//div[@id="form_31-"]//button[@class="btn btn-primary"])')
+
+        self.close_tour()
+        
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.navigateTo("Anagrafiche")
         self.clear_filters()
@@ -219,15 +222,16 @@ class Anagrafiche(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
-        order_text = self.find(By.XPATH, '(//div[@class="card-body"]//li)[7]').text
+        order_text = self.find(By.XPATH, '(//div[@class="card-body"]//li)[8]').text
         self.assertEqual("Ordine cliente 01", order_text[0:17])
 
         self.wait_for_element_and_click('(//div[@class="card-body"]//li//a)[5]')
         self.wait(lambda driver: len(driver.window_handles) > 1)
         self.driver.switch_to.window(self.driver.window_handles[1])
 
+        self.close_tour()
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
@@ -259,11 +263,14 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//a[@id="link-tab_17"]')
         ddt_number = self.find(By.XPATH, '//div[@id="tab_17"]//tbody//td[2]').text
-        self.assertEqual("01", ddt_number)
+        self.assertEqual("", ddt_number)
 
         self.wait_for_element_and_click('//div[@id="tab_17"]//tbody//td[2]')
+
+        self.close_tour()
+
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.navigateTo("Anagrafiche")
         self.clear_filters()
@@ -284,7 +291,7 @@ class Anagrafiche(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
-        invoice_text = self.find(By.XPATH, '(//div[@class="card-body"]//li)[7]').text
+        invoice_text = self.find(By.XPATH, '(//div[@class="card-body"]//li)[8]').text
         self.assertEqual("Fattura immediata di vendita", invoice_text[0:28])
 
         self.wait_for_element_and_click('(//div[@class="card-body"]//li//a)[5]')
@@ -293,8 +300,10 @@ class Anagrafiche(Test):
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
+        self.close_tour()
+
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()

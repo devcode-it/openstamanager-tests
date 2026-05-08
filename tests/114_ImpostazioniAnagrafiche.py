@@ -35,7 +35,7 @@ class Impostazioni(Test):
 
     def _elimina_anagrafica(self):
         self.wait_for_element_and_click('//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
     def _cambia_formato_codice(self, formato):
         self.expandSidebar("Strumenti")

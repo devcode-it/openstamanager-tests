@@ -47,7 +47,7 @@ class MarcheImpianti(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
 
     def verifica_marche(self):

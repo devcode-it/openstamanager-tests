@@ -27,6 +27,8 @@ class FattureAcquisto(Test):
         select.setByText(fornitore)
         self.wait_for_element_and_click('//button[@type="submit"]')
 
+        self.close_tour()
+
         select = self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Pagamento')
         select.setByIndex(pagamento)
         row_manager = RowManager(self)
@@ -82,9 +84,9 @@ class FattureAcquisto(Test):
 
         self.wait_for_element_and_click('//*[@id="conto2-8"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto2-8"]')
-        self.wait_for_element_and_click('//*[@id="movimenti-126"]//*[@class="fa fa-plus"]')
-        self.wait_for_expanded_element('//*[@id="conto_126"]')
-        conto_fornitore = self.find(By.XPATH, '//*[@id="conto_126"]//*[@class="text-right"]').text
+        self.wait_for_element_and_click('//*[@id="movimenti-132"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto_132"]')
+        conto_fornitore = self.find(By.XPATH, '//*[@id="conto_132"]//*[@class="text-right"]').text
         conto_fornitore = '-' + conto_fornitore
 
         self.wait_for_element_and_click('//*[@id="conto2-22"]//*[@class="fa fa-plus"]')
@@ -104,7 +106,7 @@ class FattureAcquisto(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
     def _verifica_fattura_acquisto(self):
         self.navigateTo("Fatture di acquisto")

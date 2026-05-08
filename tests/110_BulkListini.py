@@ -111,7 +111,7 @@ class Articoli(Test):
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_32"]')
         self.wait_for_element_and_click('//a[@class="btn btn-secondary btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.wait_for_element_and_click('//button[@class="btn btn-warning"]')
         self.wait_for_element_and_click('(//label[@class="btn btn-default active"])[4]')
         self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')

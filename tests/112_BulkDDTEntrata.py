@@ -52,7 +52,7 @@ class DdtEntrata(Test):
         self.navigateTo("Ddt in entrata")
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="delete_bulk"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
         self.send_keys_and_wait(search_input, '2', wait_modal=False)

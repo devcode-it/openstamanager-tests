@@ -45,7 +45,7 @@ class Preventivi(Test):
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_for_element_and_click('//div[@id="pulsanti"]//button[@class="btn ask btn-primary"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.driver.execute_script('window.scrollTo(0,0)')
         nome_field = self.find(By.XPATH, '//input[@id="nome"]')
@@ -87,7 +87,7 @@ class Preventivi(Test):
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.navigateTo("Preventivi")
         self.wait_loader()
@@ -112,7 +112,7 @@ class Preventivi(Test):
         self.assertEqual(totalecontratto, totalepreventivo)
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), "Preventivo di Prova", wait_modal=False)
 
@@ -141,7 +141,7 @@ class Preventivi(Test):
         self.assertEqual(totaleordinecliente, totalepreventivo)
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_icon_title_Stato"]/input'), "Bozza", wait_modal=False)
 
@@ -171,7 +171,7 @@ class Preventivi(Test):
         self.assertEqual(totaleordinefornitore, '7,20 €')
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_icon_title_Stato"]/input'), "Bozza", wait_modal=False)
 
@@ -205,7 +205,7 @@ class Preventivi(Test):
         self.assertEqual(totaleattività, totalepreventivo)
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Numero"]/input'), "03", wait_modal=False)
 
@@ -237,7 +237,7 @@ class Preventivi(Test):
         self.assertEqual(totaleddtuscita, totalepreventivo)
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Numero"]/input'), "03", wait_modal=False)
 
@@ -265,7 +265,7 @@ class Preventivi(Test):
         self.assertEqual(totalefattura, totalepreventivo)
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Numero"]/input'), "0003/2026", wait_modal=False)
 

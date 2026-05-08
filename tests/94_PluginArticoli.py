@@ -60,7 +60,7 @@ class Articoli(Test):
 
         self.wait_for_element_and_click('//div[@id="tab_43"]//tbody//tr//td[3]')
         self.wait_for_element_and_click('(//a[@class="btn btn-danger ask"])[2]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.navigateTo("Articoli")
         self.wait_loader()
@@ -126,7 +126,7 @@ class Articoli(Test):
         self.assertEqual(prezzo, "15,00 €")
 
         self.wait_for_element_and_click('//a[@id="elimina"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.expandSidebar("Magazzino")
         self.navigateTo("Articoli")
@@ -156,7 +156,7 @@ class Articoli(Test):
         self.assertEqual(codice, "1")
 
         self.wait_for_element_and_click('//a[@class="btn btn-secondary btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         messaggio = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_32"]//div[@class="alert alert-info"]'))
@@ -208,7 +208,7 @@ class Articoli(Test):
         self.assertEqual(prezzo, "5,00 €")
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.expandSidebar("Magazzino")
         self.navigateTo("Articoli")
@@ -299,10 +299,10 @@ class Articoli(Test):
         serial_end.send_keys(Keys.BACK_SPACE, "2")
 
         self.wait_for_element_and_click('//div[@id="tab_11"]//button[@type="button"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.wait_for_element_and_click('(//div[@id="tab_11"]//a[@class="btn btn-danger btn-sm ask"])[2]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.wait(EC.invisibility_of_element_located((By.XPATH, '//div[@id="tab_11"]//div[@class="card"]//tbody//tr[2]//td[1]')))
 

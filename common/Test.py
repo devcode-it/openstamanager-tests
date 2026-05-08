@@ -218,6 +218,12 @@ class Test(unittest.TestCase, TestHelperMixin):
             self.logger.error("No modal found after waiting")
             raise NoSuchElementException("No modal found after waiting")
 
+    def close_tour(self):
+        try:
+            self.wait_for_element_and_click('//button[@class="tour-popover-exit-btn btn btn-default btn-sm"]')
+        except TimeoutException:
+            pass  # Tour popover not visible, skip
+
     def wait(self, condition, timeout=20):
         try:
             WebDriverWait(self.driver, timeout).until(condition)

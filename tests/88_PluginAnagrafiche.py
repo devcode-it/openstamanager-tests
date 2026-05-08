@@ -62,7 +62,7 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//div[@id="tab_3"]//tbody//tr//td[2]')
         self.wait_for_element_and_click('(//a[@class="btn btn-danger ask"])[2]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         empty_message = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_3"]//tbody//tr'))
@@ -139,7 +139,7 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//div[@id="tab_4"]//tbody/tr//td[2]')
         self.wait_for_element_and_click('//button[@class="btn btn-danger "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         empty_message = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_4"]//tbody//tr'))
@@ -320,7 +320,7 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//div[@id="tab_25"]//tbody//td[3]')
         self.wait_for_element_and_click('//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         empty_message = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_25"]//td[@class="dataTables_empty"]'))
@@ -333,7 +333,7 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_for_element_and_click('//a[@id="elimina"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.navigateTo("Anagrafiche")
         self.clear_filters()
@@ -419,7 +419,7 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//div[@id="tab_40"]//tbody//tr//td[2]')
         self.wait_for_element_and_click('//button[@class="btn btn-danger "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.expandSidebar("Contabilità")
         self.navigateTo("Scadenzario")
@@ -512,7 +512,7 @@ class Anagrafiche(Test):
         self.assertEqual("Attenzione!", warning_message[0:11])
 
         self.wait_for_element_and_click('//a[@id="elimina"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.navigateTo("Anagrafiche")
         self.wait_loader()
@@ -535,7 +535,7 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//div[@id="tab_45"]//tbody//tr//td[2]')
         self.wait_for_element_and_click('//div[@id="modals"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.navigateTo("Anagrafiche")
         self.clear_filters()
