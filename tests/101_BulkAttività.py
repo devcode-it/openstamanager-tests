@@ -33,7 +33,7 @@ class Attivita(Test):
             '//span[@id="select2-id_stato-container"]',
             option_text='Da programmare'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         stato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))
@@ -57,7 +57,7 @@ class Attivita(Test):
             '//span[@id="select2-idstatointervento-container"]',
             option_text='Da programmare'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.clear_filters()
 
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
@@ -101,7 +101,7 @@ class Attivita(Test):
             '//span[@id="select2-raggruppamento-container"]',
             option_text='Cliente'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         stato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))
@@ -146,7 +146,7 @@ class Attivita(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="print_summary"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
         prezzo = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[39]'))).text

@@ -42,21 +42,21 @@ class FattureAcquisto(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="change_segment"]')
         self.wait_for_dropdown_and_select('//span[@id="select2-id_segment-container"]', option_text='Autofatture')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.wait_for_dropdown_and_select('//span[@id="select2-id_segment_-container"]', option_text='Autofatture')
 
         self.clear_filters()
         self.wait_for_element_and_click('//tbody//tr[1]//td[1]')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="change_segment"]')
         self.wait_for_dropdown_and_select('//span[@id="select2-id_segment-container"]', option_text='Standard')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.wait_for_dropdown_and_select('//span[@id="select2-id_segment_-container"]', option_text='Standard')
 
     def duplica_selezionati(self):
         self.navigateTo("Fatture di acquisto")
         self.wait_for_element_and_click('//tbody//tr//td[1]')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="copy_bulk"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_for_element_and_click('//a[@id="elimina"]')

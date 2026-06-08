@@ -40,7 +40,7 @@ class Attivita_Dashboard(Test):
 
         self.wait_for_element_and_click('//a[@id="tecnici-sessioni-tab"]')
         self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idtecnico-container"]',
+            '//span[@id="select2-id_tecnico-container"]',
             option_text='Stefano Bianchi'
         )
 

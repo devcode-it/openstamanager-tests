@@ -25,7 +25,7 @@ class DdtUscita(Test):
         self.wait_for_element_and_click( '//a[@data-op="change_status"]')
 
         self.wait_for_dropdown_and_select( '//span[@id="select2-id_stato-container"]', option_text='Evaso')
-        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         stato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//tr[1]//td[11]//span)[2]'))
@@ -45,7 +45,7 @@ class DdtUscita(Test):
         self.wait_for_element_and_click( '//a[@data-op="create_invoice"]')
 
         self.wait_for_dropdown_and_select( '//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
-        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.expandSidebar("Vendite")
         self.navigateTo("Fatture di vendita")

@@ -58,7 +58,7 @@ class Articoli(Test):
         )
         percentuale_input.send_keys("20")
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         prezzo = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[2]//td[8]'))
@@ -86,7 +86,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//a[@data-op="copy_listino"]')
 
         self.wait_for_dropdown_and_select('//span[@class="select2-selection select2-selection--multiple"]', option_text='Estero')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.wait_for_element_and_click('//tbody//tr//td')
 

@@ -50,7 +50,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//a[@data-op="change_vat"]')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_iva-container"]', option_text='Iva 10%')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
 
@@ -80,7 +80,7 @@ class Articoli(Test):
         )
         coefficiente_input.send_keys("12")
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         prezzo = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[9]//div'))
@@ -102,7 +102,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//a[@data-op="change_purchase_account"]')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-conto_acquisto-container"]', option_text='Fabbricati')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.click_first_result()
 
@@ -128,7 +128,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//a[@data-op="change_sale_account"]')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-conto_vendita-container"]', option_text='Automezzi')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.click_first_result()
 
@@ -188,7 +188,7 @@ class Articoli(Test):
         )
         percentuale_input.send_keys("10")
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         prezzo = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[8]'))
@@ -216,7 +216,7 @@ class Articoli(Test):
         )
         percentuale_input.send_keys("20")
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         prezzo = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[9]'))
@@ -247,7 +247,7 @@ class Articoli(Test):
         )
         descrizione_input.send_keys("test")
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         quantita = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[10]'))
@@ -269,7 +269,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//a[@data-op="change_unit"]')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-um-container"]', option_text='ore')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
 
@@ -323,7 +323,7 @@ class Articoli(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-id_segment-container"]', option_text='Standard preventivi')
         self.wait_for_dropdown_and_select('//span[@id="select2-id_tipo-container"]', option_text='Generico')
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.wait_for_element_and_click('//a[@class="btn btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
@@ -374,7 +374,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="set_purchase_price_if_zero"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         prezzo = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[8]'))
@@ -412,7 +412,7 @@ class Articoli(Test):
         )
         provvigione_input.send_keys("10")
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_43"]')
@@ -437,7 +437,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="print_labels"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
 

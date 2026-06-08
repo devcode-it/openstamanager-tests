@@ -18,7 +18,7 @@ class DdtEntrata(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="change_status"]')
         self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='Evaso')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         stato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[11]'))
@@ -33,7 +33,7 @@ class DdtEntrata(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="create_invoice"]')
         self.wait_for_dropdown_and_select('//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.navigateTo("Ddt in entrata")
         self.wait_for_element_and_click('//tbody//tr//td')

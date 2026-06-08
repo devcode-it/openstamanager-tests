@@ -108,7 +108,7 @@ class AccountEmail(Test):
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="send_mail"]')
         self.wait_for_dropdown_and_select('//span[@id="select2-id_template-container"]', option_text='Rapportino intervento')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         scritta = self.find(By.XPATH, '//tbody//tr//td[14]').text
         self.assertEqual(scritta, "Inviata via email")

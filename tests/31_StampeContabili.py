@@ -29,14 +29,14 @@ class StampeContabili(Test):
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
         stampa = self._get_viewer_text('//div[@id="viewer"]//span[7]')
-        self.assertEqual(stampa, "REGISTRO IVA VENDITE DAL 01/01/2026 AL 31/12/2026 - STANDARD VENDITE")
+        self.assertEqual(stampa, "REGISTRO IVA VENDITE DAL 01/01/2026 AL 31/12/2026 - VENDITE")
 
         self.wait_for_element_and_click('//button[@data-title="Stampa registro IVA acquisti"]')
         self.wait_for_dropdown_and_select('//span[@id="select2-id_sezionale-container"]', '//ul[@id="select2-id_sezionale-results"]//li[1]')
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')
 
         stampa = self._get_viewer_text('//div[@id="viewer"]//span[7]')
-        self.assertEqual(stampa, "REGISTRO IVA ACQUISTI DAL 01/01/2026 AL 31/12/2026 - STANDARD ACQUISTI")
+        self.assertEqual(stampa, "REGISTRO IVA ACQUISTI DAL 01/01/2026 AL 31/12/2026 - ACQUISTI")
 
         self.wait_for_element_and_click('//button[@data-title="Stampa liquidazione IVA"]')
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-lg"]')

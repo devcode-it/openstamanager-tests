@@ -43,8 +43,8 @@ class Checklists(Test):
         iframe = self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')
         iframe.click()
         iframe.send_keys("TestFiglio")
-        self.wait_for_element_and_click('(//span[@class="select2-selection select2-selection--single"])[3]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('(//span[@class="select2-selection select2-selection--single"])[2]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('(//button[@type="submit"])[2]')
 
         self.navigateTo("Checklists")
@@ -86,7 +86,7 @@ class Checklists(Test):
         self.wait_for_element_and_click('(//a[@data-title="Aggiungi check"])[2]')
 
         self.wait_for_element_and_click('//div[@class="modal-content"]//span[@class="select2-selection__placeholder"]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//button[@id="check-add"]')
 
         TestPadre = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_checks"]//tbody//td[2]//span)[1]'))).text

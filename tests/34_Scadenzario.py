@@ -117,7 +117,7 @@ class Scadenzario(Test):
 
         distinta_input = self.find(By.XPATH, '//input[@id="distinta"]')
         distinta_input.send_keys("Prova")
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.wait_loader()
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')

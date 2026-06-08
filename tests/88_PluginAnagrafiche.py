@@ -121,7 +121,7 @@ class Anagrafiche(Test):
 
         self.wait_for_dropdown_and_select(
             '(//span[@id="select2-id_nazione-container"])[2]',
-            '//li[@class="select2-results__option select2-results__option--highlighted"]'
+            '//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]'
         )
         self.wait_for_element_and_click('(//button[@type="submit"])[3]')
 
@@ -163,7 +163,7 @@ class Anagrafiche(Test):
 
         self.wait_for_dropdown_and_select(
             '(//span[@id="select2-id_nazione-container"])[2]',
-            '//li[@class="select2-results__option select2-results__option--highlighted"]'
+            '//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]'
         )
         self.wait_for_element_and_click('(//button[@type="submit"])[3]')
 

@@ -103,7 +103,7 @@ class Banche(Test):
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_banca-container"]', option_text='Banca Admin spa')
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         banca = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[9]'))).text
         self.assertEqual(banca, "Banca Admin spa - IT11C1234512345678912345679")
@@ -124,13 +124,10 @@ class Banche(Test):
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_banca-container"]', option_text='Banca Admin spa')
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="toast toast-success"]//div[3]'))).text
         self.assertEqual(widget, "Banca aggiornata per le Fatture 0001 !")
-
-        self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//span[@class="select2-selection__clear"]')
 
     def aggiorna_banca_fatture_vendita(self):
         self.expandSidebar("Vendite")
@@ -143,7 +140,7 @@ class Banche(Test):
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_banca-container"]', option_text='Banca Admin spa')
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         banca = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))).text
         self.assertEqual(banca, "Banca Admin spa - IT11C1234512345678912345679")

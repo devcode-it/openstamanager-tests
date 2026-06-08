@@ -98,12 +98,12 @@ class Listini(Test):
         self.wait_for_element_and_click('//a[@data-op="update_price_list"]')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_listino-container"]', option_text='Listino cliente di Prova')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_loader()
 
-        self.wait_for_element_and_click('(//span[@class="select2-selection__clear"])[4]')
+        self.wait_for_element_and_click('(//button[@class="select2-selection__clear"])[4]')
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()
 
@@ -125,11 +125,11 @@ class Listini(Test):
         self.wait_for_element_and_click('//a[@data-op="add_price_list"]')
 
         self.wait_for_element_and_click('//span[@id="select2-id_listino-container"]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
 
         sconto_input = self.find(By.XPATH, '//input[@id="sconto_percentuale"]')
         sconto_input.send_keys("10")
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.navigateTo("Listini cliente")
         self.wait_loader()

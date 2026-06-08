@@ -25,6 +25,7 @@ class DdtEntrata(Test):
         select = self.input(modal, 'Causale trasporto')
         select.setByIndex(causale)
         self.wait_for_element_and_click('//button[@type="submit"]')
+        self.close_tour()
 
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
@@ -43,7 +44,7 @@ class DdtEntrata(Test):
         self.send_keys_and_wait(search_input, '1', wait_modal=False)
         self.click_first_result()
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-idstatoddt-container"]', option_text='Evaso')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='Evaso')
 
         sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
         totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
@@ -61,8 +62,6 @@ class DdtEntrata(Test):
 
     def _elimina_ddt(self):
         self.navigateTo("Ddt in entrata")
-        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal=False)
         self.click_first_result()
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')

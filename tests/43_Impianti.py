@@ -9,6 +9,8 @@ class Impianti(Test):
 
     def test_creazione_impianto(self):
         self.add_impianto('01', 'Impianto di Prova da Modificare', 'Cliente')
+        self.close_tour()
+        
         self.add_impianto('02', 'Impianto di Prova da Eliminare', 'Cliente')
         self.modifica_impianto("Impianto di Prova")
         self.elimina_impianto()
@@ -26,7 +28,7 @@ class Impianti(Test):
 
         self.input(modal, 'Matricola').setValue(matricola)
         self.input(modal, 'Nome').setValue(nome)
-        self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica_impianto-container"]', option_text=cliente)
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_anagrafica_impianto-container"]', option_text=cliente)
 
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
@@ -108,8 +110,8 @@ class Impianti(Test):
         self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica-container"]', option_text="Cliente")
-        self.wait_for_dropdown_and_select('//span[@id="select2-idtipointervento-container"]', option_text="Generico")
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_anagrafica-container"]', option_text="Cliente")
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_tipo_intervento-container"]', option_text="Generico")
         iframe = self.wait_for_element_and_click('(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')
         iframe.send_keys('Test')
         self.wait_for_element_and_click('//div[@class="col-md-12 text-right"]//button[@type="button"]')
@@ -117,7 +119,7 @@ class Impianti(Test):
         self.wait_for_element_and_click('//a[@id="link-tab_2"]')
         self.wait_loader()
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-id_impianto_add-container"]', '//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_impianto_add-container"]', '//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('(//button[@class="btn btn-primary tip tooltipstered"])[2]')
 
         matricola = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_2"]//tbody//tr//td[2]'))).text
@@ -125,7 +127,7 @@ class Impianti(Test):
 
         self.wait_for_element_and_click('//button[@class="btn btn-sm btn-outline-danger "]')
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-id_impianto_add-container"]', '//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_impianto_add-container"]', '//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('(//button[@class="btn btn-primary tip tooltipstered"])[2]')
 
         self.navigateTo("Attività")
@@ -163,19 +165,18 @@ class Impianti(Test):
         self.wait_loader()
 
         self.wait_for_element_and_click('(//button[@class="btn btn-primary bound clickable"])[2]')
-        self.wait_for_dropdown_and_select('//span[@id="select2-id_articolo-container"]', option_text="Articolo 1")
-        self.wait_for_element_and_click('(//form//button[@class="btn btn-primary"])[2]')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_articolo_componente-container"]', option_text="Articolo 1")
+        self.wait_for_element_and_click('(//button[@type="submit"])[3]')
 
-        self.wait_for_element_and_click('//div[@id="tab_31"]//button[@class="btn btn-tool"]')
+        self.wait_for_element_and_click('//div[@id="tab_31"]//button[@class="btn btn-sm btn-default"]')
         data_input = self.find(By.XPATH, '//input[@id="data_installazione_1"]')
         self.send_keys_and_wait(data_input, "01/01/2026", wait_modal=False)
-        self.wait_for_element_and_click('//button[@class="btn btn-success pull-right"]')
+        self.wait_for_element_and_click('(//button[@class="btn btn-success"])[2]')
 
         data_installazione = self.find(By.XPATH, '//div[@id="tab_31"]//tr[1]//td[3]').text
         self.assertEqual(data_installazione, "01/01/2026")
 
-        self.wait_for_element_and_click('//div[@id="tab_31"]//button[@class="btn btn-tool"]')
-        self.wait_for_element_and_click('//button[@class="btn btn-warning pull-right"]')
+        self.wait_for_element_and_click('//div[@id="tab_31"]//button[@class="btn btn-sm btn-warning"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         sostituito = self.find(By.XPATH, '(//div[@id="tab_31"]//tr[1]//td[1])[1]').text
@@ -198,7 +199,7 @@ class Impianti(Test):
         nome_input = self.find(By.XPATH, '//input[@id="nome"]')
         self.send_keys_and_wait(nome_input, "Prova", wait_modal=False)
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica_impianto-container"]', option_text="Cliente")
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_anagrafica_impianto-container"]', option_text="Cliente")
         self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
 
         self.navigateTo("Impianti")

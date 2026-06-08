@@ -27,6 +27,7 @@ class DdtUscita(Test):
         select = self.input(modal, 'Causale trasporto')
         select.setByIndex(causale)
         self.wait_for_element_and_click('//button[@type="submit"]')
+        self.close_tour()
 
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
@@ -40,12 +41,10 @@ class DdtUscita(Test):
 
     def _modifica_ddt(self, modifica):
         self.navigateTo("Ddt in uscita")
-        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '01', wait_modal=False)
         self.click_first_result()
 
         self.driver.execute_script('window.scrollTo(0,0)')
-        self.wait_for_dropdown_and_select( '//span[@id="select2-idstatoddt-container"]', option_text='Evaso')
+        self.wait_for_dropdown_and_select( '//span[@id="select2-id_stato-container"]', option_text='Evaso')
         self.wait_for_element_and_click( '//div[@id="tab_0"]//button[@id="save"]')
 
         sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
@@ -64,7 +63,7 @@ class DdtUscita(Test):
     def _elimina_ddt(self):
         self.navigateTo("Ddt in uscita")
         search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '02', wait_modal=False)
+        self.send_keys_and_wait(search_input, '!=01', wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click( '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
@@ -81,7 +80,7 @@ class DdtUscita(Test):
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
         search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, "02", wait_modal=False)
+        self.send_keys_and_wait(search_input, "!=01", wait_modal=False)
 
         eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
         self.assertEqual("Nessun dato presente nella tabella", eliminato)

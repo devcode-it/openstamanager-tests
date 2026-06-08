@@ -86,7 +86,7 @@ class RowManager:
             option_text=article_code
         )
 
-        self.wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--highlighted"]'))).click()
+        self.wait.until(EC.visibility_of_element_located((By.XPATH, '//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]'))).click()
         wait_for_element_and_click(self.tester.driver, self.wait, '//button[@onclick="salvaArticolo()"]')
 
     def fill(self, modal, data: dict):
@@ -131,7 +131,7 @@ class RowManager:
             tipo_sconto.setValue(data['tipo_sconto'])
 
         if 'iva' in data:
-            iva_select = self.input(modal, 'IVA')
+            iva_select = self.input(modal, 'Iva')
             if iva_select:
                 iva_select.setByText(data['iva'])
             else:

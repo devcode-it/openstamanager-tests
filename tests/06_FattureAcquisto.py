@@ -38,7 +38,7 @@ class FattureAcquisto(Test):
         self.navigateTo("Fatture di acquisto")
         self.click_first_result()
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-idstatodocumento-container"]', option_text='Emessa')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='Emessa')
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
     def _controllo_fattura_acquisto(self):
@@ -126,7 +126,7 @@ class FattureAcquisto(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-iva_id-container"]', option_text='258 - Non imponibile - cessioni verso San Marino')
         self.wait_for_element_and_click('(//button[@class="btn btn-primary"])[2]')
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-idstatodocumento-container"]', option_text='Emessa')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='Emessa')
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
         self.wait_for_dropdown_and_select('//button[@class="btn btn-primary unblockable dropdown-toggle "]', option_xpath='//a[@class="btn dropdown-item bound clickable"]')

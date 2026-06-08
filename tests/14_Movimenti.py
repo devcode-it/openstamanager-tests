@@ -21,12 +21,12 @@ class Movimenti(Test):
 
     def _creazione_movimento(self, qta: str, articolo: str, descrizione: str):
         modal = self.wait_modal()
-        self.wait_for_dropdown_and_select('//span[@id="select2-idarticolo-container"]', option_text=articolo)
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_articolo-container"]', option_text=articolo)
         self.input(modal, 'Quantità').setValue(qta)
         descrizione_field = self.find(By.XPATH, '//textarea[@id="movimento"]')
         descrizione_field.clear()
         descrizione_field.send_keys(descrizione)
-        self.wait_for_element_and_click('//div[@class="modal-body"]//button[@type="button"]')
+        self.wait_for_element_and_click('//button[@id="aggiungi"]')
 
 
     def _elimina_movimento(self):

@@ -32,7 +32,7 @@ class Anagrafiche(Test):
             '//span[@id="select2-idrelazione-container"]',
             option_text="Attivo"
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         relation = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))
@@ -94,7 +94,7 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="search_coordinates"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_for_element_and_click('//a[@onclick="modificaPosizione()"]')

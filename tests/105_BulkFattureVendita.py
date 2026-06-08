@@ -44,7 +44,7 @@ class FattureVendita(Test):
             '//span[@id="select2-id_segment-container"]',
             option_text='Autofatture'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_segment_-container"]',
             option_text='Autofatture'
@@ -58,7 +58,7 @@ class FattureVendita(Test):
             '//span[@id="select2-id_segment-container"]',
             option_text='Standard vendite'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_segment_-container"]',
             option_text='Standard vendite'
@@ -71,7 +71,7 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="check_bulk"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
         self.wait_for_element_and_click('//div[@class="toast toast-success"]')
@@ -85,7 +85,7 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="copy_bulk"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.wait_for_element_and_click('//tbody//tr//td')
 
     def elimina_selezionati(self):
@@ -107,7 +107,7 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="change_status"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         stato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[11]'))).text
         self.assertEqual(stato, "Emessa")
@@ -120,7 +120,7 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="generate_xml"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-warning"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
 

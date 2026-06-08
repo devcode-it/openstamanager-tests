@@ -62,7 +62,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary pull-right"]'))
         ).click()    #click su aggiungi
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatoordine-container"]'))).click()   #cambio stato in Accettato
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))).click()   #cambio stato in Accettato
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Accettato', Keys.ENTER)
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@id="save"]'))
@@ -90,7 +90,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-raggruppamento-results"]//li[1]'))
         ).click()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click()
         self.wait_loader()
 

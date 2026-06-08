@@ -26,11 +26,11 @@ class ModelliPrimaNota(Test):
         self.input(modal, 'Causale').setValue(causale)
 
         self.wait_for_element_and_click('//span[@id="select2-conto0-container"]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
 
         self.wait_for_element_and_click('//span[@id="select2-conto1-container"]')
         self.wait_for_element_and_click('//input[@class="select2-search__field"]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_loader()
 
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)

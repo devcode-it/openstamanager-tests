@@ -28,6 +28,7 @@ class Contratti(Test):
         select = self.input(modal, 'Cliente')
         select.setByText(cliente)
         modal.find_element(By.XPATH, './/button[@type="submit"]').click()
+        self.close_tour()
 
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)

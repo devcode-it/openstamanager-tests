@@ -41,7 +41,7 @@ class Impostazioni(Test):
         self.valori = row_manager.compile(file_importi)
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatoddt-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Evaso", Keys.ENTER)
         self.wait_driver.until(
@@ -66,7 +66,7 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click() 
         self.wait_loader()
 
@@ -131,7 +131,7 @@ class Impostazioni(Test):
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatoddt-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click() 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Evaso", Keys.ENTER)
         self.wait_driver.until(
@@ -156,7 +156,7 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-warning"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
         ).click() 
         self.wait_loader()
 

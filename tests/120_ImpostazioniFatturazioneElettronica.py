@@ -89,7 +89,7 @@ class Impostazioni(Test):
         ).click() #click su aggiungi
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatodocumento-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click() #cambia stato
 
         self.wait_driver.until(
@@ -157,7 +157,7 @@ class Impostazioni(Test):
         ).click() #click su aggiungi
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatodocumento-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click() #cambia stato
 
         self.wait_driver.until(
@@ -226,7 +226,7 @@ class Impostazioni(Test):
         ).click() #click su aggiungi
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatodocumento-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click() #cambia stato
 
         self.wait_driver.until(
@@ -294,7 +294,7 @@ class Impostazioni(Test):
         ).click() #click su aggiungi
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatodocumento-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click() #cambia stato
 
         self.wait_driver.until(
@@ -405,7 +405,7 @@ class Impostazioni(Test):
         ).click() #click su aggiungi
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatodocumento-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click() #cambia stato
 
         self.wait_driver.until(
@@ -475,7 +475,7 @@ class Impostazioni(Test):
         ).click() #click su aggiungi
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatodocumento-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click() #cambia stato
 
         self.wait_driver.until(
@@ -551,7 +551,7 @@ class Impostazioni(Test):
         ).click() #click su aggiungi
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatodocumento-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click() #cambia stato
 
         self.wait_driver.until(
@@ -628,7 +628,7 @@ class Impostazioni(Test):
         ).click() #click su aggiungi
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatodocumento-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click() #cambia stato
 
         self.wait_driver.until(
@@ -721,7 +721,7 @@ class Impostazioni(Test):
         ).click() #click su aggiungi
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatodocumento-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click() #cambia stato
 
         self.wait_driver.until(
@@ -809,7 +809,7 @@ class Impostazioni(Test):
         ).click() #click su aggiungi
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatodocumento-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click() #cambia stato
 
         self.wait_driver.until(
@@ -933,7 +933,7 @@ class Impostazioni(Test):
         ).click() #click su aggiungi
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatodocumento-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click() #cambia stato
 
         self.wait_driver.until(
@@ -1034,7 +1034,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatodocumento-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Emessa")
 
@@ -1131,7 +1131,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idstatodocumento-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
         ).click()
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Emessa")
 

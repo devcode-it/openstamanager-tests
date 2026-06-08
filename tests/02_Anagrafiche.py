@@ -43,7 +43,7 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//*[@id="select2-tipo-container"]')
 
         self.wait_for_dropdown_and_select(
-            '(//input[@class="select2-search__field"])[3]',
+            '//input[@class="select2-search__field"]',
             option_text=tipologia
         )
 
@@ -108,8 +108,8 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('(//a[@class="btn dropdown-item bound clickable"])[1]')
 
         self.wait_for_dropdown_and_select(
-            '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[8]',
-            '(//li[@class="select2-results__option"])'
+            '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[6]',
+            '//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]'
         )
 
         description_field = self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[2]')
@@ -146,12 +146,8 @@ class Anagrafiche(Test):
         modal = self.wait_modal()
 
         self.wait_for_dropdown_and_select(
-            '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[4]',
-            '(//li[@class="select2-results__option"])'
-        )
-        self.wait_for_dropdown_and_select(
-            '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[5]',
-            '(//li[@class="select2-results__option"])'
+            '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[2]',
+            '//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]'
         )
 
         self.input(modal, 'Nome').setValue("Preventivo di prova anagrafica")
@@ -163,7 +159,7 @@ class Anagrafiche(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
-        quote_text = self.find(By.XPATH, '(//div[@class="card-body"]//li)[8]').text
+        quote_text = self.find(By.XPATH, '//div[@id="documenti-collegati-body"]//li').text
         self.assertEqual("Preventivo 1", quote_text[0:12])
 
         self.wait_for_element_and_click('(//div[@class="card-body"]//li//a)[5]')
@@ -190,10 +186,6 @@ class Anagrafiche(Test):
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue("Contratto di prova anagrafica")
-        self.wait_for_dropdown_and_select(
-            '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[2]',
-            '(//li[@class="select2-results__option"])'
-        )
         self.wait_for_element_and_click('(//div[@id="form_31-"]//button[@class="btn btn-primary"])')
 
         self.close_tour()
@@ -222,7 +214,7 @@ class Anagrafiche(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
-        order_text = self.find(By.XPATH, '(//div[@class="card-body"]//li)[8]').text
+        order_text = self.find(By.XPATH, '//div[@id="documenti-collegati-body"]//li').text
         self.assertEqual("Ordine cliente 01", order_text[0:17])
 
         self.wait_for_element_and_click('(//div[@class="card-body"]//li//a)[5]')
@@ -250,8 +242,8 @@ class Anagrafiche(Test):
         modal = self.wait_modal()
 
         self.wait_for_dropdown_and_select(
-            '(//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"])[3]',
-            '(//li[@class="select2-results__option"])'
+            '//form[@id="add-form"]//span[@class="select2-selection select2-selection--single"]',
+            '//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]'
         )
 
         self.wait_for_element_and_click('(//div[@id="form_26-"]//button[@class="btn btn-primary"])')
@@ -291,7 +283,7 @@ class Anagrafiche(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
-        invoice_text = self.find(By.XPATH, '(//div[@class="card-body"]//li)[8]').text
+        invoice_text = self.find(By.XPATH, '//div[@id="documenti-collegati-body"]//li').text
         self.assertEqual("Fattura immediata di vendita", invoice_text[0:28])
 
         self.wait_for_element_and_click('(//div[@class="card-body"]//li//a)[5]')

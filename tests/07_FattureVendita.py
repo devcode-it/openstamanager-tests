@@ -122,9 +122,9 @@ class FattureVendita(Test):
 
         self.wait_for_element_and_click('//*[@id="conto2-2"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto2-2"]')
-        self.wait_for_element_and_click('//*[@id="movimenti-125"]//*[@class="fa fa-plus"]')
-        self.wait_for_expanded_element('//*[@id="conto_125"]')
-        conto_cliente = self.find(By.XPATH, '//*[@id="conto_125"]//*[@class="text-right"]').text
+        self.wait_for_element_and_click('//*[@id="movimenti-131"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto_131"]')
+        conto_cliente = self.find(By.XPATH, '//*[@id="conto_131"]//*[@class="text-right"]').text
 
         self.wait_for_element_and_click('//*[@id="conto2-22"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto2-22"]')
@@ -224,9 +224,9 @@ class FattureVendita(Test):
 
         self.wait_for_element_and_click('//*[@id="conto2-2"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto2-2"]')
-        self.wait_for_element_and_click('//*[@id="movimenti-125"]//*[@class="fa fa-plus"]')
-        self.wait_for_expanded_element('//*[@id="conto_125"]')
-        conto_cliente = self.find(By.XPATH, '//*[@id="conto_125"]//*[@class="text-right"]').text
+        self.wait_for_element_and_click('//*[@id="movimenti-131"]//*[@class="fa fa-plus"]')
+        self.wait_for_expanded_element('//*[@id="conto_131"]')
+        conto_cliente = self.find(By.XPATH, '//*[@id="conto_131"]//*[@class="text-right"]').text
 
         self.wait_for_element_and_click('//*[@id="conto2-22"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto2-22"]')
@@ -286,7 +286,7 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('(//button[@class="btn btn-primary"])[2]')
 
         self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idstatodocumento-container"]',
+            '//span[@id="select2-id_stato-container"]',
             option_text='Emessa')
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 

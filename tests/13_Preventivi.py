@@ -35,6 +35,7 @@ class Preventivi(Test):
         select = self.input(modal, 'Tipo di Attività')
         select.setByIndex(idtipo)
         modal.find_element(By.XPATH, './/button[@type="submit"]').click()
+        self.close_tour()
 
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
@@ -105,7 +106,7 @@ class Preventivi(Test):
         self.wait_for_element_and_click('//div[@id="pulsanti"]//button[@class="btn btn-info dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"][@data-title="Crea contratto"]')
         self.wait_for_element_and_click('//span[@id="select2-id_segment-container"]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
         totalecontratto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
@@ -134,7 +135,7 @@ class Preventivi(Test):
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"][@data-title="Crea ordine cliente"]')
         self.wait_for_element_and_click('//span[@id="select2-id_segment-container"]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
         totaleordinecliente = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
@@ -161,10 +162,10 @@ class Preventivi(Test):
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"][@data-title="Crea ordine fornitore"]')
-        self.wait_for_element_and_click('(//span [@id="select2-idanagrafica-container"])[2]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('(//span [@id="select2-id_anagrafica-container"])[2]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//span[@id="select2-id_segment-container"]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
         totaleordinefornitore = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
@@ -193,12 +194,12 @@ class Preventivi(Test):
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"][@data-title="Crea attività"]')
-        self.wait_for_element_and_click('//span[@id="select2-id_tipo_intervento-container"]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
-        self.wait_for_element_and_click('//span[@id="select2-id_stato_intervento-container"]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option"]')
+        self.wait_for_element_and_click('(//span[@id="select2-id_tipo_intervento-container"])[2]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('(//span[@id="select2-id_stato-container"])[2]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//span[@id="select2-id_segment-container"]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
         totaleattività = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
@@ -228,9 +229,9 @@ class Preventivi(Test):
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"][@data-title="Crea DDT in uscita"]')
         self.wait_for_element_and_click('//span[@id="select2-id_causale_trasporto-container"]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//span[@id="select2-id_segment-container"]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
         totaleddtuscita = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text

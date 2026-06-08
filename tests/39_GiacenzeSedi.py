@@ -34,7 +34,7 @@ class GiacenzeSedi(Test):
         citta_field.click()
         citta_field.send_keys("Roma")
 
-        self.wait_for_dropdown_and_select('(//span[@id="select2-id_nazione-container"])[2]', option_xpath='//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_dropdown_and_select('(//span[@id="select2-id_nazione-container"])[2]', option_xpath='//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('(//div[@id="form_2-4"]//i[@class="fa fa-plus"])[4]')
 
     def creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):
@@ -47,7 +47,7 @@ class GiacenzeSedi(Test):
 
         select = self.input(modal, 'Destinatario')
         select.setByText(cliente)
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--highlighted"]')
+        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
 
         select = self.input(modal, 'Causale trasporto')
         select.setByText(causale)
@@ -58,8 +58,8 @@ class GiacenzeSedi(Test):
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-idsede_destinazione-container"]', option_text='Roma')
-        self.wait_for_dropdown_and_select('//span[@id="select2-idstatoddt-container"]', option_text='Evaso')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_sede_destinazione-container"]', option_text='Roma')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='Evaso')
 
         self.wait_for_element_and_click('//button[@id="save"]')
 

@@ -25,6 +25,7 @@ class OrdiniCliente(Test):
         select = self.input(modal, 'Cliente')
         select.setByText(cliente)
         modal.find_element(By.XPATH, './/button[@type="submit"]').click()
+        self.close_tour()
 
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
@@ -38,7 +39,7 @@ class OrdiniCliente(Test):
         self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.driver.execute_script('window.scrollTo(0,0)')
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-idstatoordine-container"]', option_text='Accettato')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='Accettato')
         self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
 
         sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
