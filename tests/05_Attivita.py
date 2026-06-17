@@ -16,10 +16,9 @@ class Attivita(Test):
         self._verifica_attività()
 
     def _attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
-        self.navigateTo('Attività')
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
-        modal = self.wait_modal()
-        self.input(modal, 'Cliente').setByText(cliente)
+        self.navigateToAndWait('Attività')
+
+        modal = self.open_and_fill_modal({'Cliente': f'text:{cliente}'})
         self.input(modal, 'Tipo').setByIndex(tipo)
         description_field = self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')
         description_field.click()
@@ -30,7 +29,7 @@ class Attivita(Test):
         self.valori = row_manager.compile(file_importi)
 
     def _duplica_attività(self):
-        self.navigateTo('Attività')
+        self.navigateToAndWait('Attività')
         self.click_first_result()
 
         self.wait_for_element_and_click('//button[@onclick="duplicaIntervento()"]')
@@ -41,49 +40,43 @@ class Attivita(Test):
         self.wait_for_element_and_click('//div[@class="modal-content"]//button[@type="submit"]')
 
     def _modifica_attività(self, modifica: str):
-        self.navigateTo('Attività')
-        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal=False)
-        self.click_first_result()
+        self.navigateToAndWait('Attività')
+        self.search_by_th_and_click_first("th_Numero", '1')
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_stato-container"]',
             option_text=modifica
         )
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
-        self.navigateTo('Attività')
+        self.click_save_button()
+        self.navigateToAndWait('Attività')
         self.clear_filters()
 
     def _elimina_attività(self):
-        self.navigateTo('Attività')
-        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal=False)
-        self.click_first_result()
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.navigateTo('Attività')
+        self.navigateToAndWait('Attività')
+        self.search_by_th_and_click_first("th_Numero", '2')
+        self.delete_current_and_clear()
+
+        self.navigateToAndWait('Attività')
         self.clear_filters()
 
     def _controllo_righe(self):
-        self.navigateTo('Attività')
-        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal=False)
-        self.click_first_result()
+        self.navigateToAndWait('Attività')
+        self.search_by_th_and_click_first("th_Numero", '1')
 
-        imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]').text
-        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
-        totale = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        imponibile = self.get_row_cell_text('righe', 2, 1, 2)
+        sconto = self.get_row_cell_text('righe', 2, 2, 2)
+        totale = self.get_row_cell_text('righe', 2, 3, 2)
 
         self.assertEqual(imponibile, (self.valori['Imponibile'] + ' €'))
         self.assertEqual(sconto, (self.valori['Sconto/maggiorazione'] + ' €'))
         self.assertEqual(totale, (self.valori['Totale imponibile'] + ' €'))
 
-        imponibilefinale = self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[1]//td[2]').text
-        scontofinale = self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[2]//td[2]').text
-        totaleimpfinale = self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[3]//td[2]').text
-        iva = self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[4]//td[2]').text
-        totalefinale = self.find(By.XPATH, '//div[@id="costi"]//tbody[2]//tr[5]//td[2]').text
+        imponibilefinale = self.get_row_cell_text('costi', 2, 1, 2)
+        scontofinale = self.get_row_cell_text('costi', 2, 2, 2)
+        totaleimpfinale = self.get_row_cell_text('costi', 2, 3, 2)
+        iva = self.get_row_cell_text('costi', 2, 4, 2)
+        totalefinale = self.get_row_cell_text('costi', 2, 5, 2)
 
         self.assertEqual(imponibilefinale, imponibile)
         self.assertEqual(scontofinale, sconto)
@@ -91,19 +84,14 @@ class Attivita(Test):
         #self.assertEqual(iva, (self.valori['IVA'] + ' €'))
         #self.assertEqual(totalefinale, (self.valori['Totale documento'] + ' €'))
 
-        self.navigateTo('Attività')
+        self.navigateToAndWait('Attività')
         self.clear_filters()
 
     def _verifica_attività(self):
-        self.navigateTo('Attività')
-        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal=False)
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[7]').text
+        self.navigateToAndWait('Attività')
+        self.search_by_th("th_Numero", '1')
+        modificato = self.get_table_text(1, 7)
         self.assertEqual('Completato', modificato)
         self.clear_filters()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal=False)
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual('Nessun dato presente nella tabella', eliminato)
-        self.clear_filters()
+        self.verify_deleted_by_th("th_Numero", '2')

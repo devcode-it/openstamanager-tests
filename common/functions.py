@@ -30,9 +30,10 @@ class TestHelperMixin:
         """Click on the first result in the search results."""
         click_first_result(self.driver, self.wait_driver)
 
-    def wait_for_filter_cleared(self) -> None:
-        """Wait for filters to be cleared."""
-        wait_for_filter_cleared(self.driver, self.wait_driver)
+    def search_entity_and_click_first(self, name: str) -> None:
+        """Search for an entity and click on the first result."""
+        self.search_entity(name)
+        self.click_first_result()
 
     def clear_filters(self) -> None:
         """Clear all filters."""
@@ -66,6 +67,158 @@ class TestHelperMixin:
     def wait_for_expanded_element(self, selector: str, by: By = By.XPATH) -> WebElement:
         """Wait for an element to be fully expanded and visible after an animation."""
         return wait_for_expanded_element(self.driver, self.wait_driver, selector, by)
+
+    def navigateToAndWait(self, name: str) -> None:
+        """Navigate to a module and wait for it to load."""
+        from selenium.webdriver.common.by import By
+        from selenium.webdriver.support import expected_conditions as EC
+
+        self.logger.info(f"Navigating to module: {name}")
+        try:
+            condition = EC.visibility_of_element_located((By.CLASS_NAME, 'sidebar'))
+            self.wait(condition)
+
+            xpath_expressions = [
+                f'//a[p/span[@class="menu-text" and text()="{name}"]]',
+                f'//a[p/span[@class="menu-text" and normalize-space(text())="{name}"]]',
+                f'//a[p[text()="{name}"]]',
+                f'//a[p[normalize-space(text())="{name}"]]'
+            ]
+
+            max_retries = 3
+            for attempt in range(max_retries):
+                element = None
+                for xpath in xpath_expressions:
+                    try:
+                        element = self.driver.find_element(By.XPATH, xpath)
+                        break
+                    except:
+                        continue
+
+                if element is None:
+                    raise Exception(f"Could not find navigation element for: {name}")
+
+                try:
+                    self.driver.execute_script("arguments[0].scrollIntoView();", element)
+                    element.click()
+                    break
+                except StaleElementReferenceException:
+                    if attempt == max_retries - 1:
+                        raise
+                    continue
+
+            self.wait_loader()
+        except Exception as e:
+            self.logger.error(f"Failed to navigate to {name}: {str(e)}")
+            raise
+
+    def search_by_th(self, th_id: str, text: str, wait_modal: bool = False) -> None:
+        """Search in a specific column by th id and send text."""
+        from selenium.webdriver.common.by import By
+        search_input = self.driver.find_element(By.XPATH, f'//th[@id="{th_id}"]/input')
+        self.send_keys_and_wait(search_input, text, wait_modal)
+
+    def search_by_th_and_click_first(self, th_id: str, text: str, wait_modal: bool = False) -> None:
+        """Search in a specific column by th id and click the first result."""
+        self.search_by_th(th_id, text, wait_modal)
+        self.click_first_result()
+
+    def delete_current_and_clear(self) -> None:
+        """Delete the current element and clear filters."""
+        self.wait_for_element_and_click('//a[contains(@class, "btn btn-danger ask")]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.clear_filters()
+
+    def verify_deleted_by_th(self, th_id: str, text: str) -> None:
+        """Verify that an element has been deleted by searching for it."""
+        from selenium.webdriver.common.by import By
+        self.search_by_th(th_id, text, wait_modal=False)
+        eliminato = self.driver.find_element(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        self.assertEqual("Nessun dato presente nella tabella", eliminato)
+        self.clear_filters()
+
+    def click_add_button(self) -> WebElement:
+        """Click on the add button (+ icon)."""
+        return self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+
+    def click_save_button(self) -> WebElement:
+        """Click on the save button in the current tab."""
+        return self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+
+    def click_first_table_row(self) -> WebElement:
+        """Click on the first row in the results table."""
+        return self.wait_for_element_and_click('//tbody//tr//td[2]')
+
+    def open_and_fill_modal(self, inputs: dict) -> None:
+        """Open modal with add button and fill multiple inputs.
+        
+        Args:
+            inputs: Dictionary of field_name -> value pairs
+        """
+        self.click_add_button()
+        modal = self.wait_modal()
+        for field_name, value in inputs.items():
+            if isinstance(value, str) and value.startswith('index:'):
+                self.input(modal, field_name).setByIndex(int(value.split(':')[1]))
+            elif isinstance(value, str) and value.startswith('text:'):
+                self.input(modal, field_name).setByText(value.split(':', 1)[1])
+            else:
+                self.input(modal, field_name).setValue(value)
+        return modal
+
+    def submit_modal(self, modal=None) -> None:
+        """Submit the current modal form."""
+        if modal is None:
+            modal = self.driver.find_elements(By.CSS_SELECTOR, '.modal')[-1]
+        modal.find_element(By.XPATH, './/button[@type="submit"]').click()
+        self.wait_loader()
+
+    def select_state(self, state_text: str) -> None:
+        """Select a state from the state dropdown."""
+        self.wait_for_dropdown_and_select(
+            '//span[@id="select2-id_stato-container"]',
+            option_text=state_text
+        )
+
+    def click_back_button(self) -> WebElement:
+        """Click on the back button."""
+        return self.wait_for_element_and_click('//a[@id="back"]')
+
+    def wait_and_click_table_row(self, row_num: int = 1, col_num: int = 2) -> WebElement:
+        """Wait for and click a specific table row.
+        
+        Args:
+            row_num: Row number (1-indexed)
+            col_num: Column number to click (1-indexed)
+        """
+        return self.wait_for_element_and_click(f'//tbody//tr[{row_num}]//td[{col_num}]')
+
+    def get_table_text(self, row_num: int, col_num: int) -> str:
+        """Get text from a specific table cell."""
+        from selenium.webdriver.common.by import By
+        return self.driver.find_element(By.XPATH, f'//tbody//tr[{row_num}]//td[{col_num}]').text
+
+    def get_empty_table_message(self) -> str:
+        """Get the empty table message."""
+        from selenium.webdriver.common.by import By
+        return self.driver.find_element(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
+
+    def get_row_cell_text(self, row_id: str, tbody_num: int = 2, row_num: int = 1, col_num: int = 2) -> str:
+        """Get text from a specific cell in a row section.
+        
+        Args:
+            row_id: The ID of the row section (e.g., 'righe', 'costi')
+            tbody_num: The tbody number (default: 2)
+            row_num: The row number (default: 1)
+            col_num: The column number (default: 2)
+        """
+        from selenium.webdriver.common.by import By
+        xpath = f'//div[@id="{row_id}"]//tbody[{tbody_num}]//tr[{row_num}]//td[{col_num}]'
+        return self.driver.find_element(By.XPATH, xpath).text
+
+    def click_duplicate_button(self) -> WebElement:
+        """Click on the duplicate button in pulsanti section."""
+        return self.wait_for_element_and_click('//div[@id="pulsanti"]//button[@class="btn btn-primary ask"]')
 
 
 def random_string(size: int = 32, chars: str = string.ascii_letters + string.digits) -> str:

@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class Anagrafiche(Test):
     def setUp(self):
         super().setUp()
-        self.navigateTo("Anagrafiche")
+        self.navigateToAndWait("Anagrafiche")
 
     def test_creazione_anagrafica(self):
         self._add_anagrafica('Cliente', 'Cliente')
@@ -27,18 +27,13 @@ class Anagrafiche(Test):
         self._crea_fattura_vendita()
 
     def _add_anagrafica(self, nome: str, tipo: str):
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
-        modal = self.wait_modal()
-        self.input(modal, 'Denominazione').setValue(nome)
+        modal = self.open_and_fill_modal({'Denominazione': nome})
         self.input(modal, 'Tipo di anagrafica').setByText(tipo)
-        modal.find_element(By.XPATH, './/div[@class="modal-footer"]//button[@type="submit"]').click()
-        self.wait_loader()
+        self.submit_modal(modal)
 
     def _modifica_anagrafica(self, tipologia: str):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigateToAndWait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//*[@id="select2-tipo-container"]')
 
@@ -56,53 +51,34 @@ class Anagrafiche(Test):
         address_field.clear()
         self.send_keys_and_wait(address_field, "Via controllo caratteri speciali: &\"<>èéàòùì?'`", wait_modal=False)
 
-        self.wait_for_element_and_click('//button[@id="save"]')
-        self.wait_loader()
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.click_save_button()
+        self.navigateToAndWait("Anagrafiche")
         self.clear_filters()
 
     def _elimina_anagrafica(self):
-        self.navigateTo("Anagrafiche")
+        self.navigateToAndWait("Anagrafiche")
+        self.search_entity_and_click_first('Anagrafica di Prova da Eliminare')
         self.wait_loader()
-        self.search_entity('Anagrafica di Prova da Eliminare')
-        self.click_first_result()
-        self.wait_loader()
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
+        self.delete_current_and_clear()
 
     def _verifica_anagrafica(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigateToAndWait("Anagrafiche")
         self.clear_filters()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Tipologia"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Privato", wait_modal=False)
+        self.search_by_th("th_Tipologia", "Privato")
         self.wait_for_search_results()
 
-        entity_name = self.find(By.XPATH, '//tbody//tr//td[2]').text
+        entity_name = self.get_table_text(1, 2)
         self.assertEqual("Cliente", entity_name)
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigateToAndWait("Anagrafiche")
         self.clear_filters()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Anagrafica di Prova da Eliminare", wait_modal=False)
-        self.wait_for_search_results()
-
-        no_results_message = self.find(By.XPATH, '//tbody//tr//td[1]').text
-        self.assertEqual("Nessun dato presente nella tabella", no_results_message)
-        self.clear_filters()
+        self.verify_deleted_by_th("th_Ragione-sociale", "Anagrafica di Prova da Eliminare")
 
     def _crea_attivita(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigateToAndWait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle"]')
         self.wait_for_element_and_click('(//a[@class="btn dropdown-item bound clickable"])[1]')
@@ -118,28 +94,23 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//div[@class="col-md-12 text-right"]//button[@type="button"]')
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigateToAndWait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//a[@id="link-tab_28"]')
         activity_number = self.find(By.XPATH, '//div[@id="tab_28"]//tbody//tr//td[2]').text
         self.assertEqual("1", activity_number)
 
-        self.wait_for_element_and_click('//div[@id="tab_28"]//tbody//td[2]')
+        self.click_first_table_row()
         self.close_tour()
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
-        self.navigateTo("Anagrafiche")
+        self.navigateToAndWait("Anagrafiche")
         self.clear_filters()
 
     def _crea_preventivo(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigateToAndWait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle"]')
         self.wait_for_element_and_click('(//a[@class="btn dropdown-item bound clickable"])[2]')
@@ -153,8 +124,7 @@ class Anagrafiche(Test):
         self.input(modal, 'Nome').setValue("Preventivo di prova anagrafica")
         self.wait_for_element_and_click('(//div[@id="form_13-"]//button[@class="btn btn-primary"])')
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigateToAndWait("Anagrafiche")
         self.search_entity("Cliente")
         self.click_first_result()
 
@@ -166,20 +136,16 @@ class Anagrafiche(Test):
         self.wait(lambda driver: len(driver.window_handles) > 1)
         self.driver.switch_to.window(self.driver.window_handles[1])
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_loader()
+        self.delete_current_and_clear()
 
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
-        self.navigateTo("Anagrafiche")
+        self.navigateToAndWait("Anagrafiche")
         self.clear_filters()
 
     def _crea_contratto(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigateToAndWait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle"]')
         self.wait_for_element_and_click('(//a[@class="btn dropdown-item bound clickable"])[3]')
@@ -190,17 +156,14 @@ class Anagrafiche(Test):
 
         self.close_tour()
         
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
-        self.navigateTo("Anagrafiche")
+        self.navigateToAndWait("Anagrafiche")
         self.clear_filters()
 
     def _crea_ordine_cliente(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigateToAndWait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle"]')
         self.wait_for_element_and_click('(//a[@class="btn dropdown-item bound clickable"])[4]')
@@ -208,10 +171,8 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('(//div[@id="form_24-"]//button[@class="btn btn-primary"])')
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigateToAndWait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
         order_text = self.find(By.XPATH, '//div[@id="documenti-collegati-body"]//li').text
@@ -222,20 +183,16 @@ class Anagrafiche(Test):
         self.driver.switch_to.window(self.driver.window_handles[1])
 
         self.close_tour()
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigateToAndWait("Anagrafiche")
         self.clear_filters()
 
     def _crea_DDT_uscita(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigateToAndWait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle"]')
         self.wait_for_element_and_click('(//a[@class="btn dropdown-item bound clickable"])[5]')
@@ -248,10 +205,8 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('(//div[@id="form_26-"]//button[@class="btn btn-primary"])')
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigateToAndWait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//a[@id="link-tab_17"]')
         ddt_number = self.find(By.XPATH, '//div[@id="tab_17"]//tbody//td[2]').text
@@ -261,26 +216,21 @@ class Anagrafiche(Test):
 
         self.close_tour()
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
-        self.navigateTo("Anagrafiche")
+        self.navigateToAndWait("Anagrafiche")
         self.clear_filters()
 
     def _crea_fattura_vendita(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigateToAndWait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle"]')
         self.wait_for_element_and_click('(//a[@class="btn dropdown-item bound clickable"])[6]')
         self.wait_for_element_and_click('(//div[@id="form_14-"]//button[@class="btn btn-primary"])')
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigateToAndWait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
         invoice_text = self.find(By.XPATH, '//div[@id="documenti-collegati-body"]//li').text
@@ -294,9 +244,7 @@ class Anagrafiche(Test):
 
         self.close_tour()
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigateToAndWait("Anagrafiche")
         self.clear_filters()

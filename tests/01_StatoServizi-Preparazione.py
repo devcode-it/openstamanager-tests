@@ -10,8 +10,7 @@ class StatoServizi(Test):
 
     def _attiva_moduli(self):
         self.expandSidebar("Strumenti")
-        self.navigateTo("Stato dei servizi")
-        self.wait_loader()
+        self.navigateToAndWait("Stato dei servizi")
         
         for i in range(3):
             self.wait_for_element_and_click('//button[@onclick="abilitaSottoModuli(this)"]')
@@ -19,10 +18,9 @@ class StatoServizi(Test):
             self.wait_for_element_and_click('//div[@class="toast-message"]')
 
     def _compila_azienda(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigateToAndWait("Anagrafiche")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.close_tour()
         
         self._compila_campi_azienda({
@@ -49,9 +47,9 @@ class StatoServizi(Test):
         self._compila_anagrafica_estera("Cliente Estero", "05024030288", "Germania", "Monaco")
 
     def _crea_anagrafica(self, nome: str, tipo: str):
-        self.navigateTo("Anagrafiche")
+        self.navigateToAndWait("Anagrafiche")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
         self.input(modal, 'Denominazione').setValue(nome)
         self.input(modal, 'Tipo di anagrafica').setByText(tipo)
@@ -59,7 +57,7 @@ class StatoServizi(Test):
         self.wait_loader()
 
     def _compila_anagrafica_estera(self, nome: str, piva: str, nazione: str, citta: str):
-        self.navigateTo("Anagrafiche")
+        self.navigateToAndWait("Anagrafiche")
 
         self.search_entity(nome)
 
@@ -86,8 +84,7 @@ class StatoServizi(Test):
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigateToAndWait("Anagrafiche")
 
     def _compila_campi_azienda(self, campi: dict):
         for campo, valore in campi.items():

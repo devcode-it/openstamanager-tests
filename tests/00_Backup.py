@@ -11,8 +11,7 @@ class Backup(Test):
         self._create_backup()
 
     def _navigate_to_backup(self):
-        self.navigateTo("Backup")
-        self.wait_loader()
+        self.navigateToAndWait("Backup")
 
     def _create_backup(self):
         self.wait_for_element_and_click('//a[@onclick="creaBackup(this)"]')

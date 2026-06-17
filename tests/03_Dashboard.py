@@ -11,8 +11,7 @@ class Dashboard(Test):
         self._verify_activity()
 
     def _create_activity(self):
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigateToAndWait("Dashboard")
 
         actions = ActionChains(self.driver)
         calendar = self.find(By.XPATH, '//div[@id="calendar"]')
@@ -36,8 +35,7 @@ class Dashboard(Test):
 
         self.wait_for_element_and_click('//div[@class="col-md-12 text-right"]//button[@type="button"]')
 
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigateToAndWait("Dashboard")
 
         self.wait_for_element_and_click('//div[@class="tab-content"]//div[@class="row"]//div[@id="dashboard_tecnici"]//button[@type="button"]')
         self.wait_for_element_and_click('//div[@id="dashboard_tecnici"]//button[@class="btn btn-primary btn-sm seleziona_tutto"]')
@@ -46,24 +44,20 @@ class Dashboard(Test):
         self.assertEqual(activity_text, expected_text)
 
     def _verify_activity(self):
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigateToAndWait("Attività")
 
         search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, "1", wait_modal=False)
 
-        technician_name = self.find(By.XPATH, '//tbody//tr[1]//td[12]').text
+        technician_name = self.get_table_text(1, 12)
         self.assertEqual("Stefano Bianchi", technician_name)
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigateToAndWait("Attività")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.click_first_table_row()
+        self.delete_current_and_clear()
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigateToAndWait("Attività")
 
-        empty_message = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        empty_message = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", empty_message)

@@ -15,10 +15,9 @@ class Articoli(Test):
         self._verifica_articolo()
 
     def _creazione_articolo(self, codice: str, descrizione: str, qta: str):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigateToAndWait("Articoli")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Codice').setValue(codice)
@@ -31,21 +30,17 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@type="submit"]')
 
     def _modifica_articolo(self, acquisto: str, coefficiente: str):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigateToAndWait("Articoli")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
-        self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
-
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Descrizione", 'Articolo 1')
 
         self.close_tour()
 
         self.input(None, 'Prezzo di acquisto').setValue(acquisto)
         self.input(None, 'Coefficiente').setValue(coefficiente)
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
-        self.wait_for_element_and_click('//a[@id="back"]')
+        self.click_save_button()
+        self.click_back_button()
 
         verificaqta = self.find(By.XPATH, '//div[@id="tab_0"]//tbody//td[10]//div[1][1]').text
         self.assertEqual(verificaqta, "2,00")
@@ -53,33 +48,19 @@ class Articoli(Test):
         self.clear_filters()
 
     def _elimina_articolo(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigateToAndWait("Articoli")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
-        self.send_keys_and_wait(search_input, 'Articolo di Prova da Eliminare', wait_modal=False)
+        self.search_by_th_and_click_first("th_Descrizione", 'Articolo di Prova da Eliminare')
 
-        self.click_first_result()
-
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-
-        self.clear_filters()
+        self.delete_current_and_clear()
 
     def _verifica_articolo(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigateToAndWait("Articoli")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Codice"]/input')
-        self.send_keys_and_wait(search_input, '001', wait_modal=False)
+        self.search_by_th("th_Codice", '001')
 
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[9]').text
+        modificato = self.get_table_text(1, 9)
         self.assertEqual("20,00", modificato)
         self.clear_filters()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
-        self.send_keys_and_wait(search_input, 'Articolo di prova da Eliminare', wait_modal=False)
-
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[1]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
-        self.clear_filters()
+        self.verify_deleted_by_th("th_Descrizione", 'Articolo di prova da Eliminare')
