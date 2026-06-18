@@ -16,7 +16,7 @@ class Attivita(Test):
         self._verifica_attività()
 
     def _attivita(self, cliente: str, tipo: str, stato: str, file_importi: str):
-        self.navigateToAndWait('Attività')
+        self.navigate_to_and_wait('Attività')
 
         modal = self.open_and_fill_modal({'Cliente': f'text:{cliente}'})
         self.input(modal, 'Tipo').setByIndex(tipo)
@@ -29,7 +29,7 @@ class Attivita(Test):
         self.valori = row_manager.compile(file_importi)
 
     def _duplica_attività(self):
-        self.navigateToAndWait('Attività')
+        self.navigate_to_and_wait('Attività')
         self.click_first_result()
 
         self.wait_for_element_and_click('//button[@onclick="duplicaIntervento()"]')
@@ -40,7 +40,7 @@ class Attivita(Test):
         self.wait_for_element_and_click('//div[@class="modal-content"]//button[@type="submit"]')
 
     def _modifica_attività(self, modifica: str):
-        self.navigateToAndWait('Attività')
+        self.navigate_to_and_wait('Attività')
         self.search_by_th_and_click_first("th_Numero", '1')
 
         self.wait_for_dropdown_and_select(
@@ -49,19 +49,19 @@ class Attivita(Test):
         )
 
         self.click_save_button()
-        self.navigateToAndWait('Attività')
+        self.navigate_to_and_wait('Attività')
         self.clear_filters()
 
     def _elimina_attività(self):
-        self.navigateToAndWait('Attività')
+        self.navigate_to_and_wait('Attività')
         self.search_by_th_and_click_first("th_Numero", '2')
         self.delete_current_and_clear()
 
-        self.navigateToAndWait('Attività')
+        self.navigate_to_and_wait('Attività')
         self.clear_filters()
 
     def _controllo_righe(self):
-        self.navigateToAndWait('Attività')
+        self.navigate_to_and_wait('Attività')
         self.search_by_th_and_click_first("th_Numero", '1')
 
         imponibile = self.get_row_cell_text('righe', 2, 1, 2)
@@ -84,11 +84,11 @@ class Attivita(Test):
         #self.assertEqual(iva, (self.valori['IVA'] + ' €'))
         #self.assertEqual(totalefinale, (self.valori['Totale documento'] + ' €'))
 
-        self.navigateToAndWait('Attività')
+        self.navigate_to_and_wait('Attività')
         self.clear_filters()
 
     def _verifica_attività(self):
-        self.navigateToAndWait('Attività')
+        self.navigate_to_and_wait('Attività')
         self.search_by_th("th_Numero", '1')
         modificato = self.get_table_text(1, 7)
         self.assertEqual('Completato', modificato)

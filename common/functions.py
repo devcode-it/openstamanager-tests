@@ -68,7 +68,7 @@ class TestHelperMixin:
         """Wait for an element to be fully expanded and visible after an animation."""
         return wait_for_expanded_element(self.driver, self.wait_driver, selector, by)
 
-    def navigateToAndWait(self, name: str) -> None:
+    def navigate_to_and_wait(self, name: str) -> None:
         """Navigate to a module and wait for it to load."""
         from selenium.webdriver.common.by import By
         from selenium.webdriver.support import expected_conditions as EC

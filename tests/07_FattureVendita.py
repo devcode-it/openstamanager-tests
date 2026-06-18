@@ -26,10 +26,9 @@ class FattureVendita(Test):
 
 
     def _creazione_fattura_vendita(self, cliente: str, file_importi: str):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         select = self.input(modal, 'Cliente')
@@ -44,23 +43,21 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
     def _modifica_fattura_vendita(self, modifica = str):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.click_first_result()
         self.input(None, 'Stato*').setByText(modifica)
         self.driver.execute_script('window.scrollTo(0,0)')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
     def _controllo_fattura_vendita(self):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
         self.click_first_result()
 
-        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
-        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
-        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
-        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
+        sconto = self.get_row_cell_text('righe', 2, 2, 2)
+        totale_imponibile = self.get_row_cell_text('righe', 2, 3, 2)
+        iva = self.get_row_cell_text('righe', 2, 4, 2)
+        totale = self.get_row_cell_text('righe', 2, 5, 2)
 
         self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"] + ' €'))
         self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"] + ' €'))
@@ -77,15 +74,14 @@ class FattureVendita(Test):
         self.assertEqual(totale, scadenza_scadenzario)
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         widget_fatturato = self.find(By.XPATH, '(//span[@class="info-box-number"])[1]').text
         widget_crediti = self.find(By.XPATH, '(//span[@class="info-box-number"])[2]').text
         self.assertEqual(totale_imponibile, widget_fatturato)
         self.assertEqual(totale, widget_crediti)
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="link-tab_18"]')
         self.wait_for_element_and_click('//div[@class="text-center"]//a[@class="btn btn-info btn-lg "]')
 
@@ -111,8 +107,7 @@ class FattureVendita(Test):
 
         super().setUp()
         self.expandSidebar("Contabilità")
-        self.navigateTo("Piano dei conti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Piano dei conti")
 
         self.wait_for_element_and_click('//*[@id="conto2-20"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto2-20"]')
@@ -138,10 +133,9 @@ class FattureVendita(Test):
         self.expandSidebar("Vendite")
 
     def _creazione_nota_credito(self):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_dropdown_and_select(
             '//button[@class="btn btn-primary unblockable dropdown-toggle "]',
             option_xpath='//a[@class="btn dropdown-item bound clickable"]'
@@ -150,24 +144,22 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
     def _modifica_nota_credito(self, modifica = str):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_for_element_and_click('//tbody//tr[3]//td[2]')
+        self.wait_and_click_table_row(3, 2)
 
         self.input(None,'Stato*').setByText(modifica)
         self.driver.execute_script('window.scrollTo(0,0)')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
     def _controllo_nota_credito(self):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
         self.wait_for_element_and_click('//td[@class="bound clickable"]')
 
-        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        totale_imponibile = self.get_row_cell_text('righe', 2, 3, 2)
         totale_imponibile = '-'+totale_imponibile
-        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
-        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
+        iva = self.get_row_cell_text('righe', 2, 4, 2)
+        totale = self.get_row_cell_text('righe', 2, 5, 2)
 
         scadenza_fattura = self.find(By.XPATH, '//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::p[2]').text
         self.assertEqual(totale, scadenza_fattura[12:21])
@@ -180,8 +172,7 @@ class FattureVendita(Test):
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//tbody//tr[1]//td[2]')
         self.wait_for_element_and_click('//a[@id="link-tab_18"]')
@@ -213,8 +204,7 @@ class FattureVendita(Test):
 
         super().setUp()
         self.expandSidebar("Contabilità")
-        self.navigateTo("Piano dei conti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Piano dei conti")
 
         self.wait_for_element_and_click('//*[@id="conto2-20"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto2-20"]')
@@ -244,28 +234,24 @@ class FattureVendita(Test):
         self.expandSidebar("Vendite")
 
     def _controllo_fattura_nota_credito(self):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
-        fattura = self.find(By.XPATH, '//tbody//tr[2]//td[6]').text
-        notacredito = self.find(By.XPATH, '//tbody//tr[1]//td[6]').text
+        fattura = self.get_table_text(2, 6)
+        notacredito = self.get_table_text(1, 6)
         fattura = '-'+ fattura
         self.assertEqual(fattura, notacredito)
 
     def _elimina_documento(self):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_for_element_and_click('//tbody//tr[3]//td[2]')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_and_click_table_row(3, 2)
+        self.delete_current_and_clear()
 
     def _verifica_fattura_di_vendita(self):
         self.expandSidebar("Acquisti")
-        self.navigateTo("Fatture di acquisto")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di acquisto")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         select = self.input(modal, 'Fornitore')
@@ -288,7 +274,7 @@ class FattureVendita(Test):
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_stato-container"]',
             option_text='Emessa')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary unblockable dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"]')
@@ -298,11 +284,11 @@ class FattureVendita(Test):
 
         self.input(None,'Stato*').setByText("Emessa")
         self.driver.execute_script('window.scrollTo(0,0)')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[1]//td[2]').text
-        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
-        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        totale_imponibile = self.get_row_cell_text('righe', 2, 1, 2)
+        iva = self.get_row_cell_text('righe', 2, 2, 2)
+        totale = self.get_row_cell_text('righe', 2, 3, 2)
 
         self.assertEqual(totale_imponibile, '264,80 €')
         self.assertEqual(iva, '58,26 €')

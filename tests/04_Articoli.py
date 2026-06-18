@@ -15,7 +15,7 @@ class Articoli(Test):
         self._verifica_articolo()
 
     def _creazione_articolo(self, codice: str, descrizione: str, qta: str):
-        self.navigateToAndWait("Articoli")
+        self.navigate_to_and_wait("Articoli")
 
         self.click_add_button()
         modal = self.wait_modal()
@@ -30,7 +30,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@type="submit"]')
 
     def _modifica_articolo(self, acquisto: str, coefficiente: str):
-        self.navigateToAndWait("Articoli")
+        self.navigate_to_and_wait("Articoli")
 
         self.search_by_th_and_click_first("th_Descrizione", 'Articolo 1')
 
@@ -48,14 +48,14 @@ class Articoli(Test):
         self.clear_filters()
 
     def _elimina_articolo(self):
-        self.navigateToAndWait("Articoli")
+        self.navigate_to_and_wait("Articoli")
 
         self.search_by_th_and_click_first("th_Descrizione", 'Articolo di Prova da Eliminare')
 
         self.delete_current_and_clear()
 
     def _verifica_articolo(self):
-        self.navigateToAndWait("Articoli")
+        self.navigate_to_and_wait("Articoli")
 
         self.search_by_th("th_Codice", '001')
 

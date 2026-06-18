@@ -16,8 +16,8 @@ class DdtEntrata(Test):
         self._verifica_ddt()
 
     def _creazione_ddt_entrata(self, fornitore: str, causale: str, file_importi: str):
-        self.navigateTo("Ddt in entrata")
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait("Ddt in entrata")
+        self.click_add_button()
         modal = self.wait_modal()
 
         select = self.input(modal, 'Mittente')
@@ -31,7 +31,7 @@ class DdtEntrata(Test):
         self.valori = row_manager.compile(file_importi)
 
     def _duplica_ddt_entrata(self):
-        self.navigateTo("Ddt in entrata")
+        self.navigate_to_and_wait("Ddt in entrata")
         self.click_first_result()
 
         self.driver.execute_script('window.scrollTo(0,0)')
@@ -39,45 +39,36 @@ class DdtEntrata(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
     def _modifica_ddt(self, modifica):
-        self.navigateTo("Ddt in entrata")
-        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal=False)
-        self.click_first_result()
+        self.navigate_to_and_wait("Ddt in entrata")
+        self.search_by_th_and_click_first("th_Numero", '1')
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='Evaso')
+        self.select_state('Evaso')
 
-        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
-        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
-        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
-        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
+        sconto = self.get_row_cell_text('righe', 2, 2, 2)
+        totale_imponibile = self.get_row_cell_text('righe', 2, 3, 2)
+        iva = self.get_row_cell_text('righe', 2, 4, 2)
+        totale = self.get_row_cell_text('righe', 2, 5, 2)
 
         self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"] + ' €'))
         self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"] + ' €'))
         self.assertEqual(iva, (self.valori["IVA"] + ' €'))
         self.assertEqual(totale, (self.valori["Totale documento"] + ' €'))
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
-        self.navigateTo("Ddt in entrata")
+        self.click_save_button()
+        self.navigate_to_and_wait("Ddt in entrata")
         self.clear_filters()
 
     def _elimina_ddt(self):
-        self.navigateTo("Ddt in entrata")
+        self.navigate_to_and_wait("Ddt in entrata")
         self.click_first_result()
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
+        self.delete_current_and_clear()
 
     def _verifica_ddt(self):
-        self.navigateTo("Ddt in entrata")
-        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, "1", wait_modal=False)
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[11]').text
+        self.navigate_to_and_wait("Ddt in entrata")
+        self.search_by_th("th_Numero", "1")
+        modificato = self.get_table_text(1, 11)
         self.assertEqual("Evaso", modificato)
         self.clear_filters()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, "2", wait_modal=False)
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
-        self.clear_filters()
+        self.verify_deleted_by_th("th_Numero", "2")

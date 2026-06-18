@@ -220,9 +220,14 @@ class Test(unittest.TestCase, TestHelperMixin):
 
     def close_tour(self):
         try:
-            self.wait_for_element_and_click('//button[@class="tour-popover-exit-btn btn btn-default btn-sm"]')
+            from selenium.webdriver.support.ui import WebDriverWait
+            from selenium.webdriver.support import expected_conditions as EC
+            from selenium.webdriver.common.by import By
+            from selenium.common.exceptions import TimeoutException
+            short_wait = WebDriverWait(self.driver, 2)
+            short_wait.until(EC.element_to_be_clickable((By.XPATH, '//button[@class="tour-popover-exit-btn btn btn-default btn-sm"]'))).click()
         except TimeoutException:
-            pass  # Tour popover not visible, skip
+            pass
 
     def wait(self, condition, timeout=20):
         try:

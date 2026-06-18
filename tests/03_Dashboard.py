@@ -11,7 +11,7 @@ class Dashboard(Test):
         self._verify_activity()
 
     def _create_activity(self):
-        self.navigateToAndWait("Dashboard")
+        self.navigate_to_and_wait("Dashboard")
 
         actions = ActionChains(self.driver)
         calendar = self.find(By.XPATH, '//div[@id="calendar"]')
@@ -35,7 +35,7 @@ class Dashboard(Test):
 
         self.wait_for_element_and_click('//div[@class="col-md-12 text-right"]//button[@type="button"]')
 
-        self.navigateToAndWait("Dashboard")
+        self.navigate_to_and_wait("Dashboard")
 
         self.wait_for_element_and_click('//div[@class="tab-content"]//div[@class="row"]//div[@id="dashboard_tecnici"]//button[@type="button"]')
         self.wait_for_element_and_click('//div[@id="dashboard_tecnici"]//button[@class="btn btn-primary btn-sm seleziona_tutto"]')
@@ -44,7 +44,7 @@ class Dashboard(Test):
         self.assertEqual(activity_text, expected_text)
 
     def _verify_activity(self):
-        self.navigateToAndWait("Attività")
+        self.navigate_to_and_wait("Attività")
 
         search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, "1", wait_modal=False)
@@ -52,12 +52,12 @@ class Dashboard(Test):
         technician_name = self.get_table_text(1, 12)
         self.assertEqual("Stefano Bianchi", technician_name)
 
-        self.navigateToAndWait("Attività")
+        self.navigate_to_and_wait("Attività")
 
         self.click_first_table_row()
         self.delete_current_and_clear()
 
-        self.navigateToAndWait("Attività")
+        self.navigate_to_and_wait("Attività")
 
         empty_message = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", empty_message)

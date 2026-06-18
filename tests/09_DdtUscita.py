@@ -18,7 +18,7 @@ class DdtUscita(Test):
 
 
     def _creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):
-        self.navigateTo("Ddt in uscita")
+        self.navigate_to_and_wait("Ddt in uscita")
         self.wait_for_element_and_click( '//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
 
@@ -33,65 +33,53 @@ class DdtUscita(Test):
         self.valori = row_manager.compile(file_importi)
 
     def _duplica_ddt_uscita(self):
-        self.navigateTo("Ddt in uscita")
+        self.navigate_to_and_wait("Ddt in uscita")
         self.click_first_result()
 
         self.wait_for_element_and_click( '//button[@class="btn btn-primary ask"]')
         self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
     def _modifica_ddt(self, modifica):
-        self.navigateTo("Ddt in uscita")
+        self.navigate_to_and_wait("Ddt in uscita")
         self.click_first_result()
 
         self.driver.execute_script('window.scrollTo(0,0)')
-        self.wait_for_dropdown_and_select( '//span[@id="select2-id_stato-container"]', option_text='Evaso')
+        self.select_state('Evaso')
         self.wait_for_element_and_click( '//div[@id="tab_0"]//button[@id="save"]')
 
-        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
-        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
-        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
-        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
+        sconto = self.get_row_cell_text('righe', 2, 2, 2)
+        totale_imponibile = self.get_row_cell_text('righe', 2, 3, 2)
+        iva = self.get_row_cell_text('righe', 2, 4, 2)
+        totale = self.get_row_cell_text('righe', 2, 5, 2)
 
         self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"] + ' €'))
         self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"] + ' €'))
         self.assertEqual(iva, (self.valori["IVA"] + ' €'))
         self.assertEqual(totale, (self.valori["Totale documento"] + ' €'))
 
-        self.navigateTo("Ddt in uscita")
+        self.navigate_to_and_wait("Ddt in uscita")
         self.clear_filters()
 
     def _elimina_ddt(self):
-        self.navigateTo("Ddt in uscita")
-        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '!=01', wait_modal=False)
+        self.navigate_to_and_wait("Ddt in uscita")
+        self.search_by_th_and_click_first("th_Numero", '!=01')
 
-        self.click_first_result()
-        self.wait_for_element_and_click( '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
+        self.delete_current_and_clear()
 
     def _verifica_ddt(self):
-        self.navigateTo("Ddt in uscita")
-        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, "01", wait_modal=False)
+        self.navigate_to_and_wait("Ddt in uscita")
+        self.search_by_th("th_Numero", "01")
 
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[11]').text
+        modificato = self.get_table_text(1, 11)
         self.assertEqual("Evaso", modificato)
         self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, "!=01", wait_modal=False)
-
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.verify_deleted_by_th("th_Numero", "!=01")
+        self.clear_filters()
 
     def _ddt_del_cliente(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-
-        self.search_entity( "Cliente")
-        self.click_first_result()
+        self.navigate_to_and_wait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click( '//a[@id="link-tab_17"]')
         self.wait_for_element_and_click( '//tbody//tr[5]//td[2]')

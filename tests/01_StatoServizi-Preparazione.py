@@ -10,7 +10,7 @@ class StatoServizi(Test):
 
     def _attiva_moduli(self):
         self.expandSidebar("Strumenti")
-        self.navigateToAndWait("Stato dei servizi")
+        self.navigate_to_and_wait("Stato dei servizi")
         
         for i in range(3):
             self.wait_for_element_and_click('//button[@onclick="abilitaSottoModuli(this)"]')
@@ -18,7 +18,7 @@ class StatoServizi(Test):
             self.wait_for_element_and_click('//div[@class="toast-message"]')
 
     def _compila_azienda(self):
-        self.navigateToAndWait("Anagrafiche")
+        self.navigate_to_and_wait("Anagrafiche")
 
         self.click_first_table_row()
         self.close_tour()
@@ -47,7 +47,7 @@ class StatoServizi(Test):
         self._compila_anagrafica_estera("Cliente Estero", "05024030288", "Germania", "Monaco")
 
     def _crea_anagrafica(self, nome: str, tipo: str):
-        self.navigateToAndWait("Anagrafiche")
+        self.navigate_to_and_wait("Anagrafiche")
 
         self.click_add_button()
         modal = self.wait_modal()
@@ -57,7 +57,7 @@ class StatoServizi(Test):
         self.wait_loader()
 
     def _compila_anagrafica_estera(self, nome: str, piva: str, nazione: str, citta: str):
-        self.navigateToAndWait("Anagrafiche")
+        self.navigate_to_and_wait("Anagrafiche")
 
         self.search_entity(nome)
 
@@ -84,7 +84,7 @@ class StatoServizi(Test):
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()
 
-        self.navigateToAndWait("Anagrafiche")
+        self.navigate_to_and_wait("Anagrafiche")
 
     def _compila_campi_azienda(self, campi: dict):
         for campo, valore in campi.items():
