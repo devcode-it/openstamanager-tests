@@ -61,8 +61,7 @@ class Impostazioni(Test):
 
     def conto_riepilogativo_fornitori(self):
                 self.expandSidebar("Contabilità")
-        self.navigateTo("Piano dei conti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Piano dei conti")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-8"]'))
@@ -74,8 +73,7 @@ class Impostazioni(Test):
         self.assertEqual(conto, " 240.000010 Riepilogativo fornitori")
 
     def conto_riepilogativo_clienti(self):
-                self.navigateTo("Piano dei conti")
-        self.wait_loader()
+                self.navigate_to_and_wait("Piano dei conti")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-2"]'))
@@ -87,8 +85,7 @@ class Impostazioni(Test):
         self.assertEqual(conto, " 110.000010 Riepilogativo clienti")
 
     def conto_iva_indetraibile(self):
-                self.navigateTo("Piano dei conti")
-        self.wait_loader()
+                self.navigate_to_and_wait("Piano dei conti")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-22"]'))
@@ -100,8 +97,7 @@ class Impostazioni(Test):
         self.assertEqual(conto, " 900.000030 Iva indetraibile")
 
     def conto_iva_vendite(self):
-                self.navigateTo("Piano dei conti")
-        self.wait_loader()
+                self.navigate_to_and_wait("Piano dei conti")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-22"]'))
@@ -113,8 +109,7 @@ class Impostazioni(Test):
         self.assertEqual(conto, " 900.000010 Iva su vendite")
 
     def conto_iva_acquisti(self):
-                self.navigateTo("Piano dei conti")
-        self.wait_loader()
+                self.navigate_to_and_wait("Piano dei conti")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-22"]'))
@@ -126,8 +121,7 @@ class Impostazioni(Test):
         self.assertEqual(conto, " 900.000020 Iva su acquisti")
 
     def conto_erario_ritenute_acconto(self):
-                self.navigateTo("Piano dei conti")
-        self.wait_loader()
+                self.navigate_to_and_wait("Piano dei conti")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-5"]'))
@@ -139,8 +133,7 @@ class Impostazioni(Test):
         self.assertEqual(conto, " 200.000060 Erario c/ritenute d'acconto")
 
     def conto_erario_inps(self):
-                self.navigateTo("Piano dei conti")
-        self.wait_loader()
+                self.navigate_to_and_wait("Piano dei conti")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-5"]'))
@@ -152,8 +145,7 @@ class Impostazioni(Test):
         self.assertEqual(conto, " 200.000010 Erario c/INPS")
 
     def conto_erario_enasarco(self):
-                self.navigateTo("Piano dei conti")
-        self.wait_loader()
+                self.navigate_to_and_wait("Piano dei conti")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-5"]'))
@@ -165,8 +157,7 @@ class Impostazioni(Test):
         self.assertEqual(conto, " 200.000070 Erario c/enasarco")
 
     def conto_apertura_conti_patrimoniali(self):
-                self.navigateTo("Piano dei conti")
-        self.wait_loader()
+                self.navigate_to_and_wait("Piano dei conti")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-21"]'))
@@ -178,8 +169,7 @@ class Impostazioni(Test):
         self.assertEqual(conto, " 810.000010 Apertura conti patrimoniali")
 
     def conto_chiusura_conti_patrimoniali(self):
-                self.navigateTo("Piano dei conti")
-        self.wait_loader()
+                self.navigate_to_and_wait("Piano dei conti")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-21"]'))
@@ -191,8 +181,7 @@ class Impostazioni(Test):
         self.assertEqual(conto, " 810.000900 Chiusura conti patrimoniali")
 
     def conto_autofattura(self):
-                self.navigateTo("Piano dei conti")
-        self.wait_loader()
+                self.navigate_to_and_wait("Piano dei conti")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@id="conto2-23"]'))
@@ -204,8 +193,7 @@ class Impostazioni(Test):
         self.assertEqual(conto, " 910.000010 Compensazione per autofattura")
 
     def conto_secondo_livello_crediti_clienti(self):
-                self.navigateTo("Piano dei conti")
-        self.wait_loader()
+                self.navigate_to_and_wait("Piano dei conti")
 
         sezionale = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//span[@id="conto2-2"]//b'))
@@ -213,8 +201,7 @@ class Impostazioni(Test):
         self.assertEqual(sezionale, "110 Crediti clienti e crediti diversi")
 
     def conto_secondo_livello_debiti_fornitori(self):
-                self.navigateTo("Piano dei conti")
-        self.wait_loader()
+                self.navigate_to_and_wait("Piano dei conti")
 
         sezionale = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//span[@id="conto2-8"]//b'))

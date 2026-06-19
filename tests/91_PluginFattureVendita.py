@@ -20,13 +20,11 @@ class FattureVendita(Test):
         #self.importazione_fe()
         
     def movimenti_contabili(self):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipo"]/input')))
-        self.send_keys_and_wait(search_input, "Fattura immediata di vendita", wait_modal=False)
+        self.search_by_th("th_Tipo", "Fattura immediata di vendita", wait_modal=False)
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="link-tab_37"]')
         self.wait_for_element_and_click('//a[@class="btn btn-info btn-lg"]')
 
@@ -38,22 +36,18 @@ class FattureVendita(Test):
         self.assertEqual(avere_1, "100,00 €")
         self.assertEqual(avere_2, "2,00 €")
 
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Fatture di vendita")
+        self.clear_filters()
 
     def registrazioni(self):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Tipo"]/input')))
-        self.send_keys_and_wait(search_input, "Fattura immediata di vendita", wait_modal=False)
+        self.search_by_th("th_Tipo", "Fattura immediata di vendita", wait_modal=False)
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="link-tab_42"]')
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_42"]//tr[2]//td')))
 
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Fatture di vendita")
+        self.clear_filters()
 

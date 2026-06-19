@@ -13,8 +13,7 @@ class Articoli(Test):
         self.copia_listini()
         
     def aggiorna_prezzo_unitario(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
@@ -46,8 +45,7 @@ class Articoli(Test):
         )
         self.send_keys_and_wait(prezzo_unitario, '15')
 
-        self.navigateTo("Listini")
-        self.wait_loader()
+        self.navigate_to_and_wait("Listini")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -65,20 +63,17 @@ class Articoli(Test):
         ).text
         self.assertEqual(prezzo, "15,00")
 
-        self.navigateTo("Listini")
-        self.wait_loader()
+        self.navigate_to_and_wait("Listini")
 
         self.wait_for_element_and_click('//tbody//tr//td')
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.clear_filters()
 
     def copia_listini(self):
-        self.navigateTo("Listini")
-        self.wait_loader()
+        self.navigate_to_and_wait("Listini")
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_segment_-container"]', option_text='Fornitori')
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -100,8 +95,7 @@ class Articoli(Test):
         ).text
         self.assertEqual(articolo, "08 - Prova")
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
@@ -116,7 +110,6 @@ class Articoli(Test):
         self.wait_for_element_and_click('(//label[@class="btn btn-default active"])[4]')
         self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()
 

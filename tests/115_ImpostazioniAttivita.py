@@ -66,12 +66,11 @@ class Impostazioni(Test):
 
     def mostra_prezzi_tecnico(self):
         wait = self.wait_driver      
-        self.navigateTo("Utenti e permessi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Utenti e permessi")
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Gruppo"]//input'))).send_keys('Tecnici', Keys.ENTER)
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')           
+        self.click_first_table_row()           
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@data-title="Aggiungi utente"]'))
@@ -98,13 +97,12 @@ class Impostazioni(Test):
         ).click()
         self.wait_loader()
 
-        self.wait_for_element_and_click('//tbody//tr[18]//td[2]')
+        self.wait_and_click_table_row(18, 2)
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Lettura e scrittura')
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
 
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -185,8 +183,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -260,8 +257,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
     def stampa_anteprima_firma(self):
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -297,8 +293,7 @@ class Impostazioni(Test):
         ).click()
         
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -310,10 +305,9 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '(//input[@class="select2-search__field"])[2]'))
         ).send_keys("Intervento (senza prezzi)", Keys.ENTER)
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//button[@class="btn btn-primary "])[2]'))
@@ -334,8 +328,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -349,8 +342,7 @@ class Impostazioni(Test):
 
     def inserimento_sessioni_tecnici(self):
         wait = self.wait_driver  
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -412,8 +404,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -424,13 +415,11 @@ class Impostazioni(Test):
         )]//div//label').click()
 
     def giorni_lavorativi(self):
-        self.navigateTo("Dashboard")
-        self.wait_loader() 
+        self.navigate_to_and_wait("Dashboard") 
 
         wait.until(EC.invisibility_of_element_located((By.XPATH, '(//div[@class="fc-event fc-event-start fc-event-future fc-bg-event"])[3]'))) 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -440,13 +429,11 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Giorni lavorativi"))
         )]//span//li [contains(., "Venerdì")]//span').click()
 
-        self.navigateTo("Dashboard")
-        self.wait_loader() 
+        self.navigate_to_and_wait("Dashboard") 
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '(//div[@class="fc-event fc-event-start fc-event-future fc-bg-event"])[3]'))) 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -462,8 +449,7 @@ class Impostazioni(Test):
 
     def notifica_tecnico_aggiunta_sessione(self):
         wait = self.wait_driver  
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
  
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Tecnico", Keys.ENTER)
  
@@ -475,15 +461,13 @@ class Impostazioni(Test):
         ).click()
         self.wait_loader()
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="deleteicon fa fa-times"]'))
         ).click()
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
  
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -544,8 +528,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
  
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -555,8 +538,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico l\'aggiunta della sessione nell\'attività"))
         )]//div//label').click()
  
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
  
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -617,8 +599,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
  
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -629,8 +610,7 @@ class Impostazioni(Test):
         )]//div//label').click()
 
     def notifica_tecnico_rimozione_sessione(self):
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
  
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -693,8 +673,7 @@ class Impostazioni(Test):
         ).click() 
         self.wait_loader()
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
         invio = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[14]'))
@@ -702,7 +681,7 @@ class Impostazioni(Test):
         self.assertNotEqual(invio, 'Inviata via email')
         self.wait_loader()
 
-        self.wait_for_element_and_click('//tbody//tr[1]//td[2]') 
+        self.wait_and_click_table_row(1, 2) 
         self.wait_loader()
 
         self.wait_driver.until(
@@ -715,8 +694,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -726,8 +704,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico la rimozione della sessione dall\'attività"))
         )]//div//label').click()
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
  
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -790,17 +767,15 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Gestione email")
-        self.navigateTo("Coda di invio")
-        self.wait_loader()
+        self.navigate_to_and_wait("Coda di invio")
 
         messaggio = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[5]//div'))
         ).text 
         self.assertEqual(messaggio, "Notifica rimozione intervento")
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
-        self.wait_for_element_and_click('//tbody//tr[1]//td[2]')
+        self.wait_and_click_table_row(1, 2)
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-danger ask"]'))
@@ -812,8 +787,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -825,8 +799,7 @@ class Impostazioni(Test):
 
     def stato_attivita_firma(self):
         wait = self.wait_driver  
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -840,8 +813,7 @@ class Impostazioni(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -884,14 +856,13 @@ class Impostazioni(Test):
         ).click()
         self.wait_loader()
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
         stato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))
         ).text
         self.assertEqual(stato, "Stato di Attività di Prova")   
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-danger ask"]'))
@@ -903,8 +874,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -920,8 +890,7 @@ class Impostazioni(Test):
 
     def espandi_barra_dettagli_aggiuntivi(self):
         wait = self.wait_driver  
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -931,8 +900,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Espandi automaticamente la sezione"))
         )]//div//label').click()
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -944,8 +912,7 @@ class Impostazioni(Test):
         ).click()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -957,8 +924,7 @@ class Impostazioni(Test):
 
     def alert_occupazione_tecnici(self):
         wait = self.wait_driver  
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -1019,8 +985,7 @@ class Impostazioni(Test):
         ).click() 
         self.wait_loader()
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -1084,8 +1049,7 @@ class Impostazioni(Test):
         ).click()
 
         self.expandSidebar("Strumenti")   
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1095,10 +1059,9 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Alert occupazione tecnici"))
         )]//div//label').click()
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         wait.until(EC.invisibility_of_element_located((By.XPATH, '/div[@class="card-header"]//h3')))
         self.wait_driver.until(
@@ -1111,8 +1074,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")   
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1124,16 +1086,14 @@ class Impostazioni(Test):
 
     def verifica_numero_intervento(self):
         wait = self.wait_driver  
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning alert-dismissable"]')))
 
         self.expandSidebar("Strumenti")   
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1143,10 +1103,9 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Verifica numero intervento"))
         )]//div//label').click()
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         wait.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning alert-dismissable"]')))
 
@@ -1160,8 +1119,7 @@ class Impostazioni(Test):
         self.wait_loader() 
 
         self.expandSidebar("Strumenti")   
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1173,8 +1131,7 @@ class Impostazioni(Test):
 
     def formato_ore_stampa(self):
         wait = self.wait_driver  
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1188,8 +1145,7 @@ class Impostazioni(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -1245,8 +1201,7 @@ class Impostazioni(Test):
         self.driver.switch_to.window(self.driver.window_handles[0])
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1260,10 +1215,9 @@ class Impostazioni(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@id="print-button_p"]'))
@@ -1288,8 +1242,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
     def notifica_tecnico_assegnazione(self):
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
  
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -1340,8 +1293,7 @@ class Impostazioni(Test):
         wait.until(EC.invisibility_of_element_located((By.XPATH, '(//div[@class="toast-message"])[2]')))
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1351,10 +1303,9 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico l\'assegnazione all\'attività"))
         )]//div//label').click()
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
  
-        self.wait_for_element_and_click('//tbody//tr//td[2]') 
+        self.click_first_table_row() 
         self.wait_loader()
         
         self.wait_driver.until(
@@ -1392,8 +1343,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
  
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1404,8 +1354,7 @@ class Impostazioni(Test):
         )]//div//label').click()
 
     def notifica_tecnico_rimozione_assegnazione(self):
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
  
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -1464,8 +1413,7 @@ class Impostazioni(Test):
         wait.until(EC.invisibility_of_element_located((By.XPATH, '(//div[@class="toast-message"])[2]')))
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1475,10 +1423,9 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Notifica al tecnico la rimozione dell\'assegnazione dall\'attività"))
         )]//div//label').click()
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
  
-        self.wait_for_element_and_click('//tbody//tr//td[2]') 
+        self.click_first_table_row() 
         self.wait_loader()
         
         self.wait_driver.until(
@@ -1516,8 +1463,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1528,8 +1474,7 @@ class Impostazioni(Test):
         )]//div//label').click()
 
     def descrizione_attivita(self):
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1539,8 +1484,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Descrizione personalizzata in fatturazione"))
         )]//textarea').send_keys('Test')
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -1612,10 +1556,9 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")  
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_for_element_and_click('//tbody//tr[3]//td[2]')  
+        self.wait_and_click_table_row(3, 2)  
         self.wait_loader()
 
         descrizione = self.wait_driver.until(
@@ -1627,10 +1570,9 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))).click()
         self.wait_loader()
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
-        self.wait_for_element_and_click('//tbody//tr[2]//td[2]')
+        self.wait_and_click_table_row(2, 2)
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-danger ask"]'))
@@ -1642,8 +1584,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1655,8 +1596,7 @@ class Impostazioni(Test):
         
     def stato_predefinito_attivita_dashboard(self):
         wait = self.wait_driver  
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1670,8 +1610,7 @@ class Impostazioni(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
 
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigate_to_and_wait("Dashboard")
 
         actions = webdriver.common.action_chains.ActionChains(self.driver)
         actions.move_to_element(self.wait_driver.until(
@@ -1711,15 +1650,14 @@ class Impostazioni(Test):
         ).click() 
         self.wait_loader()
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
         stato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))
         ).text
         self.assertEqual(stato, "Stato di Attività di Prova")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-danger ask"]'))
@@ -1731,8 +1669,7 @@ class Impostazioni(Test):
         self.wait_loader() 
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1747,8 +1684,7 @@ class Impostazioni(Test):
 
     def stato_predefinito_attivita(self):
         wait = self.wait_driver  
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))
@@ -1762,8 +1698,7 @@ class Impostazioni(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
         
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -1792,15 +1727,14 @@ class Impostazioni(Test):
         ).click() 
         self.wait_loader()
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
         stato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//tr[1]//td[7])[2]'))
         ).text
         self.assertEqual(stato, "Stato di Attività di Prova")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-danger ask"]'))
@@ -1812,8 +1746,7 @@ class Impostazioni(Test):
         self.wait_loader() 
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Attività"]'))

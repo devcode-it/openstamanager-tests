@@ -14,8 +14,7 @@ class DdtUscita(Test):
         self.elimina_selezionati()
         
     def cambia_stato(self):
-        self.navigateTo("Ddt in uscita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ddt in uscita")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
         self.send_keys_and_wait( search_input, "01", wait_modal=False)
@@ -24,7 +23,7 @@ class DdtUscita(Test):
         self.wait_for_element_and_click( '//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click( '//a[@data-op="change_status"]')
 
-        self.wait_for_dropdown_and_select( '//span[@id="select2-id_stato-container"]', option_text='Evaso')
+        self.select_state('Evaso')
         self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         stato = self.wait_driver.until(
@@ -34,8 +33,7 @@ class DdtUscita(Test):
         self.wait_for_element_and_click( '//i[@class="deleteicon fa fa-times"]')
 
     def fattura_ddt_uscita(self):
-        self.navigateTo("Ddt in uscita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ddt in uscita")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
         self.send_keys_and_wait( search_input, "01", wait_modal=False)
@@ -48,8 +46,7 @@ class DdtUscita(Test):
         self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         tipo = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[3]//td[4]'))
@@ -57,19 +54,16 @@ class DdtUscita(Test):
         self.assertEqual(tipo, "Cliente")
 
         self.wait_for_element_and_click( '//tbody//tr[3]//td[5]')
-        self.wait_for_element_and_click( '//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
         self.expandSidebar("Magazzino")
-        self.navigateTo("Ddt in uscita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ddt in uscita")
 
         self.wait_for_element_and_click( '//tbody//tr//td')
         self.wait_for_element_and_click( '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')
 
     def elimina_selezionati(self):
-        self.navigateTo("Ddt in uscita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ddt in uscita")
 
         self.wait_for_element_and_click( '//tbody//tr//td')
         self.wait_for_element_and_click( '//button[@data-toggle="dropdown"]')

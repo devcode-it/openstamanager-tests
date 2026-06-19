@@ -17,8 +17,7 @@ class Impostazioni(Test):
     def cambia_stato_ddt_fatturati(self, file_importi: str):
         wait = self.wait_driver 
         self.expandSidebar("Magazzino")
-        self.navigateTo("Ddt in entrata")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ddt in entrata")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -49,8 +48,7 @@ class Impostazioni(Test):
         ).click()
         self.wait_loader()
 
-        self.navigateTo("Ddt in entrata")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ddt in entrata")
 
         self.wait_for_element_and_click('//tbody//tr//td')   
         self.wait_driver.until(
@@ -74,7 +72,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[11]'))
         ).text 
         self.assertEqual(stato, "Fatturato")
-        self.wait_for_element_and_click('//tbody//tr[1]//td[2]')
+        self.wait_and_click_table_row(1, 2)
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-danger ask"]'))
@@ -86,10 +84,9 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Acquisti")
-        self.navigateTo("Fatture di acquisto")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di acquisto")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]') 
+        self.click_first_table_row() 
         self.wait_loader()
     
         self.wait_driver.until(
@@ -101,8 +98,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Magazzino")
-        self.navigateTo("Ddt in uscita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ddt in uscita")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -139,8 +135,7 @@ class Impostazioni(Test):
         ).click()
         self.wait_loader()
 
-        self.navigateTo("Ddt in uscita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ddt in uscita")
 
         self.wait_for_element_and_click('//tbody//tr//td')    
         self.wait_driver.until(
@@ -164,7 +159,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[11]'))
         ).text  
         self.assertEqual(stato2, "Fatturato")
-        self.wait_for_element_and_click('//tbody//tr[1]//td[2]')
+        self.wait_and_click_table_row(1, 2)
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-danger ask"]'))
@@ -176,10 +171,9 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')  
+        self.click_first_table_row()  
         self.wait_loader()
     
         self.wait_driver.until(

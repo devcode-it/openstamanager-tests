@@ -19,8 +19,7 @@ class Impostazioni(Test):
 
     def serial_abilitato_default(self):
                 self.expandSidebar("Magazzino")
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -46,12 +45,10 @@ class Impostazioni(Test):
         ).click()
         self.wait_loader()
 
-        self.navigateTo("Impianti") #aggiunto perchè non riesce ad entrare in impostazioni dato che non è visibile quando il sidebar magazzino è aperto
-        self.wait_loader()
+        self.navigate_to_and_wait("Impianti") #aggiunto perchè non riesce ad entrare in impostazioni dato che non è visibile quando il sidebar magazzino è aperto
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-12"]'))
@@ -62,8 +59,7 @@ class Impostazioni(Test):
         ).click()   #attiva impostazione
 
         self.expandSidebar("Magazzino")
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -89,12 +85,10 @@ class Impostazioni(Test):
         ).click()
         self.wait_loader()
         #torno alle impostazioni di prima
-        self.navigateTo("Impianti") #aggiunto perchè non riesce ad entrare in impostazioni dato che non è visibile quando il sidebar magazzino è aperto
-        self.wait_loader()
+        self.navigate_to_and_wait("Impianti") #aggiunto perchè non riesce ad entrare in impostazioni dato che non è visibile quando il sidebar magazzino è aperto
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-12"]'))

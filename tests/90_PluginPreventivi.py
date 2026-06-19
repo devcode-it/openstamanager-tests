@@ -14,10 +14,9 @@ class Preventivi(Test):
         self.revisioni()
 
     def consuntivo(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="link-tab_12"]')
         budget = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//span[@class="text-success"]'))
@@ -25,8 +24,7 @@ class Preventivi(Test):
         self.assertEqual(budget, "+ 264,80 €")
 
     def revisioni(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
         self.wait_for_element_and_click('//tbody//tr//td[3]')
         self.wait_for_element_and_click('//a[@id="link-tab_20"]')

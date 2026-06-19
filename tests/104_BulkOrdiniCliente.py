@@ -15,8 +15,7 @@ class OrdiniCliente(Test):
         #TODO: invia mail
         
     def cambia_stato(self):
-        self.navigateTo("Ordini cliente")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ordini cliente")
 
         self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), '01', wait_modal=False)
 
@@ -24,7 +23,7 @@ class OrdiniCliente(Test):
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="change_status"]')
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='Accettato')
+        self.select_state('Accettato')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         stato = self.wait_driver.until(
@@ -35,8 +34,7 @@ class OrdiniCliente(Test):
         self.wait_for_element_and_click('//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')
 
     def fattura_ordini_clienti(self):
-        self.navigateTo("Ordini cliente")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ordini cliente")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -45,8 +43,7 @@ class OrdiniCliente(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         tipo = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[3]//td[5]'))

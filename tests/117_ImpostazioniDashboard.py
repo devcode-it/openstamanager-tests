@@ -32,8 +32,7 @@ class Impostazioni(Test):
 
     def visualizzare_domenica_calendario(self):
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Dashboard"]'))
@@ -43,14 +42,12 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Visualizzare la domenica sul calendario"))
         )]//div//label').click()
 
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigate_to_and_wait("Dashboard")
 
         wait.until(EC.invisibility_of_element_located((By.XPATH, '//tr[1]//th[8]')))   
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Dashboard"]'))
@@ -62,8 +59,7 @@ class Impostazioni(Test):
 
     def vista_dashboard(self):
         wait = self.wait_driver  
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Dashboard"]'))
@@ -77,14 +73,12 @@ class Impostazioni(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
 
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigate_to_and_wait("Dashboard")
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="fc-dayGridMonth-button fc-button fc-button-primary fc-button-active"]')))
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Dashboard"]'))
         ).click()
@@ -99,8 +93,7 @@ class Impostazioni(Test):
 
     def ora_inizio_calendario(self):
         wait = self.wait_driver  
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Dashboard"]'))
@@ -112,8 +105,7 @@ class Impostazioni(Test):
         element.clear()
         element.send_keys('01:00')
 
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigate_to_and_wait("Dashboard")
 
         ora = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//td[@role="presentation"]//tbody//tr//td'))
@@ -121,8 +113,7 @@ class Impostazioni(Test):
         self.assertEqual(ora, "1:00", Keys.ENTER)
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Dashboard"]'))
@@ -136,8 +127,7 @@ class Impostazioni(Test):
 
     def ora_fine_calendario(self):
         wait = self.wait_driver  
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Dashboard"]'))
@@ -149,14 +139,12 @@ class Impostazioni(Test):
         element.clear()
         element.send_keys('13:30', Keys.ENTER)
 
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigate_to_and_wait("Dashboard")
 
         wait.until(EC.invisibility_of_element_located((By.XPATH, '//tbody//tr[55]//td')))
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Dashboard"]'))
@@ -170,8 +158,7 @@ class Impostazioni(Test):
 
     def visualizza_informazioni_aggiuntive(self):
         wait = self.wait_driver  
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Dashboard"]'))
@@ -181,8 +168,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Visualizza informazioni aggiuntive sul calendario"))
         )]//span').click()
 
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigate_to_and_wait("Dashboard")
 
         scritta = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tr[1]//td[@class="fc-timegrid-axis fc-scrollgrid-shrink"]'))
@@ -190,8 +176,7 @@ class Impostazioni(Test):
         self.assertEqual(scritta, "Tutto il giorno")
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Dashboard"]'))
@@ -203,8 +188,7 @@ class Impostazioni(Test):
 
     def visualizza_colori_sessioni(self):
         wait = self.wait_driver  
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Dashboard"]'))
@@ -218,8 +202,7 @@ class Impostazioni(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -262,8 +245,7 @@ class Impostazioni(Test):
         ).click() 
         self.wait_loader()
 
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigate_to_and_wait("Dashboard")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-block counter_object btn-danger"]'))
@@ -279,8 +261,7 @@ class Impostazioni(Test):
         self.assertEqual(colori, "border-color: rgb(255, 239, 153); background-color: rgb(255, 255, 255);")
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Dashboard"]'))
@@ -294,8 +275,7 @@ class Impostazioni(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
 
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigate_to_and_wait("Dashboard")
 
         colori_element = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@class="fc-timegrid-event-harness fc-timegrid-event-harness-inset"]//a'))
@@ -303,10 +283,9 @@ class Impostazioni(Test):
         colori = colori_element.get_attribute("style")  
         self.assertEqual(colori, "border-color: rgb(255, 255, 255); background-color: rgb(255, 239, 153);")
 
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
-        self.wait_for_element_and_click('//tbody//tr[1]//td[2]')
+        self.wait_and_click_table_row(1, 2)
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-danger ask"]'))

@@ -6,7 +6,7 @@ class Liste(Test):
     def setUp(self):
         super().setUp()
         self.wait_driver = self.wait_driver
-        self.navigateTo("Anagrafiche")
+        self.navigate_to_and_wait("Anagrafiche")
 
     def test_bulk_liste(self):
         #TODO: aggiorna liste

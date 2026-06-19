@@ -26,8 +26,8 @@ class FattureAcquisto(Test):
         self.registrazione_contabile()
 
     def cambia_sezionale(self):
-        self.navigateTo("Fatture di acquisto")
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait("Fatture di acquisto")
+        self.click_add_button()
         modal = self.wait_modal()
 
         numero_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]')))
@@ -35,7 +35,7 @@ class FattureAcquisto(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica_add-container"]', option_text='Fornitore')
         self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
 
-        self.navigateTo("Fatture di acquisto")
+        self.navigate_to_and_wait("Fatture di acquisto")
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
         self.send_keys_and_wait(search_input, "2", wait_modal=False)
 
@@ -46,25 +46,24 @@ class FattureAcquisto(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-id_segment_-container"]', option_text='Autofatture')
 
         self.clear_filters()
-        self.wait_for_element_and_click('//tbody//tr[1]//td[1]')
+        self.wait_and_click_table_row(1, 1)
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="change_segment"]')
         self.wait_for_dropdown_and_select('//span[@id="select2-id_segment-container"]', option_text='Standard')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.wait_for_dropdown_and_select('//span[@id="select2-id_segment_-container"]', option_text='Standard')
 
     def duplica_selezionati(self):
-        self.navigateTo("Fatture di acquisto")
+        self.navigate_to_and_wait("Fatture di acquisto")
         self.wait_for_element_and_click('//tbody//tr//td[1]')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="copy_bulk"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="elimina"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
     def elimina_selezionati(self):
-        self.navigateTo("Fatture di acquisto")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di acquisto")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input')))
         self.send_keys_and_wait(search_input, "2", wait_modal=False)
@@ -80,7 +79,7 @@ class FattureAcquisto(Test):
         self.clear_filters()
 
     def registrazione_contabile(self):
-        self.navigateTo("Fatture di acquisto")
+        self.navigate_to_and_wait("Fatture di acquisto")
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
         self.send_keys_and_wait(search_input, "2", wait_modal=False)
         self.click_first_result()
@@ -100,7 +99,7 @@ class FattureAcquisto(Test):
         self.input(None,'Stato*').setByText('Emessa')
         self.wait_for_element_and_click('//button[@id="save"]')
 
-        self.navigateTo("Fatture di acquisto")
+        self.navigate_to_and_wait("Fatture di acquisto")
         self.wait_for_element_and_click('//tbody//tr//td[1]')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="registrazione_contabile"]')
@@ -112,7 +111,6 @@ class FattureAcquisto(Test):
         self.wait_for_element_and_click('//button[@id="add-submit"]')
 
         self.expandSidebar("Acquisti")
-        self.navigateTo("Fatture di acquisto")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di acquisto")
         self.clear_filters()
 

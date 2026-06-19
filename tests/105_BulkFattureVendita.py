@@ -33,8 +33,7 @@ class FattureVendita(Test):
         self.registrazione_contabile()
 
     def cambia_sezionale(self):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -65,8 +64,7 @@ class FattureVendita(Test):
         )
     
     def controlla_fatture_elettroniche(self):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -79,8 +77,7 @@ class FattureVendita(Test):
         self.driver.switch_to.window(self.driver.window_handles[0])
 
     def duplica_selezionati(self):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -89,8 +86,7 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
 
     def elimina_selezionati(self):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -101,8 +97,7 @@ class FattureVendita(Test):
         self.assertEqual(test, "0002/2026")
 
     def emetti_fatture(self):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -114,8 +109,7 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
 
     def genera_fatture_elettroniche(self):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -124,20 +118,18 @@ class FattureVendita(Test):
 
         self.driver.switch_to.window(self.driver.window_handles[1])
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//button[@class="btn btn-xs btn-info"]')
         self.wait_for_element_and_click('//button[@class="close"]')
 
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
         self.wait_for_element_and_click('//tbody//tr//td')
 
     def registrazione_contabile(self):
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
         self.send_keys_and_wait(search_input, "0001", wait_modal=False)
@@ -152,7 +144,6 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//button[@type="submit"]')
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Fatture di vendita")
+        self.clear_filters()
 

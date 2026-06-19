@@ -15,7 +15,7 @@ class FattureAcquisto(Test):
         self.registrazioni()
         
     def movimenti_contabili(self):
-        self.navigateTo("Fatture di acquisto")
+        self.navigate_to_and_wait("Fatture di acquisto")
         self.click_first_result()
 
         self.wait_for_element_and_click('//a[@id="link-tab_36"]')
@@ -27,7 +27,7 @@ class FattureAcquisto(Test):
         self.assertEqual(avere, "264,80 €")
 
     def registrazioni(self):
-        self.navigateTo("Fatture di acquisto")
+        self.navigate_to_and_wait("Fatture di acquisto")
         self.click_first_result()
 
         self.wait_for_element_and_click('//a[@id="link-tab_41"]')

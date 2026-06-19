@@ -6,7 +6,7 @@ class Anagrafiche(Test):
     def setUp(self):
         super().setUp()
         self.wait_driver = self.wait_driver
-        self.navigateTo("Anagrafiche")
+        self.navigate_to_and_wait("Anagrafiche")
 
     def test_bulk_anagrafica(self):
         self.cambia_relazione()
@@ -20,8 +20,7 @@ class Anagrafiche(Test):
         #TODO: crea lista 
         
     def cambia_relazione(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
         self.search_entity("Cliente")
 
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -48,8 +47,7 @@ class Anagrafiche(Test):
         self.send_keys_and_wait(search_field, "Da contattare", wait_modal=False)
         self.wait_for_element_and_click('//button[@id="save"]')
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
 
         new_relation = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))
@@ -59,8 +57,7 @@ class Anagrafiche(Test):
         self.clear_filters()
 
     def elimina_selezionati(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
@@ -82,13 +79,9 @@ class Anagrafiche(Test):
 
 
     def ricerca_coordinate(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))
-        )
-        self.send_keys_and_wait(search_input, "Admin spa", wait_modal=False)
+        self.search_by_th("th_Ragione-sociale", "Admin spa", wait_modal=False)
         self.wait_for_search_results()
 
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -96,7 +89,7 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//a[@data-op="search_coordinates"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@onclick="modificaPosizione()"]')
         self.wait_for_element_and_click('//ul//li[2]//div')
 
@@ -111,6 +104,5 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//button[@class="close"]')
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()

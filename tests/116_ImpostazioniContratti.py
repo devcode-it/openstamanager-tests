@@ -21,8 +21,7 @@ class Impostazioni(Test):
 
     def condizioni_generali_contratti(self):
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Contratti"]'))
@@ -35,8 +34,7 @@ class Impostazioni(Test):
         element.send_keys('Prova')
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Contratti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Contratti")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -72,8 +70,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Contratti"]'))
@@ -87,8 +84,7 @@ class Impostazioni(Test):
         
     def crea_contratto_rinnovabile(self):
         wait = self.wait_driver  
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Contratti"]'))
@@ -99,8 +95,7 @@ class Impostazioni(Test):
         )]//div//label').click()
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Contratti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Contratti")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -120,8 +115,7 @@ class Impostazioni(Test):
         ).click()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Contratti"]'))
@@ -133,8 +127,7 @@ class Impostazioni(Test):
 
     def giorni_preavviso(self):
         wait = self.wait_driver  
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Contratti"]'))
@@ -145,8 +138,7 @@ class Impostazioni(Test):
         )]//input').send_keys('3,00')
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Contratti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Contratti")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -166,8 +158,7 @@ class Impostazioni(Test):
         ).click()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Contratti"]'))

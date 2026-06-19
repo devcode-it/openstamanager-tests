@@ -7,7 +7,7 @@ class Anagrafiche(Test):
     def setUp(self):
         super().setUp()
         self.wait_driver = self.wait_driver
-        self.navigateTo("Anagrafiche")
+        self.navigate_to_and_wait("Anagrafiche")
 
     def test_plugin_anagrafica(self):
         #TODO: Impianti del cliente
@@ -26,10 +26,8 @@ class Anagrafiche(Test):
         self.assicurazione_crediti()
 
     def aggiunta_referente(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigate_to_and_wait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//a[@id="link-tab_3"]')
 
@@ -55,9 +53,7 @@ class Anagrafiche(Test):
         name_input.clear()
         self.send_keys_and_click(name_input, "Prova", '//div[@class="modal-footer"]//button[@type="submit"]')
 
-        contact_name = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_3"]//tbody//tr//td[2]'))
-        ).text
+        contact_name = self.get_row_cell_text('tab_3', col_num=2)
         self.assertEqual(contact_name, "Prova")
 
         self.wait_for_element_and_click('//div[@id="tab_3"]//tbody//tr//td[2]')
@@ -82,25 +78,17 @@ class Anagrafiche(Test):
         )
         self.wait_for_element_and_click('(//button[@type="submit"])[3]')
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Mansione"]/input'))
-        )
-        self.send_keys_and_wait(search_input, "Segretario", wait_modal = False)
+        self.search_by_th("th_Mansione", "Segretario", wait_modal=False)
 
-        job_title = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_3"]//tbody//tr//td[3]'))
-        ).text
+        job_title = self.get_row_cell_text('tab_3', col_num=3)
         self.assertEqual("Segretario", job_title)
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
 
     def aggiunta_sede(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigate_to_and_wait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//a[@id="link-tab_4"]')
 
@@ -167,25 +155,17 @@ class Anagrafiche(Test):
         )
         self.wait_for_element_and_click('(//button[@type="submit"])[3]')
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '(//th[@id="th_Nome"]/input)[2]'))
-        )
-        self.send_keys_and_wait(search_input, "Filiale XY", wait_modal=False)
+        self.search_by_th("th_Nome", "Filiale XY", wait_modal=False)
 
-        location_name = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_4"]//tbody//td[2]'))
-        ).text
+        location_name = self.get_row_cell_text('tab_4', col_num=2)
         self.assertEqual("Filiale XY", location_name)
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
 
     def plugin_statistiche(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigate_to_and_wait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//a[@id="link-tab_7"]')
 
@@ -206,22 +186,18 @@ class Anagrafiche(Test):
             actual_label = self.driver.execute_script("return arguments[0].childNodes[0].nodeValue.trim();", element)
             self.assertEqual(actual_label, expected_label)
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
 
     def storico_attivita(self):
-        self.navigateTo('Anagrafiche')
-        self.search_entity('Cliente')
-        self.click_first_result()
+        self.navigate_to_and_wait('Anagrafiche')
+        self.search_entity_and_click_first('Cliente')
         self.wait_for_element_and_click('//a[@id="link-tab_28"]')
         self.wait_for_element_and_click('//div[@id="tab_28"]//tbody//tr//td[1]')
         
     def dichiarazione_di_intento(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigate_to_and_wait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//a[@id="link-tab_25"]')
 
@@ -254,10 +230,9 @@ class Anagrafiche(Test):
         )
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         self.wait_modal()
 
         self.wait_for_dropdown_and_select(
@@ -295,17 +270,13 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
         self.wait_for_element_and_click('//button[@id="save"]')
+        self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
-
+        self.search_entity_and_click_first("Cliente")
         self.wait_for_element_and_click('//a[@id="link-tab_25"]')
 
-        total_amount = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_25"]//tbody//tr//td[5]'))
-        ).text
+        total_amount = self.get_row_cell_text('tab_25', col_num=5)
         self.assertEqual(total_amount, "102.00")
 
         self.wait_for_element_and_click('//div[@id="tab_25"]//tbody//tr//td[5]')
@@ -319,8 +290,7 @@ class Anagrafiche(Test):
         self.assertEqual(progressive, "01")
 
         self.wait_for_element_and_click('//div[@id="tab_25"]//tbody//td[3]')
-        self.wait_for_element_and_click('//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
         empty_message = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_25"]//td[@class="dataTables_empty"]'))
@@ -328,50 +298,43 @@ class Anagrafiche(Test):
         self.assertEqual(empty_message, "Nessun dato presente nella tabella")
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="elimina"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.navigateTo("Anagrafiche")
+        self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
 
     def controlla_allegati(self):
         self.modifica_fattura_vendita("Emessa")
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
 
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//a[@id="link-tab_30"]')
         self.wait_for_element_and_click('//div[@id="tab_30"]//a[@class="btn btn-info btn-lg"]')
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_30"]//a[@class="btn btn-xs btn-primary"]')))
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()
         self.expandSidebar("Vendite")
     
     def modifica_fattura_vendita(self, modifica = str):
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.click_first_result()
         self.input(None, 'Stato*').setByText(modifica)
         self.driver.execute_script('window.scrollTo(0,0)')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
     def plugin_movimenti_contabili(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
 
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//a[@id="link-tab_38"]')
         self.wait_for_element_and_click('//div[@id="tab_38"]//a[@class="btn btn-info btn-lg"]')
@@ -379,16 +342,13 @@ class Anagrafiche(Test):
         dare = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_38"]//tr[1]//td[3]'))).text
         self.assertEqual(dare, "102,00 €")
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()
 
     def regole_pagamenti(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
 
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//a[@id="link-tab_40"]')
         self.wait_for_element_and_click('//div[@id="tab_40"]//i[@class="fa fa-plus"]')
@@ -422,13 +382,11 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.expandSidebar("Contabilità")
-        self.navigateTo("Scadenzario")
-        self.wait_loader()
+        self.navigate_to_and_wait("Scadenzario")
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Anagrafica"]/input')))
-        self.send_keys_and_wait(search_input, 'Cliente', wait_modal=False)
+        self.search_by_th("th_Anagrafica", "Cliente", wait_modal=False)
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         element = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_concordata0"]')))
         element.send_keys('13/08/2026')
 
@@ -442,16 +400,13 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="alert alert-warning"]')))
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()
         self.expandSidebar("Vendite")
 
     def assicurazione_crediti(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigate_to_and_wait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//a[@id="link-tab_45"]')
 
@@ -474,10 +429,9 @@ class Anagrafiche(Test):
         self.send_keys_and_wait(credit_limit_field, "50000")
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         date_field = self.wait_driver.until(
@@ -514,10 +468,8 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//a[@id="elimina"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-        self.search_entity("Cliente")
-        self.click_first_result()
+        self.navigate_to_and_wait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//a[@id="link-tab_45"]')
 
@@ -537,6 +489,6 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//div[@id="modals"]//a[@class="btn btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.navigateTo("Anagrafiche")
+        self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
 

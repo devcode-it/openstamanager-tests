@@ -37,8 +37,7 @@ class Articoli(Test):
         #TODO: unisci articoli
 
     def aggiorna_iva(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
@@ -52,19 +51,17 @@ class Articoli(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-id_iva-container"]', option_text='Iva 10%')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         iva = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva_vendita-container"]'))
         ).text
         self.assertEqual(iva[2:20], "10 - Aliq. Iva 10%")
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()
     def coefficiente_vendita(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
@@ -89,8 +86,7 @@ class Articoli(Test):
 
         self.clear_filters()
     def conto_predefinito_acquisto(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
@@ -111,12 +107,10 @@ class Articoli(Test):
         ).text
         self.assertEqual(conto[2:24], "220.000010 Fabbricati")
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()
     def conto_predefinito_vendita(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
@@ -137,14 +131,12 @@ class Articoli(Test):
         ).text
         self.assertEqual(conto[2:24], "220.000030 Automezzi")
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()
     def aggiorna_prezzo_acquisto(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         self.wait_modal()
 
         codice_input = self.wait_driver.until(
@@ -171,8 +163,7 @@ class Articoli(Test):
 
         self.wait_for_element_and_click('//button[@id="save"]')
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
@@ -197,8 +188,7 @@ class Articoli(Test):
 
         self.clear_filters()
     def aggiorna_prezzo_vendita(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
@@ -225,8 +215,7 @@ class Articoli(Test):
 
         self.clear_filters()
     def aggiorna_quantita(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
@@ -256,8 +245,7 @@ class Articoli(Test):
 
         self.clear_filters()
     def aggiorna_unita_misura(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
@@ -271,19 +259,17 @@ class Articoli(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-um-container"]', option_text='ore')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.wait_for_element_and_click('(//i[@class="fa fa-plus"])[2]')
 
         unita_misura = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-um-container"]'))).text
         self.assertEqual(unita_misura[2:5], "ore")
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()
     def elimina_selezionati(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
@@ -302,8 +288,7 @@ class Articoli(Test):
 
         self.clear_filters()
     def crea_preventivo(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
@@ -325,19 +310,16 @@ class Articoli(Test):
 
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.wait_for_element_and_click('//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
         self.expandSidebar("Magazzino")
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()
     def imposta_prezzo_da_fattura(self):
         self.expandSidebar("Acquisti")
-        self.navigateTo("Fatture di acquisto")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di acquisto")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         numero_esterno = self.wait_driver.until(
@@ -363,8 +345,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@id="save"]')
 
         self.expandSidebar("Magazzino")
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
@@ -384,17 +365,14 @@ class Articoli(Test):
         self.clear_filters()
 
         self.expandSidebar("Acquisti")
-        self.navigateTo("Fatture di acquisto")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di acquisto")
 
         self.click_first_result()
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
         self.expandSidebar("Magazzino")
     def imposta_provvigione(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
@@ -422,12 +400,10 @@ class Articoli(Test):
         ).text
         self.assertEqual(provvigione, "10.00 %")
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()
     def stampa_etichette(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))

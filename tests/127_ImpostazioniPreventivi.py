@@ -7,7 +7,7 @@ class Impostazioni(Test):
         super().setUp()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
+        self.navigate_to_and_wait("Impostazioni")
 
     def test_impostazioni_preventivi(self):
         # Condizioni generali di fornitura preventivi (1)
@@ -24,8 +24,7 @@ class Impostazioni(Test):
 
     def condizioni_fornitura_preventivi(self):
                 self.expandSidebar("Vendite")
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -72,8 +71,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-17"]'))
@@ -84,8 +82,7 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]'))).send_keys("Prova")
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -136,8 +133,7 @@ class Impostazioni(Test):
 
         #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-17"]'))
@@ -151,8 +147,7 @@ class Impostazioni(Test):
 
     def conferma_quantita_preventivi(self):
                 self.expandSidebar("Vendite")
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -201,8 +196,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-17"]'))
@@ -213,8 +207,7 @@ class Impostazioni(Test):
         ).click() #disattiva impostazione
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -264,8 +257,7 @@ class Impostazioni(Test):
 
         #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-17"]'))
@@ -277,8 +269,7 @@ class Impostazioni(Test):
 
     def esclusioni_preventivi(self):
                 self.expandSidebar("Vendite")
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -320,8 +311,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-17"]'))
@@ -330,8 +320,7 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="setting205"]'))).send_keys("test")  #scrivo esclusioni
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -373,8 +362,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-17"]'))

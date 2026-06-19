@@ -50,8 +50,7 @@ class Impostazioni(Test):
 
     def allega_stampa_privati(self):
                 self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-10"]'))
@@ -62,8 +61,7 @@ class Impostazioni(Test):
         ).click()    #attivo impostazione
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -118,8 +116,7 @@ class Impostazioni(Test):
         self.expandSidebar("Vendite")
         #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-10"]'))
@@ -130,8 +127,7 @@ class Impostazioni(Test):
         ).click()    #disattivo impostazione
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -185,8 +181,7 @@ class Impostazioni(Test):
 
     def allega_stampa_aziende(self):
                 self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-10"]'))
@@ -197,8 +192,7 @@ class Impostazioni(Test):
         ).click()    #attivo impostazione
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -255,8 +249,7 @@ class Impostazioni(Test):
         self.expandSidebar("Vendite")
         #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-10"]'))
@@ -267,8 +260,7 @@ class Impostazioni(Test):
         ).click()    #disattivo impostazione
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -321,8 +313,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
     def allega_stampa_PA(self):
-                self.navigateTo("Anagrafiche")
-        self.wait_loader()
+                self.navigate_to_and_wait("Anagrafiche")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -364,8 +355,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-10"]'))
@@ -376,8 +366,7 @@ class Impostazioni(Test):
         ).click()    #attivo impostazione
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -434,8 +423,7 @@ class Impostazioni(Test):
         self.expandSidebar("Vendite")
         #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-10"]'))
@@ -446,8 +434,7 @@ class Impostazioni(Test):
         ).click()    #disattivo impostazione
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -501,12 +488,11 @@ class Impostazioni(Test):
         ).click()   #click di conferma
         self.wait_loader()
         #elimino anagrafica
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Test", Keys.ENTER)
 
-        self.wait_for_element_and_click('//tbody//tr[1]//td[2]')   
+        self.wait_and_click_table_row(1, 2)   
         self.wait_loader()
 
         self.wait_driver.until(
@@ -524,8 +510,7 @@ class Impostazioni(Test):
 
     def regime_fiscale(self):
                 self.expandSidebar("Vendite")   #test con impostazioni preselezionate
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -585,8 +570,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-10"]'))
@@ -601,8 +585,7 @@ class Impostazioni(Test):
         ).click() #imposta il regime fiscale RF02
 
         self.expandSidebar("Vendite")   #test con impostazioni diverse
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -662,8 +645,7 @@ class Impostazioni(Test):
         self.wait_loader()
         #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-10"]'))
@@ -678,8 +660,7 @@ class Impostazioni(Test):
         ).click() #imposta il regime fiscale RF01
 
     def tipo_cassa_previdenziale(self):
-                self.navigateTo("Impostazioni")
-        self.wait_loader()
+                self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-10"]'))
@@ -694,8 +675,7 @@ class Impostazioni(Test):
         ).click() #seleziono cassa TC01
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -755,8 +735,7 @@ class Impostazioni(Test):
         self.wait_loader()
         #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-10"]'))
@@ -768,8 +747,7 @@ class Impostazioni(Test):
 
     def causale_ritenuta_acconto(self):
                 self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -876,8 +854,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-10"]'))
@@ -892,8 +869,7 @@ class Impostazioni(Test):
         ).click()
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -974,8 +950,7 @@ class Impostazioni(Test):
 
         #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-10"]'))
@@ -987,8 +962,7 @@ class Impostazioni(Test):
 
     def riferimento_documenti_fattura_elettronica(self):
                 self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -1072,8 +1046,7 @@ class Impostazioni(Test):
         self.wait_loader()
         
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-10"]'))
@@ -1084,8 +1057,7 @@ class Impostazioni(Test):
         ).click()    #disattiva impostazione
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
@@ -1169,8 +1141,7 @@ class Impostazioni(Test):
         self.wait_loader()
         #torno alle impostazioni di prima
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-10"]'))

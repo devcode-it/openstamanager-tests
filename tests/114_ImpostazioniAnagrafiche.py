@@ -5,8 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class Impostazioni(Test):
     def setUp(self):
         super().setUp()
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
 
     def test_impostazioni_anagrafiche(self):
         self.cambio_formato_codice()
@@ -20,7 +19,7 @@ class Impostazioni(Test):
         self._cambia_formato_codice("########")
 
     def _crea_anagrafica_test(self, codice_atteso):
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
 
         ragione_sociale_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="ragione_sociale_add"]')))
         ragione_sociale_input.send_keys('Test')
@@ -34,13 +33,11 @@ class Impostazioni(Test):
         self.assertEqual(codice, codice_atteso)
 
     def _elimina_anagrafica(self):
-        self.wait_for_element_and_click('//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
     def _cambia_formato_codice(self, formato):
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_for_element_and_click('//div[@data-title="Anagrafiche"]')
 
@@ -48,6 +45,5 @@ class Impostazioni(Test):
         formato_input.clear()
         formato_input.send_keys(formato, Keys.ENTER)
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
 

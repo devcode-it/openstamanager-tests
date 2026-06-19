@@ -14,8 +14,7 @@ class OrdiniFornitore(Test):
         #TODO: invia mail
         
     def cambia_stato(self):
-        self.navigateTo("Ordini fornitore")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ordini fornitore")
 
         self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), "1", wait_modal=False)
 
@@ -23,7 +22,7 @@ class OrdiniFornitore(Test):
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="change_status"]')
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='Evaso')
+        self.select_state('Evaso')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         stato = self.wait_driver.until(

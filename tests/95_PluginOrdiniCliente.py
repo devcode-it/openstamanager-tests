@@ -13,12 +13,11 @@ class OrdiniCliente(Test):
 
 
     def consuntivi(self):
-        self.navigateTo("Ordini cliente")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ordini cliente")
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), '1', wait_modal=False)
+        self.search_by_th("th_Numero", '1', wait_modal=False)
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="link-tab_29"]')
 
         budget = self.wait_driver.until(
@@ -26,6 +25,4 @@ class OrdiniCliente(Test):
         ).text
         self.assertEqual(budget, "+ 264,80 €")
 
-        self.navigateTo("Ordini cliente")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()

@@ -16,8 +16,7 @@ class Contratti(Test):
         self.pianificazione_fatturazione()
 
     def consuntivo(self):
-        self.navigateTo("Contratti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Contratti")
 
         self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))), "Contratto di Prova", wait_modal=False)
 
@@ -29,15 +28,13 @@ class Contratti(Test):
         ).text
         self.assertEqual(budget, "+ 264,80 €")
 
-        self.navigateTo("Contratti")
-        self.wait_loader()
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Contratti")
+        self.clear_filters()
 
     def pianificazione_attivita(self):
-        self.navigateTo("Contratti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Contratti")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys("Manutenzione")
@@ -85,21 +82,19 @@ class Contratti(Test):
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//a')))
 
     def rinnovi(self):
-        self.navigateTo("Contratti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Contratti")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.wait_for_element_and_click('(//label[@for="rinnovabile"])[2]')
         self.wait_for_element_and_click('//button[@id="save"]')
 
     def pianificazione_fatturazione(self):
-        self.navigateTo("Contratti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Contratti")
 
         self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))), "Manutenzione", wait_modal=False)
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="link-tab_26"]')
         self.wait_for_element_and_click('//button[@id="pianifica"]')
 
@@ -110,8 +105,7 @@ class Contratti(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-idtipodocumento-container"]', option_text='Fattura immediata di vendita')
         self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
 
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigate_to_and_wait("Dashboard")
 
         self.wait_for_element_and_click('(//div[@id="widget_11"]//div)[2]')
         self.wait_for_element_and_click('(//div[@class="month-button-wrapper mr-2 mb-2"])[2]')
@@ -120,15 +114,13 @@ class Contratti(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-idtipodocumento-container"]', option_text='Fattura immediata di vendita')
         self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
 
-        self.navigateTo("Contratti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Contratti")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="link-tab_26"]')
 
         link = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_26"]//tbody//tr//td[2]'))).text
         self.assertEqual(link, "Fattura num. del 01/01/2026 ( Bozza)")
 
-        self.navigateTo("Contratti")
-        self.wait_loader()
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Contratti")
+        self.clear_filters()

@@ -14,10 +14,10 @@ class DdtEntrata(Test):
         self.elimina_selezionati()
         
     def cambia_stato(self):
-        self.navigateTo("Ddt in entrata")
+        self.navigate_to_and_wait("Ddt in entrata")
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="change_status"]')
-        self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='Evaso')
+        self.select_state('Evaso')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         stato = self.wait_driver.until(
@@ -26,7 +26,7 @@ class DdtEntrata(Test):
         self.assertEqual(stato, "Evaso")
 
     def fattura_ddt_entrata(self):
-        self.navigateTo("Ddt in entrata")
+        self.navigate_to_and_wait("Ddt in entrata")
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
         self.send_keys_and_wait(search_input, "1", wait_modal=False)
 
@@ -35,12 +35,12 @@ class DdtEntrata(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.navigateTo("Ddt in entrata")
+        self.navigate_to_and_wait("Ddt in entrata")
         self.wait_for_element_and_click('//tbody//tr//td')
         self.clear_filters()
 
         self.expandSidebar("Acquisti")
-        self.navigateTo("Fatture di acquisto")
+        self.navigate_to_and_wait("Fatture di acquisto")
         ragione_sociale = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[4]'))
         ).text
@@ -49,7 +49,7 @@ class DdtEntrata(Test):
         self.expandSidebar("Magazzino")
 
     def elimina_selezionati(self):        
-        self.navigateTo("Ddt in entrata")
+        self.navigate_to_and_wait("Ddt in entrata")
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="delete_bulk"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')

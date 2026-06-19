@@ -7,7 +7,7 @@ class Impostazioni(Test):
         super().setUp()
 
         self.expandSidebar("Strumenti")
-        self.navigateTo("Impostazioni")
+        self.navigate_to_and_wait("Impostazioni")
 
     def test_impostazioni_scadenzario(self):
         return True    

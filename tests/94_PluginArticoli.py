@@ -25,13 +25,9 @@ class Articoli(Test):
         #self.barcode()
         
     def provvigioni(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
-        )
-        self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
+        self.search_by_th("th_Descrizione", 'Articolo 1', wait_modal=False)
 
         self.click_first_result()
 
@@ -62,17 +58,12 @@ class Articoli(Test):
         self.wait_for_element_and_click('(//a[@class="btn btn-danger ask"])[2]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()
     def listino_fornitori(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
-        )
-        self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
+        self.search_by_th("th_Descrizione", 'Articolo 1', wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_32"]')
@@ -102,10 +93,9 @@ class Articoli(Test):
         self.send_keys_and_wait(prezzo_unitario, '15')
 
         self.expandSidebar("Acquisti")
-        self.navigateTo("Fatture di acquisto")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di acquisto")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         numero_esterno = self.wait_driver.until(
@@ -129,14 +119,12 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.expandSidebar("Magazzino")
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         self.click_first_result()
         self.wait_for_dropdown_and_select('//span[@id="select2-id_fornitore-container"]', option_text='Fornitore')
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         self.click_first_result()
 
@@ -163,17 +151,12 @@ class Articoli(Test):
         ).text
         self.assertEqual(messaggio, "Nessuna informazione disponibile...")
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()
     def netto_clienti(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
-        )
-        self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
+        self.search_by_th("th_Descrizione", 'Articolo 1', wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_27"]')
@@ -189,10 +172,9 @@ class Articoli(Test):
         self.send_keys_and_wait(prezzo_unitario, '5')
 
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         self.wait_modal()
 
         self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica_add-container"]', option_text='Cliente')
@@ -207,27 +189,20 @@ class Articoli(Test):
         ).text
         self.assertEqual(prezzo, "5,00 €")
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
         self.expandSidebar("Magazzino")
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_27"]')
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()
     def statistiche(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
-        )
-        self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
+        self.search_by_th("th_Descrizione", 'Articolo 1', wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_24"]')
@@ -242,17 +217,12 @@ class Articoli(Test):
         ).text
         self.assertEqual(numero_2, "1")
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()
     def giacenze(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
-        )
-        self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
+        self.search_by_th("th_Descrizione", 'Articolo 1', wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_22"]')
@@ -267,18 +237,13 @@ class Articoli(Test):
         ).text
         self.assertEqual(totale_2, "12,00")
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()
         
     def serial(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
-        )
-        self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
+        self.search_by_th("th_Descrizione", 'Articolo 1', wait_modal=False)
 
         self.click_first_result()
 
@@ -306,7 +271,6 @@ class Articoli(Test):
 
         self.wait(EC.invisibility_of_element_located((By.XPATH, '//div[@id="tab_11"]//div[@class="card"]//tbody//tr[2]//td[1]')))
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()
    
