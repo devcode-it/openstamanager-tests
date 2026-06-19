@@ -16,77 +16,51 @@ class PianiScontoMagg(Test):
         self.plugin_sconto_maggiorazione()
 
     def creazione_piano_sconto_magg(self, nome: str, sconto: str):
-        self.navigateTo("Piani di sconto/magg.")
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait("Piani di sconto/magg.")
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue(nome)
         self.input(modal, 'Sconto/magg. combinato').setValue(sconto)
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
+        self.submit_modal(modal)
 
     def modifica_piano_sconto(self, modifica=str):
-        self.navigateTo("Piani di sconto/magg.")
-        self.wait_loader()
+        self.navigate_to_and_wait("Piani di sconto/magg.")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, 'Piano di sconto di Prova da Modificare', wait_modal=False)
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Nome", 'Piano di sconto di Prova da Modificare')
 
         self.input(None, 'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Piani di sconto/magg.")
-        self.wait_loader()
+        self.navigate_to_and_wait("Piani di sconto/magg.")
         self.clear_filters()
 
     def elimina_piano_sconto(self):
-        self.navigateTo("Piani di sconto/magg.")
-        self.wait_loader()
+        self.navigate_to_and_wait("Piani di sconto/magg.")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, 'Piano di sconto di Prova da Eliminare', wait_modal=False)
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Nome", 'Piano di sconto di Prova da Eliminare')
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
+        self.delete_current_and_clear()
 
     def verifica_piano_sconto(self):
-        self.navigateTo("Piani di sconto/magg.")
-        self.wait_loader()
+        self.navigate_to_and_wait("Piani di sconto/magg.")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Piano di sconto di Prova", wait_modal=False)
-        self.wait_for_search_results()
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
+        self.search_by_th("th_Nome", "Piano di sconto di Prova")
+        modificato = self.get_table_text(1, 2)
         self.assertEqual("Piano di sconto di Prova", modificato)
         self.clear_filters()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Piano di sconto di Prova da Eliminare", wait_modal=False)
-        self.wait_for_search_results()
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
+        self.verify_deleted_by_th("th_Nome", "Piano di sconto di Prova da Eliminare")
 
     def plugin_sconto_maggiorazione(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, 'Articolo 1', wait_modal=False)
-        self.wait_for_search_results()
+        self.search_by_th("th_Descrizione", 'Articolo 1')
         self.wait_for_element_and_click('//tbody//td[2]//div[1]')
         self.wait_for_element_and_click('//a[@id="link-tab_33"]')
 
         prezzo_nuovo = self.find(By.XPATH, '(//div[@id="tab_33"]//tr[3]//td[2])[2]').text
         self.assertEqual(prezzo_nuovo, "18,00 €")
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()

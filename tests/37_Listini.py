@@ -8,5 +8,5 @@ class Listini(Test):
         
     def test_listini(self):
         self.expandSidebar("Magazzino")
-        self.navigateTo("Listini")
+        self.navigate_to_and_wait("Listini")
         ##TODO: test listini

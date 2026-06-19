@@ -124,8 +124,7 @@ class TestHelperMixin:
         self.click_first_result()
 
     def delete_current_and_clear(self) -> None:
-        """Delete the current element and clear filters."""
-        self.wait_for_element_and_click('//a[contains(@class, "btn btn-danger ask")]')
+        self.wait_for_element_and_click('//a[contains(@class, "btn btn-danger ask") and not(contains(@class, "pull-right"))]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.clear_filters()
 

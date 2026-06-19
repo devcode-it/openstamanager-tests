@@ -16,47 +16,36 @@ class CategorieDocumenti(Test):
         self._verifica_categoria_documento()
 
     def _add_categorie_documenti(self, descrizione: str):
-        self.navigateTo("Categorie documenti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Categorie documenti")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
         self.input(modal, 'Descrizione').setValue(descrizione)
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def _search_categoria(self, nome: str):
-        self.navigateTo("Categorie documenti")
-        self.wait_loader()
-
-        search_input = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, nome, wait_modal=False)
+        self.navigate_to_and_wait("Categorie documenti")
+        self.search_by_th("th_Descrizione", nome)
 
     def _modifica_categoria_documenti(self, modifica: str):
         self._search_categoria('Categoria di Prova da Modificare')
         self.click_first_result()
         self.input(None, 'Descrizione').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Categorie documenti")
-        self.wait_loader()
-
+        self.navigate_to_and_wait("Categorie documenti")
         self.clear_filters()
 
     def _elimina_categoria_documenti(self):
         self._search_categoria('Categoria di Prova da Eliminare')
         self.click_first_result()
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
+
+        self.delete_current_and_clear()
 
     def _verifica_categoria_documento(self):
         self._search_categoria("Categoria Documenti di Prova")
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
+        modificato = self.get_table_text(1, 2)
         self.assertEqual("Categoria Documenti di Prova", modificato)
         self.clear_filters()
 
-        self._search_categoria("Categoria Documenti di Prova da Eliminare")
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
-        self.clear_filters()
+        self.verify_deleted_by_th("th_Descrizione", "Categoria Documenti di Prova da Eliminare")

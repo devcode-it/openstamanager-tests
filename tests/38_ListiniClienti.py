@@ -8,8 +8,7 @@ class Listini(Test):
         self.expandSidebar("Magazzino")
 
     def test_creazione_listino_cliente(self):
-        self.navigateTo("Listini cliente")
-        self.wait_loader()
+        self.navigate_to_and_wait("Listini cliente")
 
         self.creazione_listino_cliente("Listino cliente di Prova da Modificare","01/12/2026", "01/01/2026")
         self.creazione_listino_cliente("Listino cliente di Prova da Eliminare", "01/12/2026", "01/01/2026")
@@ -20,7 +19,7 @@ class Listini(Test):
         self.aggiungi_a_listino_cliente()
 
     def creazione_listino_cliente(self, nome:str, dataatt: str, datascad: str):
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Data attivazione').setValue(dataatt)
@@ -29,13 +28,9 @@ class Listini(Test):
         self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@type="submit"]')
 
     def modifica_listino_cliente(self, modifica:str):
-        self.navigateTo("Listini cliente")
-        self.wait_loader()
+        self.navigate_to_and_wait("Listini cliente")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, 'Listino cliente di Prova da Modificare', wait_modal=False)
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Nome", 'Listino cliente di Prova da Modificare')
 
         self.wait_for_dropdown_and_select('//span[@class="select2-selection select2-selection--single"]', option_text='001')
 
@@ -49,49 +44,31 @@ class Listini(Test):
 
         self.input(None,'Nome').setValue(modifica)
         self.wait_for_element_and_click('//button[@id="save"]')
-        self.wait_for_element_and_click('//a[@id="back"]')
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.click_back_button()
+        self.clear_filters()
 
     def elimina_listino_cliente(self):
-        self.navigateTo("Listini cliente")
-        self.wait_loader()
+        self.navigate_to_and_wait("Listini cliente")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, 'Listino cliente di Prova da Eliminare', wait_modal=False)
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Nome", 'Listino cliente di Prova da Eliminare')
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.delete_current_and_clear()
 
     def verifica_listino_cliente(self):
-        self.navigateTo("Listini cliente")
-        self.wait_loader()
+        self.navigate_to_and_wait("Listini cliente")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Listino cliente di Prova", wait_modal=False)
-        self.wait_for_search_results()
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
+        self.search_by_th("th_Nome", "Listino cliente di Prova")
+        modificato = self.get_table_text(1, 2)
         self.assertEqual("Listino cliente di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Listino cliente di Prova da Eliminare", wait_modal=False)
-        self.wait_for_search_results()
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[1]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.verify_deleted_by_th("th_Nome", "Listino cliente di Prova da Eliminare")
+        self.clear_filters()
 
     def aggiorna_listino_cliente(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Cliente", wait_modal=False)
+        self.search_by_th("th_Ragione-sociale", "Cliente")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -100,25 +77,21 @@ class Listini(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-id_listino-container"]', option_text='Listino cliente di Prova')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_loader()
 
         self.wait_for_element_and_click('(//button[@class="select2-selection__clear"])[4]')
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()
 
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
         self.wait_for_element_and_click('//th[@id="th_Ragione-sociale"]/i[@class="deleteicon fa fa-times"]')
         self.expandSidebar("Magazzino")
 
     def aggiungi_a_listino_cliente(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Codice"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "001", wait_modal=False)
+        self.search_by_th("th_Codice", "001")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -131,10 +104,9 @@ class Listini(Test):
         sconto_input.send_keys("10")
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.navigateTo("Listini cliente")
-        self.wait_loader()
+        self.navigate_to_and_wait("Listini cliente")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_loader()
 
         self.find(By.XPATH, '//tr[1]//td[8]')

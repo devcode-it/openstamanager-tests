@@ -8,8 +8,7 @@ class PrimaNota(Test):
         self.expandSidebar("Contabilità")
 
     def test_creazione_prima_nota(self):
-        self.navigateTo("Prima nota")
-        self.wait_loader()
+        self.navigate_to_and_wait("Prima nota")
 
         self.creazione_prima_nota(causale="Prima Nota da Modificare")
         self.creazione_prima_nota(causale="Prima Nota da Eliminare")
@@ -18,12 +17,10 @@ class PrimaNota(Test):
         self.verifica_prima_nota()
 
     def search_causale(self, nome: str):
-        search_input = self.find(By.XPATH, '//th[@id="th_Causale"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, nome, wait_modal=False)
+        self.search_by_th("th_Causale", nome)
 
     def creazione_prima_nota(self, causale=str):
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Causale').setValue(causale)
@@ -46,36 +43,31 @@ class PrimaNota(Test):
 
 
     def modifica_prima_nota(self, modifica=str):
-        self.wait_for_element_and_click('//a[@id="back"]')
+        self.click_back_button()
         self.wait_loader()
 
         self.search_causale('Prima Nota da Modificare')
         self.click_first_result()
 
         self.input(None, 'Causale').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Prima nota")
-        self.wait_loader()
+        self.navigate_to_and_wait("Prima nota")
         self.clear_filters()
 
     def elimina_prima_nota(self):
-        self.navigateTo("Prima nota")
-        self.wait_loader()
+        self.navigate_to_and_wait("Prima nota")
         self.search_causale('Prima Nota da Eliminare')
         self.click_first_result()
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
+        self.delete_current_and_clear()
 
     def verifica_prima_nota(self):
-        self.navigateTo("Prima nota")
-        self.wait_loader()
+        self.navigate_to_and_wait("Prima nota")
 
         self.search_causale("Prima Nota di Prova (Fatt. n.1 del 01/01/2026)")
         self.wait_for_search_results()
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[4]').text
+        modificato = self.get_table_text(1, 4)
         self.assertEqual("Prima Nota di Prova (Fatt. n.1 del 01/01/2026)", modificato)
 
         self.clear_filters()

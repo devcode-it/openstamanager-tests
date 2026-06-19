@@ -23,10 +23,9 @@ class Preventivi(Test):
         self._verifica_preventivi()
 
     def _creazione_preventivo(self, nome:str, cliente:str, idtipo: str, file_importi: str):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue(nome)
@@ -34,17 +33,16 @@ class Preventivi(Test):
         select.setByText(cliente)
         select = self.input(modal, 'Tipo di Attività')
         select.setByIndex(idtipo)
-        modal.find_element(By.XPATH, './/button[@type="submit"]').click()
+        self.submit_modal(modal)
         self.close_tour()
 
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
 
     def _duplica_preventivo(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//div[@id="pulsanti"]//button[@class="btn ask btn-primary"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
@@ -55,53 +53,42 @@ class Preventivi(Test):
         self.wait_for_element_and_click('//button[@class="btn btn-success"]')
 
     def _modifica_preventivo(self, stato:str):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), '=Preventivo di Prova', wait_modal=False)
+        self.search_by_th("th_Nome", '=Preventivo di Prova')
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         select = self.input(None, 'Stato')
         select.setByText(stato)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        sconto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[2]//td[2]').text
-        totale_imponibile = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
-        iva = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[4]//td[2]').text
-        totale = self.find(By.XPATH, '//div[@id="tab_0"]//div[@id="righe"]//tbody[2]//tr[5]//td[2]').text
+        sconto = self.get_row_cell_text('righe', 2, 2, 2)
+        totale_imponibile = self.get_row_cell_text('righe', 2, 3, 2)
+        iva = self.get_row_cell_text('righe', 2, 4, 2)
+        totale = self.get_row_cell_text('righe', 2, 5, 2)
 
         self.assertEqual(sconto, (self.valori["Sconto/maggiorazione"] + ' €'))
         self.assertEqual(totale_imponibile, (self.valori["Totale imponibile"] + ' €'))
         self.assertEqual(iva, (self.valori["IVA"] + ' €'))
         self.assertEqual(totale, (self.valori["Totale documento"] + ' €'))
 
-        self.navigateTo("Preventivi")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Preventivi")
+        self.clear_filters()
 
     def _elimina_preventivo(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), '=Preventivo di Prova da Eliminare', wait_modal=False)
+        self.search_by_th_and_click_first("th_Nome", '=Preventivo di Prova da Eliminare')
+        self.delete_current_and_clear()
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-
-        self.navigateTo("Preventivi")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Preventivi")
 
     def _creazione_contratto(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), 'Preventivo di Prova', wait_modal=False)
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        totalepreventivo = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        self.search_by_th_and_click_first("th_Nome", 'Preventivo di Prova')
+        totalepreventivo = self.get_row_cell_text('righe', 2, 3, 2)
 
         self.wait_for_element_and_click('//div[@id="pulsanti"]//button[@class="btn btn-info dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"][@data-title="Crea contratto"]')
@@ -109,28 +96,19 @@ class Preventivi(Test):
         self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
-        totalecontratto = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        totalecontratto = self.get_row_cell_text('righe', 2, 3, 2)
         self.assertEqual(totalecontratto, totalepreventivo)
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), "Preventivo di Prova", wait_modal=False)
-
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
-        self.navigateTo("Preventivi")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Preventivi")
+        self.clear_filters()
 
     def _creazione_ordine_cliente(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), 'Preventivo di Prova', wait_modal=False)
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        totalepreventivo = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        self.search_by_th_and_click_first("th_Nome", 'Preventivo di Prova')
+        totalepreventivo = self.get_row_cell_text('righe', 2, 3, 2)
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"][@data-title="Crea ordine cliente"]')
@@ -138,27 +116,18 @@ class Preventivi(Test):
         self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
-        totaleordinecliente = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        totaleordinecliente = self.get_row_cell_text('righe', 2, 3, 2)
         self.assertEqual(totaleordinecliente, totalepreventivo)
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_icon_title_Stato"]/input'), "Bozza", wait_modal=False)
-
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
-        self.navigateTo("Preventivi")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Preventivi")
+        self.clear_filters()
 
     def _creazione_ordine_fornitore(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), 'Preventivo di Prova', wait_modal=False)
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.search_by_th_and_click_first("th_Nome", 'Preventivo di Prova')
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"][@data-title="Crea ordine fornitore"]')
@@ -168,29 +137,20 @@ class Preventivi(Test):
         self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
-        totaleordinefornitore = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        totaleordinefornitore = self.get_row_cell_text('righe', 2, 3, 2)
         self.assertEqual(totaleordinefornitore, '7,20 €')
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_icon_title_Stato"]/input'), "Bozza", wait_modal=False)
-
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.expandSidebar("Vendite")
-        self.navigateTo("Preventivi")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Preventivi")
+        self.clear_filters()
 
     def _creazione_attività(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), 'Preventivo di Prova', wait_modal=False)
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        totalepreventivo = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        self.search_by_th_and_click_first("th_Nome", 'Preventivo di Prova')
+        totalepreventivo = self.get_row_cell_text('righe', 2, 3, 2)
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"][@data-title="Crea attività"]')
@@ -202,29 +162,20 @@ class Preventivi(Test):
         self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
-        totaleattività = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        totaleattività = self.get_row_cell_text('righe', 2, 3, 2)
         self.assertEqual(totaleattività, totalepreventivo)
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Numero"]/input'), "03", wait_modal=False)
-
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.expandSidebar("Vendite")
-        self.navigateTo("Preventivi")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Preventivi")
+        self.clear_filters()
 
     def _creazione_ddt_uscita(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), 'Preventivo di Prova', wait_modal=False)
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        totalepreventivo = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        self.search_by_th_and_click_first("th_Nome", 'Preventivo di Prova')
+        totalepreventivo = self.get_row_cell_text('righe', 2, 3, 2)
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"][@data-title="Crea DDT in uscita"]')
@@ -234,61 +185,47 @@ class Preventivi(Test):
         self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
-        totaleddtuscita = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        totaleddtuscita = self.get_row_cell_text('righe', 2, 3, 2)
         self.assertEqual(totaleddtuscita, totalepreventivo)
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Numero"]/input'), "03", wait_modal=False)
-
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.expandSidebar("Vendite")
-        self.navigateTo("Preventivi")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Preventivi")
+        self.clear_filters()
 
     def _creazione_fattura(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), 'Preventivo di Prova', wait_modal=False)
-
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        totalepreventivo = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        self.search_by_th_and_click_first("th_Nome", 'Preventivo di Prova')
+        totalepreventivo = self.get_row_cell_text('righe', 2, 3, 2)
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"][@data-title="Crea fattura"]')
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
-        totalefattura = self.find(By.XPATH, '//div[@id="righe"]//tbody[2]//tr[3]//td[2]').text
+        totalefattura = self.get_row_cell_text('righe', 2, 3, 2)
         self.assertEqual(totalefattura, totalepreventivo)
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.delete_current_and_clear()
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Numero"]/input'), "0003/2026", wait_modal=False)
-
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
-        self.navigateTo("Preventivi")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Preventivi")
+        self.clear_filters()
 
     def _verifica_preventivi(self):
-        self.navigateTo("Preventivi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Preventivi")
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), "Preventivo di Prova", wait_modal=False)
+        self.search_by_th("th_Nome", "Preventivo di Prova")
 
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[3]').text
+        modificato = self.get_table_text(1, 3)
         self.assertEqual("Preventivo di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Nome"]/input'), "Preventivo di Prova da Eliminare", wait_modal=False)
+        self.search_by_th("th_Nome", "Preventivo di Prova da Eliminare")
 
-        eliminato = self.find(By.XPATH, '//td[@class="dataTables_empty"]').text
+        eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
+        self.verify_deleted_by_th("th_Nome", "Preventivo di Prova da Eliminare")
+        self.clear_filters()

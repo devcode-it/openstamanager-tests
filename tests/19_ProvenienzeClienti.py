@@ -17,10 +17,9 @@ class Provenienze_clienti(Test):
         self._verifica_provenienze_clienti()
 
     def _creazione_provenienze_clienti(self, descrizione, colore):
-        self.navigateTo("Provenienze clienti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Provenienze clienti")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Colore').setValue(colore)
@@ -28,39 +27,35 @@ class Provenienze_clienti(Test):
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def _modifica_provenienze_clienti(self, modifica):
-        self.navigateTo("Provenienze clienti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Provenienze clienti")
 
         search_input = self.wait_for_element_and_click('//th[@id="th_descrizione"]/input')
         self.send_keys_and_wait(search_input, 'Provenienza Clienti di Prova da Modificare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.input(None, 'Descrizione').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Provenienze clienti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Provenienze clienti")
         self.clear_filters()
 
     def _elimina_provenienze_clienti(self):
         search_input = self.wait_for_element_and_click('//th[@id="th_descrizione"]/input')
         self.send_keys_and_wait(search_input, 'Provenienza Clienti di Prova da Eliminare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.driver.execute_script('window.scrollTo(0,0)')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
-
+        self.delete_current_and_clear()
+        
     def _verifica_provenienze_clienti(self):
         search_input = self.wait_for_element_and_click('//th[@id="th_descrizione"]/input')
         self.send_keys_and_wait(search_input, "Provenienza Clienti di Prova", wait_modal=False)
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[3]').text
+        modificato = self.get_table_text(1, 3)
         self.assertEqual("Provenienza Clienti di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
         search_input = self.wait_for_element_and_click('//th[@id="th_descrizione"]/input')
         self.send_keys_and_wait(search_input, "Provenienza Clienti di Prova da Eliminare", wait_modal=False)
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)

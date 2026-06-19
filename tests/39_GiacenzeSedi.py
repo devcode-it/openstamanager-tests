@@ -15,11 +15,8 @@ class GiacenzeSedi(Test):
         self.verifica_movimenti()
 
     def aggiunta_sede(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
-
-        self.search_entity("Admin spa")
-        self.click_first_result()
+        self.navigate_to_and_wait("Anagrafiche")
+        self.search_entity_and_click_first("Admin spa")
 
         self.wait_for_element_and_click('//a[@id="link-tab_4"]')
         self.wait_for_element_and_click('//div[@id="tab_4"]//i[@class="fa fa-plus"]')
@@ -39,10 +36,9 @@ class GiacenzeSedi(Test):
 
     def creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):
         self.expandSidebar("Magazzino")
-        self.navigateTo("Ddt in uscita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ddt in uscita")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         select = self.input(modal, 'Destinatario')
@@ -52,20 +48,18 @@ class GiacenzeSedi(Test):
         select = self.input(modal, 'Causale trasporto')
         select.setByText(causale)
 
-        modal.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-        self.wait_loader()
+        self.submit_modal(modal)
 
         row_manager = RowManager(self)
         self.valori = row_manager.compile(file_importi)
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_sede_destinazione-container"]', option_text='Roma')
-        self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='Evaso')
+        self.select_state('Evaso')
 
         self.wait_for_element_and_click('//button[@id="save"]')
 
     def trasporto(self):
-        self.navigateTo("Ddt in uscita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ddt in uscita")
 
         self.click_first_result()
         self.wait_for_element_and_click('//button[@onclick="completaTrasporto()"]')
@@ -74,14 +68,9 @@ class GiacenzeSedi(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
     def verifica_movimenti(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Codice"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "001", wait_modal=False)
-
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Codice", "001")
         self.wait_for_element_and_click('//a[@id="link-tab_10"]')
 
         scarico = self.find(By.XPATH, '//div[@id="tab_10"]//tbody//tr[4]//td[3]').text

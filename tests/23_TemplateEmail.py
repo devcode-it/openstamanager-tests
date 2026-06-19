@@ -16,9 +16,8 @@ class TemplateEmail(Test):
         self._verifica_template_email()
 
     def _add_template_email(self, nome: str, modulo: str, account: str):
-        self.navigateTo("Template email")
-        self.wait_loader()
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait("Template email")
+        self.click_add_button()
         modal = self.wait_modal()
         self.input(modal, 'Nome').setValue(nome)
         select = self.input(modal, 'Modulo del template')
@@ -28,36 +27,24 @@ class TemplateEmail(Test):
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def _modifica_template(self, modifica: str):
-        self.navigateTo("Template email")
-        self.wait_loader()
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, 'Template di Prova da Modificare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.navigate_to_and_wait("Template email")
+        self.search_by_th_and_click_first("th_Nome", 'Template di Prova da Modificare')
         self.input(None, 'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
-        self.navigateTo("Template email")
-        self.wait_loader()
+        self.click_save_button()
+        self.navigate_to_and_wait("Template email")
         self.clear_filters()
 
     def _elimina_template(self):
-        self.navigateTo("Template email")
-        self.wait_loader()
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, 'Template di Prova da Eliminare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
+        self.navigate_to_and_wait("Template email")
+        self.search_by_th_and_click_first("th_Nome", 'Template di Prova da Eliminare')
+
+        self.delete_current_and_clear()
 
     def _verifica_template_email(self):
-        self.navigateTo("Template email")
-        self.wait_loader()
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, "Template di Prova", wait_modal=False)
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[3]').text
+        self.navigate_to_and_wait("Template email")
+        self.search_by_th("th_Nome", "Template di Prova")
+        modificato = self.get_table_text(1, 3)
         self.assertEqual("Template di Prova", modificato)
         self.clear_filters()
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, "Template di Prova da Eliminare", wait_modal=False)
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
+
+        self.verify_deleted_by_th("th_Nome", "Template di Prova da Eliminare")

@@ -6,8 +6,7 @@ class StampeContabili(Test):
     def setUp(self):
         super().setUp()
         self.expandSidebar("Contabilità")
-        self.navigateTo("Stampe contabili")
-        self.wait_loader()
+        self.navigate_to_and_wait("Stampe contabili")
 
     def test_stampecontabili(self):
         self.apri_stampe_contabili()

@@ -8,10 +8,9 @@ class Movimenti(Test):
         self.expandSidebar("Magazzino")
 
     def test_creazione_movimento(self):
-        self.navigateTo("Movimenti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Movimenti")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
 
         self._creazione_movimento("10", "Articolo 1", "Movimento di Prova")
         self._creazione_movimento("5", "Articolo 1", "Movimento di Prova da Eliminare")
@@ -33,17 +32,15 @@ class Movimenti(Test):
         self.wait_for_element_and_click('//button[@class="close"]')
         search_field = self.find(By.XPATH, '//th[@id="th_Descrizione"]/input')
         self.send_keys_and_wait(search_field, 'Movimento di Prova da Eliminare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('(//a[@class="btn btn-danger btn-xs ask"]//i[@class="fa fa-trash"])[1]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.navigateTo("Movimenti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Movimenti")
         self.wait_for_element_and_click('//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]')
 
     def _verifica_movimento(self):
-        self.navigateTo("Movimenti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Movimenti")
         search_field = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_field, "Movimento di prova da Eliminare", wait_modal=False)
         eliminato = self.wait_driver.until(
@@ -52,11 +49,10 @@ class Movimenti(Test):
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
 
     def _verifica_movimenti_documenti(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
         search_field = self.find(By.XPATH, '//th[@id="th_Codice"]/input')
         self.send_keys_and_wait(search_field, "001", wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="link-tab_10"]')
 
         base_xpath = '//div[@id="tab_10"]//div[@class="card"]//div[@class="card-body"]//tbody'

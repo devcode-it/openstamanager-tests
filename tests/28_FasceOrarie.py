@@ -16,9 +16,8 @@ class FasceOrarie(Test):
         self._verifica_fasce_orarie()
 
     def _creazione_fasce_orarie(self, nome: str, inizio: str, fine: str):
-        self.navigateTo("Fasce orarie")
-        self.wait_loader()
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait("Fasce orarie")
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(None, 'Ora inizio').setValue(inizio)
@@ -27,8 +26,7 @@ class FasceOrarie(Test):
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def _search_fascia_oraria(self, nome: str):
-        self.navigateTo("Fasce orarie")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fasce orarie")
         search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
         search_input.clear()
         self.send_keys_and_wait(search_input, nome, wait_modal=False)
@@ -37,26 +35,23 @@ class FasceOrarie(Test):
         self._search_fascia_oraria('Fascia Oraria di Prova da Modificare')
         self.click_first_result()
         self.input(None, 'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Fasce orarie")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fasce orarie")
         self.clear_filters()
 
     def _elimina_fasce_orarie(self):
         self._search_fascia_oraria('Fascia Oraria di Prova da Eliminare')
         self.click_first_result()
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
+        self.delete_current_and_clear()
 
     def _verifica_fasce_orarie(self):
         self._search_fascia_oraria("Fascia Oraria di Prova")
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
+        modificato = self.get_table_text(1, 2)
         self.assertEqual("Fascia Oraria di Prova", modificato)
         self.clear_filters()
 
         self._search_fascia_oraria("Fascia Oraria di Prova da Eliminare")
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.clear_filters()

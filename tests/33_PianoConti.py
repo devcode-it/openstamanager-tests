@@ -7,6 +7,5 @@ class PrimaNota(Test):
         self.expandSidebar("Contabilità")
 
     def test_creazione_prima_nota(self):
-        self.navigateTo("Piano dei conti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Piano dei conti")
         ##TODO: test piano dei conti

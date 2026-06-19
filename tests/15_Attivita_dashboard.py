@@ -12,17 +12,15 @@ class Attivita_Dashboard(Test):
     def test_attivita_dashboard(self):
         self._create_activity('Cliente', '1')
 
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigate_to_and_wait("Dashboard")
         self._drag_activity_and_update_technician()
 
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigate_to_and_wait("Dashboard")
         self._verify_activity()
 
     def _create_activity(self, cliente: str, tipo: str):
-        self.navigateTo('Attività')
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait('Attività')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Cliente').setByText(cliente)

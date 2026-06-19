@@ -7,6 +7,5 @@ class Cespiti(Test):
         self.expandSidebar("Contabilità")
 
     def test_creazione_cespiti(self):
-        self.navigateTo("Cespiti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Cespiti")
         ##TODO: test ammortamenti cespiti

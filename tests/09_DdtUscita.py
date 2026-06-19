@@ -72,7 +72,7 @@ class DdtUscita(Test):
 
         modificato = self.get_table_text(1, 11)
         self.assertEqual("Evaso", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
         self.verify_deleted_by_th("th_Numero", "!=01")
         self.clear_filters()

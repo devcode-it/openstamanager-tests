@@ -16,45 +16,31 @@ class Liste(Test):
         self._verifica_lista()
 
     def _creazione_lista(self, nome=str):
-        self.navigateTo("Liste")
-        self.wait_loader()
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait("Liste")
+        self.click_add_button()
         modal = self.wait_modal()
         self.input(modal, 'Nome').setValue(nome)
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def _modifica_lista(self, modifica: str):
-        self.navigateTo("Liste")
-        self.wait_loader()
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, 'Lista di Prova da Modificare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.navigate_to_and_wait("Liste")
+        self.search_by_th_and_click_first("th_Nome", 'Lista di Prova da Modificare')
         self.input(None, 'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
-        self.navigateTo("Liste")
-        self.wait_loader()
+        self.click_save_button()
+        self.navigate_to_and_wait("Liste")
         self.clear_filters()
 
     def _elimina_lista(self):
-        self.navigateTo("Liste")
-        self.wait_loader()
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, 'Lista di Prova da Eliminare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
+        self.navigate_to_and_wait("Liste")
+        self.search_by_th_and_click_first("th_Nome", 'Lista di Prova da Eliminare')
+
+        self.delete_current_and_clear()
 
     def _verifica_lista(self):
-        self.navigateTo("Liste")
-        self.wait_loader()
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, "Lista di Prova", wait_modal=False)
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
+        self.navigate_to_and_wait("Liste")
+        self.search_by_th("th_Nome", "Lista di Prova")
+        modificato = self.get_table_text(1, 2)
         self.assertEqual("Lista di Prova", modificato)
         self.clear_filters()
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, "Lista di Prova da Eliminare", wait_modal=False)
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
-        self.clear_filters()
+
+        self.verify_deleted_by_th("th_Nome", "Lista di Prova da Eliminare")

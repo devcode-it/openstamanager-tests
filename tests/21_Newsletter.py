@@ -16,10 +16,9 @@ class Newsletter(Test):
         self._verifica_newsletter()
 
     def _add_newsletter(self, nome: str, modulo: str):
-        self.navigateTo("Newsletter")
-        self.wait_loader()
+        self.navigate_to_and_wait("Newsletter")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         select = self.input(modal, 'Template email')
@@ -28,37 +27,25 @@ class Newsletter(Test):
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def _modifica_newsletter(self, modifica: str):
-        self.navigateTo("Newsletter")
-        self.wait_loader()
+        self.navigate_to_and_wait("Newsletter")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, 'Newsletter di Prova da Modificare', wait_modal=False)
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Nome", 'Newsletter di Prova da Modificare')
 
         self.input(None, 'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Newsletter")
-        self.wait_loader()
+        self.navigate_to_and_wait("Newsletter")
         self.clear_filters()
 
     def _elimina_newsletter(self):
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, 'Newsletter di Prova da Eliminare', wait_modal=False)
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Nome", 'Newsletter di Prova da Eliminare')
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
+        self.delete_current_and_clear()
 
     def _verifica_newsletter(self):
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, "Newsletter di Prova", wait_modal=False)
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
+        self.search_by_th("th_Nome", "Newsletter di Prova")
+        modificato = self.get_table_text(1, 2)
         self.assertEqual("Newsletter di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        self.send_keys_and_wait(search_input, "Newsletter di Prova da Eliminare", wait_modal=False)
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
+        self.verify_deleted_by_th("th_Nome", "Newsletter di Prova da Eliminare")

@@ -14,10 +14,9 @@ class GestioneDocumentale(Test):
         self._verifica_documento()
 
     def _add_documento_di_prova(self, nome: str, categoria: str):
-        self.navigateTo("Gestione documentale")
-        self.wait_loader()
+        self.navigate_to_and_wait("Gestione documentale")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue(nome)
@@ -25,48 +24,29 @@ class GestioneDocumentale(Test):
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def _modifica_documento(self, modifica: str):
-        self.navigateTo("Gestione documentale")
-        self.wait_loader()
+        self.navigate_to_and_wait("Gestione documentale")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, 'Documento di Prova da Modificare', wait_modal=False)
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Nome", 'Documento di Prova da Modificare')
 
         self.input(None, 'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Gestione documentale")
+        self.navigate_to_and_wait("Gestione documentale")
         self.clear_filters()
 
     def _elimina_documento(self):
-        self.navigateTo("Gestione documentale")
-        self.wait_loader()
+        self.navigate_to_and_wait("Gestione documentale")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, 'Documento di Prova da Eliminare', wait_modal=False)
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Nome", 'Documento di Prova da Eliminare')
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.delete_current_and_clear()
 
     def _verifica_documento(self):
-        self.navigateTo("Gestione documentale")
-        self.wait_loader()
+        self.navigate_to_and_wait("Gestione documentale")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Documento di prova", wait_modal=False)
-        self.wait_for_search_results()
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[3]').text
+        self.search_by_th("th_Nome", "Documento di prova")
+        modificato = self.get_table_text(1, 3)
         self.assertEqual("Documento di prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Documento di prova da Eliminare", wait_modal=False)
-        self.wait_for_search_results()
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
+        self.verify_deleted_by_th("th_Nome", "Documento di prova da Eliminare")

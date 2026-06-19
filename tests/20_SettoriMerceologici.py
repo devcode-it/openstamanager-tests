@@ -17,53 +17,37 @@ class SettoriMerceologici(Test):
         self._verifica_settore_merceologico()
 
     def _creazione_settori_merceologici(self, descrizione):
-        self.navigateTo("Settori merceologici")
-        self.wait_loader()
+        self.navigate_to_and_wait("Settori merceologici")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Descrizione').setValue(descrizione)
         self.wait_for_element_and_click('//button[@class="btn btn-primary"][@type="submit"]')
 
     def _modifica_settori_merceologici(self, modifica):
-        self.navigateTo("Settori merceologici")
-        self.wait_loader()
+        self.navigate_to_and_wait("Settori merceologici")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_descrizione"]/input')
-        self.send_keys_and_wait(search_input, 'Settore Merceologico di Prova da Modificare', wait_modal=False)
-
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_descrizione", 'Settore Merceologico di Prova da Modificare')
 
         self.driver.execute_script('window.scrollTo(0,0)')
         self.input(None, 'Descrizione').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Settori merceologici")
-        self.wait_loader()
+        self.navigate_to_and_wait("Settori merceologici")
         self.clear_filters()
 
     def _elimina_settore_merceologico(self):
-        self.navigateTo("Settori merceologici")
-        self.wait_loader()
-        search_input = self.find(By.XPATH, '//th[@id="th_descrizione"]/input')
-        self.send_keys_and_wait(search_input, 'Settore Merceologico di Prova da Eliminare', wait_modal=False)
-        elemento = self.find(By.XPATH, '//tbody//tr//td[2]')
-        elemento.click()
+        self.navigate_to_and_wait("Settori merceologici")
+        self.search_by_th_and_click_first("th_descrizione", 'Settore Merceologico di Prova da Eliminare')
 
         self.driver.execute_script('window.scrollTo(0,0)')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
+        self.delete_current_and_clear()
 
     def _verifica_settore_merceologico(self):
-        search_input = self.find(By.XPATH, '//th[@id="th_descrizione"]/input')
-        self.send_keys_and_wait(search_input, "Settore Merceologico di Prova", wait_modal=False)
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[3]').text
+        self.search_by_th("th_descrizione", "Settore Merceologico di Prova")
+        modificato = self.get_table_text(1, 3)
         self.assertEqual("Settore Merceologico di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
-        search_input = self.wait_for_element_and_click('//th[@id="th_descrizione"]/input')
-        self.send_keys_and_wait(search_input, "Settore Merceologico di Prova da Eliminare", wait_modal=False)
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
+        self.verify_deleted_by_th("th_descrizione", "Settore Merceologico di Prova da Eliminare")
