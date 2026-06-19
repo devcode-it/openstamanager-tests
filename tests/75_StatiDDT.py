@@ -13,8 +13,8 @@ class StatiDDT(Test):
         
 
     def creazione_stato_DDT(self, descrizione = str, icona = str, colore = str):
-        self.navigateTo("Stati dei DDT")
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait("Stati dei DDT")
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Descrizione').setValue(descrizione)

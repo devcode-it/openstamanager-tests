@@ -6,8 +6,7 @@ import time
 class Dashboard(Test):
 
     def test_Dashboard(self):
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigate_to_and_wait("Dashboard")
 
         self.wait_for_element_and_click('(//div[@class="info-box"])[1]')
         widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//p'))).text
@@ -31,8 +30,7 @@ class Dashboard(Test):
         verifica = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
         self.assertEqual(verifica, "Integrazione/autofattura per acquisto servizi dall'estero numero 0001")
 
-        self.navigateTo("Dashboard")
-        self.wait_loader()
+        self.navigate_to_and_wait("Dashboard")
 
         self.wait_for_element_and_click('(//div[@class="info-box"])[5]')
         widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-body"]//div'))).text

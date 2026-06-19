@@ -9,8 +9,7 @@ class Aggiornamenti(Test):
 
     def test_aggiornamenti(self):
         self.expandSidebar("Strumenti")
-        self.navigateTo("Aggiornamenti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Aggiornamenti")
 
         self.wait_for_element_and_click('//button[@onclick="controlli(this)"]')
         self.wait_for_element_and_click('//button[@onclick="avviaControlli(this);"]')

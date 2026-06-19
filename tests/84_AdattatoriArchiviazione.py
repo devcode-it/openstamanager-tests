@@ -8,7 +8,7 @@ class Adattatori(Test):
         self.expandSidebar("Strumenti")
 
     def test_creazione_adattatore(self):
-        self.navigateTo("Adattatori di archiviazione")
+        self.navigate_to_and_wait("Adattatori di archiviazione")
 
         self.creazione_adattatore("Adattatore di Prova da Modificare", "Archiviazione FTP")
         self.creazione_adattatore("Adattatore di Prova da Eliminare", "Archiviazione FTP")
@@ -17,7 +17,7 @@ class Adattatori(Test):
         self.verifica_adattatore()
         
     def creazione_adattatore(self, nome: str, tipo: str):
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue(nome)
@@ -25,43 +25,37 @@ class Adattatori(Test):
         self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@type="submit"]')
 
     def modifica_adattatore(self, modifica = str):
-        self.navigateTo("Adattatori di archiviazione")
-        self.wait_loader()
+        self.navigate_to_and_wait("Adattatori di archiviazione")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, 'Adattatore di Prova da Modificare', wait_modal=False)
         self.click_first_result()
 
         self.input(None,'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Adattatori di archiviazione")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Adattatori di archiviazione")
+        self.clear_filters()
 
     def elimina_adattatore(self):
-        self.navigateTo("Adattatori di archiviazione")
-        self.wait_loader()
+        self.navigate_to_and_wait("Adattatori di archiviazione")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, 'Adattatore di Prova da Eliminare', wait_modal=False)
         self.click_first_result()
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.delete_current_and_clear()
 
     def verifica_adattatore(self):
-        self.navigateTo("Adattatori di archiviazione")
-        self.wait_loader()
+        self.navigate_to_and_wait("Adattatori di archiviazione")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Adattatore di Prova", wait_modal=False)
         modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
         self.assertEqual("Adattatore di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Adattatore di Prova da Eliminare", wait_modal=False)
-        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
+        eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)

@@ -14,8 +14,7 @@ class Stampe(Test):
         self.stampe()
 
     def stampe(self):
-        self.navigateTo("Stampe")
-        self.wait_loader()
+        self.navigate_to_and_wait("Stampe")
         
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         ##TODO: finire test stampa

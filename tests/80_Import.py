@@ -11,7 +11,7 @@ class Import_(Test):
      
     def test_import(self):
         self.expandSidebar("Strumenti")
-        self.navigateTo("Import")
+        self.navigate_to_and_wait("Import")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//*[@id="select2-id_import-container"]'))

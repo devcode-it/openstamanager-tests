@@ -16,8 +16,8 @@ class DescrizioniPredefinite(Test):
         self.verifica_descrizione_predefinita()
         
     def creazione_descrizione_predefinita(self, nome = str, moduli = str, descrizione = str):
-        self.navigateTo("Descrizioni predefinite")
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait("Descrizioni predefinite")
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue(nome)
@@ -27,38 +27,32 @@ class DescrizioniPredefinite(Test):
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def modifica_descrizione_predefinita(self, modifica = str):
-        self.navigateTo("Descrizioni predefinite")
-        self.wait_loader()
+        self.navigate_to_and_wait("Descrizioni predefinite")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, 'Descrizione Predefinita di Prova da Modificare', wait_modal=False)   
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.input(None,'Descrizione').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Descrizioni predefinite")
-        self.wait_loader()
+        self.navigate_to_and_wait("Descrizioni predefinite")
         self.wait_for_element_and_click('//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]')    
 
     def elimina_descrizione_predefinita(self):
-        self.navigateTo("Descrizioni predefinite")
-        self.wait_loader()
+        self.navigate_to_and_wait("Descrizioni predefinite")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, 'Descrizione Predefinita di Prova da Eliminare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_for_element_and_click('//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]')    
+        self.delete_current_and_clear()
 
     def verifica_descrizione_predefinita(self):
-        self.navigateTo("Descrizioni predefinite")
-        self.wait_loader()
+        self.navigate_to_and_wait("Descrizioni predefinite")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, "Descrizione Predefinita di Prova", wait_modal=False)
         modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[3]'))).text
         self.assertEqual("Descrizione Predefinita di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()

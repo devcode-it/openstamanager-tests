@@ -11,7 +11,7 @@ class Categorie(Test):
         self.wait_loader()
 
     def test_creazione_categorie(self):
-        self.navigateTo("Categorie file")
+        self.navigate_to_and_wait("Categorie file")
         self.creazione_categorie(descrizione="Categoria di Prova da Modificare")
         self.creazione_categorie(descrizione="Categoria di Prova da Eliminare")
         self.modifica_categorie("Categoria di Prova")
@@ -19,7 +19,7 @@ class Categorie(Test):
         self.verifica_categorie()
         
     def creazione_categorie(self, descrizione: str):
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         descrizione_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@name="name_add"]')))
@@ -29,36 +29,30 @@ class Categorie(Test):
         self.wait_loader()
 
     def modifica_categorie(self, modifica: str):
-        self.navigateTo("Categorie file")
-        self.wait_loader()
+        self.navigate_to_and_wait("Categorie file")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, 'Categoria di Prova da Modificare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.input(None, 'Descrizione').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Categorie file")
-        self.wait_loader()
+        self.navigate_to_and_wait("Categorie file")
         self.clear_filters()
 
     def elimina_categorie(self):
-        self.navigateTo("Categorie file")
-        self.wait_loader()
+        self.navigate_to_and_wait("Categorie file")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, "Categoria di Prova da Eliminare", wait_modal=False)
         self.click_first_result()
         self.wait_loader()
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
+        self.delete_current_and_clear()
 
     def verifica_categorie(self):
-        self.navigateTo("Categorie file")
-        self.wait_loader()
+        self.navigate_to_and_wait("Categorie file")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, "Categoria di Prova", wait_modal=False)
@@ -70,11 +64,10 @@ class Categorie(Test):
         ).get_attribute('value')
         self.assertEqual('Categoria di Prova', modificato)
 
-        self.navigateTo("Categorie file")
-        self.wait_loader()
+        self.navigate_to_and_wait("Categorie file")
         self.clear_filters()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, 'Categoria di Prova da Eliminare', wait_modal=False)
-        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
+        eliminato = self.get_empty_table_message()
         self.assertEqual('Nessun dato presente nella tabella', eliminato)

@@ -7,7 +7,7 @@ class MansioniReferenti(Test):
         super().setUp()
         self.expandSidebar("Strumenti")
         self.expandSidebar("Tabelle")
-        self.navigateTo("Mansioni referenti")
+        self.navigate_to_and_wait("Mansioni referenti")
 
     def test_creazione_mansioni_referenti(self):
         self.creazione_mansioni_referenti("Mansione Referente di Prova da Modificare")
@@ -17,50 +17,44 @@ class MansioniReferenti(Test):
         self.verifica_mansione_referente()
         
     def creazione_mansioni_referenti(self, mansione= str):
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Mansione').setValue(mansione)
         self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@type="submit"]')
 
     def modifica_mansione_referente(self, modifica = str):
-        self.navigateTo("Mansioni referenti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Mansioni referenti")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, 'Mansione Referente di Prova da Modificare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.input(None,'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Mansioni referenti")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Mansioni referenti")
+        self.clear_filters()
 
     def elimina_mansione_referente(self):
-        self.navigateTo("Mansioni referenti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Mansioni referenti")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, 'Mansione Referente di Prova da Eliminare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
-        self.wait_for_element_and_click('//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.delete_current_and_clear()
 
     def verifica_mansione_referente(self):
-        self.navigateTo("Mansioni referenti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Mansioni referenti")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Mansione Referente di Prova", wait_modal=False)
         modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
         self.assertEqual("Mansione Referente di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Mansione Referente di Prova da Eliminare", wait_modal=False)
-        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
+        eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
