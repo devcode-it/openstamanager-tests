@@ -9,7 +9,7 @@ class Mappa(Test):
 
         
     def test_mappa(self):
-        self.navigateTo("Mappa")
+        self.navigate_to_and_wait("Mappa")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="mappa"]'))

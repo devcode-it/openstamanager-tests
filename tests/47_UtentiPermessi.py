@@ -17,10 +17,9 @@ class UtentiPermessi(Test):
         self.verifica_utenti_permessi()
         
     def creazione_utenti_permessi(self, nome):
-        self.navigateTo('Utenti e permessi')
-        self.wait_loader()
+        self.navigate_to_and_wait('Utenti e permessi')
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue(nome)
@@ -28,8 +27,7 @@ class UtentiPermessi(Test):
         self.wait_loader()
 
     def modifica_utenti_permessi(self, user: str, anag: str, passw: str, modifica: str):
-        self.navigateTo('Utenti e permessi')
-        self.wait_loader()
+        self.navigate_to_and_wait('Utenti e permessi')
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Gruppo"]/input'))
@@ -37,7 +35,7 @@ class UtentiPermessi(Test):
         self.send_keys_and_wait(search_input, 'Tipo Utente di Prova', wait_modal=False)
         self.wait_loader()
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@class="btn btn-sm btn-primary bound clickable"]')
         modal = self.wait_modal()
 
@@ -53,13 +51,11 @@ class UtentiPermessi(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-permesso_8-container"]', option_text=modifica)
         self.wait_for_dropdown_and_select('//span[@id="select2-permesso_38-container"]', option_text=modifica)
 
-        self.navigateTo('Utenti e permessi')
-        self.wait_loader()
+        self.navigate_to_and_wait('Utenti e permessi')
         self.clear_filters()
 
     def elimina_utenti_permessi(self):
-        self.navigateTo('Utenti e permessi')
-        self.wait_loader()
+        self.navigate_to_and_wait('Utenti e permessi')
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Gruppo"]/input'))
@@ -67,15 +63,12 @@ class UtentiPermessi(Test):
         self.send_keys_and_wait(search_input, 'Tipo Utente di Prova', wait_modal=False)
         self.wait_for_search_results()
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_loader()
-        self.clear_filters()
+        self.click_first_table_row()
+        self.delete_current_and_clear()
+
 
     def verifica_utenti_permessi(self):
-        self.navigateTo('Utenti e permessi')
-        self.wait_loader()
+        self.navigate_to_and_wait('Utenti e permessi')
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Gruppo"]/input'))

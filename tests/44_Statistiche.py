@@ -7,8 +7,7 @@ class GiacenzeSedi(Test):
         super().setUp()
 
     def test_giacenze_sedi(self):
-        self.navigateTo("Statistiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Statistiche")
         periodo = "01/01/2026 - 31/12/2026"
 
         self.assertEqual(self.find(By.XPATH, '(//h3[@class="card-title"])[1]').text, "Vendite e acquisti")

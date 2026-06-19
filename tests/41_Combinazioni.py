@@ -24,10 +24,9 @@ class Combinazioni(Test):
         self.varianti_articoli()
 
     def creazione_combinazioni(self, codice: str, nome: str, attributi: str):
-        self.navigateTo("Combinazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Combinazioni")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Codice').setValue(codice)
@@ -37,41 +36,35 @@ class Combinazioni(Test):
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def modifica_combinazioni(self, modifica):
-        self.navigateTo("Combinazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Combinazioni")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))
         )
         self.send_keys_and_wait(search_input, 'Combinazione di Prova da Modificare', wait_modal=False)
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.input(None,'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
         self.wait_for_element_and_click('//button[@onclick="generaVarianti(this)"]')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Combinazioni")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Combinazioni")
+        self.clear_filters()
 
     def elimina_combinazioni(self):
-        self.navigateTo("Combinazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Combinazioni")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))
         )
         self.send_keys_and_wait(search_input, 'Combinazione di Prova da Eliminare', wait_modal=False)
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.click_first_table_row()
+        self.delete_current_and_clear()
 
     def verifica_combinazioni(self):
-        self.navigateTo("Combinazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Combinazioni")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))
@@ -83,7 +76,7 @@ class Combinazioni(Test):
         ).text
         self.assertEqual("Vestito", modificato)
 
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))
@@ -96,25 +89,23 @@ class Combinazioni(Test):
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
 
     def varianti_articoli(self):
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input'))
         )
         self.send_keys_and_wait(search_input, 'Vestito', wait_modal=False)
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="link-tab_34"]')
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_34"]//tr[3]'))
         )
 
-        self.navigateTo("Attributi Combinazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attributi Combinazioni")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('(//button[@class="btn btn-warning btn-xs"])[1]')
 
         element = self.wait_driver.until(
@@ -123,10 +114,9 @@ class Combinazioni(Test):
         element.clear()
         self.send_keys_and_wait(element, "XS", wait_modal=False)
 
-        self.navigateTo("Articoli")
-        self.wait_loader()
+        self.navigate_to_and_wait("Articoli")
 
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="link-tab_34"]')
 
         taglia = self.wait_driver.until(
@@ -134,10 +124,8 @@ class Combinazioni(Test):
         ).text
         self.assertEqual(taglia, "Taglie: XS")
 
-        self.navigateTo("Combinazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Combinazioni")
 
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
-        self.wait_for_element_and_click('//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.clear_filters()
+        self.click_first_table_row()
+        self.delete_current_and_clear()

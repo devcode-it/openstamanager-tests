@@ -16,51 +16,45 @@ class UnitaMisura(Test):
         self.verifica_unita_misura()
         
     def creazione_unita_misura(self, valore= str):
-        self.navigateTo("Unità di misura")
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait("Unità di misura")
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Valore').setValue(valore)
         self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@type="submit"]')
 
     def modifica_unita_misura(self, modifica = str):
-        self.navigateTo("Unità di misura")
-        self.wait_loader()
+        self.navigate_to_and_wait("Unità di misura")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Valore"]/input')))
         self.send_keys_and_wait(search_input, 'UdMdPdM', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.input(None,'Valore').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Unità di misura")
-        self.wait_loader()
+        self.navigate_to_and_wait("Unità di misura")
         self.wait_for_element_and_click('//th[@id="th_Valore"]/i[@class="deleteicon fa fa-times"]')
 
     def elimina_unita_misura(self):
-        self.navigateTo("Unità di misura")
-        self.wait_loader()
+        self.navigate_to_and_wait("Unità di misura")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Valore"]/input')))
         self.send_keys_and_wait(search_input, 'UdMdPdE', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_for_element_and_click('//th[@id="th_Valore"]/i[@class="deleteicon fa fa-times"]')
+        self.delete_current_and_clear()
 
     def verifica_unita_misura(self):
-        self.navigateTo("Unità di misura")
-        self.wait_loader()
+        self.navigate_to_and_wait("Unità di misura")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Valore"]/input')))
         self.send_keys_and_wait(search_input, "UdMdP", wait_modal=False)
         modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
         self.assertEqual("UdMdP", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Valore"]/input')))
         self.send_keys_and_wait(search_input, "UdMdPdE", wait_modal=False)
-        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
+        eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)

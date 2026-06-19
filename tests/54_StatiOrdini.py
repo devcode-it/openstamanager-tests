@@ -16,8 +16,8 @@ class StatiOrdini(Test):
         self.verifica_stato_ordini()
         
     def creazione_stato_ordini(self, descrizione = str, icona = str, colore = str):
-        self.navigateTo("Stati degli ordini")
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait("Stati degli ordini")
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Descrizione').setValue(descrizione)
@@ -26,43 +26,37 @@ class StatiOrdini(Test):
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def modifica_stato_ordini(self, modifica = str):
-        self.navigateTo("Stati degli ordini")
-        self.wait_loader()
+        self.navigate_to_and_wait("Stati degli ordini")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, 'Stato degli Ordini di Prova da Modificare', wait_modal=False)
         self.click_first_result()
 
         self.input(None,'Descrizione').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Stati degli ordini")
-        self.wait_loader()
+        self.navigate_to_and_wait("Stati degli ordini")
         self.wait_for_element_and_click('//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]')
 
     def elimina_stato_ordini(self):
-        self.navigateTo("Stati degli ordini")
-        self.wait_loader()
+        self.navigate_to_and_wait("Stati degli ordini")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, 'Stato degli Ordini di Prova da Eliminare', wait_modal=False)
         self.click_first_result()
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_for_element_and_click('//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]')
+        self.delete_current_and_clear()
 
     def verifica_stato_ordini(self):
-        self.navigateTo("Stati degli ordini")
-        self.wait_loader()
+        self.navigate_to_and_wait("Stati degli ordini")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, "Stato degli Ordini di Prova", wait_modal=False)
         modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
         self.assertEqual("Stato degli Ordini di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, "Stato degli Ordini di Prova da Eliminare", wait_modal=False)
-        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
+        eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)

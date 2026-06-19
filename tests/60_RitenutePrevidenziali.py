@@ -16,8 +16,8 @@ class RitenutePrevidenziali(Test):
         self.verifica_ritenuta_previdenziale()
         
     def creazione_ritenute_previdenziali(self, descrizione = str, percentuale = str, percentualeimp = str):
-        self.navigateTo("Ritenute previdenziali")
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait("Ritenute previdenziali")
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Descrizione').setValue(descrizione)
@@ -28,43 +28,37 @@ class RitenutePrevidenziali(Test):
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def modifica_ritenute_previdenziali(self, modifica = str):
-        self.navigateTo("Ritenute previdenziali")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ritenute previdenziali")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, 'Ritenuta Previdenziale di Prova da Modificare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.input(None,'Descrizione').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Ritenute previdenziali")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ritenute previdenziali")
         self.wait_for_element_and_click('//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]')
 
     def elimina_ritenute_previdenziali(self):
-        self.navigateTo("Ritenute previdenziali")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ritenute previdenziali")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, 'Ritenuta Previdenziale di Prova da Eliminare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_for_element_and_click('//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]')
+        self.delete_current_and_clear()
 
     def verifica_ritenuta_previdenziale(self):
-        self.navigateTo("Ritenute previdenziali")
-        self.wait_loader()
+        self.navigate_to_and_wait("Ritenute previdenziali")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, "Ritenuta Previdenziale di Prova", wait_modal=False)
         modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[3]'))).text
         self.assertEqual("Ritenuta Previdenziale di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, "Ritenuta Previdenziale di Prova da Eliminare", wait_modal=False)
-        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
+        eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)

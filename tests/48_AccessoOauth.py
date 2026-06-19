@@ -8,6 +8,5 @@ class PrimaNota(Test):
         self.expandSidebar("Gestione accessi")
 
     def test_creazione_prima_nota(self):
-        self.navigateTo("Accesso con OAuth")
-        self.wait_loader()
+        self.navigate_to_and_wait("Accesso con OAuth")
         ##TODO: test accesso con oauth

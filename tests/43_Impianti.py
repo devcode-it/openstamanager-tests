@@ -22,8 +22,8 @@ class Impianti(Test):
         self.elimina_selezionati()
 
     def add_impianto(self, matricola: str, nome: str, cliente: str):
-        self.navigateTo("Impianti")
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait("Impianti")
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Matricola').setValue(matricola)
@@ -33,81 +33,48 @@ class Impianti(Test):
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def modifica_impianto(self, modifica=str):
-        self.navigateTo("Impianti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impianti")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, 'Impianto di Prova da Modificare', wait_modal=False)
-        self.wait_for_search_results()
-
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Nome", 'Impianto di Prova da Modificare')
         self.input(None, 'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Impianti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impianti")
         self.clear_filters()
 
     def elimina_impianto(self):
-        self.navigateTo("Impianti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impianti")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, 'Impianto di Prova da Eliminare', wait_modal=False)
-        self.wait_for_search_results()
-
-        self.click_first_result()
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
+        self.search_by_th_and_click_first("th_Nome", 'Impianto di Prova da Eliminare')
+        self.delete_current_and_clear()
 
     def verifica_impianto(self):
-        self.navigateTo("Impianti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impianti")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Impianto di Prova", wait_modal=False)
-        self.wait_for_search_results()
+        self.search_by_th("th_Nome", "Impianto di Prova")
 
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[3]').text
+        modificato = self.get_table_text(1, 3)
         self.assertEqual("Impianto di Prova", modificato)
         self.clear_filters()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Impianto di Prova da Eliminare", wait_modal=False)
-        self.wait_for_search_results()
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
-
-        self.navigateTo("Impianti")
-        self.clear_filters()
+        self.verify_deleted_by_th("th_Nome", "Impianto di Prova da Eliminare")
 
     def apri_impianti(self):
-        self.navigateTo("Anagrafiche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Anagrafiche")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Cliente", wait_modal=False)
-
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Ragione-sociale", "Cliente")
         self.wait_for_element_and_click('//a[@id="link-tab_1"]')
 
         impianto = self.find(By.XPATH, '//div[@class="text-right"]').text
         self.assertEqual(impianto, "01")
 
-        self.navigateTo("Anagrafiche")
+        self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
 
     def plugin_impianti(self):
-        self.navigateTo("Attività")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attività")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_anagrafica-container"]', option_text="Cliente")
@@ -130,37 +97,26 @@ class Impianti(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-id_impianto_add-container"]', '//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('(//button[@class="btn btn-primary tip tooltipstered"])[2]')
 
-        self.navigateTo("Attività")
+        self.navigate_to_and_wait("Attività")
         self.clear_filters()
 
     def plugin_interventi_svolti(self):
-        self.navigateTo("Impianti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impianti")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Impianto di Prova", wait_modal=False)
-
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Nome", "Impianto di Prova")
         self.wait_for_element_and_click('//a[@id="link-tab_8"]')
         self.wait_loader()
 
-        totale = self.find(By.XPATH, '//tbody//tr[3]//td[2]').text
+        totale = self.get_table_text(3, 2)
         self.assertEqual(totale, "0,00 €")
 
-        self.navigateTo("Impianti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impianti")
         self.clear_filters()
 
     def componenti(self):
-        self.navigateTo("Impianti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impianti")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Impianto di Prova", wait_modal=False)
-
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Nome", "Impianto di Prova")
         self.wait_for_element_and_click('//a[@id="link-tab_31"]')
         self.wait_loader()
 
@@ -182,15 +138,13 @@ class Impianti(Test):
         sostituito = self.find(By.XPATH, '(//div[@id="tab_31"]//tr[1]//td[1])[1]').text
         self.assertEqual(sostituito, "#2")
 
-        self.navigateTo("Impianti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impianti")
         self.clear_filters()
 
     def elimina_selezionati(self):
-        self.navigateTo("Impianti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impianti")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         matricola_input = self.find(By.XPATH, '//input[@id="matricola"]')
@@ -202,12 +156,9 @@ class Impianti(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-id_anagrafica_impianto-container"]', option_text="Cliente")
         self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
 
-        self.navigateTo("Impianti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Impianti")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Matricola"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "02", wait_modal=False)
+        self.search_by_th("th_Matricola", "02")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', '//a[@data-op="delete_bulk"]')

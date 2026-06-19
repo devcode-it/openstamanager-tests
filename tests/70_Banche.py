@@ -19,8 +19,8 @@ class Banche(Test):
         self.aggiorna_banca_fatture_vendita()
         
     def creazione_banca(self, anagrafica: str, nome: str, iban: str, bic: str):
-        self.navigateTo("Banche")
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait("Banche")
+        self.click_add_button()
         modal = self.wait_modal()
 
         select = self.input(modal, 'Anagrafica')
@@ -31,52 +31,45 @@ class Banche(Test):
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def modifica_banca(self, modifica = str):
-        self.navigateTo("Banche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Banche")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, 'Banca di Prova da Modificare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.input(None,'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Banche")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Banche")
+        self.clear_filters()
 
     def elimina_banca(self):
-        self.navigateTo("Banche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Banche")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, 'Banca di Prova da Eliminare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.delete_current_and_clear()
 
     def verifica_banca(self):
-        self.navigateTo("Banche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Banche")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Banca di Prova", wait_modal=False)
         modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
         self.assertEqual("Banca di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Banca di Prova da Eliminare", wait_modal=False)
-        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
+        eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
 
     def aggiorna_banca_fatture_acquisto(self):
-        self.navigateTo("Banche")
-        self.wait_loader()
+        self.navigate_to_and_wait("Banche")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_anagrafica-container"]', option_text='Admin spa')
 
@@ -91,8 +84,7 @@ class Banche(Test):
         self.wait_loader()
 
         self.expandSidebar("Acquisti")
-        self.navigateTo("Fatture di acquisto")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di acquisto")
 
         numero_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]//input')))
         self.send_keys_and_wait(numero_input, "2", wait_modal=False)
@@ -110,8 +102,7 @@ class Banche(Test):
 
     def aggiorna_banca_scadenzario(self):
         self.expandSidebar("Contabilità")
-        self.navigateTo("Scadenzario")
-        self.wait_loader()
+        self.navigate_to_and_wait("Scadenzario")
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_segment_-container"]', option_text='Scadenzario clienti')
 
@@ -131,8 +122,7 @@ class Banche(Test):
 
     def aggiorna_banca_fatture_vendita(self):
         self.expandSidebar("Vendite")
-        self.navigateTo("Fatture di vendita")
-        self.wait_loader()
+        self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -144,7 +134,7 @@ class Banche(Test):
 
         banca = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))).text
         self.assertEqual(banca, "Banca Admin spa - IT11C1234512345678912345679")
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
         self.wait_loader()
 
         self.wait_for_element_and_click('//a[@id="elimina"]')

@@ -19,16 +19,14 @@ class Tags(Test):
         self.verifica_tags()
         
     def creazione_tags(self, descrizione: str):
-        self.navigateTo("Tags")
-        self.wait_loader()
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.navigate_to_and_wait("Tags")
+        self.click_add_button()
         modal = self.wait_modal()
         self.input(modal, 'Nome').setValue(descrizione)
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def search_tag(self, nome: str):
-        self.navigateTo("Tags")
-        self.wait_loader()
+        self.navigate_to_and_wait("Tags")
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))
         )
@@ -39,18 +37,15 @@ class Tags(Test):
         self.search_tag('Tags di Prova da Modificare')
         self.click_first_result()
         self.input(None, 'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Tags")
-        self.wait_loader()
+        self.navigate_to_and_wait("Tags")
         self.clear_filters()
 
     def elimina_tags(self):
         self.search_tag('Tags di Prova da Eliminare')
         self.click_first_result()
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.clear_filters()
+        self.delete_current_and_clear()
 
     def verifica_tags(self):
         self.search_tag("Tags di Prova")

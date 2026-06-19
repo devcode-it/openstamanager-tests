@@ -9,7 +9,7 @@ class Pagamenti(Test):
         self.expandSidebar("Tabelle")
 
     def test_creazione_pagamenti(self):
-        self.navigateTo("Pagamenti")
+        self.navigate_to_and_wait("Pagamenti")
 
         self.creazione_pagamenti("Pagamento di Prova da Modificare", "MP01 - Contanti")
         self.creazione_pagamenti("Pagamento di Prova da Eliminare", "MP01 - Contanti")
@@ -18,7 +18,7 @@ class Pagamenti(Test):
         self.verifica_pagamento()
         
     def creazione_pagamenti(self, descrizione= str, codice = str):
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.wait_for_dropdown_and_select('//span[@id="select2-codice_modalita_pagamento_fe_add-container"]', option_text=codice)
@@ -26,44 +26,38 @@ class Pagamenti(Test):
         self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@type="submit"]')
 
     def modifica_pagamento(self, modifica = str):
-        self.navigateTo("Pagamenti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Pagamenti")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, 'Pagamento di Prova da Modificare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.input(None,'Descrizione').setValue(modifica)
         percentuale_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="percentuale1"]')))
         self.send_keys_and_wait(percentuale_input, '100', wait_modal=False)
 
-        self.navigateTo("Pagamenti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Pagamenti")
         self.wait_for_element_and_click('//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]')
 
     def elimina_pagamento(self):
-        self.navigateTo("Pagamenti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Pagamenti")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, 'Pagamento di Prova da Eliminare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_for_element_and_click('//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]')
+        self.delete_current_and_clear()
 
     def verifica_pagamento(self):
-        self.navigateTo("Pagamenti")
-        self.wait_loader()
+        self.navigate_to_and_wait("Pagamenti")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, "Pagamento di Prova", wait_modal=False)
         modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
         self.assertEqual("Pagamento di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, "Pagamento di Prova da Eliminare", wait_modal=False)
-        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
+        eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)

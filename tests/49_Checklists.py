@@ -8,7 +8,7 @@ class Checklists(Test):
         self.expandSidebar("Strumenti")
 
     def test_checklists(self):
-        self.navigateTo("Checklists")
+        self.navigate_to_and_wait("Checklists")
         self.checklists("Checklist di Prova da Modificare", "Attività", "Interventi svolti")
         self.checklists("Checklist di Prova da Eliminare", "Attività", "Interventi svolti")
         self.modifica_checklist("Checklist di Prova")
@@ -16,7 +16,7 @@ class Checklists(Test):
         self.verifica_checklist()
         
     def checklists(self, nome = str, modulo= str, plugin = str):
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue(nome)
@@ -24,16 +24,12 @@ class Checklists(Test):
         self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@type="submit"]')
 
     def modifica_checklist(self, modifica = str):
-        self.navigateTo("Checklists")
-        self.wait_loader()
+        self.navigate_to_and_wait("Checklists")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, 'Checklist di Prova da Modificare', wait_modal=False)
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Nome", 'Checklist di Prova da Modificare')
 
         self.input(None,'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
         iframe = self.find(By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]')
         iframe.click()
@@ -47,39 +43,29 @@ class Checklists(Test):
         self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('(//button[@type="submit"])[2]')
 
-        self.navigateTo("Checklists")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Checklists")
+        self.clear_filters()
 
     def elimina_checklist(self):
-        self.navigateTo("Checklists")
-        self.wait_loader()
+        self.navigate_to_and_wait("Checklists")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, 'Checklist di Prova da Eliminare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.delete_current_and_clear()
 
     def verifica_checklist(self):
-        self.navigateTo("Checklists")
-        self.wait_loader()
+        self.navigate_to_and_wait("Checklists")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Checklist di Prova", wait_modal=False)
-        self.wait_for_search_results()
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
+        self.search_by_th("th_Nome", "Checklist di Prova")
+        modificato = self.get_table_text(1, 2)
         self.assertEqual("Checklist di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Checklist di Prova da Eliminare", wait_modal=False)
+        self.search_by_th("th_Nome", "Checklist di Prova da Eliminare")
 
-        self.navigateTo("Attività")
+        self.navigate_to_and_wait("Attività")
 
         self.wait_for_element_and_click('//div[@id="tab_0"]//tbody//tr[2]//td[2]')
         self.wait_for_element_and_click('//a[@href="#tab_checks"]')

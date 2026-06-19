@@ -14,10 +14,9 @@ class Automezzi(Test):
         self.verifica_automezzo()
 
     def creazione_automezzo(self, descrizione: str, targa: str):
-        self.navigateTo("Automezzi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Automezzi")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue(descrizione)
@@ -25,49 +24,29 @@ class Automezzi(Test):
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def modifica_automezzo(self, modifica:str):
-        self.navigateTo("Automezzi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Automezzi")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, 'Automezzo di Prova da Modificare', wait_modal=False)
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Nome", 'Automezzo di Prova da Modificare')
 
         self.input(None,'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Automezzi")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Automezzi")
+        self.clear_filters()
 
     def elimina_automezzo(self):
-        self.navigateTo("Automezzi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Automezzi")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, 'Automezzo di Prova da Eliminare', wait_modal=False)
-        self.click_first_result()
+        self.search_by_th_and_click_first("th_Nome", 'Automezzo di Prova da Eliminare')
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.delete_current_and_clear()
 
     def verifica_automezzo(self):
-        self.navigateTo("Automezzi")
-        self.wait_loader()
+        self.navigate_to_and_wait("Automezzi")
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Automezzo di Prova", wait_modal=False)
-        self.wait_for_search_results()
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
+        self.search_by_th("th_Nome", "Automezzo di Prova")
+        modificato = self.get_table_text(1, 2)
         self.assertEqual("Automezzo di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
-        search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
-        search_input.clear()
-        self.send_keys_and_wait(search_input, "Automezzo di Prova da Eliminare", wait_modal=False)
-        self.wait_for_search_results()
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
+        self.verify_deleted_by_th("th_Nome", "Automezzo di Prova da Eliminare")

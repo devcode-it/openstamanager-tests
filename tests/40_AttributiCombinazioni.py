@@ -15,14 +15,13 @@ class AttributiCombinazioni(Test):
         self.verifica_attributi()
 
     def creazione_attributi(self, titolo=str):
-        self.navigateTo("Attributi Combinazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attributi Combinazioni")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Titolo').setValue(titolo)
-        self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
+        self.wait_for_element_and_click('//button[@type="submit"]')
 
         self.wait_for_element_and_click('//button[@onclick="aggiungiValore(this)"]')
         modal = self.wait_modal()
@@ -40,8 +39,7 @@ class AttributiCombinazioni(Test):
         self.send_keys_and_wait(nome_input, 'L')
 
     def modifica_attributi(self, modifica=str):
-        self.navigateTo("Attributi Combinazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attributi Combinazioni")
 
         search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
         search_input.clear()
@@ -49,41 +47,35 @@ class AttributiCombinazioni(Test):
         self.click_first_result()
 
         self.input(None, 'Titolo').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Attributi Combinazioni")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Attributi Combinazioni")
+        self.clear_filters()
 
     def elimina_attributi(self):
-        self.navigateTo("Attributi Combinazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attributi Combinazioni")
 
         search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
         search_input.clear()
         self.send_keys_and_wait(search_input, 'Attributo di Prova da Eliminare', wait_modal=False)
         self.click_first_result()
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.delete_current_and_clear()
 
     def verifica_attributi(self):
-        self.navigateTo("Attributi Combinazioni")
-        self.wait_loader()
+        self.navigate_to_and_wait("Attributi Combinazioni")
 
         search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
         search_input.clear()
         self.send_keys_and_wait(search_input, "Taglie", wait_modal=False)
         self.wait_for_search_results()
-        modificato = self.find(By.XPATH, '//tbody//tr[1]//td[2]').text
+        modificato = self.get_table_text(1, 2)
         self.assertEqual("Taglie", modificato)
 
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
         search_input = self.find(By.XPATH, '//th[@id="th_Nome"]/input')
         search_input.clear()
         self.send_keys_and_wait(search_input, "Attributo di Prova da Eliminare", wait_modal=False)
         self.wait_for_search_results()
-        eliminato = self.find(By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]').text
+        eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)

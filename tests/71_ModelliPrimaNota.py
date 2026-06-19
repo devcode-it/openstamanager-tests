@@ -16,10 +16,9 @@ class ModelliPrimaNota(Test):
         self.verifica_modello_prima_nota()
         
     def creazione_modelli_prima_nota(self, nome = str, causale = str):
-        self.navigateTo("Modelli prima nota")
-        self.wait_loader()
+        self.navigate_to_and_wait("Modelli prima nota")
 
-        self.wait_for_element_and_click('//i[@class="fa fa-plus"]')
+        self.click_add_button()
         modal = self.wait_modal()
 
         self.input(modal, 'Nome').setValue(nome)
@@ -36,43 +35,37 @@ class ModelliPrimaNota(Test):
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
 
     def modifica_modello_prima_nota(self, modifica = str):
-        self.navigateTo("Modelli prima nota")
-        self.wait_loader()
+        self.navigate_to_and_wait("Modelli prima nota")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, 'Modello Prima Nota di Prova da Modificare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
         self.input(None,'Nome').setValue(modifica)
-        self.wait_for_element_and_click('//div[@id="tab_0"]//button[@id="save"]')
+        self.click_save_button()
 
-        self.navigateTo("Modelli prima nota")
-        self.wait_loader()
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.navigate_to_and_wait("Modelli prima nota")
+        self.clear_filters()
 
     def elimina_modello_prima_nota(self):
-        self.navigateTo("Modelli prima nota")
-        self.wait_loader()
+        self.navigate_to_and_wait("Modelli prima nota")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, 'Modello Prima Nota di Prova da Eliminare', wait_modal=False)
-        self.wait_for_element_and_click('//tbody//tr//td[2]')
+        self.click_first_table_row()
 
-        self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-        self.wait_for_element_and_click('//th[@id="th_Nome"]/i[@class="deleteicon fa fa-times"]')
+        self.delete_current_and_clear()
 
     def verifica_modello_prima_nota(self):
-        self.navigateTo("Modelli prima nota")
-        self.wait_loader()
+        self.navigate_to_and_wait("Modelli prima nota")
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Modello Prima Nota di Prova", wait_modal=False)
         modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
         self.assertEqual("Modello Prima Nota di Prova", modificato)
-        self.wait_for_element_and_click('//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Modello Prima Nota di Prova da Eliminare", wait_modal=False)
-        eliminato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[@class="dataTables_empty"]'))).text
+        eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
