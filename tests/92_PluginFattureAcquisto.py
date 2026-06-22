@@ -10,9 +10,7 @@ class FattureAcquisto(Test):
 
     def test_plugin_fattura_acquisto(self):
         self.movimenti_contabili()
-        #TODO: fatturazione elettronica
-        #self.fatturazione_elettronica()
-        self.registrazioni()
+        self.contabilizzazione()
         
     def movimenti_contabili(self):
         self.navigate_to_and_wait("Fatture di acquisto")
@@ -24,13 +22,16 @@ class FattureAcquisto(Test):
         avere = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_36"]//tr//td[4]'))
         ).text
+
         self.assertEqual(avere, "264,80 €")
 
-    def registrazioni(self):
+        self.navigate_to_and_wait("Fatture di acquisto")
+        self.clear_filters()
+
+    def contabilizzazione(self):
         self.navigate_to_and_wait("Fatture di acquisto")
         self.click_first_result()
 
         self.wait_for_element_and_click('//a[@id="link-tab_41"]')
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_41"]//tr[5]//td[1]')))
-
  
