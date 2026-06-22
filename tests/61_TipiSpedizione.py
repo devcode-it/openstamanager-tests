@@ -43,7 +43,7 @@ class TipiSpedizione(Test):
         self.navigate_to_and_wait("Tipi di spedizione")
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))
         self.send_keys_and_wait(search_input, "Tipo di Spedizione di Prova", wait_modal=False)
-        modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
+        modificato = self.get_table_text(1, 2)
         self.assertEqual("Tipo di Spedizione di Prova", modificato)
         self.clear_filters()
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Descrizione"]/input')))

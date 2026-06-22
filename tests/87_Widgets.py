@@ -27,7 +27,7 @@ class Dashboard(Test):
         self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[@class="modal-dialog modal-lg"]')))
 
         self.wait_for_element_and_click('(//div[@class="info-box"])[4]')
-        verifica = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
+        verifica = self.get_table_text(1, 2)
         self.assertEqual(verifica, "Integrazione/autofattura per acquisto servizi dall'estero numero 0001")
 
         self.navigate_to_and_wait("Dashboard")

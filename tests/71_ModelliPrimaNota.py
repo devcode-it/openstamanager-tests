@@ -61,7 +61,7 @@ class ModelliPrimaNota(Test):
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Modello Prima Nota di Prova", wait_modal=False)
-        modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
+        modificato = self.get_table_text(1, 2)
         self.assertEqual("Modello Prima Nota di Prova", modificato)
         self.clear_filters()
 

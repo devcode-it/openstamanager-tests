@@ -50,7 +50,7 @@ class UnitaMisura(Test):
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Valore"]/input')))
         self.send_keys_and_wait(search_input, "UdMdP", wait_modal=False)
-        modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
+        modificato = self.get_table_text(1, 2)
         self.assertEqual("UdMdP", modificato)
         self.clear_filters()
 

@@ -57,7 +57,7 @@ class Banche(Test):
 
         search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input')))
         self.send_keys_and_wait(search_input, "Banca di Prova", wait_modal=False)
-        modificato = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[2]'))).text
+        modificato = self.get_table_text(1, 2)
         self.assertEqual("Banca di Prova", modificato)
         self.clear_filters()
 
@@ -97,7 +97,7 @@ class Banche(Test):
 
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        banca = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[9]'))).text
+        banca = self.get_table_text(1, 9)
         self.assertEqual(banca, "Banca Admin spa - IT11C1234512345678912345679")
 
     def aggiorna_banca_scadenzario(self):
@@ -132,7 +132,7 @@ class Banche(Test):
 
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        banca = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))).text
+        banca = self.get_table_text(1, 7)
         self.assertEqual(banca, "Banca Admin spa - IT11C1234512345678912345679")
         self.click_first_table_row()
         self.wait_loader()
