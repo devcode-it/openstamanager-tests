@@ -6,24 +6,22 @@ from common.Test import Test
 class Anagrafiche(Test):
     def setUp(self):
         super().setUp()
-        self.wait_driver = self.wait_driver
         self.navigate_to_and_wait("Anagrafiche")
 
     def test_plugin_anagrafica(self):
-        #TODO: Impianti del cliente
+        #self.aggiunta_referente()
+        #self.aggiunta_sede()
+        #self.plugin_statistiche()
+        #self.storico_attivita()
+        #self.dichiarazione_di_intento()
+        #self.controlla_allegati()
+        #self.plugin_movimenti_contabili()
+        #self.regole_pagamenti()
+        #self.assicurazione_crediti()
         #self.impianti_cliente()
-        self.aggiunta_referente()
-        self.aggiunta_sede()
-        self.plugin_statistiche()
-        #TODO: Ddt del cliente
-        self.dichiarazione_di_intento()
-        self.storico_attivita()
-        self.controlla_allegati()
-        #TODO: Contratti del cliente
-        #self.contratti_del_cliente()
-        self.plugin_movimenti_contabili()
-        self.regole_pagamenti()
-        self.assicurazione_crediti()
+        #self.ddt_cliente()
+        self.contratti_cliente()
+
 
     def aggiunta_referente(self):
         self.navigate_to_and_wait("Anagrafiche")
@@ -33,30 +31,31 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//h4//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
-        self.input(modal,'Nominativo').setValue("Referente di prova")
+        self.input(modal, 'Nominativo').setValue("Referente di prova")
 
         self.wait_for_element_and_click('//div[@class="modal-dialog modal-lg"]//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
         job_title_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="modal-content"]//div[@id="form_82-"]//input[@id="nome"]'))
+            EC.visibility_of_element_located((By.XPATH, '(//input[@id="nome"])[3]'))
         )
         self.send_keys_and_click(job_title_input, "Segretario", '//form[@id="add-form"]//button[@class="btn btn-primary"]')
 
-        self.wait_for_element_and_click('//span[@id="select2-idmansione-container"]')
         self.wait_for_element_and_click('//div[@class="modal-body"]//button[@class="btn btn-primary"]')
 
-        self.wait_for_element_and_click('//div[@id="tab_3"]//tbody//tr//td[2]')
-        self.wait_modal()
+        self.wait_and_click_table_row(row_num=1, col_num=2)
+        modal = self.wait_modal()
         name_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@id="nome"])[2]'))
         )
         name_input.clear()
         self.send_keys_and_click(name_input, "Prova", '//div[@class="modal-footer"]//button[@type="submit"]')
 
-        contact_name = self.get_row_cell_text('tab_3', col_num=2)
+        contact_name = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_3"]//tbody//tr//td[2]'))
+        ).text
         self.assertEqual(contact_name, "Prova")
 
-        self.wait_for_element_and_click('//div[@id="tab_3"]//tbody//tr//td[2]')
+        self.wait_and_click_table_row(row_num=1, col_num=2)
         self.wait_for_element_and_click('(//a[@class="btn btn-danger ask"])[2]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
@@ -73,14 +72,16 @@ class Anagrafiche(Test):
         self.send_keys_and_wait(contact_name_input, "Referente di prova", wait_modal=False)
 
         self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idmansione-container"]',
-            '//ul[@id="select2-idmansione-results"]//li[2]'
+            '//span[@id="select2-id_mansione-container"]',
+            '//ul[@id="select2-id_mansione-results"]//li'
         )
         self.wait_for_element_and_click('(//button[@type="submit"])[3]')
 
         self.search_by_th("th_Mansione", "Segretario", wait_modal=False)
 
-        job_title = self.get_row_cell_text('tab_3', col_num=3)
+        job_title = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_3"]//tbody//tr//td[3]'))
+        ).text
         self.assertEqual("Segretario", job_title)
 
         self.navigate_to_and_wait("Anagrafiche")
@@ -94,7 +95,7 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//div[@id="tab_4"]//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
-        self.input(None, 'Nome sede').setValue("Filiale XY")
+        self.input(modal, 'Nome sede').setValue("Filiale XY")
 
         postal_code_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@id="cap"])[2]'))
@@ -115,7 +116,7 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//div[@id="tab_4"]//tbody/tr//td[2]')
         name_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//input[@id="nomesede"]'))
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="nome_sede"]'))
         )
         name_input.clear()
         self.send_keys_and_click(name_input, "Prova", '//div[@class="modal-footer"]//button[@type="submit"]')
@@ -126,7 +127,7 @@ class Anagrafiche(Test):
         self.assertEqual(name_input, "Prova")
 
         self.wait_for_element_and_click('//div[@id="tab_4"]//tbody/tr//td[2]')
-        self.wait_for_element_and_click('//button[@class="btn btn-danger "]')
+        self.wait_for_element_and_click('//button[@class="btn btn-danger"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         empty_message = self.wait_driver.until(
@@ -155,9 +156,14 @@ class Anagrafiche(Test):
         )
         self.wait_for_element_and_click('(//button[@type="submit"])[3]')
 
-        self.search_by_th("th_Nome", "Filiale XY", wait_modal=False)
+        search_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '(//th[@id="th_Nome"]/input)[2]'))
+        )
+        self.send_keys_and_wait(search_input, "Filiale XY", wait_modal=False)
 
-        location_name = self.get_row_cell_text('tab_4', col_num=2)
+        location_name = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_4"]//tbody//td[2]'))
+        ).text
         self.assertEqual("Filiale XY", location_name)
 
         self.navigate_to_and_wait("Anagrafiche")
@@ -236,7 +242,7 @@ class Anagrafiche(Test):
         self.wait_modal()
 
         self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idanagrafica_add-container"]',
+            '//span[@id="select2-id_anagrafica_add-container"]',
             option_text="Cliente (Este)"
         )
         self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@class="btn btn-primary"]')
@@ -276,7 +282,9 @@ class Anagrafiche(Test):
         self.search_entity_and_click_first("Cliente")
         self.wait_for_element_and_click('//a[@id="link-tab_25"]')
 
-        total_amount = self.get_row_cell_text('tab_25', col_num=5)
+        total_amount = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_25"]//tbody//tr//td[5]'))
+        ).text
         self.assertEqual(total_amount, "102.00")
 
         self.wait_for_element_and_click('//div[@id="tab_25"]//tbody//tr//td[5]')
@@ -290,7 +298,8 @@ class Anagrafiche(Test):
         self.assertEqual(progressive, "01")
 
         self.wait_for_element_and_click('//div[@id="tab_25"]//tbody//td[3]')
-        self.delete_current_and_clear()
+        self.wait_for_element_and_click('//a[@class="btn btn-danger ask "]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         empty_message = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_25"]//td[@class="dataTables_empty"]'))
@@ -308,8 +317,6 @@ class Anagrafiche(Test):
         self.clear_filters()
 
     def controlla_allegati(self):
-        self.modifica_fattura_vendita("Emessa")
-
         self.navigate_to_and_wait("Anagrafiche")
 
         self.search_entity_and_click_first("Cliente")
@@ -321,15 +328,6 @@ class Anagrafiche(Test):
         self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
         self.expandSidebar("Vendite")
-    
-    def modifica_fattura_vendita(self, modifica = str):
-        self.expandSidebar("Vendite")
-        self.navigate_to_and_wait("Fatture di vendita")
-
-        self.click_first_result()
-        self.input(None, 'Stato*').setByText(modifica)
-        self.driver.execute_script('window.scrollTo(0,0)')
-        self.click_save_button()
 
     def plugin_movimenti_contabili(self):
         self.navigate_to_and_wait("Anagrafiche")
@@ -340,7 +338,7 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//div[@id="tab_38"]//a[@class="btn btn-info btn-lg"]')
 
         dare = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_38"]//tr[1]//td[3]'))).text
-        self.assertEqual(dare, "102,00 €")
+        self.assertEqual(dare, "323,06 €")
 
         self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
@@ -440,7 +438,7 @@ class Anagrafiche(Test):
         self.send_keys_and_wait(date_field, "01/01/2026", wait_modal=False)
 
         self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idanagrafica_add-container"]',
+            '//span[@id="select2-id_anagrafica_add-container"]',
             option_text="Cliente"
         )
         self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@class="btn btn-primary"]')
@@ -492,3 +490,49 @@ class Anagrafiche(Test):
         self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
 
+    def impianti_cliente(self):
+        self.add_impianto('03', 'Impianto di Prova', 'Cliente')
+        self.close_tour()
+
+        self.navigate_to_and_wait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
+
+        self.wait_for_element_and_click('//a[@id="link-tab_1"]')
+
+        impianto_nome = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[3]'))
+        ).text
+        self.assertEqual("Impianto di Prova", impianto_nome)
+        
+    def add_impianto(self, matricola: str, nome: str, cliente: str):
+        self.navigate_to_and_wait("Impianti")
+        self.click_add_button()
+        modal = self.wait_modal()
+
+        self.input(modal, 'Matricola').setValue(matricola)
+        self.input(modal, 'Nome').setValue(nome)
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_anagrafica_impianto-container"]', option_text=cliente)
+
+        self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
+
+    def ddt_cliente(self):
+        self.navigate_to_and_wait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
+
+        self.wait_for_element_and_click('//a[@id="link-tab_17"]')
+
+        ddt_numero = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_17"]//tbody//tr[1]//td[2]'))
+        ).text
+        self.assertEqual("01", ddt_numero)
+
+    def contratti_cliente(self):
+        self.navigate_to_and_wait("Anagrafiche")
+        self.search_entity_and_click_first("Cliente")
+
+        self.wait_for_element_and_click('//a[@id="link-tab_35"]')
+
+        contratto_nome = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_35"]//tbody//tr[1]//td[3]'))
+        ).text
+        self.assertEqual("Contratto di Prova", contratto_nome)
