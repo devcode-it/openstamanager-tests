@@ -265,13 +265,13 @@ Legenda:
 |90| Preventivi | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |90| Preventivi | Revisioni |-|-|-|:heavy_check_mark:|-|
 |91| Fatture di vendita | Movimenti contabili |-|-|-|:heavy_check_mark:|-|
+|91| Fatture di vendita | Registrazioni |-|-|-|:heavy_check_mark:|-|
 |91| Fatture di vendita | Ricevute FE |:x:|:x:|:x:|:x:|:x:|
 |91| Fatture di vendita | Fatturazione elettronica |:x:|:x:|:x:|:x:|:x:|
-|91| Fatture di vendita | Registrazioni |-|-|-|:heavy_check_mark:|-|
 |91| Fatture di vendita | Importazione FE |:x:|:x:|:x:|:x:|:x:|
 |92| Fatture di acquisto | Movimenti contabili |-|-|-|:heavy_check_mark:|-|
-|92| Fatture di acquisto | Fatturazione elettronica |:x:|:x:|:x:|:x:|:x:|
 |92| Fatture di acquisto | Registrazioni |-|-|-|:heavy_check_mark:|-|
+|92| Fatture di acquisto | Fatturazione elettronica |:x:|:x:|:x:|:x:|:x:|
 |93| Scadenzario | Presentazioni bancarie |:x:|:x:|:x:|:x:|:x:|
 |94| Articoli | Barcode |:x:|:x:|:x:|:x:|:x:|
 |94| Articoli | Provvigioni |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
