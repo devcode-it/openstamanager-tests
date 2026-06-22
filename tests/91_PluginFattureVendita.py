@@ -11,13 +11,7 @@ class FattureVendita(Test):
 
     def test_plugin_fattura_vendita(self):
         self.movimenti_contabili()
-        #TODO: Ricevute FE
-        #self.ricevute_fe()
-        #TODO: Fatturazione elettronica modulo
-        #self.fatturazione_elettronica_modulo()
-        self.registrazioni()
-        #TODO: Importazione FE
-        #self.importazione_fe()
+        self.contabilizzazione()
         
     def movimenti_contabili(self):
         self.navigate_to_and_wait("Fatture di vendita")
@@ -28,18 +22,18 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//a[@id="link-tab_37"]')
         self.wait_for_element_and_click('//a[@class="btn btn-info btn-lg"]')
 
-        dare_1 = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_37"]//tbody//td)[3]'))).text
-        avere_1 = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_37"]//tbody//td)[9]'))).text
-        avere_2 = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_37"]//tbody//td)[14]'))).text
+        dare_1 = self.driver.find_element(By.XPATH, '(//div[@id="tab_37"]//tbody//td)[3]').text
+        avere_1 = self.driver.find_element(By.XPATH, '(//div[@id="tab_37"]//tbody//td)[9]').text
+        avere_2 = self.driver.find_element(By.XPATH, '(//div[@id="tab_37"]//tbody//td)[14]').text
 
-        self.assertEqual(dare_1, "102,00 €")
-        self.assertEqual(avere_1, "100,00 €")
-        self.assertEqual(avere_2, "2,00 €")
+        self.assertEqual(dare_1, "323,06 €")
+        self.assertEqual(avere_1, "264,80 €")
+        self.assertEqual(avere_2, "58,26 €")
 
         self.navigate_to_and_wait("Fatture di vendita")
         self.clear_filters()
 
-    def registrazioni(self):
+    def contabilizzazione(self):
         self.navigate_to_and_wait("Fatture di vendita")
 
         self.search_by_th("th_Tipo", "Fattura immediata di vendita", wait_modal=False)
