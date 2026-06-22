@@ -19,13 +19,13 @@ class Preventivi(Test):
         self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="link-tab_12"]')
         budget = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@class="text-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="card-body text-center bg-success text-white"]'))
         ).text
-        self.assertEqual(budget, "+ 264,80 €")
+        self.assertEqual(budget, "Rapporto budget/spesa:\n264,80 €")
 
     def revisioni(self):
         self.navigate_to_and_wait("Preventivi")
 
-        self.wait_for_element_and_click('//tbody//tr//td[3]')
+        self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_20"]')
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_20"]//td[@class="text-center"][1]')))
