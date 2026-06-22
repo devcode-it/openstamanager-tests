@@ -248,28 +248,28 @@ Legenda:
 
 |N°| Modulo | Plugin | :heavy_plus_sign: | :pencil: | :wastebasket: | ☑️ | Altro |
 |--|--------|--------|:-----------------:|:--------:|:-------------:|:--:|:----------:|
-|88| Anagrafiche | Impianti del cliente |:x:|:x:|:x:|:x:|:x:|
+|88| Anagrafiche | Impianti del cliente |:heavy_check_mark:|-|:heavy_check_mark:|:heavy_check_mark:|:x:|
 |88| Anagrafiche | Referenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
 |88| Anagrafiche | Sedi aggiuntive |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
 |88| Anagrafiche | Statistiche |-|-|-|:heavy_check_mark:|-|
-|88| Anagrafiche | Ddt del cliente |-|-|-|-|-|
+|88| Anagrafiche | Ddt del cliente |-|-|-|:heavy_check_mark:|-|
 |88| Anagrafiche | Dichiarazione d'intento |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:| Fattura di vendita |
 |88| Anagrafiche | Storico attività |-|-|-|:heavy_check_mark:|-|
 |88| Anagrafiche | Allegati |-|-|-|:heavy_check_mark:|-|
-|88| Anagrafiche | Contratti del cliente |:x:|:x:|:x:|:x:|:x:|
+|88| Anagrafiche | Contratti del cliente |-|-|-|:heavy_check_mark:|-|
 |88| Anagrafiche | Movimenti contabili |-|-|-|:heavy_check_mark:|-|
 |88| Anagrafiche | Regole pagamenti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
 |88| Anagrafiche | Assicurazione crediti |:heavy_check_mark:|:heavy_check_mark:| :heavy_check_mark:| :heavy_check_mark:| Fattura di vendita |
-|89| Attività | Mostra su mappa |:x:|:x:|:x:|:x:|:x:|
-|89| Attività | Impianti |:x:|:x:|:x:|:x:|:x:|
+|89| Attività | Mostra su mappa |-|-|-|:heavy_check_mark:|:x:|
+|89| Attività | Impianti |:heavy_check_mark:|-|:heavy_check_mark:|:heavy_check_mark:|:x:|
 |90| Preventivi | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |90| Preventivi | Revisioni |-|-|-|:heavy_check_mark:|-|
-|91| Fatture di vendita | Movimenti contabilili |-|-|-|:heavy_check_mark:|-|
+|91| Fatture di vendita | Movimenti contabili |-|-|-|:heavy_check_mark:|-|
 |91| Fatture di vendita | Ricevute FE |:x:|:x:|:x:|:x:|:x:|
 |91| Fatture di vendita | Fatturazione elettronica |:x:|:x:|:x:|:x:|:x:|
 |91| Fatture di vendita | Registrazioni |-|-|-|:heavy_check_mark:|-|
 |91| Fatture di vendita | Importazione FE |:x:|:x:|:x:|:x:|:x:|
-|92| Fatture di acquisto | Movimenti contabilili |-|-|-|:heavy_check_mark:|-|
+|92| Fatture di acquisto | Movimenti contabili |-|-|-|:heavy_check_mark:|-|
 |92| Fatture di acquisto | Fatturazione elettronica |:x:|:x:|:x:|:x:|:x:|
 |92| Fatture di acquisto | Registrazioni |-|-|-|:heavy_check_mark:|-|
 |93| Scadenzario | Presentazioni bancarie |:x:|:x:|:x:|:x:|:x:|
@@ -286,7 +286,7 @@ Legenda:
 |95| Ordini cliente | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |96| Impianti | Componenti |:x:|:x:|:x:|:x:|:x:|
 |97| Contratti | Pianificazione fatturazione |:heavy_check_mark:|-|-|:heavy_check_mark:|controllo in Fatture e widget Dashboard|
-|97| Contratti | Rinnovi |:x:|:x:|:x:|:x:|:x:|
+|97| Contratti | Rinnovi |:heavy_check_mark:|-|-|:heavy_check_mark:|:x:|
 |97| Contratti | Pianificazione attività |:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|-|
 |97| Contratti | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |98| Banche | Mandati SEPA |:x:|:x:|:x:|:x:|:x:|
