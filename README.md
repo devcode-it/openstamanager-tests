@@ -272,17 +272,17 @@ Legenda:
 |92| Fatture di acquisto | Movimenti contabili |-|-|-|:heavy_check_mark:|-|
 |92| Fatture di acquisto | Registrazioni |-|-|-|:heavy_check_mark:|-|
 |92| Fatture di acquisto | Fatturazione elettronica |:x:|:x:|:x:|:x:|:x:|
-|93| Scadenzario | Presentazioni bancarie |:x:|:x:|:x:|:x:|:x:|
-|94| Articoli | Barcode |:x:|:x:|:x:|:x:|:x:|
+|93| Scadenzario | Presentazioni bancarie |-|-|-|:heavy_check_mark:|-|
+|94| Articoli | Barcode |:heavy_check_mark:|-|-|:heavy_check_mark:|-|
 |94| Articoli | Provvigioni |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
 |94| Articoli | Varianti articolo |:x:|:x:|:x:|:x:|:x:|
-|94| Articoli | Piani di sconto/maggiorazione |:x:|:x:|:x:|:x:|:x:|
+|94| Articoli | Piani di sconto/maggiorazione |:heavy_check_mark:|-|-|:heavy_check_mark:|-|
 |94| Articoli | Listino fornitori |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|-|
 |94| Articoli | Netto clienti |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|Fattura di vendita|
 |94| Articoli | Statistiche |-|-|-|:heavy_check_mark:|-|
 |94| Articoli | Giacenze |-|-|-|:heavy_check_mark:|-|
 |94| Articoli | Serial |:heavy_check_mark:|-|:heavy_check_mark:|:heavy_check_mark:|-|
-|94| Articoli | Movimenti |:x:|:x:|:x:|:x:|:x:|
+|94| Articoli | Movimenti |-|-|-|:heavy_check_mark:|-|
 |95| Ordini cliente | Consuntivo |-|-|-|:heavy_check_mark:|-|
 |96| Impianti | Componenti |:x:|:x:|:x:|:x:|:x:|
 |97| Contratti | Pianificazione fatturazione |:heavy_check_mark:|-|-|:heavy_check_mark:|controllo in Fatture e widget Dashboard|

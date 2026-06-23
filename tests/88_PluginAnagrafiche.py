@@ -9,17 +9,17 @@ class Anagrafiche(Test):
         self.navigate_to_and_wait("Anagrafiche")
 
     def test_plugin_anagrafica(self):
-        #self.aggiunta_referente()
-        #self.aggiunta_sede()
-        #self.plugin_statistiche()
-        #self.storico_attivita()
-        #self.dichiarazione_di_intento()
-        #self.controlla_allegati()
-        #self.plugin_movimenti_contabili()
-        #self.regole_pagamenti()
-        #self.assicurazione_crediti()
-        #self.impianti_cliente()
-        #self.ddt_cliente()
+        self.aggiunta_referente()
+        self.aggiunta_sede()
+        self.plugin_statistiche()
+        self.storico_attivita()
+        self.dichiarazione_di_intento()
+        self.controlla_allegati()
+        self.plugin_movimenti_contabili()
+        self.regole_pagamenti()
+        self.assicurazione_crediti()
+        self.impianti_cliente()
+        self.ddt_cliente()
         self.contratti_cliente()
 
 
