@@ -301,11 +301,12 @@ Legenda:
 |--| ------- | ---------------- |:--:|
 |99| Anagrafiche | Cambia relazione |:heavy_check_mark:|
 |99| Anagrafiche | Elimina |:heavy_check_mark:|
-|99| Anagrafiche | Esporta |:x:|
-|99| Anagrafiche | Imposta listino |:x:|
+|99| Anagrafiche | Esporta |:heavy_check_mark:|
+|99| Anagrafiche | Imposta listino |:heavy_check_mark:|
 |99| Anagrafiche | Ricerca coordinate |:heavy_check_mark:|
-|99| Anagrafiche | Esporta email newsletter |:x:|
-|99| Anagrafiche | Crea lista |:x:|
+|99| Anagrafiche | Esporta email newsletter |:heavy_check_mark:|
+|99| Anagrafiche | Crea lista |:heavy_check_mark:|
+|99| Anagrafiche | Aggiorna agente |:heavy_check_mark:|
 |100| Liste | Aggiorna liste |:x:|
 |101| Attività | Cambia stato |:heavy_check_mark:|
 |101| Attività | Duplica |:heavy_check_mark:|
