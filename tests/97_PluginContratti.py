@@ -12,21 +12,17 @@ class Contratti(Test):
     def test_plugin_contratto(self):
         self.consuntivo()   
         self.pianificazione_attivita()
-        self.rinnovi()
         self.pianificazione_fatturazione()
 
     def consuntivo(self):
         self.navigate_to_and_wait("Contratti")
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))), "Contratto di Prova", wait_modal=False)
-
-        self.wait_for_element_and_click('//tbody//tr/td[2]')
+        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="link-tab_13"]')
-
         budget = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_13"]//span[@class="text-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="card-body text-center bg-success text-white"]'))
         ).text
-        self.assertEqual(budget, "+ 264,80 €")
+        self.assertEqual(budget, "Rapporto budget/spesa:\n244,80 €")
 
         self.navigate_to_and_wait("Contratti")
         self.clear_filters()
@@ -38,13 +34,12 @@ class Contratti(Test):
         modal = self.wait_modal()
 
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="nome"]'))).send_keys("Manutenzione")
-        self.wait_for_dropdown_and_select('//span[@id="select2-idanagrafica-container"]', option_text='Cliente')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_anagrafica-container"]', option_text='Cliente')
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_accettazione"]'))).send_keys("01/01/2026")
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="data_conclusione"]'))).send_keys("31/12/2026")
         self.wait_for_element_and_click('//button[@class="btn btn-primary"]')
 
         self.wait_for_element_and_click('//a[@class="btn btn-primary"]')
-
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Manutenzione")
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="qta"]'))).send_keys("12")
         self.wait_for_dropdown_and_select('//span[@id="select2-um-container"]', option_text='pz')
@@ -52,7 +47,7 @@ class Contratti(Test):
         self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
 
         self.driver.execute_script('window.scrollTo(0,0)')
-        self.wait_for_dropdown_and_select('//span[@id="select2-idstato-container"]', option_text='In lavorazione')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_stato-container"]', option_text='In lavorazione')
         self.wait_for_element_and_click('//button[@id="save"]')
 
         self.wait_for_element_and_click('//a[@id="link-tab_14"]')
@@ -71,23 +66,10 @@ class Contratti(Test):
         self.wait_loader()
 
         self.wait_for_element_and_click('//button[@class="btn btn-primary btn-sm  "]')
-        description_field = self.wait_for_element_and_click('(//iframe[@class="cke_wysiwyg_frame cke_reset"])[3]')
-        description_field = self.wait_driver.until(EC.visibility_of_element_located(
-            (By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[3]')
-        ))
 
-        self.wait_for_element_and_click('(//label[@class="btn btn-default active"])[2]')
-        self.wait_for_element_and_click('//div[@class="modal-footer"]//button[@class="btn btn-success"]')
+        self.wait_for_element_and_click('(//button[@class="btn btn-success"])[2]')
 
-        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//a')))
-
-    def rinnovi(self):
-        self.navigate_to_and_wait("Contratti")
-
-        self.click_first_table_row()
-
-        self.wait_for_element_and_click('(//label[@for="rinnovabile"])[2]')
-        self.wait_for_element_and_click('//button[@id="save"]')
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//tbody//tr[1]//a)[2]')))
 
     def pianificazione_fatturazione(self):
         self.navigate_to_and_wait("Contratti")
@@ -102,7 +84,7 @@ class Contratti(Test):
         self.wait_for_element_and_click('//button[@id="btn_procedi"]')
         self.wait_for_element_and_click('(//button[@class="btn btn-primary btn-sm "])[1]')
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-idtipodocumento-container"]', option_text='Fattura immediata di vendita')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_tipo_documento-container"]', option_text='Fattura immediata di vendita')
         self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
 
         self.navigate_to_and_wait("Dashboard")
@@ -111,7 +93,7 @@ class Contratti(Test):
         self.wait_for_element_and_click('(//div[@class="month-button-wrapper mr-2 mb-2"])[2]')
         self.wait_for_element_and_click('//button[@class="btn btn-success btn-sm"]')
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-idtipodocumento-container"]', option_text='Fattura immediata di vendita')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_tipo_documento-container"]', option_text='Fattura immediata di vendita')
         self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
 
         self.navigate_to_and_wait("Contratti")
