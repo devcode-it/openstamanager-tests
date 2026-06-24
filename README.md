@@ -284,12 +284,13 @@ Legenda:
 |94| Articoli | Serial |:heavy_check_mark:|-|:heavy_check_mark:|:heavy_check_mark:|-|
 |94| Articoli | Movimenti |-|-|-|:heavy_check_mark:|-|
 |95| Ordini cliente | Consuntivo |-|-|-|:heavy_check_mark:|-|
-|96| Impianti | Componenti |:x:|:x:|:x:|:x:|:x:|
+|96| Impianti | Interventi svolti |:x:|:x:|:x:|:heavy_check_mark:|:x:|
+|96| Impianti | Componenti |:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|:x:|
 |97| Contratti | Pianificazione fatturazione |:heavy_check_mark:|-|-|:heavy_check_mark:|controllo in Fatture e widget Dashboard|
 |97| Contratti | Rinnovi |:heavy_check_mark:|-|-|:heavy_check_mark:|:x:|
 |97| Contratti | Pianificazione attività |:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|-|
 |97| Contratti | Consuntivo |-|-|-|:heavy_check_mark:|-|
-|98| Banche | Mandati SEPA |:x:|:x:|:x:|:x:|:x:|
+|98| Banche | Mandati SEPA |:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|:x:|
 
 
 ## Azioni di gruppo

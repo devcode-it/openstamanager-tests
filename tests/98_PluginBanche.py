@@ -11,5 +11,13 @@ class Banche(Test):
         self.expandSidebar("Tabelle")
 
     def test_plugin_banche(self):
-        #TODO: Mandati SEPA
         self.mandati_sepa()
+
+    def mandati_sepa(self):
+        self.navigate_to_and_wait("Banche")
+
+        self.click_first_table_row()
+        self.wait_for_element_and_click('//a[@id="link-tab_47"]')
+
+        self.input(None,'ID Mandato').setValue("123456")
+        self.wait_for_element_and_click('//div[@id="tab_47"]//button[@type="submit"]')

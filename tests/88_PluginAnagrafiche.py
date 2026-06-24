@@ -201,6 +201,9 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//a[@id="link-tab_28"]')
         self.wait_for_element_and_click('//div[@id="tab_28"]//tbody//tr//td[1]')
         
+        self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()
+
     def dichiarazione_di_intento(self):
         self.navigate_to_and_wait("Anagrafiche")
         self.search_entity_and_click_first("Cliente")
@@ -327,7 +330,6 @@ class Anagrafiche(Test):
 
         self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
-        self.expandSidebar("Vendite")
 
     def plugin_movimenti_contabili(self):
         self.navigate_to_and_wait("Anagrafiche")
@@ -400,7 +402,6 @@ class Anagrafiche(Test):
 
         self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
-        self.expandSidebar("Vendite")
 
     def assicurazione_crediti(self):
         self.navigate_to_and_wait("Anagrafiche")
@@ -504,6 +505,9 @@ class Anagrafiche(Test):
         ).text
         self.assertEqual("Impianto di Prova", impianto_nome)
         
+        self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()
+
     def add_impianto(self, matricola: str, nome: str, cliente: str):
         self.navigate_to_and_wait("Impianti")
         self.click_add_button()
@@ -514,6 +518,9 @@ class Anagrafiche(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-id_anagrafica_impianto-container"]', option_text=cliente)
 
         self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
+
+        self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()
 
     def ddt_cliente(self):
         self.navigate_to_and_wait("Anagrafiche")
@@ -526,6 +533,9 @@ class Anagrafiche(Test):
         ).text
         self.assertEqual("01", ddt_numero)
 
+        self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()
+
     def contratti_cliente(self):
         self.navigate_to_and_wait("Anagrafiche")
         self.search_entity_and_click_first("Cliente")
@@ -536,3 +546,6 @@ class Anagrafiche(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_35"]//tbody//tr[1]//td[3]'))
         ).text
         self.assertEqual("Contratto di Prova", contratto_nome)
+
+        self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()

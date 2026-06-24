@@ -245,6 +245,9 @@ class Articoli(Test):
 
         sconto = self.driver.find_element(By.XPATH, '(//div[@class="card card-primary"]//tbody//tr[3]//td[2])[3]').text
         self.assertEqual(sconto, "18,00 €")
+
+        self.navigate_to_and_wait("Articoli")
+        self.clear_filters()
     
     def provvigioni(self):
         self.navigate_to_and_wait("Articoli")
@@ -287,3 +290,6 @@ class Articoli(Test):
 
         barcode = self.driver.find_element(By.XPATH, '(//div[@id="tab_49"]//tbody//tr//td[2])[7]').text
         self.assertEqual(barcode, "2000000000022")
+
+        self.navigate_to_and_wait("Articoli")
+        self.clear_filters()

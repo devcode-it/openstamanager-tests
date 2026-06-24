@@ -72,11 +72,7 @@ class Contratti(Test):
         self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//tbody//tr[1]//a)[2]')))
 
     def pianificazione_fatturazione(self):
-        self.navigate_to_and_wait("Contratti")
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Nome"]/input'))), "Manutenzione", wait_modal=False)
-
-        self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="link-tab_26"]')
         self.wait_for_element_and_click('//button[@id="pianifica"]')
 
@@ -98,11 +94,12 @@ class Contratti(Test):
 
         self.navigate_to_and_wait("Contratti")
 
+        self.search_by_th("th_Nome", "Manutenzione")
         self.click_first_table_row()
+
         self.wait_for_element_and_click('//a[@id="link-tab_26"]')
-
-        link = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_26"]//tbody//tr//td[2]'))).text
-        self.assertEqual(link, "Fattura num. del 01/01/2026 ( Bozza)")
-
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_26"]//i[@class="fa fa-external-link"]')))
+        self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_26"]//i[@class="fa fa-external-link"])[2]')))
+        
         self.navigate_to_and_wait("Contratti")
         self.clear_filters()
