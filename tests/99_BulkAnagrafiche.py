@@ -1,3 +1,4 @@
+import os
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from common.Test import Test
@@ -81,6 +82,21 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//a[@data-op="export_csv"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
+        download_dir = os.path.expanduser('~/Scaricati')
+        files_before = os.listdir(download_dir) if os.path.exists(download_dir) else []
+        
+        import time
+        time.sleep(2)
+        
+        files_after = os.listdir(download_dir) if os.path.exists(download_dir) else []
+        new_files = set(files_after) - set(files_before)
+        
+        csv_files = [f for f in new_files if f.endswith('.csv')]
+        self.assertTrue(len(csv_files) > 0, "Nessun file CSV scaricato")
+
+        self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()
+
     def aggiorna_agente(self):
         self.navigate_to_and_wait("Anagrafiche")
 
@@ -102,6 +118,9 @@ class Anagrafiche(Test):
 
         agente = self.driver.find_element(By.XPATH, '//span[@id="select2-id_agente-container"]').text
         self.assertEqual(agente, "Agente")
+
+        self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()
 
     def imposta_listino(self):
         self.expandSidebar("Magazzino")
@@ -135,6 +154,9 @@ class Anagrafiche(Test):
 
         agente = self.driver.find_element(By.XPATH, '//span[@id="select2-id_listino-container"]').text
         self.assertEqual(agente, "Test")
+
+        self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()
 
     def ricerca_coordinate(self):
         self.navigate_to_and_wait("Anagrafiche")
@@ -172,6 +194,21 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
         self.wait_for_element_and_click('//a[@data-op="export_newsletter_csv"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+
+        download_dir = os.path.expanduser('~/Scaricati')
+        files_before = os.listdir(download_dir) if os.path.exists(download_dir) else []
+        
+        import time
+        time.sleep(2)
+        
+        files_after = os.listdir(download_dir) if os.path.exists(download_dir) else []
+        new_files = set(files_after) - set(files_before)
+        
+        csv_files = [f for f in new_files if f.endswith('.csv')]
+        self.assertTrue(len(csv_files) > 0, "Nessun file CSV scaricato")
+
+        self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()
 
     def crea_lista(self):
         self.navigate_to_and_wait("Anagrafiche")
