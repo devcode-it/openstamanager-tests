@@ -2,6 +2,7 @@ from common.Test import Test, get_html
 from common.RowManager import RowManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+import os
 
 class Attivita(Test):
     def setUp(self):
@@ -10,18 +11,17 @@ class Attivita(Test):
     def test_bulk_attivita(self):      
         self.cambio_stato()
         self.duplica()
-        self.elimina_selezionati()
-        #TODO: Esporta
-        #self.esporta_selezionati()
-        self.fattura_attivita()
-        self.firma_interventi()
-        #TODO: invia email
+        self.elimina()
+        self.esporta()
+        self.fattura()
+        self.firma()
+        self.invia_mail()
         self.stampa_riepilogo()
         
     def cambio_stato(self):
-        self.navigateTo('Attività')
-        search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal=False)
+        self.navigate_to_and_wait('Attività')
+
+        self.search_by_th("th_Numero", "1")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -31,21 +31,18 @@ class Attivita(Test):
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_stato-container"]',
-            option_text='Da programmare'
+            option_text='Completato'
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        stato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))
-        ).text
-        self.assertEqual(stato, 'Da programmare')
+        stato = self.get_table_text(1, 7)
+        self.assertEqual(stato, 'Completato')
         self.wait_for_element_and_click('//tbody//tr//td')
         self.clear_filters()
 
     def duplica(self):
-        self.navigateTo('Attività')
-        search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '1', wait_modal=False)
+        self.navigate_to_and_wait('Attività')
+        self.search_by_th("th_Numero", "1")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -54,7 +51,7 @@ class Attivita(Test):
         )
 
         self.wait_for_dropdown_and_select(
-            '//span[@id="select2-idstatointervento-container"]',
+            '//span[@id="select2-id_stato-container"]',
             option_text='Da programmare'
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
@@ -62,16 +59,13 @@ class Attivita(Test):
 
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
         self.send_keys_and_wait(search_input, '2', wait_modal=False)
-        numero = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))
-        ).text
+        numero = self.get_table_text(1, 2)
         self.assertEqual(numero, '2')
         self.clear_filters()
 
-    def elimina_selezionati(self):
-        self.navigateTo('Attività')
-        search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal=False)
+    def elimina(self):
+        self.navigate_to_and_wait('Attività')
+        self.search_by_th("th_Numero", "2")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -80,16 +74,39 @@ class Attivita(Test):
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        scritta = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td'))
-        ).text
+        scritta = self.get_empty_table_message()
         self.assertEqual(scritta, 'Nessun dato presente nella tabella')
         self.clear_filters()
 
-    def fattura_attivita(self):
-        self.navigateTo('Attività')
-        search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal=False)
+    def esporta(self):
+        self.navigate_to_and_wait('Attività')
+        self.search_by_th("th_Numero", "1")
+
+        self.wait_for_element_and_click('//tbody//tr//td')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="export_bulk"]'
+        )
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+
+        download_dir = os.path.expanduser('~/Scaricati')
+        files_before = os.listdir(download_dir) if os.path.exists(download_dir) else []
+        
+        import time
+        time.sleep(2)
+        
+        files_after = os.listdir(download_dir) if os.path.exists(download_dir) else []
+        new_files = set(files_after) - set(files_before)
+        
+        csv_files = [f for f in new_files if f.endswith('.zip')]
+        self.assertTrue(len(csv_files) > 0, "Nessun file CSV scaricato")
+
+        self.navigate_to_and_wait("Attività")
+        self.clear_filters()
+
+    def fattura(self):
+        self.navigate_to_and_wait('Attività')
+        self.search_by_th("th_Numero", "1")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -103,25 +120,21 @@ class Attivita(Test):
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        stato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[7]'))
-        ).text
+        stato = self.get_table_text(1, 7)
         self.assertEqual(stato, 'Fatturato')
 
         self.expandSidebar('Vendite')
-        self.navigateTo('Fatture di vendita')
-        self.click_first_result()
+        self.navigate_to_and_wait('Fatture di vendita')
+
+        self.wait_for_element_and_click('(//tbody//tr//td[2])[3]')
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        self.navigateTo('Attività')
+        self.navigate_to_and_wait('Attività')
         self.clear_filters()
 
-    def firma_interventi(self):
-        importi = RowManager.list()
-        self.attivita('Cliente', '2', '1', importi[0])
-
-        self.navigateTo('Attività')
+    def firma(self):
+        self.navigate_to_and_wait('Attività')
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
@@ -130,16 +143,28 @@ class Attivita(Test):
 
         self.wait_for_element_and_click('//button[@id="firma"]')
         firma_input = self.wait_for_element_and_click('//input[@id="firma_nome"]')
-        firma_input.send_keys('firma')
-        self.wait_for_element_and_click('//button[@class="btn btn-success pull-right"]')
+        self.send_keys_and_wait(firma_input, 'firma', wait_modal=False)
 
-        self.click_first_result()
-        self.wait_for_element_and_click('(//div[@class="text-center row"]//div)[3]')
+    def invia_mail(self):
+        self.navigate_to_and_wait('Attività')
+        self.search_by_th("th_Numero", "1")
+
+        self.wait_for_element_and_click('//tbody//tr//td')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="send_mail"]'
+        )
+
+        self.wait_for_dropdown_and_select(
+            '//span[@id="select2-id_template-container"]',
+            option_text='Rapportino intervento'
+        )
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.clear_filters()
 
     def stampa_riepilogo(self):
-        self.navigateTo('Attività')
-        search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
-        self.send_keys_and_wait(search_input, '2', wait_modal=False)
+        self.navigate_to_and_wait('Attività')
+        self.search_by_th("th_Numero", "1")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -149,8 +174,8 @@ class Attivita(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
-        prezzo = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[39]'))).text
-        self.assertEqual(prezzo, '0,00')
+        prezzo = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[38]'))).text
+        self.assertEqual(prezzo, '2,00 €')
 
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
