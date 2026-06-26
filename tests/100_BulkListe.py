@@ -6,8 +6,17 @@ class Liste(Test):
     def setUp(self):
         super().setUp()
         self.wait_driver = self.wait_driver
-        self.navigate_to_and_wait("Anagrafiche")
+        self.expandSidebar("Gestione email")
 
     def test_bulk_liste(self):
-        #TODO: aggiorna liste
         self.aggiorna_liste()
+
+    def aggiorna_liste(self):
+        self.navigate_to_and_wait("Liste")
+
+        self.wait_for_element_and_click('//tbody//tr//td')
+
+        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
+        self.wait_for_element_and_click('//a[@data-op="update_lists"]')
+
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
