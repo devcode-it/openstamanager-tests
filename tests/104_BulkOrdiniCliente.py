@@ -10,46 +10,80 @@ class OrdiniCliente(Test):
 
     def test_bulk_ordine_cliente(self):
         self.cambia_stato()
-        #TODO: duploca
+        self.duplica()
         self.fattura_ordini_clienti()
-        #TODO: invia mail
+        self.invia_mail()
         
     def cambia_stato(self):
         self.navigate_to_and_wait("Ordini cliente")
 
-        self.send_keys_and_wait(self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input'))), '01', wait_modal=False)
+        self.search_by_th("th_Numero", "01")
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="change_status"]')
-
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="change_status"]'
+        )
         self.select_state('Accettato')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        stato = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '(//tbody//tr[1]//td[7]//span)[2]'))
-        ).text
+        stato = self.get_table_text(1, 7)
         self.assertEqual(stato, "Accettato")
 
-        self.wait_for_element_and_click('//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')
+        self.wait_for_element_and_click('//tbody//tr//td')
+        self.clear_filters()
+
+    def duplica(self):
+        self.navigate_to_and_wait("Ordini cliente")
+
+        self.wait_for_element_and_click('//tbody//tr//td')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="copy_bulk"]'
+        )
+
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+
+        self.clear_filters()
+        self.search_by_th("th_Numero", "2")
+        self.wait_for_element_and_click('//tbody//tr//td')
+        self.clear_filters()
 
     def fattura_ordini_clienti(self):
         self.navigate_to_and_wait("Ordini cliente")
 
+        self.search_by_th("th_Numero", "01")
+
         self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="create_invoice"]')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="create_invoice"]'
+        )
 
         self.wait_for_dropdown_and_select('//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.navigate_to_and_wait("Fatture di vendita")
 
-        tipo = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[3]//td[5]'))
-        ).text
+        tipo = self.get_table_text(4, 5)
         self.assertEqual(tipo, "Fattura immediata di vendita")
+        self.clear_filters()
 
-        self.wait_for_element_and_click('//tbody//tr//td[4]')
-        self.wait_for_element_and_click('//a[@id="elimina"]')
+    def invia_mail(self):
+        self.navigate_to_and_wait('Ordini cliente')
+        self.clear_filters()
+        self.search_by_th("th_Numero", "1")
+
+        self.wait_for_element_and_click('//tbody//tr//td')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="send_mail"]'
+        )
+
+        self.wait_for_dropdown_and_select(
+            '//span[@id="select2-id_template-container"]',
+            option_text='Ordine'
+        )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+
+        self.clear_filters()

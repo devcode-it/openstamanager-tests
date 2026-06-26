@@ -27,7 +27,6 @@ class Contratti(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="change_status"]'
         )
-
         self.select_state('In lavorazione')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
