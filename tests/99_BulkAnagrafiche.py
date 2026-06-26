@@ -24,8 +24,10 @@ class Anagrafiche(Test):
         self.search_entity("Cliente")
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="change_relation"]')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="change_relation"]'
+        )
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_relazione-container"]',
@@ -59,8 +61,10 @@ class Anagrafiche(Test):
         self.wait_for_search_results()
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="delete_bulk"]')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="delete_bulk"]'
+        )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         no_results_message = self.wait_driver.until(
@@ -78,8 +82,10 @@ class Anagrafiche(Test):
         self.wait_for_search_results()
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="export_csv"]')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="export_csv"]'
+        )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         download_dir = os.path.expanduser('~/Scaricati')
@@ -105,8 +111,10 @@ class Anagrafiche(Test):
         self.wait_for_search_results()
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="update_agenti"]')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="update_agenti"]'
+        )
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_agente-container"]',
@@ -141,9 +149,10 @@ class Anagrafiche(Test):
         self.wait_for_search_results()
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="update_price_list"]')
-
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="update_price_list"]'
+        )
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_listino-container"]',
             option_text="Test"
@@ -165,8 +174,10 @@ class Anagrafiche(Test):
         self.wait_for_search_results()
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="search_coordinates"]')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="search_coordinates"]'
+        )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.click_first_table_row()
@@ -191,8 +202,10 @@ class Anagrafiche(Test):
         self.wait_for_search_results()
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="export_newsletter_csv"]')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="export_newsletter_csv"]'
+        )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         download_dir = os.path.expanduser('~/Scaricati')
@@ -218,9 +231,12 @@ class Anagrafiche(Test):
         self.wait_for_search_results()
 
         self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="crea-lista"]')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="crea-lista"]'
+        )
 
-        self.input(name='Nome lista').setValue('Lista test')
+        modal = self.wait_modal()
+        self.input(modal, 'Nome lista').setValue('Lista test')
         
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')

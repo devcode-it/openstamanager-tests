@@ -15,8 +15,8 @@ class Liste(Test):
         self.navigate_to_and_wait("Liste")
 
         self.wait_for_element_and_click('//tbody//tr//td')
-
-        self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click('//a[@data-op="update_lists"]')
-
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="update_lists"]'
+        )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
