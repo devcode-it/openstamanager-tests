@@ -10,13 +10,14 @@ class Contratti(Test):
         self.expandSidebar("Vendite")
 
     def test_bulk_contratto(self):
-        self.cambia_stato()
+        self.cambia_stato('In lavorazione')
         self.cambia_metodo_pagamento()
         self.fattura_contratti()
+        self.cambia_stato('Bozza')
         self.rinnova_contratti()
         self.duplica_contratti()
     
-    def cambia_stato(self):
+    def cambia_stato(self, stato):
         self.navigate_to_and_wait("Contratti")
 
         self.search_by_th("th_Numero", "1", wait_modal=False)
@@ -27,11 +28,11 @@ class Contratti(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="change_status"]'
         )
-        self.select_state('In lavorazione')
+        self.select_state(stato)
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        stato = self.get_table_text(1, 5)
-        self.assertEqual(stato, "In lavorazione")
+        stato_check = self.get_table_text(1, 5)
+        self.assertEqual(stato, stato_check)
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.clear_filters()
