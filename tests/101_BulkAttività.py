@@ -13,8 +13,8 @@ class Attivita(Test):
         self.duplica()
         self.elimina()
         self.esporta()
-        self.fattura()
         self.firma()
+        self.fattura()
         self.invia_mail()
         self.stampa_riepilogo()
         
@@ -31,12 +31,12 @@ class Attivita(Test):
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_stato-container"]',
-            option_text='Completato'
+            option_text='Programmato'
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         stato = self.get_table_text(1, 7)
-        self.assertEqual(stato, 'Completato')
+        self.assertEqual(stato, 'Programmato')
         self.wait_for_element_and_click('//tbody//tr//td')
         self.clear_filters()
 
@@ -104,6 +104,20 @@ class Attivita(Test):
         self.navigate_to_and_wait("Attività")
         self.clear_filters()
 
+    def firma(self):
+        self.navigate_to_and_wait('Attività')
+        self.wait_for_element_and_click('//tbody//tr//td')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="firma-intervento"]'
+        )
+
+        self.wait_for_element_and_click('//button[@id="firma"]')
+        firma_input = self.wait_for_element_and_click('//input[@id="firma_nome"]')
+        self.send_keys_and_wait(firma_input, 'firma')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[contains(@class, "modal") and contains(@class, "show")]')))
+        
+        
     def fattura(self):
         self.navigate_to_and_wait('Attività')
         self.search_by_th("th_Numero", "1")
@@ -132,18 +146,6 @@ class Attivita(Test):
 
         self.navigate_to_and_wait('Attività')
         self.clear_filters()
-
-    def firma(self):
-        self.navigate_to_and_wait('Attività')
-        self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_dropdown_and_select(
-            '//button[@data-toggle="dropdown"]',
-            option_xpath='//a[@data-op="firma-intervento"]'
-        )
-
-        self.wait_for_element_and_click('//button[@id="firma"]')
-        firma_input = self.wait_for_element_and_click('//input[@id="firma_nome"]')
-        self.send_keys_and_wait(firma_input, 'firma', wait_modal=False)
 
     def invia_mail(self):
         self.navigate_to_and_wait('Attività')
@@ -176,10 +178,3 @@ class Attivita(Test):
         self.driver.switch_to.window(self.driver.window_handles[1])
         prezzo = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[38]'))).text
         self.assertEqual(prezzo, '2,00 €')
-
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
-
-        self.click_first_result()
-        self.wait_for_element_and_click('//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')

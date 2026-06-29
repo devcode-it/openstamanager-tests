@@ -236,7 +236,6 @@ class Anagrafiche(Test):
             option_xpath='//a[@data-op="crea-lista"]'
         )
 
-        modal = self.wait_modal()
-        self.input(modal, 'Nome lista').setValue('Lista test')
+        self.input(name='Nome lista').setValue('Lista test')
         
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
