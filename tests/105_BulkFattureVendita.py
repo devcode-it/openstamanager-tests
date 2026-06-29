@@ -77,7 +77,7 @@ class FattureVendita(Test):
             option_text='Autofatture'
         )
 
-        self.wait_for_element_and_click('//tbody//tr[3]//td')
+        self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="change_segment"]'
