@@ -51,7 +51,7 @@ class Viste(Test, TestHelperMixin):
         self.controllo_viste("02")
 
         self.navigate_to_and_wait("Ddt in entrata")
-        self.controllo_viste("2")
+        self.controllo_viste("1")
         
     def controllo_viste(self, test: str):
         self.wait_for_search_results()

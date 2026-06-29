@@ -288,7 +288,7 @@ class Articoli(Test):
 
         self.send_keys_and_wait(self.driver.find_element(By.XPATH, '//input[@id="barcode"]'), '2000000000022')
 
-        barcode = self.driver.find_element(By.XPATH, '(//div[@id="tab_49"]//tbody//tr//td[2])[7]').text
+        barcode = self.driver.find_element(By.XPATH, '(//div[@id="tab_49"]//tbody//tr//td[2])[8]').text
         self.assertEqual(barcode, "2000000000022")
 
         self.navigate_to_and_wait("Articoli")
