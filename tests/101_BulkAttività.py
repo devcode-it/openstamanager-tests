@@ -116,7 +116,9 @@ class Attivita(Test):
         firma_input = self.wait_for_element_and_click('//input[@id="firma_nome"]')
         self.send_keys_and_wait(firma_input, 'firma')
         self.wait_driver.until(EC.invisibility_of_element_located((By.XPATH, '//div[contains(@class, "modal") and contains(@class, "show")]')))
-        
+        self.wait_driver.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, '.modal-backdrop')))
+        self.wait_loader()
+
         
     def fattura(self):
         self.navigate_to_and_wait('Attività')
