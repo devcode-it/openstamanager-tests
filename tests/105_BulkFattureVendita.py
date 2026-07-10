@@ -56,6 +56,7 @@ class FattureVendita(Test):
         )
 
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.clear_filters()
 
     def cambia_sezionale(self):
         self.navigate_to_and_wait("Fatture di vendita")
@@ -91,10 +92,13 @@ class FattureVendita(Test):
             '//span[@id="select2-id_segment_-container"]',
             option_text='Vendite'
         )
-    
+
+        self.clear_filters()
+            
     def controlla_fatture_elettroniche(self):
         self.navigate_to_and_wait("Fatture di vendita")
-
+        self.search_by_th("th_Numero", "0002/2026")
+        
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
@@ -107,6 +111,7 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//div[@class="toast toast-success"]')
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
+        self.clear_filters()
 
     def duplica_selezionati(self):
         self.navigate_to_and_wait("Fatture di vendita")
@@ -118,6 +123,7 @@ class FattureVendita(Test):
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.wait_for_element_and_click('//tbody//tr//td')
+        self.clear_filters()
 
     def elimina_selezionati(self):
         self.navigate_to_and_wait("Fatture di vendita")
@@ -147,6 +153,7 @@ class FattureVendita(Test):
         stato = self.get_table_text(1, 11)
         self.assertEqual(stato, "Emessa")
         self.wait_for_element_and_click('//tbody//tr//td')
+        self.clear_filters()
 
     def esporta_selezionati(self):
         self.navigate_to_and_wait("Fatture di vendita")
@@ -169,6 +176,7 @@ class FattureVendita(Test):
         
         csv_files = [f for f in new_files if f.endswith('.csv')]
         self.assertTrue(len(csv_files) > 0, "Nessun file CSV scaricato")
+        self.clear_filters()
 
     def esporta_stampe(self):
         self.navigate_to_and_wait("Fatture di vendita")
@@ -191,6 +199,7 @@ class FattureVendita(Test):
         
         csv_files = [f for f in new_files if f.endswith('.zip')]
         self.assertTrue(len(csv_files) > 0, "Nessun file CSV scaricato")
+        self.clear_filters()
 
     def esporta_stampe_fe(self):
         self.navigate_to_and_wait("Fatture di vendita")
@@ -213,6 +222,7 @@ class FattureVendita(Test):
         
         csv_files = [f for f in new_files if f.endswith('.zip')]
         self.assertTrue(len(csv_files) > 0, "Nessun file ZIP scaricato")
+        self.clear_filters()
 
     def esporta_ricevute(self):
         self.navigate_to_and_wait("Fatture di vendita")
@@ -235,6 +245,7 @@ class FattureVendita(Test):
         
         csv_files = [f for f in new_files if f.endswith('.zip')]
         self.assertTrue(len(csv_files) > 0, "Nessun file ZIP scaricato")
+        self.clear_filters()
 
     def esporta_xml(self):
         self.navigate_to_and_wait("Fatture di vendita")
@@ -257,6 +268,7 @@ class FattureVendita(Test):
         
         csv_files = [f for f in new_files if f.endswith('.zip')]
         self.assertTrue(len(csv_files) > 0, "Nessun file ZIP scaricato")
+        self.clear_filters()
 
     def genera_fatture_elettroniche(self):
         self.navigate_to_and_wait("Fatture di vendita")
@@ -279,6 +291,7 @@ class FattureVendita(Test):
 
         self.navigate_to_and_wait("Fatture di vendita")
         self.wait_for_element_and_click('//tbody//tr//td')
+        self.clear_filters()
 
     def invia_fatture(self):
         self.navigate_to_and_wait("Fatture di vendita")
@@ -309,4 +322,3 @@ class FattureVendita(Test):
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
         self.clear_filters()
-

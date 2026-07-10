@@ -38,18 +38,12 @@ class FattureAcquisto(Test):
         )
 
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.clear_filters()
 
     def cambia_sezionale(self):
         self.navigate_to_and_wait("Fatture di acquisto")
-        self.click_first_result()
+        self.search_by_th("th_Numero", "3")
 
-        self.wait_for_dropdown_and_select(
-            '//span[@id="select2-id_stato-container"]',
-            option_text='Bozza')
-        self.wait_for_element_and_click('//button[@id="save"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-
-        self.navigate_to_and_wait("Fatture di acquisto")
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
@@ -66,7 +60,7 @@ class FattureAcquisto(Test):
             '//span[@id="select2-id_segment_-container"]',
             option_text='Autofatture'
         )
-
+        self.clear_filters()
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
@@ -81,7 +75,8 @@ class FattureAcquisto(Test):
             '//span[@id="select2-id_segment_-container"]',
             option_text='Acquisti'
         )
-    
+        self.clear_filters()
+
     def duplica_selezionati(self):
         self.navigate_to_and_wait("Fatture di acquisto")
 
@@ -92,10 +87,11 @@ class FattureAcquisto(Test):
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
         self.wait_for_element_and_click('//tbody//tr//td')
+        self.clear_filters()
 
     def elimina_selezionati(self):
         self.navigate_to_and_wait("Fatture di acquisto")
-        self.search_by_th("th_Numero", "2")
+        self.search_by_th("th_Numero", "3")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -129,6 +125,7 @@ class FattureAcquisto(Test):
         
         csv_files = [f for f in new_files if f.endswith('.csv')]
         self.assertTrue(len(csv_files) > 0, "Nessun file CSV scaricato")
+        self.clear_filters()
 
     def esporta_stampe_fe(self):
         self.navigate_to_and_wait("Fatture di acquisto")
@@ -151,6 +148,7 @@ class FattureAcquisto(Test):
         
         csv_files = [f for f in new_files if f.endswith('.zip')]
         self.assertTrue(len(csv_files) > 0, "Nessun file ZIP scaricato")
+        self.clear_filters()
 
     def esporta_ricevute(self):
         self.navigate_to_and_wait("Fatture di acquisto")
@@ -173,10 +171,11 @@ class FattureAcquisto(Test):
         
         csv_files = [f for f in new_files if f.endswith('.zip')]
         self.assertTrue(len(csv_files) > 0, "Nessun file ZIP scaricato")
+        self.clear_filters()
 
     def esporta_xml(self):
         self.navigate_to_and_wait("Fatture di acquisto")
-        self.search_by_th("th_Numero", "01")
+        self.search_by_th("th_Numero", "2")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -212,7 +211,15 @@ class FattureAcquisto(Test):
 
     def registrazione_contabile(self):
         self.navigate_to_and_wait("Fatture di acquisto")
-        self.search_by_th("th_Numero", "01")
+        self.search_by_th("th_Numero", "2")
+
+        self.click_first_result()
+
+        self.select_state('Emessa')
+        self.input(None, 'N. fattura del fornitore').setValue('02')
+        self.click_save_button()
+
+        self.navigate_to_and_wait("Fatture di acquisto")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
