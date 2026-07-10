@@ -18,7 +18,7 @@ class Articoli(Test):
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
         )
-        self.send_keys_and_wait(search_input, '08', wait_modal=False)
+        self.send_keys_and_wait(search_input, '001', wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_32"]')
@@ -59,7 +59,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         prezzo = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[2]//td[8]'))
+            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[8]'))
         ).text
         self.assertEqual(prezzo, "15,00")
 
@@ -93,14 +93,14 @@ class Articoli(Test):
         articolo = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[2]'))
         ).text
-        self.assertEqual(articolo, "08 - Prova")
+        self.assertEqual(articolo, "001 - Articolo 1")
 
         self.navigate_to_and_wait("Articoli")
 
         search_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Codice"]/input'))
         )
-        self.send_keys_and_wait(search_input, '08', wait_modal=False)
+        self.send_keys_and_wait(search_input, '001', wait_modal=False)
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_32"]')
