@@ -15,35 +15,35 @@ class DdtUscita(Test):
         
     def cambia_stato(self):
         self.navigate_to_and_wait("Ddt in uscita")
+        self.search_by_th("th_Numero", "01")
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait( search_input, "01", wait_modal=False)
-
-        self.wait_for_element_and_click( '//tbody//tr//td')
-        self.wait_for_element_and_click( '//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click( '//a[@data-op="change_status"]')
+        self.wait_for_element_and_click('//tbody//tr//td')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="change_status"]'
+        )
 
         self.select_state('Evaso')
-        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         stato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//tr[1]//td[11]//span)[2]'))
         ).text
         self.assertEqual(stato, "Evaso")
-        self.wait_for_element_and_click( '//i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
 
     def fattura_ddt_uscita(self):
         self.navigate_to_and_wait("Ddt in uscita")
+        self.search_by_th("th_Numero", "01")
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait( search_input, "01", wait_modal=False)
+        self.wait_for_element_and_click('//tbody//tr//td')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="create_invoice"]'
+        )
 
-        self.wait_for_element_and_click( '//tbody//tr//td')
-        self.wait_for_element_and_click( '//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click( '//a[@data-op="create_invoice"]')
-
-        self.wait_for_dropdown_and_select( '//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
-        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_dropdown_and_select('//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
@@ -53,28 +53,26 @@ class DdtUscita(Test):
         ).text
         self.assertEqual(tipo, "Cliente")
 
-        self.wait_for_element_and_click( '//tbody//tr[3]//td[5]')
+        self.wait_for_element_and_click('//tbody//tr[3]//td[5]')
         self.delete_current_and_clear()
 
         self.expandSidebar("Magazzino")
         self.navigate_to_and_wait("Ddt in uscita")
 
-        self.wait_for_element_and_click( '//tbody//tr//td')
-        self.wait_for_element_and_click( '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')
+        self.wait_for_element_and_click('//tbody//tr//td')
+        self.clear_filters()
 
     def elimina_selezionati(self):
         self.navigate_to_and_wait("Ddt in uscita")
+        self.search_by_th("th_Numero", "01")
 
-        self.wait_for_element_and_click( '//tbody//tr//td')
-        self.wait_for_element_and_click( '//button[@data-toggle="dropdown"]')
-        self.wait_for_element_and_click( '//a[@data-op="delete_bulk"]')
-        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//tbody//tr//td')
+        self.wait_for_dropdown_and_select(
+            '//button[@data-toggle="dropdown"]',
+            option_xpath='//a[@data-op="delete_bulk"]'
+        )
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait( search_input, '2', wait_modal=False)
-
-        scritta = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr'))
-        ).text
+        scritta = self.get_empty_table_message()
         self.assertEqual(scritta, "Nessun dato presente nella tabella")
-        self.wait_for_element_and_click( '//th[@id="th_Numero"]/i[@class="deleteicon fa fa-times"]')
+        self.clear_filters()
