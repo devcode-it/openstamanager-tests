@@ -389,10 +389,10 @@ Legenda:
 |112| Ddt in entrata | Cambia stato |:heavy_check_mark:|
 |112| Ddt in entrata | Elimina |:heavy_check_mark:|
 |112| Ddt in entrata | Fattura ddt in entrata |:heavy_check_mark:|
-|113| Impianti | Aggiorna cliente |:x:|
-|113| Impianti | Elimina |:x:|
+|113| Impianti | Aggiorna cliente |:heavy_check_mark:|
+|113| Impianti | Elimina |:heavy_check_mark:|
 |113| Impianti | Esporta |:heavy_check_mark:|
-|113| Impianti | Duplica |:x:|
+|113| Impianti | Duplica |:heavy_check_mark:|
 
 ## Impostazioni
 
