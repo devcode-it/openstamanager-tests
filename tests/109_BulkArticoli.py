@@ -525,7 +525,7 @@ class Articoli(Test):
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
-        self.wait_and_click_table_row()
+        self.navigate_to_and_wait("Articoli")
         self.clear_filters()
 
     def duplica(self):
