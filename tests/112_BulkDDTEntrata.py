@@ -27,10 +27,9 @@ class DdtEntrata(Test):
 
     def fattura_ddt_entrata(self):
         self.navigate_to_and_wait("Ddt in entrata")
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait(search_input, "1", wait_modal=False)
-
+        self.search_by_th("th_Numero", "1", wait_modal=False)
         self.wait_for_element_and_click('//tbody//tr//td')
+
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="create_invoice"]')
         self.wait_for_dropdown_and_select('//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
@@ -48,16 +47,13 @@ class DdtEntrata(Test):
 
         self.expandSidebar("Magazzino")
 
-    def elimina_selezionati(self):        
+    def elimina_selezionati(self):
         self.navigate_to_and_wait("Ddt in entrata")
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="delete_bulk"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
-        search_input = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
-        self.send_keys_and_wait(search_input, '2', wait_modal=False)
-        scritta = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr'))
-        ).text
+        self.search_by_th("th_Numero", '2', wait_modal=False)
+        scritta = self.get_empty_table_message()
         self.assertEqual(scritta, "Nessun dato presente nella tabella")
         self.clear_filters()
