@@ -42,7 +42,15 @@ class FattureAcquisto(Test):
 
     def cambia_sezionale(self):
         self.navigate_to_and_wait("Fatture di acquisto")
-        self.search_by_th("th_Numero", "3")
+        self.click_first_result()
+
+        self.wait_for_dropdown_and_select(
+            '//span[@id="select2-id_stato-container"]',
+            option_text='Bozza')
+        self.wait_for_element_and_click('//button[@id="save"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+
+        self.navigate_to_and_wait("Fatture di acquisto")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(

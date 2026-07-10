@@ -61,7 +61,7 @@ class FattureVendita(Test):
     def cambia_sezionale(self):
         self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_for_element_and_click('//tbody//tr[3]//td')
+        self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="change_segment"]'
@@ -127,15 +127,18 @@ class FattureVendita(Test):
 
     def elimina_selezionati(self):
         self.navigate_to_and_wait("Fatture di vendita")
-        self.search_by_th("th_Numero", "0002/2026")
-
+        
         self.wait_for_element_and_click('//tbody//tr//td')
+        self.wait_for_element_and_click('//tbody//tr[2]//td')
+        self.wait_for_element_and_click('//tbody//tr[3]//td')
+        self.wait_for_element_and_click('//tbody//tr[4]//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="delete_bulk"]'
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
+        self.search_by_th("th_Numero", "0002/2026")
         eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.clear_filters()
@@ -143,7 +146,7 @@ class FattureVendita(Test):
     def emetti_fatture(self):
         self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_for_element_and_click('//tbody//tr//td')
+        self.wait_for_element_and_click('//tbody//tr[2]//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="change_status"]'
