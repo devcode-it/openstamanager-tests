@@ -97,13 +97,18 @@ class Anagrafiche(Test):
         self.navigate_to_and_wait("Anagrafiche")
         self.search_entity_and_click_first("Cliente")
 
-        self.wait_for_element_and_click('//a[@id="link-tab_28"]')
-        activity_number = self.find(By.XPATH, '//div[@id="tab_28"]//tbody//tr//td[2]').text
-        self.assertEqual("1", activity_number)
+        self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
+        quote_text = self.find(By.XPATH, '//div[@id="documenti-collegati-body"]//li').text
+        self.assertEqual("Attività 1", quote_text[0:10])
 
-        self.click_first_table_row()
+        self.wait_for_element_and_click('(//div[@id="documenti-collegati-body"]//i)[2]')
+
+        self.wait(lambda driver: len(driver.window_handles) > 1)
+        self.driver.switch_to.window(self.driver.window_handles[1])
         self.close_tour()
         self.delete_current_and_clear()
+        self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
 
         self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
@@ -136,6 +141,7 @@ class Anagrafiche(Test):
         self.wait(lambda driver: len(driver.window_handles) > 1)
         self.driver.switch_to.window(self.driver.window_handles[1])
 
+        self.close_tour()
         self.delete_current_and_clear()
 
         self.driver.close()
@@ -208,16 +214,21 @@ class Anagrafiche(Test):
         self.navigate_to_and_wait("Anagrafiche")
         self.search_entity_and_click_first("Cliente")
 
-        self.wait_for_element_and_click('//a[@id="link-tab_17"]')
-        ddt_number = self.find(By.XPATH, '//div[@id="tab_17"]//tbody//td[2]').text
-        self.assertEqual("", ddt_number)
+        self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
+        ddt_text = self.find(By.XPATH, '//div[@id="documenti-collegati-body"]//li').text
+        self.assertEqual("Ddt in uscita", ddt_text[0:13])
 
-        self.wait_for_element_and_click('//div[@id="tab_17"]//tbody//td[2]')
+        self.wait_for_element_and_click('(//div[@id="documenti-collegati-body"]//i)[2]')
+
+        self.wait(lambda driver: len(driver.window_handles) > 1)
+        self.driver.switch_to.window(self.driver.window_handles[1])
 
         self.close_tour()
-
         self.delete_current_and_clear()
 
+        self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        
         self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
 
@@ -238,13 +249,13 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('(//div[@class="card-body"]//li//a)[5]')
         self.wait(lambda driver: len(driver.window_handles) > 1)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+
+        self.close_tour()
+        self.delete_current_and_clear()
 
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
-
-        self.close_tour()
-
-        self.delete_current_and_clear()
-
+        
         self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
