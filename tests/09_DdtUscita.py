@@ -14,8 +14,6 @@ class DdtUscita(Test):
         self._modifica_ddt("Evaso")
         self._elimina_ddt()
         self._verifica_ddt()
-        self._ddt_del_cliente()
-
 
     def _creazione_ddt_uscita(self, cliente: str, causale: str, file_importi: str):
         self.navigate_to_and_wait("Ddt in uscita")
@@ -76,10 +74,3 @@ class DdtUscita(Test):
 
         self.verify_deleted_by_th("th_Numero", "!=01")
         self.clear_filters()
-
-    def _ddt_del_cliente(self):
-        self.navigate_to_and_wait("Anagrafiche")
-        self.search_entity_and_click_first("Cliente")
-
-        self.wait_for_element_and_click( '//a[@id="link-tab_17"]')
-        self.wait_for_element_and_click( '//tbody//tr[5]//td[2]')

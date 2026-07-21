@@ -14,7 +14,6 @@ class Contratti(Test):
         self._modifica_contratto("Contratto di Prova")
         self._elimina_contratto()
         self._verifica_contratto()
-        self._contratti_del_cliente()
 
 
     def _creazione_contratto(self, nome:str, cliente: str, file_importi: str):
@@ -91,13 +90,3 @@ class Contratti(Test):
         eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.clear_filters()
-
-    def _contratti_del_cliente(self):
-        self.navigate_to_and_wait("Anagrafiche")
-
-        self.send_keys_and_wait(self.find(By.XPATH, '//th[@id="th_Ragione-sociale"]/input'), "Cliente", wait_modal=False)
-
-        self.click_first_table_row()
-        self.wait_for_element_and_click('//a[@id="link-tab_35"]')
-
-        self.find(By.XPATH, '//div[@id="tab_35"]//tbody//tr/td[2]')

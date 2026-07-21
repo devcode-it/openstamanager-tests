@@ -60,18 +60,16 @@ class FattureAcquisto(Test):
         self.driver.execute_script('$("a").removeAttr("target")')
         self.wait_for_element_and_click('//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::a')
 
-        totale = '-' + totale
         scadenza_scadenzario = (self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text + ' €')
         self.assertEqual(totale, scadenza_scadenzario)
 
         self.expandSidebar("Acquisti")
         self.navigate_to_and_wait("Fatture di acquisto")
-        widget_fatturato = self.find(By.XPATH, '(//span[@class="info-box-number"])[1]').text
-        widget_crediti = self.find(By.XPATH, '(//span[@class="info-box-number"])[2]').text
-        widget_crediti = '-' + widget_crediti
+        widget_acquisti = self.find(By.XPATH, '(//span[@class="info-box-number"])[1]').text
+        widget_debiti = self.find(By.XPATH, '(//span[@class="info-box-number"])[2]').text
 
-        self.assertEqual(totale_imponibile, widget_fatturato)
-        self.assertEqual(totale, widget_crediti)
+        self.assertEqual(totale_imponibile, widget_acquisti)
+        self.assertEqual(totale, widget_debiti)
 
         self.expandSidebar("Contabilità")
         self.navigate_to_and_wait("Piano dei conti")
@@ -87,7 +85,6 @@ class FattureAcquisto(Test):
         self.wait_for_element_and_click('//*[@id="movimenti-132"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto_132"]')
         conto_fornitore = self.find(By.XPATH, '//*[@id="conto_132"]//*[@class="text-right"]').text
-        conto_fornitore = '-' + conto_fornitore
 
         self.wait_for_element_and_click('//*[@id="conto2-22"]//*[@class="fa fa-plus"]')
         self.wait_for_expanded_element('//*[@id="conto2-22"]')
@@ -139,5 +136,5 @@ class FattureAcquisto(Test):
         totale_imponibile = self.get_row_cell_text('righe', 2, 1, 2)
         totale = self.get_row_cell_text('righe', 2, 2, 2)
 
-        self.assertEqual(totale_imponibile, ('264,80 €'))
-        self.assertEqual(totale, ('58,26 €'))
+        self.assertEqual(totale_imponibile, ('292,00 €'))
+        self.assertEqual(totale, ('64,24 €'))

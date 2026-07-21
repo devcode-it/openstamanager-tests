@@ -22,6 +22,7 @@
         },
         {
             "tipo": "sconto",
+            "descrizione": "Sconto 10%",
             "sconto_percentuale": "10"
         },
         {

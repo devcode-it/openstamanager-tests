@@ -37,6 +37,9 @@ class StatoServizi(Test):
 
         self.wait_for_element_and_click('//button[@id="save"]')
         self.wait_loader()
+        
+        self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()
 
     def _creazione_fornitore_estero(self):
         self._crea_anagrafica("Fornitore Estero", "Fornitore")
@@ -85,6 +88,7 @@ class StatoServizi(Test):
         self.wait_loader()
 
         self.navigate_to_and_wait("Anagrafiche")
+        self.clear_filters()
 
     def _compila_campi_azienda(self, campi: dict):
         for campo, valore in campi.items():

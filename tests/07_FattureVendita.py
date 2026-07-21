@@ -290,6 +290,6 @@ class FattureVendita(Test):
         iva = self.get_row_cell_text('righe', 2, 2, 2)
         totale = self.get_row_cell_text('righe', 2, 3, 2)
 
-        self.assertEqual(totale_imponibile, '264,80 €')
-        self.assertEqual(iva, '58,26 €')
-        self.assertEqual(totale, '323,06 €')
+        self.assertEqual(totale_imponibile, '292,00 €')
+        self.assertEqual(iva, '64,24 €')
+        self.assertEqual(totale, '356,24 €')

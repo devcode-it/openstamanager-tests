@@ -53,7 +53,8 @@ class Articoli(Test):
         self.search_by_th_and_click_first("th_Descrizione", 'Articolo di Prova da Eliminare')
 
         self.delete_current_and_clear()
-
+        self.clear_filters()
+        
     def _verifica_articolo(self):
         self.navigate_to_and_wait("Articoli")
 
