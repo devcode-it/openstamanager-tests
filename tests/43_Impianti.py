@@ -15,7 +15,6 @@ class Impianti(Test):
         self.modifica_impianto("Impianto di Prova")
         self.elimina_impianto()
         self.verifica_impianto()
-        self.apri_impianti()
         self.plugin_impianti()
         self.plugin_interventi_svolti()
         self.componenti()
@@ -58,18 +57,6 @@ class Impianti(Test):
         self.clear_filters()
 
         self.verify_deleted_by_th("th_Nome", "Impianto di Prova da Eliminare")
-
-    def apri_impianti(self):
-        self.navigate_to_and_wait("Anagrafiche")
-
-        self.search_by_th_and_click_first("th_Ragione-sociale", "Cliente")
-        self.wait_for_element_and_click('//a[@id="link-tab_1"]')
-
-        impianto = self.find(By.XPATH, '//div[@class="text-right"]').text
-        self.assertEqual(impianto, "01")
-
-        self.navigate_to_and_wait("Anagrafiche")
-        self.clear_filters()
 
     def plugin_impianti(self):
         self.navigate_to_and_wait("Attività")

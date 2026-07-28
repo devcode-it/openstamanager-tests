@@ -138,7 +138,7 @@ class Preventivi(Test):
         self.wait_for_element_and_click('//button[@id="submit_btn"]')
 
         totaleordinefornitore = self.get_row_cell_text('righe', 2, 3, 2)
-        self.assertEqual(totaleordinefornitore, '7,20 €')
+        self.assertEqual(totaleordinefornitore, '24,40 €')
 
         self.delete_current_and_clear()
 

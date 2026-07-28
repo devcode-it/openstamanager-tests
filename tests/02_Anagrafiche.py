@@ -105,6 +105,7 @@ class Anagrafiche(Test):
 
         self.wait(lambda driver: len(driver.window_handles) > 1)
         self.driver.switch_to.window(self.driver.window_handles[1])
+
         self.close_tour()
         self.delete_current_and_clear()
         self.driver.close()
