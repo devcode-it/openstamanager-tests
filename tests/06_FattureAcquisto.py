@@ -61,7 +61,7 @@ class FattureAcquisto(Test):
         self.wait_for_element_and_click('//div[@id="tab_0"]//strong[text()="Scadenze"]/ancestor::div[1]//following-sibling::a')
 
         scadenza_scadenzario = (self.find(By.XPATH, '//div[@id="tab_0"]//td[@id="totale_utente"]').text + ' €')
-        self.assertEqual(totale, scadenza_scadenzario)
+        self.assertEqual('-' + totale, scadenza_scadenzario)
 
         self.expandSidebar("Acquisti")
         self.navigate_to_and_wait("Fatture di acquisto")
