@@ -23,7 +23,7 @@ class FattureAcquisto(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_36"]//tr//td[4]'))
         ).text
 
-        self.assertEqual(avere, "264,80 €")
+        self.assertEqual(avere, "292,00 €")
 
         self.navigate_to_and_wait("Fatture di acquisto")
         self.clear_filters()

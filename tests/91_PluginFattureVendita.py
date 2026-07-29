@@ -26,9 +26,9 @@ class FattureVendita(Test):
         avere_1 = self.driver.find_element(By.XPATH, '(//div[@id="tab_37"]//tbody//td)[9]').text
         avere_2 = self.driver.find_element(By.XPATH, '(//div[@id="tab_37"]//tbody//td)[14]').text
 
-        self.assertEqual(dare_1, "323,06 €")
-        self.assertEqual(avere_1, "264,80 €")
-        self.assertEqual(avere_2, "58,26 €")
+        self.assertEqual(dare_1, "356,24 €")
+        self.assertEqual(avere_1, "292,00 €")
+        self.assertEqual(avere_2, "64,24 €")
 
         self.navigate_to_and_wait("Fatture di vendita")
         self.clear_filters()

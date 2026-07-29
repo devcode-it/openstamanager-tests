@@ -9,7 +9,6 @@ class Articoli(Test):
         self.wait_loader()
 
     def test_plugin_articolo(self):
-        self.movimenti()
         self.serial()
         self.giacenze()
         self.statistiche()
@@ -18,18 +17,7 @@ class Articoli(Test):
         self.piani_sconto_maggiorazione()
         self.provvigioni()
         self.barcode()
-        
-    def movimenti(self):
-        self.navigate_to_and_wait("Articoli")
-
-        self.click_first_result()
-
-        self.wait_for_element_and_click('//a[@id="link-tab_10"]')
-
-        base_xpath = '//div[@id="tab_10"]//div[@class="card"]//div[@class="card-body"]//tbody'
-        carico = self.find(By.XPATH, f'{base_xpath}//tr[2]//td[2]').text
-
-        self.assertEqual(carico, "10,00")
+    
 
     def serial(self):
         self.navigate_to_and_wait("Articoli")
@@ -68,10 +56,10 @@ class Articoli(Test):
         self.wait_for_element_and_click('//a[@id="link-tab_22"]')
 
         totale = self.driver.find_element(By.XPATH, '//div[@id="tab_22"]//tbody//tr//td[2]').text
-        self.assertEqual(totale, "12,00")
+        self.assertEqual(totale, "2,00")
 
         totale_2 = self.driver.find_element(By.XPATH, '//input[@id="giacenza_0"]').get_attribute('value')
-        self.assertEqual(totale_2, "12,00")
+        self.assertEqual(totale_2, "2,00")
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()

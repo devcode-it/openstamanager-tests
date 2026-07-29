@@ -86,7 +86,6 @@ class Impianti(Test):
 
         self.navigate_to_and_wait("Attività")
         self.clear_filters()
-
     def plugin_interventi_svolti(self):
         self.navigate_to_and_wait("Impianti")
 

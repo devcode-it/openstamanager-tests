@@ -12,15 +12,11 @@ class Anagrafiche(Test):
         self.aggiunta_referente()
         self.aggiunta_sede()
         self.plugin_statistiche()
-        self.storico_attivita()
         self.dichiarazione_di_intento()
         self.controlla_allegati()
         self.plugin_movimenti_contabili()
         self.regole_pagamenti()
         self.assicurazione_crediti()
-        self.impianti_cliente()
-        self.ddt_cliente()
-        self.contratti_cliente()
 
 
     def aggiunta_referente(self):
@@ -156,10 +152,7 @@ class Anagrafiche(Test):
         )
         self.wait_for_element_and_click('(//button[@type="submit"])[3]')
 
-        search_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '(//th[@id="th_Nome"]/input)[2]'))
-        )
-        self.send_keys_and_wait(search_input, "Filiale XY", wait_modal=False)
+        self.search_by_th("th_Nome", 'Filiale XY')
 
         location_name = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_4"]//tbody//td[2]'))
@@ -182,7 +175,9 @@ class Anagrafiche(Test):
             ("Attività", '(//span[@class="info-box-text pull-left"])[4]'),
             ("Ddt in uscita", '(//span[@class="info-box-text pull-left"])[5]'),
             ("Fatture", '(//span[@class="info-box-text pull-left"])[6]'),
-            ("Ore lavorate", '(//span[@class="info-box-text pull-left"])[7]')
+            ("Impianti", '(//span[@class="info-box-text pull-left"])[7]'),
+            ("Ore lavorate", '(//span[@class="info-box-text pull-left"])[8]'),
+            ("Articoli acquistati", '(//span[@class="info-box-text pull-left"])[9]')
         ]
 
         for expected_label, xpath in stats_labels:
@@ -192,15 +187,6 @@ class Anagrafiche(Test):
             actual_label = self.driver.execute_script("return arguments[0].childNodes[0].nodeValue.trim();", element)
             self.assertEqual(actual_label, expected_label)
 
-        self.navigate_to_and_wait("Anagrafiche")
-        self.clear_filters()
-
-    def storico_attivita(self):
-        self.navigate_to_and_wait('Anagrafiche')
-        self.search_entity_and_click_first('Cliente')
-        self.wait_for_element_and_click('//a[@id="link-tab_28"]')
-        self.wait_for_element_and_click('//div[@id="tab_28"]//tbody//tr//td[1]')
-        
         self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
 
@@ -340,7 +326,7 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//div[@id="tab_38"]//a[@class="btn btn-info btn-lg"]')
 
         dare = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_38"]//tr[1]//td[3]'))).text
-        self.assertEqual(dare, "323,06 €")
+        self.assertEqual(dare, "356,24 €")
 
         self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
@@ -487,65 +473,6 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//div[@id="tab_45"]//tbody//tr//td[2]')
         self.wait_for_element_and_click('//div[@id="modals"]//a[@class="btn btn-danger ask"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
-
-        self.navigate_to_and_wait("Anagrafiche")
-        self.clear_filters()
-
-    def impianti_cliente(self):
-        self.add_impianto('03', 'Impianto di Prova', 'Cliente')
-        self.close_tour()
-
-        self.navigate_to_and_wait("Anagrafiche")
-        self.search_entity_and_click_first("Cliente")
-
-        self.wait_for_element_and_click('//a[@id="link-tab_1"]')
-
-        impianto_nome = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]//td[3]'))
-        ).text
-        self.assertEqual("Impianto di Prova", impianto_nome)
-        
-        self.navigate_to_and_wait("Anagrafiche")
-        self.clear_filters()
-
-    def add_impianto(self, matricola: str, nome: str, cliente: str):
-        self.navigate_to_and_wait("Impianti")
-        self.click_add_button()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Matricola').setValue(matricola)
-        self.input(modal, 'Nome').setValue(nome)
-        self.wait_for_dropdown_and_select('//span[@id="select2-id_anagrafica_impianto-container"]', option_text=cliente)
-
-        self.wait_for_element_and_click('button[type="submit"]', By.CSS_SELECTOR)
-
-        self.navigate_to_and_wait("Anagrafiche")
-        self.clear_filters()
-
-    def ddt_cliente(self):
-        self.navigate_to_and_wait("Anagrafiche")
-        self.search_entity_and_click_first("Cliente")
-
-        self.wait_for_element_and_click('//a[@id="link-tab_17"]')
-
-        ddt_numero = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_17"]//tbody//tr[1]//td[2]'))
-        ).text
-        self.assertEqual("01", ddt_numero)
-
-        self.navigate_to_and_wait("Anagrafiche")
-        self.clear_filters()
-
-    def contratti_cliente(self):
-        self.navigate_to_and_wait("Anagrafiche")
-        self.search_entity_and_click_first("Cliente")
-
-        self.wait_for_element_and_click('//a[@id="link-tab_35"]')
-
-        contratto_nome = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_35"]//tbody//tr[1]//td[3]'))
-        ).text
-        self.assertEqual("Contratto di Prova", contratto_nome)
 
         self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()

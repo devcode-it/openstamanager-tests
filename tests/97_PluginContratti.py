@@ -22,7 +22,7 @@ class Contratti(Test):
         budget = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@class="card-body text-center bg-success text-white"]'))
         ).text
-        self.assertEqual(budget, "Rapporto budget/spesa:\n244,80 €")
+        self.assertEqual(budget, "Rapporto budget/spesa:\n292,00 €")
 
         self.navigate_to_and_wait("Contratti")
         self.clear_filters()
@@ -61,7 +61,7 @@ class Contratti(Test):
         ))
         self.send_keys_and_wait(description_field, "Test")
 
-        self.wait_for_dropdown_and_select('//span[@id="select2-id_segment-container"]', option_text='Standard attività')
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_segment-container"]', option_text='Standard attività (Sezionale)')
         self.wait_for_element_and_click('//div[@class="modal-content"]//button[@class="btn btn-primary"]')
         self.wait_loader()
 

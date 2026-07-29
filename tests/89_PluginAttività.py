@@ -32,6 +32,14 @@ class Attivita(Test):
 
         self.wait_for_element_and_click('//a[@id="link-tab_2"]')
 
+        self.wait_for_element_and_click('//div[@id="tab_2"]//div[@class="input-group-append"]//button[@type="button"]')
+        modal = self.wait_modal()
+
+        self.input(modal, 'Matricola').setValue('03')
+        self.input(modal, 'Nome').setValue('test')
+        self.wait_for_element_and_click('(//button[@type="submit"])[3]')
+
+
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_impianto_add-container"]',
             option_text='03'
