@@ -39,6 +39,7 @@ class Anagrafiche(Test):
         self.assertEqual(relation, "Attivo")
 
         self.click_first_result()
+        self.wait_for_element_and_click('//a[@href="#cliente_fornitore"]')
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_relazione-container"]',

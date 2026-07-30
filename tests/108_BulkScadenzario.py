@@ -16,7 +16,7 @@ class Scadenzario(Test):
 
     def aggiorna_banca(self):
         self.navigate_to_and_wait("Scadenzario")
-        self.search_by_th("th_Rif-Fattura", "0002/2026")
+        self.search_by_th("th_Rif-Fattura", "0002")
         self.wait_for_search_results()
 
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -35,7 +35,7 @@ class Scadenzario(Test):
 
     def info_distinta(self):
         self.navigate_to_and_wait("Scadenzario")
-        self.search_by_th("th_Rif-Fattura", "0002/2026")
+        self.search_by_th("th_Rif-Fattura", "0002")
         self.wait_for_search_results()
 
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -51,7 +51,7 @@ class Scadenzario(Test):
 
     def invia_mail_sollecito(self):
         self.navigate_to_and_wait("Scadenzario")
-        self.search_by_th("th_Rif-Fattura", "0002/2026")
+        self.search_by_th("th_Rif-Fattura", "0002")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -63,7 +63,7 @@ class Scadenzario(Test):
     
     def registrazione_contabile(self):
         self.navigate_to_and_wait("Scadenzario")
-        self.search_by_th("th_Rif-Fattura", "0002/2026")
+        self.search_by_th("th_Rif-Fattura", "0002")
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(

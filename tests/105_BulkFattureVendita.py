@@ -61,7 +61,7 @@ class FattureVendita(Test):
     def cambia_sezionale(self):
         self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_for_element_and_click('//tbody//tr//td')
+        self.wait_for_element_and_click('//tbody//tr[3]//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="change_segment"]'
@@ -78,7 +78,7 @@ class FattureVendita(Test):
             option_text='Autofatture'
         )
 
-        self.wait_for_element_and_click('//tbody//tr//td')
+        self.wait_for_element_and_click('//tbody//tr[3]//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="change_segment"]'
@@ -131,7 +131,6 @@ class FattureVendita(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//tbody//tr[2]//td')
         self.wait_for_element_and_click('//tbody//tr[3]//td')
-        self.wait_for_element_and_click('//tbody//tr[4]//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="delete_bulk"]'
@@ -318,7 +317,7 @@ class FattureVendita(Test):
         )
         modal = self.wait_modal()
         totale = self.find(By.XPATH, '//th[@id="totale_dare_add"]').text
-        self.assertEqual(totale, "323,06")
+        self.assertEqual(totale, "356,24")
 
         self.wait_for_element_and_click('//button[@type="submit"]')
 

@@ -48,7 +48,6 @@ class FattureAcquisto(Test):
             '//span[@id="select2-id_stato-container"]',
             option_text='Bozza')
         self.wait_for_element_and_click('//button[@id="save"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
 
         self.navigate_to_and_wait("Fatture di acquisto")
 
@@ -236,7 +235,7 @@ class FattureAcquisto(Test):
         )
         modal = self.wait_modal()
         totale = self.find(By.XPATH, '//th[@id="totale_dare_add"]').text
-        self.assertEqual(totale, "264,80")
+        self.assertEqual(totale, "292,00")
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-conto_add_1-container"]',

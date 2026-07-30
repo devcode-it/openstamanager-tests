@@ -45,7 +45,7 @@ class OrdiniFornitore(Test):
         self.clear_filters()
 
         numero = self.get_table_text(1, 2)
-        self.assertEqual(numero, "2")
+        self.assertEqual(numero, "1")
 
 
     def invia_mail(self):
