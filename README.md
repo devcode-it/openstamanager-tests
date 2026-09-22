@@ -2,6 +2,22 @@
 
 Insieme di test [Selenium](https://selenium.dev/) sulle funzionalità di base di OpenSTAManager, sviluppati in [Python](https://www.python.org/).
 
+## Configurazione 
+
+Per avviare i test, occorre prima preparare l'ambiente di testing e assicurarsi di avere installato Python pip e la libreria `venv` con i comandi:
+```bash
+sudo apt install python3-pip
+sudo apt install python3-venv
+```
+Occorre installare anche geckodriver, scaricandosi l'eseguibile più adatto al proprio sistema operativo al seguente [link](https://github.com/mozilla/geckodriver/releases).
+
+Una volta installate le librerie, bisogna creare l'ambiente virtuale all'interno della cartella di test ed attivarlo usando i seguenti comandi:
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+Sarà ora possibile procedere con l'installazione dei pacchetti presenti in `requirements.txt`.
+
 ## Esecuzione
 
 L'esecuzione degli script richiede la presenza di alcuni pacchetti Python aggiuntivi che possono essere installati tramite [Pip (https://www.pypa.io/en/latest/)](https://www.pypa.io/en/latest/), con il seguente comando sulla cartella principale:
@@ -9,10 +25,6 @@ L'esecuzione degli script richiede la presenza di alcuni pacchetti Python aggiun
 ```bash
 pip3 install -r requirements.txt
 ```
-
-Occorre installare anche geckodriver:
-
-https://github.com/mozilla/geckodriver/releases
 
 L'avvio di un determinato script può essere effettuato attraverso al seguente riga di comando:
 ```bash
