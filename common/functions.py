@@ -133,7 +133,7 @@ class TestHelperMixin:
 
     def delete_current_and_clear(self) -> None:
         self.wait_for_element_and_click('//a[contains(@class, "btn btn-danger ask") and not(contains(@class, "pull-right"))]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
         self.clear_filters()
 
     def verify_deleted_by_th(self, th_id: str, text: str) -> None:
