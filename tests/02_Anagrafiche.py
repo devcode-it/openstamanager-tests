@@ -98,6 +98,7 @@ class Anagrafiche(Test):
         self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
+        self.wait_for_expanded_element('//div[@id="documenti-collegati-body"]//li')
         quote_text = self.find(By.XPATH, '//div[@id="documenti-collegati-body"]//li').text
         self.assertEqual("Attività 1", quote_text[0:10])
 
@@ -135,6 +136,7 @@ class Anagrafiche(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
+        self.wait_for_expanded_element('//div[@id="documenti-collegati-body"]//li')
         quote_text = self.find(By.XPATH, '//div[@id="documenti-collegati-body"]//li').text
         self.assertEqual("Preventivo 1", quote_text[0:12])
 
@@ -182,6 +184,7 @@ class Anagrafiche(Test):
         self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
+        self.wait_for_expanded_element('//div[@id="documenti-collegati-body"]//li')
         order_text = self.find(By.XPATH, '//div[@id="documenti-collegati-body"]//li').text
         self.assertEqual("Ordine cliente 01", order_text[0:17])
 
@@ -216,6 +219,7 @@ class Anagrafiche(Test):
         self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
+        self.wait_for_expanded_element('//div[@id="documenti-collegati-body"]//li')
         ddt_text = self.find(By.XPATH, '//div[@id="documenti-collegati-body"]//li').text
         self.assertEqual("Ddt in uscita", ddt_text[0:13])
 
@@ -245,6 +249,7 @@ class Anagrafiche(Test):
         self.search_entity_and_click_first("Cliente")
 
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
+        self.wait_for_expanded_element('//div[@id="documenti-collegati-body"]//li')
         invoice_text = self.find(By.XPATH, '//div[@id="documenti-collegati-body"]//li').text
         self.assertEqual("Fattura immediata di vendita", invoice_text[0:28])
 
