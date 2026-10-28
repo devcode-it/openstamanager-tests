@@ -39,10 +39,10 @@ class Articoli(Test):
         serial_end.send_keys(Keys.BACK_SPACE, "2")
 
         self.wait_for_element_and_click('//div[@id="tab_11"]//button[@type="button"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.wait_for_element_and_click('//div[@id="tab_11"]//a[@class="btn btn-danger btn-sm ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
@@ -56,10 +56,10 @@ class Articoli(Test):
         self.wait_for_element_and_click('//a[@id="link-tab_22"]')
 
         totale = self.driver.find_element(By.XPATH, '//div[@id="tab_22"]//tbody//tr//td[2]').text
-        self.assertEqual(totale, "2,00")
+        self.assertEqual(totale, "11,00")
 
         totale_2 = self.driver.find_element(By.XPATH, '//input[@id="giacenza_0"]').get_attribute('value')
-        self.assertEqual(totale_2, "2,00")
+        self.assertEqual(totale_2, "11,00")
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
@@ -112,7 +112,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//ul[@class="select2-results__options select2-results__options--nested"]//li[1]')
         self.wait_for_element_and_click('//button[@class="btn btn-primary tip tooltipstered"]')
 
-        prezzo = self.driver.find_element(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[9]').text
+        prezzo = self.driver.find_element(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[10]').text
         self.assertEqual(prezzo, "5,00 €")
 
         self.delete_current_and_clear()
@@ -154,7 +154,11 @@ class Articoli(Test):
         prezzo_unitario = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))
         )
-        self.send_keys_and_wait(prezzo_unitario, '15')
+        prezzo_unitario.send_keys("15")
+
+        self.wait_for_element_and_click('//div[@id="modals"]//form//button[@class="btn btn-primary pull-right"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, '#modals .modal-dialog')))
+        self.wait_loader()
 
         self.expandSidebar("Acquisti")
         self.navigate_to_and_wait("Fatture di acquisto")
@@ -172,11 +176,13 @@ class Articoli(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-id_articolo-container"]', option_text='Articolo 1')
         self.wait_for_element_and_click('//button[@class="btn btn-primary tip tooltipstered"]')
 
-        prezzo = self.driver.find_element(By.XPATH, '//tbody[@id="righe"]//tr[1]//td[8]').text
+        prezzo = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//tbody[@id="righe"]//tr[1]//td[9]'))
+        ).text
         self.assertEqual(prezzo, "15,00 €")
 
         self.wait_for_element_and_click('//a[@id="elimina"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         self.expandSidebar("Magazzino")
         self.navigate_to_and_wait("Articoli")
@@ -194,13 +200,17 @@ class Articoli(Test):
 
         element = self.driver.find_element(By.XPATH, '//input[@id="codice_fornitore"]')
         element.clear()
-        self.send_keys_and_wait(element, '1')
+        element.send_keys('1')
+
+        self.wait_for_element_and_click('//div[@id="modals"]//form//button[@class="btn btn-primary pull-right"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, '#modals .modal-dialog')))
+        self.wait_loader()
 
         codice = self.driver.find_element(By.XPATH, '//div[@id="tab_32"]//tbody//tr//td[3]').text
         self.assertEqual(codice, "1")
 
         self.wait_for_element_and_click('//a[@class="btn btn-secondary btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         messaggio = self.driver.find_element(By.XPATH, '//div[@id="tab_32"]//div[@class="alert alert-info"]').text
         self.assertEqual(messaggio, "Nessuna informazione disponibile...")
@@ -209,8 +219,8 @@ class Articoli(Test):
         self.clear_filters()
     
     def piani_sconto_maggiorazione(self):
-        self.navigate_to_and_wait("Articoli")  
-    
+        self.navigate_to_and_wait("Articoli")
+
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_33"]')
 
@@ -227,11 +237,11 @@ class Articoli(Test):
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
-        self.navigate_to_and_wait("Articoli")  
+        self.navigate_to_and_wait("Articoli")
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_33"]')
 
-        sconto = self.driver.find_element(By.XPATH, '(//div[@class="card card-primary"]//tbody//tr[3]//td[2])[3]').text
+        sconto = self.driver.find_element(By.XPATH, '(//div[@class="card card-primary"]//tbody//tr[3]//td[2])[6]').text
         self.assertEqual(sconto, "18,00 €")
 
         self.navigate_to_and_wait("Articoli")
@@ -254,14 +264,25 @@ class Articoli(Test):
         self.wait_for_element_and_click('//div[@id="tab_43"]//tbody//tr//td[3]')
         self.wait_modal()
 
-        self.send_keys_and_wait(self.driver.find_element(By.XPATH, '//input[@id="provvigione"]'), '2')
+        provvigione_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="provvigione"]'))
+        )
+        provvigione_input.clear()
+        provvigione_input.send_keys('2')
 
-        provvigione = self.driver.find_element(By.XPATH, '//div[@id="tab_43"]//tbody//tr//td[3]').text
+        self.wait_for_element_and_click('//div[@id="modals"]//form//button[@type="submit"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, '#modals .modal-dialog')))
+        self.wait_loader()
+
+        provvigione = self.wait_driver.until(
+            lambda d: d.find_element(By.XPATH, '//div[@id="tab_43"]//tbody//tr//td[3]').text.startswith("2")
+            and d.find_element(By.XPATH, '//div[@id="tab_43"]//tbody//tr//td[3]').text
+        )
         self.assertEqual(provvigione, "2.00 €")
 
         self.wait_for_element_and_click('//div[@id="tab_43"]//tbody//tr//td[3]')
         self.wait_for_element_and_click('(//a[@class="btn btn-danger ask"])[2]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
@@ -274,9 +295,18 @@ class Articoli(Test):
         self.wait_for_element_and_click('//a[@id="link-tab_49"]')
         self.wait_for_element_and_click('//div[@id="tab_49"]//i[@class="fa fa-plus"]')
 
-        self.send_keys_and_wait(self.driver.find_element(By.XPATH, '//input[@id="barcode"]'), '2000000000022')
+        barcode_input = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//input[@id="barcode"]'))
+        )
+        barcode_input.send_keys('2000000000022')
 
-        barcode = self.driver.find_element(By.XPATH, '(//div[@id="tab_49"]//tbody//tr//td[2])[8]').text
+        self.wait_for_element_and_click('//div[@id="modals"]//form//button[@type="submit"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, '#modals .modal-dialog')))
+        self.wait_loader()
+
+        barcode = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '(//div[@id="tab_49"]//tbody//tr//td[2])[10]'))
+        ).text
         self.assertEqual(barcode, "2000000000022")
 
         self.navigate_to_and_wait("Articoli")

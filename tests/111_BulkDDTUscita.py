@@ -24,7 +24,7 @@ class DdtUscita(Test):
         )
 
         self.select_state('Evaso')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         stato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//tr[1]//td[11]//span)[2]'))
@@ -43,7 +43,7 @@ class DdtUscita(Test):
         )
 
         self.wait_for_dropdown_and_select('//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
@@ -71,7 +71,7 @@ class DdtUscita(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="delete_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         scritta = self.get_empty_table_message()
         self.assertEqual(scritta, "Nessun dato presente nella tabella")

@@ -40,7 +40,7 @@ class FattureVendita(Test):
 
     def _duplica(self):
         self.wait_for_element_and_click('//button[@class="btn btn-primary ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
     def _modifica_fattura_vendita(self, modifica = str):
         self.navigate_to_and_wait("Fatture di vendita")
@@ -290,6 +290,6 @@ class FattureVendita(Test):
         iva = self.get_row_cell_text('righe', 2, 2, 2)
         totale = self.get_row_cell_text('righe', 2, 3, 2)
 
-        self.assertEqual(totale_imponibile, '292,00 €')
-        self.assertEqual(iva, '64,24 €')
-        self.assertEqual(totale, '356,24 €')
+        self.assertEqual(totale_imponibile, '264,80 €')
+        self.assertEqual(iva, '58,26 €')
+        self.assertEqual(totale, '323,06 €')

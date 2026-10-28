@@ -33,13 +33,13 @@ class Anagrafiche(Test):
             '//span[@id="select2-id_relazione-container"]',
             option_text="Attivo"
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         relation = self.get_table_text(1, 7)
         self.assertEqual(relation, "Attivo")
 
         self.click_first_result()
-        self.wait_for_element_and_click('//a[@href="#cliente_fornitore"]')
+        self.wait_for_element_and_click('//a[@href="#cliente"]')
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_relazione-container"]',
@@ -66,7 +66,7 @@ class Anagrafiche(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="delete_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         no_results_message = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr[1]'))
@@ -87,7 +87,7 @@ class Anagrafiche(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="export_csv"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         download_dir = os.path.expanduser('~/Scaricati')
         files_before = os.listdir(download_dir) if os.path.exists(download_dir) else []
@@ -122,7 +122,7 @@ class Anagrafiche(Test):
             option_text="Agente"
         )
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.click_first_result()
 
         agente = self.driver.find_element(By.XPATH, '//span[@id="select2-id_agente-container"]').text
@@ -159,7 +159,7 @@ class Anagrafiche(Test):
             option_text="Test"
         )
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.click_first_result()
 
         agente = self.driver.find_element(By.XPATH, '//span[@id="select2-id_listino-container"]').text
@@ -179,7 +179,7 @@ class Anagrafiche(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="search_coordinates"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.click_first_table_row()
         self.wait_for_element_and_click('//a[@onclick="modificaPosizione()"]')
@@ -207,7 +207,7 @@ class Anagrafiche(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="export_newsletter_csv"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         download_dir = os.path.expanduser('~/Scaricati')
         files_before = os.listdir(download_dir) if os.path.exists(download_dir) else []
@@ -239,4 +239,4 @@ class Anagrafiche(Test):
 
         self.input(name='Nome lista').setValue('Lista test')
         
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')

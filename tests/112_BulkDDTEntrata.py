@@ -18,7 +18,7 @@ class DdtEntrata(Test):
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="change_status"]')
         self.select_state('Evaso')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         stato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[11]'))
@@ -32,7 +32,7 @@ class DdtEntrata(Test):
 
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="create_invoice"]')
         self.wait_for_dropdown_and_select('//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.navigate_to_and_wait("Ddt in entrata")
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -51,7 +51,7 @@ class DdtEntrata(Test):
         self.navigate_to_and_wait("Ddt in entrata")
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="delete_bulk"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.search_by_th("th_Numero", '2', wait_modal=False)
         scritta = self.get_empty_table_message()

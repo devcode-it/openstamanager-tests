@@ -33,7 +33,7 @@ class Attivita(Test):
             '//span[@id="select2-id_stato-container"]',
             option_text='Programmato'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         stato = self.get_table_text(1, 7)
         self.assertEqual(stato, 'Programmato')
@@ -54,7 +54,7 @@ class Attivita(Test):
             '//span[@id="select2-id_stato-container"]',
             option_text='Da programmare'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.clear_filters()
 
         search_input = self.wait_for_element_and_click('//th[@id="th_Numero"]/input')
@@ -72,7 +72,7 @@ class Attivita(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="delete_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         scritta = self.get_empty_table_message()
         self.assertEqual(scritta, 'Nessun dato presente nella tabella')
@@ -87,7 +87,7 @@ class Attivita(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="export_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         download_dir = os.path.expanduser('~/Scaricati')
         files_before = os.listdir(download_dir) if os.path.exists(download_dir) else []
@@ -134,7 +134,7 @@ class Attivita(Test):
             '//span[@id="select2-raggruppamento-container"]',
             option_text='Cliente'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         stato = self.get_table_text(1, 7)
         self.assertEqual(stato, 'Fatturato')
@@ -144,7 +144,7 @@ class Attivita(Test):
 
         self.wait_for_element_and_click('(//tbody//tr//td[2])[3]')
         self.wait_for_element_and_click('//div[@id="tab_0"]//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         self.navigate_to_and_wait('Attività')
         self.clear_filters()
@@ -163,7 +163,7 @@ class Attivita(Test):
             '//span[@id="select2-id_template-container"]',
             option_text='Rapportino intervento'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.clear_filters()
 
     def stampa_riepilogo(self):
@@ -175,7 +175,7 @@ class Attivita(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="print_summary"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
         prezzo = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[38]'))).text

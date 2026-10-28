@@ -95,7 +95,7 @@ class Banche(Test):
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_banca-container"]', option_text='Banca Admin spa')
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         banca = self.get_table_text(1, 9)
         self.assertEqual(banca, "Banca Admin spa - IT11C1234512345678912345679")
@@ -115,7 +115,7 @@ class Banche(Test):
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_banca-container"]', option_text='Banca Admin spa')
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         widget = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="toast toast-success"]//div[3]'))).text
         self.assertEqual(widget, "Banca aggiornata per le Fatture 0001 !")
@@ -130,7 +130,7 @@ class Banche(Test):
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_banca-container"]', option_text='Banca Admin spa')
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         banca = self.get_table_text(1, 7)
         self.assertEqual(banca, "Banca Admin spa - IT11C1234512345678912345679")
@@ -138,5 +138,5 @@ class Banche(Test):
         self.wait_loader()
 
         self.wait_for_element_and_click('//a[@id="elimina"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 

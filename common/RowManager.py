@@ -6,7 +6,7 @@ from selenium.webdriver.remote.webdriver import WebElement
 from selenium.common.exceptions import NoSuchElementException
 from .Test import Test, get_text
 from .Input import Input, Select, Checkbox
-from .functions import get_cache_directory, wait_for_element_and_click, send_keys_and_click, wait_loader, wait_for_dropdown_and_select
+from .functions import get_cache_directory, wait_for_element_and_click, send_keys_and_click, wait_loader, wait_for_dropdown_and_select, wait_ajax
 import json
 import os
 import glob
@@ -207,13 +207,26 @@ class RowManager:
 
         for key, value in importi.get('totali', {}).items():
             try:
-                totale = self.tester.find(
-                    By.XPATH, table_pattern.replace('|name|', key.upper() + ':'))
+                xpath = table_pattern.replace('|name|', key.upper() + ':')
+                self.wait_stable_text(xpath)
+                totale = self.tester.find(By.XPATH, xpath)
                 valori[key] = get_text(totale).split()[0]
             except Exception:
                 continue
 
         return valori
+
+    def wait_stable_text(self, xpath: str, checks: int = 3):
+        readings = []
+
+        def is_stable(driver):
+            try:
+                readings.append(get_text(driver.find_element(By.XPATH, xpath)))
+            except Exception:
+                return False
+            return len(readings) >= checks and all(r == readings[-1] for r in readings[-checks:])
+
+        self.wait.until(is_stable)
 
     def read(self, filename: str) -> dict:
         if not os.path.exists(filename):

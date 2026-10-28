@@ -119,7 +119,7 @@ class Impianti(Test):
         self.assertEqual(data_installazione, "01/01/2026")
 
         self.wait_for_element_and_click('//div[@id="tab_31"]//button[@class="btn btn-sm btn-warning"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         sostituito = self.find(By.XPATH, '(//div[@id="tab_31"]//tr[1]//td[1])[1]').text
         self.assertEqual(sostituito, "#2")
@@ -148,7 +148,7 @@ class Impianti(Test):
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', '//a[@data-op="delete_bulk"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         scritta = self.find(By.XPATH, '//tbody//tr').text
         self.assertEqual(scritta, "Nessun dato presente nella tabella")

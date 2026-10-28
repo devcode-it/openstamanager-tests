@@ -38,7 +38,7 @@ class Impianti(Test):
             option_xpath='//a[@data-op="change_customer"]'
         )
         self.wait_for_dropdown_and_select('//span[@id="select2-id_anagrafica-container"]', option_text='Cliente')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.wait_and_click_table_row()
         cliente = self.wait_driver.until(
@@ -59,7 +59,7 @@ class Impianti(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="delete_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         risultato = self.get_empty_table_message()
         self.assertEqual(risultato, "Nessun dato presente nella tabella")
@@ -75,7 +75,7 @@ class Impianti(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="export_csv"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         download_dir = os.path.expanduser('~/Scaricati')
         files_before = os.listdir(download_dir) if os.path.exists(download_dir) else []
@@ -98,6 +98,6 @@ class Impianti(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="copy_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.clear_filters()

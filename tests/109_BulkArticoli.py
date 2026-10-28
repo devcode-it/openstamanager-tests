@@ -43,7 +43,7 @@ class Articoli(Test):
             option_xpath='//a[@data-op="change_vat"]'
         )
         self.wait_for_dropdown_and_select('//span[@id="select2-id_iva-container"]', option_text='Iva 10%')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.click_first_table_row()
         iva = self.wait_driver.until(
@@ -66,7 +66,7 @@ class Articoli(Test):
         )
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_categoria-container"]', option_text='Componenti')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.click_first_result()
         self.wait_for_element_and_click('//button[@class="btn btn-tool"]')
@@ -94,7 +94,7 @@ class Articoli(Test):
         )
         coefficiente_input.send_keys("12")
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         prezzo = self.get_table_text(1, 9)
         self.assertEqual(prezzo, "240,00")
@@ -112,7 +112,7 @@ class Articoli(Test):
         )
 
         self.wait_for_dropdown_and_select('//span[@id="select2-conto_acquisto-container"]', option_text='Fabbricati')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.click_first_result()
 
@@ -135,7 +135,7 @@ class Articoli(Test):
         )
 
         self.wait_for_dropdown_and_select('//span[@id="select2-conto_vendita-container"]', option_text='Automezzi')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.click_first_result()
 
@@ -162,7 +162,7 @@ class Articoli(Test):
         )
         percentuale_input.send_keys("10")
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         prezzo = self.get_table_text(1, 8)
         self.assertEqual(prezzo, "18,00")
@@ -215,7 +215,7 @@ class Articoli(Test):
         )
         percentuale_input.send_keys("20")
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         prezzo = self.get_table_text(1, 9)
         self.assertEqual(prezzo, "0,98")
@@ -242,7 +242,7 @@ class Articoli(Test):
         )
         descrizione_input.send_keys("test")
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         quantita = self.get_table_text(1, 10)
         self.assertEqual(quantita, "3,00")
@@ -260,7 +260,7 @@ class Articoli(Test):
         )
 
         self.wait_for_dropdown_and_select('//span[@id="select2-um-container"]', option_text='ore')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.click_first_table_row()
 
@@ -288,7 +288,7 @@ class Articoli(Test):
             EC.visibility_of_element_located((By.XPATH, '//input[@id="sconto_percentuale"]'))
         )
         coefficiente_input.send_keys("20")
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
@@ -304,7 +304,7 @@ class Articoli(Test):
             option_xpath='//a[@data-op="change_active"]'
         )
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.wait_and_click_table_row()
         stato = self.wait_driver.until(
@@ -321,7 +321,7 @@ class Articoli(Test):
         )
 
         self.wait_for_element_and_click('//label[@class="btn btn-default active"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
@@ -345,7 +345,7 @@ class Articoli(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-id_segment-container"]', option_text='Standard preventivi')
         self.wait_for_dropdown_and_select('//span[@id="select2-id_tipo-container"]', option_text='Generico')
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.delete_current_and_clear()
 
@@ -363,7 +363,7 @@ class Articoli(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="delete_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         risultato = self.get_empty_table_message()
         self.assertEqual(risultato, "Nessun dato presente nella tabella")
@@ -380,7 +380,7 @@ class Articoli(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="export_csv"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         download_dir = os.path.expanduser('~/Scaricati')
         files_before = os.listdir(download_dir) if os.path.exists(download_dir) else []
@@ -406,7 +406,7 @@ class Articoli(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="generate_barcode_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_22"]')
@@ -458,7 +458,7 @@ class Articoli(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="set_purchase_price_if_zero"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         prezzo = self.get_table_text(1, 8)
         self.assertEqual(prezzo, "18,00")
@@ -492,7 +492,7 @@ class Articoli(Test):
         )
         provvigione_input.send_keys("10")
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_43"]')
@@ -515,7 +515,7 @@ class Articoli(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="print_labels"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
 
@@ -538,7 +538,7 @@ class Articoli(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="copy_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.clear_filters()
 
@@ -556,7 +556,7 @@ class Articoli(Test):
         )
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_articolo_principale-container"]', option_text='001')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.search_by_th("th_Codice", "4")
 

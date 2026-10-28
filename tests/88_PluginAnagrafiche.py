@@ -38,7 +38,7 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//div[@class="modal-body"]//button[@class="btn btn-primary"]')
 
-        self.wait_and_click_table_row(row_num=1, col_num=2)
+        self.wait_and_click_table_row(row_num=1, col_num=2, container="tab_3")
         modal = self.wait_modal()
         name_input = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '(//input[@id="nome"])[2]'))
@@ -51,14 +51,15 @@ class Anagrafiche(Test):
         ).text
         self.assertEqual(contact_name, "Prova")
 
-        self.wait_and_click_table_row(row_num=1, col_num=2)
-        self.wait_for_element_and_click('(//a[@class="btn btn-danger ask"])[2]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_and_click_table_row(row_num=1, col_num=2, container="tab_3")
+        modal = self.wait_modal()
+        self.wait_for_element_and_click('//div[@id="modals"]//a[@data-op="deletereferente"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         empty_message = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_3"]//tbody//tr'))
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_3"]//td[@class="dataTables_empty"]'))
         ).text
-        self.assertEqual(empty_message, "Nessun dato presente nella tabella")
+        self.assertEqual("Nessun dato presente nella tabella", empty_message)
 
         self.wait_for_element_and_click('//h4//i[@class="fa fa-plus"]')
         modal = self.wait_modal()
@@ -124,7 +125,7 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//div[@id="tab_4"]//tbody/tr//td[2]')
         self.wait_for_element_and_click('//button[@class="btn btn-danger"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         empty_message = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_4"]//tbody//tr'))
@@ -152,7 +153,10 @@ class Anagrafiche(Test):
         )
         self.wait_for_element_and_click('(//button[@type="submit"])[3]')
 
-        self.search_by_th("th_Nome", 'Filiale XY')
+        search_input = self.wait_driver.until(
+            EC.element_to_be_clickable((By.XPATH, '//div[@id="tab_4"]//th[@id="th_Nome"]/input'))
+        )
+        self.send_keys_and_wait(search_input, "Filiale XY", wait_modal=False)
 
         location_name = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_4"]//tbody//td[2]'))
@@ -172,12 +176,14 @@ class Anagrafiche(Test):
             ("Preventivi", '//span[@class="info-box-text pull-left"]'),
             ("Contratti", '(//span[@class="info-box-text pull-left"])[2]'),
             ("Ordini cliente", '(//span[@class="info-box-text pull-left"])[3]'),
-            ("Attività", '(//span[@class="info-box-text pull-left"])[4]'),
-            ("Ddt in uscita", '(//span[@class="info-box-text pull-left"])[5]'),
-            ("Fatture", '(//span[@class="info-box-text pull-left"])[6]'),
-            ("Impianti", '(//span[@class="info-box-text pull-left"])[7]'),
-            ("Ore lavorate", '(//span[@class="info-box-text pull-left"])[8]'),
-            ("Articoli acquistati", '(//span[@class="info-box-text pull-left"])[9]')
+            ("Ordini fornitore", '(//span[@class="info-box-text pull-left"])[4]'),
+            ("Attività", '(//span[@class="info-box-text pull-left"])[5]'),
+            ("Ddt in uscita", '(//span[@class="info-box-text pull-left"])[6]'),
+            ("Ddt in entrata", '(//span[@class="info-box-text pull-left"])[7]'),
+            ("Fatture di vendita", '(//span[@class="info-box-text pull-left"])[8]'),
+            ("Fatture di acquisto", '(//span[@class="info-box-text pull-left"])[9]'),
+            ("Impianti", '(//span[@class="info-box-text pull-left"])[10]'),
+            ("Ore lavorate", '(//span[@class="info-box-text pull-left"])[11]'),
         ]
 
         for expected_label, xpath in stats_labels:
@@ -288,7 +294,7 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//div[@id="tab_25"]//tbody//td[3]')
         self.wait_for_element_and_click('//a[@class="btn btn-danger ask "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         empty_message = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_25"]//td[@class="dataTables_empty"]'))
@@ -300,7 +306,7 @@ class Anagrafiche(Test):
 
         self.click_first_table_row()
         self.wait_for_element_and_click('//a[@id="elimina"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
@@ -326,7 +332,7 @@ class Anagrafiche(Test):
         self.wait_for_element_and_click('//div[@id="tab_38"]//a[@class="btn btn-info btn-lg"]')
 
         dare = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_38"]//tr[1]//td[3]'))).text
-        self.assertEqual(dare, "356,24 €")
+        self.assertEqual(dare, "323,06 €")
 
         self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()
@@ -365,7 +371,7 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//div[@id="tab_40"]//tbody//tr//td[2]')
         self.wait_for_element_and_click('//button[@class="btn btn-danger "]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         self.expandSidebar("Contabilità")
         self.navigate_to_and_wait("Scadenzario")
@@ -451,7 +457,7 @@ class Anagrafiche(Test):
         self.assertEqual("Attenzione!", warning_message[0:11])
 
         self.wait_for_element_and_click('//a[@id="elimina"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         self.navigate_to_and_wait("Anagrafiche")
         self.search_entity_and_click_first("Cliente")
@@ -472,7 +478,7 @@ class Anagrafiche(Test):
 
         self.wait_for_element_and_click('//div[@id="tab_45"]//tbody//tr//td[2]')
         self.wait_for_element_and_click('//div[@id="modals"]//a[@class="btn btn-danger ask"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         self.navigate_to_and_wait("Anagrafiche")
         self.clear_filters()

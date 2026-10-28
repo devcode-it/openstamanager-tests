@@ -26,6 +26,7 @@ class Dashboard(Test):
         self.wait_for_element_and_click('(//div[@id="tab_tecnici_sessioni"]//i[@class="fa fa-plus"])[2]')
         modal = self.wait_modal()
 
+        self.wait_for_element_and_click('//input[@id="ragione_sociale_add"]')
         tecnico = self.find(By.XPATH, '//input[@id="ragione_sociale_add"]')
         self.send_keys_and_wait(tecnico, "Stefano Bianchi")
 
@@ -39,7 +40,7 @@ class Dashboard(Test):
 
         self.wait_for_element_and_click('//div[@class="tab-content"]//div[@class="row"]//div[@id="dashboard_tecnici"]//button[@type="button"]')
         self.wait_for_element_and_click('//div[@id="dashboard_tecnici"]//button[@class="btn btn-primary btn-sm seleziona_tutto"]')
-
+        self.wait_ajax()
         activity_text = self.find(By.XPATH, '//div[@class="fc-event-main"]').text
         self.assertEqual(activity_text, expected_text)
 

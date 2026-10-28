@@ -75,7 +75,7 @@ class Listini(Test):
         self.wait_for_element_and_click('//a[@data-op="update_price_list"]')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_listino-container"]', option_text='Listino cliente di Prova')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.click_first_table_row()
         self.wait_loader()
@@ -102,7 +102,7 @@ class Listini(Test):
 
         sconto_input = self.find(By.XPATH, '//input[@id="sconto_percentuale"]')
         sconto_input.send_keys("10")
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.navigate_to_and_wait("Listini cliente")
 

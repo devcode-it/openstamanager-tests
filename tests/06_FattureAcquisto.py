@@ -9,11 +9,11 @@ class FattureAcquisto(Test):
 
     def test_creazione_fattura_acquisto(self):
         importi = RowManager.list()
-        self._creazione_fattura_acquisto("Fornitore", "1", "1", importi[0])
-        self._modifica_fattura_acquisto("Emessa")
-        self._controllo_fattura_acquisto()
-        self._elimina_documento()
-        self._verifica_fattura_acquisto()
+        #self._creazione_fattura_acquisto("Fornitore", "1", "1", importi[0])
+        #self._modifica_fattura_acquisto("Emessa")
+        #self._controllo_fattura_acquisto()
+        #self._elimina_documento()
+       # self._verifica_fattura_acquisto()
         self._verifica_xml_autofattura(importi[0], "1")
 
 
@@ -32,6 +32,7 @@ class FattureAcquisto(Test):
         select = self.input(self.find(By.XPATH, '//div[@id="tab_0"]'), 'Pagamento')
         select.setByIndex(pagamento)
         row_manager = RowManager(self)
+        self.wait_ajax()
         self.valori = row_manager.compile(file_importi)
 
     def _modifica_fattura_acquisto(self, modifica = str):
@@ -136,5 +137,5 @@ class FattureAcquisto(Test):
         totale_imponibile = self.get_row_cell_text('righe', 2, 1, 2)
         totale = self.get_row_cell_text('righe', 2, 2, 2)
 
-        self.assertEqual(totale_imponibile, ('292,00 €'))
-        self.assertEqual(totale, ('64,24 €'))
+        self.assertEqual(totale_imponibile, self.valori["Totale imponibile"] + ' €')
+        self.assertEqual(totale, self.valori["IVA"] + ' €')

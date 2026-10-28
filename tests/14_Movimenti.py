@@ -34,7 +34,7 @@ class Movimenti(Test):
         self.send_keys_and_wait(search_field, 'Movimento di Prova da Eliminare', wait_modal=False)
         self.click_first_table_row()
         self.wait_for_element_and_click('(//a[@class="btn btn-danger btn-xs ask"]//i[@class="fa fa-trash"])[1]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 
         self.navigate_to_and_wait("Movimenti")
         self.wait_for_element_and_click('//th[@id="th_Descrizione"]/i[@class="deleteicon fa fa-times"]')

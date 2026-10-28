@@ -29,7 +29,7 @@ class Contratti(Test):
             option_xpath='//a[@data-op="change_status"]'
         )
         self.select_state(stato)
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         stato_check = self.get_table_text(1, 5)
         self.assertEqual(stato, stato_check)
@@ -52,7 +52,7 @@ class Contratti(Test):
             '//span[@id="select2-id_pagamento-container"]',
             option_text='Bonifico 120gg d.f.'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.click_first_result()
         metodo_pagamento = self.wait_for_element_and_click('//span[@id="select2-id_pagamento-container"]').text
@@ -74,7 +74,7 @@ class Contratti(Test):
         )
 
         self.wait_for_dropdown_and_select('//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.navigate_to_and_wait("Fatture di vendita")
 
@@ -108,7 +108,7 @@ class Contratti(Test):
             option_xpath='//a[@data-op="renew_contract"]'
         )
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.clear_filters()
 
@@ -129,7 +129,7 @@ class Contratti(Test):
             option_xpath='//a[@data-op="copy_bulk"]'
         )
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.clear_filters()
         self.send_keys_and_wait(self.driver.find_element(By.XPATH, '//th[@id="th_Numero"]/input'), "2", wait_modal=False)

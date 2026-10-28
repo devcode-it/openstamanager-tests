@@ -55,7 +55,7 @@ class FattureVendita(Test):
             option_text="Test"
         )
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.clear_filters()
 
     def cambia_sezionale(self):
@@ -71,7 +71,7 @@ class FattureVendita(Test):
             '//span[@id="select2-id_segment-container"]',
             option_text='Autofatture'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_segment_-container"]',
@@ -87,7 +87,7 @@ class FattureVendita(Test):
             '//span[@id="select2-id_segment-container"]',
             option_text='Vendite'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_segment_-container"]',
             option_text='Vendite'
@@ -105,7 +105,7 @@ class FattureVendita(Test):
             option_xpath='//a[@data-op="check_bulk"]'
         )
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
         self.wait_for_element_and_click('//div[@class="toast toast-success"]')
@@ -121,21 +121,21 @@ class FattureVendita(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="copy_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.wait_for_element_and_click('//tbody//tr//td')
         self.clear_filters()
 
     def elimina_selezionati(self):
         self.navigate_to_and_wait("Fatture di vendita")
-        
+        self.search_by_th("th_Numero", "0002/2026")
         self.wait_for_element_and_click('//tbody//tr//td')
-        self.wait_for_element_and_click('//tbody//tr[2]//td')
-        self.wait_for_element_and_click('//tbody//tr[3]//td')
+        
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="delete_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
+        self.clear_filters()
 
         self.search_by_th("th_Numero", "0002/2026")
         eliminato = self.get_empty_table_message()
@@ -145,12 +145,12 @@ class FattureVendita(Test):
     def emetti_fatture(self):
         self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_for_element_and_click('//tbody//tr[2]//td')
+        self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="change_status"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         stato = self.get_table_text(1, 11)
         self.assertEqual(stato, "Emessa")
@@ -165,7 +165,7 @@ class FattureVendita(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="export_csv"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         download_dir = os.path.expanduser('~/Scaricati')
         files_before = os.listdir(download_dir) if os.path.exists(download_dir) else []
@@ -188,7 +188,7 @@ class FattureVendita(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="export_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         download_dir = os.path.expanduser('~/Scaricati')
         files_before = os.listdir(download_dir) if os.path.exists(download_dir) else []
@@ -211,7 +211,7 @@ class FattureVendita(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="export_fe_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         download_dir = os.path.expanduser('~/Scaricati')
         files_before = os.listdir(download_dir) if os.path.exists(download_dir) else []
@@ -234,7 +234,7 @@ class FattureVendita(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="export_receipts_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         download_dir = os.path.expanduser('~/Scaricati')
         files_before = os.listdir(download_dir) if os.path.exists(download_dir) else []
@@ -257,7 +257,7 @@ class FattureVendita(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="export_xml_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         download_dir = os.path.expanduser('~/Scaricati')
         files_before = os.listdir(download_dir) if os.path.exists(download_dir) else []
@@ -280,7 +280,7 @@ class FattureVendita(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="generate_xml"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.driver.switch_to.window(self.driver.window_handles[1])
 
@@ -303,7 +303,7 @@ class FattureVendita(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="send-invoices"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.clear_filters()
 
     def registrazione_contabile(self):
@@ -317,7 +317,7 @@ class FattureVendita(Test):
         )
         modal = self.wait_modal()
         totale = self.find(By.XPATH, '//th[@id="totale_dare_add"]').text
-        self.assertEqual(totale, "356,24")
+        self.assertEqual(totale, "323,06")
 
         self.wait_for_element_and_click('//button[@type="submit"]')
 

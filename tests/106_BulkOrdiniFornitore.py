@@ -24,7 +24,7 @@ class OrdiniFornitore(Test):
             option_xpath='//a[@data-op="change_status"]'
         )
         self.select_state('Evaso')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         stato = self.get_table_text(1, 6)
         self.assertEqual(stato, "Evaso")
@@ -40,12 +40,12 @@ class OrdiniFornitore(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="copy_bulk"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.clear_filters()
 
         numero = self.get_table_text(1, 2)
-        self.assertEqual(numero, "1")
+        self.assertEqual(numero, "2")
 
 
     def invia_mail(self):
@@ -62,5 +62,5 @@ class OrdiniFornitore(Test):
             '//span[@id="select2-id_template-container"]',
             option_text='Ordine'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.clear_filters()

@@ -24,8 +24,8 @@ def load_db_config():
     return {
         "host": db.get("host", "localhost"),
         "user": db.get("user", "root"),
-        "password": db.get("pass", ""),
-        "database": db.get("name", "openstamanager"),
+        "password": db.get("pass", "mysql"),
+        "database": db.get("name", "osm_2_11_2TMP"),
         "charset": "utf8mb4",
         "cursorclass": pymysql.cursors.DictCursor,
     }

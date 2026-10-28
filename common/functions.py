@@ -63,6 +63,10 @@ class TestHelperMixin:
         """Wait for all loaders to disappear."""
         wait_loader(self.driver, self.wait_driver)
 
+    def wait_ajax(self) -> None:
+        """Wait for all pending jQuery AJAX requests to complete."""
+        wait_ajax(self.driver, self.wait_driver)
+
     def send_keys_and_wait(self, element, text, wait_modal=True) -> None:
         """Send keys to an element and wait for the page to load after pressing Enter."""
         # Use the global function for consistency
@@ -191,14 +195,16 @@ class TestHelperMixin:
         """Click on the back button."""
         return self.wait_for_element_and_click('//a[@id="back"]')
 
-    def wait_and_click_table_row(self, row_num: int = 1, col_num: int = 2) -> WebElement:
+    def wait_and_click_table_row(self, row_num: int = 1, col_num: int = 2, container: str = None) -> WebElement:
         """Wait for and click a specific table row.
-        
+
         Args:
             row_num: Row number (1-indexed)
             col_num: Column number to click (1-indexed)
+            container: Optional id of the container div (e.g. 'tab_3') to scope the search
         """
-        return self.wait_for_element_and_click(f'//tbody//tr[{row_num}]//td[{col_num}]')
+        scope = f'//div[@id="{container}"]' if container else ''
+        return self.wait_for_element_and_click(f'{scope}//tbody//tr[{row_num}]//td[{col_num}]')
 
     def get_table_text(self, row_num: int, col_num: int) -> str:
         """Get text from a specific table cell."""
@@ -458,6 +464,12 @@ class AllOf:
             except:
                 return False
         return all(results)
+
+def wait_ajax(driver: WebDriver, wait_driver: WebDriverWait) -> None:
+    wait_driver.until(
+        lambda d: d.execute_script('return typeof jQuery === "undefined" || jQuery.active === 0')
+    )
+
 
 def wait_loader(driver: WebDriver, wait_driver: WebDriverWait) -> None:
     try:

@@ -15,4 +15,4 @@ class Backup(Test):
 
     def _create_backup(self):
         self.wait_for_element_and_click('//a[@onclick="creaBackup(this)"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')

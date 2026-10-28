@@ -36,7 +36,7 @@ class Contratti(Test):
 
         self.click_first_table_row()
         self.click_duplicate_button()
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         element = self.find(By.XPATH, '//input[@id="nome"]')
         element.clear()

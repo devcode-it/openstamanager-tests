@@ -30,7 +30,7 @@ class Scadenzario(Test):
             option_text="Test"
         )
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.clear_filters()
 
     def info_distinta(self):
@@ -46,7 +46,7 @@ class Scadenzario(Test):
 
         self.input(name='distinta').setValue('Test')
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.clear_filters()
 
     def invia_mail_sollecito(self):
@@ -58,7 +58,7 @@ class Scadenzario(Test):
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="send_reminder"]'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.clear_filters()
     
     def registrazione_contabile(self):

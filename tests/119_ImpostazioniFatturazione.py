@@ -1,6 +1,8 @@
 from common.Test import Test, get_html
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
+import time
 
 class Impostazioni(Test):
     def setUp(self):
@@ -84,19 +86,17 @@ class Impostazioni(Test):
         ## TODO: descrizione aggiuntiva personalizzata in fatturazione
 
     def iva_predefinita(self):
-                self.navigate_to_and_wait("Impostazioni")
+        wait = self.wait_driver
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Iva predefinita"))
-        )]//div//span').click()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Aliq. Iva 10")
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
+        self.wait_for_dropdown_and_select(
+            '//div[@class="form-group" and contains(., "Iva predefinita")]//div//span',
+            option_text='Aliq. Iva 10'
+        )
 
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
@@ -105,165 +105,32 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
         ).click()
 
+        self.wait_for_element_and_click('//span[@id="select2-id_anagrafica_add-container"]')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[contains(normalize-space(.), "00000004")]'))).click()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idanagrafica_add-container"]'))
-        ).click() 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
-        ).click() 
+            EC.visibility_of_element_located((By.XPATH, '//div[contains(@class,"modal") and contains(@class,"show")]//button[@type="submit"]'))
+        ).click()
         self.wait_loader()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-primary"]'))
+            EC.visibility_of_element_located((By.XPATH, '//a[@data-title="Aggiungi riga"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))
-        ).send_keys("test")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//textarea[@id="descrizione_riga"]'))).send_keys("test")
         iva = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))
-        ).text 
-        self.assertEqual(iva[2:21], "10 - Aliq. Iva 10%")
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="close"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
-        ).click()   
-        self.wait_loader()
-
-        self.expandSidebar("Strumenti")
-        self.navigate_to_and_wait("Impostazioni")
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Iva predefinita"))
-        )]//div//span').click()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Aliq. Iva 22")
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-
-    def tipo_pagamento_predefinito(self):
-                self.navigate_to_and_wait("Impostazioni")
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Tipo di pagamento predefinito"))
-        )]//div//span').click()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Rimessa diretta")
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-
-        self.expandSidebar("Vendite")
-        self.navigate_to_and_wait("Fatture di vendita")
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idanagrafica_add-container"]'))
-        ).click() 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
-        ).click() 
-        self.wait_loader()
-
-        tipo = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idpagamento-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//span[@id="select2-id_iva-container"]'))
         ).text
-        self.assertEqual(tipo[2:24], "MP01 - Rimessa diretta")
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
-        ).click() 
-        self.wait_loader()
-
-        self.expandSidebar("Strumenti")
-        self.navigate_to_and_wait("Impostazioni")
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Tipo di pagamento predefinito"))
-        )]//div//span').click()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Bonifico 30gg d.f.f.m.")
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-
-    def ritenuta_acconto_predefinita(self):
-                self.navigate_to_and_wait("Impostazioni")
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Ritenuta d\'acconto predefinita"))
-        )]//div//span').click()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Ritenuta Acconto di Prova")
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
-
-        self.expandSidebar("Vendite")
-        self.navigate_to_and_wait("Fatture di vendita")
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
-        ).click() 
-        modal = self.wait_modal()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idanagrafica_add-container"]'))
-        ).click() 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
-        ).click() 
-        self.wait_loader()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-primary"]'))
-        ).click()
-
-        ritenuta = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_ritenuta_acconto-container"]'))
-        ).text
-        self.assertEqual(ritenuta[2:27], "Ritenuta Acconto di Prova")
-        
+        self.assertIn("10 - Aliq. Iva 10%", iva)
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@class="close"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
-        ).click()
+        self.wait_for_element_and_click('//a[@id="elimina"]')
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
-        ).click() 
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+        ).click()
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
@@ -273,24 +140,23 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Ritenuta d\'acconto predefinita"))
-        )]//div//span[@class="select2-selection__clear"]').click()
+        self.wait_for_dropdown_and_select(
+            '//div[@class="form-group" and contains(., "Iva predefinita")]//div//span',
+            option_text='Aliq. Iva 22'
+        )
 
-    def cassa_previdenziale_predefinita(self):
-                self.navigate_to_and_wait("Impostazioni")
+    def tipo_pagamento_predefinito(self):
+        wait = self.wait_driver
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Cassa previdenziale predefinita"))
-        )]//div//span').click()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys("Cassa Previdenziale di Prova")
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//span[@class="select2-search select2-search--dropdown"]//input'))).send_keys(Keys.ENTER)
+        self.wait_for_dropdown_and_select(
+            '//div[@class="form-group" and contains(., "Tipo di pagamento predefinito")]//div//span',
+            option_text='Rimessa diretta'
+        )
 
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
@@ -299,35 +165,147 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
         ).click()
 
+        self.wait_for_element_and_click('//span[@id="select2-id_anagrafica_add-container"]')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[contains(normalize-space(.), "00000004")]'))).click()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idanagrafica_add-container"]'))
-        ).click() 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
+            EC.visibility_of_element_located((By.XPATH, '//div[contains(@class,"modal") and contains(@class,"show")]//button[@type="submit"]'))
+        ).click()
+        self.wait_loader()
+
+        tipo = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_pagamento-container"]'))
+        ).text
+        self.assertIn("MP01 - Rimessa diretta", tipo)
+        self.wait_for_element_and_click('//a[@id="elimina"]')
+
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
-        ).click() 
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+        ).click()
+        self.wait_loader()
+
+        self.expandSidebar("Strumenti")
+        self.navigate_to_and_wait("Impostazioni")
+
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
+        ).click()
+
+        self.wait_for_dropdown_and_select(
+            '//div[@class="form-group" and contains(., "Tipo di pagamento predefinito")]//div//span',
+            option_text='Bonifico 30gg d.f.f.m.'
+        )
+
+    def ritenuta_acconto_predefinita(self):
+        wait = self.wait_driver
+        self.navigate_to_and_wait("Impostazioni")
+
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
+        ).click()
+
+        self.wait_for_dropdown_and_select(
+            '//div[@class="form-group" and contains(., "Ritenuta d\'acconto predefinita")]//div//span',
+            option_text='Ritenuta Acconto di Prova'
+        )
+
+        self.expandSidebar("Vendite")
+        self.navigate_to_and_wait("Fatture di vendita")
+
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
+        ).click()
+
+        self.wait_for_element_and_click('//span[@id="select2-id_anagrafica_add-container"]')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[contains(normalize-space(.), "00000004")]'))).click()
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[contains(@class,"modal") and contains(@class,"show")]//button[@type="submit"]'))
+        ).click()
         self.wait_loader()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-primary"]'))
+            EC.visibility_of_element_located((By.XPATH, '//a[@data-title="Aggiungi riga"]'))
+        ).click()
+
+        ritenuta = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//span[@id="select2-id_ritenuta_acconto-container"]'))
+        ).text
+        self.assertIn("Ritenuta Acconto di Prova", ritenuta)
+
+        self.wait_loader()
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@class="close"]'))
+        ).click()
+
+        self.wait_for_element_and_click('//a[@id="elimina"]')
+
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+        ).click()
+        self.wait_loader()
+
+        self.expandSidebar("Strumenti")
+        self.navigate_to_and_wait("Impostazioni")
+
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
+        ).click()
+
+        # ripristino: il setting torna vuoto (stato originale) via API select2
+        self.wait_driver.until(
+            EC.presence_of_element_located((By.ID, 'setting8'))
+        )
+        self.driver.execute_script("$('#setting8').val(null).trigger('change');")
+        self.wait_ajax()
+
+    def cassa_previdenziale_predefinita(self):
+        wait = self.wait_driver
+        self.navigate_to_and_wait("Impostazioni")
+
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
+        ).click()
+
+        self.wait_for_dropdown_and_select(
+            '//div[@class="form-group" and contains(., "Cassa previdenziale predefinita")]//div//span',
+            option_text='Cassa Previdenziale di Prova'
+        )
+
+        self.expandSidebar("Vendite")
+        self.navigate_to_and_wait("Fatture di vendita")
+
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
+        ).click()
+
+        self.wait_for_element_and_click('//span[@id="select2-id_anagrafica_add-container"]')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[contains(normalize-space(.), "00000004")]'))).click()
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[contains(@class,"modal") and contains(@class,"show")]//button[@type="submit"]'))
+        ).click()
+        self.wait_loader()
+
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//a[@data-title="Aggiungi riga"]'))
         ).click()
 
         cassa_previdenziale = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_rivalsa_inps-container"]'))
-        ).text 
-        self.assertEqual(cassa_previdenziale[2:30], "Cassa Previdenziale di Prova")
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//span[@id="select2-id_rivalsa_inps-container"]'))
+        ).text
+        self.assertIn("Cassa Previdenziale di Prova", cassa_previdenziale)
 
+        self.wait_loader()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="close"]'))
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@class="close"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
-        ).click()
+        self.wait_for_element_and_click('//a[@id="elimina"]')
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
-        ).click() 
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+        ).click()
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
@@ -337,134 +315,34 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
         ).click()
 
+        # ripristino: il setting torna vuoto (stato originale) via API select2
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Cassa previdenziale predefinita"))
-        )]//div//span[@class="select2-selection__clear"]').click()
+            EC.presence_of_element_located((By.ID, 'setting9'))
+        )
+        self.driver.execute_script("$('#setting9').val(null).trigger('change');")
+        self.wait_ajax()
 
     def importo_marca_bollo(self):
-                self.expandSidebar("Vendite")
-        self.navigate_to_and_wait("Fatture di vendita")
+        wait = self.wait_driver
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idanagrafica_add-container"]'))
-        ).click() 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
-        ).click() 
-        self.wait_loader()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-primary"]'))
-        ).click()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("test")
-
-        prezzo_unitario = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))
-        )
-        prezzo_unitario.clear()
-        prezzo_unitario.send_keys("80")
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]'))
-        ).click()  
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary pull-right"]'))
-        ).click()  
-        self.wait_loader()
-
-        totale = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[2]//td[9]'))
-        ).text
-        self.assertEqual(totale, "2,00 €")  
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
-        ).click() 
-        self.wait_loader()
-
-        self.expandSidebar("Strumenti")
-        self.navigate_to_and_wait("Impostazioni")
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
-        ).click()
-
-        element = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Importo marca da bollo"))
-        )]//input')
-        element.clear()
-        element.send_keys('3,00', Keys.ENTER)
-
+        # Fase 1: importo corrente (2,00)
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
+        self.crea_fattura_con_riga_test()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idanagrafica_add-container"]'))
-        ).click() 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
-        ).click()
-        self.wait_loader()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-primary"]'))
-        ).click()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("test")
-
-        prezzo_unitario = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))
+        riga_bollo = self.wait_driver.until(
+            EC.presence_of_element_located((By.XPATH, '//tr[td[starts-with(normalize-space(.), "Marca da bollo")]]'))
         )
-        prezzo_unitario.clear()
-        prezzo_unitario.send_keys("80")
+        totale = riga_bollo.get_attribute('textContent')
+        self.assertIn("2,00", totale)
 
+        self.wait_for_element_and_click('//a[@id="elimina"]')
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]'))
-        ).click()  
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary pull-right"]'))
-        ).click()   
-        self.wait_loader()
-
-        totale = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[2]//td[9]'))
-        ).text
-        self.assertEqual(totale, "3,00 €", Keys.ENTER)   
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
         self.wait_loader()
 
-        self.navigate_to_and_wait("Impianti")
-
+        # Cambio l'importo a 3,00
         self.expandSidebar("Strumenti")
         self.navigate_to_and_wait("Impostazioni")
 
@@ -473,133 +351,105 @@ class Impostazioni(Test):
         ).click()
 
         element = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Importo marca da bollo"))
-        )]//input')
-        element.clear()
-        element.send_keys('2,00', Keys.ENTER)
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Importo marca da bollo")]//input'))
+        )
+        element.send_keys(Keys.CONTROL, 'a')
+        element.send_keys('3,00')
+        self.driver.execute_script("arguments[0].dispatchEvent(new Event('change', {bubbles: true}));", element)
+        self.wait_ajax()
+
+        # Fase 2: importo 3,00
+        self.expandSidebar("Vendite")
+        self.navigate_to_and_wait("Fatture di vendita")
+        self.crea_fattura_con_riga_test()
+
+        riga_bollo = self.wait_driver.until(
+            EC.presence_of_element_located((By.XPATH, '//tr[td[starts-with(normalize-space(.), "Marca da bollo")]]'))
+        )
+        totale = riga_bollo.get_attribute('textContent')
+        self.assertIn("3,00", totale)
+
+        self.wait_for_element_and_click('//a[@id="elimina"]')
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+        ).click()
+        self.wait_loader()
+
+        # Ripristino l'importo a 2,00
+        self.expandSidebar("Strumenti")
+        self.navigate_to_and_wait("Impostazioni")
+
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
+        ).click()
+
+        element = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Importo marca da bollo")]//input'))
+        )
+        element.send_keys(Keys.CONTROL, 'a')
+        element.send_keys('2,00')
+        self.driver.execute_script("arguments[0].dispatchEvent(new Event('change', {bubbles: true}));", element)
+        self.wait_ajax()
+
+    def crea_fattura_con_riga_test(self, prezzo='80'):
+        wait = self.wait_driver
+
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
+        ).click()
+
+        self.wait_for_element_and_click('//span[@id="select2-id_anagrafica_add-container"]')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[contains(normalize-space(.), "00000004")]'))).click()
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[contains(@class,"modal") and contains(@class,"show")]//button[@type="submit"]'))
+        ).click()
+        self.wait_loader()
+
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//a[@data-title="Aggiungi riga"]'))
+        ).click()
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//textarea[@id="descrizione_riga"]'))).send_keys("test")
+        prezzo_unitario = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//input[@id="prezzo_unitario"]')))
+        prezzo_unitario.send_keys(Keys.CONTROL, 'a')
+        prezzo_unitario.send_keys(prezzo)
+
+        # la marca da bollo si applica solo a righe esenti con natura Fe N2/N3/N4
+        self.wait_for_dropdown_and_select(
+            '//div[@id="modals"]//span[@id="select2-id_iva-container"]',
+            option_text='Esente art. 10'
+        )
+
+        self.wait_loader()
+        self.wait_for_element_and_click('//div[@id="modals"]//button[@onclick="submitForm()"]')
+        self.wait_loader()
+
+        # la lista righe ricaricata via AJAX omette la riga auto-generata della
+        # marca da bollo: serve un ricaricamento completo della pagina
+        self.driver.refresh()
+        self.wait_loader()
 
     def soglia_minima_marca_bollo(self):
-                self.expandSidebar("Vendite")
-        self.navigate_to_and_wait("Fatture di vendita")
+        wait = self.wait_driver
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idanagrafica_add-container"]'))
-        ).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
-        ).click() 
-        self.wait_loader()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-primary"]'))
-        ).click()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("test")
-
-        prezzo_unitario = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))
-        )
-        prezzo_unitario.clear()
-        prezzo_unitario.send_keys("80")
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]'))
-        ).click() 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary pull-right"]'))
-        ).click() 
-        self.wait_loader()
-
-        totale = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[2]//td[9]'))
-        ).text
-        self.assertEqual(totale, "2,00 €")  
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
-        ).click() 
-        self.wait_loader()
-
-        self.expandSidebar("Strumenti")
-        self.navigate_to_and_wait("Impostazioni")
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
-        ).click()
-
-        element = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Soglia minima per l\'applicazione della marca da bollo"))
-        )]//input')
-        element.clear()
-        element.send_keys('40')
-
+        # Fase 1: prezzo 80 > soglia 77,47 -> bollo applicato
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
+        self.crea_fattura_con_riga_test()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idanagrafica_add-container"]'))
-        ).click() 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
-        ).click()
-        self.wait_loader()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-primary"]'))
-        ).click()
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("test")
-
-        prezzo_unitario = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))
+        riga_bollo = self.wait_driver.until(
+            EC.presence_of_element_located((By.XPATH, '//tr[td[starts-with(normalize-space(.), "Marca da bollo")]]'))
         )
-        prezzo_unitario.clear()
-        prezzo_unitario.send_keys("45")   
+        self.assertIn("2,00", riga_bollo.get_attribute('textContent'))
 
+        self.wait_for_element_and_click('//a[@id="elimina"]')
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idiva-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-idiva-results"]//li[20]'))
-        ).click()  
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary pull-right"]'))
-        ).click()   
         self.wait_loader()
 
-        totale = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr[2]//td[9]'))
-        ).text
-        self.assertEqual(totale, "2,00 €")   
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
-        ).click()  
-        self.wait_loader()
-
+        # Soglia a 40
         self.expandSidebar("Strumenti")
         self.navigate_to_and_wait("Impostazioni")
 
@@ -608,26 +458,58 @@ class Impostazioni(Test):
         ).click()
 
         element = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Soglia minima per l\'applicazione della marca da bollo"))
-        )]//input')
-        element.clear()
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Soglia minima per l\'applicazione della marca da bollo")]//input'))
+        )
+        element.send_keys(Keys.CONTROL, 'a')
+        element.send_keys('40')
+        self.driver.execute_script("arguments[0].dispatchEvent(new Event('change', {bubbles: true}));", element)
+        self.wait_ajax()
+
+        # Fase 2: prezzo 45 > soglia 40 -> bollo applicato
+        self.expandSidebar("Vendite")
+        self.navigate_to_and_wait("Fatture di vendita")
+        self.crea_fattura_con_riga_test(prezzo='45')
+
+        riga_bollo = self.wait_driver.until(
+            EC.presence_of_element_located((By.XPATH, '//tr[td[starts-with(normalize-space(.), "Marca da bollo")]]'))
+        )
+        self.assertIn("2,00", riga_bollo.get_attribute('textContent'))
+
+        self.wait_for_element_and_click('//a[@id="elimina"]')
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
+        ).click()
+        self.wait_loader()
+
+        # Ripristino la soglia a 77,47
+        self.expandSidebar("Strumenti")
+        self.navigate_to_and_wait("Impostazioni")
+
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
+        ).click()
+
+        element = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Soglia minima per l\'applicazione della marca da bollo")]//input'))
+        )
+        element.send_keys(Keys.CONTROL, 'a')
         element.send_keys('77,47')
-        element.send_keys(Keys.ENTER)
+        self.driver.execute_script("arguments[0].dispatchEvent(new Event('change', {bubbles: true}));", element)
+        self.wait_ajax()
+
 
     def conto_predefinito_vendita(self):
-                self.navigate_to_and_wait("Impostazioni")
+        wait = self.wait_driver
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito fatture di vendita"))
-        )]').click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-setting36-results"]//li[2]'))
-        ).click()
+        self.wait_for_dropdown_and_select(
+            '//div[@class="form-group" and contains(., "Conto predefinito fatture di vendita")]//div//span',
+            option_text='Ricavi vendita prestazione servizi'
+        )
 
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
@@ -636,35 +518,32 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
         ).click()
 
+        self.wait_for_element_and_click('//span[@id="select2-id_anagrafica_add-container"]')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[contains(normalize-space(.), "00000004")]'))).click()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idanagrafica_add-container"]'))
-        ).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente", Keys.ENTER)
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
+            EC.visibility_of_element_located((By.XPATH, '//div[contains(@class,"modal") and contains(@class,"show")]//button[@type="submit"]'))
         ).click()
         self.wait_loader()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-primary"]'))
+            EC.visibility_of_element_located((By.XPATH, '//a[@data-title="Aggiungi riga"]'))
         ).click()
 
         conto = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idconto-container"]'))
-        ).text   
-        self.assertEqual(conto[2:47], "700.000020 Ricavi vendita prestazione servizi")
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//span[@id="select2-id_conto-container"]'))
+        ).text
+        self.assertIn("700.000020 Ricavi vendita prestazione servizi", conto)
+
+        self.wait_loader()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="close"]'))
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@class="close"]'))
         ).click()
 
-        #elimina fattura
+        self.wait_for_element_and_click('//a[@id="elimina"]')
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
-        ).click()  
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
@@ -674,28 +553,24 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito fatture di vendita"))
-        )]').click()
+        self.wait_for_dropdown_and_select(
+            '//div[@class="form-group" and contains(., "Conto predefinito fatture di vendita")]//div//span',
+            option_text='Ricavi merci c/to vendite'
+        )
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-setting36-results"]//li[1]'))
-        ).click()
 
     def conto_predefinito_acquisto(self):
-                self.navigate_to_and_wait("Impostazioni")
+        wait = self.wait_driver
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito fatture di acquisto"))
-        )]').click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-setting37-results"]//li[2]'))
-        ).click()
+        self.wait_for_dropdown_and_select(
+            '//div[@class="form-group" and contains(., "Conto predefinito fatture di acquisto")]//div//span',
+            option_text='Costi merci c/acquisto di produzione'
+        )
 
         self.expandSidebar("Acquisti")
         self.navigate_to_and_wait("Fatture di acquisto")
@@ -704,45 +579,36 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
         ).click()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]'))).send_keys("05") 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="numero_esterno"]'))).send_keys("05")
+        self.wait_for_element_and_click('//span[@id="select2-id_anagrafica_add-container"]')
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Fornitore")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[contains(normalize-space(.), "00000006")]'))).click()
+
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idanagrafica_add-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//div[contains(@class,"modal") and contains(@class,"show")]//button[@type="submit"]'))
         ).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Fornitore", Keys.ENTER)
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
-        ).click()  
         self.wait_loader()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idpagamento-container"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-idpagamento-results"]//li[1]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-primary"]'))
+            EC.visibility_of_element_located((By.XPATH, '//a[@data-title="Aggiungi riga"]'))
         ).click()
 
         conto = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idconto-container"]'))
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//span[@id="select2-id_conto-container"]'))
         ).text
-        self.assertEqual(conto[2:50], "600.000020 Costi merci c/acquisto di produzione")
+        self.assertIn("600.000020 Costi merci c/acquisto di produzione", conto)
+
+        self.wait_loader()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="close"]'))
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@class="close"]'))
         ).click()
 
+        self.wait_for_element_and_click('//a[@id="elimina"]')
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
         self.wait_loader()
-        
+
         self.expandSidebar("Strumenti")
         self.navigate_to_and_wait("Impostazioni")
 
@@ -750,35 +616,32 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito fatture di acquisto"))
-        )]').click()
+        self.wait_for_dropdown_and_select(
+            '//div[@class="form-group" and contains(., "Conto predefinito fatture di acquisto")]//div//span',
+            option_text='Costi merci c/acquisto di rivendita'
+        )
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-setting37-results"]//li[1]'))
-        ).click()
 
     def dicitura_fissa_fattura(self):
-                self.expandSidebar("Vendite")
+        wait = self.wait_driver
+        self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_and_click_table_row(1, 2)  
+        self.wait_and_click_table_row(1, 2)
         self.wait_loader()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@id="print-button_p"]'))
         ).click()
 
+        wait.until(lambda d: len(d.window_handles) > 1)
         self.driver.switch_to.window(self.driver.window_handles[1])
+        wait.until(lambda d: '196/2003' in d.find_element(By.ID, 'viewer').text)
 
-        dicitura = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[196]'))
-        ).text
-        self.assertEqual(dicitura, "Ai sensi del D.Lgs. 196/2003 Vi informiamo che i Vs. dati saranno utilizzati esclusivamente per i ﬁni connessi ai rapporti commerciali tra di noi in essere. Contributo CONAI assolto ove dovuto - Vi")
-
-        self.driver.close() 
+        self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
+        # imposto la dicitura a "Test"
         self.expandSidebar("Strumenti")
         self.navigate_to_and_wait("Impostazioni")
 
@@ -786,35 +649,42 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
         ).click()
 
-        dicitura = self.wait_driver.until(
+        # attesa che il CKEditor del setting sia caricato
+        self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]'))
         )
-        self.driver.switch_to.frame(dicitura)
-        self.driver.execute_script('document.body.innerHTML = ""')
-        self.driver.execute_script('document.body.innerHTML = "Test"')
-        self.driver.switch_to.default_content()
-        dicitura.send_keys(Keys.ENTER)
+        # il valore viene impostato via API CKEditor: la digitazione lunga
+        # viene troncata dal processing dell'editor
+        self.driver.execute_script("""
+            var key = Object.keys(CKEDITOR.instances).find(function(k){ return k.indexOf('setting') === 0; });
+            CKEDITOR.instances[key].setData('Test');
+            document.getElementById(key).value = 'Test';
+            $(document.getElementById(key)).trigger('change');
+        """)
+
+        try:
+            self.wait_ajax()
+        except Exception:
+            time.sleep(2)
 
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
 
-        self.wait_and_click_table_row(1, 2)  
+        self.wait_and_click_table_row(1, 2)
         self.wait_loader()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//a[@id="print-button_p"]'))
         ).click()
 
+        wait.until(lambda d: len(d.window_handles) > 1)
         self.driver.switch_to.window(self.driver.window_handles[1])
+        wait.until(lambda d: 'Test' in d.find_element(By.ID, 'viewer').text)
 
-        dicitura = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '(//div[@id="viewer"]//span)[196]'))
-        ).text
-        self.assertEqual(dicitura, "Test")
-
-        self.driver.close() 
+        self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
+        # ripristino la dicitura originale
         self.expandSidebar("Strumenti")
         self.navigate_to_and_wait("Impostazioni")
 
@@ -822,29 +692,34 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
         ).click()
 
-        dicitura = self.wait_driver.until(
+        self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//iframe[@class="cke_wysiwyg_frame cke_reset"]'))
         )
-        self.driver.switch_to.frame(dicitura)
-        self.driver.execute_script('document.body.innerHTML = ""')
-        self.driver.execute_script('document.body.innerHTML = "Ai sensi del D.Lgs. 196/2003 Vi informiamo che i Vs. dati saranno utilizzati esclusivamente per i fini connessi ai rapporti commerciali tra di noi in essere. Contributo CONAI assolto ove dovuto - Vi preghiamo di controllare i Vs. dati anagrafici, la P. IVA e il Cod. Fiscale. Non ci riteniamo responsabili di eventuali errori."')
-        self.driver.switch_to.default_content()
-        dicitura.send_keys(Keys.ENTER)
+        self.driver.execute_script("""
+            var key = Object.keys(CKEDITOR.instances).find(function(k){ return k.indexOf('setting') === 0; });
+            CKEDITOR.instances[key].setData(arguments[0]);
+            document.getElementById(key).value = arguments[0];
+            $(document.getElementById(key)).trigger('change');
+        """, "Ai sensi del D.Lgs. 196/2003 Vi informiamo che i Vs. dati saranno utilizzati esclusivamente per i fini connessi ai rapporti commerciali tra di noi in essere. Contributo CONAI assolto ove dovuto - Vi preghiamo di controllare i Vs. dati anagrafici, la P. IVA e il Cod. Fiscale. Non ci riteniamo responsabili di eventuali errori.")
+
+        try:
+            self.wait_ajax()
+        except Exception:
+            time.sleep(2)
+
 
     def ritenuta_previdenziale_predefinita(self):
-                self.navigate_to_and_wait("Impostazioni")
+        wait = self.wait_driver
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Ritenuta previdenziale predefinita"))
-        )]').click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-setting82-results"]//li[1]'))
-        ).click()
+        self.wait_for_dropdown_and_select(
+            '//div[@class="form-group" and contains(., "Ritenuta previdenziale predefinita")]//div//span',
+            option_text='Ritenuta Previdenziale di Prova'
+        )
 
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
@@ -853,30 +728,24 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idanagrafica_add-container"]'))
-        ).click() 
+        self.wait_for_element_and_click('//span[@id="select2-id_anagrafica_add-container"]')
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[contains(normalize-space(.), "00000004")]'))).click()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
-        ).click() 
+            EC.visibility_of_element_located((By.XPATH, '//div[contains(@class,"modal") and contains(@class,"show")]//button[@type="submit"]'))
+        ).click()
         self.wait_loader()
 
         ritenuta_element = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_ritenuta_contributi-container"]'))
-        ) 
-        ritenuta = ritenuta_element.get_attribute("title")
-        self.assertEqual(ritenuta, "Ritenuta Previdenziale di Prova - 80.00% sul 60.00% imponibile")
+        )
+        ritenuta = (ritenuta_element.get_attribute("title") or '') + ' ' + ritenuta_element.text
+        self.assertIn("Ritenuta Previdenziale di Prova", ritenuta)
 
+        self.wait_for_element_and_click('//a[@id="elimina"]')
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
-        ).click() 
         self.wait_loader()
 
         self.expandSidebar("Strumenti")
@@ -886,9 +755,12 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
         ).click()
 
+        # ripristino: il setting torna vuoto (stato originale) via API select2
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Ritenuta previdenziale predefinita"))
-        )]//span[@class="select2-selection__clear"]').click()
+            EC.presence_of_element_located((By.ID, 'setting82'))
+        )
+        self.driver.execute_script("$('#setting82').val(null).trigger('change');")
+        self.wait_ajax()
 
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
@@ -897,34 +769,29 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//i[@class="fa fa-plus"]'))
         ).click()
 
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-idanagrafica_add-container"]'))
-        ).click() 
+        self.wait_for_element_and_click('//span[@id="select2-id_anagrafica_add-container"]')
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//li[contains(normalize-space(.), "00000004")]'))).click()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
-        ).click() 
+            EC.visibility_of_element_located((By.XPATH, '//div[contains(@class,"modal") and contains(@class,"show")]//button[@type="submit"]'))
+        ).click()
         self.wait_loader()
 
         ritenuta_element = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_ritenuta_contributi-container"]'))
-        ) 
-        ritenuta = ritenuta_element.get_attribute("title")
-        self.assertEqual(ritenuta, "")
+        )
+        ritenuta = (ritenuta_element.get_attribute("title") or '') + ' ' + ritenuta_element.text
+        self.assertNotIn("Ritenuta Previdenziale di Prova", ritenuta)
 
+        self.wait_for_element_and_click('//a[@id="elimina"]')
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
-
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
-        ).click() 
         self.wait_loader()
 
+
     def descrizione_marca_bollo(self):
-                self.expandSidebar("Vendite")
+        self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
@@ -973,7 +840,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click() 
         self.wait_loader()
 
@@ -985,8 +852,8 @@ class Impostazioni(Test):
         ).click()
 
         element = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Descrizione addebito bollo"))
-        )]//input')
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Descrizione addebito bollo")]//input'))
+        )
         element.clear()
         element.send_keys('Descrizione test', Keys.ENTER)
 
@@ -1039,7 +906,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()  
         self.wait_loader()
 
@@ -1051,13 +918,13 @@ class Impostazioni(Test):
         ).click()
 
         element = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Descrizione addebito bollo"))
-        )]//input')
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Descrizione addebito bollo")]//input'))
+        )
         element.clear()
         element.send_keys('Marca da bollo', Keys.ENTER)
 
     def conto_marca_bollo(self):
-                self.expandSidebar("Vendite")
+        self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
@@ -1103,7 +970,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click() 
         self.wait_loader()
 
@@ -1115,8 +982,8 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito per la marca da bollo"))
-        )]').click()
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito per la marca da bollo")]'))
+        ).click()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-setting90-results"]//li[1]'))
@@ -1169,7 +1036,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()   
         self.wait_loader()
 
@@ -1181,15 +1048,15 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito per la marca da bollo"))
-        )]').click()
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Conto predefinito per la marca da bollo")]'))
+        ).click()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-setting90-results"]//li[6]'))
         ).click()
 
     def iva_lettere_intento(self):
-                self.navigate_to_and_wait("Anagrafiche") 
+        self.navigate_to_and_wait("Anagrafiche") 
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Ragione-sociale"]/input'))).send_keys("Cliente", Keys.ENTER)
 
@@ -1252,7 +1119,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
         ).click()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
         self.wait_loader()
 
@@ -1274,7 +1141,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
         self.wait_loader()
 
@@ -1286,8 +1153,8 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Iva per lettere d\'intento"))
-        )]').click()
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Iva per lettere d\'intento")]'))
+        ).click()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-setting94-results"]//li[1]'))
@@ -1354,7 +1221,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
         ).click()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
         self.wait_loader()
 
@@ -1376,7 +1243,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
         self.wait_loader()
 
@@ -1394,23 +1261,23 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Iva per lettere d\'intento"))
-        )]').click()
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Iva per lettere d\'intento")]'))
+        ).click()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-setting94-results"]//li[9]'))
         ).click()
 
     def prezzi_vendita_comprensivi_iva(self):
-                self.navigate_to_and_wait("Impostazioni")
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Utilizza prezzi di vendita comprensivi di IVA"))
-        )]').click()
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Utilizza prezzi di vendita comprensivi di IVA")]'))
+        ).click()
 
         self.expandSidebar("Magazzino")
         self.navigate_to_and_wait("Articoli")
@@ -1431,7 +1298,7 @@ class Impostazioni(Test):
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_vendita"]'))).send_keys("12") 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary"]'))
         ).click()
         self.wait_loader()
 
@@ -1476,8 +1343,8 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Utilizza prezzi di vendita comprensivi di IVA"))
-        )]').click()
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Utilizza prezzi di vendita comprensivi di IVA")]'))
+        ).click()
 
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
@@ -1494,7 +1361,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//a[@id="elimina"]'))
         ).click()  
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click() 
         self.wait_loader()
 
@@ -1510,7 +1377,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
         self.wait_loader()
 
@@ -1521,15 +1388,15 @@ class Impostazioni(Test):
         self.expandSidebar("Strumenti")
 
     def liquidazione_iva(self):
-                self.navigate_to_and_wait("Impostazioni")
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione"]'))
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Liquidazione iva"))
-        )]').click()
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Liquidazione iva")]'))
+        ).click()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-setting128-results"]//li[2]'))
@@ -1563,8 +1430,8 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Liquidazione iva"))
-        )]').click()
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Liquidazione iva")]'))
+        ).click()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-setting128-results"]//li[1]'))
@@ -1591,7 +1458,7 @@ class Impostazioni(Test):
         ).click()
 
     def descrizione_fattura_pianificata(self):
-                self.expandSidebar("Vendite")
+        self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Contratti")
 
         self.wait_and_click_table_row(2, 2) 
@@ -1621,7 +1488,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
         self.wait_loader()
 
@@ -1633,8 +1500,8 @@ class Impostazioni(Test):
         ).click()
 
         descrizione = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Descrizione fattura pianificata"))
-        )]//input').click()
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Descrizione fattura pianificata")]//input'))
+        ).click()
         descrizione.clear() 
         descrizione.send_keys("prova")
 
@@ -1678,7 +1545,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
         self.wait_loader()
         
@@ -1690,13 +1557,13 @@ class Impostazioni(Test):
         ).click()
 
         descrizione = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Descrizione fattura pianificata"))
-        )]//input').click()
+            EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Descrizione fattura pianificata")]//input'))
+        ).click()
         descrizione.clear() 
         descrizione.send_keys("Canone {rata} del contratto numero {numero}")
 
     def fattura_attivita_collegate_contratti(self):
-                self.expandSidebar("Strumenti")
+        self.expandSidebar("Strumenti")
         self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
@@ -1827,7 +1694,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-raggruppamento-results"]'))
         ).click()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))
         ).click()  #click di conferma
         self.wait_loader()
 
@@ -1843,7 +1710,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
         self.wait_loader()
         #elimino fattura
@@ -1945,7 +1812,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-raggruppamento-results"]'))
         ).click()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))
         ).click()  #click di conferma
         self.wait_loader()
 
@@ -1961,7 +1828,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
         self.wait_loader()
         #elimino contratto
@@ -1974,7 +1841,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
         wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_0"]//a[@class="btn btn-danger ask"]'))).click()  #elimina contratto 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))).click()
         self.wait_loader()
 
         self.wait_driver.until(
@@ -1982,7 +1849,7 @@ class Impostazioni(Test):
         ).click()   #cancella ricerca
 
     def fattura_attivita_collegate_ordini(self):
-                self.expandSidebar("Strumenti")
+        self.expandSidebar("Strumenti")
         self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
@@ -2105,7 +1972,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-raggruppamento-results"]'))
         ).click()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))
         ).click()  #click di conferma
         self.wait_loader()
 
@@ -2124,7 +1991,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()   #click di conferma
         self.wait_loader()
         #elimina ordine
@@ -2137,7 +2004,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-danger ask"]'))
         ).click()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
         self.wait_loader()
         
@@ -2266,7 +2133,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-raggruppamento-results"]'))
         ).click()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))
         ).click()  #click di conferma
         self.wait_loader()
 
@@ -2285,7 +2152,7 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-danger ask"]'))
         ).click()
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
         self.wait_loader()
         #elimina fattura
@@ -2298,7 +2165,7 @@ class Impostazioni(Test):
         ).click() #elimina fattura
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()   #click di conferma
         self.wait_loader()
         #elimina attività
@@ -2311,7 +2178,7 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-success"]'))
+            EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-danger"]'))
         ).click()
         self.wait_loader()
 

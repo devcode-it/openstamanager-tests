@@ -22,7 +22,7 @@ class Contratti(Test):
         budget = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@class="card-body text-center bg-success text-white"]'))
         ).text
-        self.assertEqual(budget, "Rapporto budget/spesa:\n292,00 €")
+        self.assertEqual(budget, "Rapporto budget/spesa:\n264,80 €")
 
         self.navigate_to_and_wait("Contratti")
         self.clear_filters()

@@ -14,7 +14,7 @@ class StatoServizi(Test):
         
         for i in range(3):
             self.wait_for_element_and_click('//button[@onclick="abilitaSottoModuli(this)"]')
-            self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+            self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
             self.wait_for_element_and_click('//div[@class="toast-message"]')
 
     def _compila_azienda(self):

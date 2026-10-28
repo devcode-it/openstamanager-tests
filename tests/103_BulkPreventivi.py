@@ -26,7 +26,7 @@ class Preventivi(Test):
         )
 
         self.select_state('Bozza')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         stato = self.get_table_text(1, 6)
         self.assertEqual(stato, "Bozza")
@@ -38,7 +38,7 @@ class Preventivi(Test):
         )
 
         self.select_state('Accettato')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.clear_filters()
 
@@ -52,7 +52,7 @@ class Preventivi(Test):
         )
 
         self.wait_for_dropdown_and_select('//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.click_first_table_row()
 
@@ -68,7 +68,7 @@ class Preventivi(Test):
             option_xpath='//a[@data-op="copy_bulk"]'
         )
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.clear_filters()
         self.send_keys_and_wait(self.driver.find_element(By.XPATH, '//th[@id="th_Numero"]/input'), "2", wait_modal=False)

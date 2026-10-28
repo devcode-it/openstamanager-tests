@@ -21,6 +21,8 @@ import collections.abc
 import unittest
 import re
 import logging
+import io
+import urllib.request
 
 logging.basicConfig(
     level=logging.INFO,
@@ -166,6 +168,11 @@ class Test(unittest.TestCase, TestHelperMixin):
         self.logger.info(f"Expanding sidebar section: {name}")
 
         try:
+            # Se la sezione è già espansa, non fare nulla (il click la collasserebbe)
+            if self.driver.find_elements(By.XPATH, f'//a[contains(., "{name}")]/parent::li[contains(@class, "menu-open")]'):
+                self.logger.info(f"Sidebar section '{name}' already expanded")
+                return
+
             xpath = f'//a[contains(., "{name}")]//i[contains(@class, "fa-angle-left")]'
             expand_icon = self.find(By.XPATH, xpath)
 
@@ -242,6 +249,41 @@ class Test(unittest.TestCase, TestHelperMixin):
         except KeyError:
             self.logger.error(f"Configuration setting not found: {name}")
             raise KeyError(f"Configuration setting not found: {name}")
+
+    def get_testo_stampa(self):
+        try:
+            import pypdf
+        except ImportError:
+            raise RuntimeError("pypdf non installato: eseguire 'pip install pypdf' per verificare il testo delle stampe")
+        iframe = self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//iframe[contains(@src, ".pdf")]')))
+        src = iframe.get_attribute('src')
+        cookies = '; '.join(f"{cookie['name']}={cookie['value']}" for cookie in self.driver.get_cookies())
+        request = urllib.request.Request(src, headers={'Cookie': cookies})
+        pdf_bytes = urllib.request.urlopen(request).read()
+        reader = pypdf.PdfReader(io.BytesIO(pdf_bytes))
+        testo = '\n'.join(pagina.extract_text() or '' for pagina in reader.pages)
+        self.logger.info(f"Letta stampa PDF da {src.split('?')[0]} ({len(testo)} caratteri)")
+        return testo
+
+    def db_execute(self, query, params=None):
+        try:
+            import pymysql
+        except ImportError:
+            raise RuntimeError("pymysql non installato: eseguire 'pip install pymysql' per le operazioni su database")
+        conn = pymysql.connect(
+            host=self.getConfig('database.host'),
+            user=self.getConfig('database.user'),
+            password=self.getConfig('database.pass'),
+            database=self.getConfig('database.name')
+        )
+        try:
+            with conn.cursor() as cursor:
+                cursor.execute(query, params or ())
+                result = cursor.fetchall()
+            conn.commit()
+            return result
+        finally:
+            conn.close()
 
     def input(self, element=None, name=None, css_id=None):
         try:

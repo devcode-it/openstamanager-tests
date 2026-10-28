@@ -65,7 +65,7 @@ class GiacenzeSedi(Test):
         self.wait_for_element_and_click('//button[@onclick="completaTrasporto()"]')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_segment-container"]', option_text='Standard ddt in entrata')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
     def verifica_movimenti(self):
         self.navigate_to_and_wait("Articoli")

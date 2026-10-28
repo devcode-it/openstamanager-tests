@@ -35,7 +35,7 @@ class DdtUscita(Test):
         self.click_first_result()
 
         self.wait_for_element_and_click( '//button[@class="btn btn-primary ask"]')
-        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click( '//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
     def _modifica_ddt(self, modifica):
         self.navigate_to_and_wait("Ddt in uscita")

@@ -25,7 +25,7 @@ class OrdiniCliente(Test):
             option_xpath='//a[@data-op="change_status"]'
         )
         self.select_state('Accettato')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         stato = self.get_table_text(1, 7)
         self.assertEqual(stato, "Accettato")
@@ -42,7 +42,7 @@ class OrdiniCliente(Test):
             option_xpath='//a[@data-op="copy_bulk"]'
         )
 
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.clear_filters()
         self.search_by_th("th_Numero", "2")
@@ -61,7 +61,7 @@ class OrdiniCliente(Test):
         )
 
         self.wait_for_dropdown_and_select('//span[@id="select2-raggruppamento-container"]', option_text='Cliente')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.navigate_to_and_wait("Fatture di vendita")
 
@@ -84,6 +84,6 @@ class OrdiniCliente(Test):
             '//span[@id="select2-id_template-container"]',
             option_text='Ordine'
         )
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-success"]')
+        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.clear_filters()
