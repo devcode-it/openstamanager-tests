@@ -69,9 +69,7 @@ class Impostazioni(Test):
         stato = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[11]'))
         ).text
-        # In 2.11.2 lo stato è "Parzialmente fatturato": getQtaFatturata() esclude
-        # le righe di tipo Sconto (qta_fatturata=32) mentre il DDT le conta in qta (33)
-        self.assertEqual(stato, "Parzialmente fatturato")
+        self.assertEqual(stato, "Fatturato")
         self.wait_and_click_table_row(1, 2)
 
         self.wait_for_element_and_click('//a[@class="btn btn-danger ask"]')
@@ -146,8 +144,8 @@ class Impostazioni(Test):
         stato2 = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[11]'))
         ).text
-        # Come sopra: con la riga sconto lo stato resta "Parzialmente fatturato" in 2.11.2
-        self.assertEqual(stato2, "Parzialmente fatturato")
+        
+        self.assertEqual(stato2, "Fatturato")
         self.wait_and_click_table_row(1, 2)
 
         self.wait_for_element_and_click('//a[@class="btn btn-danger ask"]')

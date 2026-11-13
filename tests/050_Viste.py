@@ -13,7 +13,7 @@ class Viste(Test, TestHelperMixin):
         self.controllo_viste("Admin spa")
 
         self.navigate_to_and_wait("Attività")
-        self.controllo_viste("2")
+        self.controllo_viste("3")
 
         self.expandSidebar("Vendite")
 

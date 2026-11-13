@@ -12,6 +12,10 @@ class DdtEntrata(Test):
         self.cambia_stato()
         self.fattura_ddt_entrata()
         self.elimina_selezionati()
+
+    def deseleziona_tutto(self):
+        self.wait_loader()
+        self.wait_for_element_and_click('.btn-select-none', By.CSS_SELECTOR)
         
     def cambia_stato(self):
         self.navigate_to_and_wait("Ddt in entrata")
@@ -27,7 +31,8 @@ class DdtEntrata(Test):
 
     def fattura_ddt_entrata(self):
         self.navigate_to_and_wait("Ddt in entrata")
-        self.search_by_th("th_Numero", "1", wait_modal=False)
+        self.deseleziona_tutto()
+        self.search_by_th("th_Ragione-sociale", "Cliente", wait_modal=False)
         self.wait_for_element_and_click('//tbody//tr//td')
 
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="create_invoice"]')
@@ -46,14 +51,17 @@ class DdtEntrata(Test):
         self.assertEqual(ragione_sociale, "Cliente")
 
         self.expandSidebar("Magazzino")
+        self.deseleziona_tutto()
 
     def elimina_selezionati(self):
         self.navigate_to_and_wait("Ddt in entrata")
+        self.search_by_th("th_Ragione-sociale", "Admin spa", wait_modal=False)
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select('//button[@data-toggle="dropdown"]', option_xpath='//a[@data-op="delete_bulk"]')
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
+        self.clear_filters()
 
-        self.search_by_th("th_Numero", '2', wait_modal=False)
+        self.search_by_th("th_Ragione-sociale", 'Admin spa', wait_modal=False)
         scritta = self.get_empty_table_message()
         self.assertEqual(scritta, "Nessun dato presente nella tabella")
         self.clear_filters()

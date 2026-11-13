@@ -48,6 +48,10 @@ class Attivita_Dashboard(Test):
         self.wait_for_element_and_click('//button[@class="btn btn-block counter_object btn-danger"]')
         self.wait_for_element_and_click('//input[@class="dashboard_tecnico"]')
 
-        trova_element = self.find(By.XPATH, '//div[@class="fc-event-main"]')
+        trova_element = self.wait_driver.until(
+            EC.visibility_of_element_located(
+                (By.XPATH, '//div[@class="fc-event-main"][contains(., "Int. 2")]')
+            )
+        )
         trova = trova_element.text
         self.assertEqual(trova, "Int. 2 Cliente\nTecnico: Stefano Bianchi")

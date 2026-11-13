@@ -120,7 +120,7 @@ class Impostazioni(Test):
         ## TODO: condizioni GDPR
 
     def nascondi_barra_sx(self):
-                self.expandSidebar("Strumenti")
+        self.expandSidebar("Strumenti")
         self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
@@ -148,7 +148,7 @@ class Impostazioni(Test):
         self.navigate_to_and_wait("Impostazioni")
 
     def cifre_decimali_importi(self):
-                self.wait_driver.until(
+        self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-11"]'))
         ).click() #apro Generali
 
@@ -257,7 +257,7 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys(Keys.ENTER)
 
     def cifre_decimali_quantita(self):
-                self.expandSidebar("Vendite")
+        self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
@@ -439,7 +439,7 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('Euro', Keys.ENTER)
 
     def riferimento_riga_stampa(self):
-                self.expandSidebar("Strumenti")
+        self.expandSidebar("Strumenti")
         self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
@@ -765,7 +765,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
     def autocompletamento_form(self):
-                self.expandSidebar("Strumenti")
+        self.expandSidebar("Strumenti")
         self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
@@ -838,7 +838,7 @@ class Impostazioni(Test):
         ).click()
 
     def quantita_minore_uguale_zero(self):
-                self.expandSidebar("Vendite")
+        self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
@@ -1018,7 +1018,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
     def superamento_soglia_quantita(self):
-                self.navigate_to_and_wait("Impostazioni")
+        self.navigate_to_and_wait("Impostazioni")
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-11"]'))
         ).click() #apro Generali
@@ -2163,7 +2163,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
     def aggiungi_note_documenti(self):
-                self.navigate_to_and_wait("Impostazioni")
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-11"]'))
@@ -2367,7 +2367,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
     def dimensione_widget_predefinita(self):
-                self.navigate_to_and_wait("Impostazioni")
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-11"]'))
@@ -2415,7 +2415,7 @@ class Impostazioni(Test):
         self.assertEqual(dimensione[9:17], "col-md-3")
 
     def tipo_sconto_predefinito(self):
-                self.navigate_to_and_wait("Impostazioni")
+        self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@id="impostazioni-11"]'))
@@ -2498,7 +2498,7 @@ class Impostazioni(Test):
         self.wait_loader()
 
     def importi_stampa(self):
-                self.expandSidebar("Vendite")
+        self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
@@ -2765,7 +2765,7 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('2', Keys.ENTER)
 
     def quantita_stampa(self):
-                self.expandSidebar("Vendite")
+        self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
@@ -3022,7 +3022,7 @@ class Impostazioni(Test):
         wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys('2', Keys.ENTER)
 
     def totali_stampa(self):
-                self.expandSidebar("Vendite")
+        self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(

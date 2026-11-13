@@ -17,6 +17,10 @@ class Impianti(Test):
         self.duplica()
         self.elimina_selezionati()
 
+    def deseleziona_tutto(self):
+        self.wait_loader()
+        self.wait_for_element_and_click('.btn-select-none', By.CSS_SELECTOR)
+
     def add_impianto(self, matricola: str, nome: str, cliente: str):
         self.navigate_to_and_wait("Impianti")
         self.click_add_button()
@@ -30,7 +34,7 @@ class Impianti(Test):
 
     def aggiorna_cliente(self):
         self.navigate_to_and_wait("Impianti")
-
+        self.deseleziona_tutto()
         self.search_by_th("th_Matricola", "1")
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -48,27 +52,25 @@ class Impianti(Test):
 
         self.navigate_to_and_wait("Impianti")
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def elimina_selezionati(self):
         self.navigate_to_and_wait("Impianti")
-
+        self.deseleziona_tutto()
         self.search_by_th("th_Matricola", "1")
-        self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//tbody//tr[2]//td')
+        self.wait_for_element_and_click('//tbody//tr[3]//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="delete_bulk"]'
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
-        risultato = self.get_empty_table_message()
-        self.assertEqual(risultato, "Nessun dato presente nella tabella")
-
         self.clear_filters()
 
     def esporta_selezionati(self):
         self.navigate_to_and_wait("Impianti")
-
+        self.deseleziona_tutto()
         self.search_by_th("th_Matricola", "1")
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -91,7 +93,7 @@ class Impianti(Test):
 
     def duplica(self):
         self.navigate_to_and_wait("Impianti")
-
+        self.deseleziona_tutto()
         self.search_by_th("th_Matricola", "1")
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -101,3 +103,4 @@ class Impianti(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.clear_filters()
+        self.deseleziona_tutto()

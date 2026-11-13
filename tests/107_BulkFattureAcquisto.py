@@ -21,6 +21,11 @@ class FattureAcquisto(Test):
         self.invia_fatture()
         self.registrazione_contabile()
 
+    def deseleziona_tutto(self):
+        self.wait_loader()
+        self.wait_for_element_and_click('.btn-select-none', By.CSS_SELECTOR)
+
+
     def aggiorna_banca(self):
         self.navigate_to_and_wait("Fatture di acquisto")
         self.search_by_th("th_Ragione-sociale", "Fornitore estero")
@@ -39,6 +44,7 @@ class FattureAcquisto(Test):
 
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def cambia_sezionale(self):
         self.navigate_to_and_wait("Fatture di acquisto")
@@ -84,6 +90,7 @@ class FattureAcquisto(Test):
             option_text='Acquisti'
         )
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def duplica_selezionati(self):
         self.navigate_to_and_wait("Fatture di acquisto")
@@ -96,6 +103,7 @@ class FattureAcquisto(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.wait_for_element_and_click('//tbody//tr//td')
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def elimina_selezionati(self):
         self.navigate_to_and_wait("Fatture di acquisto")
@@ -111,6 +119,7 @@ class FattureAcquisto(Test):
         eliminato = self.get_empty_table_message()
         self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def esporta_selezionati(self):
         self.navigate_to_and_wait("Fatture di acquisto")
@@ -137,6 +146,7 @@ class FattureAcquisto(Test):
 
     def esporta_stampe_fe(self):
         self.navigate_to_and_wait("Fatture di acquisto")
+        self.deseleziona_tutto()
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -160,6 +170,7 @@ class FattureAcquisto(Test):
 
     def esporta_ricevute(self):
         self.navigate_to_and_wait("Fatture di acquisto")
+        self.deseleziona_tutto()
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -183,6 +194,7 @@ class FattureAcquisto(Test):
 
     def esporta_xml(self):
         self.navigate_to_and_wait("Fatture di acquisto")
+        self.deseleziona_tutto()
         self.search_by_th("th_Numero", "2")
 
         self.wait_for_element_and_click('//tbody//tr//td')
@@ -208,6 +220,7 @@ class FattureAcquisto(Test):
 
     def invia_fatture(self):
         self.navigate_to_and_wait("Fatture di acquisto")
+        self.deseleziona_tutto()
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
@@ -219,6 +232,7 @@ class FattureAcquisto(Test):
 
     def registrazione_contabile(self):
         self.navigate_to_and_wait("Fatture di acquisto")
+        self.deseleziona_tutto()
         self.search_by_th("th_Numero", "2")
 
         self.click_first_result()

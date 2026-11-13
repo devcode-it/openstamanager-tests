@@ -43,9 +43,12 @@ class OrdiniFornitore(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.clear_filters()
+        self.wait_for_search_results()
+        self.search_by_th("th_Numero", "2")
 
         numero = self.get_table_text(1, 2)
         self.assertEqual(numero, "2")
+        self.clear_filters()
 
 
     def invia_mail(self):

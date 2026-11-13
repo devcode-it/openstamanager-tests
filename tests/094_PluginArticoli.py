@@ -98,6 +98,8 @@ class Articoli(Test):
             EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))
         )
         self.send_keys_and_wait(prezzo_unitario, '5')
+        self.wait_ajax()
+        self.wait_loader()
 
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
@@ -135,8 +137,10 @@ class Articoli(Test):
         self.wait_for_element_and_click('//a[@id="link-tab_32"]')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_fornitore_informazioni-container"]', option_text='Fornitore')
+        self.wait_ajax()
+        self.wait_loader()
 
-        self.wait_for_element_and_click('//button[@class="btn btn-info"]')
+        self.wait_for_element_and_click('//div[@id="tab_32"]//button[contains(@class, "btn-info")]')
         modal = self.wait_modal()
 
         qta_minima = self.wait_driver.until(
@@ -221,27 +225,14 @@ class Articoli(Test):
     def piani_sconto_maggiorazione(self):
         self.navigate_to_and_wait("Articoli")
 
+        self.search_by_th("th_Descrizione", 'Articolo 1', wait_modal=False)
+
         self.click_first_result()
         self.wait_for_element_and_click('//a[@id="link-tab_33"]')
 
-        self.wait_for_element_and_click('//div[@id="tab_33"]//i[@class="fa fa-external-link"]')
-
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        self.click_add_button()
-        modal = self.wait_modal()
-
-        self.input(modal, 'Nome').setValue('Test')
-        self.input(modal, 'Sconto/magg. combinato').setValue('10')
-        self.submit_modal(modal)
-
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
-
-        self.navigate_to_and_wait("Articoli")
-        self.click_first_result()
-        self.wait_for_element_and_click('//a[@id="link-tab_33"]')
-
-        sconto = self.driver.find_element(By.XPATH, '(//div[@class="card card-primary"]//tbody//tr[3]//td[2])[6]').text
+        sconto = self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="tab_33"]//tr[td[1][contains(., "Piano di sconto di Prova")]]/td[2]'))
+        ).text
         self.assertEqual(sconto, "18,00 €")
 
         self.navigate_to_and_wait("Articoli")

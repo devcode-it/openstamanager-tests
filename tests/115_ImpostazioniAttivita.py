@@ -1331,8 +1331,11 @@ class Impostazioni(Test):
         textarea = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Descrizione personalizzata in fatturazione")]//textarea'))
         )
+        valore_originale = textarea.get_attribute('value')
         textarea.clear()
         textarea.send_keys('Test')
+        self.driver.execute_script("arguments[0].dispatchEvent(new Event('change', {bubbles: true}));", textarea)
+        self.wait_ajax()
 
         self.navigate_to_and_wait("Attività")
 
@@ -1343,8 +1346,10 @@ class Impostazioni(Test):
         self.wait_for_dropdown_and_select('//span[@id="select2-id_anagrafica-container"]', option_text='Cliente')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_tipo_intervento-container"]', option_text='Generico')
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '(//iframe[@class="cke_wysiwyg_frame cke_reset"])[1]'))).send_keys("Test")   
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="cke_1_contents"]//iframe'))
+        ).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="cke_1_contents"]//iframe'))).send_keys("Test")
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//div[contains(@class,"modal") and contains(@class,"show")]//button[contains(@class, "btn-success") and contains(., "Aggiungi attività")]'))
         ).click()
@@ -1354,14 +1359,16 @@ class Impostazioni(Test):
         numero = self.db_execute("SELECT codice FROM in_interventi WHERE id = %s", (id_record,))[0][0]
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//a[@class="btn btn-primary"]'))
+            EC.visibility_of_element_located((By.XPATH, '//a[@data-title="Aggiungi riga"]'))
         ).click()
+        self.wait_loader()
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("Test") 
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("1") 
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//textarea[@id="descrizione_riga"]'))).send_keys("Test")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//input[@id="prezzo_unitario"]'))).send_keys("1")
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//button[@class="btn btn-primary pull-right"]'))
+            EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//button[@onclick="submitForm()"]'))
         ).click()
+        self.wait_loader()
 
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-id_stato-container"]'))
@@ -1393,10 +1400,8 @@ class Impostazioni(Test):
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//span[@id="select2-raggruppamento-container"]'))
         ).click()
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")    
-        self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-raggruppamento-results"]'))
-        ).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))).send_keys("Cliente")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-raggruppamento-results"]//li[contains(@class, "select2-results__option--highlighted")]'))).click()
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@class="swal2-confirm btn btn-lg btn-primary"]'))
         ).click()
@@ -1404,13 +1409,22 @@ class Impostazioni(Test):
 
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
+        self.search_by_th("th_Imponibile", '1')
 
-        self.wait_and_click_table_row(1, 2)  
+        self.wait_for_element_and_click('//tbody//tr//td[2]')
         self.wait_loader()
 
+        # attende di essere dentro la scheda del record prima di leggere la descrizione
+        self.wait_driver.until(
+            EC.url_contains('editor.php')
+        )
+        self.wait_driver.until(
+            EC.presence_of_element_located((By.XPATH, '//a[@id="elimina"]'))
+        )
+
         descrizione = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[3]'))
-        ).text  
+            EC.visibility_of_element_located((By.XPATH, '(//tbody//tr//td[3])[1]'))
+        ).text
         self.assertIn("Test", descrizione)
 
         # elimina la fattura intera
@@ -1442,8 +1456,9 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@class="form-group" and contains(., "Descrizione personalizzata in fatturazione")]//textarea'))
         )
         textarea.clear()
-        textarea.send_keys('Attività numero {numero} del {data}')
+        textarea.send_keys(valore_originale)
         self.driver.execute_script("arguments[0].dispatchEvent(new Event('change', {bubbles: true}));", textarea)
+        self.wait_ajax()
         
     def stato_predefinito_attivita_dashboard(self):
         wait = self.wait_driver  

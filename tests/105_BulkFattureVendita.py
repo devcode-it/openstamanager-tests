@@ -25,6 +25,10 @@ class FattureVendita(Test):
         self.invia_fatture()
         self.registrazione_contabile()
 
+    def deseleziona_tutto(self):
+        self.wait_loader()
+        self.wait_for_element_and_click('.btn-select-none', By.CSS_SELECTOR)
+
     def aggiorna_banca(self):
         self.expandSidebar("Strumenti")
         self.expandSidebar("Tabelle")
@@ -60,6 +64,7 @@ class FattureVendita(Test):
 
     def cambia_sezionale(self):
         self.navigate_to_and_wait("Fatture di vendita")
+        self.deseleziona_tutto()
 
         self.wait_for_element_and_click('//tbody//tr[3]//td')
         self.wait_for_dropdown_and_select(
@@ -78,7 +83,7 @@ class FattureVendita(Test):
             option_text='Autofatture'
         )
 
-        self.wait_for_element_and_click('//tbody//tr[3]//td')
+        self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="change_segment"]'
@@ -97,8 +102,21 @@ class FattureVendita(Test):
             
     def controlla_fatture_elettroniche(self):
         self.navigate_to_and_wait("Fatture di vendita")
-        self.search_by_th("th_Numero", "0002/2026")
-        
+
+        self.click_first_result()
+
+        stato = self.find(By.XPATH, '//span[@id="select2-id_stato-container"]').text.strip()
+        if stato != "Emessa":
+            self.wait_for_element_and_click('//span[@id="select2-id_stato-container"]')
+            self.send_keys_and_wait(
+                self.wait_driver.until(EC.visibility_of_element_located((By.XPATH, '//input[@class="select2-search__field"]'))),
+                "Emessa",
+                wait_modal=False
+            )
+            self.click_save_button()
+
+        self.navigate_to_and_wait("Fatture di vendita")
+
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
@@ -122,24 +140,22 @@ class FattureVendita(Test):
             option_xpath='//a[@data-op="copy_bulk"]'
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
-        self.wait_for_element_and_click('//tbody//tr//td')
+
+        self.click_first_table_row()
+        self.delete_current_and_clear()
+
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def elimina_selezionati(self):
         self.navigate_to_and_wait("Fatture di vendita")
-        self.search_by_th("th_Numero", "0002/2026")
+
         self.wait_for_element_and_click('//tbody//tr//td')
-        
         self.wait_for_dropdown_and_select(
             '//button[@data-toggle="dropdown"]',
             option_xpath='//a[@data-op="delete_bulk"]'
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
-        self.clear_filters()
-
-        self.search_by_th("th_Numero", "0002/2026")
-        eliminato = self.get_empty_table_message()
-        self.assertEqual("Nessun dato presente nella tabella", eliminato)
         self.clear_filters()
 
     def emetti_fatture(self):

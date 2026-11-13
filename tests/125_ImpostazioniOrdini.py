@@ -21,7 +21,7 @@ class Impostazioni(Test):
         ## TODO: raggruppamento fatturazione massiva ordini
 
     def cambia_stato_ordini(self):
-                self.expandSidebar("Strumenti")
+        self.expandSidebar("Strumenti")
         self.navigate_to_and_wait("Impostazioni")
 
         self.wait_driver.until(
@@ -136,7 +136,7 @@ class Impostazioni(Test):
         ).click() #attivo impostazione
 
     def conferma_quantita_ordini_cliente(self):
-                self.expandSidebar("Vendite")
+        self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Ordini cliente")
 
         self.wait_driver.until(
@@ -235,7 +235,7 @@ class Impostazioni(Test):
         ).click() #attivo impostazione
 
     def conferma_quantita_ordini_fornitore(self):
-                self.expandSidebar("Acquisti")
+        self.expandSidebar("Acquisti")
         self.navigate_to_and_wait("Ordini fornitore")
 
         self.wait_driver.until(

@@ -12,6 +12,10 @@ class DdtUscita(Test):
         self.cambia_stato()
         self.fattura_ddt_uscita()
         self.elimina_selezionati()
+
+    def deseleziona_tutto(self):
+        self.wait_loader()
+        self.wait_for_element_and_click('.btn-select-none', By.CSS_SELECTOR)
         
     def cambia_stato(self):
         self.navigate_to_and_wait("Ddt in uscita")
@@ -31,6 +35,7 @@ class DdtUscita(Test):
         ).text
         self.assertEqual(stato, "Evaso")
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def fattura_ddt_uscita(self):
         self.navigate_to_and_wait("Ddt in uscita")
@@ -61,6 +66,7 @@ class DdtUscita(Test):
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def elimina_selezionati(self):
         self.navigate_to_and_wait("Ddt in uscita")

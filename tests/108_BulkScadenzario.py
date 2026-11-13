@@ -13,6 +13,11 @@ class Scadenzario(Test):
         self.invia_mail_sollecito()
         self.registrazione_contabile()
 
+    def deseleziona_tutto(self):
+        self.wait_loader()
+        self.wait_for_element_and_click('.btn-select-none', By.CSS_SELECTOR)
+
+
 
     def aggiorna_banca(self):
         self.navigate_to_and_wait("Scadenzario")
@@ -32,6 +37,7 @@ class Scadenzario(Test):
 
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def info_distinta(self):
         self.navigate_to_and_wait("Scadenzario")
@@ -48,6 +54,7 @@ class Scadenzario(Test):
 
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def invia_mail_sollecito(self):
         self.navigate_to_and_wait("Scadenzario")
@@ -60,6 +67,7 @@ class Scadenzario(Test):
         )
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
         self.clear_filters()
+        self.deseleziona_tutto()
     
     def registrazione_contabile(self):
         self.navigate_to_and_wait("Scadenzario")

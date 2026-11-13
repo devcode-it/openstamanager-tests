@@ -44,7 +44,7 @@ I test simulano i comportamenti di un utente che usa il gestionale. Ad esempio l
 
 Il nome del file di test deve avere il numero del file seguito dal trattino basso e dal nome del modulo, ad esempio:
 
-`02_Anagrafiche.py`
+`002_Anagrafiche.py`
 
 Ogni test è dentro ad una classe che eredita da `Test` funzioni come `navigateTo`, `wait_loader`, `find`, ecc.
 

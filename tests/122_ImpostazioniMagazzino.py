@@ -18,7 +18,7 @@ class Impostazioni(Test):
         ## TODO: unità di misura predefinita
 
     def serial_abilitato_default(self):
-                self.expandSidebar("Magazzino")
+        self.expandSidebar("Magazzino")
         self.navigate_to_and_wait("Articoli")
 
         self.wait_driver.until(

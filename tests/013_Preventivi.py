@@ -154,8 +154,6 @@ class Preventivi(Test):
 
         self.wait_for_element_and_click('//button[@class="btn btn-info dropdown-toggle "]')
         self.wait_for_element_and_click('//a[@class="btn dropdown-item bound clickable"][@data-title="Crea attività"]')
-        self.wait_for_element_and_click('(//span[@id="select2-id_tipo_intervento-container"])[2]')
-        self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('(//span[@id="select2-id_stato-container"])[2]')
         self.wait_for_element_and_click('//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]')
         self.wait_for_element_and_click('//span[@id="select2-id_segment-container"]')

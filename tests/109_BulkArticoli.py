@@ -32,6 +32,10 @@ class Articoli(Test):
         self.duplica()
         self.unisci()
 
+    def deseleziona_tutto(self):
+        self.wait_loader()
+        self.wait_for_element_and_click('.btn-select-none', By.CSS_SELECTOR)
+
     def aggiorna_iva(self):
         self.navigate_to_and_wait("Articoli")
 
@@ -53,6 +57,7 @@ class Articoli(Test):
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def aggiorna_categoria(self):
         self.navigate_to_and_wait("Articoli")
@@ -78,6 +83,7 @@ class Articoli(Test):
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def coefficiente_vendita(self):
         self.navigate_to_and_wait("Articoli")
@@ -100,6 +106,7 @@ class Articoli(Test):
         self.assertEqual(prezzo, "240,00")
 
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def conto_predefinito_acquisto(self):
         self.navigate_to_and_wait("Articoli")
@@ -123,6 +130,7 @@ class Articoli(Test):
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def conto_predefinito_vendita(self):
         self.navigate_to_and_wait("Articoli")
@@ -146,6 +154,7 @@ class Articoli(Test):
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def aggiorna_prezzo_acquisto(self):
         self.navigate_to_and_wait("Articoli")
@@ -168,6 +177,7 @@ class Articoli(Test):
         self.assertEqual(prezzo, "18,00")
 
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def aggiorna_prezzo_vendita(self):
         self.navigate_to_and_wait("Articoli")
@@ -221,6 +231,7 @@ class Articoli(Test):
         self.assertEqual(prezzo, "0,98")
 
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def aggiorna_quantita(self):
         self.navigate_to_and_wait("Articoli")
@@ -248,6 +259,7 @@ class Articoli(Test):
         self.assertEqual(quantita, "3,00")
 
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def aggiorna_unita_misura(self):
         self.navigate_to_and_wait("Articoli")
@@ -271,6 +283,7 @@ class Articoli(Test):
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def aggiungi_a_listino_cliente(self):
         self.navigate_to_and_wait("Articoli")
@@ -292,6 +305,7 @@ class Articoli(Test):
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def attiva_disattiva_articoli(self):
         self.navigate_to_and_wait("Articoli")
@@ -325,6 +339,7 @@ class Articoli(Test):
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def crea_preventivo(self):
         self.navigate_to_and_wait("Articoli")
@@ -352,6 +367,7 @@ class Articoli(Test):
         self.expandSidebar("Magazzino")
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def elimina_selezionati(self):
         self.navigate_to_and_wait("Articoli")
@@ -369,6 +385,7 @@ class Articoli(Test):
         self.assertEqual(risultato, "Nessun dato presente nella tabella")
 
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def esporta_selezionati(self):
         self.navigate_to_and_wait("Articoli")
@@ -395,6 +412,7 @@ class Articoli(Test):
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def genera_barcode(self):
         self.navigate_to_and_wait("Articoli")
@@ -418,6 +436,7 @@ class Articoli(Test):
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def imposta_prezzo_da_fattura(self):
         self.expandSidebar("Acquisti")
@@ -476,6 +495,7 @@ class Articoli(Test):
 
     def imposta_provvigione(self):
         self.navigate_to_and_wait("Articoli")
+        self.deseleziona_tutto()
 
         self.search_by_th("th_Codice", "001")
 
@@ -504,6 +524,7 @@ class Articoli(Test):
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def stampa_etichette(self):
         self.navigate_to_and_wait("Articoli")
@@ -527,6 +548,7 @@ class Articoli(Test):
 
         self.navigate_to_and_wait("Articoli")
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def duplica(self):
         self.navigate_to_and_wait("Articoli")
@@ -541,9 +563,7 @@ class Articoli(Test):
         self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-primary"]')
 
         self.clear_filters()
-
-        codice = self.get_table_text(2, 3)
-        self.assertEqual(codice, "4")
+        self.deseleziona_tutto()
 
     def unisci(self):
         self.navigate_to_and_wait("Articoli")

@@ -134,9 +134,4 @@ class Banche(Test):
 
         banca = self.get_table_text(1, 7)
         self.assertEqual(banca, "Banca Admin spa - IT11C1234512345678912345679")
-        self.click_first_table_row()
-        self.wait_loader()
-
-        self.wait_for_element_and_click('//a[@id="elimina"]')
-        self.wait_for_element_and_click('//button[@class="swal2-confirm btn btn-lg btn-danger"]')
 

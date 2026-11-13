@@ -22,10 +22,10 @@ def load_db_config():
         config = json.load(f)
     db = config["database"]
     return {
-        "host": db.get("host", "localhost"),
-        "user": db.get("user", "root"),
-        "password": db.get("pass", "mysql"),
-        "database": db.get("name", "osm_2_11_2TMP"),
+        "host": db.get("host"),
+        "user": db.get("user"),
+        "password": db.get("pass"),
+        "database": db.get("name"),
         "charset": "utf8mb4",
         "cursorclass": pymysql.cursors.DictCursor,
     }

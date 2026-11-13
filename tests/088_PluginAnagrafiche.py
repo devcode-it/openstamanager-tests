@@ -70,7 +70,7 @@ class Anagrafiche(Test):
 
         self.wait_for_dropdown_and_select(
             '//span[@id="select2-id_mansione-container"]',
-            '//ul[@id="select2-id_mansione-results"]//li'
+            option_text='Segretario'
         )
         self.wait_for_element_and_click('(//button[@type="submit"])[3]')
 
@@ -95,21 +95,26 @@ class Anagrafiche(Test):
         self.input(modal, 'Nome sede').setValue("Filiale XY")
 
         postal_code_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '(//input[@id="cap"])[2]'))
+            EC.visibility_of_element_located((By.XPATH, '(//div[@id="modals"]//input[@id="cap"])[last()]'))
         )
         self.send_keys_and_wait(postal_code_input, "35042", wait_modal=False)
 
         city_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '(//input[@id="citta"])[2]'))
+            EC.visibility_of_element_located((By.XPATH, '(//div[@id="modals"]//input[@id="citta"])[last()]'))
         )
         city_input.click()
         self.send_keys_and_wait(city_input, "Padova", wait_modal=False)
 
         self.wait_for_dropdown_and_select(
-            '(//span[@id="select2-id_nazione-container"])[2]',
+            '(//div[@id="modals"]//span[@id="select2-id_nazione-container"])[last()]',
             '//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]'
         )
-        self.wait_for_element_and_click('(//button[@type="submit"])[3]')
+        self.wait_for_element_and_click('(//div[@id="modals"]//form//button[@type="submit"])[last()]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, '#modals .modal-dialog')))
+        self.wait_loader()
+
+        self.driver.refresh()
+        self.wait_loader()
 
         self.wait_for_element_and_click('//div[@id="tab_4"]//tbody/tr//td[2]')
         name_input = self.wait_driver.until(
@@ -137,21 +142,26 @@ class Anagrafiche(Test):
         self.input(None, 'Nome sede').setValue("Filiale XY")
 
         postal_code_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '(//input[@id="cap"])[2]'))
+            EC.visibility_of_element_located((By.XPATH, '(//div[@id="modals"]//input[@id="cap"])[last()]'))
         )
         self.send_keys_and_wait(postal_code_input, "35042", wait_modal=False)
 
         city_input = self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '(//input[@id="citta"])[2]'))
+            EC.visibility_of_element_located((By.XPATH, '(//div[@id="modals"]//input[@id="citta"])[last()]'))
         )
         city_input.click()
         self.send_keys_and_wait(city_input, "Padova", wait_modal=False)
 
         self.wait_for_dropdown_and_select(
-            '(//span[@id="select2-id_nazione-container"])[2]',
+            '(//div[@id="modals"]//span[@id="select2-id_nazione-container"])[last()]',
             '//li[@class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]'
         )
-        self.wait_for_element_and_click('(//button[@type="submit"])[3]')
+        self.wait_for_element_and_click('(//div[@id="modals"]//form//button[@type="submit"])[last()]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, '#modals .modal-dialog')))
+        self.wait_loader()
+
+        self.driver.refresh()
+        self.wait_loader()
 
         search_input = self.wait_driver.until(
             EC.element_to_be_clickable((By.XPATH, '//div[@id="tab_4"]//th[@id="th_Nome"]/input'))

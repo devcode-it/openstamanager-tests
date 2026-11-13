@@ -11,6 +11,10 @@ class Articoli(Test):
     def test_bulk_listini(self):
         self.aggiorna_prezzo_unitario()
         self.copia_listini()
+    
+    def deseleziona_tutto(self):
+        self.wait_loader()
+        self.wait_for_element_and_click('.btn-select-none', By.CSS_SELECTOR)
         
     def aggiorna_prezzo_unitario(self):
         self.navigate_to_and_wait("Articoli")
@@ -24,6 +28,8 @@ class Articoli(Test):
         self.wait_for_element_and_click('//a[@id="link-tab_32"]')
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_fornitore_informazioni-container"]', option_text='Fornitore')
+        self.wait_ajax()
+        self.wait_loader()
 
         self.wait_for_element_and_click('//button[@class="btn btn-info"]')
         modal = self.wait_modal()
@@ -43,9 +49,15 @@ class Articoli(Test):
         prezzo_unitario = self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario_fisso"]'))
         )
-        self.send_keys_and_wait(prezzo_unitario, '15')
+        prezzo_unitario.send_keys("15")
+
+        self.wait_for_element_and_click('//div[@id="modals"]//form//button[@class="btn btn-primary pull-right"]')
+        self.wait_driver.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, '#modals .modal-dialog')))
+        self.wait_loader()
 
         self.navigate_to_and_wait("Listini")
+
+        self.wait_for_dropdown_and_select('//span[@id="select2-id_segment_-container"]', option_text='Fornitori')
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.wait_for_element_and_click('//button[@data-toggle="dropdown"]')
@@ -63,6 +75,7 @@ class Articoli(Test):
             EC.visibility_of_element_located((By.XPATH, '//tbody//tr//td[8]'))
         ).text
         self.assertEqual(prezzo, "15,00")
+        self.clear_filters()
 
         self.navigate_to_and_wait("Listini")
 
@@ -72,9 +85,11 @@ class Articoli(Test):
 
         self.wait_for_element_and_click('//tbody//tr//td')
         self.clear_filters()
+        self.deseleziona_tutto()
 
     def copia_listini(self):
         self.navigate_to_and_wait("Listini")
+        self.clear_filters()
 
         self.wait_for_dropdown_and_select('//span[@id="select2-id_segment_-container"]', option_text='Fornitori')
         self.wait_for_element_and_click('//tbody//tr//td')

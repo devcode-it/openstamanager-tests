@@ -23,7 +23,7 @@ class Impostazioni(Test):
         return True
 
     def condizioni_fornitura_preventivi(self):
-                self.expandSidebar("Vendite")
+        self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Preventivi")
 
         self.wait_driver.until(
@@ -146,7 +146,7 @@ class Impostazioni(Test):
         element.clear()
 
     def conferma_quantita_preventivi(self):
-                self.expandSidebar("Vendite")
+        self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Preventivi")
 
         self.wait_driver.until(
@@ -268,7 +268,7 @@ class Impostazioni(Test):
         ).click() #attiva impostazione
 
     def esclusioni_preventivi(self):
-                self.expandSidebar("Vendite")
+        self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Preventivi")
 
         self.wait_driver.until(

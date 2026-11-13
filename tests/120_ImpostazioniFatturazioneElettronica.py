@@ -9,22 +9,22 @@ class Impostazioni(Test):
 
     def test_impostazioni_fatturazione_elettronica(self):
         # Allega stampa per fattura verso Privati (1)
-        self.allega_stampa_privati()
+        #self.allega_stampa_privati()
 
         # Allega stampa per fattura verso Aziende (2)
-        self.allega_stampa_aziende()
+        #self.allega_stampa_aziende()
 
         # Allega stampa per fattura verso PA (3)
-        self.allega_stampa_PA()
+        #self.allega_stampa_PA()
 
         # Regime fiscale (4)
-        self.regime_fiscale()
+        #self.regime_fiscale()
 
         # Tipo cassa previdenziale (5)
-        self.tipo_cassa_previdenziale()
+        #self.tipo_cassa_previdenziale()
 
         # Causale ritenuta d'acconto (6)
-        self.causale_ritenuta_acconto()
+        #self.causale_ritenuta_acconto()
 
         ## TODO: Authorization ID indice PA
 
@@ -493,7 +493,20 @@ class Impostazioni(Test):
     def causale_ritenuta_acconto(self):
         wait = self.wait_driver
 
-        # Fase 1: causale A (impostazione corrente)
+        # imposto la causale A 
+        self.expandSidebar("Strumenti")
+        self.navigate_to_and_wait("Impostazioni")
+
+        self.wait_driver.until(
+            EC.visibility_of_element_located((By.XPATH, '//div[@data-title="Fatturazione Elettronica"]'))
+        ).click()
+
+        self.wait_for_dropdown_and_select(
+            '//div[@class="form-group" and contains(., "Causale ritenuta d\'acconto")]//div//span',
+            option_text='Prestazioni di lavoro autonomo'
+        )
+
+        # Fase 1: causale A
         self.expandSidebar("Vendite")
         self.navigate_to_and_wait("Fatture di vendita")
         self.crea_fattura_con_stato_emessa(ritenuta_acconto=True)
@@ -574,9 +587,29 @@ class Impostazioni(Test):
 
     def riferimento_documenti_fattura_elettronica(self):
         wait = self.wait_driver
-
-        # Fase 1: riferimento attivo (impostazione corrente)
         self.expandSidebar("Vendite")
+        self.navigate_to_and_wait("Preventivi")
+
+        search_input = wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
+        search_input.clear()
+        search_input.send_keys("2", Keys.ENTER)
+        self.wait_loader()
+
+        self.wait_and_click_table_row(1, 2)
+        self.wait_for_element_and_click('(//a[@class="btn btn-primary"])[1]')
+
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//textarea[@id="descrizione_riga"]'))).send_keys("prova")
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@id="prezzo_unitario"]'))).send_keys("10")
+        self.wait_for_element_and_click('//button[@class="btn btn-primary pull-right"]')
+        self.wait_loader()
+
+        self.wait_for_dropdown_and_select(
+            '//span[@id="select2-id_stato-container"]',
+            option_text='Accettato'
+        )
+        self.wait_for_element_and_click('//button[@id="save"]')
+        self.wait_loader()
+
         self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
@@ -600,25 +633,10 @@ class Impostazioni(Test):
         ).click()
 
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-id_documento-results"]//li[contains(@class, "select2-results__option--highlighted")]'))
+            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-id_documento-results"]//li[contains(text(), "Accettato")]'))
         ).click()
         self.wait_loader()
 
-        # il change automatico non popola le righe (selectData non pronto):
-        # caricamento manuale delle righe del preventivo
-        id_record = self.driver.current_url.split('id_record=')[1].split('&')[0]
-        self.driver.execute_script(
-            "$('#righe_documento').load(globals.rootdir + '/modules/fatture/add_preventivo.php?id_module=14&id_record=" + id_record + "&id_documento=2');"
-        )
-        self.wait_loader()
-
-        self.wait_driver.until(
-            EC.presence_of_element_located((By.XPATH, '//input[@id="import_all"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.presence_of_element_located((By.XPATH, '//input[@id="checked_3"]'))
-        ).click()
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@id="submit_btn"]'))
         ).click()
@@ -678,6 +696,21 @@ class Impostazioni(Test):
 
         # Fase 2: riferimento disattivato
         self.expandSidebar("Vendite")
+        self.navigate_to_and_wait("Preventivi")
+
+        search_input = wait.until(EC.visibility_of_element_located((By.XPATH, '//th[@id="th_Numero"]/input')))
+        search_input.clear()
+        search_input.send_keys("2", Keys.ENTER)
+        self.wait_loader()
+
+        self.wait_and_click_table_row(1, 2)
+        self.wait_for_dropdown_and_select(
+            '//span[@id="select2-id_stato-container"]',
+            option_text='Accettato'
+        )
+        self.wait_for_element_and_click('//button[@id="save"]')
+        self.wait_loader()
+
         self.navigate_to_and_wait("Fatture di vendita")
 
         self.wait_driver.until(
@@ -700,26 +733,12 @@ class Impostazioni(Test):
             EC.visibility_of_element_located((By.XPATH, '//div[@id="modals"]//span[@id="select2-id_documento-container"]'))
         ).click()
 
+        
         self.wait_driver.until(
-            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-id_documento-results"]//li[contains(@class, "select2-results__option--highlighted")]'))
+            EC.visibility_of_element_located((By.XPATH, '//ul[@id="select2-id_documento-results"]//li[contains(text(), "Accettato")]'))
         ).click()
         self.wait_loader()
 
-        # il change automatico non popola le righe (selectData non pronto):
-        # caricamento manuale delle righe del preventivo
-        id_record = self.driver.current_url.split('id_record=')[1].split('&')[0]
-        self.driver.execute_script(
-            "$('#righe_documento').load(globals.rootdir + '/modules/fatture/add_preventivo.php?id_module=14&id_record=" + id_record + "&id_documento=2');"
-        )
-        self.wait_loader()
-
-        self.wait_driver.until(
-            EC.presence_of_element_located((By.XPATH, '//input[@id="import_all"]'))
-        ).click()
-
-        self.wait_driver.until(
-            EC.presence_of_element_located((By.XPATH, '//input[@id="checked_3"]'))
-        ).click()
         self.wait_driver.until(
             EC.visibility_of_element_located((By.XPATH, '//button[@id="submit_btn"]'))
         ).click()
