@@ -9,22 +9,22 @@ class Impostazioni(Test):
 
     def test_impostazioni_fatturazione_elettronica(self):
         # Allega stampa per fattura verso Privati (1)
-        #self.allega_stampa_privati()
+        self.allega_stampa_privati()
 
         # Allega stampa per fattura verso Aziende (2)
-        #self.allega_stampa_aziende()
+        self.allega_stampa_aziende()
 
         # Allega stampa per fattura verso PA (3)
-        #self.allega_stampa_PA()
+        self.allega_stampa_PA()
 
         # Regime fiscale (4)
-        #self.regime_fiscale()
+        self.regime_fiscale()
 
         # Tipo cassa previdenziale (5)
-        #self.tipo_cassa_previdenziale()
+        self.tipo_cassa_previdenziale()
 
         # Causale ritenuta d'acconto (6)
-        #self.causale_ritenuta_acconto()
+        self.causale_ritenuta_acconto()
 
         ## TODO: Authorization ID indice PA
 
